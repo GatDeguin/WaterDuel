@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "title": "WaterDuel — Roda de muñecos",
+  "provenance": {
+    "method": "Original deterministic procedural synthesis authored for WaterDuel",
+    "externalSamples": false,
+    "externalServices": false,
+    "dependencies": [],
+    "source": "public/audio/roda-synthesis.js",
+    "exporter": "scripts/export-game-audio.mjs",
+    "seed": 1,
+    "rights": "Project-original synthesized audio; no third-party recordings or samples"
+  },
+  "format": {
+    "container": "WAV",
+    "encoding": "PCM signed 16-bit little-endian",
+    "sampleRate": 22050
+  },
+  "music": {
+    "bpm": 96,
+    "bars": 8,
+    "meter": "4/4",
+    "tonic": "D",
+    "duration": 20,
+    "version": 4,
+    "arrangement": "Original capoeira-inspired call and response: struck wire, small skin drum, wooden heel blocks, seed shakers and brass parts",
+    "instruments": [
+      "struck wire and wooden resonator",
+      "small skin drum and heel blocks",
+      "seed shaker, brass jingles and ratchet"
+    ],
+    "modes": [
+      "lydian",
+      "dorian",
+      "aeolian",
+      "phrygian"
+    ],
+    "intervals": {
+      "lydian": [
+        0,
+        2,
+        4,
+        6,
+        7,
+        9,
+        11
+      ],
+      "dorian": [
+        0,
+        2,
+        3,
+        5,
+        7,
+        9,
+        10
+      ],
+      "aeolian": [
+        0,
+        2,
+        3,
+        5,
+        7,
+        8,
+        10
+      ],
+      "phrygian": [
+        0,
+        1,
+        3,
+        5,
+        7,
+        8,
+        10
+      ]
+    },
+    "stems": [
+      "wood",
+      "metal",
+      "bass"
+    ],
+    "loop": "Tail samples wrap into the beginning; use the full 20 second buffer",
+    "transitions": "Modes and stems share tonic and clock; switch on a bar boundary with a short gain crossfade"
+  },
+  "totalBytes": 30015208,
+  "files": [
+    {
+      "name": "lydian-wood",
+      "kind": "music",
+      "mode": "lydian",
+      "stem": "wood",
+      "file": "music-lydian-wood.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.092529296875,
+      "rms": 0.0155855823142123,
+      "sha256": "93b44118b4fd6eb93d75f5b8013fd8e5bd84be59fd6e8292d92650cf0483b292"
+    },
+    {
+      "name": "lydian-metal",
+      "kind": "music",
+      "mode": "lydian",
+      "stem": "metal",
+      "file": "music-lydian-metal.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.096282958984375,
+      "rms": 0.005718907307383498,
+      "sha256": "e48da87a8897c147a946769ba9b8508e8b871b1c4664b8d37e6cf4de2036a628"
+    },
+    {
+      "name": "lydian-bass",
+      "kind": "music",
+      "mode": "lydian",
+      "stem": "bass",
+      "file": "music-lydian-bass.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.107879638671875,
+      "rms": 0.01174113672598149,
+      "sha256": "8f1e19091b19269027bb964345af3e603d2ad2975f79bb52e402c9d27d8ab527"
+    },
+    {
+      "name": "lydian-mix",
+      "kind": "music",
+      "mode": "lydian",
+      "stem": "mix",
+      "file": "music-lydian-mix.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.1502685546875,
+      "rms": 0.020350114383835206,
+      "sha256": "aae55d9f7cdbce1e5a8c2ba0cca820689e6fa8bbdb070a93efc020a478df1ce9"
+    },
+    {
+      "name": "dorian-wood",
+      "kind": "music",
+      "mode": "dorian",
+      "stem": "wood",
+      "file": "music-dorian-wood.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.092529296875,
+      "rms": 0.01558199991724273,
+      "sha256": "bde7ae32dde0ca590cfaac5fad4e2b274d14bbea206dbf1b99163dd9ce8ed233"
+    },
+    {
+      "name": "dorian-metal",
+      "kind": "music",
+      "mode": "dorian",
+      "stem": "metal",
+      "file": "music-dorian-metal.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.086090087890625,
+      "rms": 0.00567426848883144,
+      "sha256": "e2f7f2f3b086d7675880f1e4f064e63b48b4aa4a33d2cf667001abdff65a5d74"
+    },
+    {
+      "name": "dorian-bass",
+      "kind": "music",
+      "mode": "dorian",
+      "stem": "bass",
+      "file": "music-dorian-bass.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.107879638671875,
+      "rms": 0.011769110021005844,
+      "sha256": "b722fd4d6b20d79eec09e99f638f46b5f33172f41e8739397554718078f3104c"
+    },
+    {
+      "name": "dorian-mix",
+      "kind": "music",
+      "mode": "dorian",
+      "stem": "mix",
+      "file": "music-dorian-mix.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.1502685546875,
+      "rms": 0.020317270134246033,
+      "sha256": "795cd3cbb39c712d4d1e792e89e312f53c1647ffe307c6b149a76f5a3ca06890"
+    },
+    {
+      "name": "aeolian-wood",
+      "kind": "music",
+      "mode": "aeolian",
+      "stem": "wood",
+      "file": "music-aeolian-wood.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.092529296875,
+      "rms": 0.015584730611910536,
+      "sha256": "6ac608e8bf3a4a09edd6a6549c220f8f820d3fe2490462be5d5f58a6d1d0f237"
+    },
+    {
+      "name": "aeolian-metal",
+      "kind": "music",
+      "mode": "aeolian",
+      "stem": "metal",
+      "file": "music-aeolian-metal.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.086090087890625,
+      "rms": 0.00567426848883144,
+      "sha256": "e2f7f2f3b086d7675880f1e4f064e63b48b4aa4a33d2cf667001abdff65a5d74"
+    },
+    {
+      "name": "aeolian-bass",
+      "kind": "music",
+      "mode": "aeolian",
+      "stem": "bass",
+      "file": "music-aeolian-bass.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.107879638671875,
+      "rms": 0.011769110021005844,
+      "sha256": "b722fd4d6b20d79eec09e99f638f46b5f33172f41e8739397554718078f3104c"
+    },
+    {
+      "name": "aeolian-mix",
+      "kind": "music",
+      "mode": "aeolian",
+      "stem": "mix",
+      "file": "music-aeolian-mix.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.1502685546875,
+      "rms": 0.020319361906439234,
+      "sha256": "80f65b111706e2c745c60277a8ed343e2bd7a085127267e91bc6498c2db7cbd2"
+    },
+    {
+      "name": "phrygian-wood",
+      "kind": "music",
+      "mode": "phrygian",
+      "stem": "wood",
+      "file": "music-phrygian-wood.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.0897216796875,
+      "rms": 0.015674436170031007,
+      "sha256": "4037b5713d9398309dca37bbdc461bfddbe00d9681adc344ef6c1a488ba701a9"
+    },
+    {
+      "name": "phrygian-metal",
+      "kind": "music",
+      "mode": "phrygian",
+      "stem": "metal",
+      "file": "music-phrygian-metal.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.086090087890625,
+      "rms": 0.00567426848883144,
+      "sha256": "e2f7f2f3b086d7675880f1e4f064e63b48b4aa4a33d2cf667001abdff65a5d74"
+    },
+    {
+      "name": "phrygian-bass",
+      "kind": "music",
+      "mode": "phrygian",
+      "stem": "bass",
+      "file": "music-phrygian-bass.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.107879638671875,
+      "rms": 0.011769110021005844,
+      "sha256": "b722fd4d6b20d79eec09e99f638f46b5f33172f41e8739397554718078f3104c"
+    },
+    {
+      "name": "phrygian-mix",
+      "kind": "music",
+      "mode": "phrygian",
+      "stem": "mix",
+      "file": "music-phrygian-mix.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 441000,
+      "duration": 20,
+      "bytes": 1764044,
+      "peak": 0.15618896484375,
+      "rms": 0.020351802190459043,
+      "sha256": "09b41ad437507ab216b6710620586096724d1498c1b18ac3ad928016c0e58b35"
+    },
+    {
+      "name": "listening-montage",
+      "kind": "preview",
+      "file": "listening-montage.wav",
+      "channels": 2,
+      "sampleRate": 22050,
+      "frames": 447615,
+      "duration": 20.3,
+      "bytes": 1790504,
+      "peak": 0.15618896484375,
+      "rms": 0.0198615245389139,
+      "sha256": "848259e8728377a4b0d519f0c498306767650f24752a80a2b0685aa082d68329"
+    }
+  ],
+  "preview": {
+    "file": "listening-montage.wav",
+    "chapters": [
+      {
+        "name": "music-lydian-mix",
+        "start": 0.3,
+        "duration": 5
+      },
+      {
+        "name": "music-dorian-mix",
+        "start": 5.3,
+        "duration": 5
+      },
+      {
+        "name": "music-aeolian-mix",
+        "start": 10.3,
+        "duration": 5
+      },
+      {
+        "name": "music-phrygian-mix",
+        "start": 15.3,
+        "duration": 5
+      }
+    ]
+  }
+}

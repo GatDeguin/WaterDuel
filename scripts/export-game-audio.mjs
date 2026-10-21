@@ -4,24 +4,30 @@ import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {SOUND_NAMES, MUSIC_STEMS, MUSIC_MODES, MODE_INTERVALS, renderSound, renderMusic} from '../public/audio/synthesis.js';
 import {renderWorkshopMusic} from '../public/audio/music-synthesis.js';
+import {renderPuppetRodaMusic,PUPPET_RODA_SCORE} from '../public/audio/roda-synthesis.js';
 
 const projectRoot = fileURLToPath(new URL('..', import.meta.url));
 const args = process.argv.slice(2);
 let output = resolve(projectRoot, 'public/assets/audio/workshop');
 let sampleRate = 22050;
-let scoreV3=false,explicitOutput=false;
+let scoreV3=false,rodaV4=false,explicitOutput=false;
 for (let i = 0; i < args.length; i++) {
   if (args[i] === '--output' && args[i + 1]) {output = resolve(args[++i]);explicitOutput=true;}
   else if (args[i] === '--sample-rate' && args[i + 1]) sampleRate = Number(args[++i]);
   else if (args[i] === '--score-v3') scoreV3=true;
+  else if (args[i] === '--roda-v4') rodaV4=true;
   else throw new Error(`Unknown or incomplete argument: ${args[i]}`);
 }
 
 // Renderer validation happens before creating the destination or allocating the bank.
-if(scoreV3&&!explicitOutput)output=resolve(projectRoot,'public/assets/audio/workshop-score-v3');
-const musicRenderer=scoreV3?renderWorkshopMusic:renderMusic;
+if(scoreV3&&rodaV4)throw new Error('Choose only one score arrangement');
+if(!explicitOutput){
+  if(rodaV4)output=resolve(projectRoot,'public/assets/audio/workshop-roda-v4');
+  else if(scoreV3)output=resolve(projectRoot,'public/assets/audio/workshop-score-v3');
+}
+const musicRenderer=rodaV4?renderPuppetRodaMusic:scoreV3?renderWorkshopMusic:renderMusic;
 const scores = MUSIC_MODES.map(mode => ({mode, ...musicRenderer({sampleRate, mode})}));
-const effects = scoreV3?[]:SOUND_NAMES.map(name => ({name, channels: [renderSound(name, {sampleRate, seed: 1})]}));
+const effects = scoreV3||rodaV4?[]:SOUND_NAMES.map(name => ({name, channels: [renderSound(name, {sampleRate, seed: 1})]}));
 
 function wave(channels) {
   const frames = channels[0].length;
@@ -105,14 +111,15 @@ for (const entry of bank) {
 }
 const manifest = {
   schemaVersion: 1,
-  title: 'WaterDuel — Taller mecánico sutil',
+  title: rodaV4?'WaterDuel — Roda de muñecos':'WaterDuel — Taller mecánico sutil',
   provenance: {method: 'Original deterministic procedural synthesis authored for WaterDuel',
     externalSamples: false, externalServices: false, dependencies: [],
-    source: 'public/audio/synthesis.js', exporter: 'scripts/export-game-audio.mjs', seed: 1,
+    source: rodaV4?'public/audio/roda-synthesis.js':scoreV3?'public/audio/music-synthesis.js':'public/audio/synthesis.js', exporter: 'scripts/export-game-audio.mjs', seed: 1,
     rights: 'Project-original synthesized audio; no third-party recordings or samples'},
   format: {container: 'WAV', encoding: 'PCM signed 16-bit little-endian', sampleRate},
   music: {bpm: 96, bars: 8, meter: '4/4', tonic: 'D', duration: 20,
     ...(scoreV3?{version:3,arrangement:'Bowed chamber harmony, wooden answering phrases and brushed metal; original offline synthesis'}:{}),
+    ...(rodaV4?{version:4,arrangement:'Original capoeira-inspired call and response: struck wire, small skin drum, wooden heel blocks, seed shakers and brass parts',instruments:PUPPET_RODA_SCORE.instruments}:{}),
     modes: [...MUSIC_MODES], intervals: MODE_INTERVALS, stems: [...MUSIC_STEMS],
     loop: 'Tail samples wrap into the beginning; use the full 20 second buffer',
     transitions: 'Modes and stems share tonic and clock; switch on a bar boundary with a short gain crossfade'},

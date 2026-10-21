@@ -186,7 +186,7 @@ test('browser music loads local modal stems asynchronously without blocking effe
     const {audio,context}=setup();context.decodeAudioData=async()=>({duration:20,numberOfChannels:2});
     audio.configure(true,55);audio.setMusicPhase('ready','lydian');assert.equal(audio.musicVoices.length,0);
     assert.equal(audio.play('wood'),true);await audio.loadingMusic;
-    assert.equal(urls.length,12);assert.ok(urls.every(p=>p.includes('/assets/audio/workshop-score-v3/music-')));
+    assert.equal(urls.length,12);assert.ok(urls.every(p=>p.includes('/assets/audio/workshop-roda-v4/music-')));
     audio.setMusicPhase('fight','dorian');assert.equal(audio.musicVoices.length,3);assert.equal(audio.musicMode,'dorian');audio.dispose();
   }finally{globalThis.fetch=original;}
 });

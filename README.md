@@ -4,6 +4,10 @@
 
 Pages publica la experiencia individual con los dos joysticks y el menú ☰. Para jugar de a dos con móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Música 1.7.1 · Roda de muñecos
+
+La banda sonora toma la dirección de capoeira de muñecos: cuerda pulsada resonante, tamborcito, sonajas y percusión sincopada de madera y latón, con frases de pregunta y respuesta. Conserva los cuatro modos según el combate, las transiciones y el espacio para el foley. Los doce stems se preparan como WAV locales; la música del navegador no se sintetiza durante el combate. [Escuchar muestra](public/assets/audio/workshop-roda-v4/listening-montage.wav) · [composición y verificación](docs/MUSICA_RODA.md).
+
 ## Versión 1.7.0
 
 La selección de 22 mejoras incorpora hojas elásticas con la misma curva visual y física, reajuste del agarre, manos adaptadas a cada empuñadura y holgura progresiva en articulaciones. La IA distingue amenazas visibles y recordadas y adapta sus decisiones al equipo rival. El menú móvil añade **Parada y contraataque**, **Blancos móviles** y **Esquiva en profundidad**, con progreso obtenido mediante contactos, esquivas y pinchazos físicos.

@@ -245,7 +245,7 @@ test('music decodes and plays independently while effects preparation is still p
     const {audio,context}=setup({mode:'hold'});context.decodeAudioData=async()=>({duration:20,numberOfChannels:2});
     audio.configure(true,55);audio.setMusicPhase('ready');await audio.loadingMusic;audio.setMusicPhase('ready');
     assert.equal(audio.effectsState,'preparing');assert.equal(audio.musicReady,true);assert.equal(audio.musicVoices.length,3);
-    assert.equal(urls.length,12);assert.ok(urls.every(url=>/\/assets\/audio\/workshop-score-v3\/music-(lydian|dorian|aeolian|phrygian)-(wood|metal|bass)\.wav$/.test(url)));audio.dispose();
+    assert.equal(urls.length,12);assert.ok(urls.every(url=>/\/assets\/audio\/workshop-roda-v4\/music-(lydian|dorian|aeolian|phrygian)-(wood|metal|bass)\.wav$/.test(url)));audio.dispose();
   }finally{globalThis.fetch=originalFetch;}
 });
 

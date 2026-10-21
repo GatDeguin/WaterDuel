@@ -1,0 +1,43 @@
+[
+  {
+    "path": "public/game-audio.js",
+    "baselineSha256": "727d6f8f5dd71ca9881558ba71fcd3986247297f7269e3de38487e324508102b",
+    "currentSha256": "e0c0af91f845ab0066d8ab6b7ce2bb1c67c029426ca8f73ba17617d8410c1112",
+    "hunks": [
+      {
+        "id": "select-puppet-roda-renderer",
+        "before": "import {renderWorkshopMusic as renderMusic} from './audio/music-synthesis.js';",
+        "after": "import {renderPuppetRodaMusic as renderMusic} from './audio/roda-synthesis.js';"
+      },
+      {
+        "id": "select-prepared-roda-bank",
+        "before": "const url=new URL('./assets/audio/workshop-score-v3/music-'+mode+'-'+stem+'.wav',import.meta.url);",
+        "after": "const url=new URL('./assets/audio/workshop-roda-v4/music-'+mode+'-'+stem+'.wav',import.meta.url);"
+      }
+    ]
+  },
+  {
+    "path": "tests/game-audio.test.mjs",
+    "baselineSha256": "45ec614b495deba1ac4e9f0312917fcf11c3b21c63934fa58eadd4a209b72850",
+    "currentSha256": "79ca43528269b3646bf4de0f5cfc2725a97c5f322202ad4545c25f50dfd28046",
+    "hunks": [
+      {
+        "id": "assert-browser-roda-bank",
+        "before": "assert.ok(urls.every(p=>p.includes('/assets/audio/workshop-score-v3/music-')));",
+        "after": "assert.ok(urls.every(p=>p.includes('/assets/audio/workshop-roda-v4/music-')));"
+      }
+    ]
+  },
+  {
+    "path": "tests/audio-prepared.test.mjs",
+    "baselineSha256": "5242f0240f2133f550bc855845688945f45b43fb2ba7fb1501a5ff7b13068d8e",
+    "currentSha256": "522e5f2402ce4fbdcc71d570894f04d5c057b01443c53d617ead1f7e969e9b27",
+    "hunks": [
+      {
+        "id": "assert-preparation-independent-roda-bank",
+        "before": "assert.ok(urls.every(url=>/\\/assets\\/audio\\/workshop-score-v3\\/music-(lydian|dorian|aeolian|phrygian)-(wood|metal|bass)\\.wav$/.test(url)));",
+        "after": "assert.ok(urls.every(url=>/\\/assets\\/audio\\/workshop-roda-v4\\/music-(lydian|dorian|aeolian|phrygian)-(wood|metal|bass)\\.wav$/.test(url)));"
+      }
+    ]
+  }
+]

@@ -1,6 +1,6 @@
 // Local worker preparation preserves original audio samples and playback variants.
 import {SOUND_NAMES,MUSIC_STEMS,renderSound} from './audio/synthesis.js';
-import {renderWorkshopMusic as renderMusic} from './audio/music-synthesis.js';
+import {renderPuppetRodaMusic as renderMusic} from './audio/roda-synthesis.js';
 import {AudioScene} from './audio/scene-audio.js';
 import {musicDecision} from './audio/music-state.js';
 import {FOLEY_NAMES,renderFoley} from './audio/foley-synthesis.js';
@@ -232,7 +232,7 @@ export class GameAudio {
     const controller=new AbortController();this.musicLoadAbort=controller;const signal=controller.signal;
     const timeout=setTimeout(()=>controller.abort(),8000);
     this.loadingMusic=Promise.all([...MODES].flatMap(mode=>MUSIC_STEMS.map(async stem=>{
-      const url=new URL('./assets/audio/workshop-score-v3/music-'+mode+'-'+stem+'.wav',import.meta.url);
+      const url=new URL('./assets/audio/workshop-roda-v4/music-'+mode+'-'+stem+'.wav',import.meta.url);
       const response=await fetch(url,{signal});if(!response.ok)throw new Error('No se pudo cargar '+url.pathname);
       const buffer=await ctx.decodeAudioData(await response.arrayBuffer());
       if(buffer.numberOfChannels!==2||Math.abs(buffer.duration-LOOP_SECONDS)>.001)throw new Error('Duración de música inválida');
