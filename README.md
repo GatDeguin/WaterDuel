@@ -1,5 +1,9 @@
 # WaterDuel · Puppet Arena · offline LAN
 
+**[Jugar en GitHub Pages](https://gatdeguin.github.io/WaterDuel/)** · Abrí el enlace en el teléfono y giralo a horizontal.
+
+Pages publica la experiencia individual con los dos joysticks y el menú ☰. Para jugar de a dos con móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
+
 ## Versión móvil 1.6.0
 
 Abrí **`/mobile.html`** desde un servidor web y girá el teléfono a horizontal. El juego se ejecuta en ese dispositivo: joystick izquierdo para distancia, agacharse y finta; derecho para orientar, atacar y parar al llevarlo hacia atrás. Ambos mandos son semitransparentes y quedan en las esquinas inferiores. El botón **☰** abre las opciones y pausa la partida local; Comenzar vuelve directamente al juego.
