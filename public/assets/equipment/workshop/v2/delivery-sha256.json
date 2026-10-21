@@ -1,0 +1,243 @@
+{
+  "date": "2026-10-18",
+  "status": "stable",
+  "revision": "materials-only-v2",
+  "runtimeIntegrated": false,
+  "v1FrozenFilesVerified": 32,
+  "glbValidation": "7/7",
+  "validatorSelfTests": "17/17",
+  "blenderRoundtrip": "7/7",
+  "review": "Board and four detail renders inspected; presentation-only captions spaced inside frame.",
+  "files": [
+    {
+      "path": "audit/COORDINACION_ITEMS_V2.md",
+      "bytes": 2319,
+      "sha256": "f53ca2a3868a0f9c5e9e60b3696f74cd915ff11c4f2fee48ac52213388d850ab"
+    },
+    {
+      "path": "docs/CONTACTO_MATERIALES_ITEMS.md",
+      "bytes": 7050,
+      "sha256": "0f739295a8c1f732551b725e171472758ff0aa6778ff1f2e1d3eef8d5ea40a87"
+    },
+    {
+      "path": "docs/ENTREGA_EQUIPAMIENTO_MATERIALES_V2.md",
+      "bytes": 6406,
+      "sha256": "100a09061c78815273d2efac7359817f5a6d15deb94b09950c4315bf948e48f1"
+    },
+    {
+      "path": "docs/assets/equipment/contact-materials-v1.json",
+      "bytes": 88794,
+      "sha256": "f90b3b8245610c8a8543cb9d6b516861be2e92510533b8a294bbbeb493015195"
+    },
+    {
+      "path": "docs/assets/equipment/v2/texture-manifest.json",
+      "bytes": 12926,
+      "sha256": "c78bbcf884eacc5cdfd8351805d8d3ee7d62dba5e4a0e97377f31ca833c6d706"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_brass_BaseColor.png",
+      "bytes": 39087,
+      "sha256": "0881da9b1cd12c7b54cf7654c62af8457b008eb9446f3cfba6b25834b04a5ce2"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_brass_ORM.png",
+      "bytes": 36265,
+      "sha256": "ed9f62863c415e9228f772fe86b802b35173e329be091226e4f2d68745c65a0e"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_enamel_BaseColor.png",
+      "bytes": 8623,
+      "sha256": "da62d14ea8b842e5cd345b77fe873d84c203651f9691b60e9ff7b2643bfbf47e"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_enamel_Normal.png",
+      "bytes": 54400,
+      "sha256": "47c94b9110e43f7ad8b429f02390891179ffd8ac9e5697e0c708a348fa34995f"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_enamel_ORM.png",
+      "bytes": 18862,
+      "sha256": "5a2c5d03e6a21939f4750b4954d85b75262033dba52fde823c034cee7fc31556"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_leather_BaseColor.png",
+      "bytes": 197087,
+      "sha256": "9f2d86edbdd27a87712de174e52cfd17d13a11a82902f9c3623ccd0bc57acee5"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_leather_Normal.png",
+      "bytes": 413872,
+      "sha256": "e207773159693c888662631705634b0837b9322ea2c05e4d7b7107fd096c7b24"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_leather_ORM.png",
+      "bytes": 27412,
+      "sha256": "39d90650c17630f9643c24222348cbc508d8d54308e698760e9e584fb761e84f"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_leather_edge_BaseColor.png",
+      "bytes": 12955,
+      "sha256": "f2b16f577986b608b87d8088e439236e30efda4d3b5dc21692f654d96b2be621"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_steel_BaseColor.png",
+      "bytes": 28357,
+      "sha256": "2cbdcf878dbca60d08700fcb390c28bfb17fc07aa3e4b13e6a7b6aac648a6c62"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_steel_Normal.png",
+      "bytes": 50402,
+      "sha256": "67d16f40381168049723d122e2377a76c301039c8919c9f2d92fe8a69b197945"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_steel_ORM.png",
+      "bytes": 34529,
+      "sha256": "0b803e91ba3f24644c4364d1a612eab4ca8a2aec539201e43771a69a7b1d409c"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_wood_BaseColor.png",
+      "bytes": 178664,
+      "sha256": "45d2ace4e8bc3799f07ce9b3a2351cd49d53bd35bbe06e9d670346888c86a578"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_wood_Normal.png",
+      "bytes": 243551,
+      "sha256": "9c0a516051edf33fbbbce2799e7851f4050e424ed0ba18fa2f2186bd682c09db"
+    },
+    {
+      "path": "docs/assets/equipment/v2/textures/WorkshopV2_wood_ORM.png",
+      "bytes": 29896,
+      "sha256": "7e63eacb216e0dab9d9d69ae38ecb71291872f92c547863a98482fa97b97fc86"
+    },
+    {
+      "path": "docs/assets/equipment/v2/workshop-arsenal-materials-v2.blend",
+      "bytes": 7072449,
+      "sha256": "30d15a3071fd9ae492dd8066b9c53ca4be4b7ef9b4388de817186ed0be4fe4a1"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/asset-contract.json",
+      "bytes": 15876,
+      "sha256": "441233779b61f1664c99205d6e7cf202d13fa73f193e3a00559bbb71e11875d1"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/axe.glb",
+      "bytes": 2302456,
+      "sha256": "8501511d1f13567d84ab2109b9eca31d1fb9c6c2120a58a0c4e373e06ce9900e"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/knife.glb",
+      "bytes": 2192788,
+      "sha256": "e7460d37d54c5ea2f1396095bf9257cfc79c62505b67be159bceafe810534b21"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/long.glb",
+      "bytes": 2965964,
+      "sha256": "6544db41098260eacac5c906a373f176c2269cb462a24be2fa79cbf601245e6b"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/material-revision.json",
+      "bytes": 21185,
+      "sha256": "c4a6eb474a9a3a4307f94b42465ce6576e05a33a677bc94a7167aeeacb68a519"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/maul.glb",
+      "bytes": 2517260,
+      "sha256": "38f2d69a43fb1569225cc906fd1b86821670f579e33724eb28289d760f6bfcdb"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/previews/knife-detail.png",
+      "bytes": 810044,
+      "sha256": "b87b6b946c6826cf829ef3c24e766eb5a1a693bb3b128a4a04ca1c01ca4ca868"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/previews/long-detail.png",
+      "bytes": 1005890,
+      "sha256": "4471dc60dc5e645bc97a56196f5263c8183b88009e9fa4af84eef52f5f409fa2"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/previews/maul-detail.png",
+      "bytes": 924152,
+      "sha256": "66ca3d5987059c7ef0a08d611c7a05f70dd1c88bdea08875cb269ebbe007b4b8"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/previews/sword-detail.png",
+      "bytes": 873271,
+      "sha256": "047e4bd625666cc431e0b23accfdcda2b4e662a4a230464be5d42e58f5928122"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/roundtrip-validation.json",
+      "bytes": 823,
+      "sha256": "1ad918c1e895cd9778ede2f0daf937302b5a73a842940aab63e1464f83d132b2"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/short.glb",
+      "bytes": 2819808,
+      "sha256": "25edc6dbf26852b5e41dfaa7a0ca24e320caf55710877353f1513f26e2abc8ef"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/spear.glb",
+      "bytes": 2305372,
+      "sha256": "bd0fbc3d96dd58431774e9e6a9fb66aee63567f5190e32e56d7c17be14ba2265"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/sword.glb",
+      "bytes": 1656348,
+      "sha256": "6271017c842de1e969aed8a783aaf45975daac06bce38185443e0985cb72b462"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/texture-budget.json",
+      "bytes": 15994,
+      "sha256": "db7d11f1c0271563355d74983c24e0112b16374f2a2d11897d662ee23fb730cb"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/validation.json",
+      "bytes": 55972,
+      "sha256": "0c4bff36bbc9063e0bb393d96e588f5c1aa93e2df1885df4b00d3ad99aec2a6f"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v2/workshop-materials-v2-preview.png",
+      "bytes": 3429810,
+      "sha256": "9635d368d741d2a570426ab744adf9dbc4a98e0d590388515f7966aa74848c36"
+    },
+    {
+      "path": "scripts/create-equipment-materials-v2.mjs",
+      "bytes": 7930,
+      "sha256": "000873bc000e72a954448995a21eb1bbd9a5ba16409c35d9d8cccfc9389a9f34"
+    },
+    {
+      "path": "scripts/equipment_v2_textures.py",
+      "bytes": 12741,
+      "sha256": "36ffd9363b0449671a7d43a8643bcfb22e64dfc943997e0ba42c29935c717cf0"
+    },
+    {
+      "path": "scripts/generate-equipment-textures-v2.py",
+      "bytes": 635,
+      "sha256": "8e670c3a5154b0885311a40271d49d6ca906fc3965bc2a663fa2e4d02aac1d75"
+    },
+    {
+      "path": "scripts/inspect-equipment-contact-materials.mjs",
+      "bytes": 15678,
+      "sha256": "b94f99c68ec3292a3b6e79717af1f66eda492b24eb57073eafe0be7c0327ed78"
+    },
+    {
+      "path": "scripts/inspect-equipment-materials-v2.py",
+      "bytes": 5262,
+      "sha256": "e8114f9a5dfa3a1b389354554dcbb6115e1d0996d5e115541db5c5085d660f0b"
+    },
+    {
+      "path": "scripts/inspect-equipment-texture-budget-v2.mjs",
+      "bytes": 15672,
+      "sha256": "9df7d6d54f71d1ffaf2026a74758010e3dc2876d555e0020636223fb06d1459e"
+    },
+    {
+      "path": "scripts/seal-equipment-delivery-v2.mjs",
+      "bytes": 5325,
+      "sha256": "b6a0f2a1bc987eb2c16b711af11d1adcf1b874b99cf22f1681c43d11872abbfb"
+    },
+    {
+      "path": "scripts/validate-equipment-materials-v2.mjs",
+      "bytes": 26141,
+      "sha256": "4d5af97dcdecb3559c02bafbc6ceae8cfa694e862e02a3de13a68a4a958b9115"
+    }
+  ]
+}

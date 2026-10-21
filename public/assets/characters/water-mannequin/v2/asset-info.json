@@ -1,0 +1,193 @@
+{
+  "date": "2026-10-17",
+  "version": 2,
+  "rig": "WD_Mannequin_Rig",
+  "units": "metres; artist scale, retarget explicitly",
+  "axes": {
+    "source": "Z up, -Y forward",
+    "glb": "Y up, +Z forward",
+    "conversion": "source(x,y,z) -> glTF(x,z,-y)",
+    "origin": "ground midpoint in the authored model; spread fencing stance"
+  },
+  "pose": {
+    "source": "Normal/burst retain v1 rest skeleton with an authored fencing pose. Boss rest skeleton scaled 1.15 and rig object scale normalized to 1.",
+    "glb": "Authored fencing pose exported as joint rest pose; inverse-bind matrices differ from v1.",
+    "animations": []
+  },
+  "limits": {
+    "runtime_integrated": false,
+    "fluid": "Static geometry, not a solver",
+    "burst": "Frozen artistic state, not a temporal simulation or conservation proof",
+    "cloth": "Static mesh",
+    "colliders": false,
+    "lods": false,
+    "performance_benchmarked": false,
+    "rig_validation": "Head bone movement and stable body verified; full joint ranges not certified"
+  },
+  "variants": {
+    "mint": {
+      "glb": "water-mannequin.glb",
+      "source": "docs/assets/characters/v2/water-mannequin.blend",
+      "preview": "water-mannequin-preview.png",
+      "bytes": 3986764,
+      "sha256": "3b30bc03c5ed802c525b53913ad85c7fc949f8ab6ed6c30d689e8f79af60317f",
+      "triangles": 57014,
+      "meshes": 15,
+      "materials": 10,
+      "textures": 3,
+      "bones": 18,
+      "bounds_glb": {
+        "space": "glTF world, initial node and skin transforms; animations not evaluated",
+        "min": [
+          -1.1349808428123336,
+          0.000001805324748974521,
+          -0.2941593527793884
+        ],
+        "max": [
+          2.290620461653744,
+          2.669910806769683,
+          0.3270003599257853
+        ],
+        "size": [
+          3.4256013044660776,
+          2.669909001444934,
+          0.6211597127051738
+        ]
+      },
+      "optional_equipment_nodes": [
+        "Preview_Rapier_Polished_Rapier_Steel",
+        "Preview_Rapier_Satin_Brass",
+        "Preview_Rapier_Wrapped_Brown_Leather"
+      ],
+      "roundtrip": {
+        "max_bounds_error_metres": 0.00000560987018616288,
+        "max_socket_error_metres": 0.000007370111916260532,
+        "head_test_displacement_metres": 0.16432150444771873,
+        "body_test_displacement_metres": 0
+      }
+    },
+    "amber": {
+      "glb": "water-mannequin-amber.glb",
+      "source": "docs/assets/characters/v2/water-mannequin.blend",
+      "preview": "water-mannequin-amber-preview.png",
+      "bytes": 3986712,
+      "sha256": "0b848dfac42d60e2fbb1367c66c6bc27d2f4be38d482439adee02fbab2defc3e",
+      "triangles": 57014,
+      "meshes": 15,
+      "materials": 10,
+      "textures": 3,
+      "bones": 18,
+      "bounds_glb": {
+        "space": "glTF world, initial node and skin transforms; animations not evaluated",
+        "min": [
+          -1.1349808428123336,
+          0.000001805324748974521,
+          -0.2941593527793884
+        ],
+        "max": [
+          2.290620461653744,
+          2.669910806769683,
+          0.3270003599257853
+        ],
+        "size": [
+          3.4256013044660776,
+          2.669909001444934,
+          0.6211597127051738
+        ]
+      },
+      "optional_equipment_nodes": [
+        "Preview_Rapier_Polished_Rapier_Steel",
+        "Preview_Rapier_Satin_Brass",
+        "Preview_Rapier_Wrapped_Brown_Leather"
+      ],
+      "roundtrip": {
+        "max_bounds_error_metres": 0.00000560987018616288,
+        "max_socket_error_metres": 0.000007370111916260532,
+        "head_test_displacement_metres": 0.16432150444771873,
+        "body_test_displacement_metres": 0
+      }
+    },
+    "boss": {
+      "glb": "water-mannequin-boss.glb",
+      "source": "docs/assets/characters/v2/water-mannequin-boss.blend",
+      "preview": "water-mannequin-boss-preview.png",
+      "bytes": 4747640,
+      "sha256": "494cc22f9ea56d6e6cb4c87b311bb9b9fb1f1a70a3e6d409ccf56921cb62c955",
+      "triangles": 78482,
+      "meshes": 15,
+      "materials": 10,
+      "textures": 3,
+      "bones": 18,
+      "bounds_glb": {
+        "space": "glTF world, initial node and skin transforms; animations not evaluated",
+        "min": [
+          -1.3052278999706863,
+          0.000001942166675318788,
+          -0.3382832407951355
+        ],
+        "max": [
+          2.6342230330733747,
+          3.0703975621565585,
+          0.3760499549114603
+        ],
+        "size": [
+          3.939450933044061,
+          3.070395619989883,
+          0.7143331957065958
+        ]
+      },
+      "optional_equipment_nodes": [
+        "Preview_Rapier_Polished_Rapier_Steel",
+        "Preview_Rapier_Satin_Brass",
+        "Preview_Rapier_Wrapped_Brown_Leather"
+      ],
+      "roundtrip": {
+        "max_bounds_error_metres": 0.000006734619091730565,
+        "max_socket_error_metres": 0.000008386789328239862,
+        "head_test_displacement_metres": 0.18896972171884688,
+        "body_test_displacement_metres": 0
+      }
+    },
+    "burst": {
+      "glb": "water-mannequin-burst.glb",
+      "source": "docs/assets/characters/v2/water-mannequin-burst.blend",
+      "preview": "water-mannequin-burst-preview.png",
+      "bytes": 5275172,
+      "sha256": "13a00de6d228dca37595c94f75cc2a6c930665a486c78445161a092839d8f26a",
+      "triangles": 86064,
+      "meshes": 12,
+      "materials": 9,
+      "textures": 3,
+      "bones": 18,
+      "bounds_glb": {
+        "space": "glTF world, initial node and skin transforms; animations not evaluated",
+        "min": [
+          -1.1349808428123336,
+          0.000001805324748974521,
+          -0.38271188735961914
+        ],
+        "max": [
+          2.290620461653744,
+          3.014482617145825,
+          0.3270003599257853
+        ],
+        "size": [
+          3.4256013044660776,
+          3.0144808118210764,
+          0.7097122472854045
+        ]
+      },
+      "optional_equipment_nodes": [
+        "Preview_Rapier_Polished_Rapier_Steel",
+        "Preview_Rapier_Satin_Brass",
+        "Preview_Rapier_Wrapped_Brown_Leather"
+      ],
+      "roundtrip": {
+        "max_bounds_error_metres": 0.00000560987018616288,
+        "max_socket_error_metres": 0.000007370111916260532,
+        "head_test_displacement_metres": 0.29881146951771864,
+        "body_test_displacement_metres": 0
+      }
+    }
+  }
+}

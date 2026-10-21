@@ -1,0 +1,582 @@
+{
+  "passed": true,
+  "importer": "Blender 5.2.0 LTS",
+  "file": "workshop-runtime.glb",
+  "triangles": 355284,
+  "vertices": 361137,
+  "meshObjects": 35,
+  "boundsRuntimeYUp": {
+    "min": [
+      -7.754260063171387,
+      -0.9033911228179932,
+      -10.017007827758789
+    ],
+    "max": [
+      7.754260063171387,
+      6.884024143218994,
+      6.138547420501709
+    ]
+  },
+  "boundsMaxError": 0.0,
+  "stageTopMeasured": 0.3244612216949463,
+  "stageTopNominal": 0.3245,
+  "stageTopTolerance": 0.002,
+  "materialImageBindings": [
+    {
+      "material": "Workshop PBR | blackened-iron-worn-workshop-steel",
+      "image": "blackened-iron-worn-workshop-steel-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | blackened-iron-worn-workshop-steel",
+      "image": "blackened-iron-worn-workshop-steel-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | blackened-iron-worn-workshop-steel",
+      "image": "blackened-iron-worn-workshop-steel-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | brass-tarnish-patina-polished-edges",
+      "image": "brass-tarnish-patina-polished-edges-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | brass-tarnish-patina-polished-edges",
+      "image": "brass-tarnish-patina-polished-edges-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | brass-tarnish-patina-polished-edges",
+      "image": "brass-tarnish-patina-polished-edges-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | canvas-waterduel-deep-forest",
+      "image": "canvas-waterduel-deep-forest-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | copper-oxidized-plumbing",
+      "image": "copper-oxidized-plumbing-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | copper-oxidized-plumbing",
+      "image": "copper-oxidized-plumbing-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | copper-oxidized-plumbing",
+      "image": "copper-oxidized-plumbing-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | forest-green-woven-cotton-velvet",
+      "image": "forest-green-woven-cotton-velvet-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | gold-thread-brushed-antique-gold",
+      "image": "gold-thread-brushed-antique-gold-basecolor",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | gold-thread-brushed-antique-gold",
+      "image": "gold-thread-brushed-antique-gold-orm",
+      "size": [
+        128,
+        128
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | gold-thread-brushed-antique-gold",
+      "image": "gold-thread-brushed-antique-gold-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | ivy-waxy-variegated-deep-green",
+      "image": "ivy-waxy-variegated-deep-green-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | ivy-waxy-variegated-deep-green",
+      "image": "ivy-waxy-variegated-deep-green-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | leather-oxblood-oil-and-tooling",
+      "image": "leather-oxblood-oil-and-tooling-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | oak-aged-endgrain-and-open-pores",
+      "image": "oak-aged-endgrain-and-open-pores-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | oak-aged-endgrain-and-open-pores",
+      "image": "oak-aged-endgrain-and-open-pores-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | oak-aged-endgrain-and-open-pores",
+      "image": "oak-aged-endgrain-and-open-pores-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | oak-aged-endgrain-and-open-pores-grain-y",
+      "image": "oak-aged-endgrain-and-open-pores-grain-y-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | oak-aged-endgrain-and-open-pores-grain-y",
+      "image": "oak-aged-endgrain-and-open-pores-grain-y-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | oak-aged-endgrain-and-open-pores-grain-y",
+      "image": "oak-aged-endgrain-and-open-pores-grain-y-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | oak-aged-endgrain-and-open-pores-grain-z",
+      "image": "oak-aged-endgrain-and-open-pores-grain-z-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | oak-aged-endgrain-and-open-pores-grain-z",
+      "image": "oak-aged-endgrain-and-open-pores-grain-z-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | oak-aged-endgrain-and-open-pores-grain-z",
+      "image": "oak-aged-endgrain-and-open-pores-grain-z-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-1",
+      "image": "stage-wet-oak-1-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-1",
+      "image": "stage-wet-oak-1-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-1",
+      "image": "stage-wet-oak-1-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-2",
+      "image": "stage-wet-oak-2-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-2",
+      "image": "stage-wet-oak-2-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-2",
+      "image": "stage-wet-oak-2-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-3",
+      "image": "stage-wet-oak-3-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-3",
+      "image": "stage-wet-oak-3-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-3",
+      "image": "stage-wet-oak-3-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-4",
+      "image": "stage-wet-oak-4-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-4",
+      "image": "stage-wet-oak-4-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-4",
+      "image": "stage-wet-oak-4-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-5",
+      "image": "stage-wet-oak-5-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-5",
+      "image": "stage-wet-oak-5-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | stage-wet-oak-5",
+      "image": "stage-wet-oak-5-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | steel-satin-machined-surface",
+      "image": "steel-satin-machined-surface-basecolor",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | steel-satin-machined-surface",
+      "image": "steel-satin-machined-surface-orm",
+      "size": [
+        128,
+        128
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | steel-satin-machined-surface",
+      "image": "steel-satin-machined-surface-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | wall-limewash-soot-and-age",
+      "image": "wall-limewash-soot-and-age-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | wall-limewash-soot-and-age",
+      "image": "wall-limewash-soot-and-age-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish",
+      "image": "walnut-smoke-and-worn-varnish-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish",
+      "image": "walnut-smoke-and-worn-varnish-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish",
+      "image": "walnut-smoke-and-worn-varnish-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish-grain-y",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish-grain-y",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish-grain-y",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish-grain-y-floor",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-floor-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish-grain-y-floor",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-floor-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish-grain-y-floor",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-floor-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish-grain-z",
+      "image": "walnut-smoke-and-worn-varnish-grain-z-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish-grain-z",
+      "image": "walnut-smoke-and-worn-varnish-grain-z-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | walnut-smoke-and-worn-varnish-grain-z",
+      "image": "walnut-smoke-and-worn-varnish-grain-z-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | window-cold-diffuse-daylight",
+      "image": "window-cold-diffuse-daylight-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "material": "Workshop PBR | window-cold-diffuse-daylight",
+      "image": "window-cold-diffuse-daylight-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    }
+  ],
+  "activeVolume": {
+    "x": [
+      -3.7,
+      3.7
+    ],
+    "y": [
+      0.36,
+      3.5
+    ],
+    "z": [
+      -1.31,
+      1.31
+    ]
+  },
+  "activeVolumeIntersections": [],
+  "scope": "Actual GLB reimport with embedded texture decoding, no original source mesh. Optional image is Eevee, not game runtime."
+}

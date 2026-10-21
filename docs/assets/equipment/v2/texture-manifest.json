@@ -1,0 +1,277 @@
+{
+  "families": {
+    "wood": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_Normal.png",
+      "normalScale": 0.45,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_ORM.png",
+      "baselineRoughness": 0.43
+    },
+    "leather": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_Normal.png",
+      "normalScale": 0.42,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_ORM.png",
+      "baselineRoughness": 0.52
+    },
+    "leather_edge": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_edge_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_Normal.png",
+      "normalScale": 0.42,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_ORM.png",
+      "baselineRoughness": 0.52
+    },
+    "steel": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_Normal.png",
+      "normalScale": 0.38,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_ORM.png",
+      "baselineRoughness": 0.36
+    },
+    "brass": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_brass_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_Normal.png",
+      "normalScale": 0.4,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_brass_ORM.png",
+      "baselineRoughness": 0.4
+    },
+    "enamel": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_enamel_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_enamel_Normal.png",
+      "normalScale": 0.35,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_enamel_ORM.png",
+      "baselineRoughness": 0.3
+    }
+  },
+  "materials": {
+    "WD_wood": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_Normal.png",
+      "normalScale": 0.45,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_ORM.png",
+      "baselineRoughness": 0.39,
+      "roughnessFactor": 0.9069767441860466,
+      "metallicFactor": 0,
+      "baselineMetallic": 0,
+      "roughnessRange": [
+        0.3544270694255829,
+        0.4402706027030945
+      ],
+      "family": "wood"
+    },
+    "WD_wood_dark": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_Normal.png",
+      "normalScale": 0.45,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_ORM.png",
+      "baselineRoughness": 0.43,
+      "roughnessFactor": 1.0,
+      "metallicFactor": 0,
+      "baselineMetallic": 0,
+      "roughnessRange": [
+        0.3907785415649414,
+        0.48542654514312744
+      ],
+      "family": "wood"
+    },
+    "WD_wood_light": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_Normal.png",
+      "normalScale": 0.45,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_ORM.png",
+      "baselineRoughness": 0.38,
+      "roughnessFactor": 0.8837209302325582,
+      "metallicFactor": 0,
+      "baselineMetallic": 0,
+      "roughnessRange": [
+        0.34533917903900146,
+        0.42898160219192505
+      ],
+      "family": "wood"
+    },
+    "WD_leather": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_Normal.png",
+      "normalScale": 0.42,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_ORM.png",
+      "baselineRoughness": 0.52,
+      "roughnessFactor": 1.0,
+      "metallicFactor": 0,
+      "baselineMetallic": 0,
+      "roughnessRange": [
+        0.4772547781467438,
+        0.5780044198036194
+      ],
+      "family": "leather"
+    },
+    "WD_leather_edge": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_edge_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_Normal.png",
+      "normalScale": 0.42,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_ORM.png",
+      "baselineRoughness": 0.51,
+      "roughnessFactor": 0.9807692307692307,
+      "metallicFactor": 0,
+      "baselineMetallic": 0,
+      "roughnessRange": [
+        0.46807679533958435,
+        0.5668889284133911
+      ],
+      "family": "leather_edge"
+    },
+    "WD_brass": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_brass_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_Normal.png",
+      "normalScale": 0.4,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_brass_ORM.png",
+      "baselineRoughness": 0.27,
+      "roughnessFactor": 0.675,
+      "metallicFactor": 0.86,
+      "baselineMetallic": 0.86,
+      "roughnessRange": [
+        0.23725931346416473,
+        0.31752657890319824
+      ],
+      "family": "brass"
+    },
+    "WD_brass_dark": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_brass_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_Normal.png",
+      "normalScale": 0.4,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_brass_ORM.png",
+      "baselineRoughness": 0.4,
+      "roughnessFactor": 1.0,
+      "metallicFactor": 0.78,
+      "baselineMetallic": 0.78,
+      "roughnessRange": [
+        0.35149526596069336,
+        0.4704097509384155
+      ],
+      "family": "brass"
+    },
+    "WD_steel": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_Normal.png",
+      "normalScale": 0.38,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_ORM.png",
+      "baselineRoughness": 0.23,
+      "roughnessFactor": 0.638888888888889,
+      "metallicFactor": 0.94,
+      "baselineMetallic": 0.94,
+      "roughnessRange": [
+        0.1983041912317276,
+        0.2689565122127533
+      ],
+      "family": "steel"
+    },
+    "WD_steel_dark": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_Normal.png",
+      "normalScale": 0.38,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_ORM.png",
+      "baselineRoughness": 0.36,
+      "roughnessFactor": 1.0,
+      "metallicFactor": 0.85,
+      "baselineMetallic": 0.85,
+      "roughnessRange": [
+        0.3103891611099243,
+        0.4209754168987274
+      ],
+      "family": "steel"
+    },
+    "WD_enamel_black": {
+      "baseColor": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_enamel_BaseColor.png",
+      "normal": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_enamel_Normal.png",
+      "normalScale": 0.35,
+      "orm": "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_enamel_ORM.png",
+      "baselineRoughness": 0.3,
+      "roughnessFactor": 1.0,
+      "metallicFactor": 0.22,
+      "baselineMetallic": 0.22,
+      "roughnessRange": [
+        0.28545957803726196,
+        0.3218344449996948
+      ],
+      "family": "enamel"
+    }
+  },
+  "metadata": {
+    "size": 512,
+    "format": "PNG RGB8",
+    "periodicEdges": true,
+    "orm": "R=1; G=family roughness times material ratio; B=1 metal/enamel or0 dielectric, times original metallicFactor",
+    "baseColorSpace": "sRGB",
+    "normalAndORMSpace": "linear",
+    "sourceSha256": {
+      "Workshop_Beech_BaseColor.png": "5573a36f28524645b123f93c1abe427c6436c3acc082ae8ee2934dad02801bc5",
+      "Workshop_Leather_BaseColor.png": "e1c9ec7f6256ac5fe93cdce00980e9918474365a60f0b639d1ee8f503c5f04fd"
+    },
+    "bytes": 1373962,
+    "budgetBytes": 3145728,
+    "uniqueImages": 15,
+    "rgba8BaseBytes": 15728640,
+    "rgba8FullMipBytesApprox": 20971520,
+    "textures": {
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_BaseColor.png": {
+        "bytes": 178664,
+        "sha256": "45d2ace4e8bc3799f07ce9b3a2351cd49d53bd35bbe06e9d670346888c86a578"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_Normal.png": {
+        "bytes": 243551,
+        "sha256": "9c0a516051edf33fbbbce2799e7851f4050e424ed0ba18fa2f2186bd682c09db"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_wood_ORM.png": {
+        "bytes": 29896,
+        "sha256": "7e63eacb216e0dab9d9d69ae38ecb71291872f92c547863a98482fa97b97fc86"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_BaseColor.png": {
+        "bytes": 197087,
+        "sha256": "9f2d86edbdd27a87712de174e52cfd17d13a11a82902f9c3623ccd0bc57acee5"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_Normal.png": {
+        "bytes": 413872,
+        "sha256": "e207773159693c888662631705634b0837b9322ea2c05e4d7b7107fd096c7b24"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_ORM.png": {
+        "bytes": 27412,
+        "sha256": "39d90650c17630f9643c24222348cbc508d8d54308e698760e9e584fb761e84f"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_leather_edge_BaseColor.png": {
+        "bytes": 12955,
+        "sha256": "f2b16f577986b608b87d8088e439236e30efda4d3b5dc21692f654d96b2be621"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_BaseColor.png": {
+        "bytes": 28357,
+        "sha256": "2cbdcf878dbca60d08700fcb390c28bfb17fc07aa3e4b13e6a7b6aac648a6c62"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_Normal.png": {
+        "bytes": 50402,
+        "sha256": "67d16f40381168049723d122e2377a76c301039c8919c9f2d92fe8a69b197945"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_steel_ORM.png": {
+        "bytes": 34529,
+        "sha256": "0b803e91ba3f24644c4364d1a612eab4ca8a2aec539201e43771a69a7b1d409c"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_brass_BaseColor.png": {
+        "bytes": 39087,
+        "sha256": "0881da9b1cd12c7b54cf7654c62af8457b008eb9446f3cfba6b25834b04a5ce2"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_brass_ORM.png": {
+        "bytes": 36265,
+        "sha256": "ed9f62863c415e9228f772fe86b802b35173e329be091226e4f2d68745c65a0e"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_enamel_BaseColor.png": {
+        "bytes": 8623,
+        "sha256": "da62d14ea8b842e5cd345b77fe873d84c203651f9691b60e9ff7b2643bfbf47e"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_enamel_Normal.png": {
+        "bytes": 54400,
+        "sha256": "47c94b9110e43f7ad8b429f02390891179ffd8ac9e5697e0c708a348fa34995f"
+      },
+      "D:\\2026\\WaterDuel\\docs\\assets\\equipment\\v2\\textures\\WorkshopV2_enamel_ORM.png": {
+        "bytes": 18862,
+        "sha256": "5a2c5d03e6a21939f4750b4954d85b75262033dba52fde823c034cee7fc31556"
+      }
+    }
+  }
+}

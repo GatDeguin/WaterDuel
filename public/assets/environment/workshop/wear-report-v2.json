@@ -1,0 +1,864 @@
+{
+  "revision": "workshop-wear-v2.2",
+  "coordinateFrame": "Blender Z-up; scaled geometry",
+  "changed": {
+    "blackened-iron-worn-workshop-steel": {
+      "profile": "metal",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "patinaColorMixMax": 0.18,
+      "scratchColorMixMax": 0.12,
+      "roughnessDelta": [
+        -0.075,
+        0.13
+      ],
+      "scratchVectorScale": [
+        7.0,
+        118.0,
+        29.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00016,
+      "bumpStrength": 0.1,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.11,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_blackened-iron-worn-workshop-steel"
+    },
+    "brass-tarnish-patina-polished-edges": {
+      "profile": "metal",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "patinaColorMixMax": 0.18,
+      "scratchColorMixMax": 0.12,
+      "roughnessDelta": [
+        -0.075,
+        0.13
+      ],
+      "scratchVectorScale": [
+        7.0,
+        118.0,
+        29.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00016,
+      "bumpStrength": 0.1,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.11,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_brass-tarnish-patina-polished-edges"
+    },
+    "canvas-waterduel-deep-forest": {
+      "profile": "cloth-paper",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "dustColorMixMax": 0.1,
+      "roughnessDelta": [
+        0.0,
+        0.05
+      ],
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 44,
+      "material": "WD_SOURCE_V2_canvas-waterduel-deep-forest"
+    },
+    "copper-oxidized-plumbing": {
+      "profile": "metal",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "patinaColorMixMax": 0.18,
+      "scratchColorMixMax": 0.12,
+      "roughnessDelta": [
+        -0.075,
+        0.13
+      ],
+      "scratchVectorScale": [
+        7.0,
+        118.0,
+        29.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00016,
+      "bumpStrength": 0.1,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.11,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_copper-oxidized-plumbing"
+    },
+    "forest-green-woven-cotton-velvet": {
+      "profile": "cloth-paper",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "dustColorMixMax": 0.1,
+      "roughnessDelta": [
+        0.0,
+        0.05
+      ],
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 44,
+      "material": "WD_SOURCE_V2_forest-green-woven-cotton-velvet"
+    },
+    "leather-oxblood-oil-and-tooling": {
+      "profile": "leather",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.16,
+      "scratchColorMixMax": 0.08,
+      "roughnessDelta": [
+        -0.1,
+        0.0
+      ],
+      "scratchVectorScale": [
+        7.0,
+        118.0,
+        29.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00012,
+      "bumpStrength": 0.09,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 49,
+      "material": "WD_SOURCE_V2_leather-oxblood-oil-and-tooling"
+    },
+    "oak-aged-endgrain-and-open-pores": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        1.7,
+        96.0,
+        23.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_oak-aged-endgrain-and-open-pores"
+    },
+    "oak-aged-endgrain-and-open-pores-grain-y": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        96.0,
+        1.7,
+        23.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_oak-aged-endgrain-and-open-pores-grain-y"
+    },
+    "oak-aged-endgrain-and-open-pores-grain-z": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        96.0,
+        23.0,
+        1.7
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_oak-aged-endgrain-and-open-pores-grain-z"
+    },
+    "paper-warm-vellum": {
+      "profile": "cloth-paper",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "dustColorMixMax": 0.1,
+      "roughnessDelta": [
+        0.0,
+        0.05
+      ],
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 44,
+      "material": "WD_SOURCE_V2_paper-warm-vellum"
+    },
+    "stage-wet-oak-1": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        1.7,
+        96.0,
+        23.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_stage-wet-oak-1"
+    },
+    "stage-wet-oak-2": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        1.7,
+        96.0,
+        23.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_stage-wet-oak-2"
+    },
+    "stage-wet-oak-3": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        1.7,
+        96.0,
+        23.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_stage-wet-oak-3"
+    },
+    "stage-wet-oak-4": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        1.7,
+        96.0,
+        23.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_stage-wet-oak-4"
+    },
+    "stage-wet-oak-5": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        1.7,
+        96.0,
+        23.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_stage-wet-oak-5"
+    },
+    "steel-satin-machined-surface": {
+      "profile": "metal",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "patinaColorMixMax": 0.18,
+      "scratchColorMixMax": 0.12,
+      "roughnessDelta": [
+        -0.075,
+        0.13
+      ],
+      "scratchVectorScale": [
+        7.0,
+        118.0,
+        29.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00016,
+      "bumpStrength": 0.1,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.11,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_steel-satin-machined-surface"
+    },
+    "wall-limewash-soot-and-age": {
+      "profile": "limewash",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "sootColorMixMax": 0.1,
+      "roughnessDelta": [
+        0.0,
+        0.04
+      ],
+      "bumpDistanceWorldM": 0.00022,
+      "bumpStrength": 0.08,
+      "hairlineChecking": "fragmented material film, not structural cracks",
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 53,
+      "material": "WD_SOURCE_V2_wall-limewash-soot-and-age"
+    },
+    "walnut-smoke-and-worn-varnish": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        1.7,
+        96.0,
+        23.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_walnut-smoke-and-worn-varnish"
+    },
+    "walnut-smoke-and-worn-varnish-grain-y": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        96.0,
+        1.7,
+        23.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_walnut-smoke-and-worn-varnish-grain-y"
+    },
+    "walnut-smoke-and-worn-varnish-grain-y-floor": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        96.0,
+        1.7,
+        23.0
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_walnut-smoke-and-worn-varnish-grain-y-floor"
+    },
+    "walnut-smoke-and-worn-varnish-grain-z": {
+      "profile": "wood",
+      "revision": "workshop-wear-v2.2",
+      "channels": [
+        "Base Color",
+        "Roughness",
+        "Normal"
+      ],
+      "mask": "primary sparse contact mask; cavity deposition listed separately",
+      "broadNoiseScale": 3.7,
+      "broadThreshold": [
+        0.58,
+        0.76
+      ],
+      "oilColorMixMax": 0.22,
+      "scratchColorMixMax": 0.13,
+      "roughnessDelta": [
+        -0.065,
+        0.11
+      ],
+      "scratchVectorScale": [
+        96.0,
+        23.0,
+        1.7
+      ],
+      "scratchThreshold": [
+        0.64,
+        0.75
+      ],
+      "bumpDistanceWorldM": 0.00032,
+      "bumpStrength": 0.14,
+      "cavityMask": "short-range AO for physical dust reflectance only",
+      "cavityDistanceWorldM": 0.04,
+      "cavitySamples": 8,
+      "cavityColorMixMax": 0.09,
+      "cavityRoughnessAddMax": 0.055,
+      "roughnessClamp": [
+        0.1,
+        0.96
+      ],
+      "nodesAdded": 57,
+      "material": "WD_SOURCE_V2_walnut-smoke-and-worn-varnish-grain-z"
+    }
+  },
+  "skipped": {
+    "bottle-glass-green-crown-glass": "Protected material / no wear profile",
+    "brick-0": "Protected material / no wear profile",
+    "brick-1": "Protected material / no wear profile",
+    "brick-2": "Protected material / no wear profile",
+    "brick-3": "Protected material / no wear profile",
+    "carbon-black": "Protected material / no wear profile",
+    "gold-thread-brushed-antique-gold": "Protected material / no wear profile",
+    "ivy-pale-leaf-veins": "Protected material / no wear profile",
+    "ivy-waxy-variegated-deep-green": "Protected material / no wear profile",
+    "lamp-warm-tungsten-filament": "Protected material / no wear profile",
+    "mint-enamel": "Protected material / no wear profile",
+    "stoneware-chalk-glaze": "Protected material / no wear profile",
+    "technical-drawing-charcoal-ink": "Protected material / no wear profile",
+    "window-cold-diffuse-daylight": "Protected material / no wear profile"
+  },
+  "geometryChanged": false,
+  "requiresBakeRevision": "workshop-wear-v2.2",
+  "notes": [
+    "Contact masks use face direction and original piece bounds; short-range AO only modulates deposited dirt reflectance.",
+    "No scene lighting, fog, static water or dust particles are baked.",
+    "Fine wear is designed as submillimetre normal detail, not geometric cracking."
+  ]
+}

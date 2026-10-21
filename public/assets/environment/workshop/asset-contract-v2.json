@@ -1,0 +1,2018 @@
+{
+  "asset": "workshop-runtime-v2.glb",
+  "version": 2,
+  "stable": true,
+  "verification": "Independent GLB parser, runtime CPU fan transforms and Blender reimport passed; three real GLB previews visually inspected.",
+  "source": {
+    "path": "output/blender/WaterDuel_Atelier.blend",
+    "sha256": "2e92513be1f17a2e2d5cc357dddc8cd8d0e1dd62abbde226f4ec09c3a717b755",
+    "preserved": true
+  },
+  "coordinateTransform": {
+    "sourceUp": "Z",
+    "runtimeUp": "Y",
+    "sourceDepth": "+Y",
+    "runtimeDepth": "-Z",
+    "scale": 0.6462585034013606,
+    "translationRuntimeY": -0.4186972789115646,
+    "appliedToGeometry": true,
+    "nodeTransformRequired": true,
+    "formula": [
+      "x=s*source.x",
+      "y=s*source.z+t",
+      "z=-s*source.y"
+    ],
+    "nodeTransformNote": "Static nodes are identity. Apply the fan node translation once; do not reapply source scale."
+  },
+  "stage": {
+    "sourceTopZ": 1.15,
+    "runtimeTopY": 0.3245,
+    "runtimeBoardWidth": 7.6,
+    "nominalBoardX": [
+      -3.8,
+      3.8
+    ],
+    "nominalDepthZ": [
+      -1.6802721088435375,
+      1.6802721088435375
+    ]
+  },
+  "bounds": {
+    "min": [
+      -7.754260063171387,
+      -0.9033911228179932,
+      -10.017007827758789
+    ],
+    "max": [
+      7.754260063171387,
+      6.884024143218994,
+      6.138547420501709
+    ]
+  },
+  "budgets": {
+    "maxTriangles": 500000,
+    "maxDrawGroups": 60,
+    "measuredTriangles": 355284,
+    "measuredGroups": 36
+  },
+  "materials": [
+    {
+      "sourceMaterial": "Blackened iron | worn workshop steel",
+      "sourceBakeMaterial": "WD_SOURCE_blackened-iron-worn-workshop-steel",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.017641954123973846,
+        0.02518685907125473,
+        0.024157632142305374,
+        1
+      ],
+      "roughness": 0.41999998688697815,
+      "metallic": 1,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_blackened-iron-worn-workshop-steel",
+      "trianglesBefore": 63232,
+      "trianglesAfter": 37938,
+      "runtimeMaterial": "Workshop v2 PBR | blackened-iron-worn-workshop-steel",
+      "textures": {
+        "basecolor": "textures-v2/blackened-iron-worn-workshop-steel-basecolor.png",
+        "orm": "textures-v2/blackened-iron-worn-workshop-steel-orm.png",
+        "normal": "textures-v2/blackened-iron-worn-workshop-steel-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Bottle glass | green crown glass",
+      "sourceBakeMaterial": "WD_SOURCE_bottle-glass-green-crown-glass",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.23074005544185638,
+        0.3277781009674072,
+        0.1384316086769104,
+        1
+      ],
+      "roughness": 0.14000000059604645,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": true,
+      "decimationRatio": 0.6,
+      "object": "Workshop_bottle-glass-green-crown-glass",
+      "trianglesBefore": 22896,
+      "trianglesAfter": 13736,
+      "runtimeMaterial": "Workshop v2 PBR | bottle-glass-green-crown-glass",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Brass | tarnish, patina, polished edges",
+      "sourceBakeMaterial": "WD_SOURCE_brass-tarnish-patina-polished-edges",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.37123769521713257,
+        0.1946178376674652,
+        0.039546236395835876,
+        1
+      ],
+      "roughness": 0.27000001072883606,
+      "metallic": 1,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_StaticBrass",
+      "trianglesBefore": 124692,
+      "trianglesAfter": 74814,
+      "runtimeMaterial": "Workshop v2 PBR | brass-tarnish-patina-polished-edges",
+      "textures": {
+        "basecolor": "textures-v2/brass-tarnish-patina-polished-edges-basecolor.png",
+        "orm": "textures-v2/brass-tarnish-patina-polished-edges-orm.png",
+        "normal": "textures-v2/brass-tarnish-patina-polished-edges-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          256,
+          256
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2",
+      "additionalObjects": [
+        "Workshop_FanRotor"
+      ]
+    },
+    {
+      "sourceMaterial": "Brick 0",
+      "sourceBakeMaterial": "WD_SOURCE_brick-0",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.07036009430885315,
+        0.05448027700185776,
+        0.039546236395835876,
+        1
+      ],
+      "roughness": 0.8500000238418579,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_brick-0",
+      "trianglesBefore": 11092,
+      "trianglesAfter": 6654,
+      "runtimeMaterial": "Workshop v2 PBR | brick-0",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Brick 1",
+      "sourceBakeMaterial": "WD_SOURCE_brick-1",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.15292614698410034,
+        0.09758734703063965,
+        0.06480326503515244,
+        1
+      ],
+      "roughness": 0.8500000238418579,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_brick-1",
+      "trianglesBefore": 11280,
+      "trianglesAfter": 6768,
+      "runtimeMaterial": "Workshop v2 PBR | brick-1",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Brick 2",
+      "sourceBakeMaterial": "WD_SOURCE_brick-2",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.17144110798835754,
+        0.10461648553609848,
+        0.06301001459360123,
+        1
+      ],
+      "roughness": 0.8500000238418579,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_brick-2",
+      "trianglesBefore": 8648,
+      "trianglesAfter": 5188,
+      "runtimeMaterial": "Workshop v2 PBR | brick-2",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Brick 3",
+      "sourceBakeMaterial": "WD_SOURCE_brick-3",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.09989872574806213,
+        0.07421357184648514,
+        0.05126945674419403,
+        1
+      ],
+      "roughness": 0.8500000238418579,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_brick-3",
+      "trianglesBefore": 10716,
+      "trianglesAfter": 6428,
+      "runtimeMaterial": "Workshop v2 PBR | brick-3",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Canvas | WaterDuel deep forest",
+      "sourceBakeMaterial": "WD_SOURCE_canvas-waterduel-deep-forest",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.006048833020031452,
+        0.04666508734226227,
+        0.03310476616024971,
+        1
+      ],
+      "roughness": 0.7799999713897705,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_canvas-waterduel-deep-forest",
+      "trianglesBefore": 2256,
+      "trianglesAfter": 1352,
+      "runtimeMaterial": "Workshop v2 PBR | canvas-waterduel-deep-forest",
+      "textures": {
+        "normal": "textures/canvas-waterduel-deep-forest-normal.png",
+        "basecolor": "textures-v2/canvas-waterduel-deep-forest-basecolor.png",
+        "orm": "textures-v2/canvas-waterduel-deep-forest-orm.png"
+      },
+      "textureDimensions": {
+        "normal": [
+          256,
+          256
+        ],
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Carbon black",
+      "sourceBakeMaterial": "WD_SOURCE_carbon-black",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.0027317428030073643,
+        0.0043914420530200005,
+        0.0043914420530200005,
+        1
+      ],
+      "roughness": 0.7200000286102295,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_carbon-black",
+      "trianglesBefore": 17196,
+      "trianglesAfter": 10316,
+      "runtimeMaterial": "Workshop v2 PBR | carbon-black",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Copper | oxidized plumbing",
+      "sourceBakeMaterial": "WD_SOURCE_copper-oxidized-plumbing",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.19806931912899017,
+        0.0666259378194809,
+        0.024157632142305374,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 1,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_copper-oxidized-plumbing",
+      "trianglesBefore": 15328,
+      "trianglesAfter": 9196,
+      "runtimeMaterial": "Workshop v2 PBR | copper-oxidized-plumbing",
+      "textures": {
+        "basecolor": "textures-v2/copper-oxidized-plumbing-basecolor.png",
+        "orm": "textures-v2/copper-oxidized-plumbing-orm.png",
+        "normal": "textures-v2/copper-oxidized-plumbing-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ],
+        "normal": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Forest green | woven cotton velvet",
+      "sourceBakeMaterial": "WD_SOURCE_forest-green-woven-cotton-velvet",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.012000000104308128,
+        0.061000000685453415,
+        0.0430000014603138,
+        1
+      ],
+      "roughness": 0.8299999833106995,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.24,
+      "object": "Workshop_forest-green-woven-cotton-velvet",
+      "trianglesBefore": 113856,
+      "trianglesAfter": 27324,
+      "runtimeMaterial": "Workshop v2 PBR | forest-green-woven-cotton-velvet",
+      "textures": {
+        "normal": "textures/forest-green-woven-cotton-velvet-normal.png",
+        "basecolor": "textures-v2/forest-green-woven-cotton-velvet-basecolor.png",
+        "orm": "textures-v2/forest-green-woven-cotton-velvet-orm.png"
+      },
+      "textureDimensions": {
+        "normal": [
+          512,
+          512
+        ],
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Gold thread | brushed antique gold",
+      "sourceBakeMaterial": "WD_SOURCE_gold-thread-brushed-antique-gold",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.5457244515419006,
+        0.32314321398735046,
+        0.07421357184648514,
+        1
+      ],
+      "roughness": 0.41999998688697815,
+      "metallic": 0.7599999904632568,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.045,
+      "object": "Workshop_gold-thread-brushed-antique-gold",
+      "trianglesBefore": 375536,
+      "trianglesAfter": 16899,
+      "runtimeMaterial": "Workshop v2 PBR | gold-thread-brushed-antique-gold",
+      "textures": {
+        "basecolor": "textures/gold-thread-brushed-antique-gold-basecolor.png",
+        "orm": "textures/gold-thread-brushed-antique-gold-orm.png",
+        "normal": "textures/gold-thread-brushed-antique-gold-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          256,
+          256
+        ],
+        "orm": [
+          128,
+          128
+        ],
+        "normal": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Ivy | pale leaf veins",
+      "sourceBakeMaterial": "WD_SOURCE_ivy-pale-leaf-veins",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.10000000149011612,
+        0.18000000715255737,
+        0.027000000700354576,
+        1
+      ],
+      "roughness": 0.5299999713897705,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.7,
+      "object": "Workshop_ivy-pale-leaf-veins",
+      "trianglesBefore": 12000,
+      "trianglesAfter": 8400,
+      "runtimeMaterial": "Workshop v2 PBR | ivy-pale-leaf-veins",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Ivy | waxy variegated deep green",
+      "sourceBakeMaterial": "WD_SOURCE_ivy-waxy-variegated-deep-green",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.7,
+      "object": "Workshop_ivy-waxy-variegated-deep-green",
+      "trianglesBefore": 40000,
+      "trianglesAfter": 28000,
+      "runtimeMaterial": "Workshop v2 PBR | ivy-waxy-variegated-deep-green",
+      "textures": {
+        "basecolor": "textures/ivy-waxy-variegated-deep-green-basecolor.png",
+        "normal": "textures/ivy-waxy-variegated-deep-green-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Lamp | warm tungsten filament",
+      "sourceBakeMaterial": "WD_SOURCE_lamp-warm-tungsten-filament",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        1,
+        0.6583748459815979,
+        0.35153260827064514,
+        1
+      ],
+      "roughness": 0.2800000011920929,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": true,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_lamp-warm-tungsten-filament",
+      "trianglesBefore": 10656,
+      "trianglesAfter": 6392,
+      "runtimeMaterial": "Workshop v2 PBR | lamp-warm-tungsten-filament",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Leather | oxblood oil and tooling",
+      "sourceBakeMaterial": "WD_SOURCE_leather-oxblood-oil-and-tooling",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.05780543014407158,
+        0.017641954123973846,
+        0.009721217676997185,
+        1
+      ],
+      "roughness": 0.7799999713897705,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_leather-oxblood-oil-and-tooling",
+      "trianglesBefore": 8416,
+      "trianglesAfter": 5048,
+      "runtimeMaterial": "Workshop v2 PBR | leather-oxblood-oil-and-tooling",
+      "textures": {
+        "normal": "textures-v2/leather-oxblood-oil-and-tooling-normal.png",
+        "basecolor": "textures-v2/leather-oxblood-oil-and-tooling-basecolor.png",
+        "orm": "textures-v2/leather-oxblood-oil-and-tooling-orm.png"
+      },
+      "textureDimensions": {
+        "normal": [
+          256,
+          256
+        ],
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Mint | enamel",
+      "sourceBakeMaterial": "WD_SOURCE_mint-enamel",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.06847816705703735,
+        0.42869049310684204,
+        0.2622506618499756,
+        1
+      ],
+      "roughness": 0.3199999928474426,
+      "metallic": 0.4000000059604645,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_mint-enamel",
+      "trianglesBefore": 2400,
+      "trianglesAfter": 1440,
+      "runtimeMaterial": "Workshop v2 PBR | mint-enamel",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Oak | aged endgrain and open pores",
+      "sourceBakeMaterial": "WD_SOURCE_oak-aged-endgrain-and-open-pores",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.2581828534603119,
+        0.09989872574806213,
+        0.028426039963960648,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_oak-aged-endgrain-and-open-pores",
+      "trianglesBefore": 22940,
+      "trianglesAfter": 13764,
+      "runtimeMaterial": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores",
+      "textures": {
+        "basecolor": "textures-v2/oak-aged-endgrain-and-open-pores-basecolor.png",
+        "orm": "textures-v2/oak-aged-endgrain-and-open-pores-orm.png",
+        "normal": "textures-v2/oak-aged-endgrain-and-open-pores-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Oak | aged endgrain and open pores / grain Y",
+      "sourceBakeMaterial": "WD_SOURCE_oak-aged-endgrain-and-open-pores-grain-y",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.2581828534603119,
+        0.09989872574806213,
+        0.028426039963960648,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_oak-aged-endgrain-and-open-pores-grain-y",
+      "trianglesBefore": 2632,
+      "trianglesAfter": 1578,
+      "runtimeMaterial": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-y",
+      "textures": {
+        "basecolor": "textures-v2/oak-aged-endgrain-and-open-pores-grain-y-basecolor.png",
+        "orm": "textures-v2/oak-aged-endgrain-and-open-pores-grain-y-orm.png",
+        "normal": "textures-v2/oak-aged-endgrain-and-open-pores-grain-y-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Oak | aged endgrain and open pores / grain Z",
+      "sourceBakeMaterial": "WD_SOURCE_oak-aged-endgrain-and-open-pores-grain-z",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.2581828534603119,
+        0.09989872574806213,
+        0.028426039963960648,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_oak-aged-endgrain-and-open-pores-grain-z",
+      "trianglesBefore": 2640,
+      "trianglesAfter": 1584,
+      "runtimeMaterial": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-z",
+      "textures": {
+        "basecolor": "textures-v2/oak-aged-endgrain-and-open-pores-grain-z-basecolor.png",
+        "orm": "textures-v2/oak-aged-endgrain-and-open-pores-grain-z-orm.png",
+        "normal": "textures-v2/oak-aged-endgrain-and-open-pores-grain-z-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Paper | warm vellum",
+      "sourceBakeMaterial": "WD_SOURCE_paper-warm-vellum",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.5394794940948486,
+        0.4019777774810791,
+        0.20863686501979828,
+        1
+      ],
+      "roughness": 0.8299999833106995,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.065,
+      "object": "Workshop_paper-warm-vellum",
+      "trianglesBefore": 115660,
+      "trianglesAfter": 7516,
+      "runtimeMaterial": "Workshop v2 PBR | paper-warm-vellum",
+      "textures": {
+        "basecolor": "textures-v2/paper-warm-vellum-basecolor.png",
+        "orm": "textures-v2/paper-warm-vellum-orm.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Stage | wet oak 1",
+      "sourceBakeMaterial": "WD_SOURCE_stage-wet-oak-1",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.28744083642959595,
+        0.1119324266910553,
+        0.03189603239297867,
+        1
+      ],
+      "roughness": 0.23999999463558197,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.85,
+      "object": "Workshop_stage-wet-oak-1",
+      "trianglesBefore": 1504,
+      "trianglesAfter": 1278,
+      "runtimeMaterial": "Workshop v2 PBR | stage-wet-oak-1",
+      "textures": {
+        "basecolor": "textures-v2/stage-wet-oak-1-basecolor.png",
+        "orm": "textures-v2/stage-wet-oak-1-orm.png",
+        "normal": "textures-v2/stage-wet-oak-1-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Stage | wet oak 2",
+      "sourceBakeMaterial": "WD_SOURCE_stage-wet-oak-2",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.1946178376674652,
+        0.07618538290262222,
+        0.023153366521000862,
+        1
+      ],
+      "roughness": 0.23999999463558197,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.85,
+      "object": "Workshop_stage-wet-oak-2",
+      "trianglesBefore": 1504,
+      "trianglesAfter": 1278,
+      "runtimeMaterial": "Workshop v2 PBR | stage-wet-oak-2",
+      "textures": {
+        "basecolor": "textures-v2/stage-wet-oak-2-basecolor.png",
+        "orm": "textures-v2/stage-wet-oak-2-orm.png",
+        "normal": "textures-v2/stage-wet-oak-2-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Stage | wet oak 3",
+      "sourceBakeMaterial": "WD_SOURCE_stage-wet-oak-3",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.35640013217926025,
+        0.15896083414554596,
+        0.04373503103852272,
+        1
+      ],
+      "roughness": 0.23999999463558197,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.85,
+      "object": "Workshop_stage-wet-oak-3",
+      "trianglesBefore": 940,
+      "trianglesAfter": 798,
+      "runtimeMaterial": "Workshop v2 PBR | stage-wet-oak-3",
+      "textures": {
+        "basecolor": "textures-v2/stage-wet-oak-3-basecolor.png",
+        "orm": "textures-v2/stage-wet-oak-3-orm.png",
+        "normal": "textures-v2/stage-wet-oak-3-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Stage | wet oak 4",
+      "sourceBakeMaterial": "WD_SOURCE_stage-wet-oak-4",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.16513219475746155,
+        0.061246052384376526,
+        0.019382361322641373,
+        1
+      ],
+      "roughness": 0.23999999463558197,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.85,
+      "object": "Workshop_stage-wet-oak-4",
+      "trianglesBefore": 1316,
+      "trianglesAfter": 1118,
+      "runtimeMaterial": "Workshop v2 PBR | stage-wet-oak-4",
+      "textures": {
+        "basecolor": "textures-v2/stage-wet-oak-4-basecolor.png",
+        "orm": "textures-v2/stage-wet-oak-4-orm.png",
+        "normal": "textures-v2/stage-wet-oak-4-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Stage | wet oak 5",
+      "sourceBakeMaterial": "WD_SOURCE_stage-wet-oak-5",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.33716362714767456,
+        0.14126329123973846,
+        0.0423114113509655,
+        1
+      ],
+      "roughness": 0.23999999463558197,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.85,
+      "object": "Workshop_stage-wet-oak-5",
+      "trianglesBefore": 1128,
+      "trianglesAfter": 958,
+      "runtimeMaterial": "Workshop v2 PBR | stage-wet-oak-5",
+      "textures": {
+        "basecolor": "textures-v2/stage-wet-oak-5-basecolor.png",
+        "orm": "textures-v2/stage-wet-oak-5-orm.png",
+        "normal": "textures-v2/stage-wet-oak-5-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Steel | satin machined surface",
+      "sourceBakeMaterial": "WD_SOURCE_steel-satin-machined-surface",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.32314321398735046,
+        0.3915724754333496,
+        0.40724021196365356,
+        1
+      ],
+      "roughness": 0.25,
+      "metallic": 1,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_steel-satin-machined-surface",
+      "trianglesBefore": 7136,
+      "trianglesAfter": 4280,
+      "runtimeMaterial": "Workshop v2 PBR | steel-satin-machined-surface",
+      "textures": {
+        "basecolor": "textures-v2/steel-satin-machined-surface-basecolor.png",
+        "orm": "textures-v2/steel-satin-machined-surface-orm.png",
+        "normal": "textures-v2/steel-satin-machined-surface-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          256,
+          256
+        ],
+        "orm": [
+          128,
+          128
+        ],
+        "normal": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Stoneware | chalk glaze",
+      "sourceBakeMaterial": "WD_SOURCE_stoneware-chalk-glaze",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.6307571530342102,
+        0.47353148460388184,
+        0.27049779891967773,
+        1
+      ],
+      "roughness": 0.25,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_stoneware-chalk-glaze",
+      "trianglesBefore": 17996,
+      "trianglesAfter": 10797,
+      "runtimeMaterial": "Workshop v2 PBR | stoneware-chalk-glaze",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Technical drawing | charcoal ink",
+      "sourceBakeMaterial": "WD_SOURCE_technical-drawing-charcoal-ink",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.03433980792760849,
+        0.04373503103852272,
+        0.03688944876194,
+        1
+      ],
+      "roughness": 0.8500000238418579,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.12,
+      "object": "Workshop_technical-drawing-charcoal-ink",
+      "trianglesBefore": 139892,
+      "trianglesAfter": 16787,
+      "runtimeMaterial": "Workshop v2 PBR | technical-drawing-charcoal-ink",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    {
+      "sourceMaterial": "Wall | limewash, soot and age",
+      "sourceBakeMaterial": "WD_SOURCE_wall-limewash-soot-and-age",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.03433980792760849,
+        0.040915198624134064,
+        0.03433980792760849,
+        1
+      ],
+      "roughness": 0.8899999856948853,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_wall-limewash-soot-and-age",
+      "trianglesBefore": 564,
+      "trianglesAfter": 338,
+      "runtimeMaterial": "Workshop v2 PBR | wall-limewash-soot-and-age",
+      "textures": {
+        "basecolor": "textures-v2/wall-limewash-soot-and-age-basecolor.png",
+        "normal": "textures-v2/wall-limewash-soot-and-age-normal.png",
+        "orm": "textures-v2/wall-limewash-soot-and-age-orm.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "normal": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Walnut | smoke and worn varnish",
+      "sourceBakeMaterial": "WD_SOURCE_walnut-smoke-and-worn-varnish",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.04817182570695877,
+        0.021219009533524513,
+        0.009721217676997185,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_walnut-smoke-and-worn-varnish",
+      "trianglesBefore": 23932,
+      "trianglesAfter": 14359,
+      "runtimeMaterial": "Workshop v2 PBR | walnut-smoke-and-worn-varnish",
+      "textures": {
+        "basecolor": "textures-v2/walnut-smoke-and-worn-varnish-basecolor.png",
+        "orm": "textures-v2/walnut-smoke-and-worn-varnish-orm.png",
+        "normal": "textures-v2/walnut-smoke-and-worn-varnish-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Walnut | smoke and worn varnish / grain Y",
+      "sourceBakeMaterial": "WD_SOURCE_walnut-smoke-and-worn-varnish-grain-y",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.04817182570695877,
+        0.021219009533524513,
+        0.009721217676997185,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_walnut-smoke-and-worn-varnish-grain-y",
+      "trianglesBefore": 1692,
+      "trianglesAfter": 1014,
+      "runtimeMaterial": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y",
+      "textures": {
+        "basecolor": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-basecolor.png",
+        "orm": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-orm.png",
+        "normal": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Walnut | smoke and worn varnish / grain Y / floor",
+      "sourceBakeMaterial": "WD_SOURCE_walnut-smoke-and-worn-varnish-grain-y-floor",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.04817182570695877,
+        0.021219009533524513,
+        0.009721217676997185,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_walnut-smoke-and-worn-varnish-grain-y-floor",
+      "trianglesBefore": 188,
+      "trianglesAfter": 112,
+      "runtimeMaterial": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y-floor",
+      "textures": {
+        "basecolor": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-floor-basecolor.png",
+        "orm": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-floor-orm.png",
+        "normal": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-floor-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ],
+        "normal": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Walnut | smoke and worn varnish / grain Z",
+      "sourceBakeMaterial": "WD_SOURCE_walnut-smoke-and-worn-varnish-grain-z",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.04817182570695877,
+        0.021219009533524513,
+        0.009721217676997185,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_walnut-smoke-and-worn-varnish-grain-z",
+      "trianglesBefore": 7692,
+      "trianglesAfter": 4614,
+      "runtimeMaterial": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-z",
+      "textures": {
+        "basecolor": "textures-v2/walnut-smoke-and-worn-varnish-grain-z-basecolor.png",
+        "orm": "textures-v2/walnut-smoke-and-worn-varnish-grain-z-orm.png",
+        "normal": "textures-v2/walnut-smoke-and-worn-varnish-grain-z-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    {
+      "sourceMaterial": "Window | cold diffuse daylight",
+      "sourceBakeMaterial": "WD_SOURCE_window-cold-diffuse-daylight",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "roughness": 0.6,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": true,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_window-cold-diffuse-daylight",
+      "trianglesBefore": 12032,
+      "trianglesAfter": 7218,
+      "runtimeMaterial": "Workshop v2 PBR | window-cold-diffuse-daylight",
+      "textures": {
+        "basecolor": "textures/window-cold-diffuse-daylight-basecolor.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    }
+  ],
+  "texturesEmbedded": true,
+  "externalNetworkRequired": false,
+  "lighting": {
+    "mode": "dynamic runtime lighting; albedo contains no baked illumination",
+    "hints": [
+      {
+        "name": "Practical warm bulb",
+        "type": "POINT",
+        "position": [
+          -2.811224428163905,
+          3.6527314157810338,
+          -2.3265305506128846
+        ],
+        "sourceWatts": 65,
+        "scaledWatts": 27.14725345920682,
+        "colorLinear": [
+          1,
+          0.4969329833984375,
+          0.17144110798835754
+        ]
+      },
+      {
+        "name": "Shade downlight",
+        "type": "AREA",
+        "position": [
+          -2.811224428163905,
+          3.701200680272109,
+          -2.3265305506128846
+        ],
+        "sourceWatts": 210,
+        "scaledWatts": 87.70651117589894,
+        "colorLinear": [
+          1,
+          0.6514056324958801,
+          0.35153260827064514
+        ]
+      },
+      {
+        "name": "Practical warm bulb.001",
+        "type": "POINT",
+        "position": [
+          2.7465986394557826,
+          3.855656361508532,
+          -2.391156493401041
+        ],
+        "sourceWatts": 65,
+        "scaledWatts": 27.14725345920682,
+        "colorLinear": [
+          1,
+          0.4969329833984375,
+          0.17144110798835754
+        ]
+      },
+      {
+        "name": "Shade downlight.001",
+        "type": "AREA",
+        "position": [
+          2.7465986394557826,
+          3.908003512298169,
+          -2.391156493401041
+        ],
+        "sourceWatts": 210,
+        "scaledWatts": 87.70651117589894,
+        "colorLinear": [
+          1,
+          0.6514056324958801,
+          0.35153260827064514
+        ]
+      },
+      {
+        "name": "Practical warm bulb.002",
+        "type": "POINT",
+        "position": [
+          0,
+          5.088717889227835,
+          -4.136054483400722
+        ],
+        "sourceWatts": 65,
+        "scaledWatts": 27.14725345920682,
+        "colorLinear": [
+          1,
+          0.4969329833984375,
+          0.17144110798835754
+        ]
+      },
+      {
+        "name": "Shade downlight.002",
+        "type": "AREA",
+        "position": [
+          0,
+          5.129431997441921,
+          -4.136054483400722
+        ],
+        "sourceWatts": 210,
+        "scaledWatts": 87.70651117589894,
+        "colorLinear": [
+          1,
+          0.6514056324958801,
+          0.35153260827064514
+        ]
+      },
+      {
+        "name": "Practical warm bulb.003",
+        "type": "POINT",
+        "position": [
+          -5.428571182043375,
+          5.082255156276989,
+          -3.8775510204081636
+        ],
+        "sourceWatts": 65,
+        "scaledWatts": 27.14725345920682,
+        "colorLinear": [
+          1,
+          0.4969329833984375,
+          0.17144110798835754
+        ]
+      },
+      {
+        "name": "Shade downlight.003",
+        "type": "AREA",
+        "position": [
+          -5.428571182043375,
+          5.113275781384942,
+          -3.8775510204081636
+        ],
+        "sourceWatts": 210,
+        "scaledWatts": 87.70651117589894,
+        "colorLinear": [
+          1,
+          0.6514056324958801,
+          0.35153260827064514
+        ]
+      },
+      {
+        "name": "Background amber pool",
+        "type": "POINT",
+        "position": [
+          -5.170068027210885,
+          1.229261873945898,
+          -4.317006691783464
+        ],
+        "sourceWatts": 24,
+        "scaledWatts": 10.023601277245593,
+        "colorLinear": [
+          1,
+          0.4677838087081909,
+          0.11697066575288773
+        ]
+      },
+      {
+        "name": "Background amber pool.001",
+        "type": "POINT",
+        "position": [
+          -4.265306060816966,
+          1.229261873945898,
+          -4.317006691783464
+        ],
+        "sourceWatts": 24,
+        "scaledWatts": 10.023601277245593,
+        "colorLinear": [
+          1,
+          0.4677838087081909,
+          0.11697066575288773
+        ]
+      },
+      {
+        "name": "Background amber pool.002",
+        "type": "POINT",
+        "position": [
+          -1.680272047211524,
+          1.5523911256465783,
+          -4.317006691783464
+        ],
+        "sourceWatts": 24,
+        "scaledWatts": 10.023601277245593,
+        "colorLinear": [
+          1,
+          0.4677838087081909,
+          0.11697066575288773
+        ]
+      },
+      {
+        "name": "Background amber pool.003",
+        "type": "POINT",
+        "position": [
+          1.680272047211524,
+          1.5523911256465783,
+          -4.317006691783464
+        ],
+        "sourceWatts": 24,
+        "scaledWatts": 10.023601277245593,
+        "colorLinear": [
+          1,
+          0.4677838087081909,
+          0.11697066575288773
+        ]
+      },
+      {
+        "name": "Background amber pool.004",
+        "type": "POINT",
+        "position": [
+          4.265306060816966,
+          1.229261873945898,
+          -4.317006691783464
+        ],
+        "sourceWatts": 24,
+        "scaledWatts": 10.023601277245593,
+        "colorLinear": [
+          1,
+          0.4677838087081909,
+          0.11697066575288773
+        ]
+      },
+      {
+        "name": "Background amber pool.005",
+        "type": "POINT",
+        "position": [
+          5.170068027210885,
+          1.229261873945898,
+          -4.317006691783464
+        ],
+        "sourceWatts": 24,
+        "scaledWatts": 10.023601277245593,
+        "colorLinear": [
+          1,
+          0.4677838087081909,
+          0.11697066575288773
+        ]
+      },
+      {
+        "name": "Key | warm workshop softbox",
+        "type": "AREA",
+        "position": [
+          -2.261904761904762,
+          4.622119170883075,
+          1.6156462585034015
+        ],
+        "sourceWatts": 650,
+        "scaledWatts": 271.47253459206814,
+        "colorLinear": [
+          1,
+          0.7083757519721985,
+          0.41788506507873535
+        ]
+      },
+      {
+        "name": "Left tall window | blue bounce",
+        "type": "AREA",
+        "position": [
+          -3.0051021024483404,
+          3.717357204489157,
+          -4.55612257224362
+        ],
+        "sourceWatts": 1100,
+        "scaledWatts": 459.41505854042305,
+        "colorLinear": [
+          0.47353148460388184,
+          0.672443151473999,
+          0.8796223998069763
+        ]
+      },
+      {
+        "name": "Right tall window | blue rim",
+        "type": "AREA",
+        "position": [
+          3.0051021024483404,
+          3.9758606674817143,
+          -4.55612257224362
+        ],
+        "sourceWatts": 1450,
+        "scaledWatts": 605.5925771669213,
+        "colorLinear": [
+          0.5088813304901123,
+          0.6938717365264893,
+          0.8713670969009399
+        ]
+      },
+      {
+        "name": "Right table glancing reflection",
+        "type": "AREA",
+        "position": [
+          3.8775510204081636,
+          2.1663367346938776,
+          -0.9693877551020409
+        ],
+        "sourceWatts": 580,
+        "scaledWatts": 242.23703086676852,
+        "colorLinear": [
+          1,
+          0.6583748459815979,
+          0.35153260827064514
+        ]
+      },
+      {
+        "name": "Soft front return",
+        "type": "AREA",
+        "position": [
+          0,
+          3.1357244897959182,
+          5.170068027210885
+        ],
+        "sourceWatts": 130,
+        "scaledWatts": 54.29450691841364,
+        "colorLinear": [
+          0.577580451965332,
+          0.7083757519721985,
+          0.6938717365264893
+        ]
+      },
+      {
+        "name": "Back banner wash",
+        "type": "AREA",
+        "position": [
+          -0.6462585034013606,
+          4.557493074014885,
+          -3.0374148427223675
+        ],
+        "sourceWatts": 160,
+        "scaledWatts": 66.82400851497063,
+        "colorLinear": [
+          1,
+          0.6307571530342102,
+          0.3277781009674072
+        ]
+      },
+      {
+        "name": "Left bench oil lamp warm practical illumination",
+        "type": "POINT",
+        "position": [
+          -2.6367346445719404,
+          0.9481394619455144,
+          -4.116666592708251
+        ],
+        "sourceWatts": 16,
+        "scaledWatts": 6.6824008514970625,
+        "colorLinear": [
+          1,
+          0.550000011920929,
+          0.23999999463558197
+        ]
+      },
+      {
+        "name": "Right bench oil lamp warm practical illumination",
+        "type": "POINT",
+        "position": [
+          2.52040822489732,
+          0.9481394619455144,
+          -4.110204167917472
+        ],
+        "sourceWatts": 16,
+        "scaledWatts": 6.6824008514970625,
+        "colorLinear": [
+          1,
+          0.550000011920929,
+          0.23999999463558197
+        ]
+      }
+    ],
+    "note": "Emissive surfaces do not light a raster scene without runtime lights. No cameras or lights are exported."
+  },
+  "physics": {
+    "staticWaterRemoved": true,
+    "collisionProxies": false,
+    "tableTopMustUseRuntimePhysics": true,
+    "note": "Do not derive new simulation collision from the decorative GLB."
+  },
+  "limitations": [
+    "Mesh geometry and procedural material detail are simplified and baked for runtime.",
+    "No Cycles lighting, volume fog, DOF or static fluid is exported.",
+    "Plain glTF 2.0 without Draco/Meshopt/KTX2; runtime loader handles embedded PNG metallic-roughness and tangent normals."
+  ],
+  "export": {
+    "blenderVersion": "5.2.0 LTS",
+    "pipeline": "2026-10-17-runtime-v2-rotor-atlas-1",
+    "fileBytes": 40565764,
+    "seconds": 8.574632167816162
+  },
+  "textureBudget": {
+    "maxFileMiB": 64,
+    "maxRGBA8WithMipsMiB": 200,
+    "policy": "Reuse unchanged v1 maps; bake changed channels only. No compression decoder required.",
+    "fileMiB": 38.686527252197266,
+    "decodedRGBA8WithMipsMiBUniqueImages": 127.16666666666667,
+    "decodedRGBA8WithMipsMiBTextureObjects": 132.5
+  },
+  "validation": {
+    "parser": "verification-v2.json",
+    "reimport": "reimport-verification-v2.json",
+    "preview": "preview-glb-v2-eevee.png",
+    "runtimeIntegration": "Principal validates separately",
+    "completedAt": "2026-10-18T02:43:19.034Z",
+    "glbSha256": "cec471597e48f5df50d23a2b7c894d01c44bce4402c607d6b001e7dd8d8d99b5",
+    "visuallyInspected": true,
+    "fanPreviews": [
+      "preview-fan-v2-000.png",
+      "preview-fan-v2-090.png"
+    ],
+    "stageTopMeasured": 0.3244612216949463,
+    "boundsMaxError": 0,
+    "activeVolumeClear": true,
+    "editable": {
+      "path": "output/blender/WaterDuel_Atelier_v2.blend",
+      "sha256": "d9c9f0bdbd58bc59c1ab1ee16422ac8ff9b7315c8ecd7436795248d47fcc2117",
+      "bytes": 55021547,
+      "verification": "output/blender/verification-editable-v2.json"
+    }
+  },
+  "ready": true,
+  "fanRotor": {
+    "name": "Workshop_FanRotor",
+    "pivot": [
+      -4.200680255889893,
+      1.7139557600021362,
+      -2.226360559463501
+    ],
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "angularSpeed": 7.2,
+    "angularSpeedUnit": "radians/second",
+    "coordinateSpace": "runtime world",
+    "sourceObjects": [
+      "Fan swept brass blade 01",
+      "Fan swept brass blade 02",
+      "Fan swept brass blade 03",
+      "Fan swept brass blade 04",
+      "Fan swept brass blade 05"
+    ],
+    "expectedRadiusRange": [
+      0.64,
+      0.72
+    ],
+    "triangles": 500,
+    "restTransform": "translation(pivot)",
+    "motion": "translation(pivot) * rotationZ(angularSpeed*time)",
+    "staticComponents": "Cage, badge, motor, yoke and pedestal remain static; no duplicated static blades."
+  },
+  "wear": {
+    "report": "wear-report-v2.json",
+    "revision": "workshop-wear-v2.2",
+    "changedMaterials": 21,
+    "geometryDisplacement": false,
+    "glassProtected": true,
+    "illuminationBaked": false
+  }
+}

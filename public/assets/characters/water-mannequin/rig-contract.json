@@ -1,0 +1,365 @@
+{
+  "asset": "water-mannequin",
+  "source": "docs/assets/characters/water-mannequin.blend",
+  "rig": "WD_Mannequin_Rig",
+  "units": "metres; authored character height 2.884956, scale to runtime deliberately",
+  "source_axes": {
+    "up": "+Z",
+    "forward": "-Y",
+    "origin": "ground midpoint between feet"
+  },
+  "glb_axes": {
+    "up": "+Y",
+    "forward": "+Z",
+    "conversion": "(x,y,z) Blender becomes (x,z,-y) glTF"
+  },
+  "bind_pose": "Artist mannequin attachment: left image arm raised, other forearm across waist; legs mostly straight. Fencing pose requires retargeting.",
+  "weighting": "Rigid weight 1.0 per vertex to one bone; no organic blending",
+  "animations": [],
+  "bones": [
+    {
+      "name": "root",
+      "parent": null,
+      "head_source": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tail_source": [
+        0.0,
+        0.0,
+        0.2
+      ]
+    },
+    {
+      "name": "pelvis",
+      "parent": "root",
+      "head_source": [
+        0.0,
+        0.0,
+        1.1900001
+      ],
+      "tail_source": [
+        0.0,
+        0.0,
+        1.4
+      ]
+    },
+    {
+      "name": "spine",
+      "parent": "pelvis",
+      "head_source": [
+        0.0,
+        0.0,
+        1.4
+      ],
+      "tail_source": [
+        0.0,
+        0.0,
+        1.6
+      ]
+    },
+    {
+      "name": "chest",
+      "parent": "spine",
+      "head_source": [
+        0.0,
+        0.0,
+        1.6
+      ],
+      "tail_source": [
+        0.0,
+        0.0,
+        1.95
+      ]
+    },
+    {
+      "name": "neck",
+      "parent": "chest",
+      "head_source": [
+        0.0,
+        0.0,
+        1.95
+      ],
+      "tail_source": [
+        0.0,
+        0.0,
+        2.0999999
+      ]
+    },
+    {
+      "name": "head",
+      "parent": "neck",
+      "head_source": [
+        0.0,
+        0.0,
+        2.0999999
+      ],
+      "tail_source": [
+        0.0,
+        0.0,
+        2.72
+      ]
+    },
+    {
+      "name": "upper_arm.L",
+      "parent": "chest",
+      "head_source": [
+        -0.275,
+        0.0,
+        1.9
+      ],
+      "tail_source": [
+        -0.76,
+        -0.015,
+        1.88
+      ]
+    },
+    {
+      "name": "forearm.L",
+      "parent": "upper_arm.L",
+      "head_source": [
+        -0.76,
+        -0.015,
+        1.88
+      ],
+      "tail_source": [
+        -0.84,
+        -0.025,
+        2.3399999
+      ]
+    },
+    {
+      "name": "hand.L",
+      "parent": "forearm.L",
+      "head_source": [
+        -0.84,
+        -0.025,
+        2.3399999
+      ],
+      "tail_source": [
+        -1.025,
+        -0.025,
+        2.4300001
+      ]
+    },
+    {
+      "name": "upper_arm.R",
+      "parent": "chest",
+      "head_source": [
+        0.275,
+        0.0,
+        1.9
+      ],
+      "tail_source": [
+        0.385,
+        -0.025,
+        1.4299999
+      ]
+    },
+    {
+      "name": "forearm.R",
+      "parent": "upper_arm.R",
+      "head_source": [
+        0.385,
+        -0.025,
+        1.4299999
+      ],
+      "tail_source": [
+        -0.035,
+        -0.2,
+        1.38
+      ]
+    },
+    {
+      "name": "hand.R",
+      "parent": "forearm.R",
+      "head_source": [
+        -0.035,
+        -0.2,
+        1.38
+      ],
+      "tail_source": [
+        -0.195,
+        -0.21,
+        1.27
+      ]
+    },
+    {
+      "name": "thigh.L",
+      "parent": "pelvis",
+      "head_source": [
+        -0.11,
+        0.0,
+        1.1900001
+      ],
+      "tail_source": [
+        -0.16,
+        -0.005,
+        0.665
+      ]
+    },
+    {
+      "name": "shin.L",
+      "parent": "thigh.L",
+      "head_source": [
+        -0.16,
+        -0.005,
+        0.665
+      ],
+      "tail_source": [
+        -0.24,
+        -0.015,
+        0.115
+      ]
+    },
+    {
+      "name": "foot.L",
+      "parent": "shin.L",
+      "head_source": [
+        -0.24,
+        -0.015,
+        0.115
+      ],
+      "tail_source": [
+        -0.24,
+        -0.19,
+        0.065
+      ]
+    },
+    {
+      "name": "thigh.R",
+      "parent": "pelvis",
+      "head_source": [
+        0.11,
+        0.0,
+        1.1900001
+      ],
+      "tail_source": [
+        0.18,
+        0.02,
+        0.665
+      ]
+    },
+    {
+      "name": "shin.R",
+      "parent": "thigh.R",
+      "head_source": [
+        0.18,
+        0.02,
+        0.665
+      ],
+      "tail_source": [
+        0.25,
+        0.005,
+        0.115
+      ]
+    },
+    {
+      "name": "foot.R",
+      "parent": "shin.R",
+      "head_source": [
+        0.25,
+        0.005,
+        0.115
+      ],
+      "tail_source": [
+        0.25,
+        -0.17,
+        0.065
+      ]
+    }
+  ],
+  "sockets": [
+    {
+      "name": "Socket_MainHand",
+      "bone": "hand.R",
+      "position_source": [
+        -0.17,
+        -0.235,
+        1.3
+      ],
+      "position_glb": [
+        -0.17,
+        1.3,
+        0.235
+      ]
+    },
+    {
+      "name": "Socket_SecondaryHand",
+      "bone": "hand.L",
+      "position_source": [
+        -1.0000001,
+        -0.0249999,
+        2.4199998
+      ],
+      "position_glb": [
+        -1.0000001,
+        2.4199998,
+        0.0249999
+      ]
+    },
+    {
+      "name": "Socket_Neck",
+      "bone": "neck",
+      "position_source": [
+        0.0,
+        0.0,
+        2.0999999
+      ],
+      "position_glb": [
+        0.0,
+        2.0999999,
+        -0.0
+      ]
+    },
+    {
+      "name": "Socket_Foot_L",
+      "bone": "foot.L",
+      "position_source": [
+        -0.24,
+        -0.08,
+        -0.0
+      ],
+      "position_glb": [
+        -0.24,
+        -0.0,
+        0.08
+      ]
+    },
+    {
+      "name": "Socket_Foot_R",
+      "bone": "foot.R",
+      "position_source": [
+        0.25,
+        -0.06,
+        -0.0
+      ],
+      "position_glb": [
+        0.25,
+        -0.0,
+        0.06
+      ]
+    }
+  ],
+  "equipment": {
+    "optional_glb_node_prefix": "Preview_Rapier_",
+    "source_object_prefixes": [
+      "Rapier_",
+      "Leather_Grip_Wrap_"
+    ],
+    "note": "Preview weapon is an example. Hide or omit these nodes when attaching equipment from Items."
+  },
+  "physics": {
+    "water": "Static closed mesh, separate from latex. No fluid solver or mass-conservation claim.",
+    "colliders": "Not authored",
+    "burst": "Separate frozen art state; no animation or physical response"
+  },
+  "runtime_integration": false,
+  "remaining_work": [
+    "Retarget into game rig and fencing stance",
+    "Runtime GLB loader and material support",
+    "Dynamic latex/water rupture integration",
+    "Distinct boss silhouette if requested"
+  ]
+}

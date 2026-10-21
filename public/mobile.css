@@ -1,0 +1,105 @@
+/* Full-scene handheld presentation. Controller behavior and menu IDs are shared. */
+:root {color-scheme:dark;--mobile-pad:clamp(110px,29dvh,150px);--mobile-gap:12px}
+html,body {width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:#07191a}
+body {position:fixed;inset:0;background-image:none}
+#gameCanvas {position:fixed;inset:0;display:block;width:100%;height:100dvh;touch-action:none}
+#joinCodes {display:none!important}
+.controller-shell {
+  position:fixed;inset:0;z-index:2;display:block;width:100%;max-width:none;height:100dvh;min-height:0;
+  margin:0;padding:0;border:0;background:transparent;box-shadow:none;pointer-events:none;
+}
+#menuBtn {
+  position:absolute;top:max(var(--mobile-gap),env(safe-area-inset-top));right:max(var(--mobile-gap),env(safe-area-inset-right));
+  display:grid;place-items:center;width:44px;height:44px;min-width:44px;min-height:44px;padding:0;
+  border:1px solid #b69a6099;border-radius:8px;background:#10201eb8;color:#f5efdc;font-size:24px;line-height:1;pointer-events:auto;
+}
+#menuBtn:disabled {opacity:.65}
+.play-controls {position:static;pointer-events:none}
+.pads {display:contents}
+.pads .pad-group {position:absolute;bottom:max(var(--mobile-gap),env(safe-area-inset-bottom));width:var(--mobile-pad);height:var(--mobile-pad)}
+.pads .pad-group:first-child {left:max(var(--mobile-gap),env(safe-area-inset-left))}
+.pads .pad-group:last-child {right:max(var(--mobile-gap),env(safe-area-inset-right))}
+.pads .pad-frame {
+  width:100%;height:100%;min-height:0;border:1px solid #b69a6080;border-radius:50%;background:#10201e38;
+  background-image:none;box-shadow:inset 0 0 0 4px #07191a12;pointer-events:auto;
+}
+.pads .pad-frame:before {inset:9px;border:1px solid #d4c39133;background:#10201e12;background-image:none;box-shadow:none}
+.pads .pad-frame:after {display:none}
+.pads .pad-frame.is-active {border-color:#e1c992cc;background:#10201e55;box-shadow:inset 0 0 0 3px #8cddc21a}
+.pads .pad-guide {opacity:.45}
+.pads .pad-ring {border-color:#d5c28a55;box-shadow:none}
+.pads .pad-ring:before {opacity:.35}
+.pads .pad-knob {width:44px;height:44px;border:2px solid #c9af7999;background:#253b32a6;background-image:none;box-shadow:inset 0 1px #f5efdc30,0 2px 5px #0003}
+.pads .pad-knob:before {width:26px;height:26px;border-color:#e1c99255;box-shadow:none}
+.pads .pad-knob span {width:6px;height:6px;opacity:.8;box-shadow:none}
+.pads .pad-centre {font-size:19px;opacity:.25}
+.pads .pad-heading,.pads .pad-directions,.pads .pad-value,.pads .movement-direction {
+  position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;
+}
+.has-result .pad-group {opacity:.2}
+.mobile-head-panel {position:absolute;bottom:max(var(--mobile-gap),env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:104px;pointer-events:auto}
+.mobile-head-panel .head-dodge {display:block}
+.mobile-head-panel .head-pad {width:104px;height:104px;min-height:0;border:1px solid #b69a6080;border-radius:50%;background:#10201e38;background-image:none;box-shadow:none}
+.mobile-head-panel .head-pad:before {inset:8px;background:#10201e12;background-image:none;box-shadow:none}
+.mobile-head-panel .head-pad:after {display:none}
+.mobile-head-panel .head-pad .pad-knob {width:36px;height:36px;background:#253b32a6;background-image:none;border-width:2px;box-shadow:none}
+.mobile-head-panel .head-dodge h2,.mobile-head-panel .head-dodge p,.mobile-head-panel .pad-value {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.mobile-head-panel .pad-ring {box-shadow:none}.mobile-head-panel .pad-ring:before {opacity:.35}
+.has-result~.mobile-head-panel {opacity:.2}
+.controller-shell>.renderer-warning,.controller-shell>.assets-status,.controller-shell>.controller-warning {
+  position:absolute;top:max(var(--mobile-gap),env(safe-area-inset-top));left:max(var(--mobile-gap),env(safe-area-inset-left));
+  width:max-content;max-width:min(390px,calc(100vw - 88px - env(safe-area-inset-left) - env(safe-area-inset-right)));
+  max-height:30dvh;overflow:auto;padding:8px 10px;font-size:11px;line-height:1.4;background:#10201ee8;border-color:#b69a6080;pointer-events:auto;
+}
+.controller-shell>.controller-warning {top:calc(max(var(--mobile-gap),env(safe-area-inset-top)) + 48px)}
+.controller-shell>.play-objective {display:none}
+.portrait-hint {display:none}
+.match-result {
+  position:fixed;z-index:4;top:50%;left:50%;right:auto;transform:translate(-50%,-50%);
+  width:min(390px,calc(100vw - 32px));max-height:calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  padding:16px 20px;border-width:1px;background:#14251ff2;background-image:none;box-shadow:0 6px 24px #0005;pointer-events:auto;
+}
+.match-result h2 {font-size:24px}.result-action {min-height:48px;font-size:16px}
+.mobile-menu {
+  position:fixed;inset:0 0 0 auto;width:min(440px,100vw);height:100dvh;max-width:100vw;max-height:100dvh;margin:0;
+  border:0;border-left:1px solid var(--brass);border-radius:0;background:#14251ff5;box-shadow:-8px 0 24px #0004;
+}
+.mobile-menu::backdrop {background:#07191a70}
+.mobile-menu[open] {inset:0 0 0 auto}
+.mobile-menu .menu-top {padding:max(10px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) 10px 14px;gap:10px}
+.mobile-menu .menu-top h2 {font-size:20px}.mobile-menu .menu-top small {font-size:8px}
+.mobile-menu .menu-back {min-width:72px;min-height:44px;padding:8px;font-size:11px}
+.mobile-menu .menu-content {flex:1;gap:12px;padding:12px max(14px,env(safe-area-inset-right)) 16px max(14px,env(safe-area-inset-left));scrollbar-width:thin}
+.mobile-menu .menu-section {padding:12px;gap:10px}.mobile-menu .menu-grid {gap:12px}
+.mobile-menu .menu-section h3 {font-size:16px}
+.mobile-menu a {color:var(--acc);text-underline-offset:3px}
+.mobile-menu .menu-play-dock {padding:10px max(14px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) 14px}
+.mobile-menu .menu-play-dock button {min-height:44px;padding:9px 8px;font-size:11px}
+.mobile-menu .menu-play-dock .menu-feedback {font-size:11px}
+.mobile-overview {display:grid;gap:12px}
+.mobile-overview .controller-top {display:flex;grid-column:auto;grid-row:auto;padding:0 0 10px;border-bottom:1px solid var(--border)}
+.mobile-overview .brand {font-size:17px}.mobile-overview .brand-icon,.mobile-overview .brand small {display:none}
+.mobile-overview .connection-indicator {max-width:130px;font-size:9px}
+.mobile-overview .seat-info {display:flex}.mobile-overview .seat-info h1 {font-size:19px}
+.mobile-overview .seat-number {width:40px;height:42px;font-size:21px}
+.mobile-overview .seat-symbol {font-size:25px}
+.mobile-overview .match-strip {display:flex;grid-column:auto;grid-row:auto}
+.mobile-menu .auto-defense {min-height:48px;padding:8px 10px}
+.mobile-menu .control-advanced {padding:0 10px}.mobile-menu .control-advanced[open] {padding-bottom:12px}
+.mobile-menu .control-advanced>summary,.mobile-help>summary {min-height:44px;padding:12px 0;font-size:12px;cursor:pointer}
+.mobile-menu .head-pad {width:min(200px,100%);height:130px;min-height:130px}
+.mobile-menu .controller-bottom {gap:8px}.mobile-menu .sensor-button {min-height:44px}
+.mobile-help {border:1px solid var(--border);border-radius:4px;padding:0 10px;background:#17251e}
+.mobile-help[open] {padding-bottom:12px}.mobile-help .control-tip {display:block;text-align:left;font-size:12px}
+.mobile-help p+p {margin-top:10px}
+@media(max-width:440px){.mobile-menu .menu-grid {grid-template-columns:minmax(0,1fr)}}
+@media(orientation:portrait){
+  .mobile-head-panel {bottom:calc(max(var(--mobile-gap),env(safe-area-inset-bottom)) + var(--mobile-pad) + 12px)}
+  .portrait-hint {position:absolute;display:block;top:calc(max(var(--mobile-gap),env(safe-area-inset-top)) + 10px);left:max(var(--mobile-gap),env(safe-area-inset-left));margin:0;padding:5px 8px;border-radius:4px;background:#10201e88;color:#f5efdc;font-size:10px;line-height:1.4}
+  .controller-shell:has(>.assets-status:not([hidden])) .portrait-hint,.controller-shell:has(>.renderer-warning:not([hidden])) .portrait-hint {display:none}
+}
+@media(orientation:landscape) and (max-height:350px){
+  :root {--mobile-gap:8px;--mobile-pad:110px}
+  .mobile-menu .menu-top {padding-top:max(6px,env(safe-area-inset-top));padding-bottom:6px}
+  .mobile-menu .menu-top h2 {font-size:18px}.match-result {padding:12px 16px}
+}

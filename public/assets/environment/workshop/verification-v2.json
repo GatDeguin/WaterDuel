@@ -1,0 +1,2917 @@
+{
+  "version": 2,
+  "errors": [],
+  "glb": {
+    "ok": true,
+    "format": "glTF 2.0 / GLB",
+    "selfContained": true,
+    "staticGeometry": true,
+    "bytes": 40565764,
+    "sha256": "cec471597e48f5df50d23a2b7c894d01c44bce4402c607d6b001e7dd8d8d99b5",
+    "scene": 0,
+    "meshes": 36,
+    "nodes": 36,
+    "activeNodes": 36,
+    "meshInstances": [
+      {
+        "node": 0,
+        "name": "Workshop_blackened-iron-worn-workshop-steel",
+        "mesh": 0,
+        "triangles": 37938,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -6.643537998199463,
+            -0.4231555461883545,
+            -4.917724132537842
+          ],
+          "max": [
+            6.643537998199463,
+            5.940486907958984,
+            1.9444395303726196
+          ],
+          "size": [
+            13.287075996398926,
+            6.363642454147339,
+            6.862163662910461
+          ]
+        }
+      },
+      {
+        "node": 1,
+        "name": "Workshop_bottle-glass-green-crown-glass",
+        "mesh": 1,
+        "triangles": 13736,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.305782318115234,
+            -0.28253358602523804,
+            -4.310544013977051
+          ],
+          "max": [
+            5.548129558563232,
+            1.3240171670913696,
+            1.770748257637024
+          ],
+          "size": [
+            10.853911876678467,
+            1.6065507531166077,
+            6.081292271614075
+          ]
+        }
+      },
+      {
+        "node": 2,
+        "name": "Workshop_brick-0",
+        "mesh": 2,
+        "triangles": 6654,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -6.903656482696533,
+            -0.38703060150146484,
+            -5.147449493408203
+          ],
+          "max": [
+            6.994132995605469,
+            0.7193639874458313,
+            -5.037585258483887
+          ],
+          "size": [
+            13.897789478302002,
+            1.1063945889472961,
+            0.1098642349243164
+          ]
+        }
+      },
+      {
+        "node": 3,
+        "name": "Workshop_brick-1",
+        "mesh": 3,
+        "triangles": 6768,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -6.902881622314453,
+            -0.38703060150146484,
+            -5.147449493408203
+          ],
+          "max": [
+            7.1880106925964355,
+            0.7193639874458313,
+            -5.037585258483887
+          ],
+          "size": [
+            14.090892314910889,
+            1.1063945889472961,
+            0.1098642349243164
+          ]
+        }
+      },
+      {
+        "node": 4,
+        "name": "Workshop_brick-2",
+        "mesh": 4,
+        "triangles": 5188,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -6.902881622314453,
+            -0.38703060150146484,
+            -5.147449493408203
+          ],
+          "max": [
+            7.1880106925964355,
+            0.7193639874458313,
+            -5.037585258483887
+          ],
+          "size": [
+            14.090892314910889,
+            1.1063945889472961,
+            0.1098642349243164
+          ]
+        }
+      },
+      {
+        "node": 5,
+        "name": "Workshop_brick-3",
+        "mesh": 5,
+        "triangles": 6428,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -7.0975341796875,
+            -0.38703060150146484,
+            -5.147449493408203
+          ],
+          "max": [
+            6.994132995605469,
+            0.7193639874458313,
+            -5.037585258483887
+          ],
+          "size": [
+            14.091667175292969,
+            1.1063945889472961,
+            0.1098642349243164
+          ]
+        }
+      },
+      {
+        "node": 6,
+        "name": "Workshop_canvas-waterduel-deep-forest",
+        "mesh": 6,
+        "triangles": 1352,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.984464168548584,
+            0.9193673729896545,
+            -4.762925148010254
+          ],
+          "max": [
+            5.789004802703857,
+            5.920478343963623,
+            -4.5431976318359375
+          ],
+          "size": [
+            11.773468971252441,
+            5.0011109709739685,
+            0.2197275161743164
+          ]
+        }
+      },
+      {
+        "node": 7,
+        "name": "Workshop_carbon-black",
+        "mesh": 7,
+        "triangles": 10316,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.4395575523376465,
+            0.3260544538497925,
+            -5.076360702514648
+          ],
+          "max": [
+            4.605238437652588,
+            6.302391052246094,
+            1.6366437673568726
+          ],
+          "size": [
+            10.044795989990234,
+            5.976336598396301,
+            6.713004469871521
+          ]
+        }
+      },
+      {
+        "node": 8,
+        "name": "Workshop_copper-oxidized-plumbing",
+        "mesh": 8,
+        "triangles": 9196,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -6.559537410736084,
+            -0.2248345911502838,
+            -4.793299198150635
+          ],
+          "max": [
+            6.559537410736084,
+            5.499738693237305,
+            -2.8629252910614014
+          ],
+          "size": [
+            13.119074821472168,
+            5.7245732843875885,
+            1.9303739070892334
+          ]
+        }
+      },
+      {
+        "node": 9,
+        "name": "Workshop_FanRotor",
+        "mesh": 9,
+        "triangles": 500,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -4.880550861358643,
+            1.0464041233062744,
+            -2.298741579055786
+          ],
+          "max": [
+            -3.6056132316589355,
+            2.360581398010254,
+            -2.153979539871216
+          ],
+          "size": [
+            1.274937629699707,
+            1.3141772747039795,
+            0.1447620391845703
+          ]
+        }
+      },
+      {
+        "node": 10,
+        "name": "Workshop_forest-green-woven-cotton-velvet",
+        "mesh": 10,
+        "triangles": 27324,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.732354164123535,
+            -0.4283098876476288,
+            -4.834080696105957
+          ],
+          "max": [
+            5.906865119934082,
+            5.223178863525391,
+            1.8796478509902954
+          ],
+          "size": [
+            11.639219284057617,
+            5.651488751173019,
+            6.713728547096252
+          ]
+        }
+      },
+      {
+        "node": 11,
+        "name": "Workshop_gold-thread-brushed-antique-gold",
+        "mesh": 11,
+        "triangles": 16899,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.727365016937256,
+            -0.3896612524986267,
+            -4.82509708404541
+          ],
+          "max": [
+            5.901853561401367,
+            5.223175048828125,
+            1.8676373958587646
+          ],
+          "size": [
+            11.629218578338623,
+            5.612836301326752,
+            6.692734479904175
+          ]
+        }
+      },
+      {
+        "node": 12,
+        "name": "Workshop_ivy-pale-leaf-veins",
+        "mesh": 12,
+        "triangles": 8400,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.923785209655762,
+            0.16231176257133484,
+            -4.996045112609863
+          ],
+          "max": [
+            5.830852031707764,
+            5.821876049041748,
+            -0.1508602350950241
+          ],
+          "size": [
+            11.754637241363525,
+            5.659564286470413,
+            4.845184877514839
+          ]
+        }
+      },
+      {
+        "node": 13,
+        "name": "Workshop_ivy-waxy-variegated-deep-green",
+        "mesh": 13,
+        "triangles": 28000,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.922358989715576,
+            0.15939120948314667,
+            -5.0215983390808105
+          ],
+          "max": [
+            5.829579830169678,
+            5.832277297973633,
+            -0.15540742874145508
+          ],
+          "size": [
+            11.751938819885254,
+            5.672886088490486,
+            4.8661909103393555
+          ]
+        }
+      },
+      {
+        "node": 14,
+        "name": "Workshop_lamp-warm-tungsten-filament",
+        "mesh": 14,
+        "triangles": 6392,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.493196964263916,
+            0.8815749287605286,
+            -4.410714626312256
+          ],
+          "max": [
+            5.212066173553467,
+            5.34043550491333,
+            -2.2619049549102783
+          ],
+          "size": [
+            10.705263137817383,
+            4.4588605761528015,
+            2.1488096714019775
+          ]
+        }
+      },
+      {
+        "node": 15,
+        "name": "Workshop_leather-oxblood-oil-and-tooling",
+        "mesh": 15,
+        "triangles": 5048,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -6.178301811218262,
+            -0.0671326220035553,
+            -4.762744426727295
+          ],
+          "max": [
+            6.371955394744873,
+            5.922196388244629,
+            -2.1661293506622314
+          ],
+          "size": [
+            12.550257205963135,
+            5.989329010248184,
+            2.5966150760650635
+          ]
+        }
+      },
+      {
+        "node": 16,
+        "name": "Workshop_mint-enamel",
+        "mesh": 16,
+        "triangles": 1440,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.618844032287598,
+            -0.26902177929878235,
+            -4.8198466300964355
+          ],
+          "max": [
+            5.5037970542907715,
+            4.635874271392822,
+            1.8615962266921997
+          ],
+          "size": [
+            11.12264108657837,
+            4.904896050691605,
+            6.681442856788635
+          ]
+        }
+      },
+      {
+        "node": 17,
+        "name": "Workshop_oak-aged-endgrain-and-open-pores",
+        "mesh": 17,
+        "triangles": 13764,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -6.462148189544678,
+            -0.3603183925151825,
+            -4.888584136962891
+          ],
+          "max": [
+            6.462148189544678,
+            5.529751300811768,
+            1.930394172668457
+          ],
+          "size": [
+            12.924296379089355,
+            5.89006969332695,
+            6.818978309631348
+          ]
+        }
+      },
+      {
+        "node": 18,
+        "name": "Workshop_oak-aged-endgrain-and-open-pores-grain-y",
+        "mesh": 18,
+        "triangles": 1578,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.376871109008789,
+            -0.30856218934059143,
+            -2.5462586879730225
+          ],
+          "max": [
+            4.58005428314209,
+            1.0515408515930176,
+            1.9061917066574097
+          ],
+          "size": [
+            9.956925392150879,
+            1.360103040933609,
+            4.452450394630432
+          ]
+        }
+      },
+      {
+        "node": 19,
+        "name": "Workshop_oak-aged-endgrain-and-open-pores-grain-z",
+        "mesh": 19,
+        "triangles": 1584,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.531972885131836,
+            -0.4181918799877167,
+            -3.421938896179199
+          ],
+          "max": [
+            5.564286231994629,
+            0.9352144002914429,
+            1.7756315469741821
+          ],
+          "size": [
+            11.096259117126465,
+            1.3534062802791595,
+            5.197570443153381
+          ]
+        }
+      },
+      {
+        "node": 20,
+        "name": "Workshop_paper-warm-vellum",
+        "mesh": 20,
+        "triangles": 7516,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -2.331493616104126,
+            0.6789740324020386,
+            -4.815901279449463
+          ],
+          "max": [
+            5.283168792724609,
+            3.394272804260254,
+            -3.867342710494995
+          ],
+          "size": [
+            7.614662408828735,
+            2.7152987718582153,
+            0.9485585689544678
+          ]
+        }
+      },
+      {
+        "node": 21,
+        "name": "Workshop_stage-wet-oak-1",
+        "mesh": 21,
+        "triangles": 1278,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -3.8000001907348633,
+            0.27161914110183716,
+            -1.477993369102478
+          ],
+          "max": [
+            3.8000001907348633,
+            0.32423973083496094,
+            1.6783335208892822
+          ],
+          "size": [
+            7.600000381469727,
+            0.05262058973312378,
+            3.1563268899917603
+          ]
+        }
+      },
+      {
+        "node": 22,
+        "name": "Workshop_stage-wet-oak-2",
+        "mesh": 22,
+        "triangles": 1278,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -3.8000001907348633,
+            0.271611750125885,
+            -1.6757484674453735
+          ],
+          "max": [
+            3.8000001907348633,
+            0.3244612216949463,
+            1.6783335208892822
+          ],
+          "size": [
+            7.600000381469727,
+            0.05284947156906128,
+            3.3540819883346558
+          ]
+        }
+      },
+      {
+        "node": 23,
+        "name": "Workshop_stage-wet-oak-3",
+        "mesh": 23,
+        "triangles": 798,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -3.8000001907348633,
+            0.27170467376708984,
+            -0.884727954864502
+          ],
+          "max": [
+            3.8000001907348633,
+            0.3240625262260437,
+            1.2828232049942017
+          ],
+          "size": [
+            7.600000381469727,
+            0.05235785245895386,
+            2.1675511598587036
+          ]
+        }
+      },
+      {
+        "node": 24,
+        "name": "Workshop_stage-wet-oak-4",
+        "mesh": 24,
+        "triangles": 1118,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -3.8000001907348633,
+            0.2716010808944702,
+            -1.6757484674453735
+          ],
+          "max": [
+            3.8000001907348633,
+            0.3244270086288452,
+            1.0850679874420166
+          ],
+          "size": [
+            7.600000381469727,
+            0.052825927734375,
+            2.76081645488739
+          ]
+        }
+      },
+      {
+        "node": 25,
+        "name": "Workshop_stage-wet-oak-5",
+        "mesh": 25,
+        "triangles": 958,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -3.8000001907348633,
+            0.2717739939689636,
+            -1.477993369102478
+          ],
+          "max": [
+            3.8000001907348633,
+            0.3244604468345642,
+            1.2828232049942017
+          ],
+          "size": [
+            7.600000381469727,
+            0.052686452865600586,
+            2.7608165740966797
+          ]
+        }
+      },
+      {
+        "node": 26,
+        "name": "Workshop_StaticBrass",
+        "mesh": 26,
+        "triangles": 74314,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -6.619409561157227,
+            -0.22320406138896942,
+            -4.8711957931518555
+          ],
+          "max": [
+            6.619409561157227,
+            5.825783729553223,
+            1.8877352476119995
+          ],
+          "size": [
+            13.238819122314453,
+            6.048987790942192,
+            6.758931040763855
+          ]
+        }
+      },
+      {
+        "node": 27,
+        "name": "Workshop_steel-satin-machined-surface",
+        "mesh": 27,
+        "triangles": 4280,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.255157947540283,
+            -0.26091381907463074,
+            -4.587014675140381
+          ],
+          "max": [
+            5.263777732849121,
+            1.7672494649887085,
+            -2.2974491119384766
+          ],
+          "size": [
+            10.518935680389404,
+            2.0281632840633392,
+            2.2895655632019043
+          ]
+        }
+      },
+      {
+        "node": 28,
+        "name": "Workshop_stoneware-chalk-glaze",
+        "mesh": 28,
+        "triangles": 10797,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.278122901916504,
+            -0.4186972677707672,
+            -4.735265254974365
+          ],
+          "max": [
+            5.625034809112549,
+            1.2070232629776,
+            -0.20525172352790833
+          ],
+          "size": [
+            10.903157711029053,
+            1.6257205307483673,
+            4.530013531446457
+          ]
+        }
+      },
+      {
+        "node": 29,
+        "name": "Workshop_technical-drawing-charcoal-ink",
+        "mesh": 29,
+        "triangles": 16787,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -2.269012689590454,
+            0.6881344318389893,
+            -4.7959370613098145
+          ],
+          "max": [
+            5.200958728790283,
+            3.312042474746704,
+            -3.9468891620635986
+          ],
+          "size": [
+            7.469971418380737,
+            2.623908042907715,
+            0.8490478992462158
+          ]
+        }
+      },
+      {
+        "node": 30,
+        "name": "Workshop_wall-limewash-soot-and-age",
+        "mesh": 30,
+        "triangles": 338,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -7.1068220138549805,
+            -0.6125750541687012,
+            -5.426764011383057
+          ],
+          "max": [
+            7.108843803405762,
+            6.884024143218994,
+            -0.25850343704223633
+          ],
+          "size": [
+            14.215665817260742,
+            7.496599197387695,
+            5.16826057434082
+          ]
+        }
+      },
+      {
+        "node": 31,
+        "name": "Workshop_walnut-smoke-and-worn-varnish",
+        "mesh": 31,
+        "triangles": 14359,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -6.881743907928467,
+            -0.4050486087799072,
+            -5.124076843261719
+          ],
+          "max": [
+            6.881744384765625,
+            6.324168682098389,
+            1.9218918085098267
+          ],
+          "size": [
+            13.763488292694092,
+            6.729217290878296,
+            7.045968651771545
+          ]
+        }
+      },
+      {
+        "node": 32,
+        "name": "Workshop_walnut-smoke-and-worn-varnish-grain-y",
+        "mesh": 32,
+        "triangles": 1014,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -5.897109031677246,
+            -0.21141257882118225,
+            -5.81632661819458
+          ],
+          "max": [
+            5.897109031677246,
+            6.418717384338379,
+            1.9387755393981934
+          ],
+          "size": [
+            11.794218063354492,
+            6.630129963159561,
+            7.755102157592773
+          ]
+        }
+      },
+      {
+        "node": 33,
+        "name": "Workshop_walnut-smoke-and-worn-varnish-grain-y-floor",
+        "mesh": 33,
+        "triangles": 112,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -7.754260063171387,
+            -0.6772006750106812,
+            -10.017007827758789
+          ],
+          "max": [
+            7.754260063171387,
+            -0.41953960061073303,
+            6.138547420501709
+          ],
+          "size": [
+            15.508520126342773,
+            0.2576610743999481,
+            16.155555248260498
+          ]
+        }
+      },
+      {
+        "node": 34,
+        "name": "Workshop_walnut-smoke-and-worn-varnish-grain-z",
+        "mesh": 34,
+        "triangles": 4614,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -6.62416934967041,
+            -0.9033911228179932,
+            -5.182993412017822
+          ],
+          "max": [
+            6.624166011810303,
+            6.399330139160156,
+            1.382993221282959
+          ],
+          "size": [
+            13.248335361480713,
+            7.302721261978149,
+            6.565986633300781
+          ]
+        }
+      },
+      {
+        "node": 35,
+        "name": "Workshop_window-cold-diffuse-daylight",
+        "mesh": 35,
+        "triangles": 7218,
+        "drawGroups": 1,
+        "bounds": {
+          "min": [
+            -4.159992218017578,
+            1.3843640089035034,
+            -4.960034370422363
+          ],
+          "max": [
+            4.160935878753662,
+            5.8952484130859375,
+            -4.92772102355957
+          ],
+          "size": [
+            8.32092809677124,
+            4.510884404182434,
+            0.03231334686279297
+          ]
+        }
+      }
+    ],
+    "uniqueTriangles": 355284,
+    "uniquePrimitives": 36,
+    "attributeVertices": 361107,
+    "colorPrimitives": 0,
+    "triangles": 355284,
+    "drawGroups": 36,
+    "budget": {
+      "limits": {
+        "drawGroups": 60,
+        "triangles": 500000
+      },
+      "drawGroups": 36,
+      "triangles": 355284,
+      "withinBudget": true
+    },
+    "bounds": {
+      "min": [
+        -7.754260063171387,
+        -0.9033911228179932,
+        -10.017007827758789
+      ],
+      "max": [
+        7.754260063171387,
+        6.884024143218994,
+        6.138547420501709
+      ],
+      "size": [
+        15.508520126342773,
+        7.787415266036987,
+        16.155555248260498
+      ]
+    },
+    "materials": 35,
+    "materialReport": [
+      {
+        "index": 0,
+        "name": "Workshop v2 PBR | blackened-iron-worn-workshop-steel",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 0,
+            "image": 0,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 1,
+            "image": 1,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 2,
+            "image": 2,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 1,
+        "name": "Workshop v2 PBR | bottle-glass-green-crown-glass",
+        "baseColorFactor": [
+          0.23074005544185638,
+          0.3277781009674072,
+          0.1384316086769104,
+          0.30000001192092896
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.18000000715255737,
+        "alphaMode": "BLEND",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 2,
+        "name": "Workshop v2 PBR | brick-0",
+        "baseColorFactor": [
+          0.07036009430885315,
+          0.05448027700185776,
+          0.039546236395835876,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.8500000238418579,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 3,
+        "name": "Workshop v2 PBR | brick-1",
+        "baseColorFactor": [
+          0.15292614698410034,
+          0.09758734703063965,
+          0.06480326503515244,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.8500000238418579,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 4,
+        "name": "Workshop v2 PBR | brick-2",
+        "baseColorFactor": [
+          0.17144110798835754,
+          0.10461648553609848,
+          0.06301001459360123,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.8500000238418579,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 5,
+        "name": "Workshop v2 PBR | brick-3",
+        "baseColorFactor": [
+          0.09989872574806213,
+          0.07421357184648514,
+          0.05126945674419403,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.8500000238418579,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 6,
+        "name": "Workshop v2 PBR | canvas-waterduel-deep-forest",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 3,
+            "image": 3,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 4,
+            "image": 4,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 5,
+            "image": 5,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 7,
+        "name": "Workshop v2 PBR | carbon-black",
+        "baseColorFactor": [
+          0.0027317428030073643,
+          0.0043914420530200005,
+          0.0043914420530200005,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.7200000286102295,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 8,
+        "name": "Workshop v2 PBR | copper-oxidized-plumbing",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 6,
+            "image": 6,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 7,
+            "image": 7,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 8,
+            "image": 8,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 9,
+        "name": "Workshop v2 PBR | brass-tarnish-patina-polished-edges",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 9,
+            "image": 9,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 10,
+            "image": 10,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 11,
+            "image": 11,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 10,
+        "name": "Workshop v2 PBR | forest-green-woven-cotton-velvet",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 12,
+            "image": 12,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 13,
+            "image": 13,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 14,
+            "image": 14,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 11,
+        "name": "Workshop v2 PBR | gold-thread-brushed-antique-gold",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 15,
+            "image": 15,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 16,
+            "image": 16,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 17,
+            "image": 17,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 12,
+        "name": "Workshop v2 PBR | ivy-pale-leaf-veins",
+        "baseColorFactor": [
+          0.10000000149011612,
+          0.18000000715255737,
+          0.027000000700354576,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5299999713897705,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 13,
+        "name": "Workshop v2 PBR | ivy-waxy-variegated-deep-green",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.38999998569488525,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 18,
+            "image": 18,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 19,
+            "image": 19,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 14,
+        "name": "Workshop v2 PBR | lamp-warm-tungsten-filament",
+        "baseColorFactor": [
+          1,
+          0.6583748459815979,
+          0.35153260827064514,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.2800000011920929,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 15,
+        "name": "Workshop v2 PBR | leather-oxblood-oil-and-tooling",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 20,
+            "image": 20,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 21,
+            "image": 21,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 22,
+            "image": 22,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 16,
+        "name": "Workshop v2 PBR | mint-enamel",
+        "baseColorFactor": [
+          0.06847816705703735,
+          0.42869049310684204,
+          0.2622506618499756,
+          1
+        ],
+        "metallicFactor": 0.4000000059604645,
+        "roughnessFactor": 0.3199999928474426,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 17,
+        "name": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 23,
+            "image": 23,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 24,
+            "image": 24,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 25,
+            "image": 25,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 18,
+        "name": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-y",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 26,
+            "image": 26,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 27,
+            "image": 27,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 28,
+            "image": 28,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 19,
+        "name": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-z",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 29,
+            "image": 29,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 30,
+            "image": 30,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 31,
+            "image": 31,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 20,
+        "name": "Workshop v2 PBR | paper-warm-vellum",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 32,
+            "image": 32,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 33,
+            "image": 33,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 21,
+        "name": "Workshop v2 PBR | stage-wet-oak-1",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 34,
+            "image": 34,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 35,
+            "image": 35,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 36,
+            "image": 36,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 22,
+        "name": "Workshop v2 PBR | stage-wet-oak-2",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 37,
+            "image": 37,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 38,
+            "image": 38,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 39,
+            "image": 39,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 23,
+        "name": "Workshop v2 PBR | stage-wet-oak-3",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 40,
+            "image": 40,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 41,
+            "image": 41,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 42,
+            "image": 42,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 24,
+        "name": "Workshop v2 PBR | stage-wet-oak-4",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 43,
+            "image": 43,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 44,
+            "image": 44,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 45,
+            "image": 45,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 25,
+        "name": "Workshop v2 PBR | stage-wet-oak-5",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 46,
+            "image": 46,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 47,
+            "image": 47,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 48,
+            "image": 48,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 26,
+        "name": "Workshop v2 PBR | steel-satin-machined-surface",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 49,
+            "image": 49,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 50,
+            "image": 50,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 51,
+            "image": 51,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 27,
+        "name": "Workshop v2 PBR | stoneware-chalk-glaze",
+        "baseColorFactor": [
+          0.6307571530342102,
+          0.47353148460388184,
+          0.27049779891967773,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.25,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 28,
+        "name": "Workshop v2 PBR | technical-drawing-charcoal-ink",
+        "baseColorFactor": [
+          0.03433980792760849,
+          0.04373503103852272,
+          0.03688944876194,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.8500000238418579,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {}
+      },
+      {
+        "index": 29,
+        "name": "Workshop v2 PBR | wall-limewash-soot-and-age",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 52,
+            "image": 52,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 53,
+            "image": 53,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 54,
+            "image": 54,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 30,
+        "name": "Workshop v2 PBR | walnut-smoke-and-worn-varnish",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 55,
+            "image": 55,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 56,
+            "image": 56,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 57,
+            "image": 57,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 31,
+        "name": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 58,
+            "image": 58,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 59,
+            "image": 59,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 60,
+            "image": 60,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 32,
+        "name": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y-floor",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 61,
+            "image": 61,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 62,
+            "image": 62,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 63,
+            "image": 63,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 33,
+        "name": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-z",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "normalTexture": {
+            "texture": 64,
+            "image": 64,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 65,
+            "image": 65,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.metallicRoughnessTexture": {
+            "texture": 66,
+            "image": 66,
+            "texCoord": 0
+          }
+        }
+      },
+      {
+        "index": 34,
+        "name": "Workshop v2 PBR | window-cold-diffuse-daylight",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.6000000238418579,
+        "alphaMode": "OPAQUE",
+        "doubleSided": true,
+        "maps": {
+          "emissiveTexture": {
+            "texture": 67,
+            "image": 67,
+            "texCoord": 0
+          },
+          "pbrMetallicRoughness.baseColorTexture": {
+            "texture": 68,
+            "image": 67,
+            "texCoord": 0
+          }
+        }
+      }
+    ],
+    "materialMaps": {
+      "baseColor": 24,
+      "normal": 22,
+      "metallicRoughness": 22
+    },
+    "textures": 69,
+    "images": [
+      {
+        "index": 0,
+        "name": "blackened-iron-worn-workshop-steel-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 175832,
+        "sha256": "b4a89f10c025419ce125fa0296e7ea6c104d92df8b9feb3a90d3d92201318d60"
+      },
+      {
+        "index": 1,
+        "name": "blackened-iron-worn-workshop-steel-basecolor",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 266204,
+        "sha256": "1d128ba8754de3d15c00c70ad733d9ea7cb3b6e18d55e31617c323e7f835dac0"
+      },
+      {
+        "index": 2,
+        "name": "blackened-iron-worn-workshop-steel-orm",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 53413,
+        "sha256": "1b0ea51eacc54ab68683a929e81cd09acc95693365fc1acceba96d1dba339185"
+      },
+      {
+        "index": 3,
+        "name": "canvas-waterduel-deep-forest-normal",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 87671,
+        "sha256": "a3cbb1bbebafa8efba34f6d0d38b147d7cb8ea6b44a158779d3158ed3147c02e"
+      },
+      {
+        "index": 4,
+        "name": "canvas-waterduel-deep-forest-basecolor",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 13326,
+        "sha256": "92912a6fdf98e3e7fac3552c3eac7b636204e87d0d0022d53aa8d7e85eb2d39d"
+      },
+      {
+        "index": 5,
+        "name": "canvas-waterduel-deep-forest-orm",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 9874,
+        "sha256": "fa554b294d379e96b4852af25a382f3e4da39784ab78dae860119e4e02f31864"
+      },
+      {
+        "index": 6,
+        "name": "copper-oxidized-plumbing-normal",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 39853,
+        "sha256": "2be05495c526a263ab79bcfb9f86020d6afbac3e0ccf31a184edc06da0e1d87f"
+      },
+      {
+        "index": 7,
+        "name": "copper-oxidized-plumbing-basecolor",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 165122,
+        "sha256": "2aa905c9a24b60ad142d93ebb530493dbfd5ecbee37b67a07d29ace3d392caf6"
+      },
+      {
+        "index": 8,
+        "name": "copper-oxidized-plumbing-orm",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 27229,
+        "sha256": "b8534ad50c8c227e6f872f439e398df304c89ed51c6eb6869f9bbdcd85d177c0"
+      },
+      {
+        "index": 9,
+        "name": "brass-tarnish-patina-polished-edges-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 218025,
+        "sha256": "79218d9bf242ccfa1509b5d2f3b2b8a91beb0c5ea21dd43bfebb52e8115a14c3"
+      },
+      {
+        "index": 10,
+        "name": "brass-tarnish-patina-polished-edges-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1053510,
+        "sha256": "bab7a741349772876add35f9b1472f3385d0853acf0779282b42b9f14e301b36"
+      },
+      {
+        "index": 11,
+        "name": "brass-tarnish-patina-polished-edges-orm",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 46824,
+        "sha256": "0474b8249d83a88b7e83b1e9f3e22b66a45671a56a9793fcd18192639d841df6"
+      },
+      {
+        "index": 12,
+        "name": "forest-green-woven-cotton-velvet-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 377789,
+        "sha256": "851c8178ad43ad5b75521a64130dffe3c1556dea9fa930920103edfd082aa095"
+      },
+      {
+        "index": 13,
+        "name": "forest-green-woven-cotton-velvet-basecolor",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 13468,
+        "sha256": "5dd3fb1078bc938a17c1b6d8327f3b0f45e8ac381f464dc52c5c17f6edaa8d0c"
+      },
+      {
+        "index": 14,
+        "name": "forest-green-woven-cotton-velvet-orm",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 8547,
+        "sha256": "11ffdea384b626aa687aa76bd6b2f6e4ab3f12cb53f2448390c575775d6cdb10"
+      },
+      {
+        "index": 15,
+        "name": "gold-thread-brushed-antique-gold-normal",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 79110,
+        "sha256": "d8823293a92f9ac9378e023ff7b0fba48bf69d2276bb757b354de1b54f78f4f9"
+      },
+      {
+        "index": 16,
+        "name": "gold-thread-brushed-antique-gold-basecolor",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 110551,
+        "sha256": "e7205cb6f3b582acee5963ca603718893c0e59bd1a6b49b1a272bb5d0c0542cd"
+      },
+      {
+        "index": 17,
+        "name": "gold-thread-brushed-antique-gold-orm",
+        "mimeType": "image/png",
+        "width": 128,
+        "height": 128,
+        "bytes": 17521,
+        "sha256": "09963db88fb50fb9927dd44f8c9102034057bba972ef920e21a29731110ef199"
+      },
+      {
+        "index": 18,
+        "name": "ivy-waxy-variegated-deep-green-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 235750,
+        "sha256": "f762b5c6b57b6b90ce0de4486a8baf375c762b80f1da2586708a38675e369156"
+      },
+      {
+        "index": 19,
+        "name": "ivy-waxy-variegated-deep-green-basecolor",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 268753,
+        "sha256": "8f0d0eff134379c3a4aa1ea8735f00b84c844ba868009c1edac603dc0ee595a4"
+      },
+      {
+        "index": 20,
+        "name": "leather-oxblood-oil-and-tooling-normal",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 93336,
+        "sha256": "29a7836ffa7c21fd80823473eaedc5f90ca04f2fc17b24316732357410c9d7db"
+      },
+      {
+        "index": 21,
+        "name": "leather-oxblood-oil-and-tooling-basecolor",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 21521,
+        "sha256": "071fdb0e5cb50d7732584dbb9d8f0da2ef73d1ebc66d83965147d680a5b4a141"
+      },
+      {
+        "index": 22,
+        "name": "leather-oxblood-oil-and-tooling-orm",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 11838,
+        "sha256": "0bd7834af367e424685eb417b9ab614d586bdb1898f0420c3b64e9d6ac909582"
+      },
+      {
+        "index": 23,
+        "name": "oak-aged-endgrain-and-open-pores-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 290168,
+        "sha256": "40fc60943c63ed3d528458fbaefa5f21c3b60caca9650e507d83fbb048c52bf3"
+      },
+      {
+        "index": 24,
+        "name": "oak-aged-endgrain-and-open-pores-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1054148,
+        "sha256": "c2c2ebbe532a6dd21963fd74989d3de6f4c529a08d91154ba41eb8a25df6f7c0"
+      },
+      {
+        "index": 25,
+        "name": "oak-aged-endgrain-and-open-pores-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 171601,
+        "sha256": "6de7ccdb708498eca01827b46740a5095e243b5b151e43f9427c25c9a3cfa038"
+      },
+      {
+        "index": 26,
+        "name": "oak-aged-endgrain-and-open-pores-grain-y-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 408411,
+        "sha256": "e5fe919b2dc34c059244783e6044746e0e64e60da9fa0a502d3647d7b52e4db8"
+      },
+      {
+        "index": 27,
+        "name": "oak-aged-endgrain-and-open-pores-grain-y-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1198907,
+        "sha256": "235e1bb90b5865bfe28a4a3ef7aaa028e36158a863d24755fc9b154ba950ebb5"
+      },
+      {
+        "index": 28,
+        "name": "oak-aged-endgrain-and-open-pores-grain-y-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 165028,
+        "sha256": "2e0e12f8d001d0cdfb612b2c8e843aa3ffb84750bbc21555a230557b202cce27"
+      },
+      {
+        "index": 29,
+        "name": "oak-aged-endgrain-and-open-pores-grain-z-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 341141,
+        "sha256": "3ac452bab1b865b5308dba4d9da15d3f548ee3eb06eb45f9d31ec94be1aba84d"
+      },
+      {
+        "index": 30,
+        "name": "oak-aged-endgrain-and-open-pores-grain-z-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 967753,
+        "sha256": "5b28633316575acd21ef6061ab1214b4210ae6690f74afd8c6450a6304e9cde4"
+      },
+      {
+        "index": 31,
+        "name": "oak-aged-endgrain-and-open-pores-grain-z-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 135092,
+        "sha256": "66f9c03b6f756a4d693ac3d112c551f5748cf978473ced860c43bc1c54b91e15"
+      },
+      {
+        "index": 32,
+        "name": "paper-warm-vellum-basecolor",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 17032,
+        "sha256": "4c3588936b5e7bdb4e2a6f5e3d0b839edd7c573855d54dbfbeef4dbe64f1b4ad"
+      },
+      {
+        "index": 33,
+        "name": "paper-warm-vellum-orm",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 7432,
+        "sha256": "b65a170638cb8f1f0f01ae5139fbf6160aa57c98b1256dff9b07d048d0704b34"
+      },
+      {
+        "index": 34,
+        "name": "stage-wet-oak-1-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 302859,
+        "sha256": "f839e3c958797310b37b89eaa06e15e1371d95d07fca94bfa6f2c7f6cccbc7e3"
+      },
+      {
+        "index": 35,
+        "name": "stage-wet-oak-1-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 905187,
+        "sha256": "c9b6fe41ff6cdd2e611bf36b99df35c176fde3462c728016ad50dd92ebccf635"
+      },
+      {
+        "index": 36,
+        "name": "stage-wet-oak-1-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 125146,
+        "sha256": "9c70dd04311265fd4dcd617f5cc990bd68549bc5b41c55a7f107d590820264f2"
+      },
+      {
+        "index": 37,
+        "name": "stage-wet-oak-2-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 273821,
+        "sha256": "4570039cc483145ed7f0fabb77146b8b9a5a3b7882c9fe3e83da47073754e5d6"
+      },
+      {
+        "index": 38,
+        "name": "stage-wet-oak-2-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 952743,
+        "sha256": "83f31b6053df90552dc6fe13a2392ee78fc5e4d490a86c83fd4d3ee5723c28a0"
+      },
+      {
+        "index": 39,
+        "name": "stage-wet-oak-2-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 114632,
+        "sha256": "6a3b55df6e0a9f642236cd8d3c16309fdad6b62df6ae22aa3c02def62da6888a"
+      },
+      {
+        "index": 40,
+        "name": "stage-wet-oak-3-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 202550,
+        "sha256": "7bbc1b3b350d75f8e8a78492f2607e9c53b8f9b9c19a0e68f2b5163887625236"
+      },
+      {
+        "index": 41,
+        "name": "stage-wet-oak-3-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 628559,
+        "sha256": "afb3858164d78337d74baa152c945e6f0edd0b9084eebb80384e4bc610055d32"
+      },
+      {
+        "index": 42,
+        "name": "stage-wet-oak-3-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 85677,
+        "sha256": "89cae86964f9cfd9d09528ce9eece17036c8d2eb4874efbee877afdf43843e21"
+      },
+      {
+        "index": 43,
+        "name": "stage-wet-oak-4-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 245913,
+        "sha256": "4943f61771ce501cfe03ed52b8c292587acd01de781e5d2cf630fda63a925637"
+      },
+      {
+        "index": 44,
+        "name": "stage-wet-oak-4-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 781957,
+        "sha256": "88b4a4fe731c3b457d52e6e9afa05a8b744c74195cfa48a1f4aa25180c3446a6"
+      },
+      {
+        "index": 45,
+        "name": "stage-wet-oak-4-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 107120,
+        "sha256": "d1c81638942a9392f7488aaaf3a77f16f9797be40d80692f81a25892c40a4a1c"
+      },
+      {
+        "index": 46,
+        "name": "stage-wet-oak-5-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 240213,
+        "sha256": "bd8accd6fbca80654a9856893f1579e143e23df7b4591d236081e76b3bcb34dd"
+      },
+      {
+        "index": 47,
+        "name": "stage-wet-oak-5-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 728228,
+        "sha256": "3e2f61bc8216fdb1d167202b7859e98e83fc6c9122c6ae4991866119828c940d"
+      },
+      {
+        "index": 48,
+        "name": "stage-wet-oak-5-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 100553,
+        "sha256": "bab633980b078c1859ac5c21549fb6f011675e082b36ed74b864921f898efd3d"
+      },
+      {
+        "index": 49,
+        "name": "steel-satin-machined-surface-normal",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 80962,
+        "sha256": "229b108fe841927b87bdb8255428acaba28d00449967fd9145d3b859aee73dbd"
+      },
+      {
+        "index": 50,
+        "name": "steel-satin-machined-surface-basecolor",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 111539,
+        "sha256": "0ef4b379c02642361bd9dd108497ee887415ad1574da4820f0cf71638eeb7b56"
+      },
+      {
+        "index": 51,
+        "name": "steel-satin-machined-surface-orm",
+        "mimeType": "image/png",
+        "width": 128,
+        "height": 128,
+        "bytes": 13953,
+        "sha256": "9883826b5914ccc2750f477f41f80e75fb8b1839e8fb70d15ecef0a02c58178f"
+      },
+      {
+        "index": 52,
+        "name": "wall-limewash-soot-and-age-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 388165,
+        "sha256": "3d743780f07d8f48fa60addd03dfcf9ab38bc644a954af508d5a8b805c8014b5"
+      },
+      {
+        "index": 53,
+        "name": "wall-limewash-soot-and-age-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1179706,
+        "sha256": "18bdd91e49ae103f5c98346c5bb383952e53e4982008fed3bcb8b03b4d128492"
+      },
+      {
+        "index": 54,
+        "name": "wall-limewash-soot-and-age-orm",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 27985,
+        "sha256": "5eb2291ede7ae05152a26b906d0841fefb357b146702863ab1d452c11216c7b0"
+      },
+      {
+        "index": 55,
+        "name": "walnut-smoke-and-worn-varnish-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 276825,
+        "sha256": "350b36c14e12864f6d3c387f9901d5c6ea8e1318792a695183e352362c07e014"
+      },
+      {
+        "index": 56,
+        "name": "walnut-smoke-and-worn-varnish-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 935609,
+        "sha256": "794995147e58376220d9a176cfddbb095aa44007eaa2d3978b2a83d971a441f5"
+      },
+      {
+        "index": 57,
+        "name": "walnut-smoke-and-worn-varnish-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 177648,
+        "sha256": "b23fa302786d57b8bdef2c608c12c875d092b373eaa6ae373f0df6b1227a7e28"
+      },
+      {
+        "index": 58,
+        "name": "walnut-smoke-and-worn-varnish-grain-y-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 315054,
+        "sha256": "faa91e9a56c8e2f1a0429499a042aaa69472ac62ef7d5036869e65e7451c26ec"
+      },
+      {
+        "index": 59,
+        "name": "walnut-smoke-and-worn-varnish-grain-y-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 864685,
+        "sha256": "aa71fd9b7890a11884e5c65e991ad06fe06f2689d371fc37af05477270ca35ff"
+      },
+      {
+        "index": 60,
+        "name": "walnut-smoke-and-worn-varnish-grain-y-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 133552,
+        "sha256": "facca1c823ec129785235bdefec46c3b3bcd0c6ebcd016e4f8a5047e598085ba"
+      },
+      {
+        "index": 61,
+        "name": "walnut-smoke-and-worn-varnish-grain-y-floor-normal",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 27201,
+        "sha256": "df6279bdbc611aadb302902226f21b21f81e1caf06fb70ab6dcb74179474d512"
+      },
+      {
+        "index": 62,
+        "name": "walnut-smoke-and-worn-varnish-grain-y-floor-basecolor",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 166997,
+        "sha256": "a50a704fc50695877ae780ed7c5a1c94e1f2dec8bc4a796c3b234cb91a096d46"
+      },
+      {
+        "index": 63,
+        "name": "walnut-smoke-and-worn-varnish-grain-y-floor-orm",
+        "mimeType": "image/png",
+        "width": 256,
+        "height": 256,
+        "bytes": 28471,
+        "sha256": "7101163aa5170d5895b09768430a1c808413a65f9556c7fa990e30b6e25fb6f0"
+      },
+      {
+        "index": 64,
+        "name": "walnut-smoke-and-worn-varnish-grain-z-normal",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 379054,
+        "sha256": "87ad923517dfd267abb5338d1bd258c35428a6d49284a76ae3f3ddbaa6b77904"
+      },
+      {
+        "index": 65,
+        "name": "walnut-smoke-and-worn-varnish-grain-z-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 1129263,
+        "sha256": "25524e13b6560e35b82bc5c0898ce161b7ddfc3eb2cbcafb6051cb67ba9abc95"
+      },
+      {
+        "index": 66,
+        "name": "walnut-smoke-and-worn-varnish-grain-z-orm",
+        "mimeType": "image/png",
+        "width": 512,
+        "height": 512,
+        "bytes": 182000,
+        "sha256": "78f1dbb8a24d92ed0a4963100569e589bd9bc8878ac45d5a64d186371519837a"
+      },
+      {
+        "index": 67,
+        "name": "window-cold-diffuse-daylight-basecolor",
+        "mimeType": "image/png",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 515887,
+        "sha256": "021a80648a1d702e3942f6fcf4d0c78ec89e1779255eb2faf12eac16b3d44979"
+      }
+    ],
+    "imageBytes": 20881494,
+    "usedTextureCount": 69,
+    "usedTextureImageCount": 68,
+    "usedTextureImageIndices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67
+    ],
+    "decodedTextureBytesWithMipmaps": 133343914.66666667,
+    "decodedTextureMiBWithMipmaps": 127.16666666666667,
+    "decodedTextureEstimate": "Active unique image sources: sum(width * height * 4 * 4/3); theoretical RGBA8 full mip chain.",
+    "decodedTextureObjectsBytesWithMipmaps": 138936320,
+    "decodedTextureObjectsMiBWithMipmaps": 132.5,
+    "decodedTextureObjectsEstimate": "Active texture indices: sum(source.width * source.height * 4 * 4/3); shared images counted per texture object.",
+    "extensionsUsed": [],
+    "extensionsRequired": [],
+    "errors": []
+  },
+  "metadata": {
+    "ok": true,
+    "version": 2,
+    "ready": true,
+    "source": {
+      "path": "output/blender/WaterDuel_Atelier.blend",
+      "sha256": "2e92513be1f17a2e2d5cc357dddc8cd8d0e1dd62abbde226f4ec09c3a717b755",
+      "preserved": true
+    },
+    "staticWaterRemoved": true,
+    "scope": "Metadata declarations; independent source/v1 file hashes are checked separately."
+  },
+  "coordinateContract": {
+    "ok": true,
+    "sourceUp": "Z",
+    "runtimeUp": "Y",
+    "sourceDepth": "+Y",
+    "runtimeDepth": "-Z",
+    "scale": 0.6462585034013606,
+    "translationRuntimeY": -0.4186972789115646,
+    "appliedToGeometry": true,
+    "nodeTransformRequired": true,
+    "formula": [
+      "x=s*source.x",
+      "y=s*source.z+t",
+      "z=-s*source.y"
+    ],
+    "nodeTransformNote": "Static nodes are identity. Apply the fan node translation once; do not reapply source scale.",
+    "stage": {
+      "sourceTopZ": 1.15,
+      "runtimeTopY": 0.3245,
+      "runtimeBoardWidth": 7.6,
+      "nominalBoardX": [
+        -3.8,
+        3.8
+      ],
+      "nominalDepthZ": [
+        -1.6802721088435375,
+        1.6802721088435375
+      ],
+      "calculatedTopY": 0.3245
+    },
+    "scope": "Checks the declared coordinate formula; does not identify the stage surface from merged geometry."
+  },
+  "fanRotor": {
+    "ok": true,
+    "name": "Workshop_FanRotor",
+    "nodeIndex": 9,
+    "meshIndex": 9,
+    "materialIndex": 9,
+    "pivot": [
+      -4.200680255889893,
+      1.7139557600021362,
+      -2.226360559463501
+    ],
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "angularSpeed": 7.2,
+    "angularSpeedUnit": "radians/second",
+    "coordinateSpace": "runtime world",
+    "sourceObjects": [
+      "Fan swept brass blade 01",
+      "Fan swept brass blade 02",
+      "Fan swept brass blade 03",
+      "Fan swept brass blade 04",
+      "Fan swept brass blade 05"
+    ],
+    "vertices": 577,
+    "triangles": 500,
+    "localBounds": {
+      "min": [
+        -0.67987060546875,
+        -0.6675516366958618,
+        -0.07238101959228516
+      ],
+      "max": [
+        0.595067024230957,
+        0.6466256380081177,
+        0.07238101959228516
+      ],
+      "size": [
+        1.274937629699707,
+        1.3141772747039795,
+        0.1447620391845703
+      ]
+    },
+    "worldBoundsAtRest": {
+      "min": [
+        -4.880550861358643,
+        1.0464041233062744,
+        -2.298741579055786
+      ],
+      "max": [
+        -3.6056132316589355,
+        2.360581398010254,
+        -2.153979539871216
+      ],
+      "size": [
+        1.274937629699707,
+        1.3141772747039795,
+        0.1447620391845703
+      ]
+    },
+    "measuredRadialRadius": 0.6798706125648277,
+    "expectedRadiusRange": [
+      0.64,
+      0.72
+    ],
+    "staticMeshTransforms": {
+      "ok": true,
+      "checkedNodes": 35,
+      "allIdentity": true
+    },
+    "restWorldMatrixColumnMajor": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      -4.200680255889893,
+      1.7139557600021362,
+      -2.226360559463501,
+      1
+    ],
+    "duplicateCheck": {
+      "ok": true,
+      "staticPrimitives": 35,
+      "rotorUniqueVertices": 260,
+      "matchedStaticTriangles": 0,
+      "matchedStaticUniqueVertices": 0,
+      "matchedVertexFraction": 0,
+      "positionTolerance": 0.00001,
+      "scope": "Compares quantized world-space triangles and substantial vertex overlap at rest; does not prove absence of remodelled duplicates."
+    },
+    "motion": {
+      "ok": true,
+      "convention": "glTF column-major matrices, column vectors",
+      "engineFormula": "model(theta) = T(pivot) * Rz(theta) * T(-pivot) * restWorld; theta = angularSpeed * seconds",
+      "localGeometryFormula": "With restWorld=T(pivot), model(theta)=T(pivot)*Rz(theta). Apply exactly once to mesh-local vertices.",
+      "maxRadiusDrift": 1.1102230246251565e-16,
+      "maxAxialDrift": 0,
+      "maxPivotDrift": 0,
+      "maxRestoreError": 2.220446049250313e-16,
+      "samples": [
+        {
+          "degrees": 0,
+          "secondsAtAngularSpeed": 0,
+          "modelMatrixColumnMajor": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            -4.200680255889893,
+            1.7139557600021362,
+            -2.226360559463501,
+            1
+          ],
+          "pivot": [
+            -4.200680255889893,
+            1.7139557600021362,
+            -2.226360559463501
+          ],
+          "bounds": {
+            "min": [
+              -4.880550861358643,
+              1.0464041233062744,
+              -2.298741579055786
+            ],
+            "max": [
+              -3.6056132316589355,
+              2.360581398010254,
+              -2.153979539871216
+            ],
+            "size": [
+              1.274937629699707,
+              1.3141772747039795,
+              0.1447620391845703
+            ]
+          },
+          "outermostVertex": [
+            -4.880550861358643,
+            1.714053988456726,
+            -2.153979539871216
+          ],
+          "maxVertexDisplacement": 0
+        },
+        {
+          "degrees": 90,
+          "secondsAtAngularSpeed": 0.2181661564992912,
+          "modelMatrixColumnMajor": [
+            6.123233995736766e-17,
+            1,
+            0,
+            0,
+            -1,
+            6.123233995736766e-17,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            -4.200680255889893,
+            1.7139557600021362,
+            -2.226360559463501,
+            1
+          ],
+          "pivot": [
+            -4.200680255889893,
+            1.7139557600021362,
+            -2.226360559463501
+          ],
+          "bounds": {
+            "min": [
+              -4.84730589389801,
+              1.0340851545333862,
+              -2.298741579055786
+            ],
+            "max": [
+              -3.5331286191940308,
+              2.3090227842330933,
+              -2.153979539871216
+            ],
+            "size": [
+              1.3141772747039795,
+              1.274937629699707,
+              0.1447620391845703
+            ]
+          },
+          "outermostVertex": [
+            -4.200778484344482,
+            1.0340851545333862,
+            -2.153979539871216
+          ],
+          "maxVertexDisplacement": 0.9614822409480833
+        },
+        {
+          "degrees": 180,
+          "secondsAtAngularSpeed": 0.4363323129985824,
+          "modelMatrixColumnMajor": [
+            -1,
+            1.2246467991473532e-16,
+            0,
+            0,
+            -1.2246467991473532e-16,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            -4.200680255889893,
+            1.7139557600021362,
+            -2.226360559463501,
+            1
+          ],
+          "pivot": [
+            -4.200680255889893,
+            1.7139557600021362,
+            -2.226360559463501
+          ],
+          "bounds": {
+            "min": [
+              -4.79574728012085,
+              1.0673301219940186,
+              -2.298741579055786
+            ],
+            "max": [
+              -3.5208096504211426,
+              2.381507396697998,
+              -2.153979539871216
+            ],
+            "size": [
+              1.274937629699707,
+              1.3141772747039795,
+              0.1447620391845703
+            ]
+          },
+          "outermostVertex": [
+            -3.5208096504211426,
+            1.7138575315475464,
+            -2.153979539871216
+          ],
+          "maxVertexDisplacement": 1.3597412251296555
+        },
+        {
+          "degrees": 360,
+          "secondsAtAngularSpeed": 0.8726646259971648,
+          "modelMatrixColumnMajor": [
+            1,
+            -2.4492935982947064e-16,
+            0,
+            0,
+            2.4492935982947064e-16,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            -4.200680255889893,
+            1.7139557600021362,
+            -2.226360559463501,
+            1
+          ],
+          "pivot": [
+            -4.200680255889893,
+            1.7139557600021362,
+            -2.226360559463501
+          ],
+          "bounds": {
+            "min": [
+              -4.880550861358643,
+              1.0464041233062744,
+              -2.298741579055786
+            ],
+            "max": [
+              -3.6056132316589355,
+              2.360581398010254,
+              -2.153979539871216
+            ],
+            "size": [
+              1.274937629699707,
+              1.3141772747039795,
+              0.1447620391845703
+            ]
+          },
+          "outermostVertex": [
+            -4.880550861358643,
+            1.7140539884567263,
+            -2.153979539871216
+          ],
+          "maxVertexDisplacement": 2.220446049250313e-16
+        }
+      ]
+    }
+  },
+  "resourceBudget": {
+    "ok": true,
+    "limits": {
+      "triangles": 500000,
+      "drawGroups": 60,
+      "fileBytes": 67108864,
+      "textureBytesWithMipmaps": 209715200
+    },
+    "triangles": 355284,
+    "drawGroups": 36,
+    "fileBytes": 40565764,
+    "fileMiB": 38.686527252197266,
+    "uniqueImageBytes": 133343914.66666667,
+    "uniqueImageMiB": 127.16666666666667,
+    "textureObjectBytes": 138936320,
+    "textureObjectMiB": 132.5,
+    "estimate": "sum(width*height*4*4/3); texture objects include repeated source images where GLB binds separate texture indices."
+  },
+  "ok": true,
+  "status": "verified",
+  "readyForIntegration": true,
+  "file": "D:\\2026\\WaterDuel\\public\\assets\\environment\\workshop\\workshop-runtime-v2.glb",
+  "contractFile": "D:\\2026\\WaterDuel\\public\\assets\\environment\\workshop\\asset-contract-v2.json",
+  "immutableBaselines": [
+    {
+      "ok": true,
+      "file": "D:\\2026\\WaterDuel\\output\\blender\\WaterDuel_Atelier.blend",
+      "bytes": 19701833,
+      "sha256": "2e92513be1f17a2e2d5cc357dddc8cd8d0e1dd62abbde226f4ec09c3a717b755",
+      "expectedSha256": "2e92513be1f17a2e2d5cc357dddc8cd8d0e1dd62abbde226f4ec09c3a717b755"
+    },
+    {
+      "ok": true,
+      "file": "D:\\2026\\WaterDuel\\public\\assets\\environment\\workshop\\workshop-runtime.glb",
+      "bytes": 40334028,
+      "sha256": "1eb31ceef5913e3cce87cdc4397b5223ad678028957933de78e9b930c950c66d",
+      "expectedSha256": "1eb31ceef5913e3cce87cdc4397b5223ad678028957933de78e9b930c950c66d"
+    }
+  ],
+  "scope": {
+    "binaryAndPBR": true,
+    "runtimeParser": true,
+    "CPUFanRotation": true,
+    "immutableFiles": true,
+    "renderOrGPUExecution": false,
+    "note": "This receipt verifies asset structure and CPU transforms; render/reimport and game integration are separate checks."
+  }
+}

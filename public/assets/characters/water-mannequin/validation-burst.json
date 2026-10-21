@@ -1,0 +1,116 @@
+{
+  "ok": true,
+  "file": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\water-mannequin-burst.glb",
+  "bytes": 3673832,
+  "chunks": [
+    {
+      "type": "JSON",
+      "length": 17804
+    },
+    {
+      "type": "BIN",
+      "length": 3656000
+    }
+  ],
+  "meshes": 9,
+  "primitives": 9,
+  "vertices": 47541,
+  "triangles": 76716,
+  "triangleInstances": 76716,
+  "nodes": 28,
+  "materials": 9,
+  "skins": 1,
+  "joints": [
+    18
+  ],
+  "skinnedNodes": 9,
+  "textures": 1,
+  "images": 1,
+  "bounds": {
+    "space": "glTF world, initial node and skin transforms; animations not evaluated",
+    "min": [
+      -1.0252419436299793,
+      -5.166992410918326e-8,
+      -0.5264006853103638
+    ],
+    "max": [
+      1.167617678642273,
+      3.2550928592681885,
+      0.5397346615791321
+    ],
+    "size": [
+      2.1928596222722523,
+      3.2550929109381124,
+      1.0661353468894958
+    ]
+  },
+  "characterBounds": {
+    "Balloon_Latex": {
+      "min": [
+        -0.3886822462081909,
+        2.043471097946167,
+        -0.5264006853103638
+      ],
+      "max": [
+        0.9769490361213684,
+        3.064714193344116,
+        0.5397346615791321
+      ],
+      "size": [
+        1.3656312823295593,
+        1.0212430953979492,
+        1.0661353468894958
+      ]
+    },
+    "Water_Contained": {
+      "min": [
+        -0.710000052756348,
+        1.6266725063323975,
+        -0.4430464506149292
+      ],
+      "max": [
+        1.167617678642273,
+        3.2550928592681885,
+        0.389178067445755
+      ],
+      "size": [
+        1.877617731398621,
+        1.628420352935791,
+        0.8322245180606842
+      ]
+    }
+  },
+  "transparency": {
+    "Balloon_Latex": [
+      {
+        "material": "Amber_Torn_Latex",
+        "transmission": 0.36000001430511475,
+        "ior": 1.4199999570846558
+      }
+    ],
+    "Water_Contained": [
+      {
+        "material": "Water_IOR_1.333",
+        "transmission": 1,
+        "ior": 1.3329999446868896
+      }
+    ]
+  },
+  "materialNames": [
+    "Amber_Torn_Latex",
+    "Water_IOR_1.333",
+    "Beech_Wood_Grain",
+    "Endgrain_Joints",
+    "Mint_Woven_Sash",
+    "Polished_Rapier_Steel",
+    "Recessed_Steel",
+    "Satin_Brass",
+    "Wrapped_Brown_Leather"
+  ],
+  "extensionsUsed": [
+    "KHR_materials_clearcoat",
+    "KHR_materials_transmission",
+    "KHR_materials_volume",
+    "KHR_materials_ior"
+  ]
+}

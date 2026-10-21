@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "status": "prepared-not-applied",
+  "baselineProductSha256": "51d56c443e5875e30c8d5c48d7404145fac0ef58d20e169fe81fab2dbae1b653",
+  "clones": [
+    {
+      "path": "public/qa/experiments/game-audio-prepared-post1.4.js",
+      "sha256": "b506705d5b0d51f6024fb7a1364b691d746e33a048ac7cf1415861bd0b305ce9"
+    },
+    {
+      "path": "public/qa/experiments/effect-bank-preparation-post1.4.js",
+      "sha256": "a90bc1b1d960eda8d7ed12957aa23dceacf82af6cce59bad8fb608dcc6932698"
+    },
+    {
+      "path": "public/qa/experiments/effect-bank-worker-post1.4.js",
+      "sha256": "c74b708378dfddead6536d7b1b02a44a1889cd816d058e9808d6a16a5e303091"
+    }
+  ],
+  "protected": [
+    {
+      "path": "public/audio/synthesis.js",
+      "sha256": "cc0680c9199ab8e81b96d8b7d78ae3c5a175c99901386f731b1a438487a72ee8"
+    },
+    {
+      "path": "public/audio/foley-synthesis.js",
+      "sha256": "7cbfbade9802a7ce436f2b86f09fb53a3abdd65581680839d03366be36dbd136"
+    },
+    {
+      "path": "public/audio/scene-audio.js",
+      "sha256": "63b11abebff95fb5940cf8dfec6c062eae5dd9d98823fee9c096fc1c4206e9ca"
+    },
+    {
+      "path": "public/audio/contact-audio.js",
+      "sha256": "9d1256a7eb9bfff146a1e3b8eabd049c771cd0a9651f9d475b46c8bb78735f09"
+    },
+    {
+      "path": "public/audio/music-state.js",
+      "sha256": "c5be0f4592f615ebeea187da6dfb93d2924b523ee3f75d0870e4394b2787e3f8"
+    },
+    {
+      "path": "public/assets/audio/workshop/manifest.json",
+      "sha256": "8bcf6bcaf982619c060a50bf403b4ed7f24508667c09f39c2e15ebcb1424cc16"
+    },
+    {
+      "path": "public/assets/audio/foley-v2/manifest.json",
+      "sha256": "46741febd3dba911fbc638d701700561513fb64ab2a60e0f07bbcf4085ed0e6a"
+    },
+    {
+      "path": "tests/game-audio.test.mjs",
+      "sha256": "468962a27bf6d2a38fb061771c65c518a4575f903d6067b96672869918a1980f"
+    }
+  ],
+  "targets": [
+    {
+      "path": "public/game-audio.js",
+      "beforeSha256": "51d56c443e5875e30c8d5c48d7404145fac0ef58d20e169fe81fab2dbae1b653",
+      "proposedSha256": "fe6c03a0179e52a3b7965557554567304a4a51418c6a636274c502e615b54ea5",
+      "bytes": 20025
+    },
+    {
+      "path": "public/audio/effect-bank-preparation.js",
+      "beforeSha256": null,
+      "proposedSha256": "64608a2c5ab7962f7eef025124e483bf681d4b86f102645c8cb4690003de4557",
+      "bytes": 4578
+    },
+    {
+      "path": "public/audio/effect-bank-worker.js",
+      "beforeSha256": null,
+      "proposedSha256": "5eec806f6afc43575f2151d8de79ea50b3d5ab6664e5b573ae6c02e2918ba599",
+      "bytes": 1266
+    },
+    {
+      "path": "tests/audio-prepared.test.mjs",
+      "beforeSha256": null,
+      "proposedSha256": "9fac39ecae2ce84c2e1c4cacd3bede1bdf181e352e6d0c05c7c751a77f0ba91b",
+      "bytes": 17561
+    },
+    {
+      "path": "tests/audio-prepared-identity.test.mjs",
+      "beforeSha256": null,
+      "proposedSha256": "28a91e2f58478a44ba27f12fd2d011e08d3592d76f8085683f37bf79b8953cda",
+      "bytes": 3302
+    },
+    {
+      "path": "tests/audio-prepared-provenance.test.mjs",
+      "beforeSha256": null,
+      "proposedSha256": "a73c80c8785663fd99fa231459ed67a55568a5bae941f630a5daaa6515868fa6",
+      "bytes": 2271
+    },
+    {
+      "path": "tests/fixtures/audio-prepared-worker.mjs",
+      "beforeSha256": null,
+      "proposedSha256": "657ca9a11df248ab116bf3143f3b965121d562bd3a3c51e948ea06ab40136b6a",
+      "bytes": 676
+    }
+  ]
+}

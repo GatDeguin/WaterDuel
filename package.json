@@ -1,0 +1,14 @@
+{
+  "name": "water-duel",
+  "version": "1.6.0",
+  "description": "Duelo volumétrico de marionetas 3D con látex dinámico, agua y mandos LAN por QR",
+  "type": "module",
+  "private": true,
+  "engines": {"node": ">=20"},
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "benchmark:fluid": "node benchmarks/fluid.mjs",
+    "pack:offline": "node scripts/package.mjs"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "export_meshes": 15,
+  "export_triangles": 78482,
+  "asset": "water-mannequin-boss-v2",
+  "reference": "w4.png",
+  "bones": 18,
+  "sockets": 5,
+  "uniform_scale": 1.15,
+  "rig_object_scale_normalized": true,
+  "scale_normalization_max_vertex_error_metres": 6.341945407972263e-06,
+  "torso_width_relative_normal": 1.25,
+  "torso_depth_relative_normal": 1.12,
+  "posed_height_metres": 3.070401,
+  "source_axes": "Z up, -Y forward",
+  "glb_axes": "Y up, +Z forward",
+  "pose_baked": false,
+  "fluid_static": true,
+  "cloth_static": true,
+  "runtime_integrated": false,
+  "optional_equipment_prefix": "Preview_Rapier_",
+  "source": "docs/assets/characters/v2/water-mannequin-boss.blend"
+}

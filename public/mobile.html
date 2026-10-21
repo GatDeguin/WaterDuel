@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es" data-mobile-game="true"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a2226"><title>WATER DUEL — Juego móvil</title><link rel="stylesheet" href="./controller.css"><link rel="stylesheet" href="./mobile.css"></head>
+<body>
+<canvas id="gameCanvas" aria-label="Water Duel: arena de duelo. Usá los mandos inferiores y el menú superior."></canvas>
+<aside id="joinCodes" hidden aria-hidden="true"><figure data-slot="1" hidden><img data-slot="1" width="96" height="96" alt="" referrerpolicy="no-referrer" draggable="false"></figure><figure data-slot="2" hidden><img data-slot="2" width="96" height="96" alt="" referrerpolicy="no-referrer" draggable="false"></figure></aside>
+<div class="controller-shell" id="controllerShell">
+ <button id="menuBtn" class="menu-launch" aria-haspopup="dialog" aria-controls="mobileMenu" aria-expanded="false" aria-label="Abrir menú del taller" disabled><span aria-hidden="true">☰</span></button>
+ <p class="portrait-hint">Mejor en horizontal</p>
+
+ <p id="rendererWarning" class="renderer-warning" role="alert" aria-atomic="true" hidden></p>
+ <p id="assetsStatus" class="assets-status" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+ <p class="play-objective" id="controlObjective" aria-live="polite" hidden></p>
+ <div class="play-controls" id="playControls">
+ <section class="pads" id="playPads" aria-label="Movimiento del personaje y ataque">
+   <div class="pad-group"><div class="pad-heading"><span class="pad-index" aria-hidden="true">01</span><div><strong>MOVIMIENTO</strong><small>DISTANCIA · POSTURA · FINTA</small></div></div><div class="pad-frame movement-pad" id="offPad" tabindex="0" role="application" aria-label="Movimiento: izquierda alejarse, derecha acercarse, arriba finta al fondo, abajo agacharse" aria-describedby="movementInstructions offPadValue"><div class="pad-guide horizontal"></div><div class="pad-guide vertical"></div><div class="pad-ring"></div><span class="movement-direction movement-direction-up" aria-hidden="true">ARRIBA · FINTA</span><span class="movement-direction movement-direction-down" aria-hidden="true">ABAJO · AGACHARSE</span><div class="pad-knob" id="offKnob"><span></span></div><div class="pad-centre" aria-hidden="true">+</div></div><div class="pad-directions"><span>ALEJARSE</span><span>ACERCARSE</span></div><output class="pad-value" id="offPadValue" aria-live="off">QUIETO</output></div>
+   <div class="pad-group"><div class="pad-heading"><span class="pad-index" aria-hidden="true">02</span><div><strong>ARMA Y ATAQUE</strong><small>IZQUIERDA DESVÍA · DERECHA EXTIENDE</small></div></div><div class="pad-frame weapon-pad" id="mainPad" tabindex="0" role="application" aria-label="Arma: izquierda recoge y busca desviar el arma rival, derecha extiende, arriba o abajo orienta e inclina la muñeca" aria-describedby="attackInstructions mainPadValue"><div class="pad-guide horizontal"></div><div class="pad-guide vertical"></div><div class="pad-ring"></div><div class="pad-knob" id="mainKnob"><span></span></div><div class="pad-centre" aria-hidden="true">+</div></div><output class="pad-value" id="mainPadValue" aria-live="off">EN NEUTRO · MUÑECA 0°</output></div>
+ </section>
+ <section class="match-result" id="matchResult" role="region" aria-labelledby="resultTitle" aria-describedby="resultMessage" hidden>
+   <p class="result-kicker">PARTIDA TERMINADA</p><h2 id="resultTitle"></h2><p id="resultMessage"></p>
+   <button id="resultActionBtn" class="result-action" aria-busy="false"></button>
+   <p id="resultFeedback" class="result-feedback" role="status" aria-live="polite" hidden></p>
+ </section>
+ </div>
+ <div id="mobileHeadPanel" class="mobile-head-panel" hidden>
+ <section class="head-dodge" aria-labelledby="headTitle"><h2 id="headTitle">CABEZA · ESQUIVA 3D</h2><p id="headInstructions">Mando opcional de cabeza: horizontal mueve a los lados y vertical cambia la profundidad. También podés usar la inclinación del móvil.</p><div class="pad-frame head-pad" id="headPad" tabindex="0" role="application" aria-label="Esquiva de cabeza lateral y profundidad" aria-describedby="headInstructions headPadValue"><div class="pad-guide horizontal"></div><div class="pad-guide vertical"></div><div class="pad-ring"></div><div class="pad-knob" id="headKnob"><span></span></div></div><output class="pad-value" id="headPadValue" aria-live="off">CABEZA CENTRADA</output></section>
+ </div>
+ <p class="sr-only" id="movementInstructions">Izquierda aleja del rival y derecha acerca. Abajo mantiene al muñeco agachado mientras sostenés el mando. Arriba pide una finta breve hacia el fondo y vuelve; centrá antes de repetirla. Podés combinar distancia y postura en diagonal. Flechas orientan; Inicio o Escape centran el mando.</p>
+ <p class="sr-only" id="attackInstructions">En el joystick derecho, atrás es izquierda para ambos jugadores: recoge y busca interceptar y desviar el arma rival. Derecha extiende; arriba o abajo orienta el arma e inclina la muñeca. Las diagonales hacia atrás ajustan la altura de la parada y reducen gradualmente la extensión. La parada requiere contacto físico: puede fallar por distancia, ángulo o daño del brazo. Sostener el gesto conserva la intención, sin repetir ataques automáticamente. Si el arma queda trabada, probá retirar y bajar antes de volver a extender. La punta debe atravesar el látex para pinchar el globo. Soltá para volver al neutro y centrar la muñeca. Flechas orientan; Inicio o Escape centran.</p>
+
+ <div class="controller-warning" id="warning" hidden></div>
+</div>
+<dialog id="mobileMenu" class="mobile-menu" aria-labelledby="menuTitle" aria-describedby="menuConnection">
+ <header class="menu-top"><div><small>WATER DUEL · JUEGO MÓVIL</small><h2 id="menuTitle">Menú del taller</h2></div><button id="menuCloseBtn" class="menu-back" autofocus aria-label="Cerrar menú y volver a los controles">CERRAR ✕</button></header>
+ <div class="menu-content">
+  <section class="mobile-overview" aria-label="Tu mando y estado de la arena">
+ <header class="controller-top"><div class="brand"><span class="brand-icon" aria-hidden="true">∿</span><span>WATER<span class="brand-accent">DUEL</span><small>MANDO HIDRÁULICO · ATELIER</small></span></div><div class="controller-header-actions"><div class="connection-indicator"><span class="led" id="socketDot"></span><span id="connLabel">CONECTANDO</span></div></div></header>
+ <div class="seat-info"><div class="seat-number" id="seatNumber">01</div><div><small>CONTROLANDO A</small><h1 id="seatName">MINT MAMBA</h1></div><span class="seat-symbol" id="seatSymbol">◎</span></div>
+ <div class="match-strip"><div><small>ESTADO DE ARENA</small><strong id="phaseText">EN ESPERA</strong></div><div><small>MARCADOR</small><strong id="scoreText">0 : 0</strong></div><small id="rttLabel" aria-label="Latencia de ida y vuelta al servidor">RTT —</small></div>
+  </section>
+ <section class="auto-defense" aria-label="Defensa automática"><div><strong>DEFENSA AUTOMÁTICA</strong><small>Puede bloquear o fallar</small></div><output id="autoDefenseStatus" aria-live="off">ESPERANDO ARENA</output></section>
+ <details class="control-advanced"><summary>Esquiva de cabeza 3D · opcional</summary>
+ <label class="menu-check"><input id="mobileHeadTouch" type="checkbox" aria-controls="mobileHeadPanel" aria-describedby="mobileHeadTouchHelp"> Mostrar mando táctil de cabeza</label><p id="mobileHeadTouchHelp" class="menu-muted">Opcional: agrega un tercer mando pequeño al volver al juego. La inclinación se activa y calibra desde aquí.</p>
+ <div class="controller-bottom"><button id="motionBtn" class="sensor-button">◉ ACTIVAR ESQUIVA 3D</button><button id="motionStopBtn" class="sensor-button" hidden>USAR SOLO TÁCTIL</button><span id="motionStatus">ESQUIVA TÁCTIL · LISTO</span></div>
+</details>
+  <details class="mobile-help"><summary>Cómo jugar</summary>
+ <p class="control-tip">Joystick derecho: atrás (izquierda) recoge y busca parar y desviar el arma rival; adelante (derecha) extiende. Las diagonales ajustan la altura de la parada. El desvío requiere contacto y puede fallar. Soltá para volver al neutro.</p>
+  <p>Izquierdo: acercarse, alejarse, agacharse y hacer una finta al fondo. Derecho: orientar, extender o recoger el arma. El ataque nace del movimiento; la defensa automática puede fallar.</p>
+  </details>
+  <p id="menuConnection" class="menu-connection" role="status">Esperando conexión con la arena.</p>
+  <p id="menuRendererWarning" class="renderer-warning" role="alert" aria-atomic="true" hidden></p>
+  <p id="menuAssetsStatus" class="assets-status" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+  <div class="menu-scoreboard" aria-label="Estado del combate"><div><small>MARCADOR</small><strong id="menuScore">0 : 0</strong></div><div><small>RONDA</small><strong id="menuRound">1</strong></div><div><small>TIEMPO</small><strong id="menuClock">00:00</strong></div></div>
+  <p id="menuMatchMessage" class="menu-match-message"></p>
+  <p id="menuCombatNotice" class="menu-notice" hidden>El juego está pausado mientras el menú está abierto. Cerralo para continuar.</p>
+  <section class="menu-section" aria-labelledby="menuObjectiveTitle"><h3 id="menuObjectiveTitle">Actividad</h3><p id="menuObjectiveInstruction">Elegí una experiencia para empezar.</p><p id="menuObjectiveProgress" class="menu-progress"></p><button id="menuNextBtn" hidden>SIGUIENTE ENCUENTRO</button></section>
+  <section class="menu-section" aria-labelledby="menuGameTitle"><h3 id="menuGameTitle">Partida</h3><p id="menuConfigNotice" class="menu-muted">Los cambios de partida se aplican antes de combatir.</p><div class="menu-grid">
+   <label>Modo<select id="menuMode"><option value="solo">Individual</option><option value="versus" disabled>Versus desde la PC</option></select></label>
+   <label>Experiencia individual<select id="menuExperience"><option value="duel">Duelo contra IA</option><option value="training">Escuela del taller</option><option value="practice">Práctica libre</option><option value="precision">Precisión</option><option value="campaign">Campaña</option></select></label>
+   <label>Dificultad<select id="menuDifficulty"><option value="rookie">Aprendiz</option><option value="normal">Duelista</option><option value="expert">Experto</option><option value="boss">Maestro Hidráulico</option></select></label>
+   <label>Formato<select id="menuBestOf"><option value="3">Mejor de tres</option><option value="5">Mejor de cinco</option></select></label>
+   <label>Arena<select id="menuArena"><option value="atelier">Taller</option><option value="midnight">Taller nocturno</option><option value="dojo">Salón de práctica</option></select></label>
+  </div><p class="menu-muted">El duelo de dos jugadores se inicia <a href="./?view=desktop">desde la PC</a>. Aquí podés jugar contra IA, practicar y continuar la campaña.</p><button id="menuCampaignResetBtn" class="menu-danger">REINICIAR PROGRESO DE CAMPAÑA</button></section>
+  <section class="menu-section" aria-labelledby="menuEquipmentTitle"><h3 id="menuEquipmentTitle">Equipamiento</h3><p id="menuEquipmentNotice" class="menu-muted">El mazo ocupa las dos manos. La escuela conserva su equipo de aprendizaje.</p><div class="menu-grid">
+   <fieldset><legend id="menuFighter1">Jugador 1</legend><p id="menuGuard1" class="menu-muted"></p><label>Arma<select id="menuWeapon1" disabled><option value="sword">Cargando catálogo…</option></select></label><label>Defensa<select id="menuDefense1" disabled><option value="short">Cargando catálogo…</option></select></label></fieldset>
+   <fieldset><legend id="menuFighter2">Jugador 2</legend><p id="menuGuard2" class="menu-muted"></p><label>Arma<select id="menuWeapon2" disabled><option value="sword">Cargando catálogo…</option></select></label><label>Defensa<select id="menuDefense2" disabled><option value="short">Cargando catálogo…</option></select></label></fieldset>
+  </div></section>
+  <section class="menu-section" aria-labelledby="menuPresentationTitle"><h3 id="menuPresentationTitle">Imagen y sonido de la arena</h3><div class="menu-grid">
+   <label>Fluidez<select id="menuPerformanceMode" aria-describedby="menuPerformanceHelp"><option value="fixed">Calidad fija</option><option value="adaptive">Adaptativa experimental</option></select></label>
+   <label>Calidad máxima<select id="menuQuality"><option value="high">Alta</option><option value="ultra">Cinemática</option><option value="eco">Económica</option></select></label>
+   <label>Cámara<select id="menuCamera"><option value="combat">Duelo completo</option><option value="detail">Detalle de articulaciones</option></select></label>
+   <label>Iluminación<select id="menuLighting"><option value="cinematic">Taller cinematográfico</option><option value="neutral">Inspección neutra</option></select></label>
+   <label class="menu-check"><input id="menuAudio" type="checkbox"> Sonido de la arena</label>
+  </div><p id="menuPerformanceHelp" class="menu-muted">Calidad fija conserva los ajustes elegidos. La opción adaptativa experimental ajusta el detalle y la resolución según la carga, sin superar la calidad máxima seleccionada.</p><label>Volumen <output id="menuVolumeValue">0%</output><input id="menuVolume" type="range" min="0" max="100" step="1" value="55"></label><p class="menu-muted">La cámara de detalle se reserva para fuera del combate. Activá el sonido para escucharlo en este dispositivo.</p></section>
+  <section class="menu-section" aria-labelledby="menuReplayTitle"><h3 id="menuReplayTitle">Repeticiones</h3><label>Momento guardado<select id="menuReplayClip"><option value="">Todavía no hay repeticiones</option></select></label><div class="menu-actions"><button id="menuReplayOpenBtn">VER REPETICIÓN</button><button id="menuReplayClearBtn">BORRAR REPETICIONES</button></div>
+   <div id="menuReplayControls" hidden><label>Recorrido <output id="menuReplayPosition">0%</output><input id="menuReplaySeek" type="range" min="0" max="1000" step="1" value="0"></label><label>Velocidad<select id="menuReplaySpeed"><option value="0.25">¼ ×</option><option value="0.5">½ ×</option><option value="1">1 ×</option></select></label><div class="menu-actions"><button id="menuReplayToggleBtn">PAUSAR</button><button id="menuReplayCloseBtn">VOLVER AL JUEGO</button></div></div><p class="menu-muted">Se reproducen fuera del combate y conservan el resultado de la partida.</p>
+  </section>
+  <button id="menuBackBtn" class="menu-bottom-back">CERRAR MENÚ</button>
+ </div>
+ <footer class="menu-play-dock" aria-label="Acciones de partida"><div class="menu-actions"><button id="menuStartBtn" class="menu-primary">COMENZAR</button><button id="menuResetBtn">PREPARAR NUEVA PARTIDA</button></div><p id="menuFeedback" class="menu-feedback" role="status" aria-live="polite"></p></footer>
+</dialog>
+<script type="module" src="./game.js"></script>
+<script type="module" src="./controller.js"></script></body></html>

@@ -1,0 +1,150 @@
+[
+  {
+    "path": "public/game-audio.js",
+    "baselineSha256": "fe6c03a0179e52a3b7965557554567304a4a51418c6a636274c502e615b54ea5",
+    "currentSha256": "727d6f8f5dd71ca9881558ba71fcd3986247297f7269e3de38487e324508102b",
+    "hunks": [
+      {
+        "id": "contextual-01",
+        "before": "// Local worker preparation preserves original audio samples and playback variants.\nimport {SOUND_NAMES,MUSIC_STEMS,renderSound,renderMusic} from './audio/synthesis.js';\nimport {AudioScene} from './audio/scene-audio.js';\nimport {musicDecision} from './audio/music-state.js';\n",
+        "after": "// Local worker preparation preserves original audio samples and playback variants.\nimport {SOUND_NAMES,MUSIC_STEMS,renderSound} from './audio/synthesis.js';\nimport {renderWorkshopMusic as renderMusic} from './audio/music-synthesis.js';\nimport {AudioScene} from './audio/scene-audio.js';\nimport {musicDecision} from './audio/music-state.js';\n"
+      },
+      {
+        "id": "contextual-02",
+        "before": "import {contactAudio} from './audio/contact-audio.js';\nimport {EFFECT_JOBS,EFFECT_CLOCK,localEffectWorker,startEffectPreparation} from './audio/effect-bank-preparation.js';\n\nconst bounded=(v,lo,hi,fallback=0)=>Number.isFinite(v)?Math.max(lo,Math.min(hi,v)):fallback;\n",
+        "after": "import {contactAudio} from './audio/contact-audio.js';\nimport {EFFECT_JOBS,EFFECT_CLOCK,localEffectWorker,startEffectPreparation} from './audio/effect-bank-preparation.js';\nimport {WorkshopAcoustics} from './audio/spatial-audio.js';\nimport {musicStemLevels} from './audio/music-dynamics.js';\n\nconst bounded=(v,lo,hi,fallback=0)=>Number.isFinite(v)?Math.max(lo,Math.min(hi,v)):fallback;\n"
+      },
+      {
+        "id": "contextual-03",
+        "before": "    this.random=random;this.maxVoices=Math.round(bounded(maxVoices,8,32,24));\n    this.enabled=false;this.volume=.55;this.musicVolume=.24;this.effectsVolume=1;\n    this.context=null;this.master=null;this.effects=null;this.music=null;this.limiter=null;this.saturator=null;\n    this.paused=false;this.musicPhase=null;this.musicMode=null;this.musicOrigin=null;this.duckUntil=0;this.resuming=false;\n    this.voices=new Set();this.musicVoices=[];this.buffers=new Map();this.serial=0;this.scene=new AudioScene();\n    this.contactTimes=new Map();\n",
+        "after": "    this.random=random;this.maxVoices=Math.round(bounded(maxVoices,8,32,24));\n    this.enabled=false;this.volume=.55;this.musicVolume=.24;this.effectsVolume=1;\n    this.context=null;this.master=null;this.effects=null;this.music=null;this.limiter=null;this.saturator=null;this.acoustics=null;\n    this.paused=false;this.musicPhase=null;this.musicMode=null;this.musicOrigin=null;this.duckUntil=0;this.resuming=false;\n    this.dynamicPhase=null;this.dynamicLevels=null;\n    this.voices=new Set();this.musicVoices=[];this.buffers=new Map();this.serial=0;this.scene=new AudioScene();\n    this.contactTimes=new Map();\n"
+      },
+      {
+        "id": "contextual-04",
+        "before": "        this.master=ctx.createGain();this.master.gain.value=this.volume;\n        this.effects=ctx.createGain();this.effects.gain.value=this.effectsVolume;this.effects.connect(this.master);\n        this.music=ctx.createGain();this.music.gain.value=this.musicVolume;this.music.connect(this.master);\n        this.limiter=ctx.createDynamicsCompressor();\n",
+        "after": "        this.master=ctx.createGain();this.master.gain.value=this.volume;\n        this.effects=ctx.createGain();this.effects.gain.value=this.effectsVolume;this.effects.connect(this.master);\n        this.acoustics=new WorkshopAcoustics(ctx,this.effects);\n        this.music=ctx.createGain();this.music.gain.value=this.musicVolume;this.music.connect(this.master);\n        this.limiter=ctx.createDynamicsCompressor();\n"
+      },
+      {
+        "id": "contextual-05",
+        "before": "    if(!this.voices.delete(voice))return;voice.source.onended=null;\n    try{voice.source.stop();}catch{}\n    for(const node of [voice.source,voice.gain,voice.pan])try{node.disconnect();}catch{}\n  }\n  retireMusic(voice){\n",
+        "after": "    if(!this.voices.delete(voice))return;voice.source.onended=null;\n    try{voice.source.stop();}catch{}\n    for(const node of [voice.source,voice.gain,voice.pan,voice.send])try{node?.disconnect();}catch{}\n  }\n  retireMusic(voice){\n"
+      },
+      {
+        "id": "contextual-06",
+        "before": "    }\n  }\n  play(name,{x=0,intensity=1,delay=0,priority=1,rate=1}={}){\n    if(!this.audible||!this.effectsVolume||!SOUND_NAMES.includes(name)&&!FOLEY_NAMES.includes(name))return false;\n    intensity=bounded(intensity,0,1,0);if(!intensity)return false;\n",
+        "after": "    }\n  }\n  play(name,{x=0,y=1.8,z=0,intensity=1,delay=0,priority=1,rate=1}={}){\n    if(!this.audible||!this.effectsVolume||!SOUND_NAMES.includes(name)&&!FOLEY_NAMES.includes(name))return false;\n    intensity=bounded(intensity,0,1,0);if(!intensity)return false;\n"
+      },
+      {
+        "id": "contextual-07",
+        "before": "    }\n    const buffer=this.effectBuffer(name);if(!buffer)return false;\n    const source=ctx.createBufferSource(),gain=ctx.createGain(),pan=ctx.createStereoPanner();\n    source.buffer=buffer;\n    const speed=bounded(rate,.7,1.4,1)*(.97+bounded(this.random(),0,1,.5)*.06);\n    source.playbackRate.value=speed;pan.pan.value=bounded(x/3.2,-.85,.85,0);gain.gain.value=.6*intensity;\n    source.connect(gain).connect(pan).connect(this.effects);\n    const start=ctx.currentTime+bounded(delay,0,1,0),ends=start+source.buffer.duration/speed+.01;\n    const voice={name,source,gain,pan,start,ends,priority};this.voices.add(voice);\n    source.onended=()=>this.retire(voice);source.start(start);source.stop(ends);return true;\n  }\n",
+        "after": "    }\n    const buffer=this.effectBuffer(name);if(!buffer)return false;\n    const source=ctx.createBufferSource(),gain=ctx.createGain(),position=this.acoustics.source({x,y,z},name),{pan,send}=position;\n    source.buffer=buffer;\n    const speed=bounded(rate,.7,1.4,1)*(.97+bounded(this.random(),0,1,.5)*.06);\n    source.playbackRate.value=speed;gain.gain.value=.6*intensity;\n    source.connect(gain).connect(pan);\n    const start=ctx.currentTime+bounded(delay,0,1,0),ends=start+source.buffer.duration/speed+.01;\n    const voice={name,source,gain,pan,send,spatial:position.spatial,at:position.at,start,ends,priority};this.voices.add(voice);\n    source.onended=()=>this.retire(voice);source.start(start);source.stop(ends);return true;\n  }\n"
+      },
+      {
+        "id": "contextual-08",
+        "before": "    const timeout=setTimeout(()=>controller.abort(),8000);\n    this.loadingMusic=Promise.all([...MODES].flatMap(mode=>MUSIC_STEMS.map(async stem=>{\n      const url=new URL('./assets/audio/workshop/music-'+mode+'-'+stem+'.wav',import.meta.url);\n      const response=await fetch(url,{signal});if(!response.ok)throw new Error('No se pudo cargar '+url.pathname);\n      const buffer=await ctx.decodeAudioData(await response.arrayBuffer());\n",
+        "after": "    const timeout=setTimeout(()=>controller.abort(),8000);\n    this.loadingMusic=Promise.all([...MODES].flatMap(mode=>MUSIC_STEMS.map(async stem=>{\n      const url=new URL('./assets/audio/workshop-score-v3/music-'+mode+'-'+stem+'.wav',import.meta.url);\n      const response=await fetch(url,{signal});if(!response.ok)throw new Error('No se pudo cargar '+url.pathname);\n      const buffer=await ctx.decodeAudioData(await response.arrayBuffer());\n"
+      },
+      {
+        "id": "contextual-09",
+        "before": "  }\n  startMode(mode,start){\n    const ctx=this.context,levels=LEVELS[this.musicPhase],offset=((start-this.musicOrigin)%LOOP_SECONDS+LOOP_SECONDS)%LOOP_SECONDS;\n    this.reserve(MUSIC_STEMS.length);\n    MUSIC_STEMS.forEach((stem,index)=>{\n",
+        "after": "  }\n  startMode(mode,start){\n    const ctx=this.context,levels=this.phaseLevels(),offset=((start-this.musicOrigin)%LOOP_SECONDS+LOOP_SECONDS)%LOOP_SECONDS;\n    this.reserve(MUSIC_STEMS.length);\n    MUSIC_STEMS.forEach((stem,index)=>{\n"
+      },
+      {
+        "id": "contextual-10",
+        "before": "    this.musicMode=mode;\n  }\n  setMusicPhase(phase,mode=phase==='fight'?'dorian':'lydian'){\n    this.musicPhase=PHASES.has(phase)?phase:null;mode=MODES.has(mode)?mode:'lydian';\n",
+        "after": "    this.musicMode=mode;\n  }\n  phaseLevels(){return this.dynamicPhase===this.musicPhase&&this.dynamicLevels?this.dynamicLevels:LEVELS[this.musicPhase];}\n  setMusicPhase(phase,mode=phase==='fight'?'dorian':'lydian'){\n    this.musicPhase=PHASES.has(phase)?phase:null;mode=MODES.has(mode)?mode:'lydian';\n"
+      },
+      {
+        "id": "contextual-11",
+        "before": "      for(const voice of this.musicVoices){\n        voice.retireAt=null;voice.gain.gain.cancelScheduledValues(ctx.currentTime);\n        voice.gain.gain.setTargetAtTime(LEVELS[this.musicPhase][voice.index],ctx.currentTime,.03);\n      }\n      this.musicMode=this.musicVoices[0]?.mode??null;\n",
+        "after": "      for(const voice of this.musicVoices){\n        voice.retireAt=null;voice.gain.gain.cancelScheduledValues(ctx.currentTime);\n        voice.gain.gain.setTargetAtTime(this.phaseLevels()[voice.index],ctx.currentTime,.03);\n      }\n      this.musicMode=this.musicVoices[0]?.mode??null;\n"
+      },
+      {
+        "id": "contextual-12",
+        "before": "    }\n    for(const voice of this.musicVoices)if(!voice.retireAt&&ctx.currentTime>voice.start+.13)\n      voice.gain.gain.setTargetAtTime(LEVELS[this.musicPhase][voice.index],ctx.currentTime,.3);\n    this.music.gain.setTargetAtTime(this.musicVolume*(ctx.currentTime<this.duckUntil?.24:1),ctx.currentTime,.15);\n  }\n  update(game,{paused=false,dt=1/60}={}){\n    this.setPaused(paused);if(!this.audible){this.scene.reset();return 0;}\n    const ctx=this.unlock({gesture:false});if(!ctx||ctx.state!=='running'){this.scene.reset();return 0;}\n    this.prune();this.setMusicPhase(game?.phase,musicDecision(game).mode);\n    if(!this.effectsAvailable){this.scene.reset();return 0;}\n    const cues=this.scene.update(game,dt);\n    for(const cue of cues)this.play(cue.name,{x:cue.x,intensity:cue.intensity,rate:cue.rate??1,priority:bounded((cue.priority??1)-1,0,2)});\n    return cues.length;\n  }\n",
+        "after": "    }\n    for(const voice of this.musicVoices)if(!voice.retireAt&&ctx.currentTime>voice.start+.13)\n      voice.gain.gain.setTargetAtTime(this.phaseLevels()[voice.index],ctx.currentTime,.3);\n    this.music.gain.setTargetAtTime(this.musicVolume*(ctx.currentTime<this.duckUntil?.24:1),ctx.currentTime,.15);\n  }\n  update(game,{paused=false,dt=1/60,camera=null}={}){\n    this.setPaused(paused);if(!this.audible){this.scene.reset();return 0;}\n    const ctx=this.unlock({gesture:false});if(!ctx||ctx.state!=='running'){this.scene.reset();return 0;}\n    this.acoustics?.setListener(camera);\n    this.dynamicPhase=game?.phase;this.dynamicLevels=musicStemLevels(game,LEVELS[game?.phase]??LEVELS.ready);\n    this.prune();this.setMusicPhase(game?.phase,musicDecision(game).mode);\n    if(!this.effectsAvailable){this.scene.reset();return 0;}\n    const cues=this.scene.update(game,dt);\n    for(const cue of cues)this.play(cue.name,{x:cue.x,y:cue.y,z:cue.z,intensity:cue.intensity,rate:cue.rate??1,priority:bounded((cue.priority??1)-1,0,2)});\n    return cues.length;\n  }\n"
+      },
+      {
+        "id": "contextual-13",
+        "before": "    if(paused){this.stopEffects();this.stopMusic();}\n  }\n  stopEffects(){for(const voice of this.voices)this.retire(voice);this.contactTimes.clear();}\n  stopMusic(){\n    for(const voice of [...this.musicVoices])this.retireMusic(voice);\n",
+        "after": "    if(paused){this.stopEffects();this.stopMusic();}\n  }\n  stopEffects(){for(const voice of this.voices)this.retire(voice);this.contactTimes.clear();this.acoustics?.resetRoom();}\n  stopMusic(){\n    for(const voice of [...this.musicVoices])this.retireMusic(voice);\n"
+      },
+      {
+        "id": "contextual-14",
+        "before": "    this.musicLoadAbort?.abort();this.musicLoadAbort=null;this.loadingMusic=null;this.musicReady=false;this.musicError='';this.retryMusicAt=0;\n    this.stopEffects();this.stopMusic();this.scene.reset();\n    for(const node of [this.master,this.effects,this.music,this.limiter,this.saturator])try{node?.disconnect();}catch{}\n    this.master=null;this.effects=null;this.music=null;this.limiter=null;this.saturator=null;this.context=null;\n",
+        "after": "    this.musicLoadAbort?.abort();this.musicLoadAbort=null;this.loadingMusic=null;this.musicReady=false;this.musicError='';this.retryMusicAt=0;\n    this.stopEffects();this.stopMusic();this.scene.reset();\n    this.acoustics?.dispose();this.acoustics=null;\n    for(const node of [this.master,this.effects,this.music,this.limiter,this.saturator])try{node?.disconnect();}catch{}\n    this.master=null;this.effects=null;this.music=null;this.limiter=null;this.saturator=null;this.context=null;\n"
+      }
+    ]
+  },
+  {
+    "path": "public/audio/scene-audio.js",
+    "baselineSha256": "be4ed00db34d85b1fa7fe7eb1599e7b85f268ee0c0f0b4436b94338c44202849",
+    "currentSha256": "238c558d7ab455df1ae686788ca02a2e4f423c9fd2a6ec8cda98d0dd049772fd",
+    "hunks": [
+      {
+        "id": "contextual-01",
+        "before": "      this.slots[index]=next;\n      if(discontinuity)continue;\n      const emit=(name,intensity,cooldown,priority=1,x=next.x,rate=1,gate=name)=>{\n        if(!finite(intensity)||intensity<=0||this.time-(next.gates[gate]??-Infinity)<cooldown-1e-9)return false;\n        next.gates[gate]=this.time;\n        cues.push({name,x:clamp(finite(x)?x:next.x,-4,4),intensity:clamp(intensity,0,1),priority,rate:clamp(finite(rate)?rate:1,.7,1.4)});\n        return true;\n      };\n",
+        "after": "      this.slots[index]=next;\n      if(discontinuity)continue;\n      const emit=(name,intensity,cooldown,priority=1,x=next.x,rate=1,gate=name,location=null)=>{\n        if(!finite(intensity)||intensity<=0||this.time-(next.gates[gate]??-Infinity)<cooldown-1e-9)return false;\n        next.gates[gate]=this.time;\n        const at=location??next.pose.head;\n        cues.push({name,x:clamp(finite(x)?x:next.x,-4,4),y:clamp(finite(at?.y)?at.y:1.8,-2,8),z:clamp(finite(at?.z)?at.z:0,-8,16),intensity:clamp(intensity,0,1),priority,rate:clamp(finite(rate)?rate:1,.7,1.4)});\n        return true;\n      };\n"
+      },
+      {
+        "id": "contextual-02",
+        "before": "      }\n      const speed=movingPoints?movement/(movingPoints*dt):0;\n      if(speed>.16)emit('wood',.12+speed*.18,.22);\n      let angularSpeed=0;\n      for(let i=0;i<next.angles.length;i++)if(next.angles[i]!==null&&old.angles[i]!==null)\n        angularSpeed=Math.max(angularSpeed,Math.abs(next.angles[i]-old.angles[i])/dt);\n      if(angularSpeed>.35)emit('joint',.1+angularSpeed*.085,.18);\n      if(next.blade&&old.blade&&next.blade.source===old.blade.source&&next.blade.tip&&old.blade.tip&&next.blade.hand&&old.blade.hand){\n        // World motion includes pure joystick translation/extension: subtracting\n",
+        "after": "      }\n      const speed=movingPoints?movement/(movingPoints*dt):0;\n      if(speed>.16)emit('wood',.12+speed*.18,.22,1,next.pose.hip?.x??next.x,1,'wood',next.pose.hip);\n      let angularSpeed=0,angularJoint=0;\n      for(let i=0;i<next.angles.length;i++)if(next.angles[i]!==null&&old.angles[i]!==null)\n        if(Math.abs(next.angles[i]-old.angles[i])/dt>angularSpeed){angularSpeed=Math.abs(next.angles[i]-old.angles[i])/dt;angularJoint=i;}\n      const jointAt=angularJoint===0?next.pose.mainElbow:next.pose.offElbow;\n      if(angularSpeed>.35)emit('joint',.1+angularSpeed*.085,.18,1,jointAt?.x??next.x,1,'joint',jointAt);\n      if(next.blade&&old.blade&&next.blade.source===old.blade.source&&next.blade.tip&&old.blade.tip&&next.blade.hand&&old.blade.hand){\n        // World motion includes pure joystick translation/extension: subtracting\n"
+      },
+      {
+        "id": "contextual-03",
+        "before": "          const massRatio=next.blade.mass/.16;\n          emit('blade-swish',.08+bladeSpeed*.13*Math.sqrt(massRatio),.14,1,next.blade.tip.x,\n            .88+Math.min(bladeSpeed,8)*.055-Math.log2(massRatio)*.09);\n        }\n      }\n",
+        "after": "          const massRatio=next.blade.mass/.16;\n          emit('blade-swish',.08+bladeSpeed*.13*Math.sqrt(massRatio),.14,1,next.blade.tip.x,\n            .88+Math.min(bladeSpeed,8)*.055-Math.log2(massRatio)*.09,'blade-swish',next.blade.tip);\n        }\n      }\n"
+      },
+      {
+        "id": "contextual-04",
+        "before": "          const footSpeed=travel/dt,wet=next.wetness>.08;\n          const played=emit(wet?'footstep-wet':'footstep-dry',.14+Math.min(footSpeed,4)*.12+(landing?.08:0),.18,1,b.x,\n            .9+Math.min(footSpeed,3)*.055,'foot:'+key);\n          // A rate-limited landing is gone, not a backlog for the next slide.\n          if(played||landing)next.footTravel[key]=0;\n",
+        "after": "          const footSpeed=travel/dt,wet=next.wetness>.08;\n          const played=emit(wet?'footstep-wet':'footstep-dry',.14+Math.min(footSpeed,4)*.12+(landing?.08:0),.18,1,b.x,\n            .9+Math.min(footSpeed,3)*.055,'foot:'+key,b);\n          // A rate-limited landing is gone, not a backlog for the next slide.\n          if(played||landing)next.footTravel[key]=0;\n"
+      },
+      {
+        "id": "contextual-05",
+        "before": "      }\n\n      let impactVolume=0,impactEnergy=0,impactX=0,impacts=0;\n      if(next.fluid?.released===true)for(const [parcel,p] of next.parcels){\n        const previous=old.parcels.get(parcel);\n",
+        "after": "      }\n\n      let impactVolume=0,impactEnergy=0,impactX=0,impactY=0,impactZ=0,impacts=0;\n      if(next.fluid?.released===true)for(const [parcel,p] of next.parcels){\n        const previous=old.parcels.get(parcel);\n"
+      },
+      {
+        "id": "contextual-06",
+        "before": "        // Require an observed falling free parcel before that first transition.\n        if(!previous?.free||previous.wet||!p.free||!p.wet||previous.vy>=-.05||p.y>TABLE_TOP+waterDropRadius(p.volume)+.02)continue;\n        impactVolume+=p.volume;impactEnergy+=p.volume*previous.vy**2;impactX+=p.x*p.volume;impacts++;\n      }\n      if(impactVolume>0){\n        const name=impacts>=4||impactVolume>.004?'splash':'drip';\n        emit(name,.12+Math.sqrt(impactEnergy/impactVolume)*.12+Math.sqrt(impactVolume)*2,.1,4,impactX/impactVolume);\n      }\n    }\n",
+        "after": "        // Require an observed falling free parcel before that first transition.\n        if(!previous?.free||previous.wet||!p.free||!p.wet||previous.vy>=-.05||p.y>TABLE_TOP+waterDropRadius(p.volume)+.02)continue;\n        impactVolume+=p.volume;impactEnergy+=p.volume*previous.vy**2;impactX+=p.x*p.volume;impactY+=p.y*p.volume;impactZ+=p.z*p.volume;impacts++;\n      }\n      if(impactVolume>0){\n        const name=impacts>=4||impactVolume>.004?'splash':'drip';\n        emit(name,.12+Math.sqrt(impactEnergy/impactVolume)*.12+Math.sqrt(impactVolume)*2,.1,4,impactX/impactVolume,1,name,{y:impactY/impactVolume,z:impactZ/impactVolume});\n      }\n    }\n"
+      }
+    ]
+  },
+  {
+    "path": "public/audio/contact-audio.js",
+    "baselineSha256": "9dee184ac6dac9de545ce2abb98c691edcf2cd169f09b58c6bffbf54ec725627",
+    "currentSha256": "6b02dcd98984a61287e8d007d9a21aa58b045f203a79bb5d68f605c4c5fc487a",
+    "hunks": [
+      {
+        "id": "contextual-01",
+        "before": "// derivative and only a fallback. This is sound calibration, not a SI claim.\nfunction strength(data,{legacy=false}={}){\n  const fields=['impulse','closingSpeed','peakClosingSpeed','force','slideSpeed'];\n  if(fields.some(field=>data[field]!==undefined&&!Number.isFinite(data[field])))return null;\n  const measured=fields.some(field=>data[field]!==undefined);\n",
+        "after": "// derivative and only a fallback. This is sound calibration, not a SI claim.\nfunction strength(data,{legacy=false}={}){\n  const fields=['impulse','closingSpeed','peakClosingSpeed','force','slideSpeed','frictionImpulse','slidePower'];\n  if(fields.some(field=>data[field]!==undefined&&!Number.isFinite(data[field])))return null;\n  const measured=fields.some(field=>data[field]!==undefined);\n"
+      },
+      {
+        "id": "contextual-02",
+        "before": " * physics, score changes or fabricated floor impacts. The mixer owns rate gates.\n */\nexport function contactAudio(name,input={},game=null){\n  const data=input&&typeof input==='object'?input:{};\n  const jointEvent=name==='material-contact'?data.jointEvent:name;\n",
+        "after": " * physics, score changes or fabricated floor impacts. The mixer owns rate gates.\n */\nfunction planContactAudio(name,input={},game=null){\n  const data=input&&typeof input==='object'?input:{};\n  const jointEvent=name==='material-contact'?data.jointEvent:name;\n"
+      },
+      {
+        "id": "contextual-03",
+        "before": "  }\n  // Friction requires actual tangential speed, never a guessed bind timer.\n  if(metal(surface)&&(data.slideSpeed??0)>.08)\n    cues.push(cue('blade-slide',x,clamp(.12+data.slideSpeed*.12,.12,.6),{rate:clamp(.9+data.slideSpeed*.05,.9,1.2)}));\n  if(!cues.length)return empty();\n  return {key:data.weaponBind?'steel-bind':'defense:'+clamp(data.defender,0,2)+':'+surface,cooldown:.09,cues};\n}\n",
+        "after": "  }\n  // Friction requires actual tangential speed, never a guessed bind timer.\n  const measuredFriction=data.frictionImpulse!==undefined||data.slidePower!==undefined;\n  const friction=Math.abs(data.frictionImpulse??0),power=Math.max(0,data.slidePower??friction*(data.slideSpeed??0));\n  if(metal(surface)&&(data.slideSpeed??0)>.08&&(!measuredFriction||friction>1e-7&&power>1e-7))\n    cues.push(cue('blade-slide',x,measuredFriction?clamp(.07+Math.sqrt(power/.12)*.42,.07,.65):clamp(.12+data.slideSpeed*.12,.12,.6),{rate:clamp(.9+data.slideSpeed*.05,.9,1.2)}));\n  if(!cues.length)return empty();\n  return {key:data.weaponBind?'steel-bind':'defense:'+clamp(data.defender,0,2)+':'+surface,cooldown:.09,cues};\n}\n\n/** Preserve actual contact height/depth through the physical cue plan. Missing\n * legacy coordinates use the victim's observed head; no additional cue is made. */\nexport function contactAudio(name,input={},game=null){\n  const plan=planContactAudio(name,input,game),data=input&&typeof input==='object'?input:{};\n  const victim=Array.isArray(game?.fighters)?game.fighters.find(f=>f?.slot===(data.defender??data.loser??data.slot)):null;\n  plan.cues=plan.cues.map((item,index)=>{\n    const impact=name==='burst'&&data.draw&&Array.isArray(data.impacts)?data.impacts[Math.floor(index/3)]:null;\n    const at=impact?.at??impact??data.at??victim?.pose?.head;\n    return {...item,y:clamp(at?.y,-2,8,1.8),z:clamp(at?.z,-8,16,0)};\n  });return plan;\n}\n"
+      }
+    ]
+  },
+  {
+    "path": "tests/game-audio.test.mjs",
+    "baselineSha256": "468962a27bf6d2a38fb061771c65c518a4575f903d6067b96672869918a1980f",
+    "currentSha256": "45ec614b495deba1ac4e9f0312917fcf11c3b21c63934fa58eadd4a209b72850",
+    "hunks": [
+      {
+        "id": "contextual-01",
+        "before": "    audio.configure(true,55);audio.setMusicPhase('ready','lydian');assert.equal(audio.musicVoices.length,0);\n    assert.equal(audio.play('wood'),true);await audio.loadingMusic;\n    assert.equal(urls.length,12);assert.ok(urls.every(p=>p.includes('/assets/audio/workshop/music-')));\n    audio.setMusicPhase('fight','dorian');assert.equal(audio.musicVoices.length,3);assert.equal(audio.musicMode,'dorian');audio.dispose();\n  }finally{globalThis.fetch=original;}\n",
+        "after": "    audio.configure(true,55);audio.setMusicPhase('ready','lydian');assert.equal(audio.musicVoices.length,0);\n    assert.equal(audio.play('wood'),true);await audio.loadingMusic;\n    assert.equal(urls.length,12);assert.ok(urls.every(p=>p.includes('/assets/audio/workshop-score-v3/music-')));\n    audio.setMusicPhase('fight','dorian');assert.equal(audio.musicVoices.length,3);assert.equal(audio.musicMode,'dorian');audio.dispose();\n  }finally{globalThis.fetch=original;}\n"
+      }
+    ]
+  }
+]

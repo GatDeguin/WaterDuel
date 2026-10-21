@@ -1,0 +1,29 @@
+# WaterDuel 1.3 — contacto, agua sostenida y óptica de película
+
+2026-10-17. Continuación de la prioridad humana de materiales, muñecos/articulaciones, agua y ruptura. El corte 1.2 permanece congelado. El objetivo completo sigue activo; no se declara equivalencia artística con las cuatro referencias.
+
+## Implementación
+
+- **Articulaciones:** autocontacto de paneles extruidos del rig planar. Prismas y profundidad de las piezas visibles, exclusión de vecinos, Jacobianos y matriz de masa; reacción unilateral que elimina velocidad de cierre sin pegar una pieza que se separa. Fixture de antebrazo/pecho: penetración .20778 → 0 en 10 ticks, error máximo de apoyo 7.56e-6. No es autocontacto de cada tornillo ni rigid bodies 3D generales.
+- **Agua:** el área de piel ya no basta para retener líquido. Una consulta sobre triángulos físicos comprueba AABB, cruces orientados en cinco direcciones y componente conectada. Cuando falta soporte, los paquetes cambian a libres en su posición, sin un chorro artificial ni reimpulsar agua previamente liberada. Capacidad, geometría y caudal tienen ledger separado. Tras abrirse el recipiente, también se reconstruye visualmente el agua retenida desde sus posiciones reales.
+- **Látex:** área física por espesor conserva el volumen material de cada cara. La teselación visual hereda el espesor de la cara simulada. Intacto y rasgado comparten transmisión, absorción e IOR; la piel completa deja de cambiar a difusa al primer corte. La película rasgada resuelta conserva el pliegue cercano mediante profundidad; sigue siendo una aproximación de interfaz, sin trazado multicapa.
+- **Materiales/óptica:** GGX conserva su distribución, con rugosidad mínima y filtrado por derivadas para limitar aliasing. Se retira el epsilon que anulaba el brillo de agua y látex. El agua usa absorción coloreada con dispersión pequeña; no un relleno lechoso dominante. Un FBO de profundidad por objeto mide la interfaz posterior para estimar el trayecto óptico. Esta envolvente puede incluir aire entre componentes disjuntos: no es integración exacta de todos los cruces ni caústicas.
+- **Coherencia de superficie:** emisiones y cambios de perfil invalidan la malla; la corrección de movimiento se documenta en `audit/PLAN_CACHE_MOVIMIENTO_RONDA_7.md`. La física no depende del perfil visual.
+
+La caché compensa sólo traslación rígida común y conserva volumen/normales; reconstruye ante deformación superior a un cuarto de celda o cambio normal contra una cara recortada del dominio. La revisión encontró y corrigió el caso de kernel ampliado que podía llevar la malla a X3.71 fuera de pared3.7. El benchmark guardado conserva4extracciones/31frames en traslación común; una ráfaga deformable necesita31/31 y588.997ms CPU total. Ese cuello permanece y no acredita60FPS durante estallidos; ver `RENDIMIENTO.md`.
+
+## Evidencia
+
+- Prueba GPU real `/qa/optics-checks.html`: trayectos esperados .100975 y .605851, medidos .098039 y .603922 en lectura cuantizada de ocho bits. Error GL cero. Para geometría/iluminación idénticas, los materiales 2/10 producen el mismo pixel [100,162,142,255]. JSON `benchmarks/results/round7-optical-depth.json`.
+- Capturas 28 y 33: comparación general en el juego real. 31/32: detalle con iluminación final/neutra. `screenshots/ruptura-ronda7/` contiene estados reproducidos por el motor real con una punción escenificada; **no es un vídeo ni una captura consecutiva de una jugada humana**. Su JSON identifica pasos, edad física, parcelas, fracturas y volumen.
+- Árbitro: 2111 centros retenidos contrastados con rayos Möller–Trumbore propios, cuatro roturas normales/jefe, error ledger máximo 8.88e-16 u³; copa estable con caudal positivo y equivalencia 30/120 Hz. Dos pliegues por ambos lados del rig terminan con área interpenetrada cero. Ver `audit/ARBITRAJE_RONDA_7.md`.
+- La normal se vacía por pérdida de soporte antes de alcanzar un paquete de crédito de orificio. La aserción histórica `orificeVolume > 0` se sustituye en ese caso por crédito subpaquete positivo y descarga de soporte, manteniendo una prueba separada con recipiente estable y caudal real positivo. Crítico y Árbitro aceptaron la distinción; no se añadió agua ficticia para ganar el test.
+- Ventana quieta de Versus intacto, ALTA, 1918×1078, 300 RAF: 59.995 FPS medios, mínimo 59.172, P95 16.8 ms; CPU sim 3.470 ms, envío render 4.407 ms. No mide burst sostenido, GPU ni otros dispositivos. El nuevo destino óptico ocupa 8,270,416 bytes en esa resolución.
+
+La suite y los hashes finales de la entrega extraída se registran fuera del ZIP en `release/VERIFICACION_1.3.0.json`. Los conteos focales y generales se solapan. La nota técnica interna conserva 72/100, con brechas expresas, y no es una certificación AAA.
+
+## Fuentes técnicas y límites
+
+Distribución microfacet: [documentación de Filament](https://google.github.io/filament/main/filament.html). El filtrado acotado por derivadas del juego es una aproximación del enfoque de varianza de normales; una implementación de referencia está en [CommonMaterial de Unity](https://github.com/Unity-Technologies/Graphics/blob/master/Packages/com.unity.render-pipelines.core/ShaderLibrary/CommonMaterial.hlsl). Destinos de profundidad, draw/read buffers y estado de rasterizado: [especificación WebGL 2 de Khronos](https://registry.khronos.org/webgl/specs/latest/2.0/). Las constantes ópticas del juego se expresan en unidades de escena y no se presentan como mediciones SI calibradas.
+
+Persisten proporciones/riqueza de escenario y acabados inferiores a las referencias, apoyos ideales, hoja prescrita, falta de colisiones agua/cuerpo completas, membrana sin hiperelasticidad calibrada ni autocolisión general, y contenido pendiente de campaña/entrenamiento/playback/cliente visual. Dispositivos y Wi-Fi físicos siguen sin validar. Ver `LIMITACIONES.md` y la matriz de cobertura.

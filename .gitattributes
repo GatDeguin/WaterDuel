@@ -1,0 +1,2 @@
+# Preserve exact source/oracle/asset bytes across platforms; hashes are part of the tests.
+* -text

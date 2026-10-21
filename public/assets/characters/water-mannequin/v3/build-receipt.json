@@ -1,0 +1,81 @@
+{
+  "revision": 3,
+  "material_only": true,
+  "assets": [
+    {
+      "name": "water-mannequin",
+      "source_sha256": "3b30bc03c5ed802c525b53913ad85c7fc949f8ab6ed6c30d689e8f79af60317f",
+      "sha256": "6f96710fd3aef9da94fae7007562a28c25be3551fd57c41a19dd7951ac8660e2",
+      "bytes": 4019128,
+      "texture_count": 11,
+      "material_names": [
+        "Mint_Latex_Transmission",
+        "Polished_Rapier_Steel",
+        "Satin_Brass",
+        "Wrapped_Brown_Leather",
+        "Water_IOR_1.333",
+        "Beech_Wood_Grain",
+        "Endgrain_Joints",
+        "Mint_Woven_Sash",
+        "Recessed_Steel",
+        "Water_Surface_Crest"
+      ],
+      "geometry_json_unchanged": true,
+      "original_images_replaced": [
+        36,
+        37,
+        38
+      ]
+    },
+    {
+      "name": "water-mannequin-amber",
+      "source_sha256": "0b848dfac42d60e2fbb1367c66c6bc27d2f4be38d482439adee02fbab2defc3e",
+      "sha256": "c564de1387e70d2f52082e1f77ae8bcdb98b1b5452b7bdcb5a8e33c283784890",
+      "bytes": 4019076,
+      "texture_count": 11,
+      "material_names": [
+        "Mint_Latex_Transmission",
+        "Polished_Rapier_Steel",
+        "Satin_Brass",
+        "Wrapped_Brown_Leather",
+        "Water_IOR_1.333",
+        "Beech_Wood_Grain",
+        "Endgrain_Joints",
+        "Mint_Woven_Sash",
+        "Recessed_Steel",
+        "Water_Surface_Crest"
+      ],
+      "geometry_json_unchanged": true,
+      "original_images_replaced": [
+        36,
+        37,
+        38
+      ]
+    },
+    {
+      "name": "water-mannequin-boss",
+      "source_sha256": "494cc22f9ea56d6e6cb4c87b311bb9b9fb1f1a70a3e6d409ccf56921cb62c955",
+      "sha256": "31c02d6bcae65d13f66bb3a2157db6634045345e14e3d081a4397cb1c378fa5b",
+      "bytes": 4779888,
+      "texture_count": 11,
+      "material_names": [
+        "Mint_Latex_Transmission",
+        "Polished_Rapier_Steel",
+        "Satin_Brass",
+        "Wrapped_Brown_Leather",
+        "Water_IOR_1.333",
+        "Beech_Wood_Grain",
+        "Boss_Burgundy_Woven_Cloth",
+        "Endgrain_Joints",
+        "Recessed_Steel",
+        "Water_Surface_Crest"
+      ],
+      "geometry_json_unchanged": true,
+      "original_images_replaced": [
+        36,
+        37,
+        38
+      ]
+    }
+  ]
+}

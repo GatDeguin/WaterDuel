@@ -1,0 +1,765 @@
+{
+  "version": 1,
+  "source": {
+    "path": "output/blender/WaterDuel_Atelier.blend",
+    "sha256": "2e92513be1f17a2e2d5cc357dddc8cd8d0e1dd62abbde226f4ec09c3a717b755",
+    "preserved": true,
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "frozenContractSHA256": "ccd5ebba16bf71df9d9176bdb3e7c71c8a4c2bc8dc50570e308c0925231f90c6",
+  "coordinates": {
+    "runtimeUp": "Y",
+    "runtimeFront": "+Z",
+    "sourceToRuntimeVector": [
+      "x",
+      "z",
+      "-y"
+    ],
+    "scale": 0.6462585034013606,
+    "translationRuntimeY": -0.4186972789115646,
+    "directionMeaning": "Normalized light-ray/view travel direction, from local -Z",
+    "areaAxesMeaning": "Local +X and +Y of the emitting surface in runtime world space",
+    "areaDimensionsMeaning": "Full width/height or full ellipse diameters, including object scale"
+  },
+  "count": 22,
+  "lights": [
+    {
+      "name": "Practical warm bulb",
+      "type": "POINT",
+      "position": [
+        -2.811224428163905,
+        3.6527314157810338,
+        -2.3265305506128846
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.10340135823301719
+    },
+    {
+      "name": "Shade downlight",
+      "type": "AREA",
+      "position": [
+        -2.811224428163905,
+        3.701200680272109,
+        -2.3265305506128846
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "axisU": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "sizeRuntime": 0.9047618893539014,
+      "sizeYRuntime": 0.9047618893539014,
+      "shape": "DISK",
+      "spreadRadians": 3.1415927410125732,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Practical warm bulb.001",
+      "type": "POINT",
+      "position": [
+        2.7465986394557826,
+        3.855656361508532,
+        -2.391156493401041
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.10340135823301719
+    },
+    {
+      "name": "Shade downlight.001",
+      "type": "AREA",
+      "position": [
+        2.7465986394557826,
+        3.908003512298169,
+        -2.391156493401041
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "axisU": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "sizeRuntime": 0.9047618893539014,
+      "sizeYRuntime": 0.9047618893539014,
+      "shape": "DISK",
+      "spreadRadians": 3.1415927410125732,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Practical warm bulb.002",
+      "type": "POINT",
+      "position": [
+        0.0,
+        5.088717889227835,
+        -4.136054483400722
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.10340135823301719
+    },
+    {
+      "name": "Shade downlight.002",
+      "type": "AREA",
+      "position": [
+        0.0,
+        5.129431997441921,
+        -4.136054483400722
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "axisU": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "sizeRuntime": 0.9047618893539014,
+      "sizeYRuntime": 0.9047618893539014,
+      "shape": "DISK",
+      "spreadRadians": 3.1415927410125732,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Practical warm bulb.003",
+      "type": "POINT",
+      "position": [
+        -5.428571182043375,
+        5.082255156276989,
+        -3.8775510204081636
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.10340135823301719
+    },
+    {
+      "name": "Shade downlight.003",
+      "type": "AREA",
+      "position": [
+        -5.428571182043375,
+        5.113275781384942,
+        -3.8775510204081636
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "axisU": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "sizeRuntime": 0.9047618893539014,
+      "sizeYRuntime": 0.9047618893539014,
+      "shape": "DISK",
+      "spreadRadians": 3.1415927410125732,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "name": "Background amber pool",
+      "type": "POINT",
+      "position": [
+        -5.170068027210885,
+        1.229261873945898,
+        -4.317006691783464
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.10340135823301719
+    },
+    {
+      "name": "Background amber pool.001",
+      "type": "POINT",
+      "position": [
+        -4.265306060816966,
+        1.229261873945898,
+        -4.317006691783464
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.10340135823301719
+    },
+    {
+      "name": "Background amber pool.002",
+      "type": "POINT",
+      "position": [
+        -1.680272047211524,
+        1.5523911256465783,
+        -4.317006691783464
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.10340135823301719
+    },
+    {
+      "name": "Background amber pool.003",
+      "type": "POINT",
+      "position": [
+        1.680272047211524,
+        1.5523911256465783,
+        -4.317006691783464
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.10340135823301719
+    },
+    {
+      "name": "Background amber pool.004",
+      "type": "POINT",
+      "position": [
+        4.265306060816966,
+        1.229261873945898,
+        -4.317006691783464
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.10340135823301719
+    },
+    {
+      "name": "Background amber pool.005",
+      "type": "POINT",
+      "position": [
+        5.170068027210885,
+        1.229261873945898,
+        -4.317006691783464
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.10340135823301719
+    },
+    {
+      "name": "Key | warm workshop softbox",
+      "type": "AREA",
+      "position": [
+        -2.261904761904762,
+        4.622119170883075,
+        1.6156462585034015
+      ],
+      "direction": [
+        0.4442855715751648,
+        -0.8377955555915833,
+        -0.31734684109687805
+      ],
+      "axisU": [
+        0.5812381505966187,
+        -4.149505627992767e-08,
+        0.8137335181236267
+      ],
+      "axisV": [
+        0.6817423105239868,
+        0.545984148979187,
+        -0.48695868253707886
+      ],
+      "sizeRuntime": 2.5850340521254527,
+      "sizeYRuntime": 1.9387755390940882,
+      "shape": "RECTANGLE",
+      "spreadRadians": 3.1415927410125732,
+      "sourceObjectScale": [
+        1.0000000149011619,
+        1.0000000149011612,
+        1.0
+      ]
+    },
+    {
+      "name": "Left tall window | blue bounce",
+      "type": "AREA",
+      "position": [
+        -3.0051021024483404,
+        3.717357204489157,
+        -4.55612257224362
+      ],
+      "direction": [
+        0.3002748191356659,
+        -0.5212316513061523,
+        0.798844575881958
+      ],
+      "axisU": [
+        -0.9360561370849609,
+        -9.202410211628376e-08,
+        0.3518507182598114
+      ],
+      "axisV": [
+        0.18339566886425018,
+        0.8534152507781982,
+        0.48790213465690613
+      ],
+      "sizeRuntime": 1.9387755318715947,
+      "sizeYRuntime": 3.8775511793031954,
+      "shape": "RECTANGLE",
+      "spreadRadians": 3.1415927410125732,
+      "sourceObjectScale": [
+        1.0000000111758751,
+        1.0000000409781924,
+        0.9999999739229676
+      ]
+    },
+    {
+      "name": "Right tall window | blue rim",
+      "type": "AREA",
+      "position": [
+        3.0051021024483404,
+        3.9758606674817143,
+        -4.55612257224362
+      ],
+      "direction": [
+        -0.2651127576828003,
+        -0.5302252769470215,
+        0.805342435836792
+      ],
+      "axisU": [
+        -0.9498566389083862,
+        -6.031201138512188e-08,
+        -0.3126857876777649
+      ],
+      "axisV": [
+        -0.16579395532608032,
+        0.8478568196296692,
+        0.503637969493866
+      ],
+      "sizeRuntime": 1.9387755535390945,
+      "sizeYRuntime": 3.8775510204081636,
+      "shape": "RECTANGLE",
+      "spreadRadians": 3.1415927410125732,
+      "sourceObjectScale": [
+        1.0000000223517433,
+        1.0,
+        1.0000000260770316
+      ]
+    },
+    {
+      "name": "Right table glancing reflection",
+      "type": "AREA",
+      "position": [
+        3.8775510204081636,
+        2.1663367346938776,
+        -0.9693877551020409
+      ],
+      "direction": [
+        -0.8773336410522461,
+        -0.36346665024757385,
+        0.3133334517478943
+      ],
+      "axisU": [
+        -0.3363364040851593,
+        -3.2588509668585175e-09,
+        -0.9417418837547302
+      ],
+      "axisV": [
+        -0.34229177236557007,
+        0.931607186794281,
+        0.12224705517292023
+      ],
+      "sizeRuntime": 1.9387754668690718,
+      "sizeYRuntime": 1.2925169863389665,
+      "shape": "RECTANGLE",
+      "spreadRadians": 3.1415927410125732,
+      "sourceObjectScale": [
+        0.999999977648258,
+        0.9999999841675161,
+        1.0000000372529023
+      ]
+    },
+    {
+      "name": "Soft front return",
+      "type": "AREA",
+      "position": [
+        0.0,
+        3.1357244897959182,
+        5.170068027210885
+      ],
+      "direction": [
+        -0.0,
+        -0.3256668746471405,
+        -0.9454845786094666
+      ],
+      "axisU": [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      "axisV": [
+        0.0,
+        0.9454845786094666,
+        -0.3256668746471405
+      ],
+      "sizeRuntime": 3.8775510204081636,
+      "sizeYRuntime": 2.5850340328654466,
+      "shape": "RECTANGLE",
+      "spreadRadians": 3.1415927410125732,
+      "sourceObjectScale": [
+        1.0,
+        1.0000000074505806,
+        1.0000000074505806
+      ]
+    },
+    {
+      "name": "Back banner wash",
+      "type": "AREA",
+      "position": [
+        -0.6462585034013606,
+        4.557493074014885,
+        -3.0374148427223675
+      ],
+      "direction": [
+        0.3123474717140198,
+        -0.4372864365577698,
+        -0.8433383703231812
+      ],
+      "axisU": [
+        0.9377487897872925,
+        -3.3179023972707e-09,
+        0.3473142981529236
+      ],
+      "axisV": [
+        0.151875838637352,
+        0.8993222713470459,
+        -0.41006481647491455
+      ],
+      "sizeRuntime": 1.551020469795279,
+      "sizeYRuntime": 1.5510204495722735,
+      "shape": "DISK",
+      "spreadRadians": 3.1415927410125732,
+      "sourceObjectScale": [
+        1.0,
+        0.9999999869614838,
+        1.0000000037252903
+      ]
+    },
+    {
+      "name": "Left bench oil lamp warm practical illumination",
+      "type": "POINT",
+      "position": [
+        -2.6367346445719404,
+        0.9481394619455144,
+        -4.116666592708251
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.04846938968110247
+    },
+    {
+      "name": "Right bench oil lamp warm practical illumination",
+      "type": "POINT",
+      "position": [
+        2.52040822489732,
+        0.9481394619455144,
+        -4.110204167917472
+      ],
+      "direction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisU": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "axisV": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sizeRuntime": 0.0,
+      "sizeYRuntime": 0.0,
+      "shape": null,
+      "spreadRadians": null,
+      "sourceObjectScale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "radiusRuntime": 0.04846938968110247
+    }
+  ]
+}

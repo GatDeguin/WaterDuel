@@ -1,0 +1,96 @@
+{
+  "revision": 3,
+  "material_only": true,
+  "files": [
+    {
+      "file": "public/assets/characters/water-mannequin/v3/water-mannequin.glb",
+      "bytes": 4019128,
+      "sha256": "6f96710fd3aef9da94fae7007562a28c25be3551fd57c41a19dd7951ac8660e2"
+    },
+    {
+      "file": "docs/assets/characters/v3/water-mannequin.blend",
+      "bytes": 2548919,
+      "sha256": "bc0a2a7f69d5714e00dce29f037aee701ae7c141ed030b5db0fd2ad3db2e0dfd"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/water-mannequin-preview.png",
+      "bytes": 1907388,
+      "sha256": "06d6cb46b028aa7108ebfdf368ea573be1e649b45446d25145c524d2bd2a57e2"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/water-mannequin-detail.png",
+      "bytes": 1853220,
+      "sha256": "0746b90a57993445c3deb2551416a2f47416e122481cbb1c282785417bc43f79"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/water-mannequin-amber.glb",
+      "bytes": 4019076,
+      "sha256": "c564de1387e70d2f52082e1f77ae8bcdb98b1b5452b7bdcb5a8e33c283784890"
+    },
+    {
+      "file": "docs/assets/characters/v3/water-mannequin-amber.blend",
+      "bytes": 2548665,
+      "sha256": "86fe92ed688efab0f87095213b8954b1137e3e01e90587a02cda5e86927ea011"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/water-mannequin-amber-preview.png",
+      "bytes": 1902546,
+      "sha256": "188dc92f59ff3bfe30428c988955b142bd9cef4d754c6dd0bb2b148ac5607b9c"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/water-mannequin-amber-detail.png",
+      "bytes": 1843597,
+      "sha256": "21ca22e1bddbe96288bb0d25f35b39a9662c0d89344181c13f39fed52fd78626"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/water-mannequin-boss.glb",
+      "bytes": 4779888,
+      "sha256": "31c02d6bcae65d13f66bb3a2157db6634045345e14e3d081a4397cb1c378fa5b"
+    },
+    {
+      "file": "docs/assets/characters/v3/water-mannequin-boss.blend",
+      "bytes": 2856961,
+      "sha256": "228cd5f6d45bc139d518a674f941a703511cb2f95a2b1fe567167c7ba4c59b0d"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/water-mannequin-boss-preview.png",
+      "bytes": 2225448,
+      "sha256": "2f9b3b8ff10eb9eed561ead7337c088f450184ee54838bd726c2ac2dd619335e"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/water-mannequin-boss-detail.png",
+      "bytes": 1952506,
+      "sha256": "df1e716f867265a3f62011845157fc58ed8cf35002e7fde533828519bd30f9a8"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/waterduel-models-v3.png",
+      "bytes": 2467787,
+      "sha256": "416bcb2f6a57f591055b2f841d8c65e68b100dce137104f8436d80139852dff2"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/rig-contract.json",
+      "bytes": 44411,
+      "sha256": "1461852764478d4883bc824e6027013f6ec0530f6eba83c547670f07b66fd7a0"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/asset-info.json",
+      "bytes": 13145,
+      "sha256": "b383228f96d007f17453dc6198fee9c945adb8ba595139525301b845dd47fc56"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/geometry-equivalence.json",
+      "bytes": 71115,
+      "sha256": "6d24bf5904c4f9061dd8c7c48f70524ea9fe19220ebac5dd3c0cefbff278f8f7"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v3/runtime-compatibility.json",
+      "bytes": 47138,
+      "sha256": "1e1a40afd6d701476d0f89b7b6c87956e8ed32ba43ea92a75dbf5f0c6da3446a"
+    },
+    {
+      "file": "audit/COORDINACION_PERSONAJES_V3.md",
+      "bytes": 4017,
+      "sha256": "b1565e04068adf7fabcf0813d2ea43c064b8940724661c3d3e016ccbd1dda832"
+    }
+  ]
+}

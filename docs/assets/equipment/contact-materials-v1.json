@@ -1,0 +1,3357 @@
+{
+  "version": 1,
+  "date": "2026-10-17",
+  "purpose": "Approximate contact-material routing for Audio/FX from the frozen seven v1GLB assets; no runtime mutation.",
+  "scope": {
+    "source_set": "public/assets/equipment/workshop",
+    "no_none_mesh": true,
+    "no_runtime_changes": true,
+    "no_per_triangle_material_claim": true,
+    "measured": "POSITION buffer data decoded from each material primitive, node world transforms applied; min/max recomputed, not copied from authoring scripts.",
+    "semantic_zones": "Deliberately coarse exposed-surface regions informed by measured GLB material bounds plus the delivered part construction; overlapping materials are labelled mixed."
+  },
+  "coordinates": {
+    "glb": {
+      "across": "+X",
+      "along": "+Y",
+      "front": "+Z",
+      "unit": "metres",
+      "origin": "grip centre"
+    },
+    "runtime_projection": "d=dot(contact-hand,normalize(tip-hand)); L=length(tip-hand); alphaPosed=d/L. hand=mainHand for primary, offHand for knife.",
+    "rest_normalization": "alphaRest=s/rest_reach_m; use rest_along_m or alphaRest to lookup zones. Do not compare alphaPosed directly to rest-zone alpha thresholds.",
+    "rendered_extension": "E=L-rest_reach_m; renderer uses F(s)=s+E*clamp((s-a)/(b-a),0,1), [a,b]=deformation_m. Grip/heads are not uniformly scaled.",
+    "inverse_rendered_extension": "If d<=a: s=d. If d>=b+E: s=d-E. Else s=a+(d-a)/(1+E/(b-a)). This is the monotonic inverse for the current legal equipment range.",
+    "shields": "Invert current equipmentTransform shield sx/sy around offHand before classifying local XY regions. GLB depth Z is unchanged by guard sx/sy.",
+    "fallback_when_contact_position_missing": "Use explicit runtime material/palm evidence first, then key+equipment fallback. Mixed remains mixed; never guess a precise face from an AABB."
+  },
+  "runtime_key_policy": {
+    "explicit_material": "An existing explicit material=wood/palm contact wins over a broad weapon body key; main-palm/off-palm are character timber, outside this item contract.",
+    "weapon": "Shaft/whole primary proxy. Resolve by equipment id and recovered rest along. A weapon body is not automatically metal.",
+    "weapon-head": "Wide axe/maul proxy, still body weapon. Axe fallback steel; maul fallback wood_metal_mixed. The key alone cannot identify a clamp or steel shoe.",
+    "defenses": "Current shield/dagger guard contacts have no universal weapon-head material key; combine defense id with known face/rim/back context. These logical zones do not add colliders or events.",
+    "missing_contact_location": "sword->steel; spear->wood; axe weapon->wood and weapon-head->steel; maul weapon->wood and weapon-head->wood_metal_mixed; short guard->metal_mixed; long guard->wood; knife parry->steel."
+  },
+  "material_families": {
+    "wood": [
+      "WD_wood",
+      "WD_wood_light",
+      "WD_wood_dark"
+    ],
+    "steel": [
+      "WD_steel",
+      "WD_steel_dark"
+    ],
+    "brass": [
+      "WD_brass",
+      "WD_brass_dark"
+    ],
+    "leather": [
+      "WD_leather",
+      "WD_leather_edge"
+    ],
+    "enamel_coating": [
+      "WD_enamel_black"
+    ],
+    "cloth": [],
+    "cloth_note": "The actual seven v1 assets contain no cloth material primitives. Leather damping is not evidence of fabric."
+  },
+  "pair_routing_priority": [
+    {
+      "priority": 1,
+      "condition": "Explicit collision body material already resolves character wood or another authoritative surface.",
+      "route": "Preserve that material; do not override with weapon id."
+    },
+    {
+      "priority": 2,
+      "condition": "Known exposed steel/brass against steel/brass.",
+      "route": "metal impact/clang family; metal detail may be secondary to mass/impulse. No automatic sparks from material alone."
+    },
+    {
+      "priority": 3,
+      "condition": "Wood against wood.",
+      "route": "wood/thud family."
+    },
+    {
+      "priority": 4,
+      "condition": "Wood against metal, or unresolved maul mixed head.",
+      "route": "wood/thud body with optional short metal accent; do not promote every mixed overlap to a full sustained clang."
+    },
+    {
+      "priority": 5,
+      "condition": "Leather or explicitly known cloth at the actual surface.",
+      "route": "damped contact; underlying wood/metal may remain a quiet transient. No cloth is delivered in this asset set."
+    },
+    {
+      "priority": 6,
+      "condition": "Small enamel coat, engraving or tiny fastener overlaps a larger exposed surface.",
+      "route": "Route the structural/exposed substrate; do not create a separate impact solely from decoration."
+    }
+  ],
+  "assets": {
+    "sword": {
+      "role": "primary",
+      "rest_reach_m": 1.02,
+      "deformation_m": [
+        0.18,
+        1.02
+      ],
+      "runtime_keys": [
+        "weapon"
+      ],
+      "fallback": "steel",
+      "zones": [
+        {
+          "id": "rear_pommel",
+          "rest_along_m": [
+            -0.208,
+            -0.13
+          ],
+          "dominant": "brass",
+          "candidates": [
+            "brass",
+            "steel"
+          ],
+          "note": "Pommel, knuckle bow and tang overlap; not part of the ordinary forward weapon panel.",
+          "rest_along_normalized": [
+            -0.203921569,
+            -0.12745098
+          ]
+        },
+        {
+          "id": "wrapped_grip",
+          "rest_along_m": [
+            -0.118,
+            0.108
+          ],
+          "dominant": "leather",
+          "candidates": [
+            "leather",
+            "brass",
+            "steel"
+          ],
+          "note": "Leather is exposed; internal steel tang and thin end fittings do not turn the grip into a bare metal surface.",
+          "rest_along_normalized": [
+            -0.115686275,
+            0.105882353
+          ]
+        },
+        {
+          "id": "cup_and_collar",
+          "rest_along_m": [
+            0.108,
+            0.2
+          ],
+          "dominant": "brass",
+          "candidates": [
+            "brass",
+            "steel"
+          ],
+          "note": "Brass cup/guard and steel ricasso overlap .185–.20; coarse mixed metal.",
+          "rest_along_normalized": [
+            0.105882353,
+            0.196078431
+          ]
+        },
+        {
+          "id": "blade",
+          "rest_along_m": [
+            0.2,
+            1.02
+          ],
+          "dominant": "steel",
+          "candidates": [
+            "steel"
+          ],
+          "note": "Actual steel primitive begins .185; .20 is the conservative clean-blade routing boundary.",
+          "rest_along_normalized": [
+            0.196078431,
+            1
+          ]
+        }
+      ],
+      "measured": {
+        "file": "public/assets/equipment/workshop/sword.glb",
+        "sha256": "bd0b1d3e4d88abe297d47d9d6c004c436b7a5a530234654887c4e7808ff83ec7",
+        "bytes": 1655016,
+        "bounds_glb_m": {
+          "min": [
+            -0.149368212,
+            -0.208000004,
+            -0.115199998
+          ],
+          "max": [
+            0.145000011,
+            1.019999981,
+            0.115199998
+          ],
+          "dimensions": [
+            0.294368222,
+            1.227999985,
+            0.230399996
+          ]
+        },
+        "sockets": {
+          "Socket_Grip_Main": [
+            0,
+            0,
+            0
+          ],
+          "Socket_Strike": [
+            0,
+            1.019999981,
+            0
+          ],
+          "Socket_Trail_Base": [
+            0,
+            0.170000002,
+            0
+          ],
+          "Socket_Trail_Tip": [
+            0,
+            1.019999981,
+            0
+          ]
+        },
+        "materials": [
+          {
+            "name": "WD_steel_dark",
+            "baseColorFactor": [
+              0.14000000059604645,
+              0.19499999284744263,
+              0.20000000298023224,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8500000238418579,
+            "roughness": 0.36000001430511475
+          },
+          {
+            "name": "WD_leather",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.5199999809265137
+          },
+          {
+            "name": "WD_leather_edge",
+            "baseColorFactor": [
+              0.5299999713897705,
+              0.3199999928474426,
+              0.15000000596046448,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0,
+            "roughness": 0.5099999904632568
+          },
+          {
+            "name": "WD_brass",
+            "baseColorFactor": [
+              0.6299999952316284,
+              0.36000001430511475,
+              0.10499999672174454,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8600000143051147,
+            "roughness": 0.27000001072883606
+          },
+          {
+            "name": "WD_brass_dark",
+            "baseColorFactor": [
+              0.27000001072883606,
+              0.1550000011920929,
+              0.04500000178813934,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.7799999713897705,
+            "roughness": 0.4000000059604645
+          },
+          {
+            "name": "WD_steel",
+            "baseColorFactor": [
+              0.5899999737739563,
+              0.6899999976158142,
+              0.7099999785423279,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.9399999976158142,
+            "roughness": 0.23000000417232513
+          }
+        ],
+        "primitives": [
+          {
+            "node": "Render_sword",
+            "mesh": "Cylinder.319",
+            "primitive": 0,
+            "material": "WD_steel_dark",
+            "vertices": 2167,
+            "triangles": 2904,
+            "aabb_glb_m": {
+              "min": [
+                -0.113066509,
+                -0.187000006,
+                -0.113066509
+              ],
+              "max": [
+                0.113066509,
+                0.515006363,
+                0.113066509
+              ],
+              "dimensions": [
+                0.226133019,
+                0.70200637,
+                0.226133019
+              ]
+            },
+            "along_glb_y_m": [
+              -0.187000006,
+              0.515006363
+            ]
+          },
+          {
+            "node": "Render_sword",
+            "mesh": "Cylinder.319",
+            "primitive": 1,
+            "material": "WD_leather",
+            "vertices": 260,
+            "triangles": 380,
+            "aabb_glb_m": {
+              "min": [
+                -0.02699664,
+                -0.117499992,
+                -0.02699664
+              ],
+              "max": [
+                0.02699664,
+                0.107500002,
+                0.02699664
+              ],
+              "dimensions": [
+                0.053993281,
+                0.224999994,
+                0.053993281
+              ]
+            },
+            "along_glb_y_m": [
+              -0.117499992,
+              0.107500002
+            ]
+          },
+          {
+            "node": "Render_sword",
+            "mesh": "Cylinder.319",
+            "primitive": 2,
+            "material": "WD_leather_edge",
+            "vertices": 901,
+            "triangles": 1520,
+            "aabb_glb_m": {
+              "min": [
+                -0.029302672,
+                -0.109780759,
+                -0.028912062
+              ],
+              "max": [
+                0.029399998,
+                0.099874593,
+                0.028947616
+              ],
+              "dimensions": [
+                0.05870267,
+                0.209655352,
+                0.057859678
+              ]
+            },
+            "along_glb_y_m": [
+              -0.109780759,
+              0.099874593
+            ]
+          },
+          {
+            "node": "Render_sword",
+            "mesh": "Cylinder.319",
+            "primitive": 3,
+            "material": "WD_brass",
+            "vertices": 5045,
+            "triangles": 4896,
+            "aabb_glb_m": {
+              "min": [
+                -0.149368212,
+                -0.208000004,
+                -0.115199998
+              ],
+              "max": [
+                0.145000011,
+                0.197500005,
+                0.115199998
+              ],
+              "dimensions": [
+                0.294368222,
+                0.40550001,
+                0.230399996
+              ]
+            },
+            "along_glb_y_m": [
+              -0.208000004,
+              0.197500005
+            ]
+          },
+          {
+            "node": "Render_sword",
+            "mesh": "Cylinder.319",
+            "primitive": 4,
+            "material": "WD_brass_dark",
+            "vertices": 1916,
+            "triangles": 2848,
+            "aabb_glb_m": {
+              "min": [
+                -0.080800004,
+                -0.178558841,
+                -0.080800004
+              ],
+              "max": [
+                0.080800004,
+                0.136558846,
+                0.080800004
+              ],
+              "dimensions": [
+                0.161600009,
+                0.315117687,
+                0.161600009
+              ]
+            },
+            "along_glb_y_m": [
+              -0.178558841,
+              0.136558846
+            ]
+          },
+          {
+            "node": "Render_sword",
+            "mesh": "Cylinder.319",
+            "primitive": 5,
+            "material": "WD_steel",
+            "vertices": 48,
+            "triangles": 18,
+            "aabb_glb_m": {
+              "min": [
+                -0.009,
+                0.185000002,
+                -0.006
+              ],
+              "max": [
+                0.009,
+                1.019999981,
+                0.006
+              ],
+              "dimensions": [
+                0.017999999,
+                0.834999979,
+                0.012
+              ]
+            },
+            "along_glb_y_m": [
+              0.185000002,
+              1.019999981
+            ]
+          }
+        ]
+      }
+    },
+    "spear": {
+      "role": "primary",
+      "rest_reach_m": 1.35,
+      "deformation_m": [
+        0.15,
+        1
+      ],
+      "runtime_keys": [
+        "weapon"
+      ],
+      "fallback": "wood",
+      "zones": [
+        {
+          "id": "wrapped_grip",
+          "rest_along_m": [
+            -0.152,
+            0.128
+          ],
+          "dominant": "leather",
+          "candidates": [
+            "leather",
+            "wood",
+            "brass"
+          ],
+          "note": "Wood core is covered by leather.",
+          "rest_along_normalized": [
+            -0.112592593,
+            0.094814815
+          ]
+        },
+        {
+          "id": "exposed_shaft",
+          "rest_along_m": [
+            0.128,
+            0.933
+          ],
+          "dominant": "wood",
+          "candidates": [
+            "wood",
+            "brass"
+          ],
+          "note": "Wooden shaft; local maker band .381–.412 is a small brass override, not a metal shaft.",
+          "rest_along_normalized": [
+            0.094814815,
+            0.691111111
+          ]
+        },
+        {
+          "id": "socket_and_collar",
+          "rest_along_m": [
+            0.933,
+            1.082
+          ],
+          "dominant": "metal_mixed",
+          "candidates": [
+            "steel",
+            "brass",
+            "wood"
+          ],
+          "note": "Forged socket, brass ferrules and wood shaft overlap. The steel leaf starts at1.01.",
+          "rest_along_normalized": [
+            0.691111111,
+            0.801481481
+          ]
+        },
+        {
+          "id": "steel_leaf",
+          "rest_along_m": [
+            1.082,
+            1.35
+          ],
+          "dominant": "steel",
+          "candidates": [
+            "steel"
+          ],
+          "note": "Clean upper steel spearhead; temper inlay is also metal.",
+          "rest_along_normalized": [
+            0.801481481,
+            1
+          ]
+        }
+      ],
+      "overrides": [
+        {
+          "id": "maker_band",
+          "rest_along_m": [
+            0.381,
+            0.413
+          ],
+          "dominant": "brass",
+          "candidates": [
+            "brass",
+            "wood"
+          ],
+          "note": "Use only if band location is known; broad key fallback remains wood."
+        }
+      ],
+      "measured": {
+        "file": "public/assets/equipment/workshop/spear.glb",
+        "sha256": "888454bf0c5b8b39e05d26c615d00ad3e84db86a0818bc2ab8f9641ed1286246",
+        "bytes": 2303800,
+        "bounds_glb_m": {
+          "min": [
+            -0.071000002,
+            -0.284000039,
+            -0.035799999
+          ],
+          "max": [
+            0.071000002,
+            1.350000024,
+            0.035799999
+          ],
+          "dimensions": [
+            0.142000005,
+            1.634000063,
+            0.071599998
+          ]
+        },
+        "sockets": {
+          "Socket_Grip_Main": [
+            0,
+            0,
+            0
+          ],
+          "Socket_Strike": [
+            0,
+            1.350000024,
+            0
+          ],
+          "Socket_Trail_Base": [
+            0,
+            0.170000002,
+            0
+          ],
+          "Socket_Trail_Tip": [
+            0,
+            1.350000024,
+            0
+          ]
+        },
+        "materials": [
+          {
+            "name": "WD_wood",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.38999998569488525
+          },
+          {
+            "name": "WD_leather",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.5199999809265137
+          },
+          {
+            "name": "WD_leather_edge",
+            "baseColorFactor": [
+              0.5299999713897705,
+              0.3199999928474426,
+              0.15000000596046448,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0,
+            "roughness": 0.5099999904632568
+          },
+          {
+            "name": "WD_brass",
+            "baseColorFactor": [
+              0.6299999952316284,
+              0.36000001430511475,
+              0.10499999672174454,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8600000143051147,
+            "roughness": 0.27000001072883606
+          },
+          {
+            "name": "WD_brass_dark",
+            "baseColorFactor": [
+              0.27000001072883606,
+              0.1550000011920929,
+              0.04500000178813934,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.7799999713897705,
+            "roughness": 0.4000000059604645
+          },
+          {
+            "name": "WD_steel_dark",
+            "baseColorFactor": [
+              0.14000000059604645,
+              0.19499999284744263,
+              0.20000000298023224,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8500000238418579,
+            "roughness": 0.36000001430511475
+          },
+          {
+            "name": "WD_steel",
+            "baseColorFactor": [
+              0.5899999737739563,
+              0.6899999976158142,
+              0.7099999785423279,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.9399999976158142,
+            "roughness": 0.23000000417232513
+          }
+        ],
+        "primitives": [
+          {
+            "node": "Render_spear",
+            "mesh": "Cone.010",
+            "primitive": 0,
+            "material": "WD_wood",
+            "vertices": 260,
+            "triangles": 380,
+            "aabb_glb_m": {
+              "min": [
+                -0.026496576,
+                -0.249499977,
+                -0.026496576
+              ],
+              "max": [
+                0.026496576,
+                1.03550005,
+                0.026496576
+              ],
+              "dimensions": [
+                0.052993152,
+                1.285000026,
+                0.052993152
+              ]
+            },
+            "along_glb_y_m": [
+              -0.249499977,
+              1.03550005
+            ]
+          },
+          {
+            "node": "Render_spear",
+            "mesh": "Cone.010",
+            "primitive": 1,
+            "material": "WD_leather",
+            "vertices": 260,
+            "triangles": 380,
+            "aabb_glb_m": {
+              "min": [
+                -0.028997099,
+                -0.15200001,
+                -0.028997099
+              ],
+              "max": [
+                0.028997099,
+                0.128000021,
+                0.028997099
+              ],
+              "dimensions": [
+                0.057994198,
+                0.280000031,
+                0.057994198
+              ]
+            },
+            "along_glb_y_m": [
+              -0.15200001,
+              0.128000021
+            ]
+          },
+          {
+            "node": "Render_spear",
+            "mesh": "Cone.010",
+            "primitive": 2,
+            "material": "WD_leather_edge",
+            "vertices": 1027,
+            "triangles": 1736,
+            "aabb_glb_m": {
+              "min": [
+                -0.031367838,
+                -0.142080188,
+                -0.030880388
+              ],
+              "max": [
+                0.03139982,
+                0.118244141,
+                0.030923361
+              ],
+              "dimensions": [
+                0.062767658,
+                0.260324329,
+                0.061803749
+              ]
+            },
+            "along_glb_y_m": [
+              -0.142080188,
+              0.118244141
+            ]
+          },
+          {
+            "node": "Render_spear",
+            "mesh": "Cone.010",
+            "primitive": 3,
+            "material": "WD_brass",
+            "vertices": 2059,
+            "triangles": 2988,
+            "aabb_glb_m": {
+              "min": [
+                -0.033,
+                -0.284000039,
+                -0.033
+              ],
+              "max": [
+                0.033,
+                1.08100009,
+                0.033
+              ],
+              "dimensions": [
+                0.066,
+                1.365000129,
+                0.066
+              ]
+            },
+            "along_glb_y_m": [
+              -0.284000039,
+              1.08100009
+            ]
+          },
+          {
+            "node": "Render_spear",
+            "mesh": "Cone.010",
+            "primitive": 4,
+            "material": "WD_brass_dark",
+            "vertices": 2088,
+            "triangles": 3084,
+            "aabb_glb_m": {
+              "min": [
+                -0.035799999,
+                -0.15355885,
+                -0.035799999
+              ],
+              "max": [
+                0.035799999,
+                1.05690527,
+                0.035799999
+              ],
+              "dimensions": [
+                0.071599998,
+                1.21046412,
+                0.071599998
+              ]
+            },
+            "along_glb_y_m": [
+              -0.15355885,
+              1.05690527
+            ]
+          },
+          {
+            "node": "Render_spear",
+            "mesh": "Cone.010",
+            "primitive": 5,
+            "material": "WD_steel_dark",
+            "vertices": 1168,
+            "triangles": 1600,
+            "aabb_glb_m": {
+              "min": [
+                -0.03270641,
+                -0.268999934,
+                -0.03270641
+              ],
+              "max": [
+                0.03270641,
+                1.174999952,
+                0.03270641
+              ],
+              "dimensions": [
+                0.065412819,
+                1.443999887,
+                0.065412819
+              ]
+            },
+            "along_glb_y_m": [
+              -0.268999934,
+              1.174999952
+            ]
+          },
+          {
+            "node": "Render_spear",
+            "mesh": "Cone.010",
+            "primitive": 6,
+            "material": "WD_steel",
+            "vertices": 58,
+            "triangles": 22,
+            "aabb_glb_m": {
+              "min": [
+                -0.071000002,
+                1.00999999,
+                -0.018999999
+              ],
+              "max": [
+                0.071000002,
+                1.350000024,
+                0.018999999
+              ],
+              "dimensions": [
+                0.142000005,
+                0.340000033,
+                0.037999999
+              ]
+            },
+            "along_glb_y_m": [
+              1.00999999,
+              1.350000024
+            ]
+          }
+        ]
+      }
+    },
+    "axe": {
+      "role": "primary",
+      "rest_reach_m": 0.92,
+      "deformation_m": [
+        0.18,
+        0.56
+      ],
+      "runtime_keys": [
+        "weapon",
+        "weapon-head"
+      ],
+      "fallback": "wood",
+      "head_fallback": "steel",
+      "zones": [
+        {
+          "id": "wrapped_grip",
+          "rest_along_m": [
+            -0.158,
+            0.118
+          ],
+          "dominant": "leather",
+          "candidates": [
+            "leather",
+            "wood",
+            "brass"
+          ],
+          "note": "Exposed leather; brass heel lies at the rear.",
+          "rest_along_normalized": [
+            -0.17173913,
+            0.12826087
+          ]
+        },
+        {
+          "id": "exposed_handle",
+          "rest_along_m": [
+            0.118,
+            0.56
+          ],
+          "dominant": "wood",
+          "candidates": [
+            "wood"
+          ],
+          "note": "Exposed timber before the wide head.",
+          "rest_along_normalized": [
+            0.12826087,
+            0.608695652
+          ]
+        },
+        {
+          "id": "head_and_eye",
+          "rest_along_m": [
+            0.56,
+            0.814
+          ],
+          "dominant": "metal_mixed",
+          "candidates": [
+            "steel",
+            "brass",
+            "wood"
+          ],
+          "note": "Forged/cutting steel surrounds the timber-through eye and brass retainers; along alone cannot distinguish them.",
+          "rest_along_normalized": [
+            0.608695652,
+            0.884782609
+          ]
+        },
+        {
+          "id": "upper_head",
+          "rest_along_m": [
+            0.814,
+            0.92
+          ],
+          "dominant": "steel",
+          "candidates": [
+            "steel",
+            "wood"
+          ],
+          "note": "Steel head; small visible wood wedge at .817–.843 is an across-dependent exception.",
+          "rest_along_normalized": [
+            0.884782609,
+            1
+          ]
+        }
+      ],
+      "head_role_override": {
+        "cutting_edge": "steel",
+        "forged_web": "steel",
+        "eye_retainer": "brass",
+        "visible_eye_wedge": "wood"
+      },
+      "measured": {
+        "file": "public/assets/equipment/workshop/axe.glb",
+        "sha256": "f13a68cb96ce09af4949e0c02180308e1073ca25d9ea95d96fbef42a5e50a388",
+        "bytes": 2300848,
+        "bounds_glb_m": {
+          "min": [
+            -0.151125088,
+            -0.296499997,
+            -0.064900003
+          ],
+          "max": [
+            0.302399993,
+            0.920000076,
+            0.064900003
+          ],
+          "dimensions": [
+            0.453525081,
+            1.216500074,
+            0.129800007
+          ]
+        },
+        "sockets": {
+          "Socket_Grip_Main": [
+            0,
+            0,
+            0
+          ],
+          "Socket_Strike": [
+            0,
+            0.920000017,
+            0
+          ],
+          "Socket_Trail_Base": [
+            0,
+            0.170000002,
+            0
+          ],
+          "Socket_Trail_Tip": [
+            0,
+            0.920000017,
+            0
+          ]
+        },
+        "materials": [
+          {
+            "name": "WD_wood",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.38999998569488525
+          },
+          {
+            "name": "WD_leather",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.5199999809265137
+          },
+          {
+            "name": "WD_leather_edge",
+            "baseColorFactor": [
+              0.5299999713897705,
+              0.3199999928474426,
+              0.15000000596046448,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0,
+            "roughness": 0.5099999904632568
+          },
+          {
+            "name": "WD_brass",
+            "baseColorFactor": [
+              0.6299999952316284,
+              0.36000001430511475,
+              0.10499999672174454,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8600000143051147,
+            "roughness": 0.27000001072883606
+          },
+          {
+            "name": "WD_brass_dark",
+            "baseColorFactor": [
+              0.27000001072883606,
+              0.1550000011920929,
+              0.04500000178813934,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.7799999713897705,
+            "roughness": 0.4000000059604645
+          },
+          {
+            "name": "WD_steel_dark",
+            "baseColorFactor": [
+              0.14000000059604645,
+              0.19499999284744263,
+              0.20000000298023224,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8500000238418579,
+            "roughness": 0.36000001430511475
+          },
+          {
+            "name": "WD_steel",
+            "baseColorFactor": [
+              0.5899999737739563,
+              0.6899999976158142,
+              0.7099999785423279,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.9399999976158142,
+            "roughness": 0.23000000417232513
+          },
+          {
+            "name": "WD_wood_light",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.3799999952316284
+          }
+        ],
+        "primitives": [
+          {
+            "node": "Render_axe",
+            "mesh": "Cone.013",
+            "primitive": 0,
+            "material": "WD_wood",
+            "vertices": 228,
+            "triangles": 332,
+            "aabb_glb_m": {
+              "min": [
+                -0.035995338,
+                -0.289999992,
+                -0.035995338
+              ],
+              "max": [
+                0.035995338,
+                0.74000001,
+                0.035995338
+              ],
+              "dimensions": [
+                0.071990676,
+                1.030000001,
+                0.071990676
+              ]
+            },
+            "along_glb_y_m": [
+              -0.289999992,
+              0.74000001
+            ]
+          },
+          {
+            "node": "Render_axe",
+            "mesh": "Cone.013",
+            "primitive": 1,
+            "material": "WD_leather",
+            "vertices": 260,
+            "triangles": 380,
+            "aabb_glb_m": {
+              "min": [
+                -0.037996128,
+                -0.157499999,
+                -0.037996128
+              ],
+              "max": [
+                0.037996128,
+                0.117500007,
+                0.037996128
+              ],
+              "dimensions": [
+                0.075992256,
+                0.275000006,
+                0.075992256
+              ]
+            },
+            "along_glb_y_m": [
+              -0.157499999,
+              0.117500007
+            ]
+          },
+          {
+            "node": "Render_axe",
+            "mesh": "Cone.013",
+            "primitive": 2,
+            "material": "WD_leather_edge",
+            "vertices": 1027,
+            "triangles": 1736,
+            "aabb_glb_m": {
+              "min": [
+                -0.040398765,
+                -0.147788197,
+                -0.039785873
+              ],
+              "max": [
+                0.040397499,
+                0.10795588,
+                0.039784845
+              ],
+              "dimensions": [
+                0.080796264,
+                0.255744077,
+                0.079570718
+              ]
+            },
+            "along_glb_y_m": [
+              -0.147788197,
+              0.10795588
+            ]
+          },
+          {
+            "node": "Render_axe",
+            "mesh": "Cone.013",
+            "primitive": 3,
+            "material": "WD_brass",
+            "vertices": 1402,
+            "triangles": 1984,
+            "aabb_glb_m": {
+              "min": [
+                -0.105000004,
+                -0.296499997,
+                -0.063000001
+              ],
+              "max": [
+                0.041000001,
+                0.813499928,
+                0.063250005
+              ],
+              "dimensions": [
+                0.146000005,
+                1.109999925,
+                0.126250006
+              ]
+            },
+            "along_glb_y_m": [
+              -0.296499997,
+              0.813499928
+            ]
+          },
+          {
+            "node": "Render_axe",
+            "mesh": "Cone.013",
+            "primitive": 4,
+            "material": "WD_brass_dark",
+            "vertices": 2259,
+            "triangles": 3196,
+            "aabb_glb_m": {
+              "min": [
+                -0.114,
+                -0.29273209,
+                -0.064900003
+              ],
+              "max": [
+                0.043200001,
+                0.802645445,
+                0.064900003
+              ],
+              "dimensions": [
+                0.157200001,
+                1.095377535,
+                0.129800007
+              ]
+            },
+            "along_glb_y_m": [
+              -0.29273209,
+              0.802645445
+            ]
+          },
+          {
+            "node": "Render_axe",
+            "mesh": "Cone.013",
+            "primitive": 5,
+            "material": "WD_steel_dark",
+            "vertices": 1034,
+            "triangles": 1152,
+            "aabb_glb_m": {
+              "min": [
+                -0.151125088,
+                0.560000002,
+                -0.064266033
+              ],
+              "max": [
+                0.302218884,
+                0.920000076,
+                0.064266026
+              ],
+              "dimensions": [
+                0.453343973,
+                0.360000074,
+                0.128532059
+              ]
+            },
+            "along_glb_y_m": [
+              0.560000002,
+              0.920000076
+            ]
+          },
+          {
+            "node": "Render_axe",
+            "mesh": "Cone.013",
+            "primitive": 6,
+            "material": "WD_steel",
+            "vertices": 466,
+            "triangles": 382,
+            "aabb_glb_m": {
+              "min": [
+                -0.036000002,
+                0.574400008,
+                -0.063250005
+              ],
+              "max": [
+                0.302399993,
+                0.920000076,
+                0.029999999
+              ],
+              "dimensions": [
+                0.338399995,
+                0.345600069,
+                0.093250005
+              ]
+            },
+            "along_glb_y_m": [
+              0.574400008,
+              0.920000076
+            ]
+          },
+          {
+            "node": "Render_axe",
+            "mesh": "Cone.013",
+            "primitive": 7,
+            "material": "WD_wood_light",
+            "vertices": 216,
+            "triangles": 108,
+            "aabb_glb_m": {
+              "min": [
+                -0.047000002,
+                0.817000031,
+                -0.022500001
+              ],
+              "max": [
+                -0.005,
+                0.843000054,
+                0.022500003
+              ],
+              "dimensions": [
+                0.042000002,
+                0.026000023,
+                0.045000004
+              ]
+            },
+            "along_glb_y_m": [
+              0.817000031,
+              0.843000054
+            ]
+          }
+        ]
+      }
+    },
+    "maul": {
+      "role": "primary",
+      "rest_reach_m": 1.08,
+      "deformation_m": [
+        0.18,
+        0.725
+      ],
+      "runtime_keys": [
+        "weapon",
+        "weapon-head"
+      ],
+      "fallback": "wood",
+      "head_fallback": "wood_metal_mixed",
+      "zones": [
+        {
+          "id": "secondary_wrapped_grip",
+          "rest_along_m": [
+            -0.315,
+            -0.125
+          ],
+          "dominant": "leather",
+          "candidates": [
+            "leather",
+            "wood",
+            "brass"
+          ],
+          "note": "Second hand grip; grip socket is at-.22.",
+          "rest_along_normalized": [
+            -0.291666667,
+            -0.115740741
+          ]
+        },
+        {
+          "id": "main_wrapped_grip",
+          "rest_along_m": [
+            -0.095,
+            0.095
+          ],
+          "dominant": "leather",
+          "candidates": [
+            "leather",
+            "wood",
+            "brass"
+          ],
+          "note": "Main hand grip centred at0.",
+          "rest_along_normalized": [
+            -0.087962963,
+            0.087962963
+          ]
+        },
+        {
+          "id": "exposed_shaft",
+          "rest_along_m": [
+            0.095,
+            0.658
+          ],
+          "dominant": "wood",
+          "candidates": [
+            "wood"
+          ],
+          "note": "Exposed ash shaft; do not inherit weapon-head metal routing.",
+          "rest_along_normalized": [
+            0.087962963,
+            0.609259259
+          ]
+        },
+        {
+          "id": "brass_neck",
+          "rest_along_m": [
+            0.658,
+            0.733
+          ],
+          "dominant": "metal_mixed",
+          "candidates": [
+            "brass",
+            "wood",
+            "steel"
+          ],
+          "note": "Brass socket/lip around a timber shaft plus pins; neck and head begin to overlap near .725.",
+          "rest_along_normalized": [
+            0.609259259,
+            0.678703704
+          ]
+        },
+        {
+          "id": "laminated_head",
+          "rest_along_m": [
+            0.733,
+            1.015
+          ],
+          "dominant": "wood_metal_mixed",
+          "candidates": [
+            "wood",
+            "brass",
+            "steel"
+          ],
+          "note": "Timber block with brass clamps, corner braces and steel side shoes. Along alone is deliberately ambiguous.",
+          "rest_along_normalized": [
+            0.678703704,
+            0.939814815
+          ]
+        },
+        {
+          "id": "forward_striking_plate",
+          "rest_along_m": [
+            1.015,
+            1.08
+          ],
+          "dominant": "steel",
+          "candidates": [
+            "steel",
+            "wood"
+          ],
+          "note": "Forward plate itself is steel; timber behind it ends at1.025 but is covered on the striking face.",
+          "rest_along_normalized": [
+            0.939814815,
+            1
+          ]
+        }
+      ],
+      "head_role_override": {
+        "front_striking_face": "steel",
+        "lateral_striking_shoe": "steel",
+        "clamp_band": "brass",
+        "exposed_timber_between_hardware": "wood"
+      },
+      "conditional_regions_glb_m": [
+        {
+          "id": "steel_side_shoes",
+          "across_x_abs": [
+            0.2175,
+            0.2825
+          ],
+          "along_y": [
+            0.725,
+            1.025
+          ],
+          "dominant": "steel",
+          "note": "Coarse side region; bevels/edge overlaps remain mixed."
+        },
+        {
+          "id": "brass_clamp_bands",
+          "along_y": [
+            [
+              0.736,
+              0.784
+            ],
+            [
+              0.971,
+              1.019
+            ]
+          ],
+          "dominant": "brass",
+          "note": "Only when the exposed clamp surface is the contact; not every point at these Y values is brass."
+        }
+      ],
+      "measured": {
+        "file": "public/assets/equipment/workshop/maul.glb",
+        "sha256": "b2c04159e2c44977e28ec9724e5c135cca4d8a6bc6ecfcb2dc86731d2cd4ad7f",
+        "bytes": 2515040,
+        "bounds_glb_m": {
+          "min": [
+            -0.282499999,
+            -0.42900002,
+            -0.175000012
+          ],
+          "max": [
+            0.282499999,
+            1.080000043,
+            0.175000012
+          ],
+          "dimensions": [
+            0.564999998,
+            1.509000063,
+            0.350000024
+          ]
+        },
+        "sockets": {
+          "Socket_Grip_Main": [
+            0,
+            0,
+            0
+          ],
+          "Socket_Grip_Secondary": [
+            0,
+            -0.219999999,
+            0
+          ],
+          "Socket_Strike": [
+            0,
+            1.080000043,
+            0
+          ],
+          "Socket_Trail_Base": [
+            0,
+            0.170000002,
+            0
+          ],
+          "Socket_Trail_Tip": [
+            0,
+            1.080000043,
+            0
+          ]
+        },
+        "materials": [
+          {
+            "name": "WD_wood",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.38999998569488525
+          },
+          {
+            "name": "WD_leather",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.5199999809265137
+          },
+          {
+            "name": "WD_leather_edge",
+            "baseColorFactor": [
+              0.5299999713897705,
+              0.3199999928474426,
+              0.15000000596046448,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0,
+            "roughness": 0.5099999904632568
+          },
+          {
+            "name": "WD_brass",
+            "baseColorFactor": [
+              0.6299999952316284,
+              0.36000001430511475,
+              0.10499999672174454,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8600000143051147,
+            "roughness": 0.27000001072883606
+          },
+          {
+            "name": "WD_brass_dark",
+            "baseColorFactor": [
+              0.27000001072883606,
+              0.1550000011920929,
+              0.04500000178813934,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.7799999713897705,
+            "roughness": 0.4000000059604645
+          },
+          {
+            "name": "WD_wood_dark",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.4300000071525574
+          },
+          {
+            "name": "WD_wood_light",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.3799999952316284
+          },
+          {
+            "name": "WD_steel",
+            "baseColorFactor": [
+              0.5899999737739563,
+              0.6899999976158142,
+              0.7099999785423279,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.9399999976158142,
+            "roughness": 0.23000000417232513
+          },
+          {
+            "name": "WD_steel_dark",
+            "baseColorFactor": [
+              0.14000000059604645,
+              0.19499999284744263,
+              0.20000000298023224,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8500000238418579,
+            "roughness": 0.36000001430511475
+          },
+          {
+            "name": "WD_enamel_black",
+            "baseColorFactor": [
+              0.017999999225139618,
+              0.03500000014901161,
+              0.03200000151991844,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.2199999988079071,
+            "roughness": 0.30000001192092896
+          }
+        ],
+        "primitives": [
+          {
+            "node": "Render_maul",
+            "mesh": "Cone.015",
+            "primitive": 0,
+            "material": "WD_wood",
+            "vertices": 692,
+            "triangles": 596,
+            "aabb_glb_m": {
+              "min": [
+                -0.229250014,
+                -0.399999976,
+                -0.150000021
+              ],
+              "max": [
+                0.229250014,
+                1.024999976,
+                0.150000021
+              ],
+              "dimensions": [
+                0.458500028,
+                1.424999952,
+                0.300000042
+              ]
+            },
+            "along_glb_y_m": [
+              -0.399999976,
+              1.024999976
+            ]
+          },
+          {
+            "node": "Render_maul",
+            "mesh": "Cone.015",
+            "primitive": 1,
+            "material": "WD_leather",
+            "vertices": 520,
+            "triangles": 760,
+            "aabb_glb_m": {
+              "min": [
+                -0.043993514,
+                -0.314999998,
+                -0.043993514
+              ],
+              "max": [
+                0.043993514,
+                0.094999999,
+                0.043993514
+              ],
+              "dimensions": [
+                0.087987028,
+                0.409999996,
+                0.087987028
+              ]
+            },
+            "along_glb_y_m": [
+              -0.314999998,
+              0.094999999
+            ]
+          },
+          {
+            "node": "Render_maul",
+            "mesh": "Cone.015",
+            "primitive": 2,
+            "material": "WD_leather_edge",
+            "vertices": 1550,
+            "triangles": 2608,
+            "aabb_glb_m": {
+              "min": [
+                -0.046396527,
+                -0.308692098,
+                -0.045693565
+              ],
+              "max": [
+                0.04638968,
+                0.088830173,
+                0.045695335
+              ],
+              "dimensions": [
+                0.092786208,
+                0.397522271,
+                0.0913889
+              ]
+            },
+            "along_glb_y_m": [
+              -0.308692098,
+              0.088830173
+            ]
+          },
+          {
+            "node": "Render_maul",
+            "mesh": "Cone.015",
+            "primitive": 3,
+            "material": "WD_brass",
+            "vertices": 3075,
+            "triangles": 3988,
+            "aabb_glb_m": {
+              "min": [
+                -0.245000005,
+                -0.402500033,
+                -0.163000003
+              ],
+              "max": [
+                0.245000005,
+                1.019000053,
+                0.16652067
+              ],
+              "dimensions": [
+                0.49000001,
+                1.421500087,
+                0.329520673
+              ]
+            },
+            "along_glb_y_m": [
+              -0.402500033,
+              1.019000053
+            ]
+          },
+          {
+            "node": "Render_maul",
+            "mesh": "Cone.015",
+            "primitive": 4,
+            "material": "WD_brass_dark",
+            "vertices": 4069,
+            "triangles": 5104,
+            "aabb_glb_m": {
+              "min": [
+                -0.219000012,
+                -0.316558838,
+                -0.157000005
+              ],
+              "max": [
+                0.219000012,
+                0.986999989,
+                0.157000005
+              ],
+              "dimensions": [
+                0.438000023,
+                1.303558826,
+                0.31400001
+              ]
+            },
+            "along_glb_y_m": [
+              -0.316558838,
+              0.986999989
+            ]
+          },
+          {
+            "node": "Render_maul",
+            "mesh": "Cone.015",
+            "primitive": 5,
+            "material": "WD_wood_dark",
+            "vertices": 661,
+            "triangles": 576,
+            "aabb_glb_m": {
+              "min": [
+                -0.233999997,
+                -0.42900002,
+                -0.144500002
+              ],
+              "max": [
+                0.233999997,
+                1.013999939,
+                0.144500002
+              ],
+              "dimensions": [
+                0.467999995,
+                1.442999959,
+                0.289000005
+              ]
+            },
+            "along_glb_y_m": [
+              -0.42900002,
+              1.013999939
+            ]
+          },
+          {
+            "node": "Render_maul",
+            "mesh": "Cone.015",
+            "primitive": 6,
+            "material": "WD_wood_light",
+            "vertices": 216,
+            "triangles": 108,
+            "aabb_glb_m": {
+              "min": [
+                -0.07591667,
+                0.725000024,
+                -0.150000006
+              ],
+              "max": [
+                0.07591667,
+                1.024999976,
+                0.150000006
+              ],
+              "dimensions": [
+                0.151833341,
+                0.299999952,
+                0.300000012
+              ]
+            },
+            "along_glb_y_m": [
+              0.725000024,
+              1.024999976
+            ]
+          },
+          {
+            "node": "Render_maul",
+            "mesh": "Cone.015",
+            "primitive": 7,
+            "material": "WD_steel",
+            "vertices": 1240,
+            "triangles": 1220,
+            "aabb_glb_m": {
+              "min": [
+                -0.282499999,
+                0.725000024,
+                -0.175000012
+              ],
+              "max": [
+                0.282499999,
+                1.080000043,
+                0.175000012
+              ],
+              "dimensions": [
+                0.564999998,
+                0.355000019,
+                0.350000024
+              ]
+            },
+            "along_glb_y_m": [
+              0.725000024,
+              1.080000043
+            ]
+          },
+          {
+            "node": "Render_maul",
+            "mesh": "Cone.015",
+            "primitive": 8,
+            "material": "WD_steel_dark",
+            "vertices": 1488,
+            "triangles": 1968,
+            "aabb_glb_m": {
+              "min": [
+                -0.158799991,
+                0.700391293,
+                -0.171266034
+              ],
+              "max": [
+                0.158799991,
+                0.995869577,
+                0.171266034
+              ],
+              "dimensions": [
+                0.317599982,
+                0.295478284,
+                0.342532068
+              ]
+            },
+            "along_glb_y_m": [
+              0.700391293,
+              0.995869577
+            ]
+          },
+          {
+            "node": "Render_maul",
+            "mesh": "Cone.015",
+            "primitive": 9,
+            "material": "WD_enamel_black",
+            "vertices": 260,
+            "triangles": 380,
+            "aabb_glb_m": {
+              "min": [
+                -0.041000001,
+                0.833999991,
+                0.150999993
+              ],
+              "max": [
+                0.041000001,
+                0.916000009,
+                0.159000009
+              ],
+              "dimensions": [
+                0.082000002,
+                0.082000017,
+                0.008000016
+              ]
+            },
+            "along_glb_y_m": [
+              0.833999991,
+              0.916000009
+            ]
+          }
+        ]
+      }
+    },
+    "short": {
+      "role": "secondary_shield",
+      "runtime_keys": [],
+      "fallback": "metal_mixed",
+      "nominal_radii_m": [
+        0.23,
+        0.23
+      ],
+      "zones": [
+        {
+          "id": "front_bowl",
+          "dominant": "steel",
+          "candidates": [
+            "steel",
+            "brass"
+          ],
+          "glb_depth_z_m": [
+            0.05,
+            0.155
+          ],
+          "note": "Spun steel bowl/umbo with brass rings and pins; exposed guard face routes to metal."
+        },
+        {
+          "id": "rim",
+          "dominant": "brass",
+          "candidates": [
+            "brass",
+            "steel"
+          ],
+          "radial_xy_m": [
+            0.208,
+            0.23
+          ],
+          "note": "Rolled brass perimeter; circular radial approximation."
+        },
+        {
+          "id": "wood_back",
+          "dominant": "wood",
+          "candidates": [
+            "wood",
+            "brass"
+          ],
+          "glb_depth_z_m": [
+            0.035,
+            0.06
+          ],
+          "note": "Rear wooden backing with brass braces; depth overlaps bowl shell. Contact side/normal is required to refine."
+        },
+        {
+          "id": "back_handgrip",
+          "dominant": "leather",
+          "candidates": [
+            "leather",
+            "wood",
+            "brass"
+          ],
+          "glb_depth_z_m": [
+            -0.02,
+            0.02
+          ],
+          "note": "Grip near origin, not the front guard surface; wood core covered by leather."
+        }
+      ],
+      "measured": {
+        "file": "public/assets/equipment/workshop/short.glb",
+        "sha256": "6e33a1b0bc96a0fb590ca665deee7278e677dc4a730aafc26ae935f1be1e32ef",
+        "bytes": 2818196,
+        "bounds_glb_m": {
+          "min": [
+            -0.230000004,
+            -0.230000004,
+            -0.02
+          ],
+          "max": [
+            0.230000004,
+            0.230000004,
+            0.154692635
+          ],
+          "dimensions": [
+            0.460000008,
+            0.460000008,
+            0.174692634
+          ]
+        },
+        "sockets": {
+          "Socket_DefenseCenter": [
+            0,
+            0,
+            0.059999999
+          ],
+          "Socket_Grip_Secondary": [
+            0,
+            0,
+            0
+          ]
+        },
+        "materials": [
+          {
+            "name": "WD_wood_light",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.3799999952316284
+          },
+          {
+            "name": "WD_wood",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.38999998569488525
+          },
+          {
+            "name": "WD_steel",
+            "baseColorFactor": [
+              0.5899999737739563,
+              0.6899999976158142,
+              0.7099999785423279,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.9399999976158142,
+            "roughness": 0.23000000417232513
+          },
+          {
+            "name": "WD_brass",
+            "baseColorFactor": [
+              0.6299999952316284,
+              0.36000001430511475,
+              0.10499999672174454,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8600000143051147,
+            "roughness": 0.27000001072883606
+          },
+          {
+            "name": "WD_brass_dark",
+            "baseColorFactor": [
+              0.27000001072883606,
+              0.1550000011920929,
+              0.04500000178813934,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.7799999713897705,
+            "roughness": 0.4000000059604645
+          },
+          {
+            "name": "WD_steel_dark",
+            "baseColorFactor": [
+              0.14000000059604645,
+              0.19499999284744263,
+              0.20000000298023224,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8500000238418579,
+            "roughness": 0.36000001430511475
+          },
+          {
+            "name": "WD_wood_dark",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.4300000071525574
+          },
+          {
+            "name": "WD_leather",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.5199999809265137
+          },
+          {
+            "name": "WD_leather_edge",
+            "baseColorFactor": [
+              0.5299999713897705,
+              0.3199999928474426,
+              0.15000000596046448,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0,
+            "roughness": 0.5099999904632568
+          }
+        ],
+        "primitives": [
+          {
+            "node": "Render_short",
+            "mesh": "short__Buckler_BeechBacking_00.001",
+            "primitive": 0,
+            "material": "WD_wood_light",
+            "vertices": 1616,
+            "triangles": 848,
+            "aabb_glb_m": {
+              "min": [
+                -0.211199999,
+                -0.209186286,
+                0.035
+              ],
+              "max": [
+                0.211199999,
+                0.209186286,
+                0.059999999
+              ],
+              "dimensions": [
+                0.422399998,
+                0.418372571,
+                0.024999999
+              ]
+            },
+            "along_glb_y_m": [
+              -0.209186286,
+              0.209186286
+            ]
+          },
+          {
+            "node": "Render_short",
+            "mesh": "short__Buckler_BeechBacking_00.001",
+            "primitive": 1,
+            "material": "WD_wood",
+            "vertices": 1132,
+            "triangles": 588,
+            "aabb_glb_m": {
+              "min": [
+                -0.150628567,
+                -0.211999997,
+                0.035
+              ],
+              "max": [
+                0.150628567,
+                0.211999997,
+                0.059999999
+              ],
+              "dimensions": [
+                0.301257133,
+                0.423999995,
+                0.024999999
+              ]
+            },
+            "along_glb_y_m": [
+              -0.211999997,
+              0.211999997
+            ]
+          },
+          {
+            "node": "Render_short",
+            "mesh": "short__Buckler_BeechBacking_00.001",
+            "primitive": 2,
+            "material": "WD_steel",
+            "vertices": 3200,
+            "triangles": 1536,
+            "aabb_glb_m": {
+              "min": [
+                -0.216000006,
+                -0.216000006,
+                0.050000001
+              ],
+              "max": [
+                0.216000006,
+                0.216000006,
+                0.125
+              ],
+              "dimensions": [
+                0.432000011,
+                0.432000011,
+                0.074999999
+              ]
+            },
+            "along_glb_y_m": [
+              -0.216000006,
+              0.216000006
+            ]
+          },
+          {
+            "node": "Render_short",
+            "mesh": "short__Buckler_BeechBacking_00.001",
+            "primitive": 3,
+            "material": "WD_brass",
+            "vertices": 5399,
+            "triangles": 7948,
+            "aabb_glb_m": {
+              "min": [
+                -0.230000004,
+                -0.230000004,
+                -0.02
+              ],
+              "max": [
+                0.230000004,
+                0.230000004,
+                0.153575003
+              ],
+              "dimensions": [
+                0.460000008,
+                0.460000008,
+                0.173575003
+              ]
+            },
+            "along_glb_y_m": [
+              -0.230000004,
+              0.230000004
+            ]
+          },
+          {
+            "node": "Render_short",
+            "mesh": "short__Buckler_BeechBacking_00.001",
+            "primitive": 4,
+            "material": "WD_brass_dark",
+            "vertices": 1959,
+            "triangles": 1904,
+            "aabb_glb_m": {
+              "min": [
+                -0.211500004,
+                -0.211500004,
+                0.024
+              ],
+              "max": [
+                0.211500004,
+                0.211500004,
+                0.115409374
+              ],
+              "dimensions": [
+                0.423000008,
+                0.423000008,
+                0.091409374
+              ]
+            },
+            "along_glb_y_m": [
+              -0.211500004,
+              0.211500004
+            ]
+          },
+          {
+            "node": "Render_short",
+            "mesh": "short__Buckler_BeechBacking_00.001",
+            "primitive": 5,
+            "material": "WD_steel_dark",
+            "vertices": 3527,
+            "triangles": 4804,
+            "aabb_glb_m": {
+              "min": [
+                -0.201399997,
+                -0.198434785,
+                0.019080289
+              ],
+              "max": [
+                0.201399997,
+                0.198434785,
+                0.154692635
+              ],
+              "dimensions": [
+                0.402799994,
+                0.39686957,
+                0.135612346
+              ]
+            },
+            "along_glb_y_m": [
+              -0.198434785,
+              0.198434785
+            ]
+          },
+          {
+            "node": "Render_short",
+            "mesh": "short__Buckler_BeechBacking_00.001",
+            "primitive": 6,
+            "material": "WD_wood_dark",
+            "vertices": 196,
+            "triangles": 284,
+            "aabb_glb_m": {
+              "min": [
+                -0.075000003,
+                -0.016000004,
+                -0.016000004
+              ],
+              "max": [
+                0.075000003,
+                0.016000004,
+                0.016000004
+              ],
+              "dimensions": [
+                0.150000006,
+                0.032000009,
+                0.032000009
+              ]
+            },
+            "along_glb_y_m": [
+              -0.016000004,
+              0.016000004
+            ]
+          },
+          {
+            "node": "Render_short",
+            "mesh": "short__Buckler_BeechBacking_00.001",
+            "primitive": 7,
+            "material": "WD_leather",
+            "vertices": 196,
+            "triangles": 284,
+            "aabb_glb_m": {
+              "min": [
+                -0.063000001,
+                -0.018000001,
+                -0.018000001
+              ],
+              "max": [
+                0.063000001,
+                0.018000001,
+                0.018000001
+              ],
+              "dimensions": [
+                0.126000002,
+                0.036000002,
+                0.036000002
+              ]
+            },
+            "along_glb_y_m": [
+              -0.018000001,
+              0.018000001
+            ]
+          },
+          {
+            "node": "Render_short",
+            "mesh": "short__Buckler_BeechBacking_00.001",
+            "primitive": 8,
+            "material": "WD_leather_edge",
+            "vertices": 1027,
+            "triangles": 1736,
+            "aabb_glb_m": {
+              "min": [
+                -0.060948413,
+                -0.019398371,
+                -0.019400001
+              ],
+              "max": [
+                0.06108807,
+                0.019399619,
+                0.019398469
+              ],
+              "dimensions": [
+                0.122036483,
+                0.038797989,
+                0.03879847
+              ]
+            },
+            "along_glb_y_m": [
+              -0.019398371,
+              0.019399619
+            ]
+          }
+        ]
+      }
+    },
+    "long": {
+      "role": "secondary_shield",
+      "runtime_keys": [],
+      "fallback": "wood",
+      "nominal_radii_m": [
+        0.22,
+        0.36
+      ],
+      "zones": [
+        {
+          "id": "front_planks",
+          "dominant": "wood",
+          "candidates": [
+            "wood",
+            "brass"
+          ],
+          "glb_depth_z_m": [
+            0.035,
+            0.091
+          ],
+          "note": "Main exposed face is seven timber planks, with sparse brass cleats/rivets."
+        },
+        {
+          "id": "rim",
+          "dominant": "brass",
+          "candidates": [
+            "brass",
+            "steel"
+          ],
+          "note": "Brass border. Use proximity to delivered outline/border; rectangular AABB corners are empty and must not be classified as an actual rim hit."
+        },
+        {
+          "id": "centre_badge",
+          "dominant": "brass",
+          "candidates": [
+            "brass",
+            "enamel_coating"
+          ],
+          "local_xy_box_m": [
+            [
+              -0.064,
+              -0.105
+            ],
+            [
+              0.064,
+              0.09
+            ]
+          ],
+          "glb_depth_z_m": [
+            0.094,
+            0.114
+          ],
+          "note": "Small brass/enamel plaque over the wood face. Along alone cannot identify it."
+        },
+        {
+          "id": "back_braces",
+          "dominant": "brass",
+          "candidates": [
+            "brass",
+            "wood"
+          ],
+          "note": "Metal cross braces on wooden back; source longitudinal bands near±.19."
+        },
+        {
+          "id": "back_handgrip_and_strap",
+          "dominant": "leather",
+          "candidates": [
+            "leather",
+            "wood",
+            "brass"
+          ],
+          "glb_depth_z_m": [
+            -0.045,
+            0.028
+          ],
+          "note": "Leather grip/forearm strap damp impact. This is not cloth and is not the exposed guard face."
+        }
+      ],
+      "measured": {
+        "file": "public/assets/equipment/workshop/long.glb",
+        "sha256": "5f4fb363f5dff00cb55b98da5e4c9a5cccede09f3e628ff4b082dff127785acc",
+        "bytes": 2963816,
+        "bounds_glb_m": {
+          "min": [
+            -0.221660718,
+            -0.361584127,
+            -0.045000002
+          ],
+          "max": [
+            0.221660718,
+            0.361558855,
+            0.113873191
+          ],
+          "dimensions": [
+            0.443321437,
+            0.723142982,
+            0.158873193
+          ]
+        },
+        "sockets": {
+          "Socket_DefenseCenter": [
+            0,
+            0,
+            0.075000003
+          ],
+          "Socket_Grip_Secondary": [
+            0,
+            0,
+            0
+          ]
+        },
+        "materials": [
+          {
+            "name": "WD_wood_light",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.3799999952316284
+          },
+          {
+            "name": "WD_wood",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.38999998569488525
+          },
+          {
+            "name": "WD_brass",
+            "baseColorFactor": [
+              0.6299999952316284,
+              0.36000001430511475,
+              0.10499999672174454,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8600000143051147,
+            "roughness": 0.27000001072883606
+          },
+          {
+            "name": "WD_brass_dark",
+            "baseColorFactor": [
+              0.27000001072883606,
+              0.1550000011920929,
+              0.04500000178813934,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.7799999713897705,
+            "roughness": 0.4000000059604645
+          },
+          {
+            "name": "WD_steel_dark",
+            "baseColorFactor": [
+              0.14000000059604645,
+              0.19499999284744263,
+              0.20000000298023224,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8500000238418579,
+            "roughness": 0.36000001430511475
+          },
+          {
+            "name": "WD_enamel_black",
+            "baseColorFactor": [
+              0.017999999225139618,
+              0.03500000014901161,
+              0.03200000151991844,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.2199999988079071,
+            "roughness": 0.30000001192092896
+          },
+          {
+            "name": "WD_wood_dark",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.4300000071525574
+          },
+          {
+            "name": "WD_leather",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.5199999809265137
+          },
+          {
+            "name": "WD_leather_edge",
+            "baseColorFactor": [
+              0.5299999713897705,
+              0.3199999928474426,
+              0.15000000596046448,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0,
+            "roughness": 0.5099999904632568
+          }
+        ],
+        "primitives": [
+          {
+            "node": "Render_long",
+            "mesh": "long__LongShield_Duela_00.001",
+            "primitive": 0,
+            "material": "WD_wood_light",
+            "vertices": 726,
+            "triangles": 368,
+            "aabb_glb_m": {
+              "min": [
+                -0.206799999,
+                -0.343400389,
+                0.035474308
+              ],
+              "max": [
+                0.206799999,
+                0.343800008,
+                0.090874851
+              ],
+              "dimensions": [
+                0.413599998,
+                0.687200397,
+                0.055400543
+              ]
+            },
+            "along_glb_y_m": [
+              -0.343400389,
+              0.343800008
+            ]
+          },
+          {
+            "node": "Render_long",
+            "mesh": "long__LongShield_Duela_00.001",
+            "primitive": 1,
+            "material": "WD_wood",
+            "vertices": 1016,
+            "triangles": 512,
+            "aabb_glb_m": {
+              "min": [
+                -0.156142861,
+                -0.331351399,
+                0.048234388
+              ],
+              "max": [
+                0.156142861,
+                0.343800008,
+                0.090085328
+              ],
+              "dimensions": [
+                0.312285721,
+                0.675151408,
+                0.041850939
+              ]
+            },
+            "along_glb_y_m": [
+              -0.331351399,
+              0.343800008
+            ]
+          },
+          {
+            "node": "Render_long",
+            "mesh": "long__LongShield_Duela_00.001",
+            "primitive": 2,
+            "material": "WD_brass",
+            "vertices": 8632,
+            "triangles": 9636,
+            "aabb_glb_m": {
+              "min": [
+                -0.219999999,
+                -0.35984242,
+                -0.02
+              ],
+              "max": [
+                0.219999999,
+                0.360000014,
+                0.113873191
+              ],
+              "dimensions": [
+                0.439999998,
+                0.719842434,
+                0.133873191
+              ]
+            },
+            "along_glb_y_m": [
+              -0.35984242,
+              0.360000014
+            ]
+          },
+          {
+            "node": "Render_long",
+            "mesh": "long__LongShield_Duela_00.001",
+            "primitive": 3,
+            "material": "WD_brass_dark",
+            "vertices": 2270,
+            "triangles": 1244,
+            "aabb_glb_m": {
+              "min": [
+                -0.221660718,
+                -0.361584127,
+                0.028239669
+              ],
+              "max": [
+                0.221660718,
+                0.361558855,
+                0.0995
+              ],
+              "dimensions": [
+                0.443321437,
+                0.723142982,
+                0.071260331
+              ]
+            },
+            "along_glb_y_m": [
+              -0.361584127,
+              0.361558855
+            ]
+          },
+          {
+            "node": "Render_long",
+            "mesh": "long__LongShield_Duela_00.001",
+            "primitive": 4,
+            "material": "WD_steel_dark",
+            "vertices": 6448,
+            "triangles": 8528,
+            "aabb_glb_m": {
+              "min": [
+                -0.215596005,
+                -0.346577227,
+                0.028075242
+              ],
+              "max": [
+                0.215596005,
+                0.352445215,
+                0.103621088
+              ],
+              "dimensions": [
+                0.431192011,
+                0.699022442,
+                0.075545846
+              ]
+            },
+            "along_glb_y_m": [
+              -0.346577227,
+              0.352445215
+            ]
+          },
+          {
+            "node": "Render_long",
+            "mesh": "long__LongShield_Duela_00.001",
+            "primitive": 5,
+            "material": "WD_enamel_black",
+            "vertices": 250,
+            "triangles": 128,
+            "aabb_glb_m": {
+              "min": [
+                -0.055679999,
+                -0.09104421,
+                0.103
+              ],
+              "max": [
+                0.055679999,
+                0.078299999,
+                0.107000001
+              ],
+              "dimensions": [
+                0.111359999,
+                0.169344209,
+                0.004000001
+              ]
+            },
+            "along_glb_y_m": [
+              -0.09104421,
+              0.078299999
+            ]
+          },
+          {
+            "node": "Render_long",
+            "mesh": "long__LongShield_Duela_00.001",
+            "primitive": 6,
+            "material": "WD_wood_dark",
+            "vertices": 196,
+            "triangles": 284,
+            "aabb_glb_m": {
+              "min": [
+                -0.075000003,
+                -0.016000004,
+                -0.016000004
+              ],
+              "max": [
+                0.075000003,
+                0.016000004,
+                0.016000004
+              ],
+              "dimensions": [
+                0.150000006,
+                0.032000009,
+                0.032000009
+              ]
+            },
+            "along_glb_y_m": [
+              -0.016000004,
+              0.016000004
+            ]
+          },
+          {
+            "node": "Render_long",
+            "mesh": "long__LongShield_Duela_00.001",
+            "primitive": 7,
+            "material": "WD_leather",
+            "vertices": 450,
+            "triangles": 448,
+            "aabb_glb_m": {
+              "min": [
+                -0.082999997,
+                -0.200000003,
+                -0.045000002
+              ],
+              "max": [
+                0.082999997,
+                0.018000001,
+                0.027000001
+              ],
+              "dimensions": [
+                0.165999994,
+                0.218000004,
+                0.072000002
+              ]
+            },
+            "along_glb_y_m": [
+              -0.200000003,
+              0.018000001
+            ]
+          },
+          {
+            "node": "Render_long",
+            "mesh": "long__LongShield_Duela_00.001",
+            "primitive": 8,
+            "material": "WD_leather_edge",
+            "vertices": 1345,
+            "triangles": 2232,
+            "aabb_glb_m": {
+              "min": [
+                -0.085986249,
+                -0.20259808,
+                -0.044
+              ],
+              "max": [
+                0.085986249,
+                0.019399619,
+                0.027286867
+              ],
+              "dimensions": [
+                0.171972498,
+                0.221997699,
+                0.071286866
+              ]
+            },
+            "along_glb_y_m": [
+              -0.20259808,
+              0.019399619
+            ]
+          }
+        ]
+      }
+    },
+    "knife": {
+      "role": "secondary_parry_only",
+      "rest_reach_m": 0.42,
+      "deformation_m": [
+        0.09,
+        0.42
+      ],
+      "runtime_keys": [],
+      "fallback": "steel",
+      "zones": [
+        {
+          "id": "pommel",
+          "rest_along_m": [
+            -0.15,
+            -0.09
+          ],
+          "dominant": "brass",
+          "candidates": [
+            "brass",
+            "steel"
+          ],
+          "note": "Turned brass pommel and peened steel tang.",
+          "rest_along_normalized": [
+            -0.357142857,
+            -0.214285714
+          ]
+        },
+        {
+          "id": "wrapped_grip",
+          "rest_along_m": [
+            -0.074,
+            0.074
+          ],
+          "dominant": "leather",
+          "candidates": [
+            "leather",
+            "wood",
+            "brass"
+          ],
+          "note": "Wood core covered by leather; origin is hand centre.",
+          "rest_along_normalized": [
+            -0.176190476,
+            0.176190476
+          ]
+        },
+        {
+          "id": "quillons_ring_and_collar",
+          "rest_along_m": [
+            0.074,
+            0.125
+          ],
+          "dominant": "brass",
+          "candidates": [
+            "brass",
+            "steel"
+          ],
+          "note": "Brass guard/ring overlaps blade root. Finger-ring extent is partly below this along band.",
+          "rest_along_normalized": [
+            0.176190476,
+            0.297619048
+          ]
+        },
+        {
+          "id": "parrying_blade",
+          "rest_along_m": [
+            0.125,
+            0.42
+          ],
+          "dominant": "steel",
+          "candidates": [
+            "steel",
+            "brass"
+          ],
+          "note": "Actual steel starts .11; fine brass-dark inlay/pins do not change blade fallback. No independent primary attack.",
+          "rest_along_normalized": [
+            0.297619048,
+            1
+          ]
+        }
+      ],
+      "measured": {
+        "file": "public/assets/equipment/workshop/knife.glb",
+        "sha256": "fd5d5bf2ffbbbd9e54b68ae18a7d3790e5c544568580d1d4a89eb4254ed12f24",
+        "bytes": 2191236,
+        "bounds_glb_m": {
+          "min": [
+            -0.090999998,
+            -0.149761751,
+            -0.022299999
+          ],
+          "max": [
+            0.090999998,
+            0.419999987,
+            0.0255
+          ],
+          "dimensions": [
+            0.181999996,
+            0.569761738,
+            0.047799999
+          ]
+        },
+        "sockets": {
+          "Socket_BladeGuard": [
+            0,
+            0.100000001,
+            0
+          ],
+          "Socket_Grip_Secondary": [
+            0,
+            0,
+            0
+          ],
+          "Socket_Strike": [
+            0,
+            0.419999987,
+            0
+          ]
+        },
+        "materials": [
+          {
+            "name": "WD_steel",
+            "baseColorFactor": [
+              0.5899999737739563,
+              0.6899999976158142,
+              0.7099999785423279,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.9399999976158142,
+            "roughness": 0.23000000417232513
+          },
+          {
+            "name": "WD_brass",
+            "baseColorFactor": [
+              0.6299999952316284,
+              0.36000001430511475,
+              0.10499999672174454,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8600000143051147,
+            "roughness": 0.27000001072883606
+          },
+          {
+            "name": "WD_wood_dark",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.4300000071525574
+          },
+          {
+            "name": "WD_leather",
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTextureEmbedded": true,
+            "metallic": 0,
+            "roughness": 0.5199999809265137
+          },
+          {
+            "name": "WD_leather_edge",
+            "baseColorFactor": [
+              0.5299999713897705,
+              0.3199999928474426,
+              0.15000000596046448,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0,
+            "roughness": 0.5099999904632568
+          },
+          {
+            "name": "WD_brass_dark",
+            "baseColorFactor": [
+              0.27000001072883606,
+              0.1550000011920929,
+              0.04500000178813934,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.7799999713897705,
+            "roughness": 0.4000000059604645
+          },
+          {
+            "name": "WD_steel_dark",
+            "baseColorFactor": [
+              0.14000000059604645,
+              0.19499999284744263,
+              0.20000000298023224,
+              1
+            ],
+            "baseColorTextureEmbedded": false,
+            "metallic": 0.8500000238418579,
+            "roughness": 0.36000001430511475
+          }
+        ],
+        "primitives": [
+          {
+            "node": "Render_knife",
+            "mesh": "knife__Dagger_DiamondGroundSteelBlade.001",
+            "primitive": 0,
+            "material": "WD_steel",
+            "vertices": 64,
+            "triangles": 30,
+            "aabb_glb_m": {
+              "min": [
+                -0.027000001,
+                0.109999999,
+                -0.0055
+              ],
+              "max": [
+                0.027000001,
+                0.419999987,
+                0.0055
+              ],
+              "dimensions": [
+                0.054000001,
+                0.309999987,
+                0.011
+              ]
+            },
+            "along_glb_y_m": [
+              0.109999999,
+              0.419999987
+            ]
+          },
+          {
+            "node": "Render_knife",
+            "mesh": "knife__Dagger_DiamondGroundSteelBlade.001",
+            "primitive": 1,
+            "material": "WD_brass",
+            "vertices": 2006,
+            "triangles": 2788,
+            "aabb_glb_m": {
+              "min": [
+                -0.090999998,
+                -0.149000004,
+                -0.021
+              ],
+              "max": [
+                0.090999998,
+                0.147,
+                0.0255
+              ],
+              "dimensions": [
+                0.181999996,
+                0.296000004,
+                0.046499999
+              ]
+            },
+            "along_glb_y_m": [
+              -0.149000004,
+              0.147
+            ]
+          },
+          {
+            "node": "Render_knife",
+            "mesh": "knife__Dagger_DiamondGroundSteelBlade.001",
+            "primitive": 2,
+            "material": "WD_wood_dark",
+            "vertices": 196,
+            "triangles": 284,
+            "aabb_glb_m": {
+              "min": [
+                -0.016000001,
+                -0.074000001,
+                -0.016000001
+              ],
+              "max": [
+                0.016000001,
+                0.074000001,
+                0.016000001
+              ],
+              "dimensions": [
+                0.032000002,
+                0.148000002,
+                0.032000002
+              ]
+            },
+            "along_glb_y_m": [
+              -0.074000001,
+              0.074000001
+            ]
+          },
+          {
+            "node": "Render_knife",
+            "mesh": "knife__Dagger_DiamondGroundSteelBlade.001",
+            "primitive": 3,
+            "material": "WD_leather",
+            "vertices": 196,
+            "triangles": 284,
+            "aabb_glb_m": {
+              "min": [
+                -0.017999999,
+                -0.064000003,
+                -0.017999999
+              ],
+              "max": [
+                0.017999999,
+                0.064000003,
+                0.017999999
+              ],
+              "dimensions": [
+                0.035999998,
+                0.128000006,
+                0.035999998
+              ]
+            },
+            "along_glb_y_m": [
+              -0.064000003,
+              0.064000003
+            ]
+          },
+          {
+            "node": "Render_knife",
+            "mesh": "knife__Dagger_DiamondGroundSteelBlade.001",
+            "primitive": 4,
+            "material": "WD_leather_edge",
+            "vertices": 1027,
+            "triangles": 1736,
+            "aabb_glb_m": {
+              "min": [
+                -0.019398142,
+                -0.062945776,
+                -0.019394549
+              ],
+              "max": [
+                0.019398045,
+                0.06308233,
+                0.019399848
+              ],
+              "dimensions": [
+                0.038796186,
+                0.126028106,
+                0.038794396
+              ]
+            },
+            "along_glb_y_m": [
+              -0.062945776,
+              0.06308233
+            ]
+          },
+          {
+            "node": "Render_knife",
+            "mesh": "knife__Dagger_DiamondGroundSteelBlade.001",
+            "primitive": 5,
+            "material": "WD_brass_dark",
+            "vertices": 894,
+            "triangles": 1380,
+            "aabb_glb_m": {
+              "min": [
+                -0.022299999,
+                -0.149000004,
+                -0.022299999
+              ],
+              "max": [
+                0.022299999,
+                0.35501194,
+                0.022299999
+              ],
+              "dimensions": [
+                0.044599999,
+                0.504011944,
+                0.044599999
+              ]
+            },
+            "along_glb_y_m": [
+              -0.149000004,
+              0.35501194
+            ]
+          },
+          {
+            "node": "Render_knife",
+            "mesh": "knife__Dagger_DiamondGroundSteelBlade.001",
+            "primitive": 6,
+            "material": "WD_steel_dark",
+            "vertices": 222,
+            "triangles": 288,
+            "aabb_glb_m": {
+              "min": [
+                -0.006,
+                -0.149761751,
+                -0.006
+              ],
+              "max": [
+                0.006,
+                -0.145250008,
+                0.006
+              ],
+              "dimensions": [
+                0.012,
+                0.004511744,
+                0.012
+              ]
+            },
+            "along_glb_y_m": [
+              -0.149761751,
+              -0.145250008
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

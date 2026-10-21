@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "source": "Shipped GLBs imported through Blender glTF importer",
+  "assets": [
+    {
+      "id": "sword",
+      "bounds_max_error": 0.0,
+      "triangles": 12566,
+      "sockets": [
+        "Socket_Grip_Main",
+        "Socket_Strike",
+        "Socket_Trail_Base",
+        "Socket_Trail_Tip"
+      ],
+      "material_slots": 6
+    },
+    {
+      "id": "spear",
+      "bounds_max_error": 0.0,
+      "triangles": 10190,
+      "sockets": [
+        "Socket_Grip_Main",
+        "Socket_Strike",
+        "Socket_Trail_Base",
+        "Socket_Trail_Tip"
+      ],
+      "material_slots": 7
+    },
+    {
+      "id": "axe",
+      "bounds_max_error": 0.0,
+      "triangles": 9270,
+      "sockets": [
+        "Socket_Grip_Main",
+        "Socket_Strike",
+        "Socket_Trail_Base",
+        "Socket_Trail_Tip"
+      ],
+      "material_slots": 8
+    },
+    {
+      "id": "maul",
+      "bounds_max_error": 0.0,
+      "triangles": 17308,
+      "sockets": [
+        "Socket_Grip_Main",
+        "Socket_Grip_Secondary",
+        "Socket_Strike",
+        "Socket_Trail_Base",
+        "Socket_Trail_Tip"
+      ],
+      "material_slots": 10
+    },
+    {
+      "id": "short",
+      "bounds_max_error": 0.0,
+      "triangles": 19932,
+      "sockets": [
+        "Socket_DefenseCenter",
+        "Socket_Grip_Secondary"
+      ],
+      "material_slots": 9
+    },
+    {
+      "id": "long",
+      "bounds_max_error": 0.0,
+      "triangles": 23380,
+      "sockets": [
+        "Socket_DefenseCenter",
+        "Socket_Grip_Secondary"
+      ],
+      "material_slots": 9
+    },
+    {
+      "id": "knife",
+      "bounds_max_error": 0.0,
+      "triangles": 6790,
+      "sockets": [
+        "Socket_BladeGuard",
+        "Socket_Grip_Secondary",
+        "Socket_Strike"
+      ],
+      "material_slots": 7
+    }
+  ],
+  "preview": "workshop-arsenal-glb-preview.png"
+}

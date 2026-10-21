@@ -1,0 +1,37 @@
+[
+  {
+    "path": "docs/assets/characters/v2/water-mannequin.blend",
+    "bytes": 2516696,
+    "sha256": "e4764be62dc0e19d228ddea411e8cbea392927d9199adc5401cb84c9bd4ce49c"
+  },
+  {
+    "path": "docs/assets/characters/v2/water-mannequin-boss.blend",
+    "bytes": 2824833,
+    "sha256": "821d7093ba318d455121f0572e49f2250da5dde03c30f9198fdcc22e49429993"
+  },
+  {
+    "path": "docs/assets/characters/v2/water-mannequin-burst.blend",
+    "bytes": 2858511,
+    "sha256": "8e420138ab9b57387bff6ccd50b69bbb9e299a7741d037cba4036b8b12d5f0c2"
+  },
+  {
+    "path": "public/assets/characters/water-mannequin/v2/water-mannequin.glb",
+    "bytes": 3986764,
+    "sha256": "3b30bc03c5ed802c525b53913ad85c7fc949f8ab6ed6c30d689e8f79af60317f"
+  },
+  {
+    "path": "public/assets/characters/water-mannequin/v2/water-mannequin-amber.glb",
+    "bytes": 3986712,
+    "sha256": "0b848dfac42d60e2fbb1367c66c6bc27d2f4be38d482439adee02fbab2defc3e"
+  },
+  {
+    "path": "public/assets/characters/water-mannequin/v2/water-mannequin-boss.glb",
+    "bytes": 4747640,
+    "sha256": "494cc22f9ea56d6e6cb4c87b311bb9b9fb1f1a70a3e6d409ccf56921cb62c955"
+  },
+  {
+    "path": "public/assets/characters/water-mannequin/v2/water-mannequin-burst.glb",
+    "bytes": 5275172,
+    "sha256": "13a00de6d228dca37595c94f75cc2a6c930665a486c78445161a092839d8f26a"
+  }
+]

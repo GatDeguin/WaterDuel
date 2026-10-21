@@ -1,0 +1,117 @@
+{
+  "ok": true,
+  "file": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v2\\water-mannequin-burst.glb",
+  "bytes": 5275172,
+  "chunks": [
+    {
+      "type": "JSON",
+      "length": 24060
+    },
+    {
+      "type": "BIN",
+      "length": 5251084
+    }
+  ],
+  "meshes": 12,
+  "primitives": 12,
+  "vertices": 53475,
+  "triangles": 86064,
+  "triangleInstances": 86064,
+  "nodes": 36,
+  "materials": 9,
+  "skins": 1,
+  "joints": [
+    18
+  ],
+  "skinnedNodes": 12,
+  "textures": 3,
+  "images": 3,
+  "bounds": {
+    "space": "glTF world, initial node and skin transforms; animations not evaluated",
+    "min": [
+      -1.1349808428123336,
+      0.000001805324748974521,
+      -0.38271188735961914
+    ],
+    "max": [
+      2.290620461653744,
+      3.014482617145825,
+      0.3270003599257853
+    ],
+    "size": [
+      3.4256013044660776,
+      3.0144808118210764,
+      0.7097122472854045
+    ]
+  },
+  "characterBounds": {
+    "Balloon_Latex": {
+      "min": [
+        -0.3713460836931022,
+        1.8289628276965824,
+        -0.2004425972700119
+      ],
+      "max": [
+        0.6643841249994158,
+        2.964993811535865,
+        0.2176702916622162
+      ],
+      "size": [
+        1.035730208692518,
+        1.1360309838392826,
+        0.4181128889322281
+      ]
+    },
+    "Water_Contained": {
+      "min": [
+        -0.5763057308455761,
+        1.4355465446311972,
+        -0.38271188735961914
+      ],
+      "max": [
+        1.071226911395605,
+        3.014482617145825,
+        0.299502432346344
+      ],
+      "size": [
+        1.6475326422411811,
+        1.578936072514628,
+        0.6822143197059631
+      ]
+    }
+  },
+  "transparency": {
+    "Balloon_Latex": [
+      {
+        "material": "Amber_Elastic_Torn_Latex",
+        "transmission": 0.14000000059604645,
+        "ior": 1.4199999570846558
+      }
+    ],
+    "Water_Contained": [
+      {
+        "material": "Water_IOR_1.333",
+        "transmission": 1,
+        "ior": 1.3329999446868896
+      }
+    ]
+  },
+  "materialNames": [
+    "Amber_Elastic_Torn_Latex",
+    "Polished_Rapier_Steel",
+    "Satin_Brass",
+    "Wrapped_Brown_Leather",
+    "Water_IOR_1.333",
+    "Beech_Wood_Grain",
+    "Endgrain_Joints",
+    "Mint_Woven_Sash",
+    "Recessed_Steel"
+  ],
+  "extensionsUsed": [
+    "KHR_materials_clearcoat",
+    "KHR_materials_transmission",
+    "KHR_materials_volume",
+    "KHR_materials_specular",
+    "KHR_materials_ior"
+  ]
+}

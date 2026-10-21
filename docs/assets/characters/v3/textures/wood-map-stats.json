@@ -1,0 +1,21 @@
+{
+  "seed": 67341,
+  "color_space": "basecolor sRGB; normal/ORM linear",
+  "color_resolution": [
+    1024,
+    1024
+  ],
+  "data_resolution": [
+    512,
+    512
+  ],
+  "roughness_range": [
+    0.4493,
+    0.6186430926611832
+  ],
+  "ao_min": 0.9558279411764706,
+  "microfissure_coverage_fraction": 0.0014715194702148438,
+  "scratch_coverage_fraction": 0.001605987548828125,
+  "placement": "Shared UV-space contact bands near v ends; not a unique dirt atlas per body part",
+  "no_baked_lighting": true
+}

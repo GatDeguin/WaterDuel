@@ -1,0 +1,20 @@
+{
+  "file": "workshop-runtime-v3.glb",
+  "sha256": "1a947c7e2a5b2387e5a0db4cd55169445dad91d2a0fda59bac5c51c0751bb930",
+  "bytes": 40556884,
+  "triangles": 355284,
+  "groups": 36,
+  "ready": true,
+  "uvTopologyMaterialsPreserved": true,
+  "immutableBaselines": {
+    "output/blender/WaterDuel_Atelier.blend": "2e92513be1f17a2e2d5cc357dddc8cd8d0e1dd62abbde226f4ec09c3a717b755",
+    "output/blender/WaterDuel_Atelier_v2.blend": "d9c9f0bdbd58bc59c1ab1ee16422ac8ff9b7315c8ecd7436795248d47fcc2117",
+    "public/assets/environment/workshop/workshop-runtime.glb": "1eb31ceef5913e3cce87cdc4397b5223ad678028957933de78e9b930c950c66d",
+    "public/assets/environment/workshop/workshop-runtime-v2.glb": "cec471597e48f5df50d23a2b7c894d01c44bce4402c607d6b001e7dd8d8d99b5"
+  },
+  "validation": {
+    "glbSha256": "1a947c7e2a5b2387e5a0db4cd55169445dad91d2a0fda59bac5c51c0751bb930",
+    "completedAt": "2026-10-18T03:48:25.769Z",
+    "visuallyInspected": true
+  }
+}

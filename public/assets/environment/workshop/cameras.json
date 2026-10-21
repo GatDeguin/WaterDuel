@@ -1,0 +1,290 @@
+{
+  "version": 1,
+  "source": {
+    "path": "output/blender/WaterDuel_Atelier.blend",
+    "sha256": "2e92513be1f17a2e2d5cc357dddc8cd8d0e1dd62abbde226f4ec09c3a717b755",
+    "preserved": true,
+    "blenderVersion": "5.2.0 LTS"
+  },
+  "coordinates": {
+    "runtimeUp": "Y",
+    "runtimeFront": "+Z",
+    "sourceToRuntimeVector": [
+      "x",
+      "z",
+      "-y"
+    ],
+    "scale": 0.6462585034013606,
+    "translationRuntimeY": -0.4186972789115646,
+    "directionMeaning": "Normalized light-ray/view travel direction, from local -Z",
+    "areaAxesMeaning": "Local +X and +Y of the emitting surface in runtime world space",
+    "areaDimensionsMeaning": "Full width/height or full ellipse diameters, including object scale"
+  },
+  "render": {
+    "resolutionX": 1920,
+    "resolutionY": 1080,
+    "resolutionPercentage": 100,
+    "pixelAspectX": 1.0,
+    "pixelAspectY": 1.0,
+    "aspect": 1.7777777777777777,
+    "activeCamera": "01 | Duel view / w1"
+  },
+  "targetNote": "targetOneUnitAhead is derived; it is not a stored authored look-at target.",
+  "cameras": [
+    {
+      "name": "01 | Duel view / w1",
+      "type": "PERSP",
+      "position": [
+        0.09693878144025803,
+        1.6493300199508667,
+        11.503400802612305
+      ],
+      "forward": [
+        -0.007460175082087517,
+        0.024867329746484756,
+        -0.9996629953384399
+      ],
+      "up": [
+        0.00018557230941951275,
+        0.9996907711029053,
+        0.024866662919521332
+      ],
+      "right": [
+        0.9999721646308899,
+        -2.3283064365386963e-10,
+        -0.007462481968104839
+      ],
+      "targetOneUnitAhead": [
+        0.08947860449552536,
+        1.6741973161697388,
+        10.503737449645996
+      ],
+      "focusTarget": [
+        0.010551109910011292,
+        1.937289834022522,
+        -0.0725412368774414
+      ],
+      "focusDistanceRuntime": 11.57984428665265,
+      "lensMillimeters": 42.0,
+      "sensorWidthMillimeters": 36.0,
+      "sensorHeightMillimeters": 24.0,
+      "sensorFit": "AUTO",
+      "angleRadians": 0.8097835779190063,
+      "angleXRadians": 0.8097835779190063,
+      "angleYRadians": 0.5565993189811707,
+      "effectiveRenderFov": {
+        "horizontalRadians": 0.8097835972341585,
+        "verticalRadians": 0.473115634607783,
+        "horizontalBoundsRadians": [
+          -0.40489179861707925,
+          0.40489179861707925
+        ],
+        "verticalBoundsRadians": [
+          -0.2365578173038915,
+          0.2365578173038915
+        ]
+      },
+      "viewFrameCameraLocal": [
+        [
+          0.5,
+          0.28125,
+          -1.1666666269302368
+        ],
+        [
+          0.5,
+          -0.28125,
+          -1.1666666269302368
+        ],
+        [
+          -0.5,
+          -0.28125,
+          -1.1666666269302368
+        ],
+        [
+          -0.5,
+          0.28125,
+          -1.1666666269302368
+        ]
+      ],
+      "orthographicScaleRuntime": 3.8775510204081636,
+      "shiftX": 0.0,
+      "shiftY": 0.0,
+      "clipStartRuntime": 0.06462585130313628,
+      "clipEndRuntime": 129.2517006802721,
+      "depthOfFieldEnabled": true,
+      "focusObject": null,
+      "fStop": 0.800000011920929,
+      "renderAspect": 1.7777777777777777
+    },
+    {
+      "name": "02 | Grand atelier / w4",
+      "type": "PERSP",
+      "position": [
+        4.846938610076904,
+        2.87722110748291,
+        10.663265228271484
+      ],
+      "forward": [
+        -0.3476957678794861,
+        -0.046359479427337646,
+        -0.9364606142044067
+      ],
+      "up": [
+        -0.016136333346366882,
+        0.9989248514175415,
+        -0.043460555374622345
+      ],
+      "right": [
+        0.9374685883522034,
+        -1.4901161193847656e-08,
+        -0.34807002544403076
+      ],
+      "targetOneUnitAhead": [
+        4.499242782592773,
+        2.8308615684509277,
+        9.726804733276367
+      ],
+      "focusTarget": [
+        0.3365941047668457,
+        2.275841236114502,
+        -1.4845962524414062
+      ],
+      "focusDistanceRuntime": 12.972100381137563,
+      "lensMillimeters": 42.0,
+      "sensorWidthMillimeters": 36.0,
+      "sensorHeightMillimeters": 24.0,
+      "sensorFit": "AUTO",
+      "angleRadians": 0.8097835779190063,
+      "angleXRadians": 0.8097835779190063,
+      "angleYRadians": 0.5565993189811707,
+      "effectiveRenderFov": {
+        "horizontalRadians": 0.8097835972341585,
+        "verticalRadians": 0.473115634607783,
+        "horizontalBoundsRadians": [
+          -0.40489179861707925,
+          0.40489179861707925
+        ],
+        "verticalBoundsRadians": [
+          -0.2365578173038915,
+          0.2365578173038915
+        ]
+      },
+      "viewFrameCameraLocal": [
+        [
+          0.5,
+          0.28125,
+          -1.1666666269302368
+        ],
+        [
+          0.5,
+          -0.28125,
+          -1.1666666269302368
+        ],
+        [
+          -0.5,
+          -0.28125,
+          -1.1666666269302368
+        ],
+        [
+          -0.5,
+          0.28125,
+          -1.1666666269302368
+        ]
+      ],
+      "orthographicScaleRuntime": 3.8775510204081636,
+      "shiftX": 0.0,
+      "shiftY": 0.0,
+      "clipStartRuntime": 0.06462585130313628,
+      "clipEndRuntime": 129.2517006802721,
+      "depthOfFieldEnabled": true,
+      "focusObject": null,
+      "fStop": 2.799999952316284,
+      "renderAspect": 1.7777777777777777
+    },
+    {
+      "name": "03 | Wet oak / material study",
+      "type": "PERSP",
+      "position": [
+        -4.329931735992432,
+        1.9724591970443726,
+        5.687075138092041
+      ],
+      "forward": [
+        0.5523437857627869,
+        -0.12365910410881042,
+        -0.824393630027771
+      ],
+      "up": [
+        0.06883060932159424,
+        0.9923247694969177,
+        -0.10273227840662003
+      ],
+      "right": [
+        0.830769956111908,
+        0.0,
+        0.556615948677063
+      ],
+      "targetOneUnitAhead": [
+        -3.777587890625,
+        1.8488000631332397,
+        4.8626813888549805
+      ],
+      "focusTarget": [
+        -0.6586511135101318,
+        1.150530457496643,
+        0.20755243301391602
+      ],
+      "focusDistanceRuntime": 6.646730397023312,
+      "lensMillimeters": 52.0,
+      "sensorWidthMillimeters": 36.0,
+      "sensorHeightMillimeters": 24.0,
+      "sensorFit": "AUTO",
+      "angleRadians": 0.6664886474609375,
+      "angleXRadians": 0.6664886474609375,
+      "angleYRadians": 0.45359769463539124,
+      "effectiveRenderFov": {
+        "horizontalRadians": 0.6664886135616136,
+        "verticalRadians": 0.3846107425028379,
+        "horizontalBoundsRadians": [
+          -0.3332443067808068,
+          0.3332443067808068
+        ],
+        "verticalBoundsRadians": [
+          -0.19230537125141894,
+          0.19230537125141894
+        ]
+      },
+      "viewFrameCameraLocal": [
+        [
+          0.5,
+          0.28125,
+          -1.4444444179534912
+        ],
+        [
+          0.5,
+          -0.28125,
+          -1.4444444179534912
+        ],
+        [
+          -0.5,
+          -0.28125,
+          -1.4444444179534912
+        ],
+        [
+          -0.5,
+          0.28125,
+          -1.4444444179534912
+        ]
+      ],
+      "orthographicScaleRuntime": 3.8775510204081636,
+      "shiftX": 0.0,
+      "shiftY": 0.0,
+      "clipStartRuntime": 0.06462585130313628,
+      "clipEndRuntime": 129.2517006802721,
+      "depthOfFieldEnabled": true,
+      "focusObject": null,
+      "fStop": 3.200000047683716,
+      "renderAspect": 1.7777777777777777
+    }
+  ]
+}

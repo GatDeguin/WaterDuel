@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "baseline": "water-mannequin-boss",
+  "before": "539014d0abd55324fc4e20f1dbb7d1c97274ae9c1a36b4b050b8cea3f8c18803",
+  "after": "539014d0abd55324fc4e20f1dbb7d1c97274ae9c1a36b4b050b8cea3f8c18803",
+  "geometry_uv_weights_rig_pose_exact": true
+}

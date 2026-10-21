@@ -1,0 +1,42 @@
+{
+  "ok": true,
+  "assets": [
+    {
+      "id": "sword",
+      "bounds_max_error": 0.0,
+      "triangles": 12566
+    },
+    {
+      "id": "spear",
+      "bounds_max_error": 0.0,
+      "triangles": 10190
+    },
+    {
+      "id": "axe",
+      "bounds_max_error": 0.0,
+      "triangles": 9270
+    },
+    {
+      "id": "maul",
+      "bounds_max_error": 0.0,
+      "triangles": 17308
+    },
+    {
+      "id": "short",
+      "bounds_max_error": 0.0,
+      "triangles": 19932
+    },
+    {
+      "id": "long",
+      "bounds_max_error": 0.0,
+      "triangles": 23380
+    },
+    {
+      "id": "knife",
+      "bounds_max_error": 0.0,
+      "triangles": 6790
+    }
+  ],
+  "source": "Exact v2 GLBs imported through Blender; no geometry export",
+  "preview": "workshop-materials-v2-preview.png"
+}

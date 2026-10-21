@@ -1,0 +1,715 @@
+{
+  "ok": true,
+  "validator": "native-node-workshop-glb-v1",
+  "validatedAt": "2026-10-18T00:27:16.830Z",
+  "directory": "D:\\2026\\WaterDuel\\public\\assets\\equipment\\workshop",
+  "budgets": {
+    "trianglesPerAsset": 25000,
+    "materialsPerAsset": 14,
+    "textureDimension": 1024
+  },
+  "manifestChecked": true,
+  "assets": [
+    {
+      "ok": true,
+      "id": "sword",
+      "bytes": 1655016,
+      "sha256": "bd0b1d3e4d88abe297d47d9d6c004c436b7a5a530234654887c4e7808ff83ec7",
+      "triangles": 12566,
+      "triangleInstances": 12566,
+      "vertices": 10337,
+      "primitives": 6,
+      "meshes": 1,
+      "nodes": 6,
+      "materials": 6,
+      "materialNames": [
+        "WD_steel_dark",
+        "WD_leather",
+        "WD_leather_edge",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_steel"
+      ],
+      "textures": 7,
+      "images": [
+        {
+          "name": "Workshop_BrushedSteel_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 292747
+        },
+        {
+          "name": "Workshop_Leather_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 485233
+        },
+        {
+          "name": "Workshop_Leather_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 379106
+        }
+      ],
+      "baseColorTextures": 1,
+      "normalTextures": 6,
+      "maxNormalError": 1.1951772793672433e-7,
+      "root": "WD_sword_Asset",
+      "sockets": {
+        "Socket_Grip_Main": [
+          0,
+          0,
+          0
+        ],
+        "Socket_Strike": [
+          0,
+          1.0199999809265137,
+          0
+        ],
+        "Socket_Trail_Base": [
+          0,
+          0.17000000178813934,
+          0
+        ],
+        "Socket_Trail_Tip": [
+          0,
+          1.0199999809265137,
+          0
+        ]
+      },
+      "bounds": {
+        "min": [
+          -0.14936821162700653,
+          -0.20800000429153442,
+          -0.1151999980211258
+        ],
+        "max": [
+          0.14500001072883606,
+          1.0199999809265137,
+          0.1151999980211258
+        ],
+        "size": [
+          0.2943682223558426,
+          1.227999985218048,
+          0.2303999960422516
+        ]
+      },
+      "extensionsUsed": []
+    },
+    {
+      "ok": true,
+      "id": "spear",
+      "bytes": 2303800,
+      "sha256": "888454bf0c5b8b39e05d26c615d00ad3e84db86a0818bc2ab8f9641ed1286246",
+      "triangles": 10190,
+      "triangleInstances": 10190,
+      "vertices": 6920,
+      "primitives": 7,
+      "meshes": 1,
+      "nodes": 6,
+      "materials": 7,
+      "materialNames": [
+        "WD_wood",
+        "WD_leather",
+        "WD_leather_edge",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_steel_dark",
+        "WD_steel"
+      ],
+      "textures": 9,
+      "images": [
+        {
+          "name": "Workshop_Beech_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 453144
+        },
+        {
+          "name": "Workshop_Beech_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 347591
+        },
+        {
+          "name": "Workshop_Leather_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 485233
+        },
+        {
+          "name": "Workshop_Leather_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 379106
+        },
+        {
+          "name": "Workshop_BrushedSteel_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 292747
+        }
+      ],
+      "baseColorTextures": 2,
+      "normalTextures": 7,
+      "maxNormalError": 1.255917014830743e-7,
+      "root": "WD_spear_Asset",
+      "sockets": {
+        "Socket_Grip_Main": [
+          0,
+          0,
+          0
+        ],
+        "Socket_Strike": [
+          0,
+          1.350000023841858,
+          0
+        ],
+        "Socket_Trail_Base": [
+          0,
+          0.17000000178813934,
+          0
+        ],
+        "Socket_Trail_Tip": [
+          0,
+          1.350000023841858,
+          0
+        ]
+      },
+      "bounds": {
+        "min": [
+          -0.07100000232458115,
+          -0.284000039100647,
+          -0.03579999879002571
+        ],
+        "max": [
+          0.07100000232458115,
+          1.350000023841858,
+          0.03579999879002571
+        ],
+        "size": [
+          0.1420000046491623,
+          1.6340000629425049,
+          0.07159999758005142
+        ]
+      },
+      "extensionsUsed": []
+    },
+    {
+      "ok": true,
+      "id": "axe",
+      "bytes": 2300848,
+      "sha256": "f13a68cb96ce09af4949e0c02180308e1073ca25d9ea95d96fbef42a5e50a388",
+      "triangles": 9270,
+      "triangleInstances": 9270,
+      "vertices": 6892,
+      "primitives": 8,
+      "meshes": 1,
+      "nodes": 6,
+      "materials": 8,
+      "materialNames": [
+        "WD_wood",
+        "WD_leather",
+        "WD_leather_edge",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_steel_dark",
+        "WD_steel",
+        "WD_wood_light"
+      ],
+      "textures": 11,
+      "images": [
+        {
+          "name": "Workshop_Beech_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 453144
+        },
+        {
+          "name": "Workshop_Beech_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 347591
+        },
+        {
+          "name": "Workshop_Leather_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 485233
+        },
+        {
+          "name": "Workshop_Leather_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 379106
+        },
+        {
+          "name": "Workshop_BrushedSteel_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 292747
+        }
+      ],
+      "baseColorTextures": 3,
+      "normalTextures": 8,
+      "maxNormalError": 1.2331470022886037e-7,
+      "root": "WD_axe_Asset",
+      "sockets": {
+        "Socket_Grip_Main": [
+          0,
+          0,
+          0
+        ],
+        "Socket_Strike": [
+          0,
+          0.9200000166893005,
+          0
+        ],
+        "Socket_Trail_Base": [
+          0,
+          0.17000000178813934,
+          0
+        ],
+        "Socket_Trail_Tip": [
+          0,
+          0.9200000166893005,
+          0
+        ]
+      },
+      "bounds": {
+        "min": [
+          -0.15112508833408356,
+          -0.29649999737739563,
+          -0.0649000033736229
+        ],
+        "max": [
+          0.30239999294281006,
+          0.9200000762939453,
+          0.0649000033736229
+        ],
+        "size": [
+          0.4535250812768936,
+          1.216500073671341,
+          0.1298000067472458
+        ]
+      },
+      "extensionsUsed": []
+    },
+    {
+      "ok": true,
+      "id": "maul",
+      "bytes": 2515040,
+      "sha256": "b2c04159e2c44977e28ec9724e5c135cca4d8a6bc6ecfcb2dc86731d2cd4ad7f",
+      "triangles": 17308,
+      "triangleInstances": 17308,
+      "vertices": 13771,
+      "primitives": 10,
+      "meshes": 1,
+      "nodes": 7,
+      "materials": 10,
+      "materialNames": [
+        "WD_wood",
+        "WD_leather",
+        "WD_leather_edge",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_wood_dark",
+        "WD_wood_light",
+        "WD_steel",
+        "WD_steel_dark",
+        "WD_enamel_black"
+      ],
+      "textures": 13,
+      "images": [
+        {
+          "name": "Workshop_Beech_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 453144
+        },
+        {
+          "name": "Workshop_Beech_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 347591
+        },
+        {
+          "name": "Workshop_Leather_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 485233
+        },
+        {
+          "name": "Workshop_Leather_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 379106
+        },
+        {
+          "name": "Workshop_BrushedSteel_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 292747
+        }
+      ],
+      "baseColorTextures": 4,
+      "normalTextures": 9,
+      "maxNormalError": 1.2032675944517734e-7,
+      "root": "WD_maul_Asset",
+      "sockets": {
+        "Socket_Grip_Main": [
+          0,
+          0,
+          0
+        ],
+        "Socket_Grip_Secondary": [
+          0,
+          -0.2199999988079071,
+          0
+        ],
+        "Socket_Strike": [
+          0,
+          1.0800000429153442,
+          0
+        ],
+        "Socket_Trail_Base": [
+          0,
+          0.17000000178813934,
+          0
+        ],
+        "Socket_Trail_Tip": [
+          0,
+          1.0800000429153442,
+          0
+        ]
+      },
+      "bounds": {
+        "min": [
+          -0.2824999988079071,
+          -0.42900002002716064,
+          -0.17500001192092896
+        ],
+        "max": [
+          0.2824999988079071,
+          1.0800000429153442,
+          0.17500001192092896
+        ],
+        "size": [
+          0.5649999976158142,
+          1.5090000629425049,
+          0.3500000238418579
+        ]
+      },
+      "extensionsUsed": []
+    },
+    {
+      "ok": true,
+      "id": "short",
+      "bytes": 2818196,
+      "sha256": "6e33a1b0bc96a0fb590ca665deee7278e677dc4a730aafc26ae935f1be1e32ef",
+      "triangles": 19932,
+      "triangleInstances": 19932,
+      "vertices": 18252,
+      "primitives": 9,
+      "meshes": 1,
+      "nodes": 4,
+      "materials": 9,
+      "materialNames": [
+        "WD_wood_light",
+        "WD_wood",
+        "WD_steel",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_steel_dark",
+        "WD_wood_dark",
+        "WD_leather",
+        "WD_leather_edge"
+      ],
+      "textures": 13,
+      "images": [
+        {
+          "name": "Workshop_Beech_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 453144
+        },
+        {
+          "name": "Workshop_Beech_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 347591
+        },
+        {
+          "name": "Workshop_BrushedSteel_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 292747
+        },
+        {
+          "name": "Workshop_Leather_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 485233
+        },
+        {
+          "name": "Workshop_Leather_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 379106
+        }
+      ],
+      "baseColorTextures": 4,
+      "normalTextures": 9,
+      "maxNormalError": 1.3356898342919976e-7,
+      "root": "WD_short_Asset",
+      "sockets": {
+        "Socket_DefenseCenter": [
+          0,
+          0,
+          0.05999999865889549
+        ],
+        "Socket_Grip_Secondary": [
+          0,
+          0,
+          0
+        ]
+      },
+      "bounds": {
+        "min": [
+          -0.23000000417232513,
+          -0.23000000417232513,
+          -0.019999999552965164
+        ],
+        "max": [
+          0.23000000417232513,
+          0.23000000417232513,
+          0.1546926349401474
+        ],
+        "size": [
+          0.46000000834465027,
+          0.46000000834465027,
+          0.17469263449311256
+        ]
+      },
+      "extensionsUsed": []
+    },
+    {
+      "ok": true,
+      "id": "long",
+      "bytes": 2963816,
+      "sha256": "5f4fb363f5dff00cb55b98da5e4c9a5cccede09f3e628ff4b082dff127785acc",
+      "triangles": 23380,
+      "triangleInstances": 23380,
+      "vertices": 21333,
+      "primitives": 9,
+      "meshes": 1,
+      "nodes": 4,
+      "materials": 9,
+      "materialNames": [
+        "WD_wood_light",
+        "WD_wood",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_steel_dark",
+        "WD_enamel_black",
+        "WD_wood_dark",
+        "WD_leather",
+        "WD_leather_edge"
+      ],
+      "textures": 12,
+      "images": [
+        {
+          "name": "Workshop_Beech_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 453144
+        },
+        {
+          "name": "Workshop_Beech_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 347591
+        },
+        {
+          "name": "Workshop_BrushedSteel_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 292747
+        },
+        {
+          "name": "Workshop_Leather_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 485233
+        },
+        {
+          "name": "Workshop_Leather_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 379106
+        }
+      ],
+      "baseColorTextures": 4,
+      "normalTextures": 8,
+      "maxNormalError": 1.2852277753161445e-7,
+      "root": "WD_long_Asset",
+      "sockets": {
+        "Socket_DefenseCenter": [
+          0,
+          0,
+          0.07500000298023224
+        ],
+        "Socket_Grip_Secondary": [
+          0,
+          0,
+          0
+        ]
+      },
+      "bounds": {
+        "min": [
+          -0.22166071832180023,
+          -0.3615841269493103,
+          -0.04500000178813934
+        ],
+        "max": [
+          0.22166071832180023,
+          0.36155885457992554,
+          0.113873191177845
+        ],
+        "size": [
+          0.44332143664360046,
+          0.7231429815292358,
+          0.15887319296598434
+        ]
+      },
+      "extensionsUsed": []
+    },
+    {
+      "ok": true,
+      "id": "knife",
+      "bytes": 2191236,
+      "sha256": "fd5d5bf2ffbbbd9e54b68ae18a7d3790e5c544568580d1d4a89eb4254ed12f24",
+      "triangles": 6790,
+      "triangleInstances": 6790,
+      "vertices": 4605,
+      "primitives": 7,
+      "meshes": 1,
+      "nodes": 5,
+      "materials": 7,
+      "materialNames": [
+        "WD_steel",
+        "WD_brass",
+        "WD_wood_dark",
+        "WD_leather",
+        "WD_leather_edge",
+        "WD_brass_dark",
+        "WD_steel_dark"
+      ],
+      "textures": 9,
+      "images": [
+        {
+          "name": "Workshop_BrushedSteel_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 292747
+        },
+        {
+          "name": "Workshop_Beech_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 453144
+        },
+        {
+          "name": "Workshop_Beech_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 347591
+        },
+        {
+          "name": "Workshop_Leather_Normal",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 485233
+        },
+        {
+          "name": "Workshop_Leather_BaseColor",
+          "mimeType": "image/png",
+          "width": 512,
+          "height": 512,
+          "bytes": 379106
+        }
+      ],
+      "baseColorTextures": 2,
+      "normalTextures": 7,
+      "maxNormalError": 1.2429112139500376e-7,
+      "root": "WD_knife_Asset",
+      "sockets": {
+        "Socket_BladeGuard": [
+          0,
+          0.10000000149011612,
+          0
+        ],
+        "Socket_Grip_Secondary": [
+          0,
+          0,
+          0
+        ],
+        "Socket_Strike": [
+          0,
+          0.41999998688697815,
+          0
+        ]
+      },
+      "bounds": {
+        "min": [
+          -0.09099999815225601,
+          -0.14976175129413605,
+          -0.022299999371170998
+        ],
+        "max": [
+          0.09099999815225601,
+          0.41999998688697815,
+          0.025499999523162842
+        ],
+        "size": [
+          0.18199999630451202,
+          0.5697617381811142,
+          0.04779999889433384
+        ]
+      },
+      "extensionsUsed": []
+    }
+  ]
+}

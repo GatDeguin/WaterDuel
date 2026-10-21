@@ -1,0 +1,370 @@
+{
+  "passed": true,
+  "meshFingerprints": {
+    "Workshop_wall-limewash-soot-and-age": {
+      "vertices": 175,
+      "polygons": 338,
+      "loops": 1014,
+      "uv": "2b344a69fe36359ad091bc277411fcf4297b2fca6c48b3c760174b13d6929b51",
+      "topology": "1edb705fc0881750a49c1981b64b9bbf85b6d8237c82497ee9afd003bc5dc49a",
+      "materials": [
+        "Workshop v2 PBR | wall-limewash-soot-and-age"
+      ]
+    },
+    "Workshop_paper-warm-vellum": {
+      "vertices": 4647,
+      "polygons": 7516,
+      "loops": 22548,
+      "uv": "dcb3ae5969372466b7e0b53985aa695452e7eddba707e1828b326458657976a3",
+      "topology": "6652d7f258d93335bb560f4024da864b05fca371c8d409e30de910b19aa4b1ac",
+      "materials": [
+        "Workshop v2 PBR | paper-warm-vellum"
+      ]
+    },
+    "Workshop_StaticBrass": {
+      "vertices": 37801,
+      "polygons": 74314,
+      "loops": 222942,
+      "uv": "22bc499fde885028638036abdc00244cd2b829472544476a0d567a7fe7653283",
+      "topology": "0fd8547386246dac6cd4c3015b199d07d24c93045a8ad36e1965e7a398a0f8e2",
+      "materials": [
+        "Workshop v2 PBR | brass-tarnish-patina-polished-edges"
+      ]
+    },
+    "Workshop_brick-3": {
+      "vertices": 3328,
+      "polygons": 6428,
+      "loops": 19284,
+      "uv": "64ac26c08976dfd0f81b148b2d5bb87437b3177d00b51a2fbca41f2df3f0b201",
+      "topology": "53bbba25615d470014c26f47abaae8de3198f3c38f8d6c5745f9912881601c2b",
+      "materials": [
+        "Workshop v2 PBR | brick-3"
+      ]
+    },
+    "Workshop_mint-enamel": {
+      "vertices": 720,
+      "polygons": 1440,
+      "loops": 4320,
+      "uv": "fe9f53cd26f1e1b83d8624126dd22577909c8153a42f10df0b9f94d08b6bf0f1",
+      "topology": "7e3bb89d021a16cd6b0aa4cc325a900527651817084e61a1e32cfd90dc48fd6a",
+      "materials": [
+        "Workshop v2 PBR | mint-enamel"
+      ]
+    },
+    "Workshop_bottle-glass-green-crown-glass": {
+      "vertices": 6916,
+      "polygons": 13736,
+      "loops": 41208,
+      "uv": "5b2dfdd690871c840fd5bc6cc64304a717b91bb159ef92d7b351bcbbc72a0394",
+      "topology": "883f4e42a92014edda6f43389a99406373dcc5c5c5f9d4925e0f831dbdafa576",
+      "materials": [
+        "Workshop v2 PBR | bottle-glass-green-crown-glass"
+      ]
+    },
+    "Workshop_forest-green-woven-cotton-velvet": {
+      "vertices": 13674,
+      "polygons": 27324,
+      "loops": 81972,
+      "uv": "71c2d77b9e903153ac19023b1a70702230d166e9db025d3b121f8ef6394f6972",
+      "topology": "22d49ac4111b203db00db35c5643d86bc2c482cc49aafd40fa64fe5c283ad26e",
+      "materials": [
+        "Workshop v2 PBR | forest-green-woven-cotton-velvet"
+      ]
+    },
+    "Workshop_stage-wet-oak-1": {
+      "vertices": 655,
+      "polygons": 1278,
+      "loops": 3834,
+      "uv": "f0e33d541b40e16a206c46f00ec022552107d642094585e6fd3d350c5f486e5f",
+      "topology": "1e04f28b0e5d442d6887dc046b45c4074179e937dc5b19cb3b583dad73a66c5c",
+      "materials": [
+        "Workshop v2 PBR | stage-wet-oak-1"
+      ]
+    },
+    "Workshop_FanRotor": {
+      "vertices": 260,
+      "polygons": 500,
+      "loops": 1500,
+      "uv": "cdcc85892786c43ea1306955035a222a16f591609173fbdb60108069fba53c70",
+      "topology": "6d7ad00f3614750863eb3d2da47d72953f0f2fe1cad8da92e8f465768d7e237f",
+      "materials": [
+        "Workshop v2 PBR | brass-tarnish-patina-polished-edges"
+      ]
+    },
+    "Workshop_walnut-smoke-and-worn-varnish-grain-y-floor": {
+      "vertices": 58,
+      "polygons": 112,
+      "loops": 336,
+      "uv": "4da1c7343e576facd32e6a93b6ac6fff9b96a58de8e156ae10450b4e053845a1",
+      "topology": "f2d7a8bb13da8928ad04763f47242393efbbbf236d19c956df22afe526e77d7e",
+      "materials": [
+        "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y-floor"
+      ]
+    },
+    "Workshop_carbon-black": {
+      "vertices": 5338,
+      "polygons": 10316,
+      "loops": 30948,
+      "uv": "eca2ad17cda6ea6da738c98848602e3329b8a8d948e2807fc6256d6c34a42d98",
+      "topology": "97c985094d2de8b6a5be314204eae8f161e5d909f5ede659981e7f2dd30a8281",
+      "materials": [
+        "Workshop v2 PBR | carbon-black"
+      ]
+    },
+    "Workshop_stage-wet-oak-5": {
+      "vertices": 491,
+      "polygons": 958,
+      "loops": 2874,
+      "uv": "7916a0906687351337366d0b088a5500bcf5a661fcbcab33ddd8f6e97f59dd39",
+      "topology": "9794e6098d385678799270f69012c7b5bc0f7e89d49191e65993033d2feedbbc",
+      "materials": [
+        "Workshop v2 PBR | stage-wet-oak-5"
+      ]
+    },
+    "Workshop_ivy-pale-leaf-veins": {
+      "vertices": 20400,
+      "polygons": 8400,
+      "loops": 25200,
+      "uv": "53d382b6b7727fb1be41ce70efdcbe91ea1793415534aaed24a76a1d2486e5df",
+      "topology": "fdf507704d43d49f2364f0a5e9c1fb500723880e2b11a3f00ea9c2d2ef81d84c",
+      "materials": [
+        "Workshop v2 PBR | ivy-pale-leaf-veins"
+      ]
+    },
+    "Workshop_stage-wet-oak-4": {
+      "vertices": 573,
+      "polygons": 1118,
+      "loops": 3354,
+      "uv": "e6208ad0bbcd9fdce9ca31a32dfea599d38937084a033a3dc06e1373dab54cd6",
+      "topology": "4097de9c585d1a1d99b652a6943b9ba5f2cb6f36669e9d393aa59f66f5f7ffb4",
+      "materials": [
+        "Workshop v2 PBR | stage-wet-oak-4"
+      ]
+    },
+    "Workshop_brick-2": {
+      "vertices": 2686,
+      "polygons": 5188,
+      "loops": 15564,
+      "uv": "c270fc20b9f68de313fe690396b3b9c153c35e0d8b7dc471cce1d0c3227d8b2b",
+      "topology": "93e0ff54bd5dfc7456b28d2cabc512467ea7f1ad113e46e25c88dcfb74b59903",
+      "materials": [
+        "Workshop v2 PBR | brick-2"
+      ]
+    },
+    "Workshop_copper-oxidized-plumbing": {
+      "vertices": 4614,
+      "polygons": 9196,
+      "loops": 27588,
+      "uv": "7cb5ed625d0ab47d487fdb967333a829e688e2eb9960631a4a22fd4eeeac064f",
+      "topology": "0e958b88932974e1bffbacbf7aa08ee73af81a1840a73af0d1183fbb60028282",
+      "materials": [
+        "Workshop v2 PBR | copper-oxidized-plumbing"
+      ]
+    },
+    "Workshop_brick-0": {
+      "vertices": 3445,
+      "polygons": 6654,
+      "loops": 19962,
+      "uv": "f7218ef3a3384a515b687ec999128b97108121b3f9135cfa56adcd0a56e554b3",
+      "topology": "2dbddde755588858f031cd96098c7bd420c98f22f57c5f6177f3b06331629120",
+      "materials": [
+        "Workshop v2 PBR | brick-0"
+      ]
+    },
+    "Workshop_leather-oxblood-oil-and-tooling": {
+      "vertices": 2580,
+      "polygons": 5048,
+      "loops": 15144,
+      "uv": "6dc96023fbf1736ee132301dd2119835dfeda9850c26c683be16a33605a6d540",
+      "topology": "70ba296a650569a5bd535060dedd9e884cd0d16cb501e3b09d519ffeee953373",
+      "materials": [
+        "Workshop v2 PBR | leather-oxblood-oil-and-tooling"
+      ]
+    },
+    "Workshop_oak-aged-endgrain-and-open-pores": {
+      "vertices": 7179,
+      "polygons": 13764,
+      "loops": 41292,
+      "uv": "fcbec3d628c4f646c824534bdff82cd528cecbc13fdae0ee6d9c4d6b09f4eb50",
+      "topology": "d38ee83d1c96fec130b84af0ad48fecc28eed438f93444a5fde4fece6885485d",
+      "materials": [
+        "Workshop v2 PBR | oak-aged-endgrain-and-open-pores"
+      ]
+    },
+    "Workshop_stoneware-chalk-glaze": {
+      "vertices": 5656,
+      "polygons": 10797,
+      "loops": 32391,
+      "uv": "48e0f3e29761fbc55a048d5b3a1589f99f834a0677a9495dc27cb2b219b6b52d",
+      "topology": "4e243d253d162074655d455f1d996cf9383fd32f44fdd617a80fa1aeb04826b4",
+      "materials": [
+        "Workshop v2 PBR | stoneware-chalk-glaze"
+      ]
+    },
+    "Workshop_blackened-iron-worn-workshop-steel": {
+      "vertices": 19487,
+      "polygons": 37938,
+      "loops": 113814,
+      "uv": "c298bc89724ec41f566d634c0d3fc6b67655d501a31442be5b7be5c8e8a32b38",
+      "topology": "8f16b43944851caf8120c72166df33db91e1077758f43b6e10530bc74f446f10",
+      "materials": [
+        "Workshop v2 PBR | blackened-iron-worn-workshop-steel"
+      ]
+    },
+    "Workshop_gold-thread-brushed-antique-gold": {
+      "vertices": 10684,
+      "polygons": 16899,
+      "loops": 50697,
+      "uv": "431b2c1436a0dda59195d7b81736ac5808f60cc401f37830a92275695c578a7d",
+      "topology": "cf9b60d2ce886e99ae41e88772a2aa87bad701f1eb6c0a10a39321c88c197804",
+      "materials": [
+        "Workshop v2 PBR | gold-thread-brushed-antique-gold"
+      ]
+    },
+    "Workshop_brick-1": {
+      "vertices": 3504,
+      "polygons": 6768,
+      "loops": 20304,
+      "uv": "a7b8669624f9910ed49c90052ee9b69031be413396b0939f196e0bc1b22d99d2",
+      "topology": "72ae933ce168ad8f82b1bc5f643c3eeba447d0cc61c6c4b921f35b03d4de6cf7",
+      "materials": [
+        "Workshop v2 PBR | brick-1"
+      ]
+    },
+    "Workshop_oak-aged-endgrain-and-open-pores-grain-z": {
+      "vertices": 816,
+      "polygons": 1584,
+      "loops": 4752,
+      "uv": "f7c44bdf68a1c8764368f8ce061d68591ef347fdd67e1b8edefdd74e02f45aef",
+      "topology": "1cd82793e14283c3dca143c847c68ba77034375f52b0f35ccee64c6459a13df5",
+      "materials": [
+        "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-z"
+      ]
+    },
+    "Workshop_walnut-smoke-and-worn-varnish": {
+      "vertices": 7577,
+      "polygons": 14359,
+      "loops": 43077,
+      "uv": "f037cfa7edf2428c71cb3ac0ad9a2e4e42ad77160c71ebb0bc5db6a9ce59b325",
+      "topology": "45bd531bbcad78cf4079a5b5bc311a532a73bea5a81a1192d7a8c0fbc8cfb195",
+      "materials": [
+        "Workshop v2 PBR | walnut-smoke-and-worn-varnish"
+      ]
+    },
+    "Workshop_walnut-smoke-and-worn-varnish-grain-y": {
+      "vertices": 525,
+      "polygons": 1014,
+      "loops": 3042,
+      "uv": "92a5f2504658de31efc38b4da654952f09bae9bf3710083ce01dcc96de1375dd",
+      "topology": "4a8acd279c2e2bf187715499d95c6001f09101d88d42a16dac8492316fcec562",
+      "materials": [
+        "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y"
+      ]
+    },
+    "Workshop_canvas-waterduel-deep-forest": {
+      "vertices": 700,
+      "polygons": 1352,
+      "loops": 4056,
+      "uv": "065ec69a56a095820498cf658553c8727d6de41d9f7da1a2d10826d580972189",
+      "topology": "c9f80e2815c94962121902769d26344a13851f02f1827e744cf89eb02c167a63",
+      "materials": [
+        "Workshop v2 PBR | canvas-waterduel-deep-forest"
+      ]
+    },
+    "Workshop_window-cold-diffuse-daylight": {
+      "vertices": 3737,
+      "polygons": 7218,
+      "loops": 21654,
+      "uv": "04d81acab6fca97ba818685ea1cdcc72b0192cfe3a45e36ac65a9db4ff839415",
+      "topology": "56871651cea3dd9dcf5934a2bc3c7c5d17eeba02f9078369a77c1f11ddf93b25",
+      "materials": [
+        "Workshop v2 PBR | window-cold-diffuse-daylight"
+      ]
+    },
+    "Workshop_stage-wet-oak-3": {
+      "vertices": 409,
+      "polygons": 798,
+      "loops": 2394,
+      "uv": "b076344c6681de0e7acedab2e46029e75cb10e352df9b806a06440997f50f3b8",
+      "topology": "cd42b1e95f443ec3f78c75659a252e1a21b2675009d3c72a22e16c760712b426",
+      "materials": [
+        "Workshop v2 PBR | stage-wet-oak-3"
+      ]
+    },
+    "Workshop_walnut-smoke-and-worn-varnish-grain-z": {
+      "vertices": 2373,
+      "polygons": 4614,
+      "loops": 13842,
+      "uv": "e33f71519a389b75ccc997d7e320c6f09a84c3d579dce5bfd994ba0ad48e1bdf",
+      "topology": "1957abb9ab85a5aa93c886eb6109c699e185ff8291c8e6bb6b432143d4339290",
+      "materials": [
+        "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-z"
+      ]
+    },
+    "Workshop_steel-satin-machined-surface": {
+      "vertices": 2188,
+      "polygons": 4280,
+      "loops": 12840,
+      "uv": "4e2cd2a871e0db785717b6ca8eb85b08a4718c3e859b5e30cef92099a92b4f11",
+      "topology": "c71a971d829e2e31f02c1e237924cbfb6e0260a228ef7b0be1964bbede9d56c9",
+      "materials": [
+        "Workshop v2 PBR | steel-satin-machined-surface"
+      ]
+    },
+    "Workshop_technical-drawing-charcoal-ink": {
+      "vertices": 13472,
+      "polygons": 16787,
+      "loops": 50361,
+      "uv": "3584b0526aba668c1dcfc21d132fe916e266bafd2f468d1352ccaca76d31f3a4",
+      "topology": "8a193abeefdfc66adaf0fe758fcfda7385e77a7f872471931ec5383670c3fa22",
+      "materials": [
+        "Workshop v2 PBR | technical-drawing-charcoal-ink"
+      ]
+    },
+    "Workshop_stage-wet-oak-2": {
+      "vertices": 655,
+      "polygons": 1278,
+      "loops": 3834,
+      "uv": "2cb61befebfe720845e2067d995d8e4b6fd6bce74004b582fdeae78cc8e4f62b",
+      "topology": "0e0b26e054bc0e5019a4212f48fdc53d0e4021339c64919246e9187610cb2dba",
+      "materials": [
+        "Workshop v2 PBR | stage-wet-oak-2"
+      ]
+    },
+    "Workshop_ivy-waxy-variegated-deep-green": {
+      "vertices": 15000,
+      "polygons": 28000,
+      "loops": 84000,
+      "uv": "67f7ae04c8b47eb1aa1f9d8fa61123fcd27a2aa601af37dcf25d51526bb86414",
+      "topology": "9127bd6e9bb6c40e9207f1fce751468424be5e4725925ac65c79146f312eb5ee",
+      "materials": [
+        "Workshop v2 PBR | ivy-waxy-variegated-deep-green"
+      ]
+    },
+    "Workshop_lamp-warm-tungsten-filament": {
+      "vertices": 3220,
+      "polygons": 6392,
+      "loops": 19176,
+      "uv": "07a233e61a15951578e4a656bb6213641fda05e14d3fa6629b4818b43a0637d1",
+      "topology": "591febefac18be3742566312bdb42d7209938270dbe97c9f12f9f5e659b121bb",
+      "materials": [
+        "Workshop v2 PBR | lamp-warm-tungsten-filament"
+      ]
+    },
+    "Workshop_oak-aged-endgrain-and-open-pores-grain-y": {
+      "vertices": 817,
+      "polygons": 1578,
+      "loops": 4734,
+      "uv": "425c7d1467cd9ef0a1e9012f8c408abc1d264dda7ac490f74865704cd9fb2b9e",
+      "topology": "c17ee8eab7e9db5b79bb7a89e976ebddaac00ff54f77e5fae6585b57f314086c",
+      "materials": [
+        "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-y"
+      ]
+    }
+  },
+  "rotorVerticesIdentical": true,
+  "unselectedVerticesIdentical": true,
+  "uvsTopologyMaterialsIdentical": true,
+  "cameraLightTransformsIdentical": true,
+  "sourceAssembliesAlsoMoved": true
+}

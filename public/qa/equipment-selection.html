@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QA · selección de equipamiento</title>
+<style>
+body{margin:0;background:#102327;color:#e1eee6;font:14px system-ui}main{max-width:1280px;margin:auto}canvas{display:block;width:100%;aspect-ratio:16/9}section{padding:18px}h1{font-size:22px;margin:0 0 8px}p{line-height:1.5}fieldset{border:1px solid #60867a;display:flex;gap:12px;flex-wrap:wrap;margin:12px 0;padding:14px}label{display:grid;gap:5px}button,select{min-height:44px;background:#28554b;color:#e7ffef;border:1px solid #82b5a0;padding:8px}button:disabled,select:disabled{opacity:.5}button:focus-visible,select:focus-visible{outline:3px solid #ffd177;outline-offset:3px}.actions{display:flex;gap:10px;flex-wrap:wrap}pre{white-space:pre-wrap;overflow-wrap:anywhere}.muted{color:#b8cdc5}
+</style></head><body><main>
+<canvas id="scene" aria-label="Arena real para inspeccionar armas y escudos seleccionados"></canvas>
+<section><h1>Selección e intercambio · prueba pública</h1>
+<p class="muted">Sesión local de prueba con HostSession, DuelEngine y Renderer3D reales. No conecta mandos, no usa autenticación ni controla la partida LAN. Los impactos y resultados los calcula la simulación.</p>
+<p id="assetStatus" role="status">Cargando modelos…</p>
+<fieldset><legend>Jugador 1</legend><label>Arma J1<select id="weapon1"></select></label><label>Secundaria J1<select id="defense1"></select></label><p id="loadout1"></p></fieldset>
+<fieldset><legend>Jugador 2</legend><label>Arma J2<select id="weapon2"></select></label><label>Secundaria J2<select id="defense2"></select></label><p id="loadout2"></p></fieldset>
+<p>El mazo ocupa ambas manos y fija la secundaria en «Sin escudo». El cuchillo está disponible únicamente en la secundaria.</p>
+<div class="actions"><button id="swap">Intercambiar equipos</button><button id="fight">Comenzar combate físico</button><button id="reset">Volver a preparación</button></div>
+<p id="feedback" role="status" aria-live="polite"></p>
+<details><summary>Estado y evidencia de la prueba</summary><pre id="result">Inicializando</pre></details>
+</section></main>
+<script type="module">
+import {HostSession} from '../host-session.js';
+import {STEP} from '../engine.js';
+import {WEAPONS,DEFENSES} from '../equipment.js';
+import {Renderer3D} from '../render3d.js';
+
+const $=id=>document.getElementById(id);
+const host=new HostSession({opponentSeed:18884}),renderer=new Renderer3D($('scene'));
+let serial=1,previous=performance.now(),accumulator=0,frames=0,closed=false;
+const history=[];
+function command(name,value){
+ const answer=host.handleCommand({type:'command',requestId:serial++,sentAt:Date.now(),command:name,...(value===undefined?{}:{value})});
+ history.push({command:name,...(value===undefined?{}:{value}),...answer});if(history.length>12)history.shift();
+ $('feedback').textContent=answer.message;refresh();return answer;
+}
+function fill(select,items){
+ const options=Object.values(items).map(item=>{const option=document.createElement('option');option.value=item.id;option.textContent=item.label;return option;});
+ select.replaceChildren(...options);
+}
+function snapshot(){
+ const g=host.game;
+ return {scope:'Public local fixture; real host, engine and renderer; no LAN transport or authenticated controller.',
+  phase:g.phase,mode:g.mode,loadouts:g.loadouts.map(item=>({...item})),
+  fighters:g.fighters.map(f=>({slot:f.slot,equipment:{...f.equipment},twoHanded:WEAPONS[f.equipment.weapon].twoHanded,
+   secondaryGripError:WEAPONS[f.equipment.weapon].twoHanded?Math.hypot(f.pose.offHand.x-f.pose.offGrip.x,f.pose.offHand.y-f.pose.offGrip.y,f.pose.offHand.z-f.pose.offGrip.z):null})),
+  assets:renderer.assetStatus,loadedEquipment:Object.keys(renderer.assetScene.equipment),rendering:renderer.stats,
+  viewport:{width:$('scene').width,height:$('scene').height},commands:history};
+}
+function refresh(){
+ const state=host.menuState();
+ for(const n of [1,2]){
+  const equipment=state.fighters[n-1].equipment;
+  $('weapon'+n).value=equipment.weapon;$('defense'+n).value=equipment.defense;
+  $('weapon'+n).disabled=!state.configurable;
+  $('defense'+n).disabled=!state.configurable||WEAPONS[equipment.weapon].twoHanded;
+  $('loadout'+n).textContent=`${WEAPONS[equipment.weapon].label} · ${DEFENSES[equipment.defense].label}`;
+ }
+ $('swap').disabled=!state.configurable;$('fight').disabled=!state.configurable;
+ $('result').textContent=JSON.stringify(snapshot(),null,2);
+}
+for(const n of [1,2]){
+ fill($('weapon'+n),WEAPONS);fill($('defense'+n),DEFENSES);
+ for(const kind of ['weapon','defense'])$(kind+n).addEventListener('change',()=>command('setLoadout',{slot:n,weapon:$('weapon'+n).value,defense:$('defense'+n).value}));
+}
+$('swap').addEventListener('click',()=>{
+ const [a,b]=host.game.loadouts.map(item=>({...item}));
+ if(command('setLoadout',{slot:1,...b}).ok)command('setLoadout',{slot:2,...a});
+});
+$('fight').addEventListener('click',()=>command('start'));
+$('reset').addEventListener('click',()=>command('reset'));
+command('setMode','versus');
+renderer.loadAssets(status=>{
+ $('assetStatus').textContent=`${status.ready} de ${status.total} recursos 3D · ${status.loading?'cargando':'carga terminada'}${status.errors.length?' · '+status.errors.join(' '):''}`;
+ refresh();
+}).catch(error=>{$('assetStatus').textContent='Error al cargar los modelos.';console.error(error);});
+function animate(now){
+ if(closed)return;
+ requestAnimationFrame(animate);accumulator+=Math.min(.085,Math.max(0,(now-previous)/1000));previous=now;
+ let steps=0;while(accumulator>=STEP&&steps++<10){host.update(STEP);accumulator-=STEP;}
+ if(steps>=10)accumulator=0;
+ const view=host.renderState();renderer.render(view.scene,view.time);
+ if(++frames%15===0)refresh();
+}
+requestAnimationFrame(animate);
+addEventListener('pagehide',()=>{closed=true;renderer.dispose();});
+addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
+</script></body></html>

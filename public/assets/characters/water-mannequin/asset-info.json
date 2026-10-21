@@ -1,0 +1,32 @@
+{
+  "name": "WaterDuel Water Mannequin",
+  "bones": 18,
+  "mesh_objects": 141,
+  "triangles_source": 49022,
+  "height_metres": 2.884,
+  "fill_fraction": 0.65,
+  "source_axes": "Z up, -Y forward",
+  "glb_axes": "Y up, +Z forward",
+  "references": [
+    "artist mannequin attachment",
+    "w1.png",
+    "w2.png",
+    "w3.png",
+    "w4.png"
+  ],
+  "static_fluid": true,
+  "runtime_integrated": false,
+  "rig_contract": "rig-contract.json",
+  "variants": [
+    "water-mannequin.glb",
+    "water-mannequin-amber.glb",
+    "water-mannequin-burst.glb"
+  ],
+  "reference_mapping": {
+    "attachment": "Rounded wood mannequin and bind pose",
+    "w1": "Mint/amber heads, top knots, wooden automaton and rapier",
+    "w2": "Waterline/bubbles, brass hinges, leather wrap and hydraulic rods",
+    "w3": "Separate static burst variant with latex sheets and water spray",
+    "w4": "Shoulder guards, chest reinforcement, crest and sash; not a separate boss model"
+  }
+}

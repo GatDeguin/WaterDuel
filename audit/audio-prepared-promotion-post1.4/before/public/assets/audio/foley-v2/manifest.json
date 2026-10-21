@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "title": "WaterDuel — Foley de contacto y movimiento",
+  "names": [
+    "blade-beat",
+    "blade-slide",
+    "shield-metal",
+    "shield-wood",
+    "wood-contact",
+    "latex-rub",
+    "footstep-dry",
+    "footstep-wet",
+    "water-burst",
+    "blade-swish"
+  ],
+  "provenance": {
+    "method": "Original deterministic procedural Foley synthesis authored for WaterDuel",
+    "externalSamples": false,
+    "externalServices": false,
+    "dependencies": [],
+    "seed": 1,
+    "source": "public/audio/foley-synthesis.js",
+    "exporter": "scripts/export-foley-audio.mjs",
+    "originalLayers": "Locally synthesized wood, metal and puncture layers from public/audio/synthesis.js",
+    "rights": "Project-original synthesized audio; no third-party recordings or samples"
+  },
+  "preservedWorkshopManifestSHA256": "8bcf6bcaf982619c060a50bf403b4ed7f24508667c09f39c2e15ebcb1424cc16",
+  "format": {
+    "container": "WAV",
+    "encoding": "PCM signed 16-bit little-endian",
+    "sampleRate": 22050,
+    "channels": 1
+  },
+  "totalBytes": 679624,
+  "files": [
+    {
+      "name": "blade-beat",
+      "kind": "effect",
+      "file": "blade-beat.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 11466,
+      "duration": 0.52,
+      "bytes": 22976,
+      "peak": 0.5186767578125,
+      "rms": 0.06722712620906846,
+      "sha256": "f275c7bae137c0b1df33bf7bf0e33dec5d1bf0e4e94dfe2db624c21ad8b8f138"
+    },
+    {
+      "name": "blade-slide",
+      "kind": "effect",
+      "file": "blade-slide.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 16317,
+      "duration": 0.74,
+      "bytes": 32678,
+      "peak": 0.274169921875,
+      "rms": 0.05718639863238489,
+      "sha256": "3bf59e1a6bf7b1df6b90e34baffd553e9c1ac7240f2faac4ec50e3d83e1fba61"
+    },
+    {
+      "name": "shield-metal",
+      "kind": "effect",
+      "file": "shield-metal.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 20286,
+      "duration": 0.92,
+      "bytes": 40616,
+      "peak": 0.699981689453125,
+      "rms": 0.1030676607114397,
+      "sha256": "a83e62e5c334ea79a1e6f0942a13939565d01232937c57d8bf15a51c2373fdf0"
+    },
+    {
+      "name": "shield-wood",
+      "kind": "effect",
+      "file": "shield-wood.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 9261,
+      "duration": 0.42,
+      "bytes": 18566,
+      "peak": 0.477569580078125,
+      "rms": 0.0701649719825097,
+      "sha256": "06fbcba45af5703af04916a010bf424783753692fd8fbaafd665dacd3cb23ef0"
+    },
+    {
+      "name": "wood-contact",
+      "kind": "effect",
+      "file": "wood-contact.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 8820,
+      "duration": 0.4,
+      "bytes": 17684,
+      "peak": 0.399444580078125,
+      "rms": 0.07407215305463206,
+      "sha256": "025eafd236b46a876ec92c42ea936acfb44e137816f106bd0f9ec8904517b156"
+    },
+    {
+      "name": "latex-rub",
+      "kind": "effect",
+      "file": "latex-rub.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 15876,
+      "duration": 0.72,
+      "bytes": 31796,
+      "peak": 0.237884521484375,
+      "rms": 0.08810373789181918,
+      "sha256": "4cc724d5523925498b12525918698c8c4d5d47cdeface041ed5c99c6a2b535b9"
+    },
+    {
+      "name": "footstep-dry",
+      "kind": "effect",
+      "file": "footstep-dry.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 7497,
+      "duration": 0.34,
+      "bytes": 15038,
+      "peak": 0.267242431640625,
+      "rms": 0.0481044006838526,
+      "sha256": "fbdaea6f42f7116ecccc1c9e0a1c5b756edde131c08ebb60498d2dc72c757f9c"
+    },
+    {
+      "name": "footstep-wet",
+      "kind": "effect",
+      "file": "footstep-wet.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 10584,
+      "duration": 0.48,
+      "bytes": 21212,
+      "peak": 0.28253173828125,
+      "rms": 0.04847065704239861,
+      "sha256": "3feaca567a7262c8113b03ff3266af473a0ff7a9a9aaec82fbfa077c1ce46f03"
+    },
+    {
+      "name": "water-burst",
+      "kind": "effect",
+      "file": "water-burst.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 26460,
+      "duration": 1.2,
+      "bytes": 52964,
+      "peak": 0.34521484375,
+      "rms": 0.05489059233886087,
+      "sha256": "57394736f4cc24a3a42e71684190d56b44c0f71ce6f8a25149ac0b2cd61ecc78"
+    },
+    {
+      "name": "blade-swish",
+      "kind": "effect",
+      "file": "blade-swish.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 9261,
+      "duration": 0.42,
+      "bytes": 18566,
+      "peak": 0.238739013671875,
+      "rms": 0.05784862126738263,
+      "sha256": "b0756f6cac59245533a730959321c23e8ff4bd70ca316dea23548c54f3fa138b"
+    },
+    {
+      "name": "foley-montage",
+      "kind": "preview",
+      "file": "foley-montage.wav",
+      "channels": 1,
+      "sampleRate": 22050,
+      "frames": 203742,
+      "duration": 9.24,
+      "bytes": 407528,
+      "peak": 0.699981689453125,
+      "rms": 0.05822969319188607,
+      "sha256": "1730f1a3fa214e9e2a7ae4cedcbe35d3dae4e81e2a870d6b78a3faba38955e46"
+    }
+  ],
+  "preview": {
+    "file": "foley-montage.wav",
+    "chapters": [
+      {
+        "name": "blade-beat",
+        "start": 0.28,
+        "duration": 0.52
+      },
+      {
+        "name": "blade-slide",
+        "start": 1.08,
+        "duration": 0.74
+      },
+      {
+        "name": "shield-metal",
+        "start": 2.1,
+        "duration": 0.92
+      },
+      {
+        "name": "shield-wood",
+        "start": 3.3,
+        "duration": 0.42
+      },
+      {
+        "name": "wood-contact",
+        "start": 4,
+        "duration": 0.4
+      },
+      {
+        "name": "latex-rub",
+        "start": 4.68,
+        "duration": 0.72
+      },
+      {
+        "name": "footstep-dry",
+        "start": 5.68,
+        "duration": 0.34
+      },
+      {
+        "name": "footstep-wet",
+        "start": 6.3,
+        "duration": 0.48
+      },
+      {
+        "name": "water-burst",
+        "start": 7.06,
+        "duration": 1.2
+      },
+      {
+        "name": "blade-swish",
+        "start": 8.54,
+        "duration": 0.42
+      }
+    ]
+  }
+}

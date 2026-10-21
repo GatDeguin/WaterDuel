@@ -1,0 +1,32 @@
+[
+  {
+    "path": "public/assets/characters/water-mannequin/water-mannequin.glb",
+    "bytes": 2390720,
+    "sha256": "2e4ac952a9dd71cd0d70d9f7cf53c29a2133146ae6de067ae66f6a3398bb7a73"
+  },
+  {
+    "path": "public/assets/characters/water-mannequin/water-mannequin-amber.glb",
+    "bytes": 2390648,
+    "sha256": "8cf602cbcef3df8b1736e178558ae40b06cd97219678b73767c51cc58a44bf4a"
+  },
+  {
+    "path": "public/assets/characters/water-mannequin/water-mannequin-burst.glb",
+    "bytes": 3673832,
+    "sha256": "2c93f07cff015cb41228d04a084f2769b6235dfb4cb55c182a6e4a6316e0e507"
+  },
+  {
+    "path": "docs/assets/characters/water-mannequin.blend",
+    "bytes": 1181260,
+    "sha256": "275140b5ce89cfbe76098e74894099d3fa253ebb28eeb2fbff04ce9e4994e8a3"
+  },
+  {
+    "path": "docs/assets/characters/water-mannequin-burst.blend",
+    "bytes": 1480807,
+    "sha256": "4c1637db14d944d4f7f1484d62f6f464873f2112d90c740369b6053762d4c821"
+  },
+  {
+    "path": "public/assets/characters/water-mannequin/rig-contract.json",
+    "bytes": 6799,
+    "sha256": "5517226888f41cb913fa9824e6529775f53da75eae338d7bf4a4ef587a8ad6de"
+  }
+]

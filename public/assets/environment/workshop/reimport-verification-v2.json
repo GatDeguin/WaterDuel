@@ -1,0 +1,1147 @@
+{
+  "passed": true,
+  "file": "workshop-runtime-v2.glb",
+  "version": 2,
+  "importer": "Blender 5.2.0 LTS",
+  "errors": [],
+  "previews": [
+    {
+      "file": "preview-glb-v2-eevee.png",
+      "width": 1280,
+      "height": 720,
+      "engine": "Eevee",
+      "description": "Full scene from reimported v2 GLB; same camera and lighting as v1 QA."
+    },
+    {
+      "file": "preview-fan-v2-000.png",
+      "width": 1280,
+      "height": 720,
+      "engine": "Eevee",
+      "description": "Reimported fan at 0 degrees, fixed camera and lighting."
+    },
+    {
+      "file": "preview-fan-v2-090.png",
+      "width": 1280,
+      "height": 720,
+      "engine": "Eevee",
+      "description": "Reimported fan at 90 degrees, fixed camera and lighting."
+    }
+  ],
+  "scope": "Actual v2 GLB import and Blender CPU transforms. Optional Eevee renders are offline QA, not game runtime.",
+  "triangles": 355284,
+  "vertices": 361107,
+  "meshObjects": 36,
+  "drawGroups": 36,
+  "boundsRuntimeYUp": {
+    "min": [
+      -7.754260063171387,
+      -0.9033911228179932,
+      -10.017007827758789
+    ],
+    "max": [
+      7.754260063171387,
+      6.884024143218994,
+      6.138547420501709
+    ],
+    "size": [
+      15.508520126342773,
+      7.787415266036987,
+      16.155555248260498
+    ]
+  },
+  "boundsMaxError": 0.0,
+  "stageTopMeasured": 0.3244612216949463,
+  "stageTopNominal": 0.3245,
+  "stageTopTolerance": 0.002,
+  "materialImageBindings": [
+    {
+      "material": "Workshop v2 PBR | window-cold-diffuse-daylight",
+      "image": "window-cold-diffuse-daylight-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | window-cold-diffuse-daylight",
+      "image": "window-cold-diffuse-daylight-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | blackened-iron-worn-workshop-steel",
+      "image": "blackened-iron-worn-workshop-steel-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | blackened-iron-worn-workshop-steel",
+      "image": "blackened-iron-worn-workshop-steel-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | blackened-iron-worn-workshop-steel",
+      "image": "blackened-iron-worn-workshop-steel-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores",
+      "image": "oak-aged-endgrain-and-open-pores-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores",
+      "image": "oak-aged-endgrain-and-open-pores-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores",
+      "image": "oak-aged-endgrain-and-open-pores-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-5",
+      "image": "stage-wet-oak-5-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-5",
+      "image": "stage-wet-oak-5-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-5",
+      "image": "stage-wet-oak-5-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y-floor",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-floor-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y-floor",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-floor-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y-floor",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-floor-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | copper-oxidized-plumbing",
+      "image": "copper-oxidized-plumbing-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | copper-oxidized-plumbing",
+      "image": "copper-oxidized-plumbing-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | copper-oxidized-plumbing",
+      "image": "copper-oxidized-plumbing-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-3",
+      "image": "stage-wet-oak-3-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-3",
+      "image": "stage-wet-oak-3-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-3",
+      "image": "stage-wet-oak-3-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y",
+      "image": "walnut-smoke-and-worn-varnish-grain-y-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | wall-limewash-soot-and-age",
+      "image": "wall-limewash-soot-and-age-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | wall-limewash-soot-and-age",
+      "image": "wall-limewash-soot-and-age-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | wall-limewash-soot-and-age",
+      "image": "wall-limewash-soot-and-age-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | brass-tarnish-patina-polished-edges",
+      "image": "brass-tarnish-patina-polished-edges-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | brass-tarnish-patina-polished-edges",
+      "image": "brass-tarnish-patina-polished-edges-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | brass-tarnish-patina-polished-edges",
+      "image": "brass-tarnish-patina-polished-edges-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | paper-warm-vellum",
+      "image": "paper-warm-vellum-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | paper-warm-vellum",
+      "image": "paper-warm-vellum-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | canvas-waterduel-deep-forest",
+      "image": "canvas-waterduel-deep-forest-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | canvas-waterduel-deep-forest",
+      "image": "canvas-waterduel-deep-forest-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | canvas-waterduel-deep-forest",
+      "image": "canvas-waterduel-deep-forest-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-y",
+      "image": "oak-aged-endgrain-and-open-pores-grain-y-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-y",
+      "image": "oak-aged-endgrain-and-open-pores-grain-y-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-y",
+      "image": "oak-aged-endgrain-and-open-pores-grain-y-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-z",
+      "image": "walnut-smoke-and-worn-varnish-grain-z-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-z",
+      "image": "walnut-smoke-and-worn-varnish-grain-z-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-z",
+      "image": "walnut-smoke-and-worn-varnish-grain-z-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-4",
+      "image": "stage-wet-oak-4-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-4",
+      "image": "stage-wet-oak-4-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-4",
+      "image": "stage-wet-oak-4-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | leather-oxblood-oil-and-tooling",
+      "image": "leather-oxblood-oil-and-tooling-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | leather-oxblood-oil-and-tooling",
+      "image": "leather-oxblood-oil-and-tooling-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | leather-oxblood-oil-and-tooling",
+      "image": "leather-oxblood-oil-and-tooling-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | forest-green-woven-cotton-velvet",
+      "image": "forest-green-woven-cotton-velvet-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | forest-green-woven-cotton-velvet",
+      "image": "forest-green-woven-cotton-velvet-orm",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | forest-green-woven-cotton-velvet",
+      "image": "forest-green-woven-cotton-velvet-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | gold-thread-brushed-antique-gold",
+      "image": "gold-thread-brushed-antique-gold-basecolor",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | gold-thread-brushed-antique-gold",
+      "image": "gold-thread-brushed-antique-gold-orm",
+      "size": [
+        128,
+        128
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | gold-thread-brushed-antique-gold",
+      "image": "gold-thread-brushed-antique-gold-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-2",
+      "image": "stage-wet-oak-2-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-2",
+      "image": "stage-wet-oak-2-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-2",
+      "image": "stage-wet-oak-2-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish",
+      "image": "walnut-smoke-and-worn-varnish-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish",
+      "image": "walnut-smoke-and-worn-varnish-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | walnut-smoke-and-worn-varnish",
+      "image": "walnut-smoke-and-worn-varnish-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | ivy-waxy-variegated-deep-green",
+      "image": "ivy-waxy-variegated-deep-green-basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | ivy-waxy-variegated-deep-green",
+      "image": "ivy-waxy-variegated-deep-green-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-1",
+      "image": "stage-wet-oak-1-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-1",
+      "image": "stage-wet-oak-1-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | stage-wet-oak-1",
+      "image": "stage-wet-oak-1-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | steel-satin-machined-surface",
+      "image": "steel-satin-machined-surface-basecolor",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | steel-satin-machined-surface",
+      "image": "steel-satin-machined-surface-orm",
+      "size": [
+        128,
+        128
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | steel-satin-machined-surface",
+      "image": "steel-satin-machined-surface-normal",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-z",
+      "image": "oak-aged-endgrain-and-open-pores-grain-z-basecolor",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "sRGB"
+    },
+    {
+      "material": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-z",
+      "image": "oak-aged-endgrain-and-open-pores-grain-z-orm",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    },
+    {
+      "material": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-z",
+      "image": "oak-aged-endgrain-and-open-pores-grain-z-normal",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true,
+      "decoded": true,
+      "colorSpace": "Non-Color"
+    }
+  ],
+  "activeVolume": {
+    "x": [
+      -3.7,
+      3.7
+    ],
+    "y": [
+      0.36,
+      3.5
+    ],
+    "z": [
+      -1.31,
+      1.31
+    ]
+  },
+  "activeVolumeIntersections": [],
+  "rotor": {
+    "passed": true,
+    "name": "Workshop_FanRotor",
+    "pivotRuntime": [
+      -4.200680255889893,
+      1.7139557600021362,
+      -2.226360559463501
+    ],
+    "axisRuntime": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "pivotBlender": [
+      -4.200680255889893,
+      2.226360559463501,
+      1.7139557600021362
+    ],
+    "axisBlender": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "angularSpeed": 7.2,
+    "localGeometry": {
+      "ok": true,
+      "importedOriginRuntime": [
+        -4.200680255889893,
+        1.7139557600021362,
+        -2.226360559463501
+      ],
+      "pivotMaxError": 0.0,
+      "boundsRelativeRuntimeAxes": {
+        "min": [
+          -0.67987060546875,
+          -0.6675516366958618,
+          -0.07238101959228516
+        ],
+        "max": [
+          0.595067024230957,
+          0.6466256380081177,
+          0.07238101959228516
+        ],
+        "size": [
+          1.274937629699707,
+          1.3141772747039795,
+          0.1447620391845703
+        ]
+      },
+      "radialRadius": 0.6798706125648276,
+      "expectedRadiusRange": [
+        0.64,
+        0.72
+      ],
+      "rawMeshLocalMaxDistance": 0.6837127041575963,
+      "scope": "Mesh vertices relative to the imported object origin, expressed in runtime axes without centroid recentering."
+    },
+    "motion": {
+      "ok": true,
+      "maxPivotError": 2.384185791015625e-07,
+      "maxRadiusError": 3.194654755178661e-07,
+      "maxDepthError": 0.0,
+      "maxRestoreError": 1.620937854206151e-07,
+      "samples": [
+        {
+          "degrees": 0,
+          "secondsAtAngularSpeed": 0.0,
+          "matrixBlenderRowMajor": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -4.200680255889893
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              2.226360559463501
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              1.7139557600021362
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "originRuntime": [
+            -4.200680255889893,
+            1.7139557600021362,
+            -2.226360559463501
+          ],
+          "boundsRuntimeYUp": {
+            "min": [
+              -4.880550861358643,
+              1.0464041233062744,
+              -2.298741579055786
+            ],
+            "max": [
+              -3.6056132316589355,
+              2.360581398010254,
+              -2.153979539871216
+            ],
+            "size": [
+              1.274937629699707,
+              1.3141772747039795,
+              0.1447620391845703
+            ]
+          },
+          "outermostVertexRuntime": [
+            -4.880550861358643,
+            1.714053988456726,
+            -2.153979539871216
+          ],
+          "maxVertexDisplacement": 0.0,
+          "activeVolumeIntersections": 0
+        },
+        {
+          "degrees": 90,
+          "secondsAtAngularSpeed": 0.2181661564992912,
+          "matrixBlenderRowMajor": [
+            [
+              -1.3435885648505064e-07,
+              0.0,
+              -1.0000001192092896,
+              -4.200680255889893
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              2.226360559463501
+            ],
+            [
+              1.0000001192092896,
+              0.0,
+              -1.3435885648505064e-07,
+              1.7139555215835571
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "originRuntime": [
+            -4.200680255889893,
+            1.7139555215835571,
+            -2.226360559463501
+          ],
+          "boundsRuntimeYUp": {
+            "min": [
+              -4.847305942766685,
+              1.0340848350547174,
+              -2.298741579055786
+            ],
+            "max": [
+              -3.533128522305524,
+              2.309022660931092,
+              -2.153979539871216
+            ],
+            "size": [
+              1.3141774204611605,
+              1.2749378258763748,
+              0.1447620391845703
+            ]
+          },
+          "outermostVertexRuntime": [
+            -4.200778393009555,
+            1.0340848350547174,
+            -2.153979539871216
+          ],
+          "maxVertexDisplacement": 0.9614825314604813,
+          "activeVolumeIntersections": 0
+        },
+        {
+          "degrees": 180,
+          "secondsAtAngularSpeed": 0.4363323129985824,
+          "matrixBlenderRowMajor": [
+            [
+              -1.0,
+              0.0,
+              -8.742277657347586e-08,
+              -4.200680255889893
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              2.226360559463501
+            ],
+            [
+              8.742277657347586e-08,
+              0.0,
+              -1.0,
+              1.7139558792114258
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "originRuntime": [
+            -4.200680255889893,
+            1.7139558792114258,
+            -2.226360559463501
+          ],
+          "boundsRuntimeYUp": {
+            "min": [
+              -4.795747251375024,
+              1.0673302228446886,
+              -2.298741579055786
+            ],
+            "max": [
+              -3.52080965042973,
+              2.3815075046441567,
+              -2.153979539871216
+            ],
+            "size": [
+              1.2749376009452944,
+              1.3141772817994681,
+              0.1447620391845703
+            ]
+          },
+          "outermostVertexRuntime": [
+            -3.52080965042973,
+            1.71385759132066,
+            -2.153979539871216
+          ],
+          "maxVertexDisplacement": 1.3597412251124332,
+          "activeVolumeIntersections": 0
+        },
+        {
+          "degrees": 360,
+          "secondsAtAngularSpeed": 0.8726646259971648,
+          "matrixBlenderRowMajor": [
+            [
+              1.0,
+              0.0,
+              2.384185791015625e-07,
+              -4.200680255889893
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              2.226360559463501
+            ],
+            [
+              -2.384185791015625e-07,
+              0.0,
+              1.0,
+              1.7139557600021362
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "originRuntime": [
+            -4.200680255889893,
+            1.7139557600021362,
+            -2.226360559463501
+          ],
+          "boundsRuntimeYUp": {
+            "min": [
+              -4.880550861335223,
+              1.04640415402298,
+              -2.298741579055786
+            ],
+            "max": [
+              -3.605613310054281,
+              2.36058144807771,
+              -2.153979539871216
+            ],
+            "size": [
+              1.2749375512809422,
+              1.3141772940547298,
+              0.1447620391845703
+            ]
+          },
+          "outermostVertexRuntime": [
+            -4.880550861335223,
+            1.7140541505505098,
+            -2.153979539871216
+          ],
+          "maxVertexDisplacement": 1.620937854206151e-07,
+          "activeVolumeIntersections": 0
+        }
+      ],
+      "engineFormula": "T(pivot)*Rz(theta)*T(-pivot)*restWorld; theta=7.2*seconds",
+      "blenderFormula": "T(pivotB)*R(axisB,theta)*T(-pivotB)*restWorldB; axisB=(0,-1,0)"
+    }
+  },
+  "checks": {
+    "bounds": true,
+    "triangleBudget": true,
+    "drawGroupBudget": true,
+    "stageHeight": true,
+    "activeVolumeClear": true,
+    "rotorLocalGeometry": true,
+    "rotorMotion": true,
+    "embeddedImagesDecoded": true
+  }
+}

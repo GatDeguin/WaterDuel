@@ -1,0 +1,2229 @@
+{
+  "ok": true,
+  "baselineDirectory": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v2",
+  "candidateDirectory": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v3",
+  "policy": {
+    "materialOnly": true,
+    "allowedNewExtensions": [
+      "KHR_materials_sheen"
+    ],
+    "pngDimensions": "each axis 512 or 1024; embedded PNG only",
+    "gpuBudget": "reported estimate, no unstated byte ceiling"
+  },
+  "summary": {
+    "variantsPassed": 3,
+    "variantsExpected": 3,
+    "totalCandidateFileBytes": 12818092,
+    "accessorBufferViewBytesPreserved": 7351220,
+    "embeddedImageBytesAcrossFiles": 5378118,
+    "gpuRGBA8MipBytesAcrossFiles": 58720212,
+    "uniqueImageCountBySHA256": 11,
+    "uniqueImageEncodedBytes": 1792706,
+    "uniqueImageGPU_RGBA8MipBytes": 19573404
+  },
+  "results": [
+    {
+      "variant": "normal",
+      "ok": true,
+      "baseline": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v2\\water-mannequin.glb",
+      "candidate": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v3\\water-mannequin.glb",
+      "baselineBytes": 3986764,
+      "candidateBytes": 4019128,
+      "unchangedJSONSections": [
+        "meshes",
+        "nodes",
+        "skins",
+        "accessors",
+        "scenes",
+        "scene",
+        "animations"
+      ],
+      "materialNamesAndPrimitiveIndicesIdentical": true,
+      "geometry": {
+        "accessors": 89,
+        "bufferViews": 89,
+        "bytes": 2197044,
+        "sha256": "c28bdb2e17093571ea9645fdd442b1fbafaee9fbc57ba32af6220a2fbea8fcac",
+        "views": [
+          {
+            "bufferView": 0,
+            "bytes": 63960,
+            "sha256": "6869b812b6bcf07adb43728bc89ccaafe779e8f4e933059131618e7da3c851d9"
+          },
+          {
+            "bufferView": 1,
+            "bytes": 63960,
+            "sha256": "f98cdfb686597e653ef3716ae056906b416b74712fb348f0d1af6884974f82f7"
+          },
+          {
+            "bufferView": 2,
+            "bytes": 42640,
+            "sha256": "db2a8c16c356ccf728bf633d8eb7291e1c7d7d60f08dd1bcd5506d56d5d11e72"
+          },
+          {
+            "bufferView": 3,
+            "bytes": 21320,
+            "sha256": "f437d43700ba7d5af46ef2c1cfe1fea8873c3a3eddf86b4f6e21bbca2d7c5d1c"
+          },
+          {
+            "bufferView": 4,
+            "bytes": 85280,
+            "sha256": "6bee4b225552c9aff28cd4d4c54fcbae5c0c477944e3d89316349bcc5156ffa6"
+          },
+          {
+            "bufferView": 5,
+            "bytes": 62928,
+            "sha256": "b78088c819a2939e4c2a1d655499e722240311868e32501e5ce864596f177ca1"
+          },
+          {
+            "bufferView": 6,
+            "bytes": 1152,
+            "sha256": "09d98e8269e9988f21e89a8b868370504802a97a47fd547dffb33bcf596f430a"
+          },
+          {
+            "bufferView": 7,
+            "bytes": 3732,
+            "sha256": "ca29def226819b6c020e02d750ba171dfbbb1c340eb1707e6486a1f72934e210"
+          },
+          {
+            "bufferView": 8,
+            "bytes": 3732,
+            "sha256": "e580a7d225abc2996de51cf6dd7a21f61c39b51a9e6a7aa975551c7615d98c29"
+          },
+          {
+            "bufferView": 9,
+            "bytes": 2488,
+            "sha256": "07cfeaf1441553bd21b08e124803112b2dc71ed74ae54d247ecb166c2f0a83f0"
+          },
+          {
+            "bufferView": 10,
+            "bytes": 1244,
+            "sha256": "de78a9eeb5cd2aecabed4fcb8520d8707634feb5b3592d5b1bf8e64fe41d3ff3"
+          },
+          {
+            "bufferView": 11,
+            "bytes": 4976,
+            "sha256": "9a941a71680b1b5c220d68fabd992d7eed767d86a6f89ac539ed19b64f383236"
+          },
+          {
+            "bufferView": 12,
+            "bytes": 2616,
+            "sha256": "b5fbc7525b50e2791e45e056bd598fec96700a05ad636f83096fabc0d4e55da4"
+          },
+          {
+            "bufferView": 13,
+            "bytes": 5496,
+            "sha256": "f12935c962fe6543c242c1e7f878176edbf203499d383eff3400298aea481dd5"
+          },
+          {
+            "bufferView": 14,
+            "bytes": 5496,
+            "sha256": "a872581958675bbf266826893cf4d91956ae671f6ac05e84fad8034a105f4db5"
+          },
+          {
+            "bufferView": 15,
+            "bytes": 3664,
+            "sha256": "bcedc913d1b6d5dca7d812e92b16378c11254bc91a73814266ef1180f5bbc5d1"
+          },
+          {
+            "bufferView": 16,
+            "bytes": 1832,
+            "sha256": "86f706afce491181c3cb773c822fc781e213f208558ec8e1fb561578238f085c"
+          },
+          {
+            "bufferView": 17,
+            "bytes": 7328,
+            "sha256": "ea40232ce42f9b7b6f824b8eb36ca008ba6aaeb3489e24cf313fac59edb3e611"
+          },
+          {
+            "bufferView": 18,
+            "bytes": 4320,
+            "sha256": "90868d14f91f06719af488c2701c7d67cd227f5ea20c0bdc92964b5f076de867"
+          },
+          {
+            "bufferView": 19,
+            "bytes": 9840,
+            "sha256": "3a67381f6c48e002c2c7f5cd9b06c5f0fe9a47f15beb8a48ec96c9cc47138381"
+          },
+          {
+            "bufferView": 20,
+            "bytes": 9840,
+            "sha256": "9818df9221708b0b9356ccd84ea50d0b3a71a6bf0d2d1c3e911e4c32e1be3878"
+          },
+          {
+            "bufferView": 21,
+            "bytes": 6560,
+            "sha256": "2709f1a0688a781d5fd0902c86e1fa2728edd0d9ca5078c0a6b6d3691fe62dc0"
+          },
+          {
+            "bufferView": 22,
+            "bytes": 3280,
+            "sha256": "05de61176a3499c2991166b9e81d50768a34e2e618e1633dec249f57d86d7e7b"
+          },
+          {
+            "bufferView": 23,
+            "bytes": 13120,
+            "sha256": "618620de5d4466537e04acd49af4d837438ca3e1547833e397be15b491e90757"
+          },
+          {
+            "bufferView": 24,
+            "bytes": 4560,
+            "sha256": "a7ede8a2631fd55df8198d7d07022ca2db33e921e0358c467e19034567e07025"
+          },
+          {
+            "bufferView": 25,
+            "bytes": 28428,
+            "sha256": "11bcb63c7616f1a3648fc6919fff599e3ac3783b757a7ddfc10c05822e137e6e"
+          },
+          {
+            "bufferView": 26,
+            "bytes": 28428,
+            "sha256": "60d4e225aceec0662e6d49ecee337a0f6c51f5467aa97969dec09007047e8dd8"
+          },
+          {
+            "bufferView": 27,
+            "bytes": 9476,
+            "sha256": "d2be1164c6db1ee32fba34e0a1895cf362dffe6edbc20d4e4e98696315a5b2ae"
+          },
+          {
+            "bufferView": 28,
+            "bytes": 37904,
+            "sha256": "42dae9d16bb9ca7e9ff27b900b4042b025a0e458c92067a32bc6d5e852fa4a83"
+          },
+          {
+            "bufferView": 29,
+            "bytes": 28404,
+            "sha256": "9e3d2773291dda25aaef975b5c361618a6f6210010b5d134d25dccf6c50d33aa"
+          },
+          {
+            "bufferView": 30,
+            "bytes": 48756,
+            "sha256": "3b4cc1aad13ec0263c9c1f1807c4f964387170709af92dce154bc885d001609f"
+          },
+          {
+            "bufferView": 31,
+            "bytes": 48756,
+            "sha256": "9c208713249b914fb51227ad610e609b6f9867ece7bb85b442ce61b0ea678667"
+          },
+          {
+            "bufferView": 32,
+            "bytes": 32504,
+            "sha256": "b0c4fe1a712ee2d1a0e6193e1a2274f656f7e09bc335b13630cc24cc21986446"
+          },
+          {
+            "bufferView": 33,
+            "bytes": 16252,
+            "sha256": "7c11acf8d55515b1cf825f74afa77199bc4fc7040eef674de477f16456f4c742"
+          },
+          {
+            "bufferView": 34,
+            "bytes": 65008,
+            "sha256": "f172ed56a2d57cae47898059d71b3304bfb9e714270364d64a403d93d6e7c168"
+          },
+          {
+            "bufferView": 35,
+            "bytes": 37728,
+            "sha256": "31a1036cefadd16fab8ce2e22980acb8e24f4c07e8a58059146d9ffc2eeeec9e"
+          },
+          {
+            "bufferView": 39,
+            "bytes": 50388,
+            "sha256": "73a357c53807c9f526ba66a26b1d23b8aedc662ced61c4ebd9e2146c20f3c324"
+          },
+          {
+            "bufferView": 40,
+            "bytes": 50388,
+            "sha256": "0a491286772f20a545a73e4c9b5c27476ec4a03902137a338c4dd1acb4ecd217"
+          },
+          {
+            "bufferView": 41,
+            "bytes": 33592,
+            "sha256": "6cf3271043639968e095d70a031e9de87bbb394c33d9120703c227d98e05e5af"
+          },
+          {
+            "bufferView": 42,
+            "bytes": 16796,
+            "sha256": "f6d79e8666bfc53e5f26cae07a2266b213ebb93fa9095d0beced33616c78b820"
+          },
+          {
+            "bufferView": 43,
+            "bytes": 67184,
+            "sha256": "3c526da63b2f7b2b01c74ffbf95da6c3851e77241069e935c14d47de71962e59"
+          },
+          {
+            "bufferView": 44,
+            "bytes": 41184,
+            "sha256": "c5f69721e5beb22757800c3cbfd5d05fea9616faff532f3033e04e645bf95bf0"
+          },
+          {
+            "bufferView": 45,
+            "bytes": 10788,
+            "sha256": "3979af983c51f3b0facc466d547594a355f9bd2d7251a97eadedb33932af1252"
+          },
+          {
+            "bufferView": 46,
+            "bytes": 10788,
+            "sha256": "bb17cf4bcc953d91e96c6395eda5b455fa0532931a1bc5509d9d1097ada12578"
+          },
+          {
+            "bufferView": 47,
+            "bytes": 7192,
+            "sha256": "0c3d8e68be365c8998d94d7fe0ed14fd6450df0be78f910e04cb1591a53dc66e"
+          },
+          {
+            "bufferView": 48,
+            "bytes": 3596,
+            "sha256": "3708cf6e5efc54548dee8d8883070878ec82b0244a18fd2d5a58f49a0aa2d3af"
+          },
+          {
+            "bufferView": 49,
+            "bytes": 14384,
+            "sha256": "25de567d072b00ea55c8b76a61b399620e59c35bb1126e569a4af8bb8c3d6a75"
+          },
+          {
+            "bufferView": 50,
+            "bytes": 9384,
+            "sha256": "5216e8dc1eef1ea26553c1250e9c58c8307b549a57f7237ca6d960b9448f6cfe"
+          },
+          {
+            "bufferView": 51,
+            "bytes": 2088,
+            "sha256": "85ae9110b69b5976ee0c280af995a23872b77c4d6b5e29daaaa5542f275962c0"
+          },
+          {
+            "bufferView": 52,
+            "bytes": 2088,
+            "sha256": "d247cd4b731dba778213f01c9551d7dda6aa8ad68d4865a7cc414065012731ef"
+          },
+          {
+            "bufferView": 53,
+            "bytes": 1392,
+            "sha256": "c464bd19942c39de0a395b8cee5c70de96482c60a4294b755df65afc7a2c28b1"
+          },
+          {
+            "bufferView": 54,
+            "bytes": 696,
+            "sha256": "4f52f00b6bcb2ee997701a0bddd4fca03d1fb14733f7bcb4bc58c5749910caa2"
+          },
+          {
+            "bufferView": 55,
+            "bytes": 2784,
+            "sha256": "a8eee72cb353aefde9f4ddab40ea102ed05fa0edd961ae479c467a765c88b635"
+          },
+          {
+            "bufferView": 56,
+            "bytes": 1056,
+            "sha256": "5d9a18cfe0151806cd8103ed15a73aef7785de37b9d8c612848b74c60263bfe6"
+          },
+          {
+            "bufferView": 57,
+            "bytes": 1968,
+            "sha256": "90db8498ad4d371c2f1108b21e7ce74746a5e5e4b09da614f511e81ea194bb23"
+          },
+          {
+            "bufferView": 58,
+            "bytes": 1968,
+            "sha256": "1ebbb30ec1a1f5c618d1f2ccc2682bec3559dd666b670fab254d0a905573a54a"
+          },
+          {
+            "bufferView": 59,
+            "bytes": 1312,
+            "sha256": "7e4e252baf7acafb5b33e98765c5e99a956dab683f670e7604e35abfd5975663"
+          },
+          {
+            "bufferView": 60,
+            "bytes": 656,
+            "sha256": "7ec7dba64e984dfa50b5462bd75ccbfa2c63b2353f94f18f78fb0694c06bea43"
+          },
+          {
+            "bufferView": 61,
+            "bytes": 2624,
+            "sha256": "e6bc9fca10133f8135154891dbe087423a282703b981350bda7cebe48138a6c4"
+          },
+          {
+            "bufferView": 62,
+            "bytes": 912,
+            "sha256": "ee49b11d6dedaed7d3a3604d724d08009b12b590a280dd9a35d5f79aa3f7f058"
+          },
+          {
+            "bufferView": 63,
+            "bytes": 48528,
+            "sha256": "05c38d5683d36b34ce1b9d3d5947ad3775897b34a41cfa4a8014a4c3bdaabb80"
+          },
+          {
+            "bufferView": 64,
+            "bytes": 48528,
+            "sha256": "0740d838e20c96bd515a2653bbb3eeccb47e025728576218a4b39e1b70882fa2"
+          },
+          {
+            "bufferView": 65,
+            "bytes": 32352,
+            "sha256": "51117c34f4e025142ef87e3aa769a09240f88868e72fe80fe9bb8561bc9c1e9f"
+          },
+          {
+            "bufferView": 66,
+            "bytes": 16176,
+            "sha256": "f0cb4c529cb5080ffe195830d3e9d03b0c8087a9ea089ba81a6eb5239ff459d6"
+          },
+          {
+            "bufferView": 67,
+            "bytes": 64704,
+            "sha256": "4a73d354e3a913ba2382bf0294d954358d4259a3c3afa2b20746d3d39381d6e1"
+          },
+          {
+            "bufferView": 68,
+            "bytes": 30864,
+            "sha256": "eb9b5375ff1297f594337d68e171e3e5ddeaada94a3857a5ad3647fc288c6626"
+          },
+          {
+            "bufferView": 69,
+            "bytes": 86340,
+            "sha256": "9291acc49fa93fa7fb8d2fd12ab66e56e0aa68c44384ca6afa08749f07f93b63"
+          },
+          {
+            "bufferView": 70,
+            "bytes": 86340,
+            "sha256": "89b7570c1a9bc239c4fa17750d1a8f9b9f795a0d041c3bfc3c4cbba223bd8b8a"
+          },
+          {
+            "bufferView": 71,
+            "bytes": 57560,
+            "sha256": "25757558e116120aa7bf1f7af9b599101ca803e19338c22fd09818159a1862c3"
+          },
+          {
+            "bufferView": 72,
+            "bytes": 28780,
+            "sha256": "622fee115ee155e26783e62a31dfc54dfe0963b963dc5c0b229826ed8007c3a0"
+          },
+          {
+            "bufferView": 73,
+            "bytes": 115120,
+            "sha256": "b5d09e523c7893fb0aad0d69751e295329212844a84e03f75975e68f873ca559"
+          },
+          {
+            "bufferView": 74,
+            "bytes": 59544,
+            "sha256": "6ed0011898c9a5ab297a9fc35fa253e0c7fb26d294c9b64dd1578035fc1b4d27"
+          },
+          {
+            "bufferView": 75,
+            "bytes": 62592,
+            "sha256": "346651d73cdfc71fb44d33dd1c16ed2ef603eca7909e1d966d5a8eb0e713deea"
+          },
+          {
+            "bufferView": 76,
+            "bytes": 62592,
+            "sha256": "5316db462ccbbf9b5b3cb6bbefb26bc852fb9817e0daafe5f20e966fd1dd81c9"
+          },
+          {
+            "bufferView": 77,
+            "bytes": 41728,
+            "sha256": "8bd3d5e841a0cf0bb421a710ebf285ccde6276aad987d5f9cd141eac06e7cbf1"
+          },
+          {
+            "bufferView": 78,
+            "bytes": 20864,
+            "sha256": "7cc24d78c971f396fe18a16a22c9a7fb8a8a7327aefcc157ce2ad04bdd69605a"
+          },
+          {
+            "bufferView": 79,
+            "bytes": 83456,
+            "sha256": "781598af3e780d317f92d7be4f8f8d772536e1a56cef8a2498888577a449a6b0"
+          },
+          {
+            "bufferView": 80,
+            "bytes": 48240,
+            "sha256": "7f1ec3f6763e7ef3d5ee4433d5f830af7e145cfbe7d4ed7714167c52628e7138"
+          },
+          {
+            "bufferView": 81,
+            "bytes": 9312,
+            "sha256": "7ae581a77662bf274f0ad5c24ca8045d4bbe4e8b470327a142a127e047cbbc8e"
+          },
+          {
+            "bufferView": 82,
+            "bytes": 9312,
+            "sha256": "96e31ed17e8f5cf793b8da1254df849c6bba05ed0f07d9f27765dea23f9764fa"
+          },
+          {
+            "bufferView": 83,
+            "bytes": 3104,
+            "sha256": "a954d51582c3a25a5a0717df255c4b3dec0832e8af8ca01044ad8c43574ec026"
+          },
+          {
+            "bufferView": 84,
+            "bytes": 12416,
+            "sha256": "dedaf841cd29223fbc785daa1ad59526780b003532d28195cb5c819f8c70ed33"
+          },
+          {
+            "bufferView": 85,
+            "bytes": 9216,
+            "sha256": "5cab56584b166625e04d7d1f66108cf13612f35add0ec7754ae547d8adf19f2e"
+          },
+          {
+            "bufferView": 86,
+            "bytes": 1392,
+            "sha256": "a1ce8f93bff1dba5751acee33018d85285e1494ad03eb664fcd4e72ff9d6eec6"
+          },
+          {
+            "bufferView": 87,
+            "bytes": 1392,
+            "sha256": "da49f8ea4467bf8b5d290ebe1b8c52811139804609b2fe3276f9c017c2bdba2e"
+          },
+          {
+            "bufferView": 88,
+            "bytes": 928,
+            "sha256": "a41dba639b5d5c68289701f57b1802b571f4c2592841039f364d950376d0229d"
+          },
+          {
+            "bufferView": 89,
+            "bytes": 464,
+            "sha256": "d700073a0bef33a007f29330e9331b9e8cfe09c15d5460a8852ac28c225c6c0a"
+          },
+          {
+            "bufferView": 90,
+            "bytes": 1856,
+            "sha256": "0c336b27d3bd6af3cf3a5e17f248576bde15c38adb2b99c62f2e1ff9bc20f855"
+          },
+          {
+            "bufferView": 91,
+            "bytes": 1128,
+            "sha256": "bf74e6822d214e888d31e17ce86d887828704313a540c62b25aff6eb1e6d7b7d"
+          }
+        ],
+        "inverseBindMatrixAccessors": [
+          6
+        ],
+        "uvAccessors": [
+          2,
+          9,
+          15,
+          21,
+          32,
+          38,
+          44,
+          50,
+          56,
+          62,
+          68,
+          74,
+          85
+        ],
+        "originalBinPrefixAlsoIdentical": false
+      },
+      "protectedHeadAndWater": {
+        "nodes": [
+          {
+            "name": "Balloon_Latex",
+            "materialSlots": [
+              0
+            ]
+          },
+          {
+            "name": "Water_Contained",
+            "materialSlots": [
+              4
+            ]
+          }
+        ],
+        "materials": [
+          {
+            "index": 0,
+            "name": "Mint_Latex_Transmission",
+            "canonicalSHA256": "5b3c95beb8aab1e2ec45f782bd25b6230db9ccf6d326ef7c9986306b16574c14",
+            "protectedTextures": []
+          },
+          {
+            "index": 4,
+            "name": "Water_IOR_1.333",
+            "canonicalSHA256": "ce67b4b19c4ece7a3f8fd89a2df0a300e37a717217f48b537903c0cce7e5f247",
+            "protectedTextures": []
+          }
+        ]
+      },
+      "extensions": {
+        "added": [
+          "KHR_materials_sheen"
+        ],
+        "removed": []
+      },
+      "textures": {
+        "images": [
+          {
+            "index": 0,
+            "name": "wood-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 95750,
+            "sha256": "b00d75577b5f431caa35f6c09543963a1d7785f613b80a6b2d1707cdcf8ffd51",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 1,
+            "name": "wood-basecolor",
+            "width": 1024,
+            "height": 1024,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 460511,
+            "sha256": "ce6820a7c490e0f209b7d3912679ece9080044503da3d7612d082345d002d938",
+            "gpuRGBA8Bytes": 4194304,
+            "gpuRGBA8MipBytes": 5592404
+          },
+          {
+            "index": 2,
+            "name": "wood-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 82795,
+            "sha256": "09c98ff32f0ff35ead9aac82bb620fb07c9131d9354ce33774000e1309153188",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 3,
+            "name": "brass-basecolor",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 34848,
+            "sha256": "afbf3b15fd829256412768fc511f20ce271e0463c89fa6d7cdde7847d1a09603",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 4,
+            "name": "brass-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 160891,
+            "sha256": "62d5d348b9760a7542a470d805d6625131ba04d8bb780aa7734bf29490dcebcc",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 5,
+            "name": "brass-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 172098,
+            "sha256": "ec0521473bd6a0bf89448e7298f17a293eee559e33008758adcec003d7b0e89c",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 6,
+            "name": "leather-basecolor",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 99956,
+            "sha256": "5a7647354b86c6e603cd27372452e614dcc8d49178c78d59b2dbd55b0b7f78e8",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 7,
+            "name": "leather-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 191591,
+            "sha256": "8dc0af569455482bd50b2b855355dd240d311da63eebd5bbe3c8b02cd6ab0696",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 8,
+            "name": "leather-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 206962,
+            "sha256": "49db1361af155724f302b1be5037648c46047e2c4c6146340f582c0a281117c4",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 9,
+            "name": "cloth-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 77882,
+            "sha256": "34f6b163c957f4e9a8e89f69eb2c5a2748ab994c984af216bc5f975ff189f892",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 10,
+            "name": "cloth-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 209422,
+            "sha256": "66951e649b61a7d1d2387f895ce576048e0e232a72e637af8e5afdd90d689963",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          }
+        ],
+        "textureBindings": [
+          {
+            "index": 0,
+            "image": 0,
+            "sampler": 0
+          },
+          {
+            "index": 1,
+            "image": 1,
+            "sampler": 0
+          },
+          {
+            "index": 2,
+            "image": 2,
+            "sampler": 0
+          },
+          {
+            "index": 3,
+            "image": 3,
+            "sampler": 0
+          },
+          {
+            "index": 4,
+            "image": 4,
+            "sampler": 0
+          },
+          {
+            "index": 5,
+            "image": 5,
+            "sampler": 0
+          },
+          {
+            "index": 6,
+            "image": 6,
+            "sampler": 0
+          },
+          {
+            "index": 7,
+            "image": 7,
+            "sampler": 0
+          },
+          {
+            "index": 8,
+            "image": 8,
+            "sampler": 0
+          },
+          {
+            "index": 9,
+            "image": 9,
+            "sampler": 0
+          },
+          {
+            "index": 10,
+            "image": 10,
+            "sampler": 0
+          }
+        ],
+        "encodedBytes": 1792706,
+        "gpuRGBA8Bytes": 14680064,
+        "gpuRGBA8MipBytes": 19573404,
+        "gpuRGBA8MipBytesPerTexture": 19573404,
+        "estimate": "RGBA8 allocation, full mip chain; no GPU compression; per-image and per-texture totals exclude renderer overhead"
+      }
+    },
+    {
+      "variant": "amber",
+      "ok": true,
+      "baseline": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v2\\water-mannequin-amber.glb",
+      "candidate": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v3\\water-mannequin-amber.glb",
+      "baselineBytes": 3986712,
+      "candidateBytes": 4019076,
+      "unchangedJSONSections": [
+        "meshes",
+        "nodes",
+        "skins",
+        "accessors",
+        "scenes",
+        "scene",
+        "animations"
+      ],
+      "materialNamesAndPrimitiveIndicesIdentical": true,
+      "geometry": {
+        "accessors": 89,
+        "bufferViews": 89,
+        "bytes": 2197044,
+        "sha256": "c28bdb2e17093571ea9645fdd442b1fbafaee9fbc57ba32af6220a2fbea8fcac",
+        "views": [
+          {
+            "bufferView": 0,
+            "bytes": 63960,
+            "sha256": "6869b812b6bcf07adb43728bc89ccaafe779e8f4e933059131618e7da3c851d9"
+          },
+          {
+            "bufferView": 1,
+            "bytes": 63960,
+            "sha256": "f98cdfb686597e653ef3716ae056906b416b74712fb348f0d1af6884974f82f7"
+          },
+          {
+            "bufferView": 2,
+            "bytes": 42640,
+            "sha256": "db2a8c16c356ccf728bf633d8eb7291e1c7d7d60f08dd1bcd5506d56d5d11e72"
+          },
+          {
+            "bufferView": 3,
+            "bytes": 21320,
+            "sha256": "f437d43700ba7d5af46ef2c1cfe1fea8873c3a3eddf86b4f6e21bbca2d7c5d1c"
+          },
+          {
+            "bufferView": 4,
+            "bytes": 85280,
+            "sha256": "6bee4b225552c9aff28cd4d4c54fcbae5c0c477944e3d89316349bcc5156ffa6"
+          },
+          {
+            "bufferView": 5,
+            "bytes": 62928,
+            "sha256": "b78088c819a2939e4c2a1d655499e722240311868e32501e5ce864596f177ca1"
+          },
+          {
+            "bufferView": 6,
+            "bytes": 1152,
+            "sha256": "09d98e8269e9988f21e89a8b868370504802a97a47fd547dffb33bcf596f430a"
+          },
+          {
+            "bufferView": 7,
+            "bytes": 3732,
+            "sha256": "ca29def226819b6c020e02d750ba171dfbbb1c340eb1707e6486a1f72934e210"
+          },
+          {
+            "bufferView": 8,
+            "bytes": 3732,
+            "sha256": "e580a7d225abc2996de51cf6dd7a21f61c39b51a9e6a7aa975551c7615d98c29"
+          },
+          {
+            "bufferView": 9,
+            "bytes": 2488,
+            "sha256": "07cfeaf1441553bd21b08e124803112b2dc71ed74ae54d247ecb166c2f0a83f0"
+          },
+          {
+            "bufferView": 10,
+            "bytes": 1244,
+            "sha256": "de78a9eeb5cd2aecabed4fcb8520d8707634feb5b3592d5b1bf8e64fe41d3ff3"
+          },
+          {
+            "bufferView": 11,
+            "bytes": 4976,
+            "sha256": "9a941a71680b1b5c220d68fabd992d7eed767d86a6f89ac539ed19b64f383236"
+          },
+          {
+            "bufferView": 12,
+            "bytes": 2616,
+            "sha256": "b5fbc7525b50e2791e45e056bd598fec96700a05ad636f83096fabc0d4e55da4"
+          },
+          {
+            "bufferView": 13,
+            "bytes": 5496,
+            "sha256": "f12935c962fe6543c242c1e7f878176edbf203499d383eff3400298aea481dd5"
+          },
+          {
+            "bufferView": 14,
+            "bytes": 5496,
+            "sha256": "a872581958675bbf266826893cf4d91956ae671f6ac05e84fad8034a105f4db5"
+          },
+          {
+            "bufferView": 15,
+            "bytes": 3664,
+            "sha256": "bcedc913d1b6d5dca7d812e92b16378c11254bc91a73814266ef1180f5bbc5d1"
+          },
+          {
+            "bufferView": 16,
+            "bytes": 1832,
+            "sha256": "86f706afce491181c3cb773c822fc781e213f208558ec8e1fb561578238f085c"
+          },
+          {
+            "bufferView": 17,
+            "bytes": 7328,
+            "sha256": "ea40232ce42f9b7b6f824b8eb36ca008ba6aaeb3489e24cf313fac59edb3e611"
+          },
+          {
+            "bufferView": 18,
+            "bytes": 4320,
+            "sha256": "90868d14f91f06719af488c2701c7d67cd227f5ea20c0bdc92964b5f076de867"
+          },
+          {
+            "bufferView": 19,
+            "bytes": 9840,
+            "sha256": "3a67381f6c48e002c2c7f5cd9b06c5f0fe9a47f15beb8a48ec96c9cc47138381"
+          },
+          {
+            "bufferView": 20,
+            "bytes": 9840,
+            "sha256": "9818df9221708b0b9356ccd84ea50d0b3a71a6bf0d2d1c3e911e4c32e1be3878"
+          },
+          {
+            "bufferView": 21,
+            "bytes": 6560,
+            "sha256": "2709f1a0688a781d5fd0902c86e1fa2728edd0d9ca5078c0a6b6d3691fe62dc0"
+          },
+          {
+            "bufferView": 22,
+            "bytes": 3280,
+            "sha256": "05de61176a3499c2991166b9e81d50768a34e2e618e1633dec249f57d86d7e7b"
+          },
+          {
+            "bufferView": 23,
+            "bytes": 13120,
+            "sha256": "618620de5d4466537e04acd49af4d837438ca3e1547833e397be15b491e90757"
+          },
+          {
+            "bufferView": 24,
+            "bytes": 4560,
+            "sha256": "a7ede8a2631fd55df8198d7d07022ca2db33e921e0358c467e19034567e07025"
+          },
+          {
+            "bufferView": 25,
+            "bytes": 28428,
+            "sha256": "11bcb63c7616f1a3648fc6919fff599e3ac3783b757a7ddfc10c05822e137e6e"
+          },
+          {
+            "bufferView": 26,
+            "bytes": 28428,
+            "sha256": "60d4e225aceec0662e6d49ecee337a0f6c51f5467aa97969dec09007047e8dd8"
+          },
+          {
+            "bufferView": 27,
+            "bytes": 9476,
+            "sha256": "d2be1164c6db1ee32fba34e0a1895cf362dffe6edbc20d4e4e98696315a5b2ae"
+          },
+          {
+            "bufferView": 28,
+            "bytes": 37904,
+            "sha256": "42dae9d16bb9ca7e9ff27b900b4042b025a0e458c92067a32bc6d5e852fa4a83"
+          },
+          {
+            "bufferView": 29,
+            "bytes": 28404,
+            "sha256": "9e3d2773291dda25aaef975b5c361618a6f6210010b5d134d25dccf6c50d33aa"
+          },
+          {
+            "bufferView": 30,
+            "bytes": 48756,
+            "sha256": "3b4cc1aad13ec0263c9c1f1807c4f964387170709af92dce154bc885d001609f"
+          },
+          {
+            "bufferView": 31,
+            "bytes": 48756,
+            "sha256": "9c208713249b914fb51227ad610e609b6f9867ece7bb85b442ce61b0ea678667"
+          },
+          {
+            "bufferView": 32,
+            "bytes": 32504,
+            "sha256": "b0c4fe1a712ee2d1a0e6193e1a2274f656f7e09bc335b13630cc24cc21986446"
+          },
+          {
+            "bufferView": 33,
+            "bytes": 16252,
+            "sha256": "7c11acf8d55515b1cf825f74afa77199bc4fc7040eef674de477f16456f4c742"
+          },
+          {
+            "bufferView": 34,
+            "bytes": 65008,
+            "sha256": "f172ed56a2d57cae47898059d71b3304bfb9e714270364d64a403d93d6e7c168"
+          },
+          {
+            "bufferView": 35,
+            "bytes": 37728,
+            "sha256": "31a1036cefadd16fab8ce2e22980acb8e24f4c07e8a58059146d9ffc2eeeec9e"
+          },
+          {
+            "bufferView": 39,
+            "bytes": 50388,
+            "sha256": "73a357c53807c9f526ba66a26b1d23b8aedc662ced61c4ebd9e2146c20f3c324"
+          },
+          {
+            "bufferView": 40,
+            "bytes": 50388,
+            "sha256": "0a491286772f20a545a73e4c9b5c27476ec4a03902137a338c4dd1acb4ecd217"
+          },
+          {
+            "bufferView": 41,
+            "bytes": 33592,
+            "sha256": "6cf3271043639968e095d70a031e9de87bbb394c33d9120703c227d98e05e5af"
+          },
+          {
+            "bufferView": 42,
+            "bytes": 16796,
+            "sha256": "f6d79e8666bfc53e5f26cae07a2266b213ebb93fa9095d0beced33616c78b820"
+          },
+          {
+            "bufferView": 43,
+            "bytes": 67184,
+            "sha256": "3c526da63b2f7b2b01c74ffbf95da6c3851e77241069e935c14d47de71962e59"
+          },
+          {
+            "bufferView": 44,
+            "bytes": 41184,
+            "sha256": "c5f69721e5beb22757800c3cbfd5d05fea9616faff532f3033e04e645bf95bf0"
+          },
+          {
+            "bufferView": 45,
+            "bytes": 10788,
+            "sha256": "3979af983c51f3b0facc466d547594a355f9bd2d7251a97eadedb33932af1252"
+          },
+          {
+            "bufferView": 46,
+            "bytes": 10788,
+            "sha256": "bb17cf4bcc953d91e96c6395eda5b455fa0532931a1bc5509d9d1097ada12578"
+          },
+          {
+            "bufferView": 47,
+            "bytes": 7192,
+            "sha256": "0c3d8e68be365c8998d94d7fe0ed14fd6450df0be78f910e04cb1591a53dc66e"
+          },
+          {
+            "bufferView": 48,
+            "bytes": 3596,
+            "sha256": "3708cf6e5efc54548dee8d8883070878ec82b0244a18fd2d5a58f49a0aa2d3af"
+          },
+          {
+            "bufferView": 49,
+            "bytes": 14384,
+            "sha256": "25de567d072b00ea55c8b76a61b399620e59c35bb1126e569a4af8bb8c3d6a75"
+          },
+          {
+            "bufferView": 50,
+            "bytes": 9384,
+            "sha256": "5216e8dc1eef1ea26553c1250e9c58c8307b549a57f7237ca6d960b9448f6cfe"
+          },
+          {
+            "bufferView": 51,
+            "bytes": 2088,
+            "sha256": "85ae9110b69b5976ee0c280af995a23872b77c4d6b5e29daaaa5542f275962c0"
+          },
+          {
+            "bufferView": 52,
+            "bytes": 2088,
+            "sha256": "d247cd4b731dba778213f01c9551d7dda6aa8ad68d4865a7cc414065012731ef"
+          },
+          {
+            "bufferView": 53,
+            "bytes": 1392,
+            "sha256": "c464bd19942c39de0a395b8cee5c70de96482c60a4294b755df65afc7a2c28b1"
+          },
+          {
+            "bufferView": 54,
+            "bytes": 696,
+            "sha256": "4f52f00b6bcb2ee997701a0bddd4fca03d1fb14733f7bcb4bc58c5749910caa2"
+          },
+          {
+            "bufferView": 55,
+            "bytes": 2784,
+            "sha256": "a8eee72cb353aefde9f4ddab40ea102ed05fa0edd961ae479c467a765c88b635"
+          },
+          {
+            "bufferView": 56,
+            "bytes": 1056,
+            "sha256": "5d9a18cfe0151806cd8103ed15a73aef7785de37b9d8c612848b74c60263bfe6"
+          },
+          {
+            "bufferView": 57,
+            "bytes": 1968,
+            "sha256": "90db8498ad4d371c2f1108b21e7ce74746a5e5e4b09da614f511e81ea194bb23"
+          },
+          {
+            "bufferView": 58,
+            "bytes": 1968,
+            "sha256": "1ebbb30ec1a1f5c618d1f2ccc2682bec3559dd666b670fab254d0a905573a54a"
+          },
+          {
+            "bufferView": 59,
+            "bytes": 1312,
+            "sha256": "7e4e252baf7acafb5b33e98765c5e99a956dab683f670e7604e35abfd5975663"
+          },
+          {
+            "bufferView": 60,
+            "bytes": 656,
+            "sha256": "7ec7dba64e984dfa50b5462bd75ccbfa2c63b2353f94f18f78fb0694c06bea43"
+          },
+          {
+            "bufferView": 61,
+            "bytes": 2624,
+            "sha256": "e6bc9fca10133f8135154891dbe087423a282703b981350bda7cebe48138a6c4"
+          },
+          {
+            "bufferView": 62,
+            "bytes": 912,
+            "sha256": "ee49b11d6dedaed7d3a3604d724d08009b12b590a280dd9a35d5f79aa3f7f058"
+          },
+          {
+            "bufferView": 63,
+            "bytes": 48528,
+            "sha256": "05c38d5683d36b34ce1b9d3d5947ad3775897b34a41cfa4a8014a4c3bdaabb80"
+          },
+          {
+            "bufferView": 64,
+            "bytes": 48528,
+            "sha256": "0740d838e20c96bd515a2653bbb3eeccb47e025728576218a4b39e1b70882fa2"
+          },
+          {
+            "bufferView": 65,
+            "bytes": 32352,
+            "sha256": "51117c34f4e025142ef87e3aa769a09240f88868e72fe80fe9bb8561bc9c1e9f"
+          },
+          {
+            "bufferView": 66,
+            "bytes": 16176,
+            "sha256": "f0cb4c529cb5080ffe195830d3e9d03b0c8087a9ea089ba81a6eb5239ff459d6"
+          },
+          {
+            "bufferView": 67,
+            "bytes": 64704,
+            "sha256": "4a73d354e3a913ba2382bf0294d954358d4259a3c3afa2b20746d3d39381d6e1"
+          },
+          {
+            "bufferView": 68,
+            "bytes": 30864,
+            "sha256": "eb9b5375ff1297f594337d68e171e3e5ddeaada94a3857a5ad3647fc288c6626"
+          },
+          {
+            "bufferView": 69,
+            "bytes": 86340,
+            "sha256": "9291acc49fa93fa7fb8d2fd12ab66e56e0aa68c44384ca6afa08749f07f93b63"
+          },
+          {
+            "bufferView": 70,
+            "bytes": 86340,
+            "sha256": "89b7570c1a9bc239c4fa17750d1a8f9b9f795a0d041c3bfc3c4cbba223bd8b8a"
+          },
+          {
+            "bufferView": 71,
+            "bytes": 57560,
+            "sha256": "25757558e116120aa7bf1f7af9b599101ca803e19338c22fd09818159a1862c3"
+          },
+          {
+            "bufferView": 72,
+            "bytes": 28780,
+            "sha256": "622fee115ee155e26783e62a31dfc54dfe0963b963dc5c0b229826ed8007c3a0"
+          },
+          {
+            "bufferView": 73,
+            "bytes": 115120,
+            "sha256": "b5d09e523c7893fb0aad0d69751e295329212844a84e03f75975e68f873ca559"
+          },
+          {
+            "bufferView": 74,
+            "bytes": 59544,
+            "sha256": "6ed0011898c9a5ab297a9fc35fa253e0c7fb26d294c9b64dd1578035fc1b4d27"
+          },
+          {
+            "bufferView": 75,
+            "bytes": 62592,
+            "sha256": "346651d73cdfc71fb44d33dd1c16ed2ef603eca7909e1d966d5a8eb0e713deea"
+          },
+          {
+            "bufferView": 76,
+            "bytes": 62592,
+            "sha256": "5316db462ccbbf9b5b3cb6bbefb26bc852fb9817e0daafe5f20e966fd1dd81c9"
+          },
+          {
+            "bufferView": 77,
+            "bytes": 41728,
+            "sha256": "8bd3d5e841a0cf0bb421a710ebf285ccde6276aad987d5f9cd141eac06e7cbf1"
+          },
+          {
+            "bufferView": 78,
+            "bytes": 20864,
+            "sha256": "7cc24d78c971f396fe18a16a22c9a7fb8a8a7327aefcc157ce2ad04bdd69605a"
+          },
+          {
+            "bufferView": 79,
+            "bytes": 83456,
+            "sha256": "781598af3e780d317f92d7be4f8f8d772536e1a56cef8a2498888577a449a6b0"
+          },
+          {
+            "bufferView": 80,
+            "bytes": 48240,
+            "sha256": "7f1ec3f6763e7ef3d5ee4433d5f830af7e145cfbe7d4ed7714167c52628e7138"
+          },
+          {
+            "bufferView": 81,
+            "bytes": 9312,
+            "sha256": "7ae581a77662bf274f0ad5c24ca8045d4bbe4e8b470327a142a127e047cbbc8e"
+          },
+          {
+            "bufferView": 82,
+            "bytes": 9312,
+            "sha256": "96e31ed17e8f5cf793b8da1254df849c6bba05ed0f07d9f27765dea23f9764fa"
+          },
+          {
+            "bufferView": 83,
+            "bytes": 3104,
+            "sha256": "a954d51582c3a25a5a0717df255c4b3dec0832e8af8ca01044ad8c43574ec026"
+          },
+          {
+            "bufferView": 84,
+            "bytes": 12416,
+            "sha256": "dedaf841cd29223fbc785daa1ad59526780b003532d28195cb5c819f8c70ed33"
+          },
+          {
+            "bufferView": 85,
+            "bytes": 9216,
+            "sha256": "5cab56584b166625e04d7d1f66108cf13612f35add0ec7754ae547d8adf19f2e"
+          },
+          {
+            "bufferView": 86,
+            "bytes": 1392,
+            "sha256": "a1ce8f93bff1dba5751acee33018d85285e1494ad03eb664fcd4e72ff9d6eec6"
+          },
+          {
+            "bufferView": 87,
+            "bytes": 1392,
+            "sha256": "da49f8ea4467bf8b5d290ebe1b8c52811139804609b2fe3276f9c017c2bdba2e"
+          },
+          {
+            "bufferView": 88,
+            "bytes": 928,
+            "sha256": "a41dba639b5d5c68289701f57b1802b571f4c2592841039f364d950376d0229d"
+          },
+          {
+            "bufferView": 89,
+            "bytes": 464,
+            "sha256": "d700073a0bef33a007f29330e9331b9e8cfe09c15d5460a8852ac28c225c6c0a"
+          },
+          {
+            "bufferView": 90,
+            "bytes": 1856,
+            "sha256": "0c336b27d3bd6af3cf3a5e17f248576bde15c38adb2b99c62f2e1ff9bc20f855"
+          },
+          {
+            "bufferView": 91,
+            "bytes": 1128,
+            "sha256": "bf74e6822d214e888d31e17ce86d887828704313a540c62b25aff6eb1e6d7b7d"
+          }
+        ],
+        "inverseBindMatrixAccessors": [
+          6
+        ],
+        "uvAccessors": [
+          2,
+          9,
+          15,
+          21,
+          32,
+          38,
+          44,
+          50,
+          56,
+          62,
+          68,
+          74,
+          85
+        ],
+        "originalBinPrefixAlsoIdentical": false
+      },
+      "protectedHeadAndWater": {
+        "nodes": [
+          {
+            "name": "Balloon_Latex",
+            "materialSlots": [
+              0
+            ]
+          },
+          {
+            "name": "Water_Contained",
+            "materialSlots": [
+              4
+            ]
+          }
+        ],
+        "materials": [
+          {
+            "index": 0,
+            "name": "Mint_Latex_Transmission",
+            "canonicalSHA256": "9c9d4f63a4e66c34c45caa89dc847d29ed0b66de72c0d2187e51a4c289d355ce",
+            "protectedTextures": []
+          },
+          {
+            "index": 4,
+            "name": "Water_IOR_1.333",
+            "canonicalSHA256": "8e792c6579eeb4517b212b3eafeb188f1fd435954aed3852e5b5588b7d81453a",
+            "protectedTextures": []
+          }
+        ]
+      },
+      "extensions": {
+        "added": [
+          "KHR_materials_sheen"
+        ],
+        "removed": []
+      },
+      "textures": {
+        "images": [
+          {
+            "index": 0,
+            "name": "wood-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 95750,
+            "sha256": "b00d75577b5f431caa35f6c09543963a1d7785f613b80a6b2d1707cdcf8ffd51",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 1,
+            "name": "wood-basecolor",
+            "width": 1024,
+            "height": 1024,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 460511,
+            "sha256": "ce6820a7c490e0f209b7d3912679ece9080044503da3d7612d082345d002d938",
+            "gpuRGBA8Bytes": 4194304,
+            "gpuRGBA8MipBytes": 5592404
+          },
+          {
+            "index": 2,
+            "name": "wood-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 82795,
+            "sha256": "09c98ff32f0ff35ead9aac82bb620fb07c9131d9354ce33774000e1309153188",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 3,
+            "name": "brass-basecolor",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 34848,
+            "sha256": "afbf3b15fd829256412768fc511f20ce271e0463c89fa6d7cdde7847d1a09603",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 4,
+            "name": "brass-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 160891,
+            "sha256": "62d5d348b9760a7542a470d805d6625131ba04d8bb780aa7734bf29490dcebcc",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 5,
+            "name": "brass-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 172098,
+            "sha256": "ec0521473bd6a0bf89448e7298f17a293eee559e33008758adcec003d7b0e89c",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 6,
+            "name": "leather-basecolor",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 99956,
+            "sha256": "5a7647354b86c6e603cd27372452e614dcc8d49178c78d59b2dbd55b0b7f78e8",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 7,
+            "name": "leather-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 191591,
+            "sha256": "8dc0af569455482bd50b2b855355dd240d311da63eebd5bbe3c8b02cd6ab0696",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 8,
+            "name": "leather-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 206962,
+            "sha256": "49db1361af155724f302b1be5037648c46047e2c4c6146340f582c0a281117c4",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 9,
+            "name": "cloth-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 77882,
+            "sha256": "34f6b163c957f4e9a8e89f69eb2c5a2748ab994c984af216bc5f975ff189f892",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 10,
+            "name": "cloth-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 209422,
+            "sha256": "66951e649b61a7d1d2387f895ce576048e0e232a72e637af8e5afdd90d689963",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          }
+        ],
+        "textureBindings": [
+          {
+            "index": 0,
+            "image": 0,
+            "sampler": 0
+          },
+          {
+            "index": 1,
+            "image": 1,
+            "sampler": 0
+          },
+          {
+            "index": 2,
+            "image": 2,
+            "sampler": 0
+          },
+          {
+            "index": 3,
+            "image": 3,
+            "sampler": 0
+          },
+          {
+            "index": 4,
+            "image": 4,
+            "sampler": 0
+          },
+          {
+            "index": 5,
+            "image": 5,
+            "sampler": 0
+          },
+          {
+            "index": 6,
+            "image": 6,
+            "sampler": 0
+          },
+          {
+            "index": 7,
+            "image": 7,
+            "sampler": 0
+          },
+          {
+            "index": 8,
+            "image": 8,
+            "sampler": 0
+          },
+          {
+            "index": 9,
+            "image": 9,
+            "sampler": 0
+          },
+          {
+            "index": 10,
+            "image": 10,
+            "sampler": 0
+          }
+        ],
+        "encodedBytes": 1792706,
+        "gpuRGBA8Bytes": 14680064,
+        "gpuRGBA8MipBytes": 19573404,
+        "gpuRGBA8MipBytesPerTexture": 19573404,
+        "estimate": "RGBA8 allocation, full mip chain; no GPU compression; per-image and per-texture totals exclude renderer overhead"
+      }
+    },
+    {
+      "variant": "boss",
+      "ok": true,
+      "baseline": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v2\\water-mannequin-boss.glb",
+      "candidate": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v3\\water-mannequin-boss.glb",
+      "baselineBytes": 4747640,
+      "candidateBytes": 4779888,
+      "unchangedJSONSections": [
+        "meshes",
+        "nodes",
+        "skins",
+        "accessors",
+        "scenes",
+        "scene",
+        "animations"
+      ],
+      "materialNamesAndPrimitiveIndicesIdentical": true,
+      "geometry": {
+        "accessors": 89,
+        "bufferViews": 89,
+        "bytes": 2957132,
+        "sha256": "bbdb1321fa402f979246ecc52af74ea4e805cad0cf035ec33a0c183386bd9c82",
+        "views": [
+          {
+            "bufferView": 0,
+            "bytes": 63960,
+            "sha256": "c2f5bd8c396b603ff2b96c369736b679f95be1800f75cf2036e30373cb93cfda"
+          },
+          {
+            "bufferView": 1,
+            "bytes": 63960,
+            "sha256": "4dfa2726953225be459f8f0d7df72737a7c6108154a11285b3113de4ca50bfdb"
+          },
+          {
+            "bufferView": 2,
+            "bytes": 42640,
+            "sha256": "db2a8c16c356ccf728bf633d8eb7291e1c7d7d60f08dd1bcd5506d56d5d11e72"
+          },
+          {
+            "bufferView": 3,
+            "bytes": 21320,
+            "sha256": "f437d43700ba7d5af46ef2c1cfe1fea8873c3a3eddf86b4f6e21bbca2d7c5d1c"
+          },
+          {
+            "bufferView": 4,
+            "bytes": 85280,
+            "sha256": "6bee4b225552c9aff28cd4d4c54fcbae5c0c477944e3d89316349bcc5156ffa6"
+          },
+          {
+            "bufferView": 5,
+            "bytes": 62928,
+            "sha256": "b78088c819a2939e4c2a1d655499e722240311868e32501e5ce864596f177ca1"
+          },
+          {
+            "bufferView": 6,
+            "bytes": 1152,
+            "sha256": "c73f0f66c1cdc8bbd31a364b41c7991524519296f1468741de4249d728fa21b6"
+          },
+          {
+            "bufferView": 7,
+            "bytes": 3732,
+            "sha256": "6320f4d3d9b1ca3f984be8408962893f0e24a8c8f5bcbab185b0fa36da431c30"
+          },
+          {
+            "bufferView": 8,
+            "bytes": 3732,
+            "sha256": "9bcd3e48e3ba5a97e26390b5a528c5038430a62cc7feeb9507050ef171f006d7"
+          },
+          {
+            "bufferView": 9,
+            "bytes": 2488,
+            "sha256": "07cfeaf1441553bd21b08e124803112b2dc71ed74ae54d247ecb166c2f0a83f0"
+          },
+          {
+            "bufferView": 10,
+            "bytes": 1244,
+            "sha256": "de78a9eeb5cd2aecabed4fcb8520d8707634feb5b3592d5b1bf8e64fe41d3ff3"
+          },
+          {
+            "bufferView": 11,
+            "bytes": 4976,
+            "sha256": "9a941a71680b1b5c220d68fabd992d7eed767d86a6f89ac539ed19b64f383236"
+          },
+          {
+            "bufferView": 12,
+            "bytes": 2616,
+            "sha256": "b5fbc7525b50e2791e45e056bd598fec96700a05ad636f83096fabc0d4e55da4"
+          },
+          {
+            "bufferView": 13,
+            "bytes": 5496,
+            "sha256": "cf3ed613de0ae032f239a9009bb73bc331356af3a14e5dfd52c9e9adc7274379"
+          },
+          {
+            "bufferView": 14,
+            "bytes": 5496,
+            "sha256": "040914922ef1a2fd92e15d20feb0a348022aabd06a935f1f15e17a48273d243a"
+          },
+          {
+            "bufferView": 15,
+            "bytes": 3664,
+            "sha256": "bcedc913d1b6d5dca7d812e92b16378c11254bc91a73814266ef1180f5bbc5d1"
+          },
+          {
+            "bufferView": 16,
+            "bytes": 1832,
+            "sha256": "86f706afce491181c3cb773c822fc781e213f208558ec8e1fb561578238f085c"
+          },
+          {
+            "bufferView": 17,
+            "bytes": 7328,
+            "sha256": "ea40232ce42f9b7b6f824b8eb36ca008ba6aaeb3489e24cf313fac59edb3e611"
+          },
+          {
+            "bufferView": 18,
+            "bytes": 4320,
+            "sha256": "90868d14f91f06719af488c2701c7d67cd227f5ea20c0bdc92964b5f076de867"
+          },
+          {
+            "bufferView": 19,
+            "bytes": 9840,
+            "sha256": "dafc77047e13d8c3896d0569d4c31031d5068f69594bb3ffa27de552320d02bd"
+          },
+          {
+            "bufferView": 20,
+            "bytes": 9840,
+            "sha256": "ad8e26596fe42ee94e202cba04c9c64fe2ae9eea214488a83e296238297b1677"
+          },
+          {
+            "bufferView": 21,
+            "bytes": 6560,
+            "sha256": "2709f1a0688a781d5fd0902c86e1fa2728edd0d9ca5078c0a6b6d3691fe62dc0"
+          },
+          {
+            "bufferView": 22,
+            "bytes": 3280,
+            "sha256": "05de61176a3499c2991166b9e81d50768a34e2e618e1633dec249f57d86d7e7b"
+          },
+          {
+            "bufferView": 23,
+            "bytes": 13120,
+            "sha256": "618620de5d4466537e04acd49af4d837438ca3e1547833e397be15b491e90757"
+          },
+          {
+            "bufferView": 24,
+            "bytes": 4560,
+            "sha256": "a7ede8a2631fd55df8198d7d07022ca2db33e921e0358c467e19034567e07025"
+          },
+          {
+            "bufferView": 25,
+            "bytes": 28428,
+            "sha256": "f88b143050003d38b9887927923ad47fec06c4efdfe97f720ab54c29b5abbe0f"
+          },
+          {
+            "bufferView": 26,
+            "bytes": 28428,
+            "sha256": "48b0e14ecbf8e27c800d494211105084663242b40185261243938c878be48647"
+          },
+          {
+            "bufferView": 27,
+            "bytes": 9476,
+            "sha256": "d2be1164c6db1ee32fba34e0a1895cf362dffe6edbc20d4e4e98696315a5b2ae"
+          },
+          {
+            "bufferView": 28,
+            "bytes": 37904,
+            "sha256": "42dae9d16bb9ca7e9ff27b900b4042b025a0e458c92067a32bc6d5e852fa4a83"
+          },
+          {
+            "bufferView": 29,
+            "bytes": 28404,
+            "sha256": "9e3d2773291dda25aaef975b5c361618a6f6210010b5d134d25dccf6c50d33aa"
+          },
+          {
+            "bufferView": 30,
+            "bytes": 73284,
+            "sha256": "1b94e43c654171a5504b1a2df12f32a53f3b7766afe8e0d74aa0ebf528e6b626"
+          },
+          {
+            "bufferView": 31,
+            "bytes": 73284,
+            "sha256": "c5ba9237e01d44371d542b027d846b2dbedb8983f9b7addcc7d84bf5873a5833"
+          },
+          {
+            "bufferView": 32,
+            "bytes": 48856,
+            "sha256": "82c18844ee1f05c9b1db2171d4874bb95edd694ac757a997982b9fa8f9c1f3af"
+          },
+          {
+            "bufferView": 33,
+            "bytes": 24428,
+            "sha256": "5051de8579b69b48e12808152ffaecdb626cdf36ae53208f0af1673bd95a0b63"
+          },
+          {
+            "bufferView": 34,
+            "bytes": 97712,
+            "sha256": "65e003a5bef0afe64ae4924de0d477ef8c41cb73dad00d51b31442ce4b347800"
+          },
+          {
+            "bufferView": 35,
+            "bytes": 62112,
+            "sha256": "c4f4210c7699fb463c7b0770da2be08ea2ce18c6e46542d7ca9e8757e84fd2e5"
+          },
+          {
+            "bufferView": 39,
+            "bytes": 3120,
+            "sha256": "cef3419167be0e5e816624b77ba7294a13d21e7afc9aa2f6fc9b805e457e8c43"
+          },
+          {
+            "bufferView": 40,
+            "bytes": 3120,
+            "sha256": "9c1cc547cc972bcb3c7ea868575b59f941711a9ab5b7855787e9d28e24a1061a"
+          },
+          {
+            "bufferView": 41,
+            "bytes": 2080,
+            "sha256": "838325f397d1aacb30c5c0feed6bf75bcb01b4c5d67e98108a41a238768d4f99"
+          },
+          {
+            "bufferView": 42,
+            "bytes": 1040,
+            "sha256": "ecbf8ef4915cbad80d8a2bf06e4ff28a87578df641d4939fe17423a4a50e8e80"
+          },
+          {
+            "bufferView": 43,
+            "bytes": 4160,
+            "sha256": "ec9d3fc44f1775914629872e85229ff4d7698933b49d2a356afa9efcdd691e4b"
+          },
+          {
+            "bufferView": 44,
+            "bytes": 3096,
+            "sha256": "c904274afc21d5b8356aa66b6186c7b8ab96371e0f944f2f160a24fc17304b82"
+          },
+          {
+            "bufferView": 45,
+            "bytes": 50388,
+            "sha256": "6ffebbacb36f3beac3db512231f149204bb844715e297bc9dfef1d67320b7de1"
+          },
+          {
+            "bufferView": 46,
+            "bytes": 50388,
+            "sha256": "2a9725b5e4f45665e6e1cf79f56067f2eddaaf933f19cc59fa3078827ecc6fb6"
+          },
+          {
+            "bufferView": 47,
+            "bytes": 33592,
+            "sha256": "6cf3271043639968e095d70a031e9de87bbb394c33d9120703c227d98e05e5af"
+          },
+          {
+            "bufferView": 48,
+            "bytes": 16796,
+            "sha256": "f6d79e8666bfc53e5f26cae07a2266b213ebb93fa9095d0beced33616c78b820"
+          },
+          {
+            "bufferView": 49,
+            "bytes": 67184,
+            "sha256": "3c526da63b2f7b2b01c74ffbf95da6c3851e77241069e935c14d47de71962e59"
+          },
+          {
+            "bufferView": 50,
+            "bytes": 41184,
+            "sha256": "c5f69721e5beb22757800c3cbfd5d05fea9616faff532f3033e04e645bf95bf0"
+          },
+          {
+            "bufferView": 51,
+            "bytes": 10788,
+            "sha256": "7dc32522ebad01167975cb5a75a2236a4ed709b68b00de7913c9170e8b0cfa08"
+          },
+          {
+            "bufferView": 52,
+            "bytes": 10788,
+            "sha256": "08916e06c4412399b9e42bb5ef3d81acaa6215e996a390dd6de6a1a6d0438db5"
+          },
+          {
+            "bufferView": 53,
+            "bytes": 7192,
+            "sha256": "0c3d8e68be365c8998d94d7fe0ed14fd6450df0be78f910e04cb1591a53dc66e"
+          },
+          {
+            "bufferView": 54,
+            "bytes": 3596,
+            "sha256": "3708cf6e5efc54548dee8d8883070878ec82b0244a18fd2d5a58f49a0aa2d3af"
+          },
+          {
+            "bufferView": 55,
+            "bytes": 14384,
+            "sha256": "25de567d072b00ea55c8b76a61b399620e59c35bb1126e569a4af8bb8c3d6a75"
+          },
+          {
+            "bufferView": 56,
+            "bytes": 9384,
+            "sha256": "5216e8dc1eef1ea26553c1250e9c58c8307b549a57f7237ca6d960b9448f6cfe"
+          },
+          {
+            "bufferView": 57,
+            "bytes": 1968,
+            "sha256": "5adf5bb98cfd08e2ac3d9b95ec37144925ed0df6ac44babd2b9cf026f4386c63"
+          },
+          {
+            "bufferView": 58,
+            "bytes": 1968,
+            "sha256": "fa7d1ac13b5c07b94ef628c2993846c5dd4dbe5599ce7fe87a92607876fd535a"
+          },
+          {
+            "bufferView": 59,
+            "bytes": 1312,
+            "sha256": "7e4e252baf7acafb5b33e98765c5e99a956dab683f670e7604e35abfd5975663"
+          },
+          {
+            "bufferView": 60,
+            "bytes": 656,
+            "sha256": "7ec7dba64e984dfa50b5462bd75ccbfa2c63b2353f94f18f78fb0694c06bea43"
+          },
+          {
+            "bufferView": 61,
+            "bytes": 2624,
+            "sha256": "e6bc9fca10133f8135154891dbe087423a282703b981350bda7cebe48138a6c4"
+          },
+          {
+            "bufferView": 62,
+            "bytes": 912,
+            "sha256": "ee49b11d6dedaed7d3a3604d724d08009b12b590a280dd9a35d5f79aa3f7f058"
+          },
+          {
+            "bufferView": 63,
+            "bytes": 60888,
+            "sha256": "5b694b393c6bdec12f41dc06a03fdbc21a3b0dc8357b907260a8b70b977afb64"
+          },
+          {
+            "bufferView": 64,
+            "bytes": 60888,
+            "sha256": "c9c6fb833b543b59a7dcb9d398335ee30cba9c8f45fdda16721f33be466ddeec"
+          },
+          {
+            "bufferView": 65,
+            "bytes": 40592,
+            "sha256": "a57cca8ce4b5aa5080fc81f6c4c3687ceec70cc061979a490121eac5bf0c4782"
+          },
+          {
+            "bufferView": 66,
+            "bytes": 20296,
+            "sha256": "7fadf196a47f76f1a09770fedf710dc8e0c22bc083fe1947cbbb7ee897bdff67"
+          },
+          {
+            "bufferView": 67,
+            "bytes": 81184,
+            "sha256": "e1a09f9ce9acdd6264f1eb409239f7509997d267747997425a3d206034a094e4"
+          },
+          {
+            "bufferView": 68,
+            "bytes": 43056,
+            "sha256": "2cabf41faf09a87ba91482ca6b2c43bbf2eb164c52b5020b537f24db575516e0"
+          },
+          {
+            "bufferView": 69,
+            "bytes": 194100,
+            "sha256": "285a9cc78a03b22d6fe1c836260908358633a32681133fd68e780ca3a1468d29"
+          },
+          {
+            "bufferView": 70,
+            "bytes": 194100,
+            "sha256": "44aff6b9df9e74e6a49fcd1af7beb49713dec5f04c2b74902f5900fdbeb4ccf9"
+          },
+          {
+            "bufferView": 71,
+            "bytes": 129400,
+            "sha256": "74df9401c38e5cbe3b47704f8bd42499d0de5d75929e1b6f8305025514bd9ba0"
+          },
+          {
+            "bufferView": 72,
+            "bytes": 64700,
+            "sha256": "f3234a98650e2a99b3e80ce29c717c753036ab93ff8d8d50df3b8815c15d6425"
+          },
+          {
+            "bufferView": 73,
+            "bytes": 258800,
+            "sha256": "882f0af9058240354e51a40db08f114b2f23fa5585bc91c8b2b37e488025e3c2"
+          },
+          {
+            "bufferView": 74,
+            "bytes": 149736,
+            "sha256": "85e954d7084ded29fb434677437dd057031c8ce79db1d71d6afd893e5dafe4b0"
+          },
+          {
+            "bufferView": 75,
+            "bytes": 62592,
+            "sha256": "e14a91b74090a72881f9cd77141426beb358835c4c78133ac74e1cc515d77a24"
+          },
+          {
+            "bufferView": 76,
+            "bytes": 62592,
+            "sha256": "db5c1f35b590da916d4b6ff5c1fb95ced4b82059de8e2279b17a9be4e463ed29"
+          },
+          {
+            "bufferView": 77,
+            "bytes": 41728,
+            "sha256": "8bd3d5e841a0cf0bb421a710ebf285ccde6276aad987d5f9cd141eac06e7cbf1"
+          },
+          {
+            "bufferView": 78,
+            "bytes": 20864,
+            "sha256": "7cc24d78c971f396fe18a16a22c9a7fb8a8a7327aefcc157ce2ad04bdd69605a"
+          },
+          {
+            "bufferView": 79,
+            "bytes": 83456,
+            "sha256": "781598af3e780d317f92d7be4f8f8d772536e1a56cef8a2498888577a449a6b0"
+          },
+          {
+            "bufferView": 80,
+            "bytes": 48240,
+            "sha256": "7f1ec3f6763e7ef3d5ee4433d5f830af7e145cfbe7d4ed7714167c52628e7138"
+          },
+          {
+            "bufferView": 81,
+            "bytes": 9312,
+            "sha256": "acc1c3806da1448064d1c7373d7506bc6e0a51d2162ec07f1bf7d15de2ac6e86"
+          },
+          {
+            "bufferView": 82,
+            "bytes": 9312,
+            "sha256": "90d77c328d318435a748b361b7bc64d2aff0cd7c33439a2352c2eb2226cfc847"
+          },
+          {
+            "bufferView": 83,
+            "bytes": 3104,
+            "sha256": "a954d51582c3a25a5a0717df255c4b3dec0832e8af8ca01044ad8c43574ec026"
+          },
+          {
+            "bufferView": 84,
+            "bytes": 12416,
+            "sha256": "dedaf841cd29223fbc785daa1ad59526780b003532d28195cb5c819f8c70ed33"
+          },
+          {
+            "bufferView": 85,
+            "bytes": 9216,
+            "sha256": "5cab56584b166625e04d7d1f66108cf13612f35add0ec7754ae547d8adf19f2e"
+          },
+          {
+            "bufferView": 86,
+            "bytes": 1392,
+            "sha256": "4753f7a5f42b6a75a5d4acbcab03bb3d4fb0926262059b4c5d3df6dc851128a5"
+          },
+          {
+            "bufferView": 87,
+            "bytes": 1392,
+            "sha256": "061a34b5dd5b761e81b8d09c438768a00279092057d1bb476137c3a9839e01e3"
+          },
+          {
+            "bufferView": 88,
+            "bytes": 928,
+            "sha256": "a41dba639b5d5c68289701f57b1802b571f4c2592841039f364d950376d0229d"
+          },
+          {
+            "bufferView": 89,
+            "bytes": 464,
+            "sha256": "d700073a0bef33a007f29330e9331b9e8cfe09c15d5460a8852ac28c225c6c0a"
+          },
+          {
+            "bufferView": 90,
+            "bytes": 1856,
+            "sha256": "0c336b27d3bd6af3cf3a5e17f248576bde15c38adb2b99c62f2e1ff9bc20f855"
+          },
+          {
+            "bufferView": 91,
+            "bytes": 1128,
+            "sha256": "bf74e6822d214e888d31e17ce86d887828704313a540c62b25aff6eb1e6d7b7d"
+          }
+        ],
+        "inverseBindMatrixAccessors": [
+          6
+        ],
+        "uvAccessors": [
+          2,
+          9,
+          15,
+          21,
+          32,
+          38,
+          44,
+          50,
+          56,
+          62,
+          68,
+          74,
+          85
+        ],
+        "originalBinPrefixAlsoIdentical": false
+      },
+      "protectedHeadAndWater": {
+        "nodes": [
+          {
+            "name": "Balloon_Latex",
+            "materialSlots": [
+              0
+            ]
+          },
+          {
+            "name": "Water_Contained",
+            "materialSlots": [
+              4
+            ]
+          }
+        ],
+        "materials": [
+          {
+            "index": 0,
+            "name": "Mint_Latex_Transmission",
+            "canonicalSHA256": "407672b923a5e72977c7f8660f4257529fbb618bbdc64fbebb2ad04514843517",
+            "protectedTextures": []
+          },
+          {
+            "index": 4,
+            "name": "Water_IOR_1.333",
+            "canonicalSHA256": "8002f94646ace1b002520bac1ddf65fe4d75bc09d59eb00f20cdefaee6e76605",
+            "protectedTextures": []
+          }
+        ]
+      },
+      "extensions": {
+        "added": [],
+        "removed": []
+      },
+      "textures": {
+        "images": [
+          {
+            "index": 0,
+            "name": "wood-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 95750,
+            "sha256": "b00d75577b5f431caa35f6c09543963a1d7785f613b80a6b2d1707cdcf8ffd51",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 1,
+            "name": "wood-basecolor",
+            "width": 1024,
+            "height": 1024,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 460511,
+            "sha256": "ce6820a7c490e0f209b7d3912679ece9080044503da3d7612d082345d002d938",
+            "gpuRGBA8Bytes": 4194304,
+            "gpuRGBA8MipBytes": 5592404
+          },
+          {
+            "index": 2,
+            "name": "wood-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 82795,
+            "sha256": "09c98ff32f0ff35ead9aac82bb620fb07c9131d9354ce33774000e1309153188",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 3,
+            "name": "brass-basecolor",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 34848,
+            "sha256": "afbf3b15fd829256412768fc511f20ce271e0463c89fa6d7cdde7847d1a09603",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 4,
+            "name": "brass-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 160891,
+            "sha256": "62d5d348b9760a7542a470d805d6625131ba04d8bb780aa7734bf29490dcebcc",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 5,
+            "name": "brass-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 172098,
+            "sha256": "ec0521473bd6a0bf89448e7298f17a293eee559e33008758adcec003d7b0e89c",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 6,
+            "name": "leather-basecolor",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 99956,
+            "sha256": "5a7647354b86c6e603cd27372452e614dcc8d49178c78d59b2dbd55b0b7f78e8",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 7,
+            "name": "leather-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 191591,
+            "sha256": "8dc0af569455482bd50b2b855355dd240d311da63eebd5bbe3c8b02cd6ab0696",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 8,
+            "name": "leather-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 206962,
+            "sha256": "49db1361af155724f302b1be5037648c46047e2c4c6146340f582c0a281117c4",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 9,
+            "name": "cloth-normal",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 77882,
+            "sha256": "34f6b163c957f4e9a8e89f69eb2c5a2748ab994c984af216bc5f975ff189f892",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          },
+          {
+            "index": 10,
+            "name": "cloth-orm",
+            "width": 512,
+            "height": 512,
+            "bitDepth": 8,
+            "colorType": 2,
+            "interlace": 0,
+            "encodedBytes": 209422,
+            "sha256": "66951e649b61a7d1d2387f895ce576048e0e232a72e637af8e5afdd90d689963",
+            "gpuRGBA8Bytes": 1048576,
+            "gpuRGBA8MipBytes": 1398100
+          }
+        ],
+        "textureBindings": [
+          {
+            "index": 0,
+            "image": 0,
+            "sampler": 0
+          },
+          {
+            "index": 1,
+            "image": 1,
+            "sampler": 0
+          },
+          {
+            "index": 2,
+            "image": 2,
+            "sampler": 0
+          },
+          {
+            "index": 3,
+            "image": 3,
+            "sampler": 0
+          },
+          {
+            "index": 4,
+            "image": 4,
+            "sampler": 0
+          },
+          {
+            "index": 5,
+            "image": 5,
+            "sampler": 0
+          },
+          {
+            "index": 6,
+            "image": 6,
+            "sampler": 0
+          },
+          {
+            "index": 7,
+            "image": 7,
+            "sampler": 0
+          },
+          {
+            "index": 8,
+            "image": 8,
+            "sampler": 0
+          },
+          {
+            "index": 9,
+            "image": 9,
+            "sampler": 0
+          },
+          {
+            "index": 10,
+            "image": 10,
+            "sampler": 0
+          }
+        ],
+        "encodedBytes": 1792706,
+        "gpuRGBA8Bytes": 14680064,
+        "gpuRGBA8MipBytes": 19573404,
+        "gpuRGBA8MipBytesPerTexture": 19573404,
+        "estimate": "RGBA8 allocation, full mip chain; no GPU compression; per-image and per-texture totals exclude renderer overhead"
+      }
+    }
+  ]
+}

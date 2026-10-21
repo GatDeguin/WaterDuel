@@ -1,0 +1,1596 @@
+{
+  "ok": true,
+  "generatedAt": "2026-10-18T02:34:20.595Z",
+  "baselineDirectory": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v2",
+  "candidateDirectory": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v3",
+  "method": [
+    "Actual runtime parseGLB",
+    "Actual runtime prepareCharacter and apron classification",
+    "SHA-256 over decoded and prepared data",
+    "Actual characterTransforms with initial and simulated DuelEngine poses",
+    "CPU materialSheen semantic validation"
+  ],
+  "scope": "CPU compatibility only. No image decoding, GPU upload, WebGL rendering, or visual equivalence claim.",
+  "results": [
+    {
+      "variant": "normal",
+      "ok": true,
+      "baseline": {
+        "file": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v2\\water-mannequin.glb",
+        "bytes": 3986764,
+        "sha256": "3b30bc03c5ed802c525b53913ad85c7fc949f8ab6ed6c30d689e8f79af60317f"
+      },
+      "candidate": {
+        "file": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v3\\water-mannequin.glb",
+        "bytes": 4019128,
+        "sha256": "6f96710fd3aef9da94fae7007562a28c25be3551fd57c41a19dd7951ac8660e2"
+      },
+      "counts": {
+        "nodes": 39,
+        "skins": 1,
+        "primitives": 15,
+        "parts": 61,
+        "bones": 16,
+        "triangles": 28736,
+        "excludedTriangles": 28278,
+        "apronParts": 1,
+        "images": 11,
+        "textures": 11,
+        "materials": 10
+      },
+      "parsed": {
+        "identical": true,
+        "baselineSHA256": "29433dfee508234720e15577feb36c5c2e0746c4cd7df858f9e1535e5d663f6c",
+        "candidateSHA256": "29433dfee508234720e15577feb36c5c2e0746c4cd7df858f9e1535e5d663f6c"
+      },
+      "prepared": {
+        "identical": true,
+        "baselineSHA256": "e494c07ad71eb41935878e5cfb27b7223934a5519261bb99b7de2de6fef2a719",
+        "candidateSHA256": "e494c07ad71eb41935878e5cfb27b7223934a5519261bb99b7de2de6fef2a719"
+      },
+      "attributes": {
+        "positions": {
+          "identical": true,
+          "baselineSHA256": "46af648b2a9d48a03e032a121c9a106c75dc5d55769279a78369346e5b031978",
+          "candidateSHA256": "46af648b2a9d48a03e032a121c9a106c75dc5d55769279a78369346e5b031978"
+        },
+        "normals": {
+          "identical": true,
+          "baselineSHA256": "dda8f4943b8b7994db45bbb616a381b89d897dd084add910bb8fa7a00dd3a6fd",
+          "candidateSHA256": "dda8f4943b8b7994db45bbb616a381b89d897dd084add910bb8fa7a00dd3a6fd"
+        },
+        "indices": {
+          "identical": true,
+          "baselineSHA256": "6b2b14975a9435c02169010eaac18008725d74b5c50a60430749e682a14afe5d",
+          "candidateSHA256": "6b2b14975a9435c02169010eaac18008725d74b5c50a60430749e682a14afe5d"
+        },
+        "uv": {
+          "identical": true,
+          "baselineSHA256": "c69f85bc9ed52c798cb25fada35cb276a40f5fbcfa591f4136244be0355f2bc9",
+          "candidateSHA256": "c69f85bc9ed52c798cb25fada35cb276a40f5fbcfa591f4136244be0355f2bc9"
+        },
+        "uv1": {
+          "identical": true,
+          "baselineSHA256": "1c2aa826b961cfd43674095adc9c59655bcab435ba53b003981c7c1f28582378",
+          "candidateSHA256": "1c2aa826b961cfd43674095adc9c59655bcab435ba53b003981c7c1f28582378"
+        },
+        "colors": {
+          "identical": true,
+          "baselineSHA256": "1c2aa826b961cfd43674095adc9c59655bcab435ba53b003981c7c1f28582378",
+          "candidateSHA256": "1c2aa826b961cfd43674095adc9c59655bcab435ba53b003981c7c1f28582378"
+        }
+      },
+      "apron": {
+        "identical": true,
+        "baselineSHA256": "f0ce7274b96d056bfd5dce6f73cbcad947a6925a09b8c7e8a96046e45a711c9b",
+        "candidateSHA256": "f0ce7274b96d056bfd5dce6f73cbcad947a6925a09b8c7e8a96046e45a711c9b"
+      },
+      "retargeting": {
+        "samples": [
+          {
+            "stage": "initial",
+            "direction": 1,
+            "boss": false,
+            "partCount": 61,
+            "matrices": {
+              "identical": true,
+              "baselineSHA256": "2f83f9ca375a11162498c7e7607c26e1f5dda78634b9493566125fe7e06892b1",
+              "candidateSHA256": "2f83f9ca375a11162498c7e7607c26e1f5dda78634b9493566125fe7e06892b1"
+            },
+            "worldPositions": {
+              "identical": true,
+              "baselineSHA256": "f79370ff805c1afd5d24ba525c519bf037183d51e11adbc3a7d97b4f22cee2d7",
+              "candidateSHA256": "f79370ff805c1afd5d24ba525c519bf037183d51e11adbc3a7d97b4f22cee2d7"
+            },
+            "simulationPoseUnchanged": true
+          },
+          {
+            "stage": "initial",
+            "direction": -1,
+            "boss": false,
+            "partCount": 61,
+            "matrices": {
+              "identical": true,
+              "baselineSHA256": "f955b76f228603bdf00a0393d32d3ebc43956f33fb4e78bf945ed811d89b3023",
+              "candidateSHA256": "f955b76f228603bdf00a0393d32d3ebc43956f33fb4e78bf945ed811d89b3023"
+            },
+            "worldPositions": {
+              "identical": true,
+              "baselineSHA256": "0842eedb8be33c2b064004cd3cfd6c3a3713d0a6f07f6f5b5e47b698fe152023",
+              "candidateSHA256": "0842eedb8be33c2b064004cd3cfd6c3a3713d0a6f07f6f5b5e47b698fe152023"
+            },
+            "simulationPoseUnchanged": true
+          },
+          {
+            "stage": "simulated-control",
+            "direction": 1,
+            "boss": false,
+            "partCount": 61,
+            "matrices": {
+              "identical": true,
+              "baselineSHA256": "e260beac9b50e22e5d8b53775c742570b4d4f59a7119a2f6af5fc44c61c1db4f",
+              "candidateSHA256": "e260beac9b50e22e5d8b53775c742570b4d4f59a7119a2f6af5fc44c61c1db4f"
+            },
+            "worldPositions": {
+              "identical": true,
+              "baselineSHA256": "1310a8a56046feb09ca46b1f50b732b2a8bc1f38a8c99f902d34a81584b71b1c",
+              "candidateSHA256": "1310a8a56046feb09ca46b1f50b732b2a8bc1f38a8c99f902d34a81584b71b1c"
+            },
+            "simulationPoseUnchanged": true
+          },
+          {
+            "stage": "simulated-control",
+            "direction": -1,
+            "boss": false,
+            "partCount": 61,
+            "matrices": {
+              "identical": true,
+              "baselineSHA256": "cbcd851a1794858905c27ee1430b9e3e0b4edef682907a0f2eae13dc7a871e24",
+              "candidateSHA256": "cbcd851a1794858905c27ee1430b9e3e0b4edef682907a0f2eae13dc7a871e24"
+            },
+            "worldPositions": {
+              "identical": true,
+              "baselineSHA256": "133e5b49cd56884e98210d348b63da3d5b50ac9ba121a7739a875e6217eb5dfa",
+              "candidateSHA256": "133e5b49cd56884e98210d348b63da3d5b50ac9ba121a7739a875e6217eb5dfa"
+            },
+            "simulationPoseUnchanged": true
+          }
+        ],
+        "allIdentical": true
+      },
+      "textures": {
+        "parserAccepted": true,
+        "images": [
+          {
+            "index": 0,
+            "name": "wood-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 95750,
+            "sha256": "b00d75577b5f431caa35f6c09543963a1d7785f613b80a6b2d1707cdcf8ffd51"
+          },
+          {
+            "index": 1,
+            "name": "wood-basecolor",
+            "mimeType": "image/png",
+            "encodedBytes": 460511,
+            "sha256": "ce6820a7c490e0f209b7d3912679ece9080044503da3d7612d082345d002d938"
+          },
+          {
+            "index": 2,
+            "name": "wood-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 82795,
+            "sha256": "09c98ff32f0ff35ead9aac82bb620fb07c9131d9354ce33774000e1309153188"
+          },
+          {
+            "index": 3,
+            "name": "brass-basecolor",
+            "mimeType": "image/png",
+            "encodedBytes": 34848,
+            "sha256": "afbf3b15fd829256412768fc511f20ce271e0463c89fa6d7cdde7847d1a09603"
+          },
+          {
+            "index": 4,
+            "name": "brass-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 160891,
+            "sha256": "62d5d348b9760a7542a470d805d6625131ba04d8bb780aa7734bf29490dcebcc"
+          },
+          {
+            "index": 5,
+            "name": "brass-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 172098,
+            "sha256": "ec0521473bd6a0bf89448e7298f17a293eee559e33008758adcec003d7b0e89c"
+          },
+          {
+            "index": 6,
+            "name": "leather-basecolor",
+            "mimeType": "image/png",
+            "encodedBytes": 99956,
+            "sha256": "5a7647354b86c6e603cd27372452e614dcc8d49178c78d59b2dbd55b0b7f78e8"
+          },
+          {
+            "index": 7,
+            "name": "leather-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 191591,
+            "sha256": "8dc0af569455482bd50b2b855355dd240d311da63eebd5bbe3c8b02cd6ab0696"
+          },
+          {
+            "index": 8,
+            "name": "leather-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 206962,
+            "sha256": "49db1361af155724f302b1be5037648c46047e2c4c6146340f582c0a281117c4"
+          },
+          {
+            "index": 9,
+            "name": "cloth-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 77882,
+            "sha256": "34f6b163c957f4e9a8e89f69eb2c5a2748ab994c984af216bc5f975ff189f892"
+          },
+          {
+            "index": 10,
+            "name": "cloth-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 209422,
+            "sha256": "66951e649b61a7d1d2387f895ce576048e0e232a72e637af8e5afdd90d689963"
+          }
+        ],
+        "bindings": [
+          {
+            "source": 0,
+            "sampler": 0
+          },
+          {
+            "source": 1,
+            "sampler": 0
+          },
+          {
+            "source": 2,
+            "sampler": 0
+          },
+          {
+            "source": 3,
+            "sampler": 0
+          },
+          {
+            "source": 4,
+            "sampler": 0
+          },
+          {
+            "source": 5,
+            "sampler": 0
+          },
+          {
+            "source": 6,
+            "sampler": 0
+          },
+          {
+            "source": 7,
+            "sampler": 0
+          },
+          {
+            "source": 8,
+            "sampler": 0
+          },
+          {
+            "source": 9,
+            "sampler": 0
+          },
+          {
+            "source": 10,
+            "sampler": 0
+          }
+        ],
+        "samplers": [
+          {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          }
+        ]
+      },
+      "materials": [
+        {
+          "index": 0,
+          "name": "Mint_Latex_Transmission",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 1,
+          "name": "Polished_Rapier_Steel",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 2,
+          "name": "Satin_Brass",
+          "maps": {
+            "baseColorTexture": {
+              "index": 3,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "normalTexture": {
+              "index": 5,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.45
+            },
+            "metallicRoughnessTexture": {
+              "index": 4,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 4,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.2
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 3,
+          "name": "Wrapped_Brown_Leather",
+          "maps": {
+            "baseColorTexture": {
+              "index": 6,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "normalTexture": {
+              "index": 8,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.4
+            },
+            "metallicRoughnessTexture": {
+              "index": 7,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 7,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.18
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 4,
+          "name": "Water_IOR_1.333",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 5,
+          "name": "Beech_Wood_Grain",
+          "maps": {
+            "baseColorTexture": {
+              "index": 1,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "normalTexture": {
+              "index": 0,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.3
+            },
+            "metallicRoughnessTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.2
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 6,
+          "name": "Endgrain_Joints",
+          "maps": {
+            "normalTexture": {
+              "index": 0,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.15
+            },
+            "metallicRoughnessTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.18
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 7,
+          "name": "Mint_Woven_Sash",
+          "maps": {
+            "normalTexture": {
+              "index": 9,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.4
+            },
+            "metallicRoughnessTexture": {
+              "index": 10,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 10,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.12
+            }
+          },
+          "sheen": {
+            "color": [
+              0.02500000037252903,
+              0.11999999731779099,
+              0.10000000149011612
+            ],
+            "roughness": 0.82,
+            "declared": true
+          }
+        },
+        {
+          "index": 8,
+          "name": "Recessed_Steel",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 9,
+          "name": "Water_Surface_Crest",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        }
+      ],
+      "extensionsUsed": [
+        "KHR_materials_clearcoat",
+        "KHR_materials_transmission",
+        "KHR_materials_volume",
+        "KHR_materials_ior",
+        "KHR_materials_sheen"
+      ],
+      "extensionsRequired": []
+    },
+    {
+      "variant": "amber",
+      "ok": true,
+      "baseline": {
+        "file": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v2\\water-mannequin-amber.glb",
+        "bytes": 3986712,
+        "sha256": "0b848dfac42d60e2fbb1367c66c6bc27d2f4be38d482439adee02fbab2defc3e"
+      },
+      "candidate": {
+        "file": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v3\\water-mannequin-amber.glb",
+        "bytes": 4019076,
+        "sha256": "c564de1387e70d2f52082e1f77ae8bcdb98b1b5452b7bdcb5a8e33c283784890"
+      },
+      "counts": {
+        "nodes": 39,
+        "skins": 1,
+        "primitives": 15,
+        "parts": 61,
+        "bones": 16,
+        "triangles": 28736,
+        "excludedTriangles": 28278,
+        "apronParts": 1,
+        "images": 11,
+        "textures": 11,
+        "materials": 10
+      },
+      "parsed": {
+        "identical": true,
+        "baselineSHA256": "29433dfee508234720e15577feb36c5c2e0746c4cd7df858f9e1535e5d663f6c",
+        "candidateSHA256": "29433dfee508234720e15577feb36c5c2e0746c4cd7df858f9e1535e5d663f6c"
+      },
+      "prepared": {
+        "identical": true,
+        "baselineSHA256": "e494c07ad71eb41935878e5cfb27b7223934a5519261bb99b7de2de6fef2a719",
+        "candidateSHA256": "e494c07ad71eb41935878e5cfb27b7223934a5519261bb99b7de2de6fef2a719"
+      },
+      "attributes": {
+        "positions": {
+          "identical": true,
+          "baselineSHA256": "46af648b2a9d48a03e032a121c9a106c75dc5d55769279a78369346e5b031978",
+          "candidateSHA256": "46af648b2a9d48a03e032a121c9a106c75dc5d55769279a78369346e5b031978"
+        },
+        "normals": {
+          "identical": true,
+          "baselineSHA256": "dda8f4943b8b7994db45bbb616a381b89d897dd084add910bb8fa7a00dd3a6fd",
+          "candidateSHA256": "dda8f4943b8b7994db45bbb616a381b89d897dd084add910bb8fa7a00dd3a6fd"
+        },
+        "indices": {
+          "identical": true,
+          "baselineSHA256": "6b2b14975a9435c02169010eaac18008725d74b5c50a60430749e682a14afe5d",
+          "candidateSHA256": "6b2b14975a9435c02169010eaac18008725d74b5c50a60430749e682a14afe5d"
+        },
+        "uv": {
+          "identical": true,
+          "baselineSHA256": "c69f85bc9ed52c798cb25fada35cb276a40f5fbcfa591f4136244be0355f2bc9",
+          "candidateSHA256": "c69f85bc9ed52c798cb25fada35cb276a40f5fbcfa591f4136244be0355f2bc9"
+        },
+        "uv1": {
+          "identical": true,
+          "baselineSHA256": "1c2aa826b961cfd43674095adc9c59655bcab435ba53b003981c7c1f28582378",
+          "candidateSHA256": "1c2aa826b961cfd43674095adc9c59655bcab435ba53b003981c7c1f28582378"
+        },
+        "colors": {
+          "identical": true,
+          "baselineSHA256": "1c2aa826b961cfd43674095adc9c59655bcab435ba53b003981c7c1f28582378",
+          "candidateSHA256": "1c2aa826b961cfd43674095adc9c59655bcab435ba53b003981c7c1f28582378"
+        }
+      },
+      "apron": {
+        "identical": true,
+        "baselineSHA256": "f0ce7274b96d056bfd5dce6f73cbcad947a6925a09b8c7e8a96046e45a711c9b",
+        "candidateSHA256": "f0ce7274b96d056bfd5dce6f73cbcad947a6925a09b8c7e8a96046e45a711c9b"
+      },
+      "retargeting": {
+        "samples": [
+          {
+            "stage": "initial",
+            "direction": 1,
+            "boss": false,
+            "partCount": 61,
+            "matrices": {
+              "identical": true,
+              "baselineSHA256": "2f83f9ca375a11162498c7e7607c26e1f5dda78634b9493566125fe7e06892b1",
+              "candidateSHA256": "2f83f9ca375a11162498c7e7607c26e1f5dda78634b9493566125fe7e06892b1"
+            },
+            "worldPositions": {
+              "identical": true,
+              "baselineSHA256": "f79370ff805c1afd5d24ba525c519bf037183d51e11adbc3a7d97b4f22cee2d7",
+              "candidateSHA256": "f79370ff805c1afd5d24ba525c519bf037183d51e11adbc3a7d97b4f22cee2d7"
+            },
+            "simulationPoseUnchanged": true
+          },
+          {
+            "stage": "initial",
+            "direction": -1,
+            "boss": false,
+            "partCount": 61,
+            "matrices": {
+              "identical": true,
+              "baselineSHA256": "f955b76f228603bdf00a0393d32d3ebc43956f33fb4e78bf945ed811d89b3023",
+              "candidateSHA256": "f955b76f228603bdf00a0393d32d3ebc43956f33fb4e78bf945ed811d89b3023"
+            },
+            "worldPositions": {
+              "identical": true,
+              "baselineSHA256": "0842eedb8be33c2b064004cd3cfd6c3a3713d0a6f07f6f5b5e47b698fe152023",
+              "candidateSHA256": "0842eedb8be33c2b064004cd3cfd6c3a3713d0a6f07f6f5b5e47b698fe152023"
+            },
+            "simulationPoseUnchanged": true
+          },
+          {
+            "stage": "simulated-control",
+            "direction": 1,
+            "boss": false,
+            "partCount": 61,
+            "matrices": {
+              "identical": true,
+              "baselineSHA256": "e260beac9b50e22e5d8b53775c742570b4d4f59a7119a2f6af5fc44c61c1db4f",
+              "candidateSHA256": "e260beac9b50e22e5d8b53775c742570b4d4f59a7119a2f6af5fc44c61c1db4f"
+            },
+            "worldPositions": {
+              "identical": true,
+              "baselineSHA256": "1310a8a56046feb09ca46b1f50b732b2a8bc1f38a8c99f902d34a81584b71b1c",
+              "candidateSHA256": "1310a8a56046feb09ca46b1f50b732b2a8bc1f38a8c99f902d34a81584b71b1c"
+            },
+            "simulationPoseUnchanged": true
+          },
+          {
+            "stage": "simulated-control",
+            "direction": -1,
+            "boss": false,
+            "partCount": 61,
+            "matrices": {
+              "identical": true,
+              "baselineSHA256": "cbcd851a1794858905c27ee1430b9e3e0b4edef682907a0f2eae13dc7a871e24",
+              "candidateSHA256": "cbcd851a1794858905c27ee1430b9e3e0b4edef682907a0f2eae13dc7a871e24"
+            },
+            "worldPositions": {
+              "identical": true,
+              "baselineSHA256": "133e5b49cd56884e98210d348b63da3d5b50ac9ba121a7739a875e6217eb5dfa",
+              "candidateSHA256": "133e5b49cd56884e98210d348b63da3d5b50ac9ba121a7739a875e6217eb5dfa"
+            },
+            "simulationPoseUnchanged": true
+          }
+        ],
+        "allIdentical": true
+      },
+      "textures": {
+        "parserAccepted": true,
+        "images": [
+          {
+            "index": 0,
+            "name": "wood-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 95750,
+            "sha256": "b00d75577b5f431caa35f6c09543963a1d7785f613b80a6b2d1707cdcf8ffd51"
+          },
+          {
+            "index": 1,
+            "name": "wood-basecolor",
+            "mimeType": "image/png",
+            "encodedBytes": 460511,
+            "sha256": "ce6820a7c490e0f209b7d3912679ece9080044503da3d7612d082345d002d938"
+          },
+          {
+            "index": 2,
+            "name": "wood-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 82795,
+            "sha256": "09c98ff32f0ff35ead9aac82bb620fb07c9131d9354ce33774000e1309153188"
+          },
+          {
+            "index": 3,
+            "name": "brass-basecolor",
+            "mimeType": "image/png",
+            "encodedBytes": 34848,
+            "sha256": "afbf3b15fd829256412768fc511f20ce271e0463c89fa6d7cdde7847d1a09603"
+          },
+          {
+            "index": 4,
+            "name": "brass-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 160891,
+            "sha256": "62d5d348b9760a7542a470d805d6625131ba04d8bb780aa7734bf29490dcebcc"
+          },
+          {
+            "index": 5,
+            "name": "brass-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 172098,
+            "sha256": "ec0521473bd6a0bf89448e7298f17a293eee559e33008758adcec003d7b0e89c"
+          },
+          {
+            "index": 6,
+            "name": "leather-basecolor",
+            "mimeType": "image/png",
+            "encodedBytes": 99956,
+            "sha256": "5a7647354b86c6e603cd27372452e614dcc8d49178c78d59b2dbd55b0b7f78e8"
+          },
+          {
+            "index": 7,
+            "name": "leather-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 191591,
+            "sha256": "8dc0af569455482bd50b2b855355dd240d311da63eebd5bbe3c8b02cd6ab0696"
+          },
+          {
+            "index": 8,
+            "name": "leather-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 206962,
+            "sha256": "49db1361af155724f302b1be5037648c46047e2c4c6146340f582c0a281117c4"
+          },
+          {
+            "index": 9,
+            "name": "cloth-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 77882,
+            "sha256": "34f6b163c957f4e9a8e89f69eb2c5a2748ab994c984af216bc5f975ff189f892"
+          },
+          {
+            "index": 10,
+            "name": "cloth-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 209422,
+            "sha256": "66951e649b61a7d1d2387f895ce576048e0e232a72e637af8e5afdd90d689963"
+          }
+        ],
+        "bindings": [
+          {
+            "source": 0,
+            "sampler": 0
+          },
+          {
+            "source": 1,
+            "sampler": 0
+          },
+          {
+            "source": 2,
+            "sampler": 0
+          },
+          {
+            "source": 3,
+            "sampler": 0
+          },
+          {
+            "source": 4,
+            "sampler": 0
+          },
+          {
+            "source": 5,
+            "sampler": 0
+          },
+          {
+            "source": 6,
+            "sampler": 0
+          },
+          {
+            "source": 7,
+            "sampler": 0
+          },
+          {
+            "source": 8,
+            "sampler": 0
+          },
+          {
+            "source": 9,
+            "sampler": 0
+          },
+          {
+            "source": 10,
+            "sampler": 0
+          }
+        ],
+        "samplers": [
+          {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          }
+        ]
+      },
+      "materials": [
+        {
+          "index": 0,
+          "name": "Mint_Latex_Transmission",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 1,
+          "name": "Polished_Rapier_Steel",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 2,
+          "name": "Satin_Brass",
+          "maps": {
+            "baseColorTexture": {
+              "index": 3,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "normalTexture": {
+              "index": 5,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.45
+            },
+            "metallicRoughnessTexture": {
+              "index": 4,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 4,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.2
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 3,
+          "name": "Wrapped_Brown_Leather",
+          "maps": {
+            "baseColorTexture": {
+              "index": 6,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "normalTexture": {
+              "index": 8,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.4
+            },
+            "metallicRoughnessTexture": {
+              "index": 7,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 7,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.18
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 4,
+          "name": "Water_IOR_1.333",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 5,
+          "name": "Beech_Wood_Grain",
+          "maps": {
+            "baseColorTexture": {
+              "index": 1,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "normalTexture": {
+              "index": 0,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.3
+            },
+            "metallicRoughnessTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.2
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 6,
+          "name": "Endgrain_Joints",
+          "maps": {
+            "normalTexture": {
+              "index": 0,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.15
+            },
+            "metallicRoughnessTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.18
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 7,
+          "name": "Mint_Woven_Sash",
+          "maps": {
+            "normalTexture": {
+              "index": 9,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.4
+            },
+            "metallicRoughnessTexture": {
+              "index": 10,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 10,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.12
+            }
+          },
+          "sheen": {
+            "color": [
+              0.02500000037252903,
+              0.11999999731779099,
+              0.10000000149011612
+            ],
+            "roughness": 0.82,
+            "declared": true
+          }
+        },
+        {
+          "index": 8,
+          "name": "Recessed_Steel",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 9,
+          "name": "Water_Surface_Crest",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        }
+      ],
+      "extensionsUsed": [
+        "KHR_materials_clearcoat",
+        "KHR_materials_transmission",
+        "KHR_materials_volume",
+        "KHR_materials_ior",
+        "KHR_materials_sheen"
+      ],
+      "extensionsRequired": []
+    },
+    {
+      "variant": "boss",
+      "ok": true,
+      "baseline": {
+        "file": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v2\\water-mannequin-boss.glb",
+        "bytes": 4747640,
+        "sha256": "494cc22f9ea56d6e6cb4c87b311bb9b9fb1f1a70a3e6d409ccf56921cb62c955"
+      },
+      "candidate": {
+        "file": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v3\\water-mannequin-boss.glb",
+        "bytes": 4779888,
+        "sha256": "31c02d6bcae65d13f66bb3a2157db6634045345e14e3d081a4397cb1c378fa5b"
+      },
+      "counts": {
+        "nodes": 39,
+        "skins": 1,
+        "primitives": 15,
+        "parts": 61,
+        "bones": 16,
+        "triangles": 50204,
+        "excludedTriangles": 28278,
+        "apronParts": 2,
+        "images": 11,
+        "textures": 11,
+        "materials": 10
+      },
+      "parsed": {
+        "identical": true,
+        "baselineSHA256": "31de43653330f7313e4d3af4a19407e00d34d6bf758955d5c839bf50cd44f1a1",
+        "candidateSHA256": "31de43653330f7313e4d3af4a19407e00d34d6bf758955d5c839bf50cd44f1a1"
+      },
+      "prepared": {
+        "identical": true,
+        "baselineSHA256": "0430d8f5752d6a04c4b1496bc619e217728b17de5259d1de28967902dbb63f8a",
+        "candidateSHA256": "0430d8f5752d6a04c4b1496bc619e217728b17de5259d1de28967902dbb63f8a"
+      },
+      "attributes": {
+        "positions": {
+          "identical": true,
+          "baselineSHA256": "be921fa0620c75788d474596052652af21ef13c36638c51039161b49f7109fbf",
+          "candidateSHA256": "be921fa0620c75788d474596052652af21ef13c36638c51039161b49f7109fbf"
+        },
+        "normals": {
+          "identical": true,
+          "baselineSHA256": "7cdf85f55b9793049cf4a392167d99069779e7fb16f86c19772d1ea9c3dcfb3e",
+          "candidateSHA256": "7cdf85f55b9793049cf4a392167d99069779e7fb16f86c19772d1ea9c3dcfb3e"
+        },
+        "indices": {
+          "identical": true,
+          "baselineSHA256": "8f4ca32fdded52cd27447d67523ed1300b051f8de9d24ece55b8d8d3725c3917",
+          "candidateSHA256": "8f4ca32fdded52cd27447d67523ed1300b051f8de9d24ece55b8d8d3725c3917"
+        },
+        "uv": {
+          "identical": true,
+          "baselineSHA256": "b2418c34fc05c10e9d1e0c5903b145a090b4cd245979a623a02bda5b1d70142d",
+          "candidateSHA256": "b2418c34fc05c10e9d1e0c5903b145a090b4cd245979a623a02bda5b1d70142d"
+        },
+        "uv1": {
+          "identical": true,
+          "baselineSHA256": "54a375af934d7b75438884ae751ee8d661ed40f36e028aad6298969914506ab0",
+          "candidateSHA256": "54a375af934d7b75438884ae751ee8d661ed40f36e028aad6298969914506ab0"
+        },
+        "colors": {
+          "identical": true,
+          "baselineSHA256": "54a375af934d7b75438884ae751ee8d661ed40f36e028aad6298969914506ab0",
+          "candidateSHA256": "54a375af934d7b75438884ae751ee8d661ed40f36e028aad6298969914506ab0"
+        }
+      },
+      "apron": {
+        "identical": true,
+        "baselineSHA256": "d95e715cf1fd612862aee5629702d72c66d01624cc1442d1893f8ee8b0dd85f3",
+        "candidateSHA256": "d95e715cf1fd612862aee5629702d72c66d01624cc1442d1893f8ee8b0dd85f3"
+      },
+      "retargeting": {
+        "samples": [
+          {
+            "stage": "initial",
+            "direction": -1,
+            "boss": false,
+            "partCount": 61,
+            "matrices": {
+              "identical": true,
+              "baselineSHA256": "59584f9e6f5600bb926818ade89c2e9ba441ba354c33728e77b60ac7537d1b85",
+              "candidateSHA256": "59584f9e6f5600bb926818ade89c2e9ba441ba354c33728e77b60ac7537d1b85"
+            },
+            "worldPositions": {
+              "identical": true,
+              "baselineSHA256": "4056cca30bd46860f1b50a485e0b50eb49e158f9e2e55e9969c56e6ce5bdc966",
+              "candidateSHA256": "4056cca30bd46860f1b50a485e0b50eb49e158f9e2e55e9969c56e6ce5bdc966"
+            },
+            "simulationPoseUnchanged": true
+          },
+          {
+            "stage": "simulated-control",
+            "direction": -1,
+            "boss": false,
+            "partCount": 61,
+            "matrices": {
+              "identical": true,
+              "baselineSHA256": "aa887ac80aa9f8f5db469d38fbd8da0cbedf766e7fbbf671829d87a0f42c7976",
+              "candidateSHA256": "aa887ac80aa9f8f5db469d38fbd8da0cbedf766e7fbbf671829d87a0f42c7976"
+            },
+            "worldPositions": {
+              "identical": true,
+              "baselineSHA256": "b7cb6e7aead28f0ba2274a7e87f1bec9a44d142d9d58b3b876d59bc2031fbec7",
+              "candidateSHA256": "b7cb6e7aead28f0ba2274a7e87f1bec9a44d142d9d58b3b876d59bc2031fbec7"
+            },
+            "simulationPoseUnchanged": true
+          }
+        ],
+        "allIdentical": true
+      },
+      "textures": {
+        "parserAccepted": true,
+        "images": [
+          {
+            "index": 0,
+            "name": "wood-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 95750,
+            "sha256": "b00d75577b5f431caa35f6c09543963a1d7785f613b80a6b2d1707cdcf8ffd51"
+          },
+          {
+            "index": 1,
+            "name": "wood-basecolor",
+            "mimeType": "image/png",
+            "encodedBytes": 460511,
+            "sha256": "ce6820a7c490e0f209b7d3912679ece9080044503da3d7612d082345d002d938"
+          },
+          {
+            "index": 2,
+            "name": "wood-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 82795,
+            "sha256": "09c98ff32f0ff35ead9aac82bb620fb07c9131d9354ce33774000e1309153188"
+          },
+          {
+            "index": 3,
+            "name": "brass-basecolor",
+            "mimeType": "image/png",
+            "encodedBytes": 34848,
+            "sha256": "afbf3b15fd829256412768fc511f20ce271e0463c89fa6d7cdde7847d1a09603"
+          },
+          {
+            "index": 4,
+            "name": "brass-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 160891,
+            "sha256": "62d5d348b9760a7542a470d805d6625131ba04d8bb780aa7734bf29490dcebcc"
+          },
+          {
+            "index": 5,
+            "name": "brass-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 172098,
+            "sha256": "ec0521473bd6a0bf89448e7298f17a293eee559e33008758adcec003d7b0e89c"
+          },
+          {
+            "index": 6,
+            "name": "leather-basecolor",
+            "mimeType": "image/png",
+            "encodedBytes": 99956,
+            "sha256": "5a7647354b86c6e603cd27372452e614dcc8d49178c78d59b2dbd55b0b7f78e8"
+          },
+          {
+            "index": 7,
+            "name": "leather-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 191591,
+            "sha256": "8dc0af569455482bd50b2b855355dd240d311da63eebd5bbe3c8b02cd6ab0696"
+          },
+          {
+            "index": 8,
+            "name": "leather-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 206962,
+            "sha256": "49db1361af155724f302b1be5037648c46047e2c4c6146340f582c0a281117c4"
+          },
+          {
+            "index": 9,
+            "name": "cloth-normal",
+            "mimeType": "image/png",
+            "encodedBytes": 77882,
+            "sha256": "34f6b163c957f4e9a8e89f69eb2c5a2748ab994c984af216bc5f975ff189f892"
+          },
+          {
+            "index": 10,
+            "name": "cloth-orm",
+            "mimeType": "image/png",
+            "encodedBytes": 209422,
+            "sha256": "66951e649b61a7d1d2387f895ce576048e0e232a72e637af8e5afdd90d689963"
+          }
+        ],
+        "bindings": [
+          {
+            "source": 0,
+            "sampler": 0
+          },
+          {
+            "source": 1,
+            "sampler": 0
+          },
+          {
+            "source": 2,
+            "sampler": 0
+          },
+          {
+            "source": 3,
+            "sampler": 0
+          },
+          {
+            "source": 4,
+            "sampler": 0
+          },
+          {
+            "source": 5,
+            "sampler": 0
+          },
+          {
+            "source": 6,
+            "sampler": 0
+          },
+          {
+            "source": 7,
+            "sampler": 0
+          },
+          {
+            "source": 8,
+            "sampler": 0
+          },
+          {
+            "source": 9,
+            "sampler": 0
+          },
+          {
+            "source": 10,
+            "sampler": 0
+          }
+        ],
+        "samplers": [
+          {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          }
+        ]
+      },
+      "materials": [
+        {
+          "index": 0,
+          "name": "Mint_Latex_Transmission",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 1,
+          "name": "Polished_Rapier_Steel",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 2,
+          "name": "Satin_Brass",
+          "maps": {
+            "baseColorTexture": {
+              "index": 3,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "normalTexture": {
+              "index": 5,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.45
+            },
+            "metallicRoughnessTexture": {
+              "index": 4,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 4,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.2
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 3,
+          "name": "Wrapped_Brown_Leather",
+          "maps": {
+            "baseColorTexture": {
+              "index": 6,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "normalTexture": {
+              "index": 8,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.4
+            },
+            "metallicRoughnessTexture": {
+              "index": 7,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 7,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.18
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 4,
+          "name": "Water_IOR_1.333",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 5,
+          "name": "Beech_Wood_Grain",
+          "maps": {
+            "baseColorTexture": {
+              "index": 1,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "normalTexture": {
+              "index": 0,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.3
+            },
+            "metallicRoughnessTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.2
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 6,
+          "name": "Boss_Burgundy_Woven_Cloth",
+          "maps": {
+            "normalTexture": {
+              "index": 9,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.4
+            },
+            "metallicRoughnessTexture": {
+              "index": 10,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 10,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.12
+            }
+          },
+          "sheen": {
+            "color": [
+              0.11999999731779099,
+              0.02500000037252903,
+              0.03500000014901161
+            ],
+            "roughness": 0.82,
+            "declared": true
+          }
+        },
+        {
+          "index": 7,
+          "name": "Endgrain_Joints",
+          "maps": {
+            "normalTexture": {
+              "index": 0,
+              "texCoord": 0,
+              "extensions": {},
+              "scale": 0.15
+            },
+            "metallicRoughnessTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {}
+            },
+            "occlusionTexture": {
+              "index": 2,
+              "texCoord": 0,
+              "extensions": {},
+              "strength": 0.18
+            }
+          },
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 8,
+          "name": "Recessed_Steel",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        },
+        {
+          "index": 9,
+          "name": "Water_Surface_Crest",
+          "maps": {},
+          "sheen": {
+            "color": [
+              0,
+              0,
+              0
+            ],
+            "roughness": 0,
+            "declared": false
+          }
+        }
+      ],
+      "extensionsUsed": [
+        "KHR_materials_clearcoat",
+        "KHR_materials_transmission",
+        "KHR_materials_volume",
+        "KHR_materials_ior",
+        "KHR_materials_sheen"
+      ],
+      "extensionsRequired": []
+    }
+  ]
+}

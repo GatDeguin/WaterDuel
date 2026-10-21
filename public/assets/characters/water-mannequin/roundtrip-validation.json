@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "roundtrip_meshes": 15,
+  "bones": 18,
+  "head_test_rotation_radians": 0.25,
+  "head_max_displacement_metres": 0.16432151649154955,
+  "body_max_displacement_metres": 0.0,
+  "note": "GLB imported independently; head deforms with its bone; wooden body stays rigid."
+}

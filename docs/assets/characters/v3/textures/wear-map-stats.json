@@ -1,0 +1,325 @@
+{
+  "generator": "scripts/create-character-wear-v3.py",
+  "seed": 431907,
+  "resolution": 512,
+  "materials_renamed": false,
+  "geometry_modified": false,
+  "technique": "Periodic procedural PBR data; no generated imagery, letters, baked lights or global shadows.",
+  "usage": {
+    "basecolor": "sRGB texture. Values encode complete color; use a neutral factor when replacing an existing flat color.",
+    "orm": "Linear non-color. R AO, G roughness, B metallic; glTF can share the image for occlusion and metallicRoughness.",
+    "normal": "Linear non-color, glTF/OpenGL +Y tangent normals; normalTexture.scale=1.",
+    "uv": "Repeat wrapping. Marks are local material wear; there is no geometry-aware curvature/AO bake."
+  },
+  "files": [
+    {
+      "file": "brass-basecolor.png",
+      "role": "basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB8",
+      "encoding": "sRGB",
+      "bytes": 34848,
+      "sha256": "afbf3b15fd829256412768fc511f20ce271e0463c89fa6d7cdde7847d1a09603",
+      "encoded_0_to_1": {
+        "min": [
+          0.396078431372549,
+          0.38823529411764707,
+          0.25098039215686274
+        ],
+        "mean": [
+          0.7064875883228532,
+          0.531253904455415,
+          0.2933208689966648
+        ],
+        "max": [
+          0.7215686274509804,
+          0.5450980392156862,
+          0.30196078431372547
+        ]
+      }
+    },
+    {
+      "file": "brass-orm.png",
+      "role": "orm",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB8",
+      "encoding": "linear data",
+      "bytes": 160891,
+      "sha256": "62d5d348b9760a7542a470d805d6625131ba04d8bb780aa7734bf29490dcebcc",
+      "encoded_0_to_1": {
+        "min": [
+          0.9372549019607843,
+          0.2823529411764706,
+          0.48627450980392156
+        ],
+        "mean": [
+          0.991690990973108,
+          0.35633745380502,
+          0.9613800198448255
+        ],
+        "max": [
+          0.9921568627450981,
+          0.5490196078431373,
+          0.9647058823529412
+        ]
+      },
+      "channels": [
+        "ambient occlusion",
+        "roughness",
+        "metallic"
+      ]
+    },
+    {
+      "file": "brass-normal.png",
+      "role": "normal",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB8",
+      "encoding": "linear data",
+      "bytes": 172098,
+      "sha256": "ec0521473bd6a0bf89448e7298f17a293eee559e33008758adcec003d7b0e89c",
+      "encoded_0_to_1": {
+        "min": [
+          0.4823529411764706,
+          0.4627450980392157,
+          1.0
+        ],
+        "mean": [
+          0.5000028273638552,
+          0.4999977859796248,
+          1.0
+        ],
+        "max": [
+          0.5176470588235295,
+          0.5411764705882353,
+          1.0
+        ]
+      },
+      "convention": "glTF tangent-space OpenGL +Y; normalized before RGB8 quantization",
+      "decoded_unit_length": {
+        "min": 1.0000153785822494,
+        "mean": 1.0001339758666772,
+        "max": 1.0033929368003918
+      },
+      "tilt_degrees_p99": 2.4802244240262294
+    },
+    {
+      "file": "leather-basecolor.png",
+      "role": "basecolor",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB8",
+      "encoding": "sRGB",
+      "bytes": 99956,
+      "sha256": "5a7647354b86c6e603cd27372452e614dcc8d49178c78d59b2dbd55b0b7f78e8",
+      "encoded_0_to_1": {
+        "min": [
+          0.3254901960784314,
+          0.18823529411764706,
+          0.11764705882352941
+        ],
+        "mean": [
+          0.35904071284370137,
+          0.2109882130349203,
+          0.13475000718083288
+        ],
+        "max": [
+          0.396078431372549,
+          0.24705882352941178,
+          0.1568627450980392
+        ]
+      }
+    },
+    {
+      "file": "leather-orm.png",
+      "role": "orm",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB8",
+      "encoding": "linear data",
+      "bytes": 191591,
+      "sha256": "8dc0af569455482bd50b2b855355dd240d311da63eebd5bbe3c8b02cd6ab0696",
+      "encoded_0_to_1": {
+        "min": [
+          0.9372549019607843,
+          0.47843137254901963,
+          0.0
+        ],
+        "mean": [
+          0.970977798165809,
+          0.5950735503556027,
+          0.0
+        ],
+        "max": [
+          0.9882352941176471,
+          0.6980392156862745,
+          0.0
+        ]
+      },
+      "channels": [
+        "ambient occlusion",
+        "roughness",
+        "metallic"
+      ]
+    },
+    {
+      "file": "leather-normal.png",
+      "role": "normal",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB8",
+      "encoding": "linear data",
+      "bytes": 206962,
+      "sha256": "49db1361af155724f302b1be5037648c46047e2c4c6146340f582c0a281117c4",
+      "encoded_0_to_1": {
+        "min": [
+          0.4666666666666667,
+          0.4627450980392157,
+          1.0
+        ],
+        "mean": [
+          0.5000021841011798,
+          0.5000024384143323,
+          1.0
+        ],
+        "max": [
+          0.5333333333333333,
+          0.5294117647058824,
+          1.0
+        ]
+      },
+      "convention": "glTF tangent-space OpenGL +Y; normalized before RGB8 quantization",
+      "decoded_unit_length": {
+        "min": 1.0000153785822494,
+        "mean": 1.0002563669549924,
+        "max": 1.0029636974451897
+      },
+      "tilt_degrees_p99": 2.3120624683919098
+    },
+    {
+      "file": "cloth-normal.png",
+      "role": "normal",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB8",
+      "encoding": "linear data",
+      "bytes": 77882,
+      "sha256": "34f6b163c957f4e9a8e89f69eb2c5a2748ab994c984af216bc5f975ff189f892",
+      "encoded_0_to_1": {
+        "min": [
+          0.48627450980392156,
+          0.4823529411764706,
+          1.0
+        ],
+        "mean": [
+          0.5000680212880729,
+          0.4999361823587175,
+          1.0
+        ],
+        "max": [
+          0.5176470588235295,
+          0.5137254901960784,
+          1.0
+        ]
+      },
+      "convention": "glTF tangent-space OpenGL +Y; normalized before RGB8 quantization",
+      "decoded_unit_length": {
+        "min": 1.0000153785822494,
+        "mean": 1.000221696682813,
+        "max": 1.0009991164156815
+      },
+      "tilt_degrees_p99": 1.9321180031204805
+    },
+    {
+      "file": "cloth-orm.png",
+      "role": "orm",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGB8",
+      "encoding": "linear data",
+      "bytes": 209422,
+      "sha256": "66951e649b61a7d1d2387f895ce576048e0e232a72e637af8e5afdd90d689963",
+      "encoded_0_to_1": {
+        "min": [
+          0.9607843137254902,
+          0.7843137254901961,
+          0.0
+        ],
+        "mean": [
+          0.9811331057110451,
+          0.8645561816649572,
+          0.0
+        ],
+        "max": [
+          0.9882352941176471,
+          0.9568627450980393,
+          0.0
+        ]
+      },
+      "channels": [
+        "ambient occlusion",
+        "roughness",
+        "metallic"
+      ]
+    }
+  ],
+  "brass": {
+    "linear_base_color": [
+      0.46,
+      0.245,
+      0.07
+    ],
+    "machining_direction": "horizontal U / circumferential tool passes",
+    "patina_coverage_above_0_15": 0.01230621337890625,
+    "metallic_coverage_below_0_90": 0.012722015380859375,
+    "roughness_range_unquantized": [
+      0.2820138495455037,
+      0.55
+    ],
+    "normal_strength_used_in_generator": 0.95
+  },
+  "leather": {
+    "linear_base_color": [
+      0.105,
+      0.036,
+      0.016
+    ],
+    "grain_cells_per_tile": 81,
+    "stitch_count_per_seam": 32,
+    "wear_style": "Mild lighter contact areas, no exposed-white damage.",
+    "roughness_range_unquantized": [
+      0.47995747378606335,
+      0.696645430964004
+    ]
+  },
+  "cloth": {
+    "basecolor": "Not generated; preserve the existing material color.",
+    "weave_threads_per_tile": [
+      128,
+      128
+    ],
+    "dust_is_roughness_only": true,
+    "roughness_range_unquantized": [
+      0.7857924561069257,
+      0.9568627450980393
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "file": "workshop-runtime-v2.glb",
+  "sha256": "cec471597e48f5df50d23a2b7c894d01c44bce4402c607d6b001e7dd8d8d99b5",
+  "bytes": 40565764,
+  "triangles": 355284,
+  "groups": 36,
+  "sourceSha256": "2e92513be1f17a2e2d5cc357dddc8cd8d0e1dd62abbde226f4ec09c3a717b755",
+  "v1Sha256": "1eb31ceef5913e3cce87cdc4397b5223ad678028957933de78e9b930c950c66d",
+  "sourcePreserved": true,
+  "seconds": 8.997854232788086,
+  "ready": true,
+  "validation": {
+    "parser": "verification-v2.json",
+    "reimport": "reimport-verification-v2.json",
+    "visuallyInspected": true,
+    "completedAt": "2026-10-18T02:43:19.034Z"
+  }
+}

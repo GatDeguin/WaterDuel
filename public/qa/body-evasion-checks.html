@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QA aislada · postura y esquiva</title><link rel="stylesheet" href="/controller.css"><style>
+body{margin:0;padding:0;background:#101b17;color:#ebe4ce;font:13px system-ui}.qa-heading{padding:10px 18px;border-bottom:1px solid #a38a5655;background:#1c2a20}.qa-heading h1{margin:0 0 4px;font-size:16px}.qa-heading p{margin:3px 0;color:#c7cbb7;font-size:11px}.qa-scene{display:block;width:100%;height:max(240px,calc(100dvh - 310px));background:#111b18}.qa-controls{max-width:760px;margin:auto;padding:10px 18px}.qa-actions{display:flex;align-items:center;gap:9px;margin-bottom:8px}.qa-actions button{min-height:38px;padding:7px 16px;border:1px solid #a38a56;border-radius:3px;background:#2b3b29;color:#f3e6bf;font:700 12px system-ui}.qa-actions button:disabled{opacity:.45}.qa-actions output{color:#cfbd8d;font-size:11px}.qa-controls .pads{gap:24px}.qa-controls .pad-frame{height:136px}.qa-controls .pad-heading{min-height:26px;margin-bottom:4px}.qa-controls .pad-value{min-height:20px;padding-top:5px}.qa-controls .pad-directions{padding-top:5px}.qa-controls .pad-group{min-width:0}.qa-evidence{padding:8px 18px 18px}.qa-evidence summary{cursor:pointer;color:#d4c18e}.qa-evidence pre{white-space:pre-wrap;overflow-wrap:anywhere;font:11px/1.5 monospace;color:#c7d7ca}.pad-frame[aria-disabled="true"]{opacity:.55}.qa-instructions{margin:6px 0 0;color:#b8c5b7;font-size:11px;line-height:1.4}@media(max-width:450px){.qa-controls{padding-inline:12px}.qa-controls .pads{gap:12px}.qa-heading{padding-inline:12px}.qa-actions{flex-wrap:wrap}.qa-scene{height:280px}}
+</style></head><body>
+<header class="qa-heading"><h1>QA AISLADA · POSTURA Y ESQUIVA</h1><p>Host, física y renderer reales en una partida local independiente. Sin sesión LAN ni transporte; no acredita Wi-Fi, sensores ni vibración de teléfonos.</p><p id="assetStatus" role="status">Cargando recursos del taller…</p></header>
+<canvas class="qa-scene" id="scene" aria-label="Arena local de prueba de postura"></canvas>
+<section class="qa-controls" aria-label="Controles locales de J1">
+ <div class="qa-actions"><button id="prepare">Preparación</button><button id="start" disabled>Iniciar local</button><output id="phaseStatus" aria-live="polite">PREPARACIÓN</output></div>
+ <div class="qa-actions" aria-label="Acciones explícitas de inspección local"><button id="holdCrouch" disabled>Sostener abajo (prueba)</button><button id="inspectFeint" disabled>Finta y pausar al pico (prueba)</button><button id="centerInspection" disabled>Centrar / reanudar</button></div>
+ <p class="qa-instructions" id="inspectionNote" role="status">Inspección desactivada. Estas acciones locales usan los mismos controles y el motor físico.</p>
+ <div class="pads">
+  <div class="pad-group"><div class="pad-heading"><span class="pad-index">01</span><div><strong>MOVIMIENTO · J1</strong><small>DISTANCIA · POSTURA · FINTA</small></div></div><div class="pad-frame movement-pad" id="offPad" tabindex="0" role="application" aria-label="Izquierda aleja, derecha acerca, abajo agacharse y arriba finta al fondo" aria-describedby="instructions offPadValue"><div class="pad-guide horizontal"></div><div class="pad-guide vertical"></div><div class="pad-ring"></div><span class="movement-direction movement-direction-up" aria-hidden="true">ARRIBA · FINTA</span><span class="movement-direction movement-direction-down" aria-hidden="true">ABAJO · AGACHARSE</span><div class="pad-knob" id="offKnob"><span></span></div></div><output class="pad-value" id="offPadValue">QUIETO</output></div>
+  <div class="pad-group"><div class="pad-heading"><span class="pad-index">02</span><div><strong>ARMA · J1</strong><small>DIRECCIÓN · MUÑECA · ESTOCADA</small></div></div><div class="pad-frame weapon-pad" id="mainPad" tabindex="0" role="application" aria-label="Dirección del arma; vertical inclina muñeca" aria-describedby="instructions mainPadValue"><div class="pad-guide horizontal"></div><div class="pad-guide vertical"></div><div class="pad-ring"></div><div class="pad-knob" id="mainKnob"><span></span></div></div><output class="pad-value" id="mainPadValue">EN NEUTRO · MUÑECA 0°</output></div>
+ </div>
+ <p class="qa-instructions" id="instructions">Mandos activos sólo en combate. Izquierdo: abajo sostiene agacharse; arriba hace una finta al fondo y vuelve, centrá antes de repetir. Flechas del teclado al enfocar cada mando; Inicio/Escape centran. J2 permanece pasivo con el arma baja. Preparación reinicia esta prueba local.</p>
+</section>
+<details class="qa-evidence"><summary>Evidencia local · estado físico y presentación</summary><pre id="snapshot">Inicializando…</pre></details>
+<script type="module">
+import {HostSession} from '../host-session.js';
+import {STEP,neutral} from '../engine.js';
+import {Renderer3D} from '../render3d.js';
+import {RadialJoystick,movementGesture,weaponGesture} from '../joysticks.js';
+import {FEINT_DURATION,FEINT_PEAK_FRACTION} from '../physics/body-evasion.js';
+
+const $=id=>document.getElementById(id),widgets=[],intent={movement:{x:0,y:0},weapon:{x:0,y:0}};
+let loaded=false,focused=true,closed=false,previous=performance.now(),accumulator=0,frames=0,lastPhase='ready',renderError='',rendered=null,inspectionMode='none',inspectionPaused=false;
+const host=new HostSession({opponentSeed:1842026,onNeutralize:resetGestures}),game=host.game,renderer=new Renderer3D($('scene'));
+function enabled(){return loaded&&focused&&!closed&&!document.hidden&&!inspectionPaused&&game.phase==='fight';}
+function describe(){
+ const {x,y}=intent.movement,parts=[x?`${x>0?'ACERCARSE':'ALEJARSE'} ${Math.round(Math.abs(x)*100)}%`:'',y?`${y>0?'FINTA AL FONDO':'AGACHARSE'} ${Math.round(Math.abs(y)*100)}%`:''].filter(Boolean);
+ $('offPadValue').textContent=parts.join(' · ')||'QUIETO';
+ const weapon=weaponGesture(intent.weapon);$('mainPadValue').textContent=`${weapon.attackHeld?'ARMA EXTENDIDA':intent.weapon.x||intent.weapon.y?'APUNTANDO':'EN NEUTRO'} · MUÑECA ${Math.round(45*weapon.wrist)}°`;
+}
+function resetGestures(){
+ inspectionMode='none';inspectionPaused=false;
+ intent.movement={x:0,y:0};intent.weapon={x:0,y:0};for(const widget of widgets)widget.reset({notify:false});describe();
+}
+for(const [padId,knobId,key] of [['offPad','offKnob','movement'],['mainPad','mainKnob','weapon']])widgets.push(new RadialJoystick({element:$(padId),knob:$(knobId),enabled,onChange:value=>{inspectionMode='none';intent[key]=value;describe();}}));
+function command(name,value){
+ resetGestures();accumulator=0;
+ const answer=host.handleCommand({type:'command',requestId:frames+1,sentAt:Date.now(),command:name,...(value===undefined?{}:{value})});
+ refresh();return answer;
+}
+const point=p=>p?{x:p.x,y:p.y,z:p.z??0}:null;
+function snapshot(){
+ return {scope:'QA aislada: host, motor y renderer reales; sin teléfonos ni partida anfitriona.',transport:'none',phase:game.phase,phaseClock:game.phaseClock,clock:game.clock,mode:game.mode,
+  inspectionMode,paused:inspectionPaused||!focused||document.hidden||closed,scores:[...game.scores],intent:{movement:{...intent.movement},weapon:{...intent.weapon}},
+  fighters:game.fighters.map((f,index)=>({slot:f.slot,passive:f.rig.passive,control:{...neutral(),bodyY:0,attackHeld:false,...f.controller},evasion:f.evasion?{...f.evasion}:null,
+   pelvis:point(f.pose.hip),head:point(f.pose.head),feet:{front:point(f.pose.footF),back:point(f.pose.footB)},
+   water:{initial:f.fluid.initialVolume,retained:f.fluid.retainedVolume,released:f.fluid.releasedVolume,count:f.fluid.particles.length,origin:point(f.fluid.origin)},
+   membrane:{support:point(f.membrane.support),targetSupport:point(f.membrane.targetSupport),attached:f.membrane.attached,punctured:f.membrane.punctured,nodes:f.membrane.nodes.length,steps:f.membrane.steps},
+   rendered:rendered?.fighters[index]?{pelvis:point(rendered.fighters[index].pose.hip),head:point(rendered.fighters[index].pose.head)}:null})),
+  assets:{loading:renderer.assetStatus.loading,ready:renderer.assetStatus.ready,total:renderer.assetStatus.total,names:[...renderer.assetStatus.names],errors:[...renderer.assetStatus.errors]},
+  rendering:{draws:renderer.stats.draws,triangles:renderer.stats.triangles,camera:renderer.stats.camera},renderError,
+  viewport:{width:$('scene').width,height:$('scene').height}};
+}
+function refresh(){
+ $('phaseStatus').textContent=({ready:'PREPARACIÓN',countdown:`PREPARADOS · ${game.count}`,fight:'COMBATE · J2 PASIVO',burst:'ROTURA FÍSICA',matchover:'FIN DE PRUEBA'})[game.phase]||game.phase;
+ if(inspectionPaused)$('phaseStatus').textContent='INSPECCIÓN · FINTA EN EL PICO · PAUSA FÍSICA';
+ $('inspectionNote').textContent=inspectionMode==='hold-crouch'?'PRUEBA: intención abajo sostenida mediante el mando. Centrar cancela la intención.':inspectionMode==='feint-to-peak'?'PRUEBA: el motor está resolviendo una finta. El scheduler se pausará al alcanzar el pico.':inspectionMode==='feint-peak'?'PRUEBA EN PAUSA: pose física resuelta al pico de la finta; no es un desplazamiento de render. Centrar / reanudar devuelve el mando a cero y continúa.':'Inspección desactivada. Estas acciones locales usan los mismos controles y el motor físico.';
+ $('start').disabled=!loaded||!['ready','matchover'].includes(game.phase);
+ $('holdCrouch').disabled=!enabled();$('inspectFeint').disabled=!enabled();$('centerInspection').disabled=!loaded||closed;
+ for(const id of ['offPad','mainPad'])$(id).setAttribute('aria-disabled',String(!enabled()));
+ $('snapshot').textContent=JSON.stringify(snapshot(),null,2);
+}
+$('prepare').addEventListener('click',()=>command('reset'));
+$('start').addEventListener('click',()=>command('start'));
+function inspect(mode,y){
+ if(!enabled())return;
+ resetGestures();widgets[0].apply({x:0,y});inspectionMode=mode;refresh();
+}
+$('holdCrouch').addEventListener('click',()=>inspect('hold-crouch',-1));
+$('inspectFeint').addEventListener('click',()=>inspect('feint-to-peak',1));
+$('centerInspection').addEventListener('click',()=>{resetGestures();accumulator=0;host.neutralize();refresh();});
+command('setMode','versus');command('setLoadout',{slot:2,weapon:'sword',defense:'none'});
+renderer.loadAssets(status=>{
+ loaded=!status.loading;$('assetStatus').textContent=`${status.ready}/${status.total} recursos · ${status.loading?'cargando':'carga terminada'}${status.errors.length?' · '+status.errors.join(' '):''}`;refresh();
+}).catch(error=>{renderError=String(error.message??error).slice(0,200);$('assetStatus').textContent='La carga de recursos falló; revisá la evidencia local.';refresh();});
+function animate(now){
+ if(closed)return;requestAnimationFrame(animate);
+ const dt=Math.max(0,Math.min(.085,(now-previous)/1000));previous=now;
+ const paused=inspectionPaused||!focused||document.hidden;accumulator=paused?0:accumulator+dt;let steps=0;
+ while(accumulator>=STEP&&steps<10){
+  const active=enabled();
+  game.setControl(1,active?{...neutral(),...movementGesture(intent.movement),...weaponGesture(intent.weapon)}:neutral());
+  game.setControl(2,active?{...neutral(),mainX:-1,mainY:-1,attackHeld:false}:neutral());
+  host.update(STEP);accumulator-=STEP;steps++;
+  if(inspectionMode==='feint-to-peak'&&game.phase==='fight'&&game.fighters[0].evasion?.age>=FEINT_DURATION*FEINT_PEAK_FRACTION){
+   // Pause only the isolated QA scheduler after a solved physical step. The
+   // rendered pose, scores and physical clock are never assigned for inspection.
+   inspectionMode='feint-peak';inspectionPaused=true;accumulator=0;refresh();break;
+  }
+ }
+ if(steps===10)accumulator=0;
+ if(lastPhase!==game.phase){lastPhase=game.phase;resetGestures();refresh();}
+ const view=host.renderState(paused||inspectionPaused?0:dt,accumulator);rendered=view.scene;
+ try{renderer.render(view.scene,view.time);}catch(error){renderError=String(error.message??error).slice(0,200);closed=true;renderer.dispose();refresh();return;}
+ if(++frames%15===0)refresh();
+}
+function pause(){resetGestures();accumulator=0;host.neutralize();refresh();}
+addEventListener('blur',()=>{focused=false;pause();});addEventListener('focus',()=>{focused=true;pause();});
+addEventListener('resize',pause);addEventListener('orientationchange',pause);
+document.addEventListener('visibilitychange',pause);
+addEventListener('pagehide',()=>{closed=true;pause();renderer.dispose();});
+addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
+refresh();requestAnimationFrame(animate);
+</script></body></html>

@@ -1,0 +1,170 @@
+{
+  "date": "2026-10-17",
+  "status": "stable",
+  "glbValidation": "7/7",
+  "parserSelfTests": "25/25",
+  "blenderRoundtrip": "7/7",
+  "runtimeIntegrated": false,
+  "files": [
+    {
+      "path": "docs/assets/equipment/textures/Workshop_Beech_BaseColor.png",
+      "bytes": 347591,
+      "sha256": "5573a36f28524645b123f93c1abe427c6436c3acc082ae8ee2934dad02801bc5"
+    },
+    {
+      "path": "docs/assets/equipment/textures/Workshop_Beech_Normal.png",
+      "bytes": 453144,
+      "sha256": "013fced9b6afb39c8b9d88859a764fbabbc813400586d8696a6e7661687f24d9"
+    },
+    {
+      "path": "docs/assets/equipment/textures/Workshop_BrushedSteel_Normal.png",
+      "bytes": 292747,
+      "sha256": "a712437435af62e7a794bbccb7059bcfe2066e9cd5011bd3a651e6448cb9d56c"
+    },
+    {
+      "path": "docs/assets/equipment/textures/Workshop_Leather_BaseColor.png",
+      "bytes": 379106,
+      "sha256": "e1c9ec7f6256ac5fe93cdce00980e9918474365a60f0b639d1ee8f503c5f04fd"
+    },
+    {
+      "path": "docs/assets/equipment/textures/Workshop_Leather_Normal.png",
+      "bytes": 485233,
+      "sha256": "49939b16b7fe93170ba7d8cc42b0047e29d7df38f0f736a1ae9e0a6567e8cfd2"
+    },
+    {
+      "path": "docs/assets/equipment/workshop-arsenal.blend",
+      "bytes": 2461074,
+      "sha256": "c7a1b285778c383620f81257f490d9af130f4834970cbb01ed86fe70a0a3aa3e"
+    },
+    {
+      "path": "docs/ENTREGA_EQUIPAMIENTO_3D.md",
+      "bytes": 5163,
+      "sha256": "d561d36a770b79e8b23fb53fd86f6bbf270ca06dd5e302f84c3c86f9f248beaa"
+    },
+    {
+      "path": "public/assets/equipment/workshop/asset-contract.json",
+      "bytes": 15047,
+      "sha256": "e6b97b6f897ffd33222b36f9f74a7e92cd72b2614b7031d3d0acf139cdaad12a"
+    },
+    {
+      "path": "public/assets/equipment/workshop/axe.glb",
+      "bytes": 2300848,
+      "sha256": "f13a68cb96ce09af4949e0c02180308e1073ca25d9ea95d96fbef42a5e50a388"
+    },
+    {
+      "path": "public/assets/equipment/workshop/knife.glb",
+      "bytes": 2191236,
+      "sha256": "fd5d5bf2ffbbbd9e54b68ae18a7d3790e5c544568580d1d4a89eb4254ed12f24"
+    },
+    {
+      "path": "public/assets/equipment/workshop/long.glb",
+      "bytes": 2963816,
+      "sha256": "5f4fb363f5dff00cb55b98da5e4c9a5cccede09f3e628ff4b082dff127785acc"
+    },
+    {
+      "path": "public/assets/equipment/workshop/maul.glb",
+      "bytes": 2515040,
+      "sha256": "b2c04159e2c44977e28ec9724e5c135cca4d8a6bc6ecfcb2dc86731d2cd4ad7f"
+    },
+    {
+      "path": "public/assets/equipment/workshop/previews/axe.png",
+      "bytes": 760923,
+      "sha256": "bdf4c8e831d0f9e816908535d0c08addab8340e840a813c4f6e2aa98a213d440"
+    },
+    {
+      "path": "public/assets/equipment/workshop/previews/knife.png",
+      "bytes": 766045,
+      "sha256": "dbd3073375d29d4ba356dd884a0c2bedb10b885bf477fea9e7ad617ba988c624"
+    },
+    {
+      "path": "public/assets/equipment/workshop/previews/long.png",
+      "bytes": 964248,
+      "sha256": "e00e2ee7ea7640256a7cf97ba0341e46bd339f43d1efcc4185ad2fac06a0dd20"
+    },
+    {
+      "path": "public/assets/equipment/workshop/previews/maul.png",
+      "bytes": 776509,
+      "sha256": "ae8adde32373ead96a0501fd6c114445d0fc45c1a52c510f1d986bb268de781f"
+    },
+    {
+      "path": "public/assets/equipment/workshop/previews/short.png",
+      "bytes": 1113720,
+      "sha256": "c3e91531b2a43411051a5c20c786b563cdb84fd1e7b4c9ce41b6f3131b5a0765"
+    },
+    {
+      "path": "public/assets/equipment/workshop/previews/spear.png",
+      "bytes": 733010,
+      "sha256": "e488cb095a97fb686277ecf08c330d44a3ea3e60110aaaac7b15e2bfff850f8c"
+    },
+    {
+      "path": "public/assets/equipment/workshop/previews/sword.png",
+      "bytes": 740263,
+      "sha256": "c8eb43b5dd8d836d7895ccb92f48e9fec81da3fbba5f75c723d3661838abd77a"
+    },
+    {
+      "path": "public/assets/equipment/workshop/roundtrip-validation.json",
+      "bytes": 1929,
+      "sha256": "89f7d818dcc408b2ab1bd82515aa3bb421580374e1b932a0a7686c28494d7a70"
+    },
+    {
+      "path": "public/assets/equipment/workshop/short.glb",
+      "bytes": 2818196,
+      "sha256": "6e33a1b0bc96a0fb590ca665deee7278e677dc4a730aafc26ae935f1be1e32ef"
+    },
+    {
+      "path": "public/assets/equipment/workshop/spear.glb",
+      "bytes": 2303800,
+      "sha256": "888454bf0c5b8b39e05d26c615d00ad3e84db86a0818bc2ab8f9641ed1286246"
+    },
+    {
+      "path": "public/assets/equipment/workshop/sword.glb",
+      "bytes": 1655016,
+      "sha256": "bd0b1d3e4d88abe297d47d9d6c004c436b7a5a530234654887c4e7808ff83ec7"
+    },
+    {
+      "path": "public/assets/equipment/workshop/validation.json",
+      "bytes": 16574,
+      "sha256": "ce54fb201070fcc455fd7c8dee79445b6ce7319eb9c9488f9ae3f6124e5b8ccd"
+    },
+    {
+      "path": "public/assets/equipment/workshop/workshop-arsenal-glb-preview.png",
+      "bytes": 3417238,
+      "sha256": "5495843dc417e1b0f558249f95725f840e3ea3c231581357fc892fc344c47eaf"
+    },
+    {
+      "path": "public/assets/equipment/workshop/workshop-arsenal-preview.png",
+      "bytes": 3417238,
+      "sha256": "5495843dc417e1b0f558249f95725f840e3ea3c231581357fc892fc344c47eaf"
+    },
+    {
+      "path": "scripts/create-workshop-equipment.py",
+      "bytes": 12443,
+      "sha256": "d2b993fbf82676db703d79212f293a88d7784b8729439837284c052cd305e7f8"
+    },
+    {
+      "path": "scripts/equipment_common.py",
+      "bytes": 11489,
+      "sha256": "3b760a8ad5b8b1f84e77f10fe0ce58735d300e2faf49206d6382886c94ce908f"
+    },
+    {
+      "path": "scripts/equipment_defenses.py",
+      "bytes": 16940,
+      "sha256": "321577af9303fce641d6e6451132664e756bfb2670c34c5ee0907fb035f30f96"
+    },
+    {
+      "path": "scripts/equipment_weapons.py",
+      "bytes": 15500,
+      "sha256": "0874a593241aad162795475298fc274bdbb5e026ae8ae02cf5e0db8749dd07a1"
+    },
+    {
+      "path": "scripts/inspect-workshop-roundtrip.py",
+      "bytes": 5066,
+      "sha256": "91a6e890b2533d8be756bf5ef63fbdda7b4d12db0bed2e643bace9e276aef5ef"
+    },
+    {
+      "path": "scripts/validate-workshop-equipment.mjs",
+      "bytes": 26439,
+      "sha256": "b9cda9a84cec1be0c2f45801cb0fac3621e230aab443c2865cb1f23a03ca0286"
+    }
+  ]
+}

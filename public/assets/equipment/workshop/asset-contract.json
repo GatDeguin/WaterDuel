@@ -1,0 +1,602 @@
+{
+  "version": 1,
+  "asset_set": "WaterDuel · Piezas del taller",
+  "date": "2026-10-17",
+  "references": [
+    "docs/referencias/w1.png",
+    "docs/referencias/w2.png",
+    "docs/referencias/w3.png",
+    "docs/referencias/w4.png"
+  ],
+  "source": "docs/assets/equipment/workshop-arsenal.blend",
+  "author_script": "scripts/create-workshop-equipment.py",
+  "source_axes": {
+    "across": "+X",
+    "front": "-Y",
+    "long_axis": "+Z",
+    "units": "metres",
+    "origin": "hand grip centre"
+  },
+  "glb_axes": {
+    "across": "+X",
+    "front": "+Z",
+    "long_axis": "+Y",
+    "units": "metres",
+    "conversion": "(x,y,z) source -> (x,z,-y) glTF"
+  },
+  "attachment": {
+    "primary": "Align GLB +Y with tip-mainHand; attach Socket_Grip_Main to character Socket_MainHand.",
+    "secondary": "Attach Socket_Grip_Secondary to character Socket_SecondaryHand; shield front GLB +Z.",
+    "maul": "Both hands required; secondary grip local GLB (0,-0.22,0). Hide shield/dagger.",
+    "knife": "Secondary parry only; do not equip as primary or award an independent attack.",
+    "none": "Intentional absence of a model and collider; no none.glb.",
+    "character_preview": "Hide character nodes Preview_Rapier_* before attaching a primary asset.",
+    "character_contract": "public/assets/characters/water-mannequin/rig-contract.json"
+  },
+  "collision": {
+    "authority": "public/equipment.js and physical rig remain authoritative; render meshes never become colliders automatically.",
+    "weapons": "Socket_Strike marks nominal rest contact reach; broad axe/maul head edges are documented separately from decorative bevels.",
+    "shields": "Nominal short radius .23; long radii .22/.36; active guard scaling follows current engine catalog.",
+    "scale": "World metres are authored scale; compare grip-to-strike length before retargeting character."
+  },
+  "rendering": {
+    "materials": "glTF metallic-roughness PBR; embedded basecolor and tangent normal textures; dynamic lighting",
+    "textures": "512px shared sources, embedded in each self-contained GLB",
+    "optimization": "Evaluated geometry joined per asset, duplicate material slots consolidated, static rigid models; no external decoder required.",
+    "compression": "No Draco/Meshopt runtime dependency added. GLB uses uncompressed indexed triangles.",
+    "lod": "Single detailed tier; existing procedural geometry remains available as low-cost fallback."
+  },
+  "runtime_integrated": false,
+  "assets": [
+    {
+      "id": "sword",
+      "label": "Estoque del taller",
+      "role": "primary",
+      "file": "sword.glb",
+      "triangles": 12566,
+      "source_parts": 55,
+      "materials": [
+        "WD_steel_dark",
+        "WD_leather",
+        "WD_leather_edge",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_steel"
+      ],
+      "bytes": 1655016,
+      "sha256": "bd0b1d3e4d88abe297d47d9d6c004c436b7a5a530234654887c4e7808ff83ec7",
+      "sockets": [
+        {
+          "name": "Socket_Grip_Main",
+          "position_source": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_glb": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Strike",
+          "position_source": [
+            0.0,
+            0.0,
+            1.0199999809265137
+          ],
+          "position_glb": [
+            0.0,
+            1.0199999809265137,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Base",
+          "position_source": [
+            0.0,
+            0.0,
+            0.17000000178813934
+          ],
+          "position_glb": [
+            0.0,
+            0.17000000178813934,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Tip",
+          "position_source": [
+            0.0,
+            0.0,
+            1.0199999809265137
+          ],
+          "position_glb": [
+            0.0,
+            1.0199999809265137,
+            -0.0
+          ]
+        }
+      ],
+      "source_bounds": {
+        "min": [
+          -0.14936821162700653,
+          -0.1151999980211258,
+          -0.20800000429153442
+        ],
+        "max": [
+          0.14500001072883606,
+          0.1151999980211258,
+          1.0199999809265137
+        ]
+      }
+    },
+    {
+      "id": "spear",
+      "label": "Aguja de presión",
+      "role": "primary",
+      "file": "spear.glb",
+      "triangles": 10190,
+      "source_parts": 37,
+      "materials": [
+        "WD_wood",
+        "WD_leather",
+        "WD_leather_edge",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_steel_dark",
+        "WD_steel"
+      ],
+      "bytes": 2303800,
+      "sha256": "888454bf0c5b8b39e05d26c615d00ad3e84db86a0818bc2ab8f9641ed1286246",
+      "sockets": [
+        {
+          "name": "Socket_Grip_Main",
+          "position_source": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_glb": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Strike",
+          "position_source": [
+            0.0,
+            0.0,
+            1.350000023841858
+          ],
+          "position_glb": [
+            0.0,
+            1.350000023841858,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Base",
+          "position_source": [
+            0.0,
+            0.0,
+            0.17000000178813934
+          ],
+          "position_glb": [
+            0.0,
+            0.17000000178813934,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Tip",
+          "position_source": [
+            0.0,
+            0.0,
+            1.350000023841858
+          ],
+          "position_glb": [
+            0.0,
+            1.350000023841858,
+            -0.0
+          ]
+        }
+      ],
+      "source_bounds": {
+        "min": [
+          -0.07100000232458115,
+          -0.03579999879002571,
+          -0.284000039100647
+        ],
+        "max": [
+          0.07100000232458115,
+          0.03579999879002571,
+          1.350000023841858
+        ]
+      }
+    },
+    {
+      "id": "axe",
+      "label": "Hacha del carpintero",
+      "role": "primary",
+      "file": "axe.glb",
+      "triangles": 9270,
+      "source_parts": 37,
+      "materials": [
+        "WD_wood",
+        "WD_leather",
+        "WD_leather_edge",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_steel_dark",
+        "WD_steel",
+        "WD_wood_light"
+      ],
+      "bytes": 2300848,
+      "sha256": "f13a68cb96ce09af4949e0c02180308e1073ca25d9ea95d96fbef42a5e50a388",
+      "sockets": [
+        {
+          "name": "Socket_Grip_Main",
+          "position_source": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_glb": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Strike",
+          "position_source": [
+            0.0,
+            0.0,
+            0.9200000166893005
+          ],
+          "position_glb": [
+            0.0,
+            0.9200000166893005,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Base",
+          "position_source": [
+            0.0,
+            0.0,
+            0.17000000178813934
+          ],
+          "position_glb": [
+            0.0,
+            0.17000000178813934,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Tip",
+          "position_source": [
+            0.0,
+            0.0,
+            0.9200000166893005
+          ],
+          "position_glb": [
+            0.0,
+            0.9200000166893005,
+            -0.0
+          ]
+        }
+      ],
+      "source_bounds": {
+        "min": [
+          -0.15112508833408356,
+          -0.0649000033736229,
+          -0.29649999737739563
+        ],
+        "max": [
+          0.30239999294281006,
+          0.0649000033736229,
+          0.9200000762939453
+        ]
+      }
+    },
+    {
+      "id": "maul",
+      "label": "Mazo de bancada",
+      "role": "primary",
+      "file": "maul.glb",
+      "triangles": 17308,
+      "source_parts": 76,
+      "materials": [
+        "WD_wood",
+        "WD_leather",
+        "WD_leather_edge",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_wood_dark",
+        "WD_wood_light",
+        "WD_steel",
+        "WD_steel_dark",
+        "WD_enamel_black"
+      ],
+      "bytes": 2515040,
+      "sha256": "b2c04159e2c44977e28ec9724e5c135cca4d8a6bc6ecfcb2dc86731d2cd4ad7f",
+      "sockets": [
+        {
+          "name": "Socket_Grip_Main",
+          "position_source": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_glb": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Strike",
+          "position_source": [
+            0.0,
+            0.0,
+            1.0800000429153442
+          ],
+          "position_glb": [
+            0.0,
+            1.0800000429153442,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Base",
+          "position_source": [
+            0.0,
+            0.0,
+            0.17000000178813934
+          ],
+          "position_glb": [
+            0.0,
+            0.17000000178813934,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Tip",
+          "position_source": [
+            0.0,
+            0.0,
+            1.0800000429153442
+          ],
+          "position_glb": [
+            0.0,
+            1.0800000429153442,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Grip_Secondary",
+          "position_source": [
+            0.0,
+            0.0,
+            -0.2199999988079071
+          ],
+          "position_glb": [
+            0.0,
+            -0.2199999988079071,
+            -0.0
+          ]
+        }
+      ],
+      "source_bounds": {
+        "min": [
+          -0.2824999988079071,
+          -0.17500001192092896,
+          -0.42900002002716064
+        ],
+        "max": [
+          0.2824999988079071,
+          0.17500001192092896,
+          1.0800000429153442
+        ]
+      }
+    },
+    {
+      "id": "short",
+      "label": "Broquel de latón",
+      "role": "secondary",
+      "file": "short.glb",
+      "triangles": 19932,
+      "source_parts": 92,
+      "materials": [
+        "WD_wood_light",
+        "WD_wood",
+        "WD_steel",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_steel_dark",
+        "WD_wood_dark",
+        "WD_leather",
+        "WD_leather_edge"
+      ],
+      "bytes": 2818196,
+      "sha256": "6e33a1b0bc96a0fb590ca665deee7278e677dc4a730aafc26ae935f1be1e32ef",
+      "sockets": [
+        {
+          "name": "Socket_Grip_Secondary",
+          "position_source": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_glb": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_DefenseCenter",
+          "position_source": [
+            0.0,
+            -0.05999999865889549,
+            0.0
+          ],
+          "position_glb": [
+            0.0,
+            0.0,
+            0.05999999865889549
+          ]
+        }
+      ],
+      "source_bounds": {
+        "min": [
+          -0.23000000417232513,
+          -0.1546926349401474,
+          -0.23000000417232513
+        ],
+        "max": [
+          0.23000000417232513,
+          0.019999999552965164,
+          0.23000000417232513
+        ]
+      }
+    },
+    {
+      "id": "long",
+      "label": "Escudo de duelas",
+      "role": "secondary",
+      "file": "long.glb",
+      "triangles": 23380,
+      "source_parts": 144,
+      "materials": [
+        "WD_wood_light",
+        "WD_wood",
+        "WD_brass",
+        "WD_brass_dark",
+        "WD_steel_dark",
+        "WD_enamel_black",
+        "WD_wood_dark",
+        "WD_leather",
+        "WD_leather_edge"
+      ],
+      "bytes": 2963816,
+      "sha256": "5f4fb363f5dff00cb55b98da5e4c9a5cccede09f3e628ff4b082dff127785acc",
+      "sockets": [
+        {
+          "name": "Socket_Grip_Secondary",
+          "position_source": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_glb": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_DefenseCenter",
+          "position_source": [
+            0.0,
+            -0.07500000298023224,
+            0.0
+          ],
+          "position_glb": [
+            0.0,
+            0.0,
+            0.07500000298023224
+          ]
+        }
+      ],
+      "source_bounds": {
+        "min": [
+          -0.22166071832180023,
+          -0.113873191177845,
+          -0.3615841269493103
+        ],
+        "max": [
+          0.22166071832180023,
+          0.04500000178813934,
+          0.36155885457992554
+        ]
+      }
+    },
+    {
+      "id": "knife",
+      "label": "Daga de parada",
+      "role": "secondary",
+      "file": "knife.glb",
+      "triangles": 6790,
+      "source_parts": 22,
+      "materials": [
+        "WD_steel",
+        "WD_brass",
+        "WD_wood_dark",
+        "WD_leather",
+        "WD_leather_edge",
+        "WD_brass_dark",
+        "WD_steel_dark"
+      ],
+      "bytes": 2191236,
+      "sha256": "fd5d5bf2ffbbbd9e54b68ae18a7d3790e5c544568580d1d4a89eb4254ed12f24",
+      "sockets": [
+        {
+          "name": "Socket_Grip_Secondary",
+          "position_source": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_glb": [
+            0.0,
+            0.0,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_Strike",
+          "position_source": [
+            0.0,
+            0.0,
+            0.41999998688697815
+          ],
+          "position_glb": [
+            0.0,
+            0.41999998688697815,
+            -0.0
+          ]
+        },
+        {
+          "name": "Socket_BladeGuard",
+          "position_source": [
+            0.0,
+            0.0,
+            0.10000000149011612
+          ],
+          "position_glb": [
+            0.0,
+            0.10000000149011612,
+            -0.0
+          ]
+        }
+      ],
+      "source_bounds": {
+        "min": [
+          -0.09099999815225601,
+          -0.025499999523162842,
+          -0.14976175129413605
+        ],
+        "max": [
+          0.09099999815225601,
+          0.022299999371170998,
+          0.41999998688697815
+        ]
+      }
+    }
+  ]
+}

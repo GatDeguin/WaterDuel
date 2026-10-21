@@ -1,0 +1,10 @@
+:root{color-scheme:dark;background:#07191a}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+#gameCanvas{display:block;position:fixed;inset:0;width:100%;height:100%;border:0;outline:0;touch-action:none}
+#joinCodes{position:fixed;inset:0;pointer-events:none;z-index:2}
+[hidden]{display:none!important}
+.join-code{position:absolute;bottom:max(10px,env(safe-area-inset-bottom));margin:0;padding:4px 4px 3px;background:#fff;color:#17282b;border-radius:3px;box-shadow:0 2px 10px #0005;text-align:center}
+.join-code-left{left:max(10px,env(safe-area-inset-left))}
+.join-code-right{right:max(10px,env(safe-area-inset-right))}
+.join-code img{display:block;width:clamp(64px,7.5vw,96px);height:clamp(64px,7.5vw,96px);image-rendering:pixelated}
+.join-code figcaption{font:600 10px/13px system-ui,sans-serif;letter-spacing:.06em}

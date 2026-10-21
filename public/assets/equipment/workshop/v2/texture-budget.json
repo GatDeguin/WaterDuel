@@ -1,0 +1,566 @@
+{
+  "ok": true,
+  "classification": "Allocation estimate; not measured GPU memory.",
+  "generatedAt": "2026-10-18T03:14:43.548Z",
+  "directory": "D:\\2026\\WaterDuel\\public\\assets\\equipment\\workshop\\v2",
+  "method": "Actual parseGLB and SharedTextures code executed in native Node with a minimal fake GL and PNG-header decode fixture. Independent SHA-256 + MIME + normalized sampler + color/data identities must match cache allocations/refcounts.",
+  "scope": "All seven GLBs loaded simultaneously into one context-owned cache. Texture storage only; geometry buffers, driver alignment/overhead, transient decoded bitmaps, environment/character assets and render targets are excluded.",
+  "mipAccounting": "Exact complete mip-level sum and runtime ceil(baseBytes*4/3) estimates are both reported; the runtime formula overestimates a 512-square chain by 2 bytes per texture.",
+  "runtimeSharedTexturesSha256": "6b433af8d7ff11278fe8523a9d5f5a2037bb4929e83dae097a1e47320207cca2",
+  "v1ContractSha256": "e6b97b6f897ffd33222b36f9f74a7e92cd72b2614b7031d3d0acf139cdaad12a",
+  "v2ContractSha256": "441233779b61f1664c99205d6e7cf202d13fa73f193e3a00559bbb71e11875d1",
+  "sourceFrozen": true,
+  "assets": [
+    {
+      "id": "sword",
+      "sha256": "6271017c842de1e969aed8a783aaf45975daac06bce38185443e0985cb72b462",
+      "bytes": 1656348,
+      "v1Sha256": "bd0b1d3e4d88abe297d47d9d6c004c436b7a5a530234654887c4e7808ff83ec7",
+      "geometrySha256": "b82be4346afc9538e82398111523be743ac757b511bbc8629aef3c681ef3c6b3",
+      "protectedViews": 30,
+      "geometryUnchanged": true,
+      "contractAndReceiptMatch": true,
+      "triangles": 12566,
+      "textureReferences": 9,
+      "rgba8BaseBytes": 9437184,
+      "exactFullMipChainBytes": 12582900,
+      "runtimeAccountedMipBytes": 12582918
+    },
+    {
+      "id": "spear",
+      "sha256": "bd0fbc3d96dd58431774e9e6a9fb66aee63567f5190e32e56d7c17be14ba2265",
+      "bytes": 2305372,
+      "v1Sha256": "888454bf0c5b8b39e05d26c615d00ad3e84db86a0818bc2ab8f9641ed1286246",
+      "geometrySha256": "118fdced5da88c6a1580057b7997a1e043f1c744bb06124647377fedfd88fc9b",
+      "protectedViews": 34,
+      "geometryUnchanged": true,
+      "contractAndReceiptMatch": true,
+      "triangles": 10190,
+      "textureReferences": 12,
+      "rgba8BaseBytes": 12582912,
+      "exactFullMipChainBytes": 16777200,
+      "runtimeAccountedMipBytes": 16777224
+    },
+    {
+      "id": "axe",
+      "sha256": "8501511d1f13567d84ab2109b9eca31d1fb9c6c2120a58a0c4e373e06ce9900e",
+      "bytes": 2302456,
+      "v1Sha256": "f13a68cb96ce09af4949e0c02180308e1073ca25d9ea95d96fbef42a5e50a388",
+      "geometrySha256": "64ed16a24485e710dfa2535aa96f514cc656fea30e8d09f29242f210b3cfdf5e",
+      "protectedViews": 40,
+      "geometryUnchanged": true,
+      "contractAndReceiptMatch": true,
+      "triangles": 9270,
+      "textureReferences": 12,
+      "rgba8BaseBytes": 12582912,
+      "exactFullMipChainBytes": 16777200,
+      "runtimeAccountedMipBytes": 16777224
+    },
+    {
+      "id": "maul",
+      "sha256": "38f2d69a43fb1569225cc906fd1b86821670f579e33724eb28289d760f6bfcdb",
+      "bytes": 2517260,
+      "v1Sha256": "b2c04159e2c44977e28ec9724e5c135cca4d8a6bc6ecfcb2dc86731d2cd4ad7f",
+      "geometrySha256": "4c7bea33587c3a98aff5d1ef3e133d039e42ebf27cf017bf154f786b5d9d617e",
+      "protectedViews": 40,
+      "geometryUnchanged": true,
+      "contractAndReceiptMatch": true,
+      "triangles": 17308,
+      "textureReferences": 15,
+      "rgba8BaseBytes": 15728640,
+      "exactFullMipChainBytes": 20971500,
+      "runtimeAccountedMipBytes": 20971530
+    },
+    {
+      "id": "short",
+      "sha256": "25edc6dbf26852b5e41dfaa7a0ca24e320caf55710877353f1513f26e2abc8ef",
+      "bytes": 2819808,
+      "v1Sha256": "6e33a1b0bc96a0fb590ca665deee7278e677dc4a730aafc26ae935f1be1e32ef",
+      "geometrySha256": "79089051e0289c95c3b6ddaffd259e2c5170478bc83d664fe89c7a504c3b9c56",
+      "protectedViews": 44,
+      "geometryUnchanged": true,
+      "contractAndReceiptMatch": true,
+      "triangles": 19932,
+      "textureReferences": 12,
+      "rgba8BaseBytes": 12582912,
+      "exactFullMipChainBytes": 16777200,
+      "runtimeAccountedMipBytes": 16777224
+    },
+    {
+      "id": "long",
+      "sha256": "6544db41098260eacac5c906a373f176c2269cb462a24be2fa79cbf601245e6b",
+      "bytes": 2965964,
+      "v1Sha256": "5f4fb363f5dff00cb55b98da5e4c9a5cccede09f3e628ff4b082dff127785acc",
+      "geometrySha256": "38e341a2d5ccd6e9e2aba9114f7f250770fb73e9e008760d48a63ce2002224ae",
+      "protectedViews": 45,
+      "geometryUnchanged": true,
+      "contractAndReceiptMatch": true,
+      "triangles": 23380,
+      "textureReferences": 15,
+      "rgba8BaseBytes": 15728640,
+      "exactFullMipChainBytes": 20971500,
+      "runtimeAccountedMipBytes": 20971530
+    },
+    {
+      "id": "knife",
+      "sha256": "e7460d37d54c5ea2f1396095bf9257cfc79c62505b67be159bceafe810534b21",
+      "bytes": 2192788,
+      "v1Sha256": "fd5d5bf2ffbbbd9e54b68ae18a7d3790e5c544568580d1d4a89eb4254ed12f24",
+      "geometrySha256": "2410e37b9016c1a4e19a33ec0db430aa5acf0aff3106806e636269f0d63db993",
+      "protectedViews": 34,
+      "geometryUnchanged": true,
+      "contractAndReceiptMatch": true,
+      "triangles": 6790,
+      "textureReferences": 12,
+      "rgba8BaseBytes": 12582912,
+      "exactFullMipChainBytes": 16777200,
+      "runtimeAccountedMipBytes": 16777224
+    }
+  ],
+  "withoutSharing": {
+    "textureVariants": 87,
+    "rgba8BaseBytes": 91226112,
+    "exactFullMipChainBytes": 121634700,
+    "runtimeAccountedMipBytes": 121634874
+  },
+  "shared": {
+    "textureReferences": 87,
+    "uniquePngHashes": 15,
+    "uniqueRecords": 15,
+    "uniqueTextureVariants": 15,
+    "decodeCalls": 15,
+    "bitmapCloses": 15,
+    "rgba8BaseBytes": 15728640,
+    "exactFullMipChainBytes": 20971500,
+    "runtimeAccountedMipBytes": 20971530,
+    "createdTextures": 15,
+    "uploadCalls": 15,
+    "identities": [
+      {
+        "sha256": "2cbdcf878dbca60d08700fcb390c28bfb17fc07aa3e4b13e6a7b6aac648a6c62",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "color",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 7,
+        "assets": [
+          "sword",
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_steel_BaseColor"
+        ]
+      },
+      {
+        "sha256": "67d16f40381168049723d122e2377a76c301039c8919c9f2d92fe8a69b197945",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "data",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 7,
+        "assets": [
+          "sword",
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_steel_Normal"
+        ]
+      },
+      {
+        "sha256": "0b803e91ba3f24644c4364d1a612eab4ca8a2aec539201e43771a69a7b1d409c",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "data",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 7,
+        "assets": [
+          "sword",
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_steel_ORM"
+        ]
+      },
+      {
+        "sha256": "9f2d86edbdd27a87712de174e52cfd17d13a11a82902f9c3623ccd0bc57acee5",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "color",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 7,
+        "assets": [
+          "sword",
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_leather_BaseColor"
+        ]
+      },
+      {
+        "sha256": "e207773159693c888662631705634b0837b9322ea2c05e4d7b7107fd096c7b24",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "data",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 7,
+        "assets": [
+          "sword",
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_leather_Normal"
+        ]
+      },
+      {
+        "sha256": "39d90650c17630f9643c24222348cbc508d8d54308e698760e9e584fb761e84f",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "data",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 7,
+        "assets": [
+          "sword",
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_leather_ORM"
+        ]
+      },
+      {
+        "sha256": "f2b16f577986b608b87d8088e439236e30efda4d3b5dc21692f654d96b2be621",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "color",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 7,
+        "assets": [
+          "sword",
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_leather_edge_BaseColor"
+        ]
+      },
+      {
+        "sha256": "0881da9b1cd12c7b54cf7654c62af8457b008eb9446f3cfba6b25834b04a5ce2",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "color",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 7,
+        "assets": [
+          "sword",
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_brass_BaseColor"
+        ]
+      },
+      {
+        "sha256": "ed9f62863c415e9228f772fe86b802b35173e329be091226e4f2d68745c65a0e",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "data",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 7,
+        "assets": [
+          "sword",
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_brass_ORM"
+        ]
+      },
+      {
+        "sha256": "45d2ace4e8bc3799f07ce9b3a2351cd49d53bd35bbe06e9d670346888c86a578",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "color",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 6,
+        "assets": [
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_wood_BaseColor"
+        ]
+      },
+      {
+        "sha256": "9c0a516051edf33fbbbce2799e7851f4050e424ed0ba18fa2f2186bd682c09db",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "data",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 6,
+        "assets": [
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_wood_Normal"
+        ]
+      },
+      {
+        "sha256": "7e63eacb216e0dab9d9d69ae38ecb71291872f92c547863a98482fa97b97fc86",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "data",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 6,
+        "assets": [
+          "spear",
+          "axe",
+          "maul",
+          "short",
+          "long",
+          "knife"
+        ],
+        "imageNames": [
+          "WorkshopV2_wood_ORM"
+        ]
+      },
+      {
+        "sha256": "da62d14ea8b842e5cd345b77fe873d84c203651f9691b60e9ff7b2643bfbf47e",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "color",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 2,
+        "assets": [
+          "maul",
+          "long"
+        ],
+        "imageNames": [
+          "WorkshopV2_enamel_BaseColor"
+        ]
+      },
+      {
+        "sha256": "47c94b9110e43f7ad8b429f02390891179ffd8ac9e5697e0c708a348fa34995f",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "data",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 2,
+        "assets": [
+          "maul",
+          "long"
+        ],
+        "imageNames": [
+          "WorkshopV2_enamel_Normal"
+        ]
+      },
+      {
+        "sha256": "5a2c5d03e6a21939f4750b4954d85b75262033dba52fde823c034cee7fc31556",
+        "mimeType": "image/png",
+        "settings": [
+          10497,
+          10497,
+          9729,
+          9987
+        ],
+        "kind": "data",
+        "width": 512,
+        "height": 512,
+        "rgba8BaseBytes": 1048576,
+        "exactFullMipChainBytes": 1398100,
+        "runtimeAccountedMipBytes": 1398102,
+        "references": 2,
+        "assets": [
+          "maul",
+          "long"
+        ],
+        "imageNames": [
+          "WorkshopV2_enamel_ORM"
+        ]
+      }
+    ],
+    "cleanup": {
+      "bytes": 0,
+      "liveTextures": 0,
+      "records": 0,
+      "deletedTextures": 15
+    }
+  },
+  "savedRuntimeAccountedMipBytes": 100663344,
+  "reductionPercent": 82.75862068965517
+}
