@@ -12,6 +12,7 @@ async function fixture(t){
   await writeFile(path.join(root,'package.json'),JSON.stringify({version:'1.6.0'}));
   await writeFile(path.join(root,'public/mobile.html'),'<html data-mobile-game="true"><a href="./?view=desktop">desde la PC</a><script type="module" src="./game.js"></script></html>');
   await writeFile(path.join(root,'public/index.html'),'<script src="./entry.js"></script>');
+  await writeFile(path.join(root,'public/entry.js'),'export const deviceEntry=true;');
   await writeFile(path.join(root,'public/controller.html'),'LAN controller');
   await writeFile(path.join(root,'public/game.js'),'export const ready=true;');
   await writeFile(path.join(root,'public/assets/models/fighter.glb'),Buffer.from([0,1,127,255]));
@@ -19,12 +20,14 @@ async function fixture(t){
   await writeFile(path.join(root,'.local/installation.json'),'private installation');
   return root;
 }
-test('Pages inicia el juego local en la raíz y conserva recursos binarios bajo una subcarpeta',async t=>{
+test('Pages conserva la entrada PC por dispositivo y una arena móvil independiente bajo una subcarpeta',async t=>{
   const root=await fixture(t),result=await buildPages({root});
   const html=await readFile(path.join(result.output,'index.html'),'utf8');
-  assert.match(html,/data-mobile-game="true"/);assert.match(html,/src="\.\/game.js"/);
-  assert.doesNotMatch(html,/entry\.js|view=desktop/);assert.match(html,/github\.com\/GatDeguin\/WaterDuel/);
-  assert.equal(await readFile(path.join(result.output,'mobile.html'),'utf8'),html);
+  assert.doesNotMatch(html,/data-mobile-game="true"/);assert.match(html,/src="\.\/entry.js"/);
+  const mobile=await readFile(path.join(result.output,'mobile.html'),'utf8');
+  assert.match(mobile,/data-mobile-game="true"/);assert.match(mobile,/github\.com\/GatDeguin\/WaterDuel/);
+  assert.notEqual(mobile,html);
+  assert.equal(await readFile(path.join(result.output,'entry.js'),'utf8'),'export const deviceEntry=true;');
   assert.deepEqual(await readFile(path.join(result.output,'assets/models/fighter.glb')),Buffer.from([0,1,127,255]));
   assert.equal(new URL('./game.js','https://gatdeguin.github.io/WaterDuel/').pathname,'/WaterDuel/game.js');
   assert.equal(result.version,'1.6.0');assert.ok(result.files.includes('assets/models/fighter.glb'));
@@ -41,7 +44,7 @@ test('Reconstruir Pages elimina archivos obsoletos sólo dentro de su salida ded
 test('El enlace LAN se adapta aunque cambie su texto visible',async t=>{
   const root=await fixture(t),source=path.join(root,'public/mobile.html');
   await writeFile(source,(await readFile(source,'utf8')).replace('desde la PC','en la computadora'));
-  const {output}=await buildPages({root}),html=await readFile(path.join(output,'index.html'),'utf8');
+  const {output}=await buildPages({root}),html=await readFile(path.join(output,'mobile.html'),'utf8');
   assert.doesNotMatch(html,/view=desktop/);
   assert.match(html,/href="https:\/\/github\.com\/GatDeguin\/WaterDuel#conectar-los-celulares"/);
 });

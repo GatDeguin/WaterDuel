@@ -1,10 +1,10 @@
-// Pages serves the individual arena. The LAN server remains a separate launcher.
+// Preserve device routing: dedicated PC arena and standalone touch arena.
 import {lstat,readdir,readFile,mkdir,copyFile,writeFile,rm,realpath} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const projectRoot=fileURLToPath(new URL('..',import.meta.url));
-const omitted=new Set(['qa','index.html','controller.html','entry.js']);
+const omitted=new Set(['qa','index.html','controller.html']);
 const lanInstructions='https://github.com/GatDeguin/WaterDuel#conectar-los-celulares';
 
 async function regularDirectory(folder){
@@ -34,6 +34,7 @@ export async function buildPages({root=projectRoot}={}){
   const files=await publicFiles(source);
   const {version}=JSON.parse(await readFile(path.join(root,'package.json'),'utf8'));
   const mobile=await readFile(path.join(source,'mobile.html'),'utf8');
+  const desktop=await readFile(path.join(source,'index.html'),'utf8');
   if(!mobile.includes('data-mobile-game="true"')||!mobile.includes('href="./?view=desktop"'))throw Error('La entrada móvil cambió; revisar el build de Pages.');
   const html=mobile.replace('href="./?view=desktop"',`href="${lanInstructions}" target="_blank" rel="noopener"`);
   if(html.includes('view=desktop'))throw Error('Pages no puede publicar enlaces a la entrada LAN.');
@@ -50,9 +51,9 @@ export async function buildPages({root=projectRoot}={}){
     bytes+=(await lstat(target)).size;
   }
   await writeFile(path.join(output,'mobile.html'),html);
-  await writeFile(path.join(output,'index.html'),html);
+  await writeFile(path.join(output,'index.html'),desktop);
   await writeFile(path.join(output,'.nojekyll'),'');
-  bytes+=Buffer.byteLength(html)*2-Buffer.byteLength(mobile);
+  bytes+=Buffer.byteLength(desktop)+Buffer.byteLength(html)-Buffer.byteLength(mobile);
   const result={version,entry:'index.html',files:[...files,'index.html','.nojekyll'].sort(),bytes};
   await writeFile(path.join(output,'build-info.json'),JSON.stringify(result,null,2)+'\n');
   return {...result,output};

@@ -2,7 +2,15 @@
 
 **[Jugar en GitHub Pages](https://gatdeguin.github.io/WaterDuel/)** · Abrí el enlace en el teléfono y giralo a horizontal.
 
-Pages publica la experiencia individual con los dos joysticks y el menú ☰. Para jugar de a dos con móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
+En móvil, Pages abre la experiencia individual con los dos joysticks y el menú ☰. En PC conserva la escena sin mandos ni menús. Para jugar en PC con los QR y dos móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo: Pages no ejecuta el servidor de sesiones. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
+
+## Defensa y entradas 1.8.0
+
+La defensa automática anticipa la trayectoria observada en XYZ, incluido el movimiento de la cabeza. El daño de hombro y codo defensivos reduce su probabilidad de respuesta y aumenta la demora; un brazo desprendido no puede defender. La reacción sigue siendo limitada, puede fallar y no decide los impactos: éstos dependen del contacto físico.
+
+La entrada de PC conserva únicamente la arena y, con el servidor local, sus dos QR. La entrada móvil conserva ambos joysticks y el menú. También se corrigen los enlaces antiguos a la vista móvil abiertos desde PC; Windows táctil se mantiene como PC y los móviles con mouse siguen siendo móviles. Los selectores explícitos `?view=desktop` y `?view=mobile` siguen disponibles.
+
+La colisión móvil de agua reduce un 9,19% el tiempo mediano aislado; el estado objetivo de los motores evita derivadas horizontales que no consume y reduce un 14,57% ese tramo. Se conserva la física exacta en sus comparaciones. Las mediciones integradas quedan dentro del ruido: **60 FPS sostenidos siguen sin certificarse**. [Cambios, mediciones y límites](docs/CAMBIOS_1.8.0.md).
 
 ## Optimización 1.7.4
 
@@ -36,7 +44,7 @@ Abrí **`/mobile.html`** desde un servidor web y girá el teléfono a horizontal
 
 Incluye duelo contra IA, escuela, práctica, precisión, campaña, equipo, audio, repeticiones y esquiva por inclinación o mando táctil opcional. No necesita el relay WebSocket ni una PC que simule la partida. Los modelos y el código deben servirse por HTTP/HTTPS: abrir el HTML como archivo local o verlo en la página de código de GitHub no inicia el juego. Las rutas de recursos admiten alojamiento en una subcarpeta.
 
-La entrada principal detecta el control táctil y abre esta vista; `/?view=desktop` conserva la arena LAN de PC con sus dos QR y mandos separados. Para iniciar el servidor local usá `npm start` o el lanzador de tu plataforma. [Uso y controles móviles](docs/MOBILE.md).
+La entrada principal detecta el dispositivo y abre esta vista en móviles; `/?view=desktop` conserva la arena LAN de PC con sus dos QR y mandos separados. Para iniciar el servidor local usá `npm start` o el lanzador de tu plataforma. [Uso y controles móviles](docs/MOBILE.md).
 
 ## Desarrollo 1.5.2
 

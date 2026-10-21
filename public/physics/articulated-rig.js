@@ -249,11 +249,13 @@ export class ArticulatedRig{
     const p={x:origin.x+dx,y:origin.y+dy,jx:origin.jx?origin.jx.slice():null,jy:origin.jy?origin.jy.slice():null};
     if(origin.jx){
       for(const i of rotations){p.jx[i]-=this.dir*dy;p.jy[i]+=this.dir*dx;}
+    }else if(origin.jy){
+      for(const i of rotations)p.jy[i]+=this.dir*dx;
     }
     return p;
   }
 
-  #kinematics(q=this.q,swordLength=this.swordLength,derivatives=true,bend=this.weaponFlex?.offset??0){
+  #kinematics(q=this.q,swordLength=this.swordLength,derivatives=true,bend=this.weaponFlex?.offset??0,yOnly=false){
     // Contact manifolds, their Jacobians and render queries often inspect the
     // exact same coordinates. Reuse only a numerically identical current state;
     // interpolated CCD states remain independent. No tolerance or stale-frame
@@ -264,7 +266,9 @@ export class ArticulatedRig{
       load.mass,load.offset.x,load.offset.y,load.inertia,this.topologyVersion,bend,this.weaponFlex?.previousOffset??0]:null;
     const cached=this.#kinematicCache;
     if(current&&cached&&cached.length===swordLength&&parameters.every((v,i)=>v===cached.parameters[i])&&q.every((v,i)=>v===cached.q[i]))return cached.state;
-    const s=this.scale,hip=point(q[0],q[1],derivatives);if(derivatives){hip.jx[0]=1;hip.jy[1]=1;}
+    // Only the private actuator goal needs Y derivatives. A complete current
+    // cache may serve it, but a reduced state must never replace that cache.
+    const s=this.scale,hip=point(q[0],q[1],derivatives&&!yOnly);if(derivatives){if(yOnly)hip.jy=new Array(N).fill(0);else hip.jx[0]=1;hip.jy[1]=1;}
     const points={hip},bodies=[],angles={},frames={};
     const add=(name,origin,angle,length,rotations,endName)=>{
       const end=this.#offset(origin,length,0,angle,rotations);
@@ -315,7 +319,7 @@ export class ArticulatedRig{
     }
     const state={points,bodies:this.detachedBodies.size?bodies.filter(b=>this.isBodyAttached(b.name)):bodies,angles,frames,pelvisAngle:q[2],weaponCurve,weaponLength:swordLength,
       weaponRootDirection:{x:this.dir*Math.cos(weaponAngle),y:Math.sin(weaponAngle)}};
-    if(current)this.#kinematicCache={q:q.slice(),length:swordLength,parameters,state};
+    if(current&&!yOnly)this.#kinematicCache={q:q.slice(),length:swordLength,parameters,state};
     return state;
   }
 
@@ -795,7 +799,7 @@ export class ArticulatedRig{
     // Active actuators support known dry weight at the requested configuration.
     // Upper support joints use partial feedforward: the entire water moment,
     // mass/inertia, dynamic imbalance and contact response remain in the solve.
-    const goal=this.passive?null:this.#kinematics(this.target);
+    const goal=this.passive?null:this.#kinematics(this.target,this.swordLength,true,this.weaponFlex?.offset??0,true);
     if(goal)for(const body of goal.bodies)if(!this.passive&&body.name!=='water'){
       for(const i of [4,5,6,7,13])feedforward[i]-=body.mass*this.gravity*body.center.jy[i];
       for(const i of [2,3,12])feedforward[i]-=.85*body.mass*this.gravity*body.center.jy[i];

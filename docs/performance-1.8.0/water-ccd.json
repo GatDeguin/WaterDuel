@@ -1,0 +1,301 @@
+{
+  "scope": "Node CPU isolated moving liquid/solid CCD. Same rotating thin board, hits and grazing no-hit paths, all contact queries and physics retained. Two warmups per variant, six ABBA cycles plus A/A controls. Not a GPU/FPS metric.",
+  "count": 100000,
+  "baselineMedianMs": 674.6454999999996,
+  "candidateMedianMs": 612.6693999999998,
+  "savingPercent": 9.186469041889389,
+  "baselineRange": [
+    658.9287999999997,
+    799.9844000000012
+  ],
+  "candidateRange": [
+    574.6566999999995,
+    675.4053000000004
+  ],
+  "cycles": [
+    {
+      "cycle": 0,
+      "savingPercent": 5.198643234325607,
+      "controlChangePercent": -13.820456640119872
+    },
+    {
+      "cycle": 1,
+      "savingPercent": 10.987596794655152,
+      "controlChangePercent": -1.0832918062630092
+    },
+    {
+      "cycle": 2,
+      "savingPercent": 11.64259246700735,
+      "controlChangePercent": -6.46752268596571
+    },
+    {
+      "cycle": 3,
+      "savingPercent": 14.460183175091668,
+      "controlChangePercent": -1.514307421045158
+    },
+    {
+      "cycle": 4,
+      "savingPercent": 10.946252522455758,
+      "controlChangePercent": 4.967195224708432
+    },
+    {
+      "cycle": 5,
+      "savingPercent": 8.780286438581664,
+      "controlChangePercent": -2.0572426167852487
+    }
+  ],
+  "rows": [
+    {
+      "cycle": 0,
+      "kind": "control",
+      "key": "A",
+      "ms": 740.5174999999999,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 0,
+      "kind": "control",
+      "key": "A",
+      "ms": 638.1746000000003,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 0,
+      "kind": "paired",
+      "key": "A",
+      "ms": 667.2514999999999,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 0,
+      "kind": "paired",
+      "key": "B",
+      "ms": 641.8868999999995,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 0,
+      "kind": "paired",
+      "key": "B",
+      "ms": 625.2469000000001,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 0,
+      "kind": "paired",
+      "key": "A",
+      "ms": 669.3683999999994,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 1,
+      "kind": "control",
+      "key": "A",
+      "ms": 659.6098999999995,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 1,
+      "kind": "control",
+      "key": "A",
+      "ms": 652.4643999999998,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 1,
+      "kind": "paired",
+      "key": "A",
+      "ms": 658.9287999999997,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 1,
+      "kind": "paired",
+      "key": "B",
+      "ms": 623.2083999999995,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 1,
+      "kind": "paired",
+      "key": "B",
+      "ms": 675.4053000000004,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 1,
+      "kind": "paired",
+      "key": "A",
+      "ms": 799.9844000000012,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 2,
+      "kind": "control",
+      "key": "A",
+      "ms": 715.100699999999,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 2,
+      "kind": "control",
+      "key": "A",
+      "ms": 668.8513999999996,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 2,
+      "kind": "paired",
+      "key": "A",
+      "ms": 685.6641999999993,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 2,
+      "kind": "paired",
+      "key": "B",
+      "ms": 602.1304,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 2,
+      "kind": "paired",
+      "key": "B",
+      "ms": 599.1420999999991,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 2,
+      "kind": "paired",
+      "key": "A",
+      "ms": 673.8963999999996,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 3,
+      "kind": "control",
+      "key": "A",
+      "ms": 700.7691999999988,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 3,
+      "kind": "control",
+      "key": "A",
+      "ms": 690.1574,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 3,
+      "kind": "paired",
+      "key": "A",
+      "ms": 675.3945999999996,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 3,
+      "kind": "paired",
+      "key": "B",
+      "ms": 591.1965999999993,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 3,
+      "kind": "paired",
+      "key": "B",
+      "ms": 574.6566999999995,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 3,
+      "kind": "paired",
+      "key": "A",
+      "ms": 687.5417999999991,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 4,
+      "kind": "control",
+      "key": "A",
+      "ms": 719.7884999999987,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 4,
+      "kind": "control",
+      "key": "A",
+      "ms": 755.5417999999991,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 4,
+      "kind": "paired",
+      "key": "A",
+      "ms": 748.5236000000004,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 4,
+      "kind": "paired",
+      "key": "B",
+      "ms": 669.8061999999991,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 4,
+      "kind": "paired",
+      "key": "B",
+      "ms": 591.9284000000007,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 4,
+      "kind": "paired",
+      "key": "A",
+      "ms": 668.3001000000004,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 5,
+      "kind": "control",
+      "key": "A",
+      "ms": 657.1222999999991,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 5,
+      "kind": "control",
+      "key": "A",
+      "ms": 643.6036999999997,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 5,
+      "kind": "paired",
+      "key": "A",
+      "ms": 682.0197000000007,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 5,
+      "kind": "paired",
+      "key": "B",
+      "ms": 641.0382000000027,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 5,
+      "kind": "paired",
+      "key": "B",
+      "ms": 588.7015999999967,
+      "checksum": 100815.8425677734
+    },
+    {
+      "cycle": 5,
+      "kind": "paired",
+      "key": "A",
+      "ms": 666.0878000000012,
+      "checksum": 100815.8425677734
+    }
+  ]
+}

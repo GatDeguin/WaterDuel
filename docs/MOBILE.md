@@ -2,7 +2,7 @@
 
 `public/mobile.html` presenta el juego y los mandos en el mismo documento. Usa
 `data-mobile-game="true"`, un único `gameCanvas` y los módulos compartidos
-`game.js` / `controller.js`; no hay iframe ni una segunda simulación en la página.
+`game.js` / `controller.js`, cargados desde `entry.js`; no hay iframe ni una segunda simulación en la página.
 La integración del runtime móvil selecciona la sesión individual local, sin PC
 ni WebSocket. La entrada de escritorio conserva el Versus y sus QR.
 
@@ -40,9 +40,13 @@ movimiento reducido de los controles compartidos.
 ## Uso y verificación
 
 Ejecutá `npm start` o el lanzador de tu plataforma y abrí `/mobile.html` en el
-teléfono. La entrada principal también selecciona esta vista cuando el dispositivo
-tiene pantalla táctil, puntero principal grueso y no usa hover. `?view=mobile`
-permite elegirla explícitamente y `?view=desktop` conserva la entrada de PC.
+teléfono. La entrada principal reconoce Android, iPhone, iPad e iPadOS; los móviles
+con mouse siguen usando esta vista. Una PC Windows táctil conserva la arena y los
+QR. En dispositivos sin identidad conocida se usa la combinación táctil, puntero
+grueso y ausencia de hover. `?view=mobile` permite elegirla explícitamente y
+`?view=desktop` conserva la entrada de PC. Abrir un enlace antiguo a `mobile.html`
+en PC redirige a la arena antes de mostrar los mandos. Ambas rutas conservan el
+prefijo del sitio y los parámetros de la URL, sin bucles entre vistas.
 Los scripts y recursos se sirven por HTTP/HTTPS; GitHub muestra los archivos
 fuente y no ejecuta por sí mismo el servidor Node.
 

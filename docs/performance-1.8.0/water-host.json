@@ -1,0 +1,555 @@
+{
+  "scope": "Actual seeded HostSession real burst. Baseline and candidate both use the complete published 1.7.4 source graph, including frozen rig and auto-defense. Only the candidate fluid-solids module differs. 120Hz updates,60Hz presentation,replay retained,2warmups per variant,4ABBA cycles plus A/A controls and equal GC. Node CPU only, no GPU/FPS claim.",
+  "exact": true,
+  "sourceStable": true,
+  "changedSources": [],
+  "sourceBefore": {
+    "auto-defense.js": "0c2f6546b1c886de4f519a7e3d07bfb6893ed993be483ebe403df86b53395dac",
+    "physics/articulated-rig.js": "11fd0cc7fb655b404b4e911f8adea509ef9d37a742c169f13dcd9eb496398d60",
+    "physics/fluid-solids.js": "6f080caa0efad73b5ac4392748a5f9ec5d28243c482461442e2ebc380e5c950a",
+    "physics/fluid.js": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+    "engine.js": "75b848033e0305b640013a510255d786284eb6d83d431e92dd46ed822e5e4cb8",
+    "host-session.js": "fe1abb3089ee346631dcaabfed849b84cc5228a815b7924ed3e44fed9cf4a9e5"
+  },
+  "sourceAfter": {
+    "auto-defense.js": "0c2f6546b1c886de4f519a7e3d07bfb6893ed993be483ebe403df86b53395dac",
+    "physics/articulated-rig.js": "11fd0cc7fb655b404b4e911f8adea509ef9d37a742c169f13dcd9eb496398d60",
+    "physics/fluid-solids.js": "6f080caa0efad73b5ac4392748a5f9ec5d28243c482461442e2ebc380e5c950a",
+    "physics/fluid.js": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+    "engine.js": "75b848033e0305b640013a510255d786284eb6d83d431e92dd46ed822e5e4cb8",
+    "host-session.js": "fe1abb3089ee346631dcaabfed849b84cc5228a815b7924ed3e44fed9cf4a9e5"
+  },
+  "baselineMeanMs": 5739.5299125,
+  "candidateMeanMs": 5653.932312499998,
+  "savingPercent": 1.4913695251170478,
+  "cycles": [
+    {
+      "pass": 0,
+      "savingPercent": -0.6293630734275357,
+      "controlChangePercent": 0.6076444441936557
+    },
+    {
+      "pass": 1,
+      "savingPercent": 3.3781310069596504,
+      "controlChangePercent": 3.2546721559724157
+    },
+    {
+      "pass": 2,
+      "savingPercent": 1.7253607820156391,
+      "controlChangePercent": 2.3406059031473525
+    },
+    {
+      "pass": 3,
+      "savingPercent": 1.458832528568288,
+      "controlChangePercent": 2.9203073356011133
+    }
+  ],
+  "warm": [
+    {
+      "key": "A",
+      "kind": "warm",
+      "pass": 0,
+      "ms": 5742.9393,
+      "cpuMs": 8438,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "B",
+      "kind": "warm",
+      "pass": 0,
+      "ms": 5675.5118999999995,
+      "cpuMs": 7781,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "warm",
+      "pass": 1,
+      "ms": 5697.640600000001,
+      "cpuMs": 7766,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "B",
+      "kind": "warm",
+      "pass": 1,
+      "ms": 5709.2449000000015,
+      "cpuMs": 7483,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    }
+  ],
+  "rows": [
+    {
+      "key": "A",
+      "kind": "control",
+      "pass": 0,
+      "ms": 5669.005999999998,
+      "cpuMs": 8141,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "control",
+      "pass": 0,
+      "ms": 5703.453400000002,
+      "cpuMs": 7750,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "paired",
+      "pass": 0,
+      "ms": 5726.767,
+      "cpuMs": 8156,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "B",
+      "kind": "paired",
+      "pass": 0,
+      "ms": 5738.6293000000005,
+      "cpuMs": 7969,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "B",
+      "kind": "paired",
+      "pass": 0,
+      "ms": 5724.0857999999935,
+      "cpuMs": 7859,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "paired",
+      "pass": 0,
+      "ms": 5664.2572,
+      "cpuMs": 8000,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "control",
+      "pass": 1,
+      "ms": 5562.9136,
+      "cpuMs": 7656,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "control",
+      "pass": 1,
+      "ms": 5743.968200000003,
+      "cpuMs": 8093,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "paired",
+      "pass": 1,
+      "ms": 5885.064200000008,
+      "cpuMs": 7813,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "B",
+      "kind": "paired",
+      "pass": 1,
+      "ms": 5552.458799999993,
+      "cpuMs": 7219,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "B",
+      "kind": "paired",
+      "pass": 1,
+      "ms": 5635.956900000005,
+      "cpuMs": 7938,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "paired",
+      "pass": 1,
+      "ms": 5694.525200000004,
+      "cpuMs": 8297,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "control",
+      "pass": 2,
+      "ms": 5631.883600000001,
+      "cpuMs": 7313,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "control",
+      "pass": 2,
+      "ms": 5763.703799999988,
+      "cpuMs": 7656,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "paired",
+      "pass": 2,
+      "ms": 5761.514299999995,
+      "cpuMs": 8406,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "B",
+      "kind": "paired",
+      "pass": 2,
+      "ms": 5590.151899999997,
+      "cpuMs": 7453,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "B",
+      "kind": "paired",
+      "pass": 2,
+      "ms": 5677.877700000012,
+      "cpuMs": 7375,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "paired",
+      "pass": 2,
+      "ms": 5704.342700000008,
+      "cpuMs": 7984,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "control",
+      "pass": 3,
+      "ms": 5633.763199999987,
+      "cpuMs": 7329,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "control",
+      "pass": 3,
+      "ms": 5798.286399999983,
+      "cpuMs": 7812,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "paired",
+      "pass": 3,
+      "ms": 5720.608399999997,
+      "cpuMs": 7656,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "B",
+      "kind": "paired",
+      "pass": 3,
+      "ms": 5602.158100000001,
+      "cpuMs": 7530,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "B",
+      "kind": "paired",
+      "pass": 3,
+      "ms": 5710.139999999985,
+      "cpuMs": 8375,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "key": "A",
+      "kind": "paired",
+      "pass": 3,
+      "ms": 5759.160299999989,
+      "cpuMs": 8063,
+      "ticks": 481,
+      "realPuncture": true,
+      "checksum": "01b98a22a58ce7c12867f44cc02a6b990e7f8b37464b50723f7d7184e9d08554",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    }
+  ]
+}

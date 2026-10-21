@@ -1,0 +1,581 @@
+{
+  "scope": "Private requested-configuration goal state and exact dry/nominal water feedforward, 4096 changing-q calls/block. Four weapon/two role/normal+boss fixtures, full metadata and jy retained. Interleaved eight ABBA and eight A/A controls, identical consumer and checksums. Not a host/frame/FPS measurement.",
+  "runs": [
+    {
+      "pass": 0,
+      "variant": "A",
+      "ms": 40.31030000000004,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 0,
+      "variant": "B",
+      "ms": 26.51769999999999,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 0,
+      "variant": "B",
+      "ms": 26.108199999999897,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 0,
+      "variant": "A",
+      "ms": 30.798900000000003,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 0,
+      "variant": "A0",
+      "ms": 28.820899999999938,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 0,
+      "variant": "A1",
+      "ms": 28.858600000000024,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 0,
+      "variant": "A1",
+      "ms": 28.405099999999948,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 0,
+      "variant": "A0",
+      "ms": 28.5308,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "A0",
+      "ms": 28.6567,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "A1",
+      "ms": 28.70119999999997,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "A1",
+      "ms": 28.7423,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "A0",
+      "ms": 35.542299999999955,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "A",
+      "ms": 30.95830000000001,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "B",
+      "ms": 31.33789999999999,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "B",
+      "ms": 25.256399999999985,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "A",
+      "ms": 28.823800000000006,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "A",
+      "ms": 29.130899999999883,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "B",
+      "ms": 30.590200000000095,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "B",
+      "ms": 29.298500000000104,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "A",
+      "ms": 28.467599999999948,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "A0",
+      "ms": 28.827199999999948,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "A1",
+      "ms": 29.689799999999877,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "A1",
+      "ms": 29.017000000000053,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "A0",
+      "ms": 28.926100000000133,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "A0",
+      "ms": 32.72849999999994,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "A1",
+      "ms": 29.222600000000057,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "A1",
+      "ms": 28.696699999999964,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "A0",
+      "ms": 28.12570000000005,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "A",
+      "ms": 28.712200000000166,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "B",
+      "ms": 25.77469999999994,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "B",
+      "ms": 25.736400000000003,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "A",
+      "ms": 29.689000000000078,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "A",
+      "ms": 28.135699999999815,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "B",
+      "ms": 25.72329999999988,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "B",
+      "ms": 25.7654,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "A",
+      "ms": 28.712400000000116,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "A0",
+      "ms": 28.954400000000078,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "A1",
+      "ms": 29.02319999999986,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "A1",
+      "ms": 29.507299999999987,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "A0",
+      "ms": 29.956500000000005,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "A0",
+      "ms": 30.30470000000014,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "A1",
+      "ms": 28.98779999999988,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "A1",
+      "ms": 28.791200000000117,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "A0",
+      "ms": 28.78469999999993,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "A",
+      "ms": 28.711499999999887,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "B",
+      "ms": 26.321300000000065,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "B",
+      "ms": 26.420799999999872,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "A",
+      "ms": 29.712400000000116,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "A",
+      "ms": 28.557999999999765,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "B",
+      "ms": 26.41949999999997,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "B",
+      "ms": 26.601200000000063,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "A",
+      "ms": 28.672700000000077,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "A0",
+      "ms": 29.96419999999989,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "A1",
+      "ms": 29.1867000000002,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "A1",
+      "ms": 28.953199999999924,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "A0",
+      "ms": 28.989000000000033,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "A0",
+      "ms": 28.891099999999824,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "A1",
+      "ms": 29.152800000000298,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "A1",
+      "ms": 29.340799999999945,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "A0",
+      "ms": 28.84999999999991,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "A",
+      "ms": 28.734400000000278,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "B",
+      "ms": 26.083900000000085,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "B",
+      "ms": 25.5304000000001,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "A",
+      "ms": 28.678400000000238,
+      "sum": 83974.70293026885,
+      "checksum": "68df0f29311aa049ace27a87377f5a6ca5d1ac2ba1e0925b28ca37806c0772af",
+      "calls": 4096
+    }
+  ],
+  "pairs": [
+    {
+      "pass": 0,
+      "changePercent": -25.99283918255324,
+      "controlChangePercent": -0.1534392180178923
+    },
+    {
+      "pass": 1,
+      "changePercent": -5.332365373581782,
+      "controlChangePercent": -10.522749575538537
+    },
+    {
+      "pass": 2,
+      "changePercent": 3.976145212115556,
+      "controlChangePercent": 1.6509879089157575
+    },
+    {
+      "pass": 3,
+      "changePercent": -11.797874016287802,
+      "controlChangePercent": -4.822838850892741
+    },
+    {
+      "pass": 4,
+      "changePercent": -9.42757981357346,
+      "controlChangePercent": -0.6457209107316952
+    },
+    {
+      "pass": 5,
+      "changePercent": -9.725129613052308,
+      "controlChangePercent": -2.2176566355388116
+    },
+    {
+      "pass": 6,
+      "changePercent": -7.356191694317593,
+      "controlChangePercent": -1.3795688783641902
+    },
+    {
+      "pass": 7,
+      "changePercent": -10.099664186384006,
+      "controlChangePercent": 1.3032311473119007
+    }
+  ],
+  "baselineMedianMs": 28.723400000000197,
+  "candidateMedianMs": 26.21474999999998,
+  "changePercent": -8.733819812418442,
+  "controlMedianAbsPercent": 1.5152783936399739,
+  "ranges": {
+    "A": [
+      28.135699999999815,
+      40.31030000000004
+    ],
+    "B": [
+      25.256399999999985,
+      31.33789999999999
+    ],
+    "A0": [
+      28.12570000000005,
+      35.542299999999955
+    ],
+    "A1": [
+      28.405099999999948,
+      29.689799999999877
+    ]
+  }
+}

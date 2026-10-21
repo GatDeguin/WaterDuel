@@ -118,14 +118,16 @@ export function fluidSolidColliders(fighters){
   }
   return colliders;
 }
-function signedGap(point,solid,radius){
+function signedGap(point,solid,radius,result=null){
   const x=point.x-solid.center.x,y=point.y-solid.center.y,z=point.z-solid.center.z;
   let gap=-Infinity,selected=null,sign=1;
   for(let i=0;i<3;i++){
     const axis=solid.axes[i],projection=x*axis.x+y*axis.y+z*(axis.z??0),distance=Math.abs(projection)-solid.half[i]-radius;
     if(distance>gap){gap=distance;selected=axis;sign=projection<0?-1:1;}
   }
-  const normal=selected?{x:selected.x*sign,y:selected.y*sign,z:selected.z*sign}:null;
+  const normal=selected?(result?.normal??{x:0,y:0,z:0}):null;
+  if(normal){normal.x=selected.x*sign;normal.y=selected.y*sign;normal.z=selected.z*sign;}
+  if(result){result.gap=gap;result.normal=normal;result.axis=normal;return result;}
   return {gap,normal,axis:normal};
 }
 function movingEntry(from,to,solid,radius,t0,t1){
@@ -164,9 +166,11 @@ function movingEntry(from,to,solid,radius,t0,t1){
   const rotationBound=((motion.angularBound??motion.centerBound)+motion.angleRate*(distanceBound+length(relativeDelta))+(motion.centerExtension??0)+motion.halfBound)*span;
   const w=motion.angleRate*span,secondBound=w*w*distanceBound+2*w*(path+motion.centerBound*span)+
     ((motion.angularBound??motion.centerBound)+2*(motion.centerExtension??0))*motion.angleRate*span*span;
-  const sample=t=>{
-    const point={x:from.x+delta.x*t,y:from.y+delta.y*t,z:from.z+delta.z*t},shape=solid.motionAt(t0+span*t);
-    const result=signedGap(point,shape,radius);result.point=point;result.shape=shape;result.t=t;return result;
+  const sample=(t,out=null)=>{
+    const point=out?.point??{x:0,y:0,z:0};
+    point.x=from.x+delta.x*t;point.y=from.y+delta.y*t;point.z=from.z+delta.z*t;
+    const shape=solid.motionAt(t0+span*t);
+    const result=signedGap(point,shape,radius,out);result.point=point;result.shape=shape;result.t=t;return result;
   };
   const empty=(a,b)=>{
     const width=b.t-a.t,curve=secondBound*width*width/8+1e-10;
@@ -180,11 +184,13 @@ function movingEntry(from,to,solid,radius,t0,t1){
     return false;
   };
   const firstSample=sample(first),endSample=sample(lastTime);if(empty(firstSample,endSample))return null;
-  let t=first,last=null;
+  let t=first,last=null,probe=null;
   // Conservative advancement of the expanded prism's signed face gap. Unlike
   // endpoint tests, it sees a rotating blade pass through a resting parcel.
   for(let iteration=0;iteration<96;iteration++){
-    last=t===first?firstSample:sample(t);
+    // Only this iterative probe is reused. Endpoints and recursive samples
+    // retain their own records while they certify unresolved intervals.
+    last=t===first?firstSample:(probe=sample(t,probe));
     if(last.gap<=1e-7)return {t,normal:last.normal,penetration:Math.max(0,-last.gap),solid};
     const bound=last.axis.z?Math.abs(delta.z):Math.abs(dot(relativeDelta,last.axis))+rotationBound;
     if(t>=lastTime||bound<1e-14)return null;

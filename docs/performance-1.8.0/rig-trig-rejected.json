@@ -1,0 +1,275 @@
+{
+  "scope": "Direct affected private kinematics/add path through test-only wrapper. 4096 changing-q calls per block, 256 full states compared bit-exact before timing, full sampled states/checksums retained. Includes full original metadata/Jacobians; no solver or frame/FPS claim.",
+  "runs": [
+    {
+      "pass": 0,
+      "variant": "A",
+      "ms": 21.967100000000016,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 0,
+      "variant": "B",
+      "ms": 23.99090000000001,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 0,
+      "variant": "B",
+      "ms": 22.714699999999993,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 0,
+      "variant": "A",
+      "ms": 22.091800000000035,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "A",
+      "ms": 22.063199999999995,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "B",
+      "ms": 22.394000000000005,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "B",
+      "ms": 22.357100000000003,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 1,
+      "variant": "A",
+      "ms": 21.36840000000001,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "A",
+      "ms": 21.45519999999999,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "B",
+      "ms": 24.14749999999998,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "B",
+      "ms": 28.501599999999996,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 2,
+      "variant": "A",
+      "ms": 26.243799999999965,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "A",
+      "ms": 21.518699999999967,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "B",
+      "ms": 22.93170000000009,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "B",
+      "ms": 22.242700000000013,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 3,
+      "variant": "A",
+      "ms": 21.425899999999956,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "A",
+      "ms": 22.130499999999984,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "B",
+      "ms": 28.94780000000003,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "B",
+      "ms": 22.790399999999977,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 4,
+      "variant": "A",
+      "ms": 26.738000000000056,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "A",
+      "ms": 22.17999999999995,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "B",
+      "ms": 22.204799999999977,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "B",
+      "ms": 22.453499999999963,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 5,
+      "variant": "A",
+      "ms": 21.927099999999996,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "A",
+      "ms": 21.950699999999983,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "B",
+      "ms": 23.427999999999997,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "B",
+      "ms": 23.110900000000015,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 6,
+      "variant": "A",
+      "ms": 22.25019999999995,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "A",
+      "ms": 21.82910000000004,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "B",
+      "ms": 22.153699999999958,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "B",
+      "ms": 22.407699999999977,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    },
+    {
+      "pass": 7,
+      "variant": "A",
+      "ms": 26.488699999999994,
+      "sum": 11849.457183792607,
+      "sampleChecksum": "cd51f7217d33700a1914d3bbc194cdf72eec3062d41882850098edbf2aee4f8b",
+      "calls": 4096
+    }
+  ],
+  "guardStates": 256,
+  "baselineMedianMs": 22.015150000000006,
+  "candidateMedianMs": 22.752549999999985,
+  "changePercent": 3.3495115863393154,
+  "ranges": {
+    "baseline": [
+      21.36840000000001,
+      26.738000000000056
+    ],
+    "candidate": [
+      22.153699999999958,
+      28.94780000000003
+    ]
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "scope": "Frozen 1.7.4 rig versus structural-zero mass-matrix accumulation; identical expression and order on all nonzero terms, complete dense fallback for exceptional mutable inputs. Real unchanged 120Hz multibody integration; four weapons, two roles and boss scale. No renderer/audio/FPS claim.",
+  "cases": [
+    {
+      "weapon": "sword",
+      "dir": -1,
+      "scale": 1,
+      "checksum": "52b055a1552bbbc3dc4352bceec3b07eaa1961d9dbabe9bc7ad470a4651a932f"
+    },
+    {
+      "weapon": "sword",
+      "dir": -1,
+      "scale": 1.18,
+      "checksum": "91caa41ebad0379d33b3c65c6b37e27843848682942f6dad2dd72da1490d9dc0"
+    },
+    {
+      "weapon": "sword",
+      "dir": 1,
+      "scale": 1,
+      "checksum": "70f057ccf3f429665f8b33288cf0e66c39a5bdfd76c268a49072d3daaeafda40"
+    },
+    {
+      "weapon": "sword",
+      "dir": 1,
+      "scale": 1.18,
+      "checksum": "3bd857579ef4a762a68651f003608331de9fb0ba65277c2c6ce32c6049b4b4f7"
+    },
+    {
+      "weapon": "spear",
+      "dir": -1,
+      "scale": 1,
+      "checksum": "4153a81c30decd8f74f070a927c9935e8d0bc0aa8a64e8db39903485fadaae4d"
+    },
+    {
+      "weapon": "spear",
+      "dir": -1,
+      "scale": 1.18,
+      "checksum": "6b6e74c484e0432689a00e2b4bc86113249c22f096a1c5cf1fed414f7606cbc2"
+    },
+    {
+      "weapon": "spear",
+      "dir": 1,
+      "scale": 1,
+      "checksum": "ccd46db043f45d2c634a5150681d51f2c926168d2f0174ab8468bb99024444fe"
+    },
+    {
+      "weapon": "spear",
+      "dir": 1,
+      "scale": 1.18,
+      "checksum": "99f8e7d03b2381580f03ea7e99abe8c60dac1e42b13c9491057ac838d109b295"
+    },
+    {
+      "weapon": "axe",
+      "dir": -1,
+      "scale": 1,
+      "checksum": "4d44d3ed5b2c2c6cfb3e6bf650ba972bf315bebf037f6b0f20d8b59583f0e4a6"
+    },
+    {
+      "weapon": "axe",
+      "dir": -1,
+      "scale": 1.18,
+      "checksum": "ca097f2cbbaa74418267c51d3ea3528d56f3d76d8f9696fd3b21ac36b369a381"
+    },
+    {
+      "weapon": "axe",
+      "dir": 1,
+      "scale": 1,
+      "checksum": "331f9e8239cf75437d95f63e0af244554fb2f80bac05e6e456ba377c64c20552"
+    },
+    {
+      "weapon": "axe",
+      "dir": 1,
+      "scale": 1.18,
+      "checksum": "254b3110554e2f385f5594bf1ae7f3b31818b55cebe1e8ce6c133aa0ecbbaafd"
+    },
+    {
+      "weapon": "maul",
+      "dir": -1,
+      "scale": 1,
+      "checksum": "ab3081ddebaeb5c86248bf263cbdbee1d1e3999558252661a7c7306ebfa06f8b"
+    },
+    {
+      "weapon": "maul",
+      "dir": -1,
+      "scale": 1.18,
+      "checksum": "a7b46755d88b12d566352ba2cbd3e6540647bb67f21e0e8f52b2bec5c0580da0"
+    },
+    {
+      "weapon": "maul",
+      "dir": 1,
+      "scale": 1,
+      "checksum": "301dddd39908218ff709a9d133bbe56911f0058de5f6f3e50c6171a93b58ce69"
+    },
+    {
+      "weapon": "maul",
+      "dir": 1,
+      "scale": 1.18,
+      "checksum": "9ea8417422d420b7ad5be9219c244465138f559b3acaf353af5f7fe9cb4b4d5c"
+    },
+    {
+      "alias": "q",
+      "checksum": "8f57f1ba784e47ddd473f50113fd994946474322c28280c1984d3c26be2b8c27"
+    },
+    {
+      "alias": "array",
+      "checksum": "a34723f87a70a9ac0c163d8b92f67cd3c8c25a58ef340d41d995f7aa0c7c082d"
+    }
+  ],
+  "runs": [
+    {
+      "pass": 0,
+      "variant": "A",
+      "ms": 104.01060000000007,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 0,
+      "variant": "B",
+      "ms": 104.42050000000017,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 0,
+      "variant": "B",
+      "ms": 109.10219999999981,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 0,
+      "variant": "A",
+      "ms": 112.68409999999994,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 1,
+      "variant": "A",
+      "ms": 104.59270000000015,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 1,
+      "variant": "B",
+      "ms": 108.96690000000012,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 1,
+      "variant": "B",
+      "ms": 110.39329999999973,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 1,
+      "variant": "A",
+      "ms": 102.27100000000019,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 2,
+      "variant": "A",
+      "ms": 96.72839999999997,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 2,
+      "variant": "B",
+      "ms": 100.58989999999994,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 2,
+      "variant": "B",
+      "ms": 113.39709999999968,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 2,
+      "variant": "A",
+      "ms": 111.89979999999969,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 3,
+      "variant": "A",
+      "ms": 104.4677999999999,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 3,
+      "variant": "B",
+      "ms": 104.92979999999989,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 3,
+      "variant": "B",
+      "ms": 115.01780000000008,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 3,
+      "variant": "A",
+      "ms": 105.61400000000003,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 4,
+      "variant": "A",
+      "ms": 100.8123999999998,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 4,
+      "variant": "B",
+      "ms": 106.4380000000001,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 4,
+      "variant": "B",
+      "ms": 105.82179999999971,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 4,
+      "variant": "A",
+      "ms": 132.42689999999993,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 5,
+      "variant": "A",
+      "ms": 102.57879999999977,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 5,
+      "variant": "B",
+      "ms": 106.94090000000006,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 5,
+      "variant": "B",
+      "ms": 100.45109999999977,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    },
+    {
+      "pass": 5,
+      "variant": "A",
+      "ms": 109.27260000000024,
+      "steps": 320,
+      "checksum": "a657d662af9f4ae18de92381372681bc75c75a8e75c754c566c06a219b12819e"
+    }
+  ],
+  "baselineMedianMs": 104.53025000000002,
+  "candidateMedianMs": 106.68945000000008,
+  "changePercent": 2.0656221524391727,
+  "ranges": {
+    "baseline": [
+      96.72839999999997,
+      132.42689999999993
+    ],
+    "candidate": [
+      100.45109999999977,
+      115.01780000000008
+    ]
+  }
+}

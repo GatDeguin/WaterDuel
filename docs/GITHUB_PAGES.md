@@ -2,12 +2,19 @@
 
 URL del juego: **https://gatdeguin.github.io/WaterDuel/**.
 
-La web abre directamente la arena individual en el navegador, tanto desde el
-teléfono como desde una computadora. En el teléfono conviene usar horizontal.
-No depende de un servidor Node ni de una PC que ejecute la simulación. Incluye
-duelo contra IA, campaña y las opciones de la versión móvil. La descarga inicial
-de modelos y audio requiere conexión. El Versus con dos móviles y QR se ejecuta
-con el servidor LAN; Pages sólo sirve archivos estáticos.
+La entrada distingue el dispositivo. En el teléfono abre el juego individual con
+dos joysticks en pantalla y menú; conviene usar horizontal. En PC muestra la
+escenografía a pantalla completa, sin mandos ni menús. Los enlaces antiguos a
+`mobile.html` también vuelven a la entrada de PC cuando se abren en computadora.
+`?view=mobile` y `?view=desktop` permiten elegir la vista explícitamente.
+
+El juego individual móvil incluye duelo contra IA, campaña y sus opciones sin
+necesitar una PC. La descarga inicial de modelos y audio requiere conexión.
+El Versus de PC con QR y dos móviles necesita el servidor LAN: Pages sólo sirve
+archivos estáticos y no crea sesiones ni retransmite los mandos. Por eso la
+entrada de PC publicada en Pages muestra la escena, pero no genera QR ficticios
+ni inicia una partida sin servidor. Para jugar en PC, usá el lanzador local y
+los QR de esa arena.
 
 ## Construcción
 
@@ -18,9 +25,10 @@ npm run build:pages
 ```
 
 La salida es `.runtime/pages-site/`. Se puede servir esa carpeta desde cualquier
-servidor estático, incluso montada en `/WaterDuel/`. El build usa `mobile.html`
-para generar el índice, conserva los recursos binarios sin compresión ni cambios
-de calidad y adapta el enlace LAN a sus instrucciones. Excluye las páginas de
+servidor estático, incluso montada en `/WaterDuel/`. El build conserva `index.html`
+para PC, `mobile.html` para móviles y el selector compartido `entry.js`. Conserva
+los recursos binarios sin compresión ni cambios de calidad y adapta el enlace
+LAN móvil a sus instrucciones. Excluye las páginas de
 QA y el mando que necesita WebSocket. No incluye certificados, sesiones,
 servidor, pruebas ni archivos privados del repositorio. Cada build reemplaza
 únicamente su carpeta de salida dedicada y rechaza enlaces simbólicos.
