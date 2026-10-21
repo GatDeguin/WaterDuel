@@ -1,0 +1,159 @@
+{
+  "passed": true,
+  "equivalent": true,
+  "width": 1280,
+  "height": 720,
+  "records": [
+    {
+      "label": "baseline",
+      "assets": 11,
+      "realPuncture": true,
+      "randomCalls": 80,
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 32,
+        "joint-damage": 12,
+        "burst": 1
+      },
+      "frames": [
+        {
+          "tick": 1,
+          "phase": "fight",
+          "burstTicks": 0,
+          "clock": 0.016666666666666666,
+          "changedChannels": 0,
+          "variedPixels": 921527,
+          "glError": 0,
+          "pixelHash": "f6226515d506c80e59340d09d10a76653faf442822d5fc4d48dddc7768e7dda6",
+          "draws": 443,
+          "triangles": 972417
+        },
+        {
+          "tick": 69,
+          "phase": "fight",
+          "burstTicks": 0,
+          "clock": 0.5833333333333337,
+          "changedChannels": 0,
+          "variedPixels": 921526,
+          "glError": 0,
+          "pixelHash": "add4e8f138a637252fff5f5714d1e46201e9ff03c9338e32b8ae35f8249264d6",
+          "draws": 461,
+          "triangles": 977783
+        },
+        {
+          "tick": 89,
+          "phase": "burst",
+          "burstTicks": 1,
+          "clock": 0.7499999999999998,
+          "changedChannels": 0,
+          "variedPixels": 921526,
+          "glError": 0,
+          "pixelHash": "64bd748dce40c2c1bdd0d9a1b477f4a8a1066a3cd04599f3df83a61979f86bff",
+          "draws": 463,
+          "triangles": 975925
+        },
+        {
+          "tick": 112,
+          "phase": "burst",
+          "burstTicks": 24,
+          "clock": 0.9416666666666658,
+          "changedChannels": 0,
+          "variedPixels": 921526,
+          "glError": 0,
+          "pixelHash": "6912321392caa42c878a7ec18da80a452a3af3eb5e74e2d64a4419fd200be0ca",
+          "draws": 459,
+          "triangles": 977269
+        },
+        {
+          "tick": 208,
+          "phase": "burst",
+          "burstTicks": 120,
+          "clock": 1.741666666666663,
+          "changedChannels": 0,
+          "variedPixels": 921510,
+          "glError": 0,
+          "pixelHash": "9b7d65b437f1aeacc50bed062d312a4441aaee84fa05574131dab73ea84dec8e",
+          "draws": 459,
+          "triangles": 993765
+        }
+      ]
+    },
+    {
+      "label": "current",
+      "assets": 11,
+      "realPuncture": true,
+      "randomCalls": 80,
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 32,
+        "joint-damage": 12,
+        "burst": 1
+      },
+      "frames": [
+        {
+          "tick": 1,
+          "phase": "fight",
+          "burstTicks": 0,
+          "clock": 0.016666666666666666,
+          "changedChannels": 0,
+          "variedPixels": 921527,
+          "glError": 0,
+          "pixelHash": "f6226515d506c80e59340d09d10a76653faf442822d5fc4d48dddc7768e7dda6",
+          "draws": 443,
+          "triangles": 972417
+        },
+        {
+          "tick": 69,
+          "phase": "fight",
+          "burstTicks": 0,
+          "clock": 0.5833333333333337,
+          "changedChannels": 0,
+          "variedPixels": 921526,
+          "glError": 0,
+          "pixelHash": "add4e8f138a637252fff5f5714d1e46201e9ff03c9338e32b8ae35f8249264d6",
+          "draws": 461,
+          "triangles": 977783
+        },
+        {
+          "tick": 89,
+          "phase": "burst",
+          "burstTicks": 1,
+          "clock": 0.7499999999999998,
+          "changedChannels": 0,
+          "variedPixels": 921526,
+          "glError": 0,
+          "pixelHash": "64bd748dce40c2c1bdd0d9a1b477f4a8a1066a3cd04599f3df83a61979f86bff",
+          "draws": 463,
+          "triangles": 975925
+        },
+        {
+          "tick": 112,
+          "phase": "burst",
+          "burstTicks": 24,
+          "clock": 0.9416666666666658,
+          "changedChannels": 0,
+          "variedPixels": 921526,
+          "glError": 0,
+          "pixelHash": "6912321392caa42c878a7ec18da80a452a3af3eb5e74e2d64a4419fd200be0ca",
+          "draws": 459,
+          "triangles": 977269
+        },
+        {
+          "tick": 208,
+          "phase": "burst",
+          "burstTicks": 120,
+          "clock": 1.741666666666663,
+          "changedChannels": 0,
+          "variedPixels": 921510,
+          "glError": 0,
+          "pixelHash": "9b7d65b437f1aeacc50bed062d312a4441aaee84fa05574131dab73ea84dec8e",
+          "draws": 459,
+          "triangles": 993765
+        }
+      ]
+    }
+  ],
+  "scope": "Same seeded real puncture, five fixed clocks, full quality WebGL readback; no FPS claim"
+}

@@ -1,0 +1,669 @@
+{
+  "scope": "A/B isolated frozen real compound-contact fixture; baseline and candidate differ only two old-key arguments inside contactByKey. Exact events, impulses, coordinates, velocities, targets, water load, joint topology, poses and fragments checked in48 equipment/direction/scale/damage scenarios plus recorded coupled/head cases. No GPU/audio/FPS claim.",
+  "equivalence": [
+    {
+      "weapon": "sword",
+      "dir": -1,
+      "scale": 1,
+      "damage": "healthy",
+      "checksum": "b644c41249d5df0ad6bd810df27a90a556d86fa56fc1b5f1d4d20b1bfbb243e9",
+      "contacts": 9,
+      "events": 12
+    },
+    {
+      "weapon": "sword",
+      "dir": -1,
+      "scale": 1,
+      "damage": "worn",
+      "checksum": "387eec199a1c7c778e21ac7ede8b2b352395871a944b9a950cf2ecba13c78338",
+      "contacts": 9,
+      "events": 12
+    },
+    {
+      "weapon": "sword",
+      "dir": -1,
+      "scale": 1,
+      "damage": "detached",
+      "checksum": "c36035a24981b8f010847376a6ff00608f7cba076d690fdfd4dc0eec98b35b76",
+      "contacts": 0,
+      "events": 0
+    },
+    {
+      "weapon": "sword",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "healthy",
+      "checksum": "3824fb6a235415daa4216a4057a36bf00e5fa8f43eab894d454d70557511f7eb",
+      "contacts": 9,
+      "events": 8
+    },
+    {
+      "weapon": "sword",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "worn",
+      "checksum": "4410baf104de31fc6b345e012ebcfae54865866dfbe1754ce8c32f1a21c4a918",
+      "contacts": 9,
+      "events": 8
+    },
+    {
+      "weapon": "sword",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "detached",
+      "checksum": "af239247a7de6b0bb63e4ec4d46c63491675824dcd4f987735d2cce290b9b87b",
+      "contacts": 0,
+      "events": 0
+    },
+    {
+      "weapon": "sword",
+      "dir": 1,
+      "scale": 1,
+      "damage": "healthy",
+      "checksum": "d2c5cdb14b70eef0e043d3c3ba62803b312aec12bcadb3b02419c525acc64137",
+      "contacts": 8,
+      "events": 13
+    },
+    {
+      "weapon": "sword",
+      "dir": 1,
+      "scale": 1,
+      "damage": "worn",
+      "checksum": "4d5025bee068565fa1b449c47cbb6acb246e21ca858144d051d8d69152d17bc0",
+      "contacts": 8,
+      "events": 13
+    },
+    {
+      "weapon": "sword",
+      "dir": 1,
+      "scale": 1,
+      "damage": "detached",
+      "checksum": "bb40125811b3fbeb3cba8174bab13e4691c31fc13efc63034fa566465d62aa79",
+      "contacts": 0,
+      "events": 0
+    },
+    {
+      "weapon": "sword",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "healthy",
+      "checksum": "40222108f3521fd7fca670b507fe47418d6633412d47f3265bb91f49c9062a57",
+      "contacts": 9,
+      "events": 8
+    },
+    {
+      "weapon": "sword",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "worn",
+      "checksum": "ba1240422252842314059976357c037c9e5eb631e214faa1da89a0c37e90019d",
+      "contacts": 9,
+      "events": 8
+    },
+    {
+      "weapon": "sword",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "detached",
+      "checksum": "da1e33a932a4b1d76a0530889c67921113444dde444ac48302cf53bf4f831167",
+      "contacts": 0,
+      "events": 0
+    },
+    {
+      "weapon": "spear",
+      "dir": -1,
+      "scale": 1,
+      "damage": "healthy",
+      "checksum": "b769a7bb70d5e564644622271567538ed5f42ce0d0490224d48754d73492f501",
+      "contacts": 6,
+      "events": 8
+    },
+    {
+      "weapon": "spear",
+      "dir": -1,
+      "scale": 1,
+      "damage": "worn",
+      "checksum": "d5c27cbe38d1cbc6b1ef5ea822b30ad9b0c28d935310365fe03798cc118b4a1d",
+      "contacts": 6,
+      "events": 8
+    },
+    {
+      "weapon": "spear",
+      "dir": -1,
+      "scale": 1,
+      "damage": "detached",
+      "checksum": "f3e5bd714cb10777df2ee0cff838edac83cdefba1fe97ce9241b08ddb763557f",
+      "contacts": 0,
+      "events": 0
+    },
+    {
+      "weapon": "spear",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "healthy",
+      "checksum": "0da21d329e48acde353a72f3a033265a72a75da8fe981bec3349d5c40ce9f67f",
+      "contacts": 10,
+      "events": 14
+    },
+    {
+      "weapon": "spear",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "worn",
+      "checksum": "2040aaf3383244980f700f6e6479bda0ca49cf0e8650c8a41d57a7eb1c6d3869",
+      "contacts": 10,
+      "events": 14
+    },
+    {
+      "weapon": "spear",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "detached",
+      "checksum": "849636555c784be4ff105cdd12dcd0a8c670635f1ad5aa18c087b3c514022876",
+      "contacts": 2,
+      "events": 2
+    },
+    {
+      "weapon": "spear",
+      "dir": 1,
+      "scale": 1,
+      "damage": "healthy",
+      "checksum": "5a7b956be94b595a627e7e44813cece9a5cc77f6eee38d982452faa2957893fa",
+      "contacts": 4,
+      "events": 9
+    },
+    {
+      "weapon": "spear",
+      "dir": 1,
+      "scale": 1,
+      "damage": "worn",
+      "checksum": "1f7d9be248388a7d7b7d7598b4f5c8a9ca4efc1bbbfc2ba08be63e30956f9f0d",
+      "contacts": 4,
+      "events": 9
+    },
+    {
+      "weapon": "spear",
+      "dir": 1,
+      "scale": 1,
+      "damage": "detached",
+      "checksum": "8f949a7a9a3fb04fbed1f6295080a74a43510fe5763dea8598a38cb6cc47f35b",
+      "contacts": 0,
+      "events": 0
+    },
+    {
+      "weapon": "spear",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "healthy",
+      "checksum": "c9e7df2d0d026d0e1e7d1b9a186bcbacc76c6fa17597af9031a5da9717ac0572",
+      "contacts": 9,
+      "events": 13
+    },
+    {
+      "weapon": "spear",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "worn",
+      "checksum": "cce53770e7f8f862ca37efea9ec1fd1afa038f3962370498e2842577c2931499",
+      "contacts": 9,
+      "events": 13
+    },
+    {
+      "weapon": "spear",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "detached",
+      "checksum": "4b3ab396f332f0b1ec0b80e2e12058eaf5f97bf589b15d685aaa5833c43ed394",
+      "contacts": 0,
+      "events": 1
+    },
+    {
+      "weapon": "axe",
+      "dir": -1,
+      "scale": 1,
+      "damage": "healthy",
+      "checksum": "050f87a2eb957cace8146e052b6199ae8a094df9f8cad9a0465bd5050bac5c47",
+      "contacts": 14,
+      "events": 17
+    },
+    {
+      "weapon": "axe",
+      "dir": -1,
+      "scale": 1,
+      "damage": "worn",
+      "checksum": "8e4b43f7d3325d4a36fd1af13260203b7a509362ab2fdfd658e9d8e397355517",
+      "contacts": 14,
+      "events": 17
+    },
+    {
+      "weapon": "axe",
+      "dir": -1,
+      "scale": 1,
+      "damage": "detached",
+      "checksum": "a01497d825ff888707d02de67f330069d32c421b8165da3b4442e1d89f20f3c4",
+      "contacts": 0,
+      "events": 0
+    },
+    {
+      "weapon": "axe",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "healthy",
+      "checksum": "88c4a3b27f0604f9cddf73917306a607fdf320c2fd52826a73cdd0456172dcdc",
+      "contacts": 23,
+      "events": 27
+    },
+    {
+      "weapon": "axe",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "worn",
+      "checksum": "6fc4bef9bbcb66b279b8d7add766c20eec9daefdff2b026546e40f19c1d1fbbb",
+      "contacts": 23,
+      "events": 27
+    },
+    {
+      "weapon": "axe",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "detached",
+      "checksum": "c13c59697c3620a444069ef34bbd8d60de6a120ea91be4361a01fd0873d93864",
+      "contacts": 0,
+      "events": 0
+    },
+    {
+      "weapon": "axe",
+      "dir": 1,
+      "scale": 1,
+      "damage": "healthy",
+      "checksum": "fb1e9b7baf8d408dddc106c2aa728c34eab88bfd23af331138b2741b8be2abb6",
+      "contacts": 33,
+      "events": 27
+    },
+    {
+      "weapon": "axe",
+      "dir": 1,
+      "scale": 1,
+      "damage": "worn",
+      "checksum": "3d781a0b58a12f25202193f5763451d13898694ff4c4132fb5b540bf683bb8ea",
+      "contacts": 33,
+      "events": 28
+    },
+    {
+      "weapon": "axe",
+      "dir": 1,
+      "scale": 1,
+      "damage": "detached",
+      "checksum": "acffd8c38319be1d8b62e839a5d329a357f23f38149556fdde8d9d4d9ba9dd86",
+      "contacts": 0,
+      "events": 0
+    },
+    {
+      "weapon": "axe",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "healthy",
+      "checksum": "8a007b83f328544241162e6672af576e5bba039af020aab47122127f1b8b31ec",
+      "contacts": 18,
+      "events": 25
+    },
+    {
+      "weapon": "axe",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "worn",
+      "checksum": "659400454eb55ce0191bb4bedfe6c77c4eddc653153911b7f2d600975d5f418f",
+      "contacts": 18,
+      "events": 24
+    },
+    {
+      "weapon": "axe",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "detached",
+      "checksum": "95697204d7615566117709435a03d44f9328717a9c79239f96bae95435033495",
+      "contacts": 0,
+      "events": 0
+    },
+    {
+      "weapon": "maul",
+      "dir": -1,
+      "scale": 1,
+      "damage": "healthy",
+      "checksum": "03183370d24e85c3c6bbcab15e5712e8d39271ae448eadb4237dfddd7587cc63",
+      "contacts": 33,
+      "events": 31
+    },
+    {
+      "weapon": "maul",
+      "dir": -1,
+      "scale": 1,
+      "damage": "worn",
+      "checksum": "f03066fa6a1854f8f1054b68843ede66b3cb1f9610c7e02033740ccb4f9b38cd",
+      "contacts": 31,
+      "events": 31
+    },
+    {
+      "weapon": "maul",
+      "dir": -1,
+      "scale": 1,
+      "damage": "detached",
+      "checksum": "a53caa239d28f63c9161ef4e441db8a948e3c23ef28e169562c8eb36b48c4324",
+      "contacts": 3,
+      "events": 4
+    },
+    {
+      "weapon": "maul",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "healthy",
+      "checksum": "48c66d57d2c70b27b18a802a1941c079b29983526b1c7ed3ab5475b095e46bf5",
+      "contacts": 11,
+      "events": 20
+    },
+    {
+      "weapon": "maul",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "worn",
+      "checksum": "4c564bb70b392c7fb27e866d71b4f450930280a1622e5242e34c808ce6a9d617",
+      "contacts": 11,
+      "events": 20
+    },
+    {
+      "weapon": "maul",
+      "dir": -1,
+      "scale": 1.18,
+      "damage": "detached",
+      "checksum": "6175661c55199e169ba6e2ca4cf3a4c32fe9da173c0260938c50946a1246c9b5",
+      "contacts": 2,
+      "events": 4
+    },
+    {
+      "weapon": "maul",
+      "dir": 1,
+      "scale": 1,
+      "damage": "healthy",
+      "checksum": "71e5be61ba682378d43d180688fd1fba2dcc8679c4b4c14757bc5face0ab397e",
+      "contacts": 34,
+      "events": 31
+    },
+    {
+      "weapon": "maul",
+      "dir": 1,
+      "scale": 1,
+      "damage": "worn",
+      "checksum": "7867bb03d90b90ae9b2f510536d66ddf6263ca8d8dda6e75d44a472f1c5915b2",
+      "contacts": 32,
+      "events": 28
+    },
+    {
+      "weapon": "maul",
+      "dir": 1,
+      "scale": 1,
+      "damage": "detached",
+      "checksum": "7664cb3788139a801259a8d14316d391009da9d40694160ff703daa45922162b",
+      "contacts": 3,
+      "events": 3
+    },
+    {
+      "weapon": "maul",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "healthy",
+      "checksum": "956eb4e6e58f91a1cad9a83d1eda55a2176ecc7359dc3d28b8d5764569942944",
+      "contacts": 31,
+      "events": 29
+    },
+    {
+      "weapon": "maul",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "worn",
+      "checksum": "39ca2196666b46c98b9c5c7e7872a6c8c98ed3e3fe0fab4e309c69c9df00a984",
+      "contacts": 31,
+      "events": 29
+    },
+    {
+      "weapon": "maul",
+      "dir": 1,
+      "scale": 1.18,
+      "damage": "detached",
+      "checksum": "f2e50e17ee19ef67cfb80322b19e6e1f4e08b0d20228d25d54973dcc211d9189",
+      "contacts": 5,
+      "events": 4
+    },
+    {
+      "kind": "recorded-coupled-contact",
+      "checksum": "a2fd1f622df4b846f565c105aa7cf955dfdb1d4e8ec9cf9b0d8a08930cadab4e",
+      "externalReads": 47,
+      "contacts": 1
+    },
+    {
+      "kind": "head-overlap",
+      "checksum": "27fcb3ce276f8592f1095cdb221c5638ffe3eb45fa29fb90f390383048878c0a",
+      "contacts": 5
+    }
+  ],
+  "runs": [
+    {
+      "pass": 0,
+      "variant": "A",
+      "ms": 149.0574000000006,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 0,
+      "variant": "B",
+      "ms": 151.07830000000013,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 0,
+      "variant": "B",
+      "ms": 147.97589999999946,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 0,
+      "variant": "A",
+      "ms": 153.89240000000063,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 1,
+      "variant": "A",
+      "ms": 138.64999999999964,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 1,
+      "variant": "B",
+      "ms": 137.1875999999993,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 1,
+      "variant": "B",
+      "ms": 134.73109999999997,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 1,
+      "variant": "A",
+      "ms": 144.60249999999996,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 2,
+      "variant": "A",
+      "ms": 129.21889999999985,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 2,
+      "variant": "B",
+      "ms": 140.28369999999995,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 2,
+      "variant": "B",
+      "ms": 139.0595999999996,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 2,
+      "variant": "A",
+      "ms": 140.65800000000127,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 3,
+      "variant": "A",
+      "ms": 128.77009999999973,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 3,
+      "variant": "B",
+      "ms": 141.96100000000115,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 3,
+      "variant": "B",
+      "ms": 132.92799999999988,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 3,
+      "variant": "A",
+      "ms": 139.59839999999895,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 4,
+      "variant": "A",
+      "ms": 133.71690000000126,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 4,
+      "variant": "B",
+      "ms": 140.2422000000006,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 4,
+      "variant": "B",
+      "ms": 132.57650000000103,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 4,
+      "variant": "A",
+      "ms": 128.28780000000006,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 5,
+      "variant": "A",
+      "ms": 141.8173999999999,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 5,
+      "variant": "B",
+      "ms": 151.23459999999977,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 5,
+      "variant": "B",
+      "ms": 131.9266000000007,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    },
+    {
+      "pass": 5,
+      "variant": "A",
+      "ms": 139.94989999999962,
+      "n": 12,
+      "externalReads": 564,
+      "events": 24,
+      "checksum": "bfb4a498bfa617a72136cc63ee6debfae481cd5bc629a3a063f6ea1a533a05a8"
+    }
+  ],
+  "baselineMedianMs": 139.77414999999928,
+  "candidateMedianMs": 139.6509000000001,
+  "changePercent": -0.0881779642367242
+}

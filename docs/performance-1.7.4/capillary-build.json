@@ -1,0 +1,204 @@
+{
+  "scope": "Node CPU isolated rebuilds only, 320 physical faces per skin, normal/boss scales, intact/punctured/deformed. No contact, renderer, GPU or FPS claim.",
+  "count": 3000,
+  "cycles": 6,
+  "warmups": 3,
+  "order": "ABBA",
+  "originalHash": "8e16d1a4cee255e65f364128d39d06271800a548d938e54f0f5304b7f191478f",
+  "candidateHash": "27842cb93e5583a9a58e00dd302ae832953210c1e4e815d3d51d380808e7b9ce",
+  "baselineMedianMs": 1184.8636000000001,
+  "candidateMedianMs": 386.5427000000009,
+  "savingPercent": 67.37660773780199,
+  "baselineRange": [
+    1150.6591000000008,
+    1221.4404000000013
+  ],
+  "candidateRange": [
+    379.5060999999996,
+    412.0565999999999
+  ],
+  "pairs": [
+    {
+      "cycle": 0,
+      "baselineMs": 1193.13375,
+      "candidateMs": 386.8442,
+      "savingPercent": 67.57746564456835
+    },
+    {
+      "cycle": 1,
+      "baselineMs": 1184.8636000000001,
+      "candidateMs": 379.5778500000001,
+      "savingPercent": 67.9644264538129
+    },
+    {
+      "cycle": 2,
+      "baselineMs": 1191.6735999999996,
+      "candidateMs": 386.5427000000009,
+      "savingPercent": 67.56303907378656
+    },
+    {
+      "cycle": 3,
+      "baselineMs": 1216.1389000000008,
+      "candidateMs": 410.4811499999996,
+      "savingPercent": 66.24718196252095
+    },
+    {
+      "cycle": 4,
+      "baselineMs": 1164.1782000000012,
+      "candidateMs": 386.9054500000002,
+      "savingPercent": 66.76578808983025
+    },
+    {
+      "cycle": 5,
+      "baselineMs": 1184.731099999999,
+      "candidateMs": 388.600400000003,
+      "savingPercent": 67.19927416440716
+    }
+  ],
+  "rows": [
+    {
+      "cycle": 0,
+      "key": "A",
+      "ms": 1173.0449999999998,
+      "checksum": 241000
+    },
+    {
+      "cycle": 0,
+      "key": "B",
+      "ms": 381.7276999999999,
+      "checksum": 241000
+    },
+    {
+      "cycle": 0,
+      "key": "B",
+      "ms": 391.9607000000001,
+      "checksum": 241000
+    },
+    {
+      "cycle": 0,
+      "key": "A",
+      "ms": 1213.2224999999999,
+      "checksum": 241000
+    },
+    {
+      "cycle": 1,
+      "key": "A",
+      "ms": 1186.3285000000005,
+      "checksum": 241000
+    },
+    {
+      "cycle": 1,
+      "key": "B",
+      "ms": 379.64960000000065,
+      "checksum": 241000
+    },
+    {
+      "cycle": 1,
+      "key": "B",
+      "ms": 379.5060999999996,
+      "checksum": 241000
+    },
+    {
+      "cycle": 1,
+      "key": "A",
+      "ms": 1183.3986999999997,
+      "checksum": 241000
+    },
+    {
+      "cycle": 2,
+      "key": "A",
+      "ms": 1181.8327,
+      "checksum": 241000
+    },
+    {
+      "cycle": 2,
+      "key": "B",
+      "ms": 387.22260000000097,
+      "checksum": 241000
+    },
+    {
+      "cycle": 2,
+      "key": "B",
+      "ms": 385.8628000000008,
+      "checksum": 241000
+    },
+    {
+      "cycle": 2,
+      "key": "A",
+      "ms": 1201.5144999999993,
+      "checksum": 241000
+    },
+    {
+      "cycle": 3,
+      "key": "A",
+      "ms": 1221.4404000000013,
+      "checksum": 241000
+    },
+    {
+      "cycle": 3,
+      "key": "B",
+      "ms": 408.90569999999934,
+      "checksum": 241000
+    },
+    {
+      "cycle": 3,
+      "key": "B",
+      "ms": 412.0565999999999,
+      "checksum": 241000
+    },
+    {
+      "cycle": 3,
+      "key": "A",
+      "ms": 1210.8374000000003,
+      "checksum": 241000
+    },
+    {
+      "cycle": 4,
+      "key": "A",
+      "ms": 1150.6591000000008,
+      "checksum": 241000
+    },
+    {
+      "cycle": 4,
+      "key": "B",
+      "ms": 385.1116000000002,
+      "checksum": 241000
+    },
+    {
+      "cycle": 4,
+      "key": "B",
+      "ms": 388.6993000000002,
+      "checksum": 241000
+    },
+    {
+      "cycle": 4,
+      "key": "A",
+      "ms": 1177.6973000000016,
+      "checksum": 241000
+    },
+    {
+      "cycle": 5,
+      "key": "A",
+      "ms": 1187.6733999999997,
+      "checksum": 241000
+    },
+    {
+      "cycle": 5,
+      "key": "B",
+      "ms": 391.4852000000028,
+      "checksum": 241000
+    },
+    {
+      "cycle": 5,
+      "key": "B",
+      "ms": 385.7156000000032,
+      "checksum": 241000
+    },
+    {
+      "cycle": 5,
+      "key": "A",
+      "ms": 1181.7887999999984,
+      "checksum": 241000
+    }
+  ]
+}

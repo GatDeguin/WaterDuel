@@ -5,7 +5,6 @@ import {BALLOON_RADII,waterDropRadius} from './dimensions.js';
 const cache=new WeakMap(),bonds=new WeakMap();
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const dot=(a,b)=>a.x*b.x+a.y*b.y+a.z*b.z;
-const sub=(a,b)=>({x:a.x-b.x,y:a.y-b.y,z:a.z-b.z});
 function closest(point,t){
  const a=t.points[0],b=t.points[1],c=t.points[2],ux=b.x-a.x,uy=b.y-a.y,uz=b.z-a.z,vx=c.x-a.x,vy=c.y-a.y,vz=c.z-a.z,px=point.x-a.x,py=point.y-a.y,pz=point.z-a.z;
  const uu=ux*ux+uy*uy+uz*uz,uv=ux*vx+uy*vy+uz*vz,vv=vx*vx+vy*vy+vz*vz,pu=px*ux+py*uy+pz*uz,pv=px*vx+py*vy+pz*vz,den=uu*vv-uv*uv;
@@ -30,15 +29,28 @@ export function buildCapillarySurface(membrane){
  const triangles=[],edges=new Map(),scale=membrane.scale??1;
  for(const face of membrane.faces){
   if(face.fragment)continue;const ids=[face.a,face.b,face.c],points=ids.map(id=>membrane.nodes[id]);
-  if(points.some(p=>!p||!['x','y','z'].every(k=>Number.isFinite(p[k]))))continue;
-  const u=sub(points[1],points[0]),v=sub(points[2],points[0]),normal={x:u.y*v.z-u.z*v.y,y:u.z*v.x-u.x*v.z,z:u.x*v.y-u.y*v.x},length=Math.hypot(normal.x,normal.y,normal.z);
-  if(length<1e-12)continue;for(const k of ['x','y','z'])normal[k]/=length;
-  const center={x:0,y:0,z:0};for(const p of points)for(const k of ['x','y','z'])center[k]+=p[k]/3;
-  const t={ids,points,normal,center,zone:points.some(p=>(p.ref?.y??Infinity)<-.65*BALLOON_RADII.y*scale)?'neck':null};
-  for(const [i,j]of [[0,1],[1,2],[2,0]]){const key=ids[i]<ids[j]?`${ids[i]}:${ids[j]}`:`${ids[j]}:${ids[i]}`,other=edges.get(key);if(other&&dot(normal,other.normal)<.8&&dot(other.normal,sub(center,other.center))>1e-8){t.zone??='fold';other.zone??='fold';}else if(!other)edges.set(key,t);}
+  let valid=true;for(const p of points)if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)||!Number.isFinite(p.z)){valid=false;break;}if(!valid)continue;
+  // Rebuilding a moving skin needs new owned triangles, but not transient
+  // vectors, coordinate-key lists or edge-pair arrays for each physical face.
+  const a=points[0],b=points[1],c=points[2],ux=b.x-a.x,uy=b.y-a.y,uz=b.z-a.z,vx=c.x-a.x,vy=c.y-a.y,vz=c.z-a.z;
+  const normal={x:uy*vz-uz*vy,y:uz*vx-ux*vz,z:ux*vy-uy*vx},length=Math.hypot(normal.x,normal.y,normal.z);
+  if(length<1e-12)continue;normal.x/=length;normal.y/=length;normal.z/=length;
+  const center={x:0,y:0,z:0};for(const p of points){center.x+=p.x/3;center.y+=p.y/3;center.z+=p.z/3;}
+  let zone=null;for(const p of points)if((p.ref?.y??Infinity)<-.65*BALLOON_RADII.y*scale){zone='neck';break;}
+  const t={ids,points,normal,center,zone};
+  for(let i=0;i<3;i++){
+   const j=(i+1)%3,key=ids[i]<ids[j]?`${ids[i]}:${ids[j]}`:`${ids[j]}:${ids[i]}`,other=edges.get(key);
+   let fold=false;if(other&&dot(normal,other.normal)<.8){const dx=center.x-other.center.x,dy=center.y-other.center.y,dz=center.z-other.center.z;fold=other.normal.x*dx+other.normal.y*dy+other.normal.z*dz>1e-8;}
+   if(fold){t.zone??='fold';other.zone??='fold';}else if(!other)edges.set(key,t);
+  }
   triangles.push(t);
  }
- const eligible=triangles.filter(t=>t.zone);for(const t of eligible){t.min={};t.max={};for(const k of ['x','y','z']){t.min[k]=Math.min(...t.points.map(p=>p[k]));t.max[k]=Math.max(...t.points.map(p=>p[k]));}}
+ const eligible=triangles.filter(t=>t.zone);for(const t of eligible){
+  const a=t.points[0],b=t.points[1],c=t.points[2];t.min={};t.max={};
+  t.min.x=Math.min(a.x,b.x,c.x);t.max.x=Math.max(a.x,b.x,c.x);
+  t.min.y=Math.min(a.y,b.y,c.y);t.max.y=Math.max(a.y,b.y,c.y);
+  t.min.z=Math.min(a.z,b.z,c.z);t.max.z=Math.max(a.z,b.z,c.z);
+ }
  const surface={membrane,version:membrane.version,triangleCount:eligible.length,
   closest(point,reach){let hit=null;for(const t of eligible){if(point.x<t.min.x-reach||point.x>t.max.x+reach||point.y<t.min.y-reach||point.y>t.max.y+reach||point.z<t.min.z-reach||point.z>t.max.z+reach)continue;const q=closest(point,t);if(q.d2<=reach*reach&&(!hit||q.d2<hit.d2))hit={...q,...t};}return hit;}};
  cache.set(membrane,surface);return surface;

@@ -4,6 +4,10 @@
 
 Pages publica la experiencia individual con los dos joysticks y el menú ☰. Para jugar de a dos con móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Optimización 1.7.4
+
+La geometría de contacto entre agua y látex evita vectores, listas y callbacks temporales por cara. En seis comparaciones ABBA, 3.000 reconstrucciones bajan de 1.184,86 a 386,54 ms de CPU (−67,38% en ese tramo). Las 28 corridas del pinchazo completo conservan exactamente física, contactos y replay; la diferencia total es mucho menor y no certifica 60 FPS. Se mantienen geometría, agua, efectos y todas las funciones. [Mediciones, equivalencia e intentos descartados](docs/OPTIMIZACION_1.7.4.md).
+
 ## Optimización 1.7.3
 
 La emisión de efectos rellena directamente los objetos reciclados y el aire del ventilador evita arrays temporales por partícula. Las consultas de armas muestrean sólo el panel necesario con el API geométrico existente, manteniendo el CCD y sus contactos. Las mediciones aisladas repetidas reducen el coste CPU de emisión un 46–48%, el del muestreo de aire un 54–55% y el de esas consultas un 76–85%, conservando exactamente sus estados y todos los parámetros visuales. Son resultados de esos subsistemas, no una mejora global de FPS. Se conservan las chispas de 1.7.2, materiales, física, agua y repeticiones. [Mediciones, equivalencia e intentos descartados](docs/OPTIMIZACION_1.7.3.md).

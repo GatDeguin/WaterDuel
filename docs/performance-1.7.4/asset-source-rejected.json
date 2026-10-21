@@ -1,0 +1,357 @@
+{
+  "decision": "Rejected before production. Isolated savings are reproducible but approximately 0.017–0.020 ms for two character calls, not a measured renderer-frame gain. New mutable-bind signature caches are not justified by the current evidence.",
+  "productionChanged": false,
+  "first": {
+    "scope": "Node V8 paired characterTransforms calls only; no renderer, GPU or FPS certification",
+    "cases": 24,
+    "callsPerRecord": 384,
+    "records": [
+      {
+        "block": 0,
+        "type": "baseline",
+        "ms": 24.64639999999997
+      },
+      {
+        "block": 0,
+        "type": "candidate",
+        "ms": 19.266400000000033
+      },
+      {
+        "block": 0,
+        "type": "candidate",
+        "ms": 18.556699999999978
+      },
+      {
+        "block": 0,
+        "type": "baseline",
+        "ms": 22.517200000000003
+      },
+      {
+        "block": 1,
+        "type": "candidate",
+        "ms": 18.461199999999963
+      },
+      {
+        "block": 1,
+        "type": "baseline",
+        "ms": 23.06909999999999
+      },
+      {
+        "block": 1,
+        "type": "baseline",
+        "ms": 24.62609999999995
+      },
+      {
+        "block": 1,
+        "type": "candidate",
+        "ms": 23.528999999999996
+      },
+      {
+        "block": 2,
+        "type": "baseline",
+        "ms": 25.43209999999999
+      },
+      {
+        "block": 2,
+        "type": "candidate",
+        "ms": 18.036699999999996
+      },
+      {
+        "block": 2,
+        "type": "candidate",
+        "ms": 18.222499999999968
+      },
+      {
+        "block": 2,
+        "type": "baseline",
+        "ms": 21.842300000000023
+      },
+      {
+        "block": 3,
+        "type": "candidate",
+        "ms": 18.182700000000068
+      },
+      {
+        "block": 3,
+        "type": "baseline",
+        "ms": 21.718700000000013
+      },
+      {
+        "block": 3,
+        "type": "baseline",
+        "ms": 21.82230000000004
+      },
+      {
+        "block": 3,
+        "type": "candidate",
+        "ms": 18.182000000000016
+      },
+      {
+        "block": 4,
+        "type": "baseline",
+        "ms": 24.10559999999998
+      },
+      {
+        "block": 4,
+        "type": "candidate",
+        "ms": 17.95079999999996
+      },
+      {
+        "block": 4,
+        "type": "candidate",
+        "ms": 17.232299999999896
+      },
+      {
+        "block": 4,
+        "type": "baseline",
+        "ms": 21.365499999999997
+      },
+      {
+        "block": 5,
+        "type": "candidate",
+        "ms": 16.79169999999999
+      },
+      {
+        "block": 5,
+        "type": "baseline",
+        "ms": 20.920099999999934
+      },
+      {
+        "block": 5,
+        "type": "baseline",
+        "ms": 20.343600000000038
+      },
+      {
+        "block": 5,
+        "type": "candidate",
+        "ms": 16.604499999999916
+      },
+      {
+        "block": 6,
+        "type": "baseline",
+        "ms": 22.44169999999997
+      },
+      {
+        "block": 6,
+        "type": "candidate",
+        "ms": 16.5865
+      },
+      {
+        "block": 6,
+        "type": "candidate",
+        "ms": 16.52030000000002
+      },
+      {
+        "block": 6,
+        "type": "baseline",
+        "ms": 20.88379999999995
+      },
+      {
+        "block": 7,
+        "type": "candidate",
+        "ms": 16.847999999999956
+      },
+      {
+        "block": 7,
+        "type": "baseline",
+        "ms": 21.179399999999987
+      },
+      {
+        "block": 7,
+        "type": "baseline",
+        "ms": 21.015800000000127
+      },
+      {
+        "block": 7,
+        "type": "candidate",
+        "ms": 16.88499999999999
+      }
+    ],
+    "medians": {
+      "baseline": 21.832300000000032,
+      "candidate": 17.993749999999977
+    },
+    "percent": -17.58197716227814,
+    "matrixHash": "b79a35b396951775157e63c4a71202b4fef2837a1c3c5433e196d71ade40e56d",
+    "checksum": 41.798841029405594
+  },
+  "repeat": {
+    "scope": "Node V8 paired characterTransforms calls only; no renderer, GPU or FPS certification",
+    "cases": 24,
+    "callsPerRecord": 384,
+    "records": [
+      {
+        "block": 0,
+        "type": "baseline",
+        "ms": 21.519799999999975
+      },
+      {
+        "block": 0,
+        "type": "candidate",
+        "ms": 18.695700000000045
+      },
+      {
+        "block": 0,
+        "type": "candidate",
+        "ms": 18.218500000000006
+      },
+      {
+        "block": 0,
+        "type": "baseline",
+        "ms": 21.546899999999994
+      },
+      {
+        "block": 1,
+        "type": "candidate",
+        "ms": 17.989100000000008
+      },
+      {
+        "block": 1,
+        "type": "baseline",
+        "ms": 21.525499999999965
+      },
+      {
+        "block": 1,
+        "type": "baseline",
+        "ms": 22.01819999999998
+      },
+      {
+        "block": 1,
+        "type": "candidate",
+        "ms": 22.856199999999944
+      },
+      {
+        "block": 2,
+        "type": "baseline",
+        "ms": 24.417599999999993
+      },
+      {
+        "block": 2,
+        "type": "candidate",
+        "ms": 17.491499999999974
+      },
+      {
+        "block": 2,
+        "type": "candidate",
+        "ms": 17.546400000000062
+      },
+      {
+        "block": 2,
+        "type": "baseline",
+        "ms": 20.804199999999923
+      },
+      {
+        "block": 3,
+        "type": "candidate",
+        "ms": 17.664600000000064
+      },
+      {
+        "block": 3,
+        "type": "baseline",
+        "ms": 21.392299999999977
+      },
+      {
+        "block": 3,
+        "type": "baseline",
+        "ms": 20.858900000000062
+      },
+      {
+        "block": 3,
+        "type": "candidate",
+        "ms": 18.49070000000006
+      },
+      {
+        "block": 4,
+        "type": "baseline",
+        "ms": 24.04460000000006
+      },
+      {
+        "block": 4,
+        "type": "candidate",
+        "ms": 19.153599999999983
+      },
+      {
+        "block": 4,
+        "type": "candidate",
+        "ms": 18.939399999999978
+      },
+      {
+        "block": 4,
+        "type": "baseline",
+        "ms": 21.95589999999993
+      },
+      {
+        "block": 5,
+        "type": "candidate",
+        "ms": 18.21169999999995
+      },
+      {
+        "block": 5,
+        "type": "baseline",
+        "ms": 21.1087
+      },
+      {
+        "block": 5,
+        "type": "baseline",
+        "ms": 21.383100000000013
+      },
+      {
+        "block": 5,
+        "type": "candidate",
+        "ms": 17.97219999999993
+      },
+      {
+        "block": 6,
+        "type": "baseline",
+        "ms": 20.96709999999996
+      },
+      {
+        "block": 6,
+        "type": "candidate",
+        "ms": 17.374000000000024
+      },
+      {
+        "block": 6,
+        "type": "candidate",
+        "ms": 17.210800000000063
+      },
+      {
+        "block": 6,
+        "type": "baseline",
+        "ms": 21.036000000000058
+      },
+      {
+        "block": 7,
+        "type": "candidate",
+        "ms": 17.591999999999985
+      },
+      {
+        "block": 7,
+        "type": "baseline",
+        "ms": 21.399
+      },
+      {
+        "block": 7,
+        "type": "baseline",
+        "ms": 21.096499999999992
+      },
+      {
+        "block": 7,
+        "type": "candidate",
+        "ms": 18.261099999999942
+      }
+    ],
+    "medians": {
+      "baseline": 21.39564999999999,
+      "candidate": 18.10039999999998
+    },
+    "percent": -15.401495163736612,
+    "matrixHash": "b79a35b396951775157e63c4a71202b4fef2837a1c3c5433e196d71ade40e56d",
+    "checksum": 41.798841029405594
+  },
+  "sources": {
+    "baselineSha256": "b14ca57797a878345b2568200f57ff50ee34f4dd20aa0875ae74333e09358e3c",
+    "candidateSha256": "ed31e38ac1b80c9766625c6da7cf7b81bf4475fd23257915958862682b210507",
+    "productionUnchanged": true
+  }
+}
