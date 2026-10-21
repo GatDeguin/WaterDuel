@@ -1,11 +1,11 @@
 /** Seeded presentation particles. These never carry physical water or damage. */
 import {prepareWorkshopAir,sampleWorkshopAir} from './workshop-air.js';
 const H=1/60,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-export const EFFECT_LIMITS=Object.freeze({total:176,dust:64,smoke:16,wood:28,spark:28,mist:28,glint:12});
+export const EFFECT_LIMITS=Object.freeze({total:176,dust:64,smoke:16,wood:28,spark:56,mist:28,glint:12});
 const WINDOWS=Object.freeze([{x:-3.0051,y:3.7174,z:-4.5561},{x:3.0051,y:3.9759,z:-4.5561}]);
 const STYLES=Object.freeze({
   dust:{color:0xc7c0ae,opacity:.13,material:5,order:.5},smoke:{color:0x8e887e,opacity:.035,material:5,order:.5},
-  wood:{color:0x9b744b,opacity:.30,material:8,order:2.5},spark:{color:0xffc274,opacity:.75,material:6,order:2.5},
+  wood:{color:0x9b744b,opacity:.30,material:8,order:2.5},spark:{color:0xffc274,opacity:.88,material:6,order:2.5},
   mist:{color:0xc8dedb,opacity:.08,material:5,order:2.5},glint:{color:0xc2e6df,opacity:.24,material:6,order:2.5}
 });
 const position=p=>p&&[p.x,p.y,p.z??0].every(Number.isFinite)&&Math.abs(p.x)<20&&p.y> -2&&p.y<12&&Math.abs(p.z??0)<20?{x:p.x,y:p.y,z:p.z??0}:null;
@@ -67,18 +67,18 @@ export class WorkshopEffects{
     if(impulse<=.0001)return 0;
     const material=data.material??(name==='clang'?'metal':undefined),kind=['wood','composite','wood_metal_mixed'].includes(material)?'wood':material==='latex'?'glint':['metal','steel','brass','metal_mixed'].includes(material)?'spark':null;
     if(!kind)return 0;
-    const count=kind==='glint'?2:clamp(Math.ceil(1+impulse*(kind==='spark'?20:24)),2,kind==='spark'?9:8);
+    const count=kind==='glint'?2:kind==='spark'?clamp(Math.ceil(4+impulse*40),4,18):clamp(Math.ceil(1+impulse*24),2,8);
     return this.#contact(kind,material,p,data.normal,impulse,count);
   }
   #contact(kind,source,p,normal,strength,count){
     let nx=Number.isFinite(normal?.x)?normal.x:0,ny=Number.isFinite(normal?.y)?normal.y:1,nz=Number.isFinite(normal?.z)?normal.z:0;
     const length=Math.hypot(nx,ny,nz)||1;nx/=length;ny/=length;nz/=length;let emitted=0;
     for(let i=0;i<count&&this.#room(kind);i++){
-      const speed=kind==='spark'?.28+this.#random()*.75:kind==='wood'?.07+this.#random()*.23:.02+this.#random()*.12;
+      const speed=kind==='spark'?.42+this.#random()*1.25:kind==='wood'?.07+this.#random()*.23:.02+this.#random()*.12;
       const spread=kind==='glint'?.012:kind==='mist'?.10:.26;
       const v={x:nx*speed+(this.#random()-.5)*spread,y:ny*speed+(this.#random()-.5)*spread,z:nz*speed+(this.#random()-.5)*spread};
-      const radius=kind==='spark'?.0025+this.#random()*.003:kind==='wood'?.0035+this.#random()*.006:kind==='glint'?.003:.008+this.#random()*.010;
-      const ttl=kind==='spark'?.13+this.#random()*.16:kind==='wood'?.35+this.#random()*.45:kind==='glint'?.10:.35+this.#random()*.6;
+      const radius=kind==='spark'?.0035+this.#random()*.0045:kind==='wood'?.0035+this.#random()*.006:kind==='glint'?.003:.008+this.#random()*.010;
+      const ttl=kind==='spark'?.18+this.#random()*.18:kind==='wood'?.35+this.#random()*.45:kind==='glint'?.10:.35+this.#random()*.6;
       const at={x:p.x+nx*.007,y:p.y+ny*.007,z:p.z+nz*.007};this.#spawn(kind,source,at,v,radius,ttl);emitted++;
     }
     return emitted;
