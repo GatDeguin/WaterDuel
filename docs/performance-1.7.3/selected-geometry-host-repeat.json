@@ -1,0 +1,733 @@
+{
+  "scope": "Only the identical 300-tick real HostSession clash fixture; replay retained, 120 Hz updates and 60 Hz render-state queries; 3 warmups per variant, equal explicit GC before every block. Six ABBA cycles with alternating A/A controls. Node CPU/wall time only, no WebGL/audio or FPS inference. Original first results are preserved in weapon-sampler-probe.json.",
+  "baselineSHA": "f828849fda02f47c0131c76b41be45f08ae0bb2241c1001dc47555176be56cd1",
+  "currentSHA": "98722d1d0cfc454dd40bb65ce73bcfebf8b998c2cb9dbb7aa30933ccbda272d7",
+  "warm": [
+    {
+      "variant": "A",
+      "kind": "warm",
+      "pass": 0,
+      "ms": 1128.3497,
+      "cpuMs": 1875,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "warm",
+      "pass": 0,
+      "ms": 1023.4071999999999,
+      "cpuMs": 1516,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "warm",
+      "pass": 1,
+      "ms": 1071.3078,
+      "cpuMs": 1578,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "warm",
+      "pass": 1,
+      "ms": 1069.5263,
+      "cpuMs": 1610,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "warm",
+      "pass": 2,
+      "ms": 1093.7864,
+      "cpuMs": 1703,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "warm",
+      "pass": 2,
+      "ms": 1065.3216000000002,
+      "cpuMs": 1516,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    }
+  ],
+  "runs": [
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A1",
+      "pass": 0,
+      "ms": 1060.6053999999995,
+      "cpuMs": 1656,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A2",
+      "pass": 0,
+      "ms": 1082.7956999999997,
+      "cpuMs": 1625,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 0,
+      "ms": 1108.4192999999996,
+      "cpuMs": 1344,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 0,
+      "ms": 1049.1224000000002,
+      "cpuMs": 1563,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 0,
+      "ms": 1052.4755000000005,
+      "cpuMs": 1609,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 0,
+      "ms": 1117.3084,
+      "cpuMs": 1703,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 1,
+      "ms": 1142.679400000001,
+      "cpuMs": 1671,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 1,
+      "ms": 1122.6162000000004,
+      "cpuMs": 1578,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 1,
+      "ms": 1065.741899999999,
+      "cpuMs": 1500,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 1,
+      "ms": 1173.878499999999,
+      "cpuMs": 1640,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A1",
+      "pass": 1,
+      "ms": 1170.8021000000008,
+      "cpuMs": 1593,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A2",
+      "pass": 1,
+      "ms": 1107.1235000000015,
+      "cpuMs": 1735,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A1",
+      "pass": 2,
+      "ms": 1091.9087,
+      "cpuMs": 1625,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A2",
+      "pass": 2,
+      "ms": 1097.5437999999995,
+      "cpuMs": 1688,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 2,
+      "ms": 1093.3774000000012,
+      "cpuMs": 1656,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 2,
+      "ms": 1134.9285999999993,
+      "cpuMs": 1750,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 2,
+      "ms": 1068.2024999999994,
+      "cpuMs": 1657,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 2,
+      "ms": 1110.6052000000018,
+      "cpuMs": 1641,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 3,
+      "ms": 1094.536500000002,
+      "cpuMs": 1500,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 3,
+      "ms": 1054.0505000000012,
+      "cpuMs": 1422,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 3,
+      "ms": 1244.3954000000012,
+      "cpuMs": 1797,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 3,
+      "ms": 1187.3001000000004,
+      "cpuMs": 1750,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A1",
+      "pass": 3,
+      "ms": 1090.7705999999962,
+      "cpuMs": 1594,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A2",
+      "pass": 3,
+      "ms": 1079.4320999999982,
+      "cpuMs": 1515,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A1",
+      "pass": 4,
+      "ms": 1095.6118999999962,
+      "cpuMs": 1766,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A2",
+      "pass": 4,
+      "ms": 1117.7151000000013,
+      "cpuMs": 1453,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 4,
+      "ms": 1114.030200000001,
+      "cpuMs": 1594,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 4,
+      "ms": 1067.5743999999977,
+      "cpuMs": 1500,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 4,
+      "ms": 1030.994700000003,
+      "cpuMs": 1578,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 4,
+      "ms": 1101.2891999999993,
+      "cpuMs": 1578,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 5,
+      "ms": 1162.9019999999946,
+      "cpuMs": 1484,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 5,
+      "ms": 1129.6808999999994,
+      "cpuMs": 1704,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "label": "B",
+      "pass": 5,
+      "ms": 1044.8551999999981,
+      "cpuMs": 1688,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "label": "A",
+      "pass": 5,
+      "ms": 1096.609199999999,
+      "cpuMs": 1687,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A1",
+      "pass": 5,
+      "ms": 1116.4614000000001,
+      "cpuMs": 1391,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "label": "A2",
+      "pass": 5,
+      "ms": 1079.2770000000019,
+      "cpuMs": 1750,
+      "ticks": 300,
+      "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 31,
+        "joint-damage": 8
+      }
+    }
+  ],
+  "cycles": [
+    {
+      "pass": 0,
+      "baselineMeanMs": 1112.8638499999997,
+      "candidateMeanMs": 1050.7989500000003,
+      "changePercent": -5.57704340921843,
+      "cpuChangePercent": 4.1023957991467075,
+      "controlAAChangePercent": 2.09222958887445
+    },
+    {
+      "pass": 1,
+      "baselineMeanMs": 1158.27895,
+      "candidateMeanMs": 1094.1790499999997,
+      "changePercent": -5.534064138867423,
+      "cpuChangePercent": -7.03714889761401,
+      "controlAAChangePercent": -5.438886725604542
+    },
+    {
+      "pass": 2,
+      "baselineMeanMs": 1101.9913000000015,
+      "candidateMeanMs": 1101.5655499999993,
+      "changePercent": -0.038634606280663064,
+      "cpuChangePercent": 3.336366393691237,
+      "controlAAChangePercent": 0.5160779468099674
+    },
+    {
+      "pass": 3,
+      "baselineMeanMs": 1140.9183000000012,
+      "candidateMeanMs": 1149.2229500000012,
+      "changePercent": 0.7278917342284696,
+      "cpuChangePercent": -0.9538461538461496,
+      "controlAAChangePercent": -1.0394944638219994
+    },
+    {
+      "pass": 4,
+      "baselineMeanMs": 1107.6597000000002,
+      "candidateMeanMs": 1049.2845500000003,
+      "changePercent": -5.2701339590128455,
+      "cpuChangePercent": -2.9634300126103352,
+      "controlAAChangePercent": 2.0174297121092977
+    },
+    {
+      "pass": 5,
+      "baselineMeanMs": 1129.7555999999968,
+      "candidateMeanMs": 1087.2680499999988,
+      "changePercent": -3.760773569079734,
+      "cpuChangePercent": 6.969410280668553,
+      "controlAAChangePercent": -3.330558494901681
+    }
+  ],
+  "checksumsBitExact": true,
+  "baselineMeanMs": 1125.2446166666666,
+  "candidateMeanMs": 1088.71985,
+  "wallMeanChangePercent": -3.245940138319847,
+  "wallMedianChangePercent": -4.104901863919186,
+  "cpuMeanChangePercent": 0.509143807148793,
+  "absoluteControlNoiseMedianPercent": 2.054829650491874,
+  "absoluteControlNoiseMaxPercent": 5.438886725604542
+}

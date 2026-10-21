@@ -1,0 +1,165 @@
+{
+  "date": "2026-10-21T05:04:24.262Z",
+  "status": "frozen",
+  "scope": "WorkshopEffects CPU emission only. No renderer, GPU, physical water or FPS claim.",
+  "changes": [
+    "Refill existing pooled particle fields directly rather than constructing a temporary record for Object.assign. No API, random draw, integration, style, emission-count or pool-limit change."
+  ],
+  "invariantReference": {
+    "effects": "10d661b94af9c44e9c0360cafed24a5a745cd8e9f6fac08ace9638c7ca8a1880",
+    "air": "2048d0534ebf223822d26bd6575b326e0c7099a28891a1c33bcf33e315d56c76"
+  },
+  "source": "defab2e46a3f8b90603f49171209c445495445c308652050543ff666e4178f4c",
+  "validation": {
+    "command": "node --test tests/fx-allocation-equivalence.test.mjs tests/workshop-effects.test.mjs",
+    "pass": 7,
+    "fail": 0,
+    "equivalence": "Pinned historical source+air, mixed seeds/ambient/environment/dt/events, complete live/free particle records, RNG state, clock, accumulator, credits, stats and independently owned snapshots. Exact deep equality at every frame."
+  },
+  "methodology": "CPU-only synthetic WorkshopEffects; excludes renderer, GPU and physical water. ABBA, 3 warmups, 6 cycles, no quality changes.",
+  "attempts": [
+    {
+      "idea": "A/A control with unchanged source",
+      "verdict": "control",
+      "measurements": [
+        {
+          "scenario": "emit",
+          "count": 100000,
+          "baselineMedianMs": 590.2275499999987,
+          "candidateMedianMs": 600.4900499999999,
+          "savingPercent": -1.7387361874248608,
+          "baselineRange": [
+            575.4213999999993,
+            628.3954000000003
+          ],
+          "candidateRange": [
+            585.3256000000001,
+            633.8119999999999
+          ]
+        },
+        {
+          "scenario": "tick",
+          "count": 50000,
+          "baselineMedianMs": 662.5641999999998,
+          "candidateMedianMs": 660.550650000001,
+          "savingPercent": 0.30390262558688264,
+          "baselineRange": [
+            655.6928000000007,
+            706.6329999999998
+          ],
+          "candidateRange": [
+            650.9015000000018,
+            677.2043999999987
+          ]
+        }
+      ]
+    },
+    {
+      "idea": "Direct pooled-object refill",
+      "verdict": "kept",
+      "measurements": [
+        {
+          "scenario": "emit",
+          "count": 100000,
+          "baselineMedianMs": 583.1489000000001,
+          "candidateMedianMs": 312.2362000000003,
+          "savingPercent": 46.45686547638172,
+          "baselineRange": [
+            551.159599999999,
+            632.7425000000003
+          ],
+          "candidateRange": [
+            292.82940000000235,
+            385.38729999999987
+          ]
+        },
+        {
+          "scenario": "tick",
+          "count": 50000,
+          "baselineMedianMs": 651.5501999999997,
+          "candidateMedianMs": 624.9366000000009,
+          "savingPercent": 4.084658403910979,
+          "baselineRange": [
+            618.5563999999977,
+            739.067
+          ],
+          "candidateRange": [
+            596.4434999999976,
+            685.4134000000004
+          ]
+        }
+      ],
+      "confirmation": [
+        {
+          "scenario": "emit",
+          "count": 100000,
+          "baselineMedianMs": 577.8721500000001,
+          "candidateMedianMs": 300.1081000000013,
+          "savingPercent": 48.066696067633444,
+          "baselineRange": [
+            554.2475999999988,
+            603.3769000000002
+          ],
+          "candidateRange": [
+            294.016599999999,
+            318.1946000000007
+          ]
+        },
+        {
+          "scenario": "tick",
+          "count": 50000,
+          "baselineMedianMs": 633.6247999999996,
+          "candidateMedianMs": 615.3747500000009,
+          "savingPercent": 2.88026131552912,
+          "baselineRange": [
+            615.8083000000006,
+            675.1764999999996
+          ],
+          "candidateRange": [
+            591.6795999999995,
+            652.094000000001
+          ]
+        }
+      ],
+      "reason": "Emission improvement >46% in both ABBA repetitions with fully separated ranges. Mixed-tick ranges overlap, so no tick speedup claim."
+    },
+    {
+      "idea": "Pass scalar position/velocity to avoid transient vectors",
+      "verdict": "reverted",
+      "measurements": [
+        {
+          "scenario": "emit",
+          "count": 100000,
+          "baselineMedianMs": 301.4018999999985,
+          "candidateMedianMs": 296.99220000000105,
+          "savingPercent": 1.463063106104323,
+          "baselineRange": [
+            292.85440000000017,
+            315.8774000000001
+          ],
+          "candidateRange": [
+            291.16049999999814,
+            314.8642
+          ]
+        },
+        {
+          "scenario": "tick",
+          "count": 50000,
+          "baselineMedianMs": 602.681,
+          "candidateMedianMs": 597.7110500000003,
+          "savingPercent": 0.8246402325607916,
+          "baselineRange": [
+            583.8363000000008,
+            615.1687999999995
+          ],
+          "candidateRange": [
+            584.2011999999995,
+            639.0882999999999
+          ]
+        }
+      ],
+      "reason": "Only 1.46% emission and 0.82% mixed tick changes, both within run variance; added signature/caller complexity did not earn its cost."
+    }
+  ],
+  "limits": "Synthetic 100000 contact calls and 50000 mixed simulation ticks in Node. Emission saves about 2.8 microseconds per 18-spark contact in this harness; this does not establish sustained 60 FPS or a whole-frame speedup."
+}

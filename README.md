@@ -4,6 +4,10 @@
 
 Pages publica la experiencia individual con los dos joysticks y el menú ☰. Para jugar de a dos con móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Optimización 1.7.3
+
+La emisión de efectos rellena directamente los objetos reciclados y el aire del ventilador evita arrays temporales por partícula. Las consultas de armas muestrean sólo el panel necesario con el API geométrico existente, manteniendo el CCD y sus contactos. Las mediciones aisladas repetidas reducen el coste CPU de emisión un 46–48%, el del muestreo de aire un 54–55% y el de esas consultas un 76–85%, conservando exactamente sus estados y todos los parámetros visuales. Son resultados de esos subsistemas, no una mejora global de FPS. Se conservan las chispas de 1.7.2, materiales, física, agua y repeticiones. [Mediciones, equivalencia e intentos descartados](docs/OPTIMIZACION_1.7.3.md).
+
 ## Chispas 1.7.2
 
 Los contactos metálicos generan ráfagas más densas, brillantes y visibles durante más tiempo. Se amplía su cuota a 56 chispas activas conservando el límite global de 176 partículas, la reutilización del pool y el render por lotes. Madera, látex y contactos sin impulso mantienen sus efectos específicos.

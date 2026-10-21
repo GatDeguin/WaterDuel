@@ -1,0 +1,443 @@
+{
+  "status": "rejected-no-product-change",
+  "reason": "The warmed integrated ABBA clash differences change sign and remain inside run-to-run noise. The solver cache lookup is unchanged in product.",
+  "scope": "Current 1.7.2 Node 24 CPU profiles, actual HostSession, quality high, 120 Hz update and 60 Hz presentation queries. No GPU/audio or actual display scanout; no 60 FPS claim. A single initial profile includes cold ticks and profiler overhead.",
+  "sourceCodeChanged": false,
+  "benchmarkActive": false,
+  "benchmarksStopped": {
+    "pid": 35756,
+    "verifiedExe": "C:/Program Files/nodejs/node.exe",
+    "verifiedStartTimeDeltaToOwnedFileSeconds": -0.07,
+    "execSession": 40408,
+    "reason": "Root requested CPU free for independent air benchmark; repeated burst intentionally cancelled."
+  },
+  "profiles": [
+    "steady.json",
+    "clash.json",
+    "burst.json",
+    "summary.json"
+  ],
+  "experiment": "Only generated candidate modules in this runtime directory; original source untouched.",
+  "cycles": [
+    {
+      "cycle": 0,
+      "baselineMeanMs": 1015.2992500000003,
+      "candidateMeanMs": 1028.5559999999996,
+      "relativeChangePercent": 1.305698787820364,
+      "runs": [
+        {
+          "kind": "clash",
+          "cycle": 0,
+          "variant": "A",
+          "ms": 1033.7233,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 0,
+          "variant": "B",
+          "ms": 1083.2905,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 0,
+          "variant": "B",
+          "ms": 973.8214999999991,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 0,
+          "variant": "A",
+          "ms": 996.8752000000004,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        }
+      ]
+    },
+    {
+      "cycle": 1,
+      "baselineMeanMs": 985.8670499999994,
+      "candidateMeanMs": 1012.2283500000003,
+      "relativeChangePercent": 2.673920383078121,
+      "runs": [
+        {
+          "kind": "clash",
+          "cycle": 1,
+          "variant": "A",
+          "ms": 940.9844999999996,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 1,
+          "variant": "B",
+          "ms": 1014.8107999999993,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 1,
+          "variant": "B",
+          "ms": 1009.6459000000013,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 1,
+          "variant": "A",
+          "ms": 1030.7495999999992,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        }
+      ]
+    },
+    {
+      "cycle": 2,
+      "baselineMeanMs": 1024.6846500000001,
+      "candidateMeanMs": 985.3026500000005,
+      "relativeChangePercent": -3.843328774369714,
+      "runs": [
+        {
+          "kind": "clash",
+          "cycle": 2,
+          "variant": "A",
+          "ms": 1055.9830000000002,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 2,
+          "variant": "B",
+          "ms": 981.4014000000006,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 2,
+          "variant": "B",
+          "ms": 989.2039000000004,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 2,
+          "variant": "A",
+          "ms": 993.3863000000001,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        }
+      ]
+    },
+    {
+      "cycle": 3,
+      "baselineMeanMs": 977.2988500000001,
+      "candidateMeanMs": 1020.4327499999999,
+      "relativeChangePercent": 4.41358341923761,
+      "runs": [
+        {
+          "kind": "clash",
+          "cycle": 3,
+          "variant": "A",
+          "ms": 967.2191000000003,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 3,
+          "variant": "B",
+          "ms": 1018.2393000000011,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 3,
+          "variant": "B",
+          "ms": 1022.6261999999988,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 3,
+          "variant": "A",
+          "ms": 987.3786,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        }
+      ]
+    },
+    {
+      "cycle": 4,
+      "baselineMeanMs": 1011.788199999999,
+      "candidateMeanMs": 952.7821999999996,
+      "relativeChangePercent": -5.831852951042471,
+      "runs": [
+        {
+          "kind": "clash",
+          "cycle": 4,
+          "variant": "A",
+          "ms": 1053.7796999999991,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 4,
+          "variant": "B",
+          "ms": 959.2010000000009,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 4,
+          "variant": "B",
+          "ms": 946.3633999999984,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 4,
+          "variant": "A",
+          "ms": 969.796699999999,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        }
+      ]
+    },
+    {
+      "cycle": 5,
+      "baselineMeanMs": 967.226200000001,
+      "candidateMeanMs": 937.6100500000011,
+      "relativeChangePercent": -3.0619673040287565,
+      "runs": [
+        {
+          "kind": "clash",
+          "cycle": 5,
+          "variant": "A",
+          "ms": 966.5444000000025,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 5,
+          "variant": "B",
+          "ms": 941.6624000000011,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 5,
+          "variant": "B",
+          "ms": 933.5577000000012,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "kind": "clash",
+          "cycle": 5,
+          "variant": "A",
+          "ms": 967.9079999999994,
+          "ticks": 300,
+          "checksum": "1473e43db0ef11c0449750020f3d3d3d1020e143edd6c947aad1bd27eb8c903c",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        }
+      ]
+    }
+  ],
+  "allCompletedFixtureOutputsBitExact": true,
+  "baselineMeanMs": 997.0273666666667,
+  "candidateMeanMs": 989.4853333333335,
+  "interruptedBurst": {
+    "completedRuns": 11,
+    "usableForDecision": false
+  },
+  "futureCandidate": {
+    "file": "public/physics/weapon-bind.js",
+    "line": 106,
+    "observation": "Interpolated weapon contact queries currently construct whole-rig collisionPanelsAt(t), then use only steel keys. In the fresh neutral-combat profile collisionPanelsAt was 16.34% inclusive. A selected-key geometry path may avoid work, but requires proof for exact CCD ordering, flexed segments, detached bodies, support/matrix effects and current API oracles. This is a proposal, not an implemented gain."
+  }
+}

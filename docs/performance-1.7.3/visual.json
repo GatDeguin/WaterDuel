@@ -1,0 +1,17 @@
+{
+  "scope": "Controlled same-clock WebGL equality, no frame-rate or device performance claim",
+  "passed": true,
+  "sameState": true,
+  "assets": 11,
+  "width": 1280,
+  "height": 682,
+  "changedChannels": 0,
+  "variedPixels": [
+    872914,
+    872914
+  ],
+  "glErrors": [
+    0,
+    0
+  ]
+}

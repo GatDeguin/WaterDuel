@@ -1,0 +1,560 @@
+{
+  "comparisons": 100,
+  "scope": "Same exact solver/event/mesh outputs; real HostSession, replay, quality high, actual puncture. Node CPU only, no GPU/audio/FPS claim. Direct query includes fixed gallery, host includes complete physical trajectories.",
+  "direct": [
+    {
+      "kind": "rigid",
+      "runs": [
+        {
+          "pass": 0,
+          "variant": "A",
+          "ms": 161.20890000000009,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 0,
+          "variant": "B",
+          "ms": 24.44119999999998,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 0,
+          "variant": "B",
+          "ms": 23.720399999999927,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 0,
+          "variant": "A",
+          "ms": 158.42680000000007,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 1,
+          "variant": "A",
+          "ms": 158.67430000000002,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 1,
+          "variant": "B",
+          "ms": 24.165899999999965,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 1,
+          "variant": "B",
+          "ms": 22.994199999999864,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 1,
+          "variant": "A",
+          "ms": 156.24710000000005,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 2,
+          "variant": "A",
+          "ms": 157.82050000000004,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 2,
+          "variant": "B",
+          "ms": 23.930200000000013,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 2,
+          "variant": "B",
+          "ms": 24.21180000000004,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 2,
+          "variant": "A",
+          "ms": 159.57729999999992,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 3,
+          "variant": "A",
+          "ms": 158.31400000000008,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 3,
+          "variant": "B",
+          "ms": 23.1087,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 3,
+          "variant": "B",
+          "ms": 23.35069999999996,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 3,
+          "variant": "A",
+          "ms": 161.46299999999997,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 4,
+          "variant": "A",
+          "ms": 160.6282000000001,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 4,
+          "variant": "B",
+          "ms": 23.52559999999994,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 4,
+          "variant": "B",
+          "ms": 23.193300000000363,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 4,
+          "variant": "A",
+          "ms": 168.6156000000001,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 5,
+          "variant": "A",
+          "ms": 163.73910000000024,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 5,
+          "variant": "B",
+          "ms": 23.83219999999983,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 5,
+          "variant": "B",
+          "ms": 23.103899999999612,
+          "checksum": 205.7721563598333
+        },
+        {
+          "pass": 5,
+          "variant": "A",
+          "ms": 160.39409999999998,
+          "checksum": 205.7721563598333
+        }
+      ],
+      "baselineMedianMs": 159.98569999999995,
+      "candidateMedianMs": 23.622999999999934,
+      "percent": -85.23430531603766
+    },
+    {
+      "kind": "flex",
+      "runs": [
+        {
+          "pass": 0,
+          "variant": "A",
+          "ms": 210.54489999999987,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 0,
+          "variant": "B",
+          "ms": 52.85450000000037,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 0,
+          "variant": "B",
+          "ms": 53.88040000000001,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 0,
+          "variant": "A",
+          "ms": 214.10570000000007,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 1,
+          "variant": "A",
+          "ms": 229.2114999999999,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 1,
+          "variant": "B",
+          "ms": 55.234699999999975,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 1,
+          "variant": "B",
+          "ms": 53.86389999999983,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 1,
+          "variant": "A",
+          "ms": 226.7435999999998,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 2,
+          "variant": "A",
+          "ms": 224.22149999999965,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 2,
+          "variant": "B",
+          "ms": 53.38550000000032,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 2,
+          "variant": "B",
+          "ms": 54.59559999999965,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 2,
+          "variant": "A",
+          "ms": 225.53969999999936,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 3,
+          "variant": "A",
+          "ms": 225.04730000000018,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 3,
+          "variant": "B",
+          "ms": 53.197000000000116,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 3,
+          "variant": "B",
+          "ms": 53.0654999999997,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 3,
+          "variant": "A",
+          "ms": 224.42069999999967,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 4,
+          "variant": "A",
+          "ms": 222.41039999999975,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 4,
+          "variant": "B",
+          "ms": 52.62530000000061,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 4,
+          "variant": "B",
+          "ms": 52.98440000000028,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 4,
+          "variant": "A",
+          "ms": 214.0662000000002,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 5,
+          "variant": "A",
+          "ms": 216.10490000000027,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 5,
+          "variant": "B",
+          "ms": 52.58400000000074,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 5,
+          "variant": "B",
+          "ms": 52.040899999999965,
+          "checksum": 81.2603692509009
+        },
+        {
+          "pass": 5,
+          "variant": "A",
+          "ms": 213.17529999999988,
+          "checksum": 81.2603692509009
+        }
+      ],
+      "baselineMedianMs": 223.3159499999997,
+      "candidateMedianMs": 53.13124999999991,
+      "percent": -76.20803619266783
+    }
+  ],
+  "host": [
+    {
+      "kind": "clash",
+      "runs": [
+        {
+          "pass": 0,
+          "variant": "A",
+          "ms": 1128.0365999999995,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 0,
+          "variant": "B",
+          "ms": 1369.2893999999997,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 0,
+          "variant": "B",
+          "ms": 967.5242999999991,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 0,
+          "variant": "A",
+          "ms": 1026.0913999999993,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 1,
+          "variant": "A",
+          "ms": 983.5362000000005,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 1,
+          "variant": "B",
+          "ms": 1137.6147999999994,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 1,
+          "variant": "B",
+          "ms": 1180.4801000000007,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 1,
+          "variant": "A",
+          "ms": 990.023500000003,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 2,
+          "variant": "A",
+          "ms": 976.9998000000014,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 2,
+          "variant": "B",
+          "ms": 935.9380999999994,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 2,
+          "variant": "B",
+          "ms": 932.1890000000021,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        },
+        {
+          "pass": 2,
+          "variant": "A",
+          "ms": 999.7661000000007,
+          "ticks": 300,
+          "checksum": "c28cc5d9257f05ad295013e7ff59f9c664116d3ca402ee6ad028f458ac908d21",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 31,
+            "joint-damage": 8
+          },
+          "realPuncture": false
+        }
+      ],
+      "baselineMeanMs": 1017.4089333333341,
+      "candidateMeanMs": 1087.1726166666667,
+      "percent": 6.856995358274087
+    },
+    {
+      "kind": "burst",
+      "runs": [
+        {
+          "pass": 0,
+          "variant": "A",
+          "ms": 5898.068100000004,
+          "ticks": 481,
+          "checksum": "3141c22e91b7916325c44696fe68c1f6c76301e75f6cfaa757757638bf2f6ad8",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 70,
+            "joint-damage": 12,
+            "burst": 1,
+            "start": 1
+          },
+          "realPuncture": true
+        },
+        {
+          "pass": 0,
+          "variant": "B",
+          "ms": 5620.251700000001,
+          "ticks": 481,
+          "checksum": "3141c22e91b7916325c44696fe68c1f6c76301e75f6cfaa757757638bf2f6ad8",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 70,
+            "joint-damage": 12,
+            "burst": 1,
+            "start": 1
+          },
+          "realPuncture": true
+        },
+        {
+          "pass": 0,
+          "variant": "B",
+          "ms": 5628.599800000004,
+          "ticks": 481,
+          "checksum": "3141c22e91b7916325c44696fe68c1f6c76301e75f6cfaa757757638bf2f6ad8",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 70,
+            "joint-damage": 12,
+            "burst": 1,
+            "start": 1
+          },
+          "realPuncture": true
+        },
+        {
+          "pass": 0,
+          "variant": "A",
+          "ms": 5926.828500000003,
+          "ticks": 481,
+          "checksum": "3141c22e91b7916325c44696fe68c1f6c76301e75f6cfaa757757638bf2f6ad8",
+          "events": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 70,
+            "joint-damage": 12,
+            "burst": 1,
+            "start": 1
+          },
+          "realPuncture": true
+        }
+      ],
+      "baselineMeanMs": 5912.448300000004,
+      "candidateMeanMs": 5624.425750000002,
+      "percent": -4.871459933104216
+    }
+  ]
+}

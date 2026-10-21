@@ -100,13 +100,28 @@ function advance(query,rate,accelerationA=0,accelerationB=0){
   return search(t,1);
 }
 
+// Owned by one CCD query only. Selected geometry preserves the full API's
+// last-key lookup; legacy colliders still sample and cache the complete frame.
+function panelSampler(rig){
+  const cache=new Map(),selected=typeof rig.collisionGeometryAt==='function';
+  return (t,key)=>{
+    let sample=cache.get(t);
+    if(!sample){sample=new Map();cache.set(t,sample);if(!selected)for(const p of rig.collisionPanelsAt(t))sample.set(p.key,p);}
+    if(selected&&!sample.has(key)){
+      let panel;
+      for(const p of rig.collisionGeometryAt(t,key))if(p.key===key||p.key!==p.key&&key!==key)panel=p;
+      sample.set(key,panel);
+    }
+    return sample.get(key);
+  };
+}
+
 export function firstWeaponContact(a,b){
   if(!a?.collisionPanelsAt||!b?.collisionPanelsAt)return null;
-  const A=panels(a),B=panels(b),rate=axis=>travelBound(a,axis)+travelBound(b,axis),cacheA=new Map(),cacheB=new Map();let best=null;
-  const at=(rig,cache,t)=>{if(!cache.has(t))cache.set(t,new Map(rig.collisionPanelsAt(t).map(p=>[p.key,p])));return cache.get(t);};
+  const A=panels(a),B=panels(b),rate=axis=>travelBound(a,axis)+travelBound(b,axis),atA=panelSampler(a),atB=panelSampler(b);let best=null;
   for(const pa of A)for(const pb of B){
     const hit=advance(t=>{
-      const p=at(a,cacheA,t).get(pa.key),q=at(b,cacheB,t).get(pb.key);if(!p||!q)return null;
+      const p=atA(t,pa.key),q=atB(t,pb.key);if(!p||!q)return null;
       return {...separation(p,q,a.dir??1),a:p,b:q};
     },rate,accelerationBound(a),accelerationBound(b));
     if(hit&&(!best||hit.t<best.t)){
@@ -121,11 +136,10 @@ export function firstWeaponContact(a,b){
 export function firstWeaponPointContact(rig,from,to){
   if(!rig?.collisionPanelsAt||!from||!to||![from.x,from.y,to.x,to.y,from.z??0,to.z??0].every(Number.isFinite))return null;
   const dx=to.x-from.x,dy=to.y-from.y,dz=(to.z??0)-(from.z??0);
-  const rate=axis=>travelBound(rig,axis)+(axis?Math.abs(dx*axis.x+dy*axis.y+dz*(axis.z??0)):Math.hypot(dx,dy,dz)),cache=new Map();let best=null;
+  const rate=axis=>travelBound(rig,axis)+(axis?Math.abs(dx*axis.x+dy*axis.y+dz*(axis.z??0)):Math.hypot(dx,dy,dz)),at=panelSampler(rig);let best=null;
   for(const panel of panels(rig)){
     const hit=advance(t=>{
-      if(!cache.has(t))cache.set(t,new Map(rig.collisionPanelsAt(t).map(p=>[p.key,p])));
-      const p=cache.get(t).get(panel.key);if(!p)return null;
+      const p=at(t,panel.key);if(!p)return null;
       const point={x:from.x+(to.x-from.x)*t,y:from.y+(to.y-from.y)*t,z:(from.z??0)+((to.z??0)-(from.z??0))*t};
       const q={center:point,vertices:[point],axes:[],z:point.z,depth:0};
       return {...separation(p,q,rig.dir??1),point,a:p,b:q};

@@ -14,10 +14,13 @@ export function prepareWorkshopAir(fan){
   range:radius*8,spread:.6,speed:Math.min(1.5,radius*Math.abs(fan.angularSpeed)*.22)};
 }
 export function sampleWorkshopAir(air,point,time=0){
- if(!air||!air.speed||![point?.x,point?.y,point?.z].every(Number.isFinite))return zero();
- const delta=[point.x,point.y,point.z].map((v,i)=>v-air.pivot[i]),distance=delta.reduce((s,v,i)=>s+v*air.axis[i],0);
+ if(!air||!air.speed)return zero();
+ const x=point?.x,y=point?.y,z=point?.z;
+ if(!Number.isFinite(x)||!Number.isFinite(y)||!Number.isFinite(z))return zero();
+ const px=point.x,py=point.y,pz=point.z,dx=px-air.pivot[0],dy=py-air.pivot[1],dz=pz-air.pivot[2];
+ const distance=0+dx*air.axis[0]+dy*air.axis[1]+dz*air.axis[2];
  if(distance<=0||distance>=air.range)return zero();
- const radius=air.radius+air.spread*distance,radial2=Math.max(0,delta.reduce((s,v)=>s+v*v,0)-distance*distance);
+ const radius=air.radius+air.spread*distance,radial2=Math.max(0,(0+dx*dx+dy*dy+dz*dz)-distance*distance);
  if(radial2>=radius*radius)return zero();
  const inlet=Math.min(1,distance/(air.radius*.12)),profile=(1-radial2/(radius*radius))**2*(1-distance/air.range)**2;
  const pulse=.96+.04*Math.sin((Number.isFinite(time)?time:0)*air.angularSpeed);

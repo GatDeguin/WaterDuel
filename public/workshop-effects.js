@@ -23,7 +23,11 @@ export class WorkshopEffects{
   #spawn(kind,source,p,v,r,ttl,age=0){
     if(!this.#room(kind))return null;
     let particle=this.free.pop();if(particle)this.reused++;else{particle={};this.created++;}
-    Object.assign(particle,{kind,source,x:p.x,y:p.y,z:p.z,vx:v.x,vy:v.y,vz:v.z,r0:r,r,ttl,age,alpha:1,phase:this.#random()*Math.PI*2,visualOnly:true});
+    // Refill the pooled object directly: Object.assign allocated a transient
+    // record for every spark, even when no new particle was needed.
+    particle.kind=kind;particle.source=source;particle.x=p.x;particle.y=p.y;particle.z=p.z;
+    particle.vx=v.x;particle.vy=v.y;particle.vz=v.z;particle.r0=r;particle.r=r;
+    particle.ttl=ttl;particle.age=age;particle.alpha=1;particle.phase=this.#random()*Math.PI*2;particle.visualOnly=true;
     this.#appearance(particle);this.particles.push(particle);this.counts[kind]++;return particle;
   }
   #retire(index){const p=this.particles[index];this.counts[p.kind]--;this.free.push(p);this.particles[index]=this.particles[this.particles.length-1];this.particles.pop();}
