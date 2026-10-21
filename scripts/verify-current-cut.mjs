@@ -18,7 +18,7 @@ async function hashes(){
   // Equivalence tests execute historical oracle modules and captured clouds too.
   // Hash those dependencies while leaving changing TAP/report prose outside
   // the source cut. The receipt lists every included path explicitly.
-  const code=(await walk('audit')).filter(name=>/\.(?:js|mjs)$/.test(name));
+  const code=(await walk('audit')).filter(name=>/\.(?:js|mjs)(?:\.txt)?$/.test(name));
   const names=['server.mjs','package.json','INICIAR_WINDOWS.bat','INICIAR_MAC_LINUX.sh','INICIAR_ANDROID_TERMUX.sh',...(await Promise.all(['public','tests','scripts','vendor','benchmarks'].map(walk))).flat(),...code].sort(),result={};
   for(const name of names)result[name]=createHash('sha256').update(await readFile(path.join(root,name))).digest('hex');
   return result;

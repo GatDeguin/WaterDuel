@@ -103,3 +103,8 @@ desktop.ini
 !/public/qa/experiments/effect-bank-preparation-post1.4.js
 !/public/qa/experiments/effect-bank-worker-post1.4.js
 !/public/qa/experiments/game-audio-prepared-post1.4.js
+
+# Pinned exact contact memo oracle required by the test suite.
+!/audit/combat-1.7/
+!/audit/combat-1.7/baseline/
+!/audit/combat-1.7/baseline/detached-cluster-before-contact-memo.js.txt

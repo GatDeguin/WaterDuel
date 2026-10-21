@@ -19,7 +19,15 @@ const geometricFootprint=[
 // The shader's historical correction remains byte-for-byte unchanged. Account
 // explicitly for the three render-only additions in the pinned pre-damage
 // renderer. New limb topology is separately checked against original healthy
-// draw bytes in joint-damage-render.test.mjs; shaders remain byte-identical.
+// draw bytes in joint-damage-render.test.mjs. The explicitly reviewed 1.7
+// wet-cloth and disjoint-liquid additions are reversed exactly below, so every
+// historical BRDF, map and detail byte outside those additions stays protected.
+const v17Hunks=JSON.parse(read('./fixtures/shader-v17-hunks.json')).hunks;
+function withoutV17Shader(text){
+  let value=fragment(text).replaceAll('\r\n','\n');
+  for(const {before,after}of v17Hunks){assert.ok(after.length>0);assert.equal(value.split(after).length-1,1,'unique reviewed 1.7 shader hunk');value=value.replace(after,before);}
+  return value;
+}
 function withoutAdaptiveRendering(text){
   let value=text.replaceAll('\r\n','\n');
   const patches=[
@@ -80,7 +88,7 @@ test('fuera del origen de la varianza se conservan N detallada, amplitudes, mapa
   assert.equal(createHash('sha256').update(preAdaptive).digest('hex'),'2d34f8211ea0a6a78223e4c36b9af0e924f781d114a28e5d0fb3515b67a2d673');
   assert.equal(withoutAdaptiveRendering(beforeDamage),normalized(preAdaptive),'the pre-damage renderer contains only the explicit adaptive hooks');
   withoutAdaptiveRendering(source); // Each actual adaptive hook is still unique and exact.
-  assert.equal(fragment(source),fragment(preAdaptive),'actual shader is unchanged by adaptive rendering');
+  assert.equal(withoutV17Shader(source),fragment(preAdaptive).replaceAll('\r\n','\n'),'outside reviewed 1.7 additions the actual shader is unchanged by adaptive rendering');
   const original=normalized(before),current=normalized(preAdaptive);
   const restored=current.replace(geometricFootprint.join('\n')+'\n','').replace('float normalVariance=geometricNormalVariance;',oldVariance);
   assert.equal(restored,original,'the only renderer delta is moving the derivative source before shading detail');
@@ -94,5 +102,12 @@ test('el baseline sin culling incorpora únicamente la misma corrección geomét
   assert.equal(restored,normalized(before),'0504816e remains the source of the corrected product baseline');
   assert.equal(createHash('sha256').update(preAdaptive).digest('hex'),'2d34f8211ea0a6a78223e4c36b9af0e924f781d114a28e5d0fb3515b67a2d673');
   assert.equal(corrected,withoutAdaptiveRendering(beforeDamage),'the pinned pre-damage renderer recovers the geometric-only baseline');
-  assert.equal(fragment(source),fragment(beforeDamage),'joint rendering preserves the entire corrected shader byte for byte');
+  assert.equal(withoutV17Shader(source),fragment(beforeDamage).replaceAll('\r\n','\n'),'outside reviewed 1.7 additions joint rendering preserves the corrected shader byte for byte');
+});
+
+test('la autorización 1.7 rechaza cambios ajenos al detalle y cambios no revisados dentro del hunk',()=>{
+  const changed=source.replace('pores*.003,.12','pores*.004,.12');assert.notEqual(changed,source);
+  assert.notEqual(withoutV17Shader(changed),fragment(preAdaptive).replaceAll('\r\n','\n'),'una alteración de amplitud sigue detectándose fuera de los nuevos hunks');
+  const changedWet=source.replace('base*=1.0-.32*damp','base*=1.0-.5*damp');assert.notEqual(changedWet,source);
+  assert.throws(()=>withoutV17Shader(changedWet),/unique reviewed/,'no se acepta cualquier versión de la nueva humedad');
 });

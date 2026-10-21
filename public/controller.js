@@ -320,6 +320,8 @@ function renderMenu(){
   $('menuConfigNotice').textContent=sceneIssue|| (changingArena?'Esperando la acción solicitada. Los cambios de combate quedan en pausa.':preparing?'Esperando que la arena aplique tu selección antes de comenzar.':configurable?'Elegí las opciones y tocá Comenzar. Al confirmarse, volvés directamente a los mandos.':'La partida está en curso. Las opciones de combate se habilitan al terminar o preparar otra partida.');
   for(const id of ['menuAudio','menuVolume'])$(id).disabled=!usable||awaiting(id);
   if(s){
+    const own=s.fighters?.find(f=>f.slot===slot);if(own?.emblem){$('seatSymbol').textContent=own.emblem.glyph;$('seatSymbol').setAttribute('aria-label',own.emblem.name);for(const id of ['offKnob','mainKnob'])$(id).dataset.emblem=own.emblem.glyph;}
+    const report=$('menuPerformanceReport');if(report){const labels={steady:'Duelo estable',clash:'Choques',detach:'Desprendimientos',burst:'Ruptura'};report.textContent=Object.entries(labels).map(([kind,label])=>{const m=s.performance?.[kind];return m?`${label}: ${m.fpsMean.toFixed(1)} FPS · P95 ${m.frameP95Ms.toFixed(1)} ms · pico ${m.sessionMaxMs.toFixed(1)} ms (${m.samples} cuadros)`:`${label}: sin muestras`;}).join('\n');}
     const scores=Array.isArray(s.scores)?s.scores:[0,0];$('menuScore').textContent=`${Number(scores[0])||0} : ${Number(scores[1])||0}`;$('scoreText').textContent=$('menuScore').textContent;
     $('menuRound').textContent=safeText(s.round,8);$('menuClock').textContent=safeText(s.clock,24);$('menuMatchMessage').textContent=safeText(s.message);
     $('menuAudio').checked=!!s.audioOn;if(!volumeDragging)$('menuVolume').value=String(clamp(Number(s.volume)||0,0,100));$('menuVolumeValue').textContent=`${$('menuVolume').value}%`;
@@ -336,12 +338,12 @@ function renderMenu(){
     $(`menuFighter${n}`).textContent=`J${n} · ${safeText(fighter?.name||'Esperando rival',60)}`;
     $(`menuGuard${n}`).textContent=fighter?`${safeText(fighter.guardLabel,32)} ${Math.round(clamp(Number(fighter.guardPercent)||0,0,100))}% · ${Array.isArray(fighter.wins)?fighter.wins.filter(Boolean).length:0} victorias`:'';
     if(fighter?.equipment){weapon.value=safeText(fighter.equipment.weapon,24);defense.value=safeText(fighter.equipment.defense,24);}
-    const equipmentPending=awaiting(weapon.id)||awaiting(defense.id),fixedOpponent=n===2&&s?.mode==='solo'&&['duel','campaign'].includes(s?.experience);
+    const equipmentPending=awaiting(weapon.id)||awaiting(defense.id),fixedOpponent=n===2&&s?.mode==='solo'&&['duel','campaign','parry','moving','depth'].includes(s?.experience);
     weapon.disabled=!configurable||!equipmentCatalog||!!s?.trainingEquipmentLocked||equipmentPending||fixedOpponent;
     defense.disabled=!configurable||!equipmentCatalog||!!s?.trainingEquipmentLocked||equipmentPending||fixedOpponent||!!equipmentCatalog?.WEAPONS?.[weapon.value]?.twoHanded;
     if(n===slot&&fighter?.name)$('seatName').textContent=safeText(fighter.name,60);
   }
-  $('menuEquipmentNotice').textContent=s?.trainingEquipmentLocked?'Equipo de escuela fijado para aprender los mismos movimientos.':s?.mode==='solo'&&['duel','campaign'].includes(s?.experience)?'El encuentro establece el equipo del rival. Elegí tu arma y defensa antes de combatir; el mazo ocupa ambas manos.':'El mazo ocupa ambas manos. Elegí arma y defensa antes de combatir.';
+  $('menuEquipmentNotice').textContent=s?.trainingEquipmentLocked?s.trainingEquipmentReason||'Equipo de escuela fijado para aprender los mismos movimientos.':s?.mode==='solo'&&['duel','campaign'].includes(s?.experience)?'El encuentro establece el equipo del rival. Elegí tu arma y defensa antes de combatir; el mazo ocupa ambas manos.':'El mazo ocupa ambas manos. Elegí arma y defensa antes de combatir.';
   for(const id of menuButtons){$(id).disabled=!usable||awaiting(id);$(id).setAttribute('aria-busy',String(awaiting(id)));}
   $('menuStartBtn').disabled=!usable||!!sceneIssue||!!s?.replay?.active||!['ready','matchover'].includes(s?.phase)||preparing||changingArena;$('menuStartBtn').textContent=awaiting('menuStartBtn')?'INICIANDO…':s?.phase==='matchover'?'REVANCHA':'COMENZAR';
   $('menuNextBtn').hidden=!objective.nextAction;$('menuNextBtn').disabled=!usable||!!sceneIssue||!!s?.replay?.active||!objective.nextAction||preparing||changingArena;$('menuNextBtn').textContent=awaiting('menuNextBtn')?'PREPARANDO…':objective.nextAction==='retry'?'REINTENTAR ENCUENTRO':objective.nextAction==='repeat'?'REPETIR ACTIVIDAD':'SIGUIENTE ENCUENTRO';
@@ -369,7 +371,7 @@ $('mobileMenu').addEventListener('keydown',event=>{
   if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
 });
 for(const [id,commandName,allowed,numeric]of [
-  ['menuMode','setMode',['solo','versus']],['menuExperience','setExperience',['duel','training','practice','precision','campaign']],['menuDifficulty','setDifficulty',['rookie','normal','expert','boss']],
+  ['menuMode','setMode',['solo','versus']],['menuExperience','setExperience',['duel','training','practice','precision','campaign','parry','moving','depth']],['menuDifficulty','setDifficulty',['rookie','normal','expert','boss']],
   ['menuBestOf','setBestOf',['3','5'],true],['menuArena','setArena',['atelier','midnight','dojo']],['menuQuality','setQuality',['high','ultra','eco']],['menuPerformanceMode','setPerformanceMode',['adaptive','fixed']],['menuCamera','setCamera',['combat','detail']],['menuLighting','setLighting',['cinematic','neutral']],['menuReplaySpeed','replaySpeed',['0.25','0.5','1'],true]
 ])$(id).addEventListener('change',()=>{const value=$(id).value;if(!allowed.includes(value)){renderMenu();return;}command(commandName,numeric?Number(value):value,id);});
 for(const [id,name]of [['menuStartBtn','start'],['menuResetBtn','reset'],['menuNextBtn','nextEncounter'],['menuCampaignResetBtn','resetCampaign'],['menuReplayToggleBtn','replayToggle'],['menuReplayCloseBtn','replayClose'],['menuReplayClearBtn','replayClear']])$(id).addEventListener('click',()=>command(name,undefined,id));

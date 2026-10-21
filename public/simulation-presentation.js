@@ -34,6 +34,13 @@ function blend(a,b,t,key=''){
   if(typeof a==='number'&&typeof b==='number')return mix(a,b,t);
   if(!a||!b||typeof a!=='object'||typeof b!=='object')return own(b);
   if(key==='joints')return own(b);
+  if(key==='surface')return {...own(b),marks:(b.marks??[]).map(mark=>{
+    const previous=a.marks?.find(old=>old.id===mark.id&&old.body===mark.body&&old.key===mark.key),out=own(mark);
+    // The bounded history can rotate without changing length. IDs and local
+    // material anchors describe one contact, never an interpolated contact.
+    if(previous)for(const name of ['position','normal','tangent'])out[name]=blend(previous[name],mark[name],t);
+    return out;
+  })};
   if(key==='detached'&&Array.isArray(b))return b.map(fragment=>{
     const previous=Array.isArray(a)?a.find(old=>old.id===fragment.id&&old.joint===fragment.joint&&
       old.bodies.length===fragment.bodies.length&&old.bodies.every((body,i)=>body===fragment.bodies[i])):null;

@@ -28,3 +28,11 @@ test('Las métricas no inventan datos sin muestras ni memoria no disponible',()=
   assert.equal(metrics.snapshot().frameMaxMs,40);
   assert.equal(metrics.snapshot().heapPeakBytes,500);
 });
+test('Los impactos, desprendimientos y ruptura conservan picos separados sin incluir pausas',()=>{
+ const metrics=new FrameMetrics(4);metrics.markEvent('clang',10);metrics.record({frameMs:45,phase:'fight',now:20,eligible:true});
+ metrics.markEvent('joint-break',30);metrics.record({frameMs:60,phase:'fight',now:40,eligible:true});
+ metrics.record({frameMs:80,phase:'burst',now:50,eligible:true});metrics.record({frameMs:1000,phase:'fight',now:80,eligible:false});
+ assert.equal(metrics.report().clash.frameMaxMs,45);assert.equal(metrics.report().detach.frameMaxMs,60);assert.equal(metrics.report().burst.frameMaxMs,80);
+ const slots=metrics.slots.slice();for(let i=0;i<8;i++)metrics.record({frameMs:16,phase:'fight',now:1000+i,eligible:true});
+ assert.ok(slots.every((slot,i)=>slot===metrics.slots[i]));assert.equal(metrics.peaks.detach,60);assert.equal(metrics.report().steady.samples,4);
+});

@@ -31,6 +31,7 @@ const host=new HostSession({storage,onNeutralize:clearInputs,onSettings:kind=>{
   if(kind==='replay')audio.setPaused(audioPaused());
   if(kind==='audio'){audio.configure(host.audioOn,host.volume);if(mobileMode)audio.unlock();}
 },onEvent:(name,data)=>{
+  if(typeof metrics!=='undefined')metrics.markEvent?.(name,performance.now());
   const jointEvent=name==='joint-damage'||name==='joint-break';
   audio.handleEvent(jointEvent?'material-contact':name,jointEvent?{...data,jointEvent:name}:data,host.game);
   const event=jointEvent?name:{burst:'burst',clang:'clang',countdown:'countdown',matchover:'victory'}[name];
@@ -65,7 +66,12 @@ function createRenderer(){
   try{
     renderer=new Renderer3D(canvas);renderer.quality={high:1.55,ultra:2,eco:1}[game.quality];host.rendererError='';
     const loadingRenderer=renderer;
-    renderer.loadAssets?.(status=>{if(renderer!==loadingRenderer)return;const wasBlocked=host.presentationBlocked;host.assetStatus=status;if(wasBlocked!==host.presentationBlocked)adaptiveQuality.reset();broadcast();});
+    const loading=renderer.loadAssets?.(status=>{if(renderer!==loadingRenderer)return;const wasBlocked=host.presentationBlocked;host.assetStatus={...status,loading:status.loading||!!loadingRenderer.prepareGame&&!loadingRenderer.prepared};if(wasBlocked!==host.presentationBlocked)adaptiveQuality.reset();broadcast();});
+    if(loading?.then||loadingRenderer.prepareGame)Promise.resolve(loading).then(async()=>{
+      if(renderer!==loadingRenderer)return;
+      await loadingRenderer.prepareGame?.(game);if(renderer!==loadingRenderer)return;
+      host.assetStatus={...loadingRenderer.assetStatus,...host.assetStatus,loading:false};clearInputs();previous=performance.now();adaptiveQuality.reset();broadcast();
+    }).catch(error=>{if(renderer===loadingRenderer)renderError(error);});
   }
   catch(error){renderer=null;renderError(error);}
 }
@@ -168,8 +174,8 @@ function animate(now){
   const renderedAt=performance.now();
   audio.update(game,{paused,dt,camera:renderer?.stats?.camera});
   const audioMs=performance.now()-renderedAt;
-  if(!document.hidden)metrics.record({frameMs:rawMs,simulationMs:renderStart-simulationStart+audioMs,renderMs:renderedAt-renderStart,phase:host.playback?'replay':game.phase,heapBytes:performance.memory?.usedJSHeapSize});
-  if(now-lastState>=250){broadcast();lastState=now;}
+  if(!document.hidden)metrics.record({frameMs:rawMs,simulationMs:renderStart-simulationStart+audioMs,renderMs:renderedAt-renderStart,phase:host.playback?'replay':game.phase,heapBytes:performance.memory?.usedJSHeapSize,now,eligible:!paused&&!host.playback&&!host.presentationBlocked});
+  if(now-lastState>=250){host.performanceReport=metrics.report();broadcast();lastState=now;}
   const callbackEnd=performance.now();
   adaptiveQuality.observe({now:callbackEnd,workMs:callbackEnd-callbackStart,phase:game.phase,eligible:qualityEligible&&!!renderer});
 }

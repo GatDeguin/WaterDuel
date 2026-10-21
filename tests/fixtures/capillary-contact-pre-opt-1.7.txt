@@ -1,0 +1,54 @@
+import {BALLOON_RADII,waterDropRadius} from './dimensions.js';
+// Surface tension has a finite wetting well. Parcels keep their own volume;
+// this reduced contact cannot fabricate sub-parcel films or hold a large drop
+// with the force that would support a microscopic one.
+const cache=new WeakMap(),bonds=new WeakMap();
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const dot=(a,b)=>a.x*b.x+a.y*b.y+a.z*b.z;
+const sub=(a,b)=>({x:a.x-b.x,y:a.y-b.y,z:a.z-b.z});
+function closest(point,t){
+ const [a,b,c]=t.points,u=sub(b,a),v=sub(c,a),p=sub(point,a),uu=dot(u,u),uv=dot(u,v),vv=dot(v,v),pu=dot(p,u),pv=dot(p,v),den=uu*vv-uv*uv;
+ let best=null;
+ const consider=weights=>{const q={x:0,y:0,z:0};for(let i=0;i<3;i++)for(const k of ['x','y','z'])q[k]+=t.points[i][k]*weights[i];const d=sub(point,q),d2=dot(d,d);if(!best||d2<best.d2)best={point:q,weights,d2};};
+ if(den>1e-20){const s=(vv*pu-uv*pv)/den,r=(uu*pv-uv*pu)/den;if(s>=0&&r>=0&&s+r<=1)consider([1-s-r,s,r]);}
+ for(const [i,j]of [[0,1],[1,2],[2,0]]){const e=sub(t.points[j],t.points[i]),p=sub(point,t.points[i]),s=clamp(dot(p,e)/(dot(e,e)||1),0,1),weights=[0,0,0];weights[i]=1-s;weights[j]=s;consider(weights);}
+ return best;
+}
+export function buildCapillarySurface(membrane){
+ if(!membrane?.nodes||!membrane?.faces)return null;
+ const prior=cache.get(membrane);if(prior?.version===membrane.version)return prior;
+ const triangles=[],edges=new Map(),scale=membrane.scale??1;
+ for(const face of membrane.faces){
+  if(face.fragment)continue;const ids=[face.a,face.b,face.c],points=ids.map(id=>membrane.nodes[id]);
+  if(points.some(p=>!p||!['x','y','z'].every(k=>Number.isFinite(p[k]))))continue;
+  const u=sub(points[1],points[0]),v=sub(points[2],points[0]),normal={x:u.y*v.z-u.z*v.y,y:u.z*v.x-u.x*v.z,z:u.x*v.y-u.y*v.x},length=Math.hypot(normal.x,normal.y,normal.z);
+  if(length<1e-12)continue;for(const k of ['x','y','z'])normal[k]/=length;
+  const center={x:0,y:0,z:0};for(const p of points)for(const k of ['x','y','z'])center[k]+=p[k]/3;
+  const t={ids,points,normal,center,zone:points.some(p=>(p.ref?.y??Infinity)<-.65*BALLOON_RADII.y*scale)?'neck':null};
+  for(const [i,j]of [[0,1],[1,2],[2,0]]){const key=ids[i]<ids[j]?`${ids[i]}:${ids[j]}`:`${ids[j]}:${ids[i]}`,other=edges.get(key);if(other&&dot(normal,other.normal)<.8&&dot(other.normal,sub(center,other.center))>1e-8){t.zone??='fold';other.zone??='fold';}else if(!other)edges.set(key,t);}
+  triangles.push(t);
+ }
+ const eligible=triangles.filter(t=>t.zone);for(const t of eligible){t.min={};t.max={};for(const k of ['x','y','z']){t.min[k]=Math.min(...t.points.map(p=>p[k]));t.max[k]=Math.max(...t.points.map(p=>p[k]));}}
+ const surface={membrane,version:membrane.version,triangleCount:eligible.length,
+  closest(point,reach){let hit=null;for(const t of eligible){if(['x','y','z'].some(k=>point[k]<t.min[k]-reach||point[k]>t.max[k]+reach))continue;const q=closest(point,t);if(q.d2<=reach*reach&&(!hit||q.d2<hit.d2))hit={...q,...t};}return hit;}};
+ cache.set(membrane,surface);return surface;
+}
+export function applyCapillaryContact(p,surface,dt,{radius=waterDropRadius(p.volume),density=997,surfaceTension=.072,contactCosine=.7}={}){
+ const empty={contact:false,work:0,capacity:0};
+ if(!surface||!(dt>0&&dt<=.04)||!(radius>0)||!(p.volume>0)||!(density>0)||![radius,density,surfaceTension,contactCosine,p.x,p.y,p.z,p.vx,p.vy,p.vz].every(Number.isFinite))return empty;
+ const range=radius*.15,hit=surface.closest(p,radius+range);
+ if(!hit){bonds.delete(p);return empty;}
+ const distance=Math.sqrt(hit.d2),gap=Math.max(0,distance-radius),normal=distance>1e-12?{x:(p.x-hit.point.x)/distance,y:(p.y-hit.point.y)/distance,z:(p.z-hit.point.z)/distance}:hit.normal;
+ const mass=p.volume*density;if(!(mass>0)||!Number.isFinite(1/mass))return empty;
+ const weights=hit.weights,nodes=hit.points,skinMass=nodes.map(n=>n.pinned?0:(n.mass??0)+(n.addedMass??0));
+ let inverse=1/mass,speed=0;for(let i=0;i<3;i++){const n=nodes[i];speed+=weights[i]*((n.vx??0)*normal.x+(n.vy??0)*normal.y+(n.vz??0)*normal.z);if(skinMass[i]>0)inverse+=weights[i]**2/skinMass[i];}
+ const vn=p.vx*normal.x+p.vy*normal.y+p.vz*normal.z-speed;
+ const force=Math.max(0,surfaceTension)*2*Math.PI*radius*clamp(contactCosine,0,1),capacity=force*range*.5;
+ let bond=bonds.get(p);if(!bond||bond.surface!==surface.membrane){bond={surface:surface.membrane,remaining:capacity};bonds.set(p,bond);}bond.remaining=Math.min(bond.remaining,capacity);
+ let impulse=-force*(1-gap/range)*dt-vn*(1-Math.exp(-20*dt))/inverse;
+ const quadratic=.5*inverse*impulse*impulse,linear=impulse*vn;
+ if(quadratic+linear>bond.remaining&&quadratic>0){const factor=clamp((-linear+Math.sqrt(linear*linear+4*quadratic*bond.remaining))/(2*quadratic),0,1);impulse*=factor;}
+ const work=impulse*vn+.5*inverse*impulse*impulse;bond.remaining=clamp(bond.remaining-work,0,capacity);
+ for(const k of ['x','y','z']){p['v'+k]+=impulse*normal[k]/mass;for(let i=0;i<3;i++)if(skinMass[i]>0)nodes[i]['v'+k]-=weights[i]*impulse*normal[k]/skinMass[i];}
+ return {contact:true,zone:hit.zone,work,capacity,remainingEnergy:bond.remaining,impulse,point:hit.point};
+}

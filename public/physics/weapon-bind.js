@@ -52,13 +52,14 @@ function travelBound(rig,axis){
   let travel=axis?Math.abs(dx*axis.x+dy*axis.y):Math.hypot(dx,dy);
   const lever=5*(rig.scale??1)+Math.max(rig.swordLength??1,rig.previousSwordLength??1);
   for(let i=2;i<(rig.q?.length??0);i++)travel+=Math.abs(rig.q[i]-(rig.previousQ?.[i]??rig.q[i]))*lever;
-  return travel+Math.abs((rig.swordLength??1)-(rig.previousSwordLength??rig.swordLength??1));
+  return travel+Math.abs((rig.swordLength??1)-(rig.previousSwordLength??rig.swordLength??1))+2*Math.abs((rig.weaponFlex?.offset??0)-(rig.weaponFlex?.previousOffset??0));
 }
 
 function accelerationBound(rig){
   let angular=0;for(let i=2;i<(rig.q?.length??0);i++)angular+=Math.abs(rig.q[i]-(rig.previousQ?.[i]??rig.q[i]));
   const lever=5*(rig.scale??1)+Math.max(rig.swordLength??1,rig.previousSwordLength??1);
-  return lever*angular*angular+2*Math.abs((rig.swordLength??1)-(rig.previousSwordLength??rig.swordLength??1))*angular;
+  const bend=Math.abs((rig.weaponFlex?.offset??0)-(rig.weaponFlex?.previousOffset??0));
+  return lever*angular*angular+2*Math.abs((rig.swordLength??1)-(rig.previousSwordLength??rig.swordLength??1))*angular+4*bend*angular+4*bend*bend/Math.max(.45,rig.swordLength??1);
 }
 
 function advance(query,rate,accelerationA=0,accelerationB=0){
@@ -134,7 +135,7 @@ export function firstWeaponPointContact(rig,from,to){
   return best;
 }
 
-export function weaponBindManifold(a,b,c){
+function anchoredManifold(a,b,c){
   if(!c?.anchorA||!c?.anchorB)return [];
   const pa=panels(a).find(p=>p.key===c.keyA),pb=panels(b).find(p=>p.key===c.keyB);if(!pa||!pb)return [];
   const tangent={x:-c.normal.y,y:c.normal.x},A=project(pa,tangent),B=project(pb,tangent);
@@ -150,6 +151,20 @@ export function weaponBindManifold(a,b,c){
   const penetration=-(pointB.x-pointA.x)*normal.x-(pointB.y-pointA.y)*normal.y;
   if(penetration<=1e-6)return [];
   return [{bodyA:'weapon',bodyB:'weapon',keyA:`steel:${c.keyA}`,keyB:`steel:${c.keyB}`,pointA,pointB,normal,penetration,projectOnly:true}];
+}
+export function weaponBindManifold(a,b,c){
+  const contacts=anchoredManifold(a,b,c);
+  if(!a.weaponFlex?.offset&&!a.weaponFlex?.previousOffset&&!b.weaponFlex?.offset&&!b.weaponFlex?.previousOffset)return contacts;
+  // A bent beam may touch another part of the opposing weapon at the same
+  // time. Solving only the first swept anchor lets a later segment reopen the
+  // head/shaft constraint. Add real current SAT contacts, with shared supports.
+  for(const pa of panels(a))for(const pb of panels(b)){
+    if(contacts.some(q=>q.keyA===`steel:${pa.key}`&&q.keyB===`steel:${pb.key}`))continue;
+    const s=separation(pa,pb,a.dir??1);if(s.gap>=-1e-6||s.xyGap>0)continue;
+    const points=manifold(pa,pb,s.normal);
+    contacts.push({bodyA:'weapon',bodyB:'weapon',keyA:`steel:${pa.key}`,keyB:`steel:${pb.key}`,normal:s.normal,penetration:-s.xyGap,...points,projectOnly:true});
+  }
+  return contacts;
 }
 
 function contactInertia(rig,point,normal,friction){
@@ -189,7 +204,7 @@ function frictionResponse(vn,vt,kn,kt,kc,cap,restitution,staticFriction,dynamicF
 }
 
 export function resolveWeaponBind(a,b,{dt=1/120,maxForce=WEAPON_BIND.maxForce,restitution=WEAPON_BIND.restitution,project=true,
-  staticFriction=WEAPON_BIND.staticFriction,dynamicFriction=WEAPON_BIND.dynamicFriction}={}){
+  staticFriction=WEAPON_BIND.staticFriction,dynamicFriction=WEAPON_BIND.dynamicFriction,observeVelocities=false}={}){
   const c=firstWeaponContact(a,b);if(!c)return {impulse:0,reason:'no-contact'};
   const current=()=>({a:panels(a).find(p=>p.key===c.keyA),b:panels(b).find(p=>p.key===c.keyB)});
   let p=current(),pointA=located(p.a,c.anchorA),pointB=located(p.b,c.anchorB),n=c.normal;
@@ -207,10 +222,23 @@ export function resolveWeaponBind(a,b,{dt=1/120,maxForce=WEAPON_BIND.maxForce,re
   const cap=Math.min(.45,Math.max(0,finite(maxForce))*clamp(finite(dt),0,1/30));
   const response=frictionResponse(closingSpeed,slide,inverseMass,tangentMass,crossMass,cap,clamp(finite(restitution),0,.3),muStatic,muDynamic);
   const impulse=response.normal,frictionImpulse=response.tangent;
+  const dissipatedWork=Math.max(0,closingSpeed*impulse+slide*frictionImpulse-.5*(inverseMass*impulse**2+2*crossMass*impulse*frictionImpulse+tangentMass*frictionImpulse**2));
+  let flexWork=0;
+  let velocities;
   if(impulse>0){
     const x=n.x*impulse+tangent.x*frictionImpulse,y=n.y*impulse+tangent.y*frictionImpulse;
     a.reactImpulse({body:'weapon',point:pointA,impulse:{x:-x,y:-y}});
     b.reactImpulse({body:'weapon',point:pointB,impulse:{x,y}});
+    if(observeVelocities)velocities={beforeA:{...va},beforeB:{...vb},afterA:a.pointVelocity({body:'weapon',point:pointA}),afterB:b.pointVelocity({body:'weapon',point:pointB})};
+    // A small share of already dissipated work is stored in internal bending,
+    // rather than adding another whole contact impulse/rig velocity. Zero work,
+    // separated blades and rigid equipment cannot manufacture a vibration.
+    for(const [rig,sign,point] of [[a,-1,pointA],[b,1,pointB]]){
+      if(!rig.weaponFlex?.maximum)continue;
+      const p=rig.pose(),angle=p.angles.weapon,transverse=-Math.sin(angle)*x+Math.cos(angle)*y;
+      const lever=clamp(Math.hypot(point.x-p.mainHand.x,point.y-p.mainHand.y)/Math.max(.45,rig.swordLength),0,1);
+      flexWork+=rig.weaponFlex.excite(sign*transverse*rig.dir,dissipatedWork*.125*lever*lever);
+    }
   }
   // The swept material anchors remain ordered on their entry normal. Project
   // penetration now, so the next head sweep cannot use a blade that tunneled
@@ -220,13 +248,13 @@ export function resolveWeaponBind(a,b,{dt=1/120,maxForce=WEAPON_BIND.maxForce,re
     const constraint=weaponBindManifold(a,b,c)[0];
     if(!constraint){penetration=0;break;}
     ({pointA,pointB,penetration}=constraint);
-    const projected=ArticulatedRig.projectContact(a,b,{pointA,pointB,normal:n,penetration:penetration+1e-7});
+    const projected=ArticulatedRig.projectContact(a,b,{pointA,pointB,normal:constraint.normal,penetration:penetration+1e-7});
     if(!projected.applied)break;
   }
   if(!project)penetration=weaponBindManifold(a,b,c)[0]?.penetration??0;
   p=current();pointA=located(p.a,c.anchorA);pointB=located(p.b,c.anchorB);
   const slipAfterNormal=slide-crossMass*impulse;
   const slidePower=Math.max(0,frictionImpulse*slipAfterNormal-.5*tangentMass*frictionImpulse**2)/Math.max(finite(dt),1e-9);
-  return {...c,pointA,pointB,bodyA:'weapon',bodyB:'weapon',impulse,frictionImpulse,frictionState:response.state,slidePower,closingSpeed,slideSpeed,penetration:Math.max(0,penetration),iterations,
+  return {...c,pointA,pointB,bodyA:'weapon',bodyB:'weapon',impulse,frictionImpulse,frictionState:response.state,slidePower,closingSpeed,slideSpeed,dissipatedWork,flexWork,...(velocities?{velocities}:{}),penetration:Math.max(0,penetration),iterations,
     at:{x:(c.pointA.x+c.pointB.x)/2,y:(c.pointA.y+c.pointB.y)/2,z:(c.pointA.z+c.pointB.z)/2}};
 }

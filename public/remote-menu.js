@@ -21,8 +21,9 @@ const assetText=(value,max)=>text(value,2048)
 const assetLabels=(value,limit,length)=>Array.isArray(value)?value.filter(label=>typeof label==='string')
   .map(label=>assetText(label,length)).filter(Boolean).slice(0,limit):[];
 const actions=new Set(['start','reset','replayToggle','replayClose','replayClear','nextEncounter','resetCampaign']);
+const experiences=['duel','training','practice','precision','campaign','parry','moving','depth'];
 const options={
-  setMode:['solo','versus'],setExperience:['duel','training','practice','precision','campaign'],
+  setMode:['solo','versus'],setExperience:experiences,
   setDifficulty:['rookie','normal','expert','boss'],setBestOf:[3,5],setArena:['atelier','dojo','midnight'],
   setQuality:['high','ultra','eco'],setPerformanceMode:['adaptive','fixed'],setCamera:['combat','detail'],setLighting:['cinematic','neutral'],
   setAudio:[true,false],replaySpeed:[.25,.5,1],
@@ -63,7 +64,7 @@ export function sanitizeMenuState(value){
   return {
     phase:oneOf(state.phase,['ready','countdown','fight','burst','matchover'],'ready'),
     mode:oneOf(state.mode,['solo','versus'],'solo'),
-    experience:oneOf(state.experience,['duel','training','practice','precision','campaign'],'duel'),
+    experience:oneOf(state.experience,experiences,'duel'),
     difficulty:oneOf(state.difficulty,['rookie','normal','expert','boss'],'normal'),
     bestOf:state.bestOf===5?5:3,arena:oneOf(state.arena,['atelier','dojo','midnight'],'atelier'),
     quality:oneOf(state.quality,['high','ultra','eco'],'high'),performanceMode:oneOf(state.performanceMode,['adaptive','fixed'],'fixed'),camera:oneOf(state.camera,['combat','detail'],'combat'),
@@ -74,20 +75,23 @@ export function sanitizeMenuState(value){
     fighters:fighters.map((raw,index)=>{const fighter=record(raw);return {
       slot:index+1,name:text(fighter.name,64),equipment:normalizeLoadout(record(fighter.equipment)),
       balloonColor:oneOf(fighter.balloonColor,['mint','amber','cobalt','violet','crimson','gold','rose','coral'],index===0?'mint':'amber'),
+      ...(fighter.emblem?{emblem:{glyph:text(record(fighter.emblem).glyph,3),name:text(record(fighter.emblem).name,48)}}:{}),
       guardPercent:integer(fighter.guardPercent,0,100),guardLabel:text(fighter.guardLabel,32),
       wins:Array.isArray(fighter.wins)?fighter.wins.slice(0,3).map(value=>value===true):[],
     };}),
     objective:state.objective==null?null:{
-      kind:oneOf(objective.kind,['duel','training','practice','precision','campaign'],'duel'),
+      kind:oneOf(objective.kind,experiences,'duel'),
       title:text(objective.title,96),instruction:text(objective.instruction,320),progress:integer(objective.progress,0,total),total,
       completed:objective.completed===true,nextAction:oneOf(objective.nextAction,['advance','retry','repeat'],null),
     },
     replay:{clips:clips.map(clip=>({id:clip.id,duration:finite(clip.duration,0,30),complete:clip.complete===true})),
       active:replay.active===true,paused:replay.paused===true,speed:oneOf(replay.speed,[.25,.5,1],1),position:finite(replay.position,0,1)},
     configurable:state.configurable===true,trainingEquipmentLocked:state.trainingEquipmentLocked===true,
+    ...(state.trainingEquipmentLocked&&typeof state.trainingEquipmentReason==='string'?{trainingEquipmentReason:text(state.trainingEquipmentReason,160)}:{}),
     ...(hasAssets?{assets:{loading:assets.loading===true,ready:integer(assets.ready,0,assetTotal),total:assetTotal,
       names:assetLabels(assets.names,16,64),errors:assetLabels(assets.errors,12,160),
       gpuBytesApprox:integer(assets.gpuBytesApprox,0,16*1024**3)}}:{}),
+    performance:state.performance?Object.fromEntries(['steady','clash','detach','burst'].map(kind=>{const m=record(state.performance[kind]);return [kind,m.samples?{samples:integer(m.samples,0,10000),fpsMean:finite(m.fpsMean,0,1000),frameP95Ms:finite(m.frameP95Ms,0,60000),frameMaxMs:finite(m.frameMaxMs,0,60000),sessionMaxMs:finite(m.sessionMaxMs,0,60000),simulationMeanMs:finite(m.simulationMeanMs,0,60000),renderCpuMeanMs:finite(m.renderCpuMeanMs,0,60000)}:null];})):null,
     message:text(state.message,240),...(typeof state.rendererError==='string'?{rendererError:text(state.rendererError,240)}:{}),
   };
 }

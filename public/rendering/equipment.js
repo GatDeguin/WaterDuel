@@ -1,4 +1,5 @@
 import {getWeapon,getDefense,DEFENSES} from '../equipment.js';
+import {equipmentFlex,equipmentRootTip,bendEquipmentPoint,HANDLE_RADII} from './equipment-flex.js';
 
 // Convex, closed profiles have a raised center ridge and a thin, faceted edge.
 // These small meshes are created once, then uploaded with the renderer's other
@@ -36,10 +37,15 @@ function frame(hand,tip,dir=1,defaultZ=.17){
 const frontFrame=hand=>({origin:[hand.x,hand.y,0],x:[1,0,0],y:[0,1,0],z:[0,0,1]});
 
 function part(renderer,f,shape,x,y,z,sx,sy,sz,color,material=0,axis='along'){
+  let fx=f.x,fy=f.y,local=[x,y,z];
+  if(f.flexLength&&f.flexOffset&&y>0){
+    const angle=2*f.flexOffset*y/(f.flexLength*f.flexLength),cs=Math.cos(angle),sn=Math.sin(angle),dir=f.flexDirection;
+    fx=f.x.map((v,i)=>v*cs+f.y[i]*dir*sn);fy=f.y.map((v,i)=>v*cs-f.x[i]*dir*sn);local=bendEquipmentPoint(local,f);
+  }
   // Cylinders run along local Y; face turns that axis toward the camera.
-  const a=axis==='across'?f.y:f.x,b=axis==='face'?f.z:axis==='across'?f.x.map(v=>-v):f.y,c=axis==='face'?f.y.map(v=>-v):f.z;
+  const a=axis==='across'?fy:fx,b=axis==='face'?f.z:axis==='across'?fx.map(v=>-v):fy,c=axis==='face'?fy.map(v=>-v):f.z;
   const m=new Float32Array([a[0]*sx,a[1]*sx,a[2]*sx,0,b[0]*sy,b[1]*sy,b[2]*sy,0,c[0]*sz,c[1]*sz,c[2]*sz,0,
-    f.origin[0]+f.x[0]*x+f.y[0]*y+f.z[0]*z,f.origin[1]+f.x[1]*x+f.y[1]*y+f.z[1]*z,f.origin[2]+f.x[2]*x+f.y[2]*y+f.z[2]*z,1]);
+    ...f.origin.map((v,i)=>v+f.x[i]*local[0]+f.y[i]*local[1]+f.z[i]*local[2]),1]);
   renderer.draw(shape,m,color,material);
 }
 function grip(renderer,f,pal,center=0,radius=.045,length=.26){
@@ -47,7 +53,24 @@ function grip(renderer,f,pal,center=0,radius=.045,length=.26){
   for(let i=0;i<6;i++)part(renderer,f,'torus',0,center-length*.41+i*length*.164,0,radius*1.04,radius*1.04,.021,pal.edge,7,'face');
   for(const side of [-1,1])part(renderer,f,'cylinder',0,center+side*length*.5,0,radius*1.14,.022,radius*1.14,pal.metal,1);
 }
-function shaft(renderer,f,pal,start,end,radius){part(renderer,f,'cylinder',0,(start+end)/2,0,radius,end-start,radius,pal.wood,0);}
+function arcFrame(f,start,end){
+  const world=y=>{const p=bendEquipmentPoint([0,y,0],f);return {x:f.origin[0]+f.x[0]*p[0]+f.y[0]*p[1],y:f.origin[1]+f.x[1]*p[0]+f.y[1]*p[1],z:f.origin[2]+f.x[2]*p[0]+f.y[2]*p[1]};};
+  return frame(world(start),world(end),f.flexDirection);
+}
+function curvedSegments(renderer,f,start,end,radius,color,material,shape='cylinder',depth=radius){
+  const count=Math.max(4,Math.min(12,Math.ceil((end-start)/.11)));
+  for(let i=0;i<count;i++){
+    const segment=arcFrame(f,start+(end-start)*i/count,start+(end-start)*(i+1)/count);
+    part(renderer,segment,shape,0,segment.length/2,0,radius,segment.length,depth,color,material);
+  }
+}
+function shaft(renderer,f,pal,start,end,radius){
+  if(f.flexOffset&&f.flexLength){
+    if(start<0)part(renderer,f,'cylinder',0,start/2,0,radius,-start,radius,pal.wood,0);
+    curvedSegments(renderer,f,Math.max(0,start),end,radius,pal.wood,0);return;
+  }
+  part(renderer,f,'cylinder',0,(start+end)/2,0,radius,end-start,radius,pal.wood,0);
+}
 
 export function drawMaulSupportArm(renderer,fighter,pal){
   const p=fighter.pose;
@@ -60,21 +83,26 @@ export function drawMaulSupportArm(renderer,fighter,pal){
 }
 
 export function drawWeapon(renderer,fighter,pal){
-  const p=fighter.pose,weapon=getWeapon(fighter.equipment??p.equipment),f=frame(p.mainHand,p.tip,fighter.dir),length=f.length;
+  const p=fighter.pose,weapon=getWeapon(fighter.equipment??p.equipment),flex=equipmentFlex(fighter,weapon.id),f={...frame(p.mainHand,equipmentRootTip(fighter,weapon.id),fighter.dir),...flex};
+  f.length=flex.flexLength||f.length;f.gripRadius=HANDLE_RADII[weapon.id];const length=f.length;
   if(weapon.id==='sword'){
     grip(renderer,f,pal,0,.045,.25);
     part(renderer,f,'sphere',0,-.177,0,.062,.061,.062,pal.metal,1);
     part(renderer,f,'cylinder',0,.135,0,.119,.039,.119,pal.metal,1);
     part(renderer,f,'torus',0,.158,0,.119,.119,.047,pal.metal,1,'face');
     part(renderer,f,'cylinder',0,.166,0,.038,.064,.038,pal.steel,16);
-    part(renderer,f,'rapierBlade',0,(length+.18)/2,0,.032,Math.max(.01,length-.18),.026,pal.steel,16);
+    if(f.flexOffset&&f.flexLength){
+      const end=Math.max(.181,length-.1);curvedSegments(renderer,f,.18,end,.032,pal.steel,16,'box',.026);
+      const tip=arcFrame(f,end,length);part(renderer,tip,'rapierBlade',0,tip.length/2,0,.032,tip.length,.026,pal.steel,16);
+    }else part(renderer,f,'rapierBlade',0,(length+.18)/2,0,.032,Math.max(.01,length-.18),.026,pal.steel,16);
   }else if(weapon.id==='spear'){
     shaft(renderer,f,pal,-.29,length-.31,.032);
     grip(renderer,f,pal,-.025,.039,.28);
     part(renderer,f,'cylinder',0,-.27,0,.041,.074,.041,pal.metal,1);
     part(renderer,f,'cylinder',0,length-.365,0,.047,.11,.047,pal.metal,1);
     part(renderer,f,'cylinder',0,length-.325,0,.035,.08,.035,0x596e70,17);
-    part(renderer,f,'spearHead',0,length-.19,0,.166,.38,.046,pal.steel,16);
+    if(f.flexOffset&&f.flexLength){const head=arcFrame(f,length-.38,length);part(renderer,head,'spearHead',0,head.length/2,0,.166,head.length,.046,pal.steel,16);}
+    else part(renderer,f,'spearHead',0,length-.19,0,.166,.38,.046,pal.steel,16);
     part(renderer,f,'sphere',0,length-.362,.036,.016,.018,.013,pal.metal,1);
   }else if(weapon.id==='axe'){
     shaft(renderer,f,pal,-.27,length-.18,.043);

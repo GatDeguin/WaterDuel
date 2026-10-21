@@ -34,12 +34,15 @@ function digest(calls,unordered=false){const bytes=calls.map(callBytes);if(unord
 let preparedPromise;
 const character=()=>preparedPromise??=readFile(new URL('../public/assets/characters/water-mannequin/v3/water-mannequin.glb',import.meta.url)).then(bytes=>prepareCharacter(parseGLB(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength))));
 
-test('Healthy conserva shaders y payload procedural F32 anteriores, también mazo/jefe',async()=>{
-  const expected=[['sword',false,221,'c0a48fd58ab847a1ca98f6a1582b12fae533e66b525a9f8f5bc7d355fc2d4eff'],['sword',true,251,'406e9dc7b164ce825729cee574e7ff48b7f59c1a1b0425fa37d2e398ac3cf18f'],
-    ['maul',false,229,'8413e6fcf0a076ffc6ea9405e98753a903cfc1316233eaa301aa28aa074fc7fb'],['maul',true,259,'5fcac2bf90a9d469ef9c9c25a60c410d99ae13350765897628b76409a903249e']];
+test('Healthy conserva payload procedural F32 aprobado 1.7, también mazo/jefe',async()=>{
+  // Intentional 1.7 changes: three generic ground blobs are absent from depth
+  // passes; maul fingers fit its .054 m handle. Shaders now bend the physical
+  // blade, shade regional cloth wetness and integrate disjoint liquid paths.
+  const expected=[['sword',false,218,'87b8f359b7fc0cb5ab6591669f4e6582d9430c8f7ac8c09a9bc0f47332ccfbd1'],['sword',true,248,'6ff1a96c13fc9c46b339b98f3d9a01971cd9c64d48984fd3e0682dd6e6bb4adc'],
+    ['maul',false,226,'61bf9866981436b6ff1f7609ca24f5976a3b4247c8bed010ed44100d78c32ced'],['maul',true,256,'589391b22abc16cd1e788752942d1e39035ce534cd6ea1be5ee8d5f643afd5ba']];
   for(const [weapon,boss,count,sha]of expected){const {f}=fighter(weapon,boss),{r,calls}=recorder();r.drawPuppet(f,.5,{quality:'high'});assert.equal(calls.length,count);assert.equal(digest(calls),sha);}
   const source=await readFile(new URL('../public/render3d.js',import.meta.url),'utf8');
-  assert.equal(createHash('sha256').update(source.slice(source.indexOf('const vert=`'),source.indexOf('function buildProgram('))).digest('hex'),'a9e2bdc013590b7bf0503565f07ea2cba0338168a6bc34dbb9af26f6455c5f4b');
+  assert.equal(createHash('sha256').update(source.slice(source.indexOf('const vert=`'),source.indexOf('function buildProgram('))).digest('hex'),'178065a1e4e30b754e730bda414c821a1f84403a3ccf5a497851ede5cc70ac49');
 });
 
 test('Cada hueso/palma sigue su cuerpo físico y las marcas sólo aparecen ante daño real',()=>{

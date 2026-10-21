@@ -3,10 +3,12 @@
 // preserving total linear/angular momentum. Motion remains in the rig's XY
 // plane with authored depth layers, rather than claiming a full 3D solver.
 import {TABLE_TOP} from './dimensions.js';
+import {nearFloorContactPoints} from './contact-points.js';
 const dot=(a,b)=>a.reduce((sum,v,i)=>sum+v*b[i],0);
 const copy=value=>ArrayBuffer.isView(value)?value.slice():Array.isArray(value)?value.map(copy):value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([k,v])=>[k,copy(v)])):value;
 const frozenPose=value=>ArrayBuffer.isView(value)||Array.isArray(value)?Object.freeze(Array.from(value,frozenPose)):value&&typeof value==='object'?Object.freeze(Object.fromEntries(Object.entries(value).map(([k,v])=>[k,frozenPose(v)]))):value;
 export class DetachedCluster{
+  #contactSnapshot=null;
   constructor({id,joint,bodies,panels,vertices,velocity,dir,sourcePose,gravity=-9.81}){
     this.id=id;this.joint=joint;this.bodyNames=bodies.map(b=>b.name);this.sourcePose=frozenPose(sourcePose);this.gravity=gravity;
     this.mass=bodies.reduce((sum,b)=>sum+b.mass,0);
@@ -71,5 +73,21 @@ export class DetachedCluster{
     }
     const min=Math.min(...this.worldVertices().map(p=>p.y));if(min<TABLE_TOP)this.y+=TABLE_TOP-min;
   }
-  snapshot(){return {id:this.id,joint:this.joint,bodies:this.bodyNames.slice(),transform:this.transform(),sourcePose:this.sourcePose};}
+  snapshot(){
+    const transform=this.transform();
+    let cached=this.#contactSnapshot;
+    let same=cached&&Object.is(cached.x,this.x)&&Object.is(cached.y,this.y)&&Object.is(cached.angle,this.angle)&&cached.coordinates.length===this.vertices.length*3;
+    // Vertices are owned at construction but remain publicly mutable. Checking
+    // their exact components preserves that contract without hashing geometry.
+    if(same)for(let i=0;i<this.vertices.length;i++){
+      const p=this.vertices[i],at=i*3;
+      if(!Object.is(cached.coordinates[at],p.x)||!Object.is(cached.coordinates[at+1],p.y)||!Object.is(cached.coordinates[at+2],p.z)){same=false;break;}
+    }
+    if(!same){
+      const coordinates=[];for(const p of this.vertices)coordinates.push(p.x,p.y,p.z);
+      cached={x:this.x,y:this.y,angle:this.angle,coordinates,points:nearFloorContactPoints(this.worldVertices())};this.#contactSnapshot=cached;
+    }
+    return {id:this.id,joint:this.joint,bodies:this.bodyNames.slice(),transform,sourcePose:this.sourcePose,
+      contactTransform:transform.slice(),contactVertices:cached.points.map(p=>({...p}))};
+  }
 }

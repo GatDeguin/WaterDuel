@@ -35,6 +35,7 @@ export function apronMatrix(frame,pivot,angle){
 export class ApronHinge{
   constructor(variant='normal'){
     this.variant=variant in APRON_GEOMETRY?variant:'normal';this.geometry=APRON_GEOMETRY[this.variant];this.angle=0;this.angularVelocity=0;this.frame=null;this.contact=false;
+    this.wetness={top:0,bottom:0};
     const {min,max}=this.geometry.bounds;this.center=min.map((v,i)=>(v+max[i])/2);this.mass=this.variant==='boss'?.085:.025;
     this.radius=Math.hypot(...sub(this.center,this.geometry.pivot));this.inertia=this.mass*(this.radius**2+((max[1]-min[1])**2+(max[2]-min[2])**2)/12);
   }
@@ -43,10 +44,12 @@ export class ApronHinge{
   }
   advance(dt,{frame,passive=false,gravity=-9.81}){
     this.frame=new Float64Array(frame);this.contact=false;
+    if(dt>0){const dry=Math.exp(-dt/24);this.wetness.top*=dry;this.wetness.bottom*=dry;}
     if(!passive){this.angle=0;this.angularVelocity=0;return;}
     const hinge=apronPoint(frame,this.geometry.pivot),axis=unit([frame[0],frame[1],frame[2]]),center=apronPoint(apronMatrix(frame,this.geometry.pivot,this.angle),this.center);
     const lever=sub(center,hinge),torque=this.mass*gravity*cross(axis,lever)[1];
-    const drag=.7*Math.sqrt(this.inertia*this.mass*Math.abs(gravity)*Math.max(.05,this.radius));
+    const wet=(this.wetness.top+this.wetness.bottom)/2;
+    const drag=.7*Math.sqrt(this.inertia*this.mass*Math.abs(gravity)*Math.max(.05,this.radius))*(1+2.5*wet)+2*this.inertia*wet;
     this.angularVelocity=Math.max(-12,Math.min(12,(this.angularVelocity+dt*torque/this.inertia)/(1+dt*drag/this.inertia)));
     this.angle=Math.max(-Math.PI/2,Math.min(Math.PI/2,this.angle+dt*this.angularVelocity));
     const floor=TABLE_TOP+4e-6;
@@ -75,6 +78,7 @@ export class ApronHinge{
   }
   snapshot(){
     return {variant:this.variant,angle:this.angle,angularVelocity:this.angularVelocity,contact:this.contact,
+      ...(this.wetness.top>0||this.wetness.bottom>0?{wetness:{...this.wetness}}:{}),
       canonicalMatrix:this.frame?new Float64Array(apronMatrix(this.frame,this.geometry.pivot,this.angle)):null};
   }
 }

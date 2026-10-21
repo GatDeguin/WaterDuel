@@ -1,6 +1,7 @@
 /** Read-only objectives and versioned local progress. DuelEngine owns every hit and result. */
 import {BALLOON_RADII} from './physics/dimensions.js';
 import {newOpponentSeed,seededOpponentRandom,randomOpponent} from './opponent-loadouts.js';
+import {TRAINING_DRILL_KINDS,TrainingDrill} from './training-drills.js';
 
 export const SINGLE_PLAYER_STORAGE_KEY='water-duel.single-player.v1';
 export const CAMPAIGN=Object.freeze([
@@ -12,7 +13,7 @@ export const CAMPAIGN=Object.freeze([
   {name:'El Péndulo Salvaje',arena:'midnight',difficulty:'expert',aiStyle:'erratic',opponentLoadout:{weapon:'spear',defense:'long'},opponentColor:'rose'},
   {name:'El Maestro Hidráulico',arena:'atelier',difficulty:'boss',aiStyle:'boss',opponentLoadout:{weapon:'maul',defense:'none'},opponentColor:'coral'}
 ].map(encounter=>Object.freeze({...encounter,opponentLoadout:Object.freeze(encounter.opponentLoadout)})));
-const KINDS=new Set(['duel','training','practice','precision','campaign']);
+const KINDS=new Set(['duel','training','practice','precision','campaign',...TRAINING_DRILL_KINDS]);
 const TITLES={duel:'Duelo individual',training:'Escuela del taller',practice:'Práctica libre',precision:'Tres puntos de precisión',campaign:'Campeones del taller'};
 const TRAINING=Object.freeze([
   'Orientá el arma con el joystick derecho: mové la mano respecto del hombro.',
@@ -65,21 +66,25 @@ export class SinglePlayerSession{
   constructor({storage=null,seed=newOpponentSeed(),random=null}={}){
     this.storage=storage;this.saved=loadProgress(storage);this.kind='duel';this.stage=this.saved.stage;
     this.opponentSeed=seed;this.opponentRandom=random??seededOpponentRandom(seed);this.duelOpponent=randomOpponent(this.opponentRandom);
-    this.objectiveIndex=0;this.reference=null;this.hold=0;this.result='idle';this.demoMatch=false;this.usedBalloons=new WeakSet();
+    this.objectiveIndex=0;this.reference=null;this.hold=0;this.result='idle';this.demoMatch=false;this.usedBalloons=new WeakSet();this.drill=null;
   }
   select(kind){
     if(!KINDS.has(kind))return false;
     this.kind=kind;this.stage=this.saved.stage;this.objectiveIndex=0;this.reference=null;this.hold=0;
+    this.drill=TRAINING_DRILL_KINDS.includes(kind)?new TrainingDrill(kind):null;
     this.result='idle';this.demoMatch=false;this.usedBalloons=new WeakSet();return true;
   }
   configuration(){
-    const practice=['training','practice','precision'].includes(this.kind);
+    const practice=['training','practice','precision',...TRAINING_DRILL_KINDS].includes(this.kind);
     const encounter=this.kind==='campaign'?CAMPAIGN[this.stage]:null;
-    return {scenario:practice?'practice':'duel',aiEnabled:!practice,difficulty:encounter?.difficulty??'normal',
-      aiStyle:encounter?.aiStyle??'balanced',arena:encounter?.arena??'atelier',bestOf:3,opponentName:encounter?.name??(practice?'Blanco del taller':this.duelOpponent.opponentName),
+    return {scenario:practice?'practice':'duel',aiEnabled:this.drill?this.kind!=='moving':!practice,difficulty:this.drill?'rookie':encounter?.difficulty??'normal',
+      aiStyle:this.drill?'precision':encounter?.aiStyle??'balanced',arena:encounter?.arena??'atelier',bestOf:3,opponentName:encounter?.name??(this.drill?'Compañero del taller':practice?'Blanco del taller':this.duelOpponent.opponentName),
+      ...(this.drill?{trainingDrill:{kind:this.kind},opponentLoadout:{weapon:'sword',defense:'none'}}:{}),
+      ...(this.kind==='depth'?{playerLoadout:{weapon:'sword',defense:'none'}}:{}),
       ...(!practice?{opponentLoadout:{...(encounter?.opponentLoadout??this.duelOpponent.opponentLoadout)},opponentColor:encounter?.opponentColor??this.duelOpponent.opponentColor}:{})};
   }
   observe(game,dt){
+    if(this.drill){this.drill.observe(game,dt);this.objectiveIndex=this.drill.progress;return;}
     if(this.kind!=='training'||this.objectiveIndex>=TRAINING.length||game?.mode!=='solo'||game?.phase!=='fight'||
       !Number.isFinite(dt)||dt<=0||dt>.25)return;
     const f=game.fighters?.find(f=>f.slot===1),pose=trainingPose(f);if(!pose)return;
@@ -100,10 +105,11 @@ export class SinglePlayerSession{
   }
   event(name,data={},game){
     if(name==='reset'){
-      this.reference=null;this.hold=0;this.demoMatch=false;this.result='idle';this.usedBalloons=new WeakSet();return;
+      this.reference=null;this.hold=0;this.demoMatch=false;this.result='idle';this.usedBalloons=new WeakSet();this.drill?.resetRound();if(this.drill)this.objectiveIndex=this.drill.progress;return;
     }
-    if(name==='start'){this.reference=null;this.hold=0;return;}
+    if(name==='start'){this.reference=null;this.hold=0;this.drill?.resetRound();if(this.drill)this.objectiveIndex=this.drill.progress;return;}
     if(game?.mode!=='solo')return;
+    if(this.drill){this.drill.event(name,data,game);this.objectiveIndex=this.drill.progress;return;}
     if(name==='burst'){
       if(data.demonstration)this.demoMatch=true;
       if(!validPuncture(data))return;
@@ -130,6 +136,7 @@ export class SinglePlayerSession{
     }
   }
   view(game){
+    if(this.drill)return {kind:this.kind,...this.drill.view(game),campaignStage:this.stage,opponentName:this.configuration().opponentName};
     const training=this.kind==='training',precision=this.kind==='precision',campaign=this.kind==='campaign';
     const completed=training?this.objectiveIndex>=7:precision?this.objectiveIndex>=3:campaign&&(this.saved.completed||this.result==='complete');
     let instruction='Perforá el globo rival para ganar la partida.';
@@ -144,6 +151,7 @@ export class SinglePlayerSession{
       target:precision&&!completed?precisionTarget(game,this.objectiveIndex):null,campaignStage:this.stage,opponentName:this.configuration().opponentName};
   }
   next(){
+    if(this.drill){if(!this.drill.completed)return false;this.drill.repeat();this.objectiveIndex=0;return true;}
     if(this.kind==='duel'){
       if(this.result!=='won'&&this.result!=='lost')return false;
       if(this.result==='won')this.duelOpponent=randomOpponent(this.opponentRandom);

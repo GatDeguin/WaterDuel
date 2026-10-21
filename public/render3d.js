@@ -12,9 +12,11 @@ import {WorkshopEnvironment} from './rendering/environment.js';
 import {POST_VERTEX,POST_FRAGMENT} from './rendering/postprocess.js';
 import {colorTargetFormat} from './rendering/color.js';
 import {OPTICS_GLSL} from './rendering/optics.js';
-import {OpticalDepth} from './rendering/optical-depth.js';
+import {OpticalDepth,OpticalPathDepth} from './rendering/optical-depth.js';
+import {contactShadows} from './rendering/contact-shadows.js';
 import {ShadowMap,SHADOW_GLSL,shadowViewProjection} from './rendering/shadows.js';
 import {EQUIPMENT_MESHES,drawWeapon,drawDefense,drawMaulSupportArm} from './rendering/equipment.js';
+import {HANDLE_RADII} from './rendering/equipment-flex.js';
 import {AssetGPU} from './rendering/asset-gpu.js';
 import {loadGLB} from './rendering/glb.js';
 import {prepareCharacter,characterTransforms,detachedCharacterTransforms,prepareEquipment,equipmentTransform} from './rendering/asset-rig.js';
@@ -22,11 +24,16 @@ import {DetachedPoseMatrixCache} from './rendering/detached-pose-cache.js';
 import {bodyForBone,bodyVisible,equipmentBody,jointMarks,rigidRenderer,drawPartialMaulSupport} from './rendering/joint-damage.js';
 import {SHEEN_GLSL} from './rendering/sheen.js';
 import {prepareWorkshopLights} from './rendering/workshop-lights.js';
-import {prepareWorkshopMotion,environmentPartMatrix} from './rendering/workshop-motion.js';
+import {prepareWorkshopMotion,splitWorkshopMotionAsset,environmentPartMatrix} from './rendering/workshop-motion.js';
 import {duelCamera} from './rendering/duel-camera.js';
 import {effectBatches,EFFECT_LIMITS} from './workshop-effects.js';
 import {balloonPalette} from './opponent-loadouts.js';
-import {apronMaterialOverride,apronProceduralColor} from './rendering/apron-color.js';
+import {apronSurfaceOverride,apronProceduralColor} from './rendering/apron-color.js';
+import {batchStaticAsset} from './rendering/static-batches.js';
+import {FloatStream} from './rendering/float-stream.js';
+import {surfaceEmblem} from './rendering/emblems.js';
+import {drawCombatWear} from './rendering/combat-wear.js';
+import {batchRigidCharacter} from './rendering/rigid-batches.js';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const rgb=h=>[(h>>16&255)/255,(h>>8&255)/255,(h&255)/255];
 const I=()=>new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
@@ -70,6 +77,7 @@ uniform bool uInstancing;
 uniform float uTime,uWobble;
 uniform bool uAssetEnabled;
 uniform vec3 uAssetDeform;
+uniform vec3 uAssetFlex;
 out vec3 vN,vPos,vLocal;
 out vec3 vLocalN;
 out float vThickness;
@@ -81,6 +89,13 @@ void main(){
     float span=max(.00001,uAssetDeform.y-uAssetDeform.x);
     p.y+=uAssetDeform.z*clamp((aPosition.y-uAssetDeform.x)/span,0.0,1.0);
     if(aPosition.y>uAssetDeform.x&&aPosition.y<uAssetDeform.y)normal.y/=max(.001,1.0+uAssetDeform.z/span);
+  }
+  if(uAssetEnabled&&abs(uAssetFlex.x)>1e-8&&p.y>0.0){
+    float len=max(.001,uAssetFlex.y),theta=2.0*uAssetFlex.x/len,a=theta*p.y/len,c=cos(a),s=sin(a),section=p.x;
+    float axisX=abs(a)<.001?-uAssetFlex.z*p.y*a*.5:-uAssetFlex.z*len*(1.0-c)/theta;
+    float axisY=abs(a)<.001?p.y*(1.0-a*a/6.0):len*s/theta;
+    p.x=axisX+section*c;p.y=axisY+uAssetFlex.z*section*s;
+    normal.xy=mat2(c,uAssetFlex.z*s,-uAssetFlex.z*s,c)*normal.xy;
   }
   if(uWobble>0.0){
     float a=sin(uTime*3.3+p.x*12.0+p.y*8.0)*sin(uTime*2.4+p.z*9.0);
@@ -101,6 +116,7 @@ in vec2 vUV,vUV1;
 in vec4 vAssetColor;
 uniform bool uAssetEnabled;
 uniform vec4 uAssetColor,uAssetParams;
+uniform vec4 uAssetWet;
 uniform vec3 uAssetEmission;
 uniform float uAssetNormalScale,uAssetCoatRoughness,uAssetOcclusionStrength,uAssetTransmission,uAssetThickness,uAssetAlphaCutoff;
 uniform int uAssetMaps,uAssetAlphaMode,uAssetEmissionUV;
@@ -120,10 +136,12 @@ uniform bool uNeutral;
 uniform bool uHasScene,uHasEnvironment;
 uniform bool uLinearTarget;
 uniform bool uDepthPass,uHasOpticalDepth;
+uniform bool uOpticalSum,uOpticalPath;
 uniform sampler2D uSceneColor,uSceneDepth;
-uniform sampler2D uOpticalDepth;
+uniform sampler2D uOpticalDepth,uOpticalFront;
 uniform samplerCube uEnvironment;
 uniform vec2 uSceneSize;
+uniform vec2 uOpticalPlanes;
 uniform mat4 uVP;
 out vec4 fragColor;
 ${MATERIAL_GLSL}
@@ -161,7 +179,12 @@ vec3 bumpSurface(vec3 normal,float height,float strength){
 }
 vec2 projectUV(vec3 p){vec4 q=uVP*vec4(p,1);return q.xy/q.w*.5+.5;}
 vec2 assetUV(int channel){return channel==1?vUV1:vUV;}
+float opticalViewDistance(float depth){return (uOpticalPlanes.x*uOpticalPlanes.y)/(uOpticalPlanes.y-depth*(uOpticalPlanes.y-uOpticalPlanes.x));}
 void main(){
+  if(uOpticalSum){
+    vec2 uv=gl_FragCoord.xy/uSceneSize;
+    fragColor=vec4(opticalPathSample(opticalViewDistance(gl_FragCoord.z),gl_FrontFacing,opticalViewDistance(texture(uSceneDepth,uv).r)),0.0,1.0);return;
+  }
   if(uDepthPass&&!uAssetEnabled){fragColor=vec4(0);return;}
   vec3 N=normalize(vN),V=normalize(uEye-vPos);
   // Geometric footprint precedes detail/discard: GLSL ES 3.00, 8.9.
@@ -254,6 +277,11 @@ void main(){
   if(uWet>0.0 && (uMaterial==0||uMaterial==8||uMaterial==12)){
     rough=mix(rough,.07,clamp(uWet,0.0,1.0));base*=1.0-.23*uWet;
   }
+  if(uAssetEnabled&&(uAssetWet.x>0.0||uAssetWet.y>0.0)){
+    float height=clamp((vLocal.y-uAssetWet.z)/max(.00001,uAssetWet.w-uAssetWet.z),0.0,1.0);
+    float damp=mix(uAssetWet.y,uAssetWet.x,smoothstep(.35,.65,height));
+    base*=1.0-.32*damp;rough=mix(rough,max(.17,rough*.6),damp);coat=max(coat,.25*damp);currentSheenColor*=1.0-.7*damp;
+  }
   // Filter the GGX lobe with the pixel footprint instead of adding a large
   // denominator epsilon (which erased the direct highlight on smooth water).
   float normalVariance=geometricNormalVariance;
@@ -324,15 +352,21 @@ void main(){
     }
   }
   if(uHasScene&&(water||latex||uMaterial==11)){
+    float interfaceOpacity=opacity;bool nearestOptical=true;
     float nv=max(dot(N,V),.03),f=dielectric+(1.0-dielectric)*pow(1.0-nv,5.0);
     float thickness=latex?clamp(vThickness,.00002,.02)/nv:uMaterial==13?.64:uMaterial==11?.035:uMaterial==9?.13:uMaterial==19?.002:.055;
     vec2 uv=gl_FragCoord.xy/uSceneSize;
     if(water&&uHasOpticalDepth){
-      float rear=texture(uOpticalDepth,uv).r;
-      // Far minus front in view depth, corrected to the oblique view ray.
-      // Disjoint components can share an envelope: this is not multi-hit tracing.
       float forward=max(.1,dot(V,uViewAxis));
-      if(rear>gl_FragCoord.z)thickness=clamp((viewDistance(rear)-viewDistance(gl_FragCoord.z))/forward,.0002,2.0);
+      if(uOpticalPath){
+        // The nearest interface can be an exit when the eye is inside water.
+        nearestOptical=floor(texture(uOpticalFront,uv).r*16777215.0+.5)==floor(gl_FragCoord.z*16777215.0+.5);
+        thickness=nearestOptical?opticalPathSum(texture(uOpticalDepth,uv).rg,uOpticalPlanes.x,opticalViewDistance(texture(uSceneDepth,uv).r))/forward:0.0;
+      }else{
+        float rear=texture(uOpticalDepth,uv).r;
+        // Legacy one-volume envelope; fallback accuracy is reported in stats.
+        if(rear>gl_FragCoord.z)thickness=clamp((viewDistance(rear)-viewDistance(gl_FragCoord.z))/forward,.0002,2.0);
+      }
     }
     vec3 ray=refract(-V,N,1.0/ior);
     vec2 refracted=clamp(projectUV(vPos+ray*thickness),vec2(.001),vec2(.999));
@@ -365,8 +399,10 @@ void main(){
     col=transmitted*(1.0-f)+col;
     // Closed volumes use one front interface with full pixel coverage. Fresnel
     // and absorption have already mixed the transmitted and reflected radiance.
-    if(!gl_FrontFacing&&(uMaterial==2||uMaterial==3||uMaterial==9||uMaterial==13||uMaterial==19))discard;
-    opacity=uMaterial==19?uOpacity:1.0;
+    if(!uOpticalPath&&!gl_FrontFacing&&(uMaterial==2||uMaterial==3||uMaterial==9||uMaterial==13||uMaterial==19))discard;
+    // Further interfaces keep their existing reflection/alpha; only the nearest
+    // applies the summed Beer path. This remains straight-ray layer composition.
+    opacity=uOpticalPath&&water&&!nearestOptical?interfaceOpacity:uMaterial==19?uOpacity:1.0;
   }
   if(uAssetEnabled){
     if(uAssetTransmission>0.0&&uHasScene){
@@ -477,29 +513,51 @@ export class Renderer3D {
   this.canvas=canvas;const gl=canvas.getContext('webgl2',{alpha:true,antialias:true,depth:true,premultipliedAlpha:false,powerPreference:'high-performance',stencil:false});if(!gl)throw Error('WebGL2 no disponible.');this.gl=gl;
   const prog=buildProgram(gl,vert,frag);this.program=prog;gl.useProgram(prog);
   this.U={};for(const u of ['uModel','uNormal','uVP','uInstancing','uTime','uWobble','uColor','uOpacity','uMaterial','uEye','uLamp1','uLamp2','uViewAxis','uWet','uNeutral','uHasScene','uHasEnvironment','uSceneColor','uSceneDepth','uSceneSize','uEnvironment','uLinearTarget','uDepthPass','uHasOpticalDepth','uOpticalDepth','uHasShadow','uShadowMap','uShadowVP','uShadowSize','uAssetEnabled','uAssetDeform','uAssetColor','uAssetParams','uAssetEmission','uAssetCoatRoughness','uAssetNormalScale','uAssetOcclusionStrength','uAssetTransmission','uAssetThickness','uAssetAlphaCutoff','uAssetAlphaMode','uAssetMaps','uAssetTexCoords','uAssetEmissionUV','uAssetBaseMap','uAssetNormalMap','uAssetMRMap','uAssetAOMap','uAssetEmissionMap'])this.U[u]=gl.getUniformLocation(prog,u);
+  for(const name of ['uOpticalSum','uOpticalPath','uOpticalFront','uOpticalPlanes'])this.U[name]=gl.getUniformLocation(prog,name);
   for(const [i,name]of ['uAssetBaseMap','uAssetNormalMap','uAssetMRMap','uAssetAOMap','uAssetEmissionMap'].entries())gl.uniform1i(this.U[name],6+i);
-  for(const name of ['uAssetSheen','uAssetSheenUV','uAssetSheenColorMap','uAssetSheenRoughnessMap','uWorkshopLightCount'])this.U[name]=gl.getUniformLocation(prog,name);
+  for(const name of ['uAssetFlex','uAssetWet','uAssetSheen','uAssetSheenUV','uAssetSheenColorMap','uAssetSheenRoughnessMap','uWorkshopLightCount'])this.U[name]=gl.getUniformLocation(prog,name);
   for(const name of ['uWorkshopPositions','uWorkshopColors','uWorkshopDirections'])this.U[name]=gl.getUniformLocation(prog,name+'[0]');
   gl.uniform1i(this.U.uAssetSheenColorMap,11);gl.uniform1i(this.U.uAssetSheenRoughnessMap,12);gl.uniform1i(this.U.uWorkshopLightCount,0);
   gl.uniform1i(this.U.uAssetEnabled,0);this.assetGPU=new AssetGPU(gl);
   this.assetScene={characters:{},equipment:{},environment:null};this.assetStatus={loading:false,ready:0,total:11,names:[],errors:[],gpuBytesApprox:0};this.disposed=false;this.assetPoseCache=new WeakMap();
   gl.uniform1i(this.U.uSceneColor,0);gl.uniform1i(this.U.uSceneDepth,1);gl.uniform1i(this.U.uEnvironment,3);
   gl.uniform1i(this.U.uOpticalDepth,4);
+  gl.uniform1i(this.U.uOpticalFront,2);gl.uniform1i(this.U.uOpticalSum,0);gl.uniform1i(this.U.uOpticalPath,0);
+  gl.uniform2f(this.U.uOpticalPlanes,.1,64);
   gl.uniform1i(this.U.uShadowMap,5);gl.uniform1i(this.U.uHasShadow,0);
   for(const name of ['uStaticShadowIndices','uStaticShadowSizes',...Array.from({length:3},(_,i)=>['uStaticShadow'+i,'uStaticShadowVP'+i]).flat()])this.U[name]=gl.getUniformLocation(prog,name);
   for(let i=0;i<3;i++)gl.uniform1i(this.U['uStaticShadow'+i],13+i);
   gl.uniform3iv(this.U.uStaticShadowIndices,[-1,-1,-1]);
   this.colorFormat=colorTargetFormat(gl);this.transmission=new SceneTransmission(gl,this.colorFormat);this.environment=new WorkshopEnvironment(gl,128,this.colorFormat);
-  this.opticalDepth=new OpticalDepth(gl);
+  this.opticalDepth=new OpticalDepth(gl);this.opticalPathDepth=new OpticalPathDepth(gl);
   this.shadows=new ShadowMap(gl);this.depthOnly=false;
   this.staticShadows=Array.from({length:3},(_,i)=>new ShadowMap(gl,{unit:13+i,resolutionScale:.5}));this.staticShadowKey=null;
   let post;try{post=buildProgram(gl,POST_VERTEX,POST_FRAGMENT);}catch(error){gl.useProgram(null);gl.deleteProgram(prog);throw error;}
   this.post={program:post,vao:gl.createVertexArray(),image:gl.getUniformLocation(post,'uImage'),texel:gl.getUniformLocation(post,'uTexel')};
   this.mesh={sphere:buildMesh(gl,sphereMesh()),droplet:buildMesh(gl,sphereMesh(8,11)),cylinder:buildMesh(gl,cylinderMesh()),hex:buildMesh(gl,cylinderMesh(6)),box:buildMesh(gl,bevelMesh()),torus:buildMesh(gl,torusMesh())};
   for(const [name,geometry] of Object.entries(EQUIPMENT_MESHES))this.mesh[name]=buildMesh(gl,geometry);
-  this.quality=1.75;this.dynamic={};this.pending=[];this.renderTime=0;this.waterSurfaces=new Map();this.stats={draws:0,triangles:0};this.width=1;this.height=1;this.disableWaterMesh=false;
+  this.quality=1.75;this.dynamic={};this.pending=[];this.renderTime=0;this.waterSurfaces=new Map();this.stats={draws:0,triangles:0};this.width=1;this.height=1;this.disableWaterMesh=false;this.floatStream=new FloatStream(gl);this.instanceData=new Float32Array(2048);
   gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.disable(gl.CULL_FACE);
   gl.uniform3fv(this.U.uLamp1,new Float32Array([-2.45,4.1,3.0]));gl.uniform3fv(this.U.uLamp2,new Float32Array([3.25,3.7,-.25]));
+ }
+ async prepareGame(game){
+  if(this.prepared||this.disposed)return;
+  game.effects?.configureEnvironment({fanRotor:this.assetScene.environment?.motion??null});
+  const started=performance.now(),gl=this.gl;this.ensureDynamic();
+  // The extractor's existing, unchanged ceiling is 24,000 triangles.
+  this.floatStream.reserve(this.dynamic.pb,24000*9);this.floatStream.reserve(this.dynamic.nb,24000*9);this.floatStream.reserve(this.dynamic.ob,24000*3);
+  for(const mesh of Object.values(this.mesh))if(mesh.instance)this.floatStream.reserve(mesh.instance,2048);
+  this.render(game,game.clock);
+  // Reserve the multi-volume target before a burst first needs float storage.
+  this.opticalPathDepth.ensure(this.width,this.height);
+  gl.useProgram(this.program);
+  const mask=gl.getParameter?.(gl.COLOR_WRITEMASK);gl.colorMask(false,false,false,false);gl.depthMask(false);
+  try{
+    this.flushDynamic({mesh:{p:new Float32Array([100,100,100,101,100,100,100,101,100]),n:new Float32Array([0,0,1,0,0,1,0,0,1])},color:0xffffff,material:9,opacity:0});
+    this.instance('droplet',[{x:100,y:100,z:100,r:.02}],0xffffff,3,0);
+  }finally{gl.colorMask(...(mask?.length===4?mask:[true,true,true,true]));gl.depthMask(true);gl.flush();}
+  this.prepared=true;this.preparation={cpuMs:performance.now()-started,gpuAllocations:this.floatStream.stats.allocations,capacityBytes:this.floatStream.stats.capacityBytes,opticalPathBytes:this.opticalPathDepth.bytes,allocationCounterScope:'streamed buffers',
+    exercised:['opaque','latex','contained-water','environment','shadows','transmission','dynamic-water','instanced-droplets'],scope:'CPU submission and allocated buffers; no GPU fence or scanout certification'};
  }
  async loadAssets(onStatus=()=>{}){
   if(this.assetPromise)return this.assetPromise;
@@ -517,13 +575,19 @@ export class Renderer3D {
       try{
         const source=await loadGLB(job.url,{signal:this.assetAbort.signal});
         if(this.disposed)return;
-        const prepared=job.kind==='character'?prepareCharacter(source):job.kind==='equipment'?prepareEquipment(source,job.key):null;
-        let lightingPresets=null,motion=null;
+        let prepared=job.kind==='character'?prepareCharacter(source):job.kind==='equipment'?prepareEquipment(source,job.key):null;
+        if(job.kind==='character'){
+          const batched=batchRigidCharacter(prepared,source.materials);
+          if(batched.parts.length<prepared.parts.length)prepared=batched;
+        }
+        let lightingPresets=null,motion=null,uploadSource=source,batchStats=null;
         if(job.kind==='environment'){
           const response=await fetch(runtimeAsset('environment/workshop/asset-contract-v3.json'),{signal:this.assetAbort.signal});
           if(!response.ok)throw Error('No se pudo leer el contrato de luces del taller.');
           const contract=await response.json();if(contract.stable!==true)throw Error('La exportación del taller todavía no está estable.');
           motion=prepareWorkshopMotion(contract,source.primitives);
+          const moving=new Set([motion?.name,...(motion?.dynamicNames??[]),...(contract.geometryCorrection?.transforms??[]).filter(group=>/^apron-/.test(group.id)).flatMap(group=>group.sourceObjects)]);
+          uploadSource=batchStaticAsset(splitWorkshopMotionAsset(source,motion),{dynamicNames:moving});batchStats=uploadSource.batchStats;
           const framesResponse=await fetch(runtimeAsset('environment/workshop/light-directions.json'),{signal:this.assetAbort.signal});
           if(!framesResponse.ok)throw Error('No se pudo leer la orientación de luces del taller.');
           const frames=await framesResponse.json();
@@ -539,11 +603,11 @@ export class Renderer3D {
             return [arena,lights];
           }));
         }
-        const gpu=await this.assetGPU.upload(prepared?{...source,primitives:prepared.parts}:source);
+        const gpu=await this.assetGPU.upload(prepared?{...source,primitives:prepared.parts}:uploadSource);
         if(this.disposed)return;
         if(job.kind==='character')this.assetScene.characters[job.key]={prepared,gpu};
         else if(job.kind==='equipment')this.assetScene.equipment[job.key]={prepared,gpu};
-        else this.assetScene.environment={gpu,transform:I(),lightingPresets,motion};
+        else this.assetScene.environment={gpu,transform:I(),lightingPresets,motion,batchStats};
         this.assetStatus.ready++;this.assetStatus.names.push(job.label);this.environment.key=null;
       }catch(error){if(this.disposed)return;this.assetStatus.errors.push(`No se pudo cargar ${job.label}. Se usa su representación procedural.`);console.error(error);}
       publish();
@@ -564,13 +628,22 @@ export class Renderer3D {
   if(!cached||cached.pose!==f.pose||cached.entry!==entry){cached={pose:f.pose,entry,matrices:characterTransforms(entry.prepared,f)};this.assetPoseCache.set(f,cached);}
   entry.gpu.parts.forEach((part,index)=>{
     if(bodyVisible(f.pose,bodyForBone(entry.prepared.parts[index].boneName)))this.assetPart(entry.gpu,part,cached.matrices[index],
-      apronMaterialOverride(f,entry.prepared.parts[index],entry.gpu.materials[part.material]));
+      apronSurfaceOverride(f,entry.prepared.parts[index],entry.gpu.materials[part.material]));
   });return true;
  }
  detailedEquipment(f,key){
   if(key==='none'||!bodyVisible(f.pose,equipmentBody(key)))return true;const entry=this.assetScene.equipment[key];if(!entry)return false;
   const transform=equipmentTransform(f,key);if(!transform)return true;
   for(const part of entry.gpu.parts)this.assetPart(entry.gpu,part,transform.matrix,transform);return true;
+ }
+ wearGeometry(f,matrices=null){
+  const entry=this.assetScene?.characters?.[f.boss?'boss':f.slot===1?'mint':'amber'];
+  matrices??=this.assetPoseCache?.get(f)?.matrices;if(!entry||!matrices)return null;
+  const equipment=[];
+  for(const key of [f.equipment?.weapon??'sword',f.equipment?.defense??'short']){
+    const model=this.assetScene.equipment?.[key],transform=equipmentTransform(f,key);if(model&&transform)equipment.push({prepared:model.prepared,materials:model.gpu.materials,transform});
+  }
+  return {prepared:entry.prepared,matrices,materials:entry.gpu.materials,equipment};
  }
  workshopLighting(game){
   const gl=this.gl,U=this.U,lighting=this.assetScene.environment?.lightingPresets?.[game.arena];
@@ -778,9 +851,10 @@ export class Renderer3D {
   if(show('offUpper'))this.actuator({x:p.offShoulder.x+dir*.055,y:p.offShoulder.y+.045},{x:p.offElbow.x,y:p.offElbow.y+.08},-.29,.022);
   // Four wooden digits wrap the handle; knuckles are fixed to the moving wrist.
   if(show('weapon'))for(let i=0;i<4;i++){
+    const gripScale=(HANDLE_RADII[f.equipment?.weapon??'sword']??.045)/.045;
     const u=(i-1.5)*.037,xx=hand.x+ux*u,yy=hand.y+uy*u;
-    this.box(xx-uy*.035,yy+ux*.035,.244,.035,.09,.052,pal.wood,0,1,Math.atan2(uy,ux));
-    this.sphere(xx-uy*.075,yy+ux*.075,.254,.025,.025,.027,pal.metal,1);
+    this.box(xx-uy*.035*gripScale,yy+ux*.035*gripScale,.17+.074*gripScale,.035,.09*gripScale,.052*gripScale,pal.wood,0,1,Math.atan2(uy,ux));
+    this.sphere(xx-uy*.075*gripScale,yy+ux*.075*gripScale,.17+.084*gripScale,.025,.025,.027,pal.metal,1);
   }
   if(f.boss){
     // Single-player hydraulics champion: armored brass shoulder housings,
@@ -823,9 +897,13 @@ export class Renderer3D {
       this.detachedPoseCache??=new DetachedPoseMatrixCache();
       const matrices=detachedCharacterTransforms(entry.prepared,source,fragment,this.detachedPoseCache.get(entry,source,fragment));
       entry.gpu.parts.forEach((part,index)=>{if(matrices[index])this.assetPart(entry.gpu,part,matrices[index],
-        apronMaterialOverride(source,entry.prepared.parts[index],entry.gpu.materials[part.material]));});
+        apronSurfaceOverride(source,entry.prepared.parts[index],entry.gpu.materials[part.material]));});
       if(bodies.has('weapon')&&!proxy.detailedEquipment(source,source.equipment?.weapon??'sword'))drawWeapon(proxy,source,pal);
       if(bodies.has(equipmentBody(source.equipment?.defense??'short'))&&!proxy.detailedEquipment(source,source.equipment?.defense??'short'))drawDefense(proxy,source,pal);
+      if(!this.depthOnly){
+        this.wearOwners??=new Map();const key=`${f.slot}:fragment:${fragment.id}`;if(!this.wearOwners.has(key))this.wearOwners.set(key,{});
+        drawCombatWear(this,source,{geometry:this.wearGeometry(source,this.detachedPoseCache.get(entry,source,fragment)),onlyBodies:bodies,transform:fragment.transform,owner:this.wearOwners.get(key),generation:fragment.id});
+      }
     }else proxy.drawProceduralPuppet(source,time,pal,bodies);
     proxy.drawJointMarks(pose,bodies);
   }
@@ -836,8 +914,7 @@ export class Renderer3D {
   }:{wood:0x9a6541,edge:0x6c472e,light:0xbb8855,ivory:0xd4b48a,metal:0xcda35f,steel:0xb6bdbc,balloon:0xed8a37,liquid:0xf5c084,dark:0x9f4f23,leather:0x623624,cloth:0x9d4b31};
   Object.assign(pal,balloonPalette(f));
   pal.cloth=apronProceduralColor(f,pal.cloth);
-  // Ambient contact shadows use multiple softly transparent flattened meshes.
-  for(let i=0;i<3;i++)this.sphere(f.baseX,.345+i*.001,.07,.63+i*.20,.012,.27+i*.11,0x081519,5,.27-i*.06);
+  if(!this.depthOnly)for(const s of contactShadows(f))this.sphere(s.x,s.y,s.z,s.radiusX,.0006,s.radiusZ,0x081519,5,s.opacity);
   const h=p.head,detailed=this.detailedPuppet(f);
   if(detailed){
     if(!this.detailedEquipment(f,f.equipment?.weapon??'sword'))drawWeapon(this,f,pal);
@@ -847,6 +924,19 @@ export class Renderer3D {
   }
   this.drawDetachedPuppet(f,time,pal,detailed);this.drawJointMarks(f.pose);
   if(this.depthOnly)return;
+  this.wearOwners??=new Map();const wearKey=`${f.slot}:live`;if(!this.wearOwners.has(wearKey))this.wearOwners.set(wearKey,{});
+  for(const key of this.wearOwners.keys())if(key.startsWith(`${f.slot}:fragment:`)&&!(p.detached??[]).some(fragment=>key===`${f.slot}:fragment:${fragment.id}`))this.wearOwners.delete(key);
+  drawCombatWear(this,f,{geometry:this.wearGeometry(f),owner:this.wearOwners.get(wearKey),generation:game.round});
+  this.emblemOwners??=new Map();if(!this.emblemOwners.has(f.slot))this.emblemOwners.set(f.slot,{});const emblemOwner=this.emblemOwners.get(f.slot);
+  if(detailed&&this.assetScene?.characters&&bodyVisible(p,'pelvis')){
+    const entry=this.assetScene.characters[f.boss?'boss':f.slot===1?'mint':'amber'],matrices=this.assetPoseCache.get(f)?.matrices;
+    const index=entry.prepared.parts.findIndex(part=>part.accessory==='apron'&&/Woven_(?:Sash|Cloth)/.test(part.nodeName));
+    if(index>=0&&matrices){
+      const part=entry.prepared.parts[index];let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+      for(let i=0;i<part.positions.length;i+=3){minX=Math.min(minX,part.positions[i]);maxX=Math.max(maxX,part.positions[i]);minY=Math.min(minY,part.positions[i+1]);maxY=Math.max(maxY,part.positions[i+1]);}
+      this.dynamicDraw(surfaceEmblem(f,{positions:part.positions,indices:part.indices,center:[(minX+maxX)/2,minY+(maxY-minY)*.3],scale:[(maxX-minX)*.24,(maxY-minY)*.12],matrix:matrices[index],owner:emblemOwner},'apron'),0xe9d6a4,8,1,3);
+    }
+  }
   if(f.fluid.retainedVolume>0){
    if(f.membrane?.punctured&&f.balloon.ruptureAge>0){
     // Once the physical vessel is open, render the actual retained parcel
@@ -866,6 +956,7 @@ export class Renderer3D {
   if(f.globIntact){
     const m=f.membrane?.mesh()||latexMesh(h,{sway:f.balloon.wave,water:f.waterShift,time,quality:game.quality,scale:f.balloonSize});
     this.dynamicDraw(m,pal.balloon,2,.93,2);
+    this.dynamicDraw(surfaceEmblem(f,{positions:m.p,center:[h.x,h.y+.08*f.balloonSize],scale:[.065*f.balloonSize,.065*f.balloonSize],owner:emblemOwner}),0xe9e3c3,8,1,3);
     // Higher specular top knot and small latex tie.
     const top=f.membrane?.nodes.reduce((a,b)=>b.ref.y>a.ref.y?b:a);
     const knot=top?{x:top.x,y:top.y,z:top.z}:{x:h.x,y:h.y+.503*f.balloonSize,z:.025};
@@ -892,12 +983,11 @@ export class Renderer3D {
   const nb=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,nb);gl.enableVertexAttribArray(1);gl.vertexAttribPointer(1,3,gl.FLOAT,false,0,0);
   const ob=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,ob);gl.vertexAttribPointer(3,1,gl.FLOAT,false,0,0);
   gl.bindVertexArray(null);this.dynamic={vao,pb,nb,ob};}
- dynamicDraw(mesh,color,material,opacity=1,order=0,opticalMesh=null){if(!mesh.p.length)return;this.pending.push({kind:'dynamic',mesh,color,material,opacity,order,depth:0,opticalMesh:opticalMesh||(material===9?mesh:null)});}
+ dynamicDraw(mesh,color,material,opacity=1,order=0,opticalMesh=null){if(!mesh.p.length)return;(this.pending??=[]).push({kind:'dynamic',mesh,color,material,opacity,order,depth:0,opticalMesh:opticalMesh||(material===9?mesh:null)});}
  flushDynamic(item,reuseGeometry=false){const gl=this.gl,U=this.U,m=item.mesh;gl.uniform1i(U.uAssetEnabled,0);this.ensureDynamic();const d=this.dynamic;gl.bindVertexArray(d.vao);
   if(!reuseGeometry){
-    gl.bindBuffer(gl.ARRAY_BUFFER,d.pb);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(m.p),gl.DYNAMIC_DRAW);
-    gl.bindBuffer(gl.ARRAY_BUFFER,d.nb);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(m.n),gl.DYNAMIC_DRAW);
-    if(m.optics){gl.bindBuffer(gl.ARRAY_BUFFER,d.ob);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(m.optics),gl.DYNAMIC_DRAW);}
+    this.floatStream.upload(d.pb,m.p);this.floatStream.upload(d.nb,m.n);
+    if(m.optics)this.floatStream.upload(d.ob,m.optics);
   }
   if(m.optics)gl.enableVertexAttribArray(3);
   else{gl.disableVertexAttribArray(3);gl.vertexAttrib1f(3,.0045);}
@@ -908,9 +998,10 @@ export class Renderer3D {
   gl.drawArrays(gl.TRIANGLES,0,m.p.length/3);this.stats.draws++;this.stats.triangles+=m.p.length/9;
  }
  instance(shape,particles,color,material=3,opacity=.85){if(!particles.length)return;const gl=this.gl,U=this.U,m=this.mesh[shape];gl.uniform1i(U.uAssetEnabled,0);
-  const data=new Float32Array(particles.length*4);
+  if(this.instanceData.length<particles.length*4)this.instanceData=new Float32Array(2**Math.ceil(Math.log2(particles.length*4)));
+  const data=this.instanceData;
   for(let i=0;i<particles.length;i++){const p=particles[i];data[i*4]=p.x;data[i*4+1]=p.y;data[i*4+2]=p.z;data[i*4+3]=p.volume>0?(shape==='droplet'?waterDropRadius(p.volume):Math.cbrt(3*p.volume/(4*Math.PI))):(p.r||.035)*(p.wet?.69:1);}
-  gl.bindVertexArray(m.vao);gl.bindBuffer(gl.ARRAY_BUFFER,m.instance);gl.bufferData(gl.ARRAY_BUFFER,data,gl.DYNAMIC_DRAW);
+  gl.bindVertexArray(m.vao);this.floatStream.upload(m.instance,data,particles.length*4);
   gl.disableVertexAttribArray(3);gl.vertexAttrib1f(3,.0045);
   gl.enableVertexAttribArray(2);gl.vertexAttribPointer(2,4,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(2,1);
   gl.uniform1i(U.uInstancing,1);gl.uniformMatrix4fv(U.uModel,false,I());gl.uniformMatrix3fv(U.uNormal,false,new Float32Array([1,0,0,0,1,0,0,0,1]));
@@ -967,23 +1058,37 @@ export class Renderer3D {
   // The transparent pass owns depth writing; particle batches preserve this state.
   this.pending.sort((a,b)=>a.order-b.order || a.depth-b.depth);
   gl.depthMask(false);
-  let layer=null,lastOpticalMesh=null;
+  let layer=null,lastOpticalMesh=null,lastOpticalTarget=null,pathMeshes=0,pathFallbacks=0;
   for(const item of this.pending){
     let geometryUploaded=false;
     if(layer!==null&&layer!==item.order)onLayer?.();layer=item.order;
     gl.uniform1i(this.U.uHasOpticalDepth,0);
-    if(item.opticalMesh&&this.opticalDepth.available&&this.transmission.available){
-      if(lastOpticalMesh!==item.opticalMesh){
-        gl.uniform1i(this.U.uDepthPass,1);
-        try{this.opticalDepth.capture(()=>this.flushDynamic({...item,mesh:item.opticalMesh}),this.transmission.composite.framebuffer);}
-        finally{gl.uniform1i(this.U.uDepthPass,0);gl.viewport(0,0,this.width,this.height);}
-        // Optical depth just uploaded this exact mesh into the same dynamic
-        // VAO. Keep that geometry for its immediately following color draw.
-        // Nothing is reused across frames or different/mutable mesh objects.
-        geometryUploaded=item.opticalMesh===item.mesh;
-        lastOpticalMesh=item.opticalMesh;
+    gl.uniform1i(this.U.uOpticalPath,0);gl.uniform1i(this.U.uOpticalSum,0);
+    if(item.opticalMesh&&this.transmission.available){
+      const separated=item.opticalMesh.stats?.components>1;
+      let path=false;
+      if(separated){
+        path=this.opticalPathDepth.ensure(this.width,this.height);
+        // Lazy allocation can change the framebuffer even when it fails.
+        gl.bindFramebuffer(gl.FRAMEBUFFER,this.transmission.composite.framebuffer);
+        if(!path)pathFallbacks++;
       }
-      gl.uniform1i(this.U.uHasOpticalDepth,1);
+      const target=path?this.opticalPathDepth:this.opticalDepth;
+      if(target.available){
+        if(lastOpticalMesh!==item.opticalMesh||lastOpticalTarget!==target){
+          let uploaded=false;
+          try{target.capture(pass=>{
+            gl.uniform1i(this.U.uDepthPass,pass==='sum'?0:1);gl.uniform1i(this.U.uOpticalSum,pass==='sum'?1:0);
+            this.flushDynamic({...item,mesh:item.opticalMesh},uploaded);uploaded=true;
+          },this.transmission.composite.framebuffer,{clearColor:[.024,.035,.043,1]});}
+          finally{gl.uniform1i(this.U.uDepthPass,0);gl.uniform1i(this.U.uOpticalSum,0);gl.viewport(0,0,this.width,this.height);}
+          // The exact VAO/upload is shared across front, sum and immediate color.
+          // Reuse never crosses frames or hides a mutable mesh's next update.
+          geometryUploaded=uploaded&&item.opticalMesh===item.mesh;
+          lastOpticalMesh=item.opticalMesh;lastOpticalTarget=target;if(path)pathMeshes++;
+        }
+        gl.uniform1i(this.U.uHasOpticalDepth,1);gl.uniform1i(this.U.uOpticalPath,path?1:0);
+      }
     }
     // The torn film is two-sided, but its resolved transmission has full pixel
     // coverage. Keep the nearest fold; otherwise rear triangles overwrite the
@@ -997,6 +1102,8 @@ export class Renderer3D {
     if(writeFilmDepth)gl.depthMask(false);
   }
   gl.depthMask(true);this.pending.length=0;
+  this.stats.opticalPath={available:this.opticalPathDepth.available,error:this.opticalPathDepth.error,bytes:this.opticalPathDepth.bytes,
+    meshes:pathMeshes,passes:pathMeshes*2,fallbacks:pathFallbacks,accuracy:pathFallbacks?'envelope approximation':pathMeshes?'signed interfaces; straight visible ray':'legacy single-volume envelope'};
  }
  captureWorkshop(game,time){
   const gl=this.gl,U=this.U,eye=[0,2,0],directions=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]],ups=[[0,-1,0],[0,-1,0],[0,0,1],[0,0,-1],[0,-1,0],[0,-1,0]];
@@ -1064,9 +1171,10 @@ export class Renderer3D {
  dispose(){
   this.disposed=true;this.assetAbort?.abort();
   const gl=this.gl;gl.useProgram(null);gl.bindVertexArray(null);gl.bindFramebuffer(gl.FRAMEBUFFER,null);
-  this.transmission.dispose();this.environment.dispose();this.opticalDepth.dispose();this.shadows.dispose();
+  this.transmission.dispose();this.environment.dispose();this.opticalDepth.dispose();this.opticalPathDepth.dispose();this.shadows.dispose();
   for(const map of this.staticShadows)map.dispose();
   this.assetGPU.dispose();
+  this.floatStream.clear();this.emblemOwners?.clear();this.wearOwners?.clear();
   for(const mesh of Object.values(this.mesh)){for(const key of ['pb','nb','ib','instance'])if(mesh[key])gl.deleteBuffer(mesh[key]);if(mesh.vao)gl.deleteVertexArray(mesh.vao);}
   for(const key of ['pb','nb','ob'])if(this.dynamic[key])gl.deleteBuffer(this.dynamic[key]);if(this.dynamic.vao)gl.deleteVertexArray(this.dynamic.vao);
   if(this.post.vao)gl.deleteVertexArray(this.post.vao);gl.deleteProgram(this.post.program);gl.deleteProgram(this.program);this.waterSurfaces.clear();this.detachedPoseCache?.clear();this.pending.length=0;
@@ -1076,7 +1184,9 @@ export class Renderer3D {
   game=renderQualityView(game,profile);
   this.stats.performance={mode:profile?.mode??'fixed',level:profile?.level??0,quality:game.quality,renderScale:this.renderScale};
   const gl=this.gl,U=this.U;this.resize();this.stats.draws=0;this.stats.triangles=0;this.renderTime=time;
-  this.stats.assets={...this.assetStatus,gpuBytesApprox:this.assetGPU.bytes};
+  this.stats.assets={...this.assetStatus,gpuBytesApprox:this.assetGPU.bytes};this.stats.streaming={...this.floatStream.stats};
+  if(this.prepared)this.stats.preparation={...this.preparation,lateGpuAllocations:this.floatStream.stats.allocations-this.preparation.gpuAllocations};
+  this.stats.batches=this.assetScene.environment?.batchStats??null;
   // Loading is an atomic presentation boundary: partial detailed models never
   // replace visible procedural versions one by one. Failures settle before
   // showing their permanent fallback, with no desktop loading interface.
@@ -1091,7 +1201,7 @@ export class Renderer3D {
   this.captureWorkshop(game,time);this.stats.draws=shadowDraws;this.stats.triangles=shadowTriangles;
   gl.uniform1i(U.uHasShadow,this.shadows.available?1:0);
   this.transmission.ensure(this.width,this.height);this.opticalDepth.ensure(this.width,this.height);this.transmission.begin();
-  gl.uniform1i(U.uDepthPass,0);gl.uniform1i(U.uHasOpticalDepth,0);
+  gl.uniform1i(U.uDepthPass,0);gl.uniform1i(U.uHasOpticalDepth,0);gl.uniform1i(U.uOpticalSum,0);gl.uniform1i(U.uOpticalPath,0);
   gl.uniform1i(U.uLinearTarget,this.transmission.available?1:0);
   this.stats.transmission={available:this.transmission.available,error:this.transmission.error,bytes:this.transmission.bytes,format:this.colorFormat.name};
   this.stats.environment={available:this.environment.available,error:this.environment.error,size:this.environment.size};
@@ -1104,6 +1214,7 @@ export class Renderer3D {
   const camera=duelCamera({phase:game.phase,phaseClock:game.phaseClock,clock:game.clock,round:game.round,replay:game.replay,
     cameraMode:game.cameraMode,aspect,reducedMotion:game.reducedMotion??this.cameraMotionPreference.matches});
   const {eye,target,fov}=camera;this.stats.camera={...camera,aspect};
+  gl.uniform2f(U.uOpticalPlanes,camera.near,camera.far);
   const vp=mul(perspective(fov,aspect,camera.near,camera.far),lookAt(eye,target,[0,1,0]));
   gl.uniformMatrix4fv(U.uVP,false,vp);gl.uniform3fv(U.uEye,new Float32Array(eye));gl.uniform3fv(U.uViewAxis,new Float32Array(norm(eye.map((v,i)=>v-target[i]))));gl.uniform1f(U.uTime,time);
   gl.uniform1i(U.uNeutral,game.lightingMode==='neutral'?1:0);

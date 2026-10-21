@@ -3,6 +3,7 @@
  */
 import {BALLOON_RADII,TABLE_TOP,WATER_RADII,WATER_FILL_FRACTION} from './dimensions.js';
 import {latexThickness} from '../rendering/optics.js';
+import {fractureCandidates,propagateEnergyFracture} from './membrane-fracture.js';
 const H=1/120,clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const REFERENCE_WATER_VOLUME=4*Math.PI/3*WATER_RADII.x*WATER_RADII.y*WATER_RADII.z*WATER_FILL_FRACTION;
 const dot=(a,b)=>a.x*b.x+a.y*b.y+a.z*b.z;
@@ -38,9 +39,10 @@ export class BalloonMembrane{
   // Even a perfectly closed surface of this area cannot hold more volume.
   // This necessary upper bound does not establish closure or water/cloth contact.
   return {ruptured:this.punctured,apertureArea:this.apertureArea,mainSkinArea,containmentCapacity:mainSkinArea**1.5/(6*Math.sqrt(Math.PI)),pressure:this.punctured?0:Math.max(0,this.volumeLambda/(H*H)),pressureAtPuncture:this.pressureAtPuncture??0,retainedWaterAddedMass:this.addedMass??0,localImpact:this.localImpact?{...this.localImpact}:null};}
- constructor({scale=1,subdivisions=2,mass=.04,prestretch=.55,edgeCompliance=.02,areaCompliance=.008,volumeCompliance=2e-6,iterations=6,tearStrain=1.65,damping=2.8}={}){
+  constructor({scale=1,subdivisions=2,mass=.04,prestretch=.55,edgeCompliance=.02,areaCompliance=.008,volumeCompliance=2e-6,iterations=6,tearStrain=1.65,damping=2.8,fractureModel='legacy',fractureToughness=.003}={}){
   this.scale=scale;this.subdivisions=subdivisions===3?3:2;this.iterations=iterations;
   this.prestretch=prestretch;this.edgeCompliance=edgeCompliance;this.areaCompliance=areaCompliance;this.volumeCompliance=volumeCompliance;this.tearStrain=tearStrain;this.damping=damping;
+  if(fractureModel==='energy')this.fractureEnergy={toughness:Number.isFinite(fractureToughness)&&fractureToughness>0?fractureToughness:.003,dissipatedEnergy:0,lastDrivingRatio:0};
   this.totalMass=mass*scale**2;this.support={x:0,y:0,z:0};this.targetSupport={...this.support};this.attached=false;this.accumulator=0;this.steps=0;this.version=0;this.punctured=false;this.fractureEvents=0;this.brokenEdges=0;this.fractureOrigins=[];this.volumeLambda=0;
   const template=geodesic(this.subdivisions);
   this.nodes=template.vertices.map(p=>{const ref={x:p.x*BALLOON_RADII.x*scale,y:p.y*BALLOON_RADII.y*scale,z:p.z*BALLOON_RADII.z*scale};return {...ref,ref,pinned:p.y<-.88,vx:0,vy:0,vz:0,mass:0,w:0,addedMass:0};});
@@ -73,6 +75,7 @@ export class BalloonMembrane{
  }
  puncture({point,incoming={x:1,y:0,z:0},impulse=1}){
   if(this.punctured)return false;if(!this.attached)this.attach({x:0,y:0,z:0});
+  if(this.fractureEnergy)impulse=clamp(Number.isFinite(impulse)?impulse:0,0,1);
   const impact={x:point.x,y:point.y,z:point.z??this.support.z};this.localImpact=sub(impact,this.support);this.releaseOrigin={...this.support};
   this.contact({point:impact,incoming,strength:clamp(impulse,0,1)});
   let nearest=-1,distance=Infinity;
@@ -116,7 +119,8 @@ export class BalloonMembrane{
    p.vx=(p.vx+clamp(slosh*14,-6,6)*(addedMass/(this.totalMass+addedMass||1))*H)*drag;p.vy=(p.vy-9.81*H)*drag;p.vz*=drag;
    p.x+=p.vx*H;p.y+=p.vy*H;p.z+=p.vz*H;
   }
-  if(this.punctured){
+  const tensileFailures=this.fractureEnergy?fractureCandidates(this):null;
+  if(this.punctured&&!this.fractureEnergy){
    const failures=[];for(const e of this.edges){if(e.faces.length!==2||(!this.boundaryNodes.has(e.a)&&!this.boundaryNodes.has(e.b)))continue;const a=nodes[e.a],b=nodes[e.b],strain=Math.hypot(a.x-b.x,a.y-b.y,a.z-b.z)/e.rest;if(strain>this.tearStrain){const face=e.faces.find(i=>!this.faces[i].fragment);if(face!==undefined&&!failures.includes(face))failures.push(face);if(failures.length===2)break;}}
    for(const face of failures)this.detachFace(face);
    if(failures.length)for(const p of nodes)p.w=p.pinned||p.mass===0?0:1/p.mass;
@@ -129,7 +133,7 @@ export class BalloonMembrane{
   const alphaEdge=this.edgeCompliance/(H*H),alphaArea=this.areaCompliance/(H*H),alphaVolume=this.volumeCompliance/(H*H);
   this.targetVolume=this.referenceVolume*(1+.025*clamp(waterVolume/(REFERENCE_WATER_VOLUME*this.scale**3)-1,-1,1));
   for(let iteration=0;iteration<this.iterations;iteration++){
-   for(const e of this.edges){const a=nodes[e.a],b=nodes[e.b],dx=a.x-b.x,dy=a.y-b.y,dz=a.z-b.z,d=Math.hypot(dx,dy,dz);if(d<1e-10)continue;const dl=(-(d-e.rest)-alphaEdge*e.lambda)/(a.w+b.w+alphaEdge);e.lambda+=dl;const factor=dl/d;a.x+=a.w*dx*factor;a.y+=a.w*dy*factor;a.z+=a.w*dz*factor;b.x-=b.w*dx*factor;b.y-=b.w*dy*factor;b.z-=b.w*dz*factor;}
+   for(const e of this.edges){const a=nodes[e.a],b=nodes[e.b],dx=a.x-b.x,dy=a.y-b.y,dz=a.z-b.z,d=Math.hypot(dx,dy,dz);if(d<1e-10)continue;const compliance=this.fractureEnergy?alphaEdge/(e.faces.length*.5):alphaEdge;const dl=(-(d-e.rest)-compliance*e.lambda)/(a.w+b.w+compliance);e.lambda+=dl;const factor=dl/d;a.x+=a.w*dx*factor;a.y+=a.w*dy*factor;a.z+=a.w*dz*factor;b.x-=b.w*dx*factor;b.y-=b.w*dy*factor;b.z-=b.w*dz*factor;}
    for(const f of this.faces){
     const a=nodes[f.a],b=nodes[f.b],c=nodes[f.c],ux=b.x-a.x,uy=b.y-a.y,uz=b.z-a.z,vx=c.x-a.x,vy=c.y-a.y,vz=c.z-a.z;
     let nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;const magnitude=Math.hypot(nx,ny,nz);if(magnitude<1e-12)continue;nx/=magnitude;ny/=magnitude;nz/=magnitude;
@@ -160,6 +164,9 @@ export class BalloonMembrane{
    for(const p of nodes){if(p.pinned){p.x=this.support.x+p.ref.x;p.y=this.support.y+p.ref.y;p.z=this.support.z+p.ref.z;}p.x=clamp(p.x,-bounds+.002,bounds-.002);p.y=Math.max(floor+.002,p.y);p.z=clamp(p.z,-depth+.002,depth-.002);}
   }
   for(let i=0;i<nodes.length;i++){const p=nodes[i];p.vx=clamp((p.x-previousPositions[i*3])/H,-12,12);p.vy=clamp((p.y-previousPositions[i*3+1])/H,-12,12);p.vz=clamp((p.z-previousPositions[i*3+2])/H,-12,12);}
+  // Charge opening work after XPBD has reconstructed velocities; an earlier
+  // damping impulse would otherwise be overwritten by that reconstruction.
+  if(this.punctured&&this.fractureEnergy)propagateEnergyFracture(this,tensileFailures);
   this.steps++;this.version++;
  }
  mesh({includeFragments=true,smooth=this.subdivisions===2?1:0}={}){
@@ -208,10 +215,10 @@ export class BalloonMembrane{
  }
  stats(){
   let area=0,elasticEnergy=0,kineticEnergy=0,massSum=0;
-  for(const e of this.edges){const a=this.nodes[e.a],b=this.nodes[e.b],c=Math.hypot(a.x-b.x,a.y-b.y,a.z-b.z)-e.rest;elasticEnergy+=c*c/(2*this.edgeCompliance);}
+  for(const e of this.edges){const a=this.nodes[e.a],b=this.nodes[e.b],c=Math.hypot(a.x-b.x,a.y-b.y,a.z-b.z)-e.rest;elasticEnergy+=c*c/(2*this.edgeCompliance)*(this.fractureEnergy?e.faces.length*.5:1);}
   for(const f of this.faces){const a=triangleArea(this.nodes[f.a],this.nodes[f.b],this.nodes[f.c]);area+=a;elasticEnergy+=(a-f.restArea)**2/(2*this.areaCompliance);}
   for(const p of this.nodes){massSum+=p.mass;kineticEnergy+=p.mass*(p.vx*p.vx+p.vy*p.vy+p.vz*p.vz)/2;}
   const signedSurfaceVolume=meshVolume(this.nodes,this.faces,this.support);
-  return {nodes:this.nodes.length,faces:this.faces.length,edges:this.edges.length,boundaryEdges:this.edges.filter(e=>e.faces.length===1).length,mass:this.totalMass,nodeMassSum:massSum,addedWaterMass:this.addedMass??0,area,volume:this.punctured?null:signedSurfaceVolume,signedSurfaceVolume,targetVolume:this.targetVolume,apertureArea:this.apertureArea,elasticEnergy,kineticEnergy,volumeLambda:this.volumeLambda,punctured:this.punctured,brokenEdges:this.brokenEdges,fractureEvents:this.fractureEvents,fractureOrigins:this.fractureOrigins.map(p=>({...p})),localImpact:this.localImpact?{...this.localImpact}:null,steps:this.steps};
+  return {nodes:this.nodes.length,faces:this.faces.length,edges:this.edges.length,boundaryEdges:this.edges.filter(e=>e.faces.length===1).length,mass:this.totalMass,nodeMassSum:massSum,addedWaterMass:this.addedMass??0,area,volume:this.punctured?null:signedSurfaceVolume,signedSurfaceVolume,targetVolume:this.targetVolume,apertureArea:this.apertureArea,elasticEnergy,kineticEnergy,volumeLambda:this.volumeLambda,punctured:this.punctured,brokenEdges:this.brokenEdges,fractureEvents:this.fractureEvents,fractureOrigins:this.fractureOrigins.map(p=>({...p})),localImpact:this.localImpact?{...this.localImpact}:null,steps:this.steps,...(this.fractureEnergy?{fracture:{model:'energy',...this.fractureEnergy}}:{})};
  }
 }

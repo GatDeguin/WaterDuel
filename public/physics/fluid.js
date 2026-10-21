@@ -5,6 +5,8 @@
  */
 import {BALLOON_RADII,TABLE_TOP,WATER_RADII,WATER_FILL_FRACTION,capHeightForFraction,containedWaterFrame,waterDropRadius} from './dimensions.js';
 import {resolveLiquidSolid} from './fluid-solids.js';
+import {applyCapillaryContact} from './capillary-contact.js';
+export {buildCapillarySurface} from './capillary-contact.js';
 export const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const PHI=2.399963229728653;
 const INTERNAL_RELEASE_SPEED=7,RELEASE_COMPONENT_SPEED=14;
@@ -299,7 +301,7 @@ export class FluidVolume {
     for(let i=0;i<steps;i++)this.step(step,options.solidColliders?{...options,solidTimeFrom:i/steps,solidTimeTo:(i+1)/steps}:options);
     this.elapsed+=dt;
   }
-  step(dt,{floor=TABLE_TOP,bounds=3.7,viscosity=.25,solidColliders=null,solidTimeFrom=0,solidTimeTo=1}={}){
+  step(dt,{floor=TABLE_TOP,bounds=3.7,viscosity=.25,solidColliders=null,solidTimeFrom=0,solidTimeTo=1,capillarySurface=null}={}){
     const p=this.leaking?this.releasedParticles:this.particles,n=p.length,cellSize=.135,inv=1/cellSize;
     const grid=this.neighborGrid,coordinates=this.cellCoordinates,buckets=this.neighborBuckets;
     grid.clear();let bucketCount=0;const air=Math.exp(-.07*dt);
@@ -362,6 +364,7 @@ export class FluidVolume {
       if(Math.abs(a.z)>1.31-contactRadius){a.z=Math.sign(a.z)*(1.31-contactRadius);a.vz*=-.18;}
       if(a.wet)this.wetCount++;
       a.age+=dt;
+      if(capillarySurface)applyCapillaryContact(a,capillarySurface,dt,{radius:contactRadius,density:WATER_DENSITY});
       // Clamp runaway energy after any degenerate collision.
       a.vx=clamp(a.vx,-14,14);a.vy=clamp(a.vy,-14,14);a.vz=clamp(a.vz,-14,14);
     }

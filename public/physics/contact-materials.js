@@ -25,7 +25,7 @@ function restAlong(f,point,id,secondaryWeapon){
 }
 
 export function classifyEquipmentContact(f,key,point){
-  const descriptor=key&&typeof key==='object'?key:null,name=descriptor?.key??key;
+  const descriptor=key&&typeof key==='object'?key:null,rawName=descriptor?.key??key,name=typeof rawName==='string'&&rawName.startsWith('weapon-flex-')?'weapon':rawName;
   const explicit=descriptor?.material??point?.material;
   if(typeof explicit==='string'&&explicit.length)return explicit;
   if(name==='main-palm'||name==='off-palm')return 'wood';

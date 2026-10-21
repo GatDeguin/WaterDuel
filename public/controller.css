@@ -185,6 +185,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,.pad-frame:focus-v
 .controller-shell.damage-feedback .pads .pad-frame {border-color:#ffdb9e;box-shadow:inset 0 0 0 2px #e7b16c80}
 .controller-shell.damage-feedback:not(.reduce-damage-motion) .pads .pad-knob {animation:joystick-damage .21s linear}
 @keyframes joystick-damage {0%,100%{transform:translate(-50%,-50%)}20%,60%{transform:translate(-50%,-50%) translateX(3px)}40%,80%{transform:translate(-50%,-50%) translateX(-3px)}}
+.pad-knob[data-emblem]::after {content:attr(data-emblem);position:absolute;inset:0;display:grid;place-items:center;font-size:22px;color:var(--accent,#b9d4bc);opacity:.7;text-shadow:0 1px 2px #000;pointer-events:none}
 @media(prefers-reduced-motion:reduce){.controller-shell.damage-feedback .pads .pad-knob {animation:none!important}}
 @media(max-width:460px){
   .controller-header-actions {gap:7px}.controller-header-actions .connection-indicator {max-width:85px;font-size:8px}

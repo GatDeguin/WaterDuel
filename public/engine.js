@@ -1,7 +1,7 @@
 /** WATER DUEL · deterministic-ish fixed-timestep mechanics and procedural water.
  * This is a physically inspired prototype, NOT a Navier–Stokes solver.
  */
-import {FluidVolume,buildMembraneSupport} from './physics/fluid.js';
+import {FluidVolume,buildMembraneSupport,buildCapillarySurface} from './physics/fluid.js';
 import {fluidSolidColliders} from './physics/fluid-solids.js';
 import {BalloonMembrane} from './physics/membrane.js';
 import {ArticulatedRig,resolveRigContact,REFERENCE_STANCE,NECK_CONE} from './physics/articulated-rig.js';
@@ -22,6 +22,10 @@ import {SimulationPresentation} from './simulation-presentation.js';
 import {JointImpactDamage} from './physics/joint-impact.js';
 import {bodyAttached,walkingStrength,weaponActor} from './physics/limb-state.js';
 import {resolveDetachedContacts} from './physics/detached-contacts.js';
+import {applyJointPlay} from './physics/joint-play.js';
+import {TRAINING_DRILL_KINDS,trainingOpponentControl} from './training-drills.js';
+import {AIPerception,loadoutTactics} from './ai-perception.js';
+import {SurfaceState,wetApronFromParcels} from './physics/surface-state.js';
 export const STEP = 1/120;
 export const RULES=Object.freeze({roundsToWin:2,regulationSeconds:90});
 // Includes the v2 resting lean, both active lean motors, boss scale and slosh.
@@ -40,7 +44,10 @@ const AI_PROFILES={
   rookie:{observe:.8,windup:.62,recover:.95,reaction:.23,error:.17},
   normal:{observe:.56,windup:.44,recover:.72,reaction:.15,error:.07},
   expert:{observe:.38,windup:.32,recover:.56,reaction:.10,error:.025},
-  boss:{observe:.62,windup:.60,recover:1.15,reaction:.13,error:.035}
+  // The former 1.15 s window ended on the last successful counterattack tick.
+  // Elastic steel/worn hinges add real motor settling, so preserve a usable
+  // exposed recovery without disabling the descending point or its contacts.
+  boss:{observe:.62,windup:.60,recover:1.27,reaction:.13,error:.035}
 };
 export const AI_STYLES=Object.freeze(['balanced','aggressive','defender','counter','feint','precision','erratic','boss']);
 const ERRATIC_RHYTHM=Object.freeze([.55,1.45,.85,1.2]);
@@ -173,10 +180,10 @@ export function initialFighter(slot,equipment,balloonColor){
     mainX:0,mainXV:0,mainY:0,mainYV:0,offX:0,offXV:0,offY:0,offYV:0,
     lunge:0,lungeCool:0,wasThrust:false,recoil:0,guard:false,guardEnergy:1,guardBroken:false,
     globIntact:true,balloonSize:1,balloonMass:1.15,waterShift:0,waterV:0,
-    hitFlash:0, previousTip:null, pose:null,
+    hitFlash:0, previousTip:null, pose:null,gripAdjustment:0,surfaceState:new SurfaceState(),
     ai:{state:'observe',time:0,duration:0,cycle:0,pattern:'direct',phase:1,threatTime:0,aimY:0,initialized:false,attackIssued:false},
-    controller:neutral(),lastInputAt:0, connected:false,autoDefense:new AutoDefense({seed:Math.imul(slot,0x9e3779b1)}),
-    fluid:new FluidVolume(slot,200),membrane:new BalloonMembrane(),balloon:{stress:0,wave:0,pressure:1,ruptureAge:-1,tearAngle:0},
+    controller:neutral(),lastInputAt:0, connected:false,autoDefense:new AutoDefense({seed:Math.imul(slot,0x9e3779b1)}),perception:new AIPerception(),
+    fluid:new FluidVolume(slot,200),membrane:new BalloonMembrane({fractureModel:'energy'}),balloon:{stress:0,wave:0,pressure:1,ruptureAge:-1,tearAngle:0},
     torsoTwist:0,twistVel:0,footSlip:0,headVelocity:{vx:0,vy:0,vz:0},headLast:null
   };
 }
@@ -187,7 +194,7 @@ export class DuelEngine{
     this.jointContacts=[];this.jointImpactDamage=new JointImpactDamage();
     this.onEvent=(name,data)=>{this.effects.emit(name,data);event(name,data);};
     this.mode='solo';this.difficulty='normal';this.arena='atelier';this.phase='ready';
-    this.bestOf=3;this.scenario='duel';this.demonstration=false;this.aiStyle='balanced';
+    this.bestOf=3;this.scenario='duel';this.trainingDrill=null;this.demonstration=false;this.aiStyle='balanced';
     this.clock=0;this.elapsed=0;this.phaseClock=0;this.count=3;
     this.burstStepClock=new BurstStepClock(STEP);
     this.presentation=new SimulationPresentation();
@@ -197,7 +204,7 @@ export class DuelEngine{
     this.fighters=this.loadouts.map((loadout,index)=>initialFighter(index+1,loadout,this.balloonColors[index]));
     this.fighters[1].matchApronToBalloon=this.mode==='solo'&&this.matchApronToBalloon===true;
     const enemy=this.fighters[1];enemy.boss=this.mode==='solo'&&this.difficulty==='boss';
-    if(enemy.boss){enemy.balloonSize=1.16;enemy.balloonMass=1.62;enemy.fluid=new FluidVolume(2,260,enemy.balloonSize);enemy.membrane=new BalloonMembrane({scale:enemy.balloonSize});}
+    if(enemy.boss){enemy.balloonSize=1.16;enemy.balloonMass=1.62;enemy.fluid=new FluidVolume(2,260,enemy.balloonSize);enemy.membrane=new BalloonMembrane({scale:enemy.balloonSize,fractureModel:'energy'});}
     this.particles=[];this.shards=[];this.rings=[];this.spark=[];
     this.lastBodyContacts=[];this.materialContactTimes=new Map();this.guardContactEpisodes=new Set();
     this.fluidVersion=1;
@@ -229,7 +236,13 @@ export class DuelEngine{
   }
   setScenario(value){
     if(!['duel','practice'].includes(value)||!['ready','matchover'].includes(this.phase))return false;
-    this.scenario=value;return true;
+    this.scenario=value;if(value!=='practice')this.trainingDrill=null;return true;
+  }
+  setTrainingDrill(config){
+    if(!['ready','matchover'].includes(this.phase)||this.scenario!=='practice')return false;
+    if(config===null){this.trainingDrill=null;return true;}
+    if(!config||typeof config!=='object'||!TRAINING_DRILL_KINDS.includes(config.kind))return false;
+    this.trainingDrill={kind:config.kind};return true;
   }
   setAIStyle(value){
     if(!AI_STYLES.includes(value)||!['ready','matchover'].includes(this.phase))return false;
@@ -250,7 +263,7 @@ export class DuelEngine{
     this.fighters[1].matchApronToBalloon=this.mode==='solo'&&this.matchApronToBalloon===true;
     const enemy=this.fighters[1];enemy.boss=this.mode==='solo'&&this.difficulty==='boss';
     if(enemy.boss){
-      enemy.balloonSize=1.16;enemy.balloonMass=1.62;enemy.fluid=new FluidVolume(2,260,enemy.balloonSize);enemy.membrane=new BalloonMembrane({scale:enemy.balloonSize});
+      enemy.balloonSize=1.16;enemy.balloonMass=1.62;enemy.fluid=new FluidVolume(2,260,enemy.balloonSize);enemy.membrane=new BalloonMembrane({scale:enemy.balloonSize,fractureModel:'energy'});
       // The taller arm's resting point is near the smaller opponent's head.
       // Spawn both rigs with visible clearance; ordinary footwork can close it.
       for(const f of this.fighters)f.baseX=-f.dir*1.75;
@@ -311,7 +324,9 @@ export class DuelEngine{
       return;
     }
     if(this.mode==='solo'){
-      if(this.aiEnabled&&this.phase==='fight')this.updateAI(this.fighters[1],dt);
+      const drill=this.phase==='fight'&&this.scenario==='practice'&&this.trainingDrill?trainingOpponentControl(this.trainingDrill.kind,this):null;
+      if(drill)this.setControl(2,drill);
+      else if(this.aiEnabled&&this.phase==='fight')this.updateAI(this.fighters[1],dt);
       else if(!this.aiEnabled)this.fighters[1].controller=neutral();
     }
     this.stepPhysics(dt);
@@ -335,20 +350,36 @@ export class DuelEngine{
   }
   updateAI(f,dt){
     const target=this.fighters.find(other=>other!==f),ai=f.ai,profile=AI_PROFILES[this.difficulty],weapon=getWeapon(f),defense=getDefense(f);
+    const sensed=f.perception.observe(f,target,dt,{difficulty:this.difficulty,occluders:()=>[...f.rig.collisionPanels(),...target.rig.collisionPanels()].filter(p=>p.body!=='weapon')});
+    ai.attentionLost=!sensed?.head;ai.targetVisible=!!sensed?.headVisible;
+    if(!sensed){this.setControl(f.slot,{...neutral(),mainX:-.3,mainY:-.2,offX:.6,offY:.8});return;}
+    if(!sensed.head){
+      // A point can be visible while the balloon is hidden. Read only that
+      // observed threat, hold position and offer a finite secondary guard;
+      // there is no aim/approach/thrust toward an unknown head position.
+      const own=f.pose.head,tip=sensed.tip,v=sensed.velocity;
+      const approaching=sensed.tipVisible&&sensed.armed&&Math.abs(tip.z-own.z)<BALLOON_RADII.z*f.balloonSize+.1&&
+        v.vx*(own.x-tip.x)+v.vy*(own.y-tip.y)>.25&&Math.hypot(own.x-tip.x,own.y-tip.y)<1.7&&
+        pointSegDist(own.x,own.y,tip.x,tip.y,tip.x+v.vx*.45,tip.y+v.vy*.45)<BALLOON_RADII.y*f.balloonSize+.20;
+      ai.threatTime=approaching?ai.threatTime+dt:0;
+      const guard=defense.canGuard&&bodyAttached(f,'offForearm')&&!f.guardBroken&&f.guardEnergy>.35&&ai.threatTime>=profile.reaction;
+      this.setControl(f.slot,{...neutral(),mainX:-.3,mainY:-.2,offX:guard?1:.6,offY:guard?.9:.8,guard});return;
+    }
+    const tactics=loadoutTactics(f.equipment,sensed.equipment);ai.tactic=tactics.name;
     const style=AI_STYLES.includes(this.aiStyle)?this.aiStyle:'balanced';
     const scale=f.boss?1.18:1;
     ai.phase=f.boss&&this.scores[0]>0?2:1;
     const cautious=style==='defender'||style==='counter',maxWait=style==='defender'?2.2:2.8;
     const windup=profile.windup*(ai.phase===2?.85:1)*(style==='precision'?1.25:1)*(f.boss&&ai.cycle===0?1.45:1);
-    const recovery=profile.recover*(ai.phase===2?.9:1)*(style==='aggressive'?.85:style==='defender'||style==='precision'?1.1:style==='boss'&&ai.pattern==='heavy'?1.25:style==='erratic'?[.8,1.2,1,.9][ai.cycle%4]:1);
-    if(!ai.initialized){ai.initialized=true;this.#setAIState(f,'observe',f.boss?Math.max(1.35,observationDuration(style,profile,ai.cycle)):observationDuration(style,profile,ai.cycle));}
+    const recovery=profile.recover*tactics.recoverScale*(ai.phase===2?.9:1)*(style==='aggressive'?.85:style==='defender'||style==='precision'?1.1:style==='boss'&&ai.pattern==='heavy'?1.25:style==='erratic'?[.8,1.2,1,.9][ai.cycle%4]:1);
+    if(!ai.initialized){ai.initialized=true;this.#setAIState(f,'observe',f.boss?Math.max(1.35,observationDuration(style,profile,ai.cycle)):observationDuration(style,profile,ai.cycle)*tactics.observeScale);}
     ai.time+=dt;
-    const attack=weaponActor(target),head=target.pose.head,tip=attack?.pose.tip??target.pose.tip,previous=attack?.previousTip||tip;
+    const attack=sensed.armed?sensed:null,head=sensed.head,tip=sensed.tip??head;
     // React to observed blade motion, never to a future button press or a fabricated hit.
-    const vx=clamp((tip.x-previous.x)/Math.max(dt,STEP),-8,8),vy=clamp((tip.y-previous.y)/Math.max(dt,STEP),-8,8);
+    const vx=sensed.velocity.vx,vy=sensed.velocity.vy;
     const toHeadX=f.pose.head.x-tip.x,toHeadY=f.pose.head.y-tip.y;
     const approaching=vx*toHeadX+vy*toHeadY>.25&&Math.hypot(toHeadX,toHeadY)<1.7;
-    const threatened=!!attack&&(attack.lunge>PUNCTURE_LUNGE||approaching)&&pointSegDist(f.pose.head.x,f.pose.head.y,
+    const threatened=sensed.tipVisible&&!!attack&&(attack.lunge>PUNCTURE_LUNGE||approaching)&&Math.abs(tip.z-f.pose.head.z)<BALLOON_RADII.z*f.balloonSize+.1&&pointSegDist(f.pose.head.x,f.pose.head.y,
       tip.x,tip.y,tip.x+vx*.45,tip.y+vy*.45)<BALLOON_RADII.y*f.balloonSize+.20;
     ai.threatTime=threatened?ai.threatTime+dt:0;
     if(cautious){
@@ -361,7 +392,7 @@ export class DuelEngine{
       if(ai.sawThreat&&ai.lastThreat&&!threatened)ai.counterWindow=1.8;
       ai.lastThreat=threatened;
     }
-    const lead=clamp((target.headVelocity?.vy||0)*(style==='precision'?.18:.10),style==='precision'?-.15:-.10,style==='precision'?.15:.10);
+    const lead=clamp((sensed.headVelocity.vy||0)*(style==='precision'?.18:.10),style==='precision'?-.15:-.10,style==='precision'?.15:.10)+tactics.aimBias;
     const aim=clamp((head.y+lead-f.pose.mainShoulder.y-REFERENCE_STANCE.mainRise*scale)/(.46*scale+.58),-1,1);
     const hand=f.pose.mainHand,blade=f.pose.tip;
     // Aim into the observed volume. Treating its near silhouette as the arm's
@@ -377,7 +408,7 @@ export class DuelEngine{
       const length=Math.hypot(blade.x-hand.x,blade.y-hand.y)||1;
       const pulseLength=(weapon.length+weapon.lungeReach*Math.exp(-STEP*weapon.lungeDecay)+weapon.extension)*(f.boss?1.05:1);
       const x=hand.x+(blade.x-hand.x)/length*pulseLength,y=hand.y+(blade.y-hand.y)/length*pulseLength;
-      const rx=BALLOON_RADII.x*target.balloonSize,ry=BALLOON_RADII.y*target.balloonSize;
+      const rx=BALLOON_RADII.x*sensed.balloonSize,ry=BALLOON_RADII.y*sensed.balloonSize;
       ai.projectedReach=pointSegDist(0,0,(hand.x-head.x)/rx,(hand.y-head.y)/ry,(x-head.x)/rx,(y-head.y)/ry);
       ai.readyToThrust=ai.projectedReach<=1;
     }
@@ -390,7 +421,7 @@ export class DuelEngine{
       !(cautious&&(ai.committed||ai.patience>=maxWait))){
       this.#setAIState(f,'defend',style==='defender'?.48:.32);
     }
-    const attackReach=1.04*scale+weapon.reach*(f.boss?1.05:1)+BALLOON_RADII.x*target.balloonSize-.12;
+    const attackReach=1.04*scale+weapon.reach*(f.boss?1.05:1)+BALLOON_RADII.x*sensed.balloonSize-.12;
     const opportunity=cautious&&ai.counterWindow>0&&ai.time>=.18;
     if(ai.state==='observe'&&(ai.time>=ai.duration||opportunity||cautious&&ai.patience>=maxWait)&&Math.abs(head.x-f.pose.mainShoulder.x)<attackReach){
       const patterns=ai.phase===2?['feint','high','low']:['high','low','feint'];
@@ -401,7 +432,7 @@ export class DuelEngine{
       this.#setAIState(f,ai.pattern==='feint'?'feint':'windup',ai.pattern==='feint'?.28:windup*(style==='boss'&&ai.pattern==='heavy'?1.25:1));
     }else if(ai.state==='feint'&&ai.time>=ai.duration){
       this.#setAIState(f,'windup',windup);
-    }else if(ai.state==='windup'&&ai.time>=ai.duration&&f.lungeCool<=0&&
+    }else if(ai.state==='windup'&&sensed.headVisible&&ai.time>=ai.duration&&f.lungeCool<=0&&
       (style==='balanced'?(prepared||ai.time>=ai.duration+.6):ai.readyToThrust)){
       this.#setAIState(f,'attack',.23);
       if(cautious){ai.patience=0;ai.counterWindow=0;ai.sawThreat=false;ai.committed=false;}
@@ -410,7 +441,7 @@ export class DuelEngine{
     }else if(ai.state==='defend'&&(ai.time>=ai.duration||f.guardBroken)){
       this.#setAIState(f,'recover',f.boss?recovery:style==='defender'?.55:.4);
     }else if(ai.state==='recover'&&ai.time>=ai.duration){
-      ai.cycle++;this.#setAIState(f,'observe',observationDuration(style,profile,ai.cycle));
+      ai.cycle++;this.#setAIState(f,'observe',observationDuration(style,profile,ai.cycle)*tactics.observeScale);
     }
     const c={...neutral(),mainX:this.difficulty==='expert'?.7:.35,mainY:aim,offX:1,offY:.85,lean:1};
     if(style==='aggressive'&&ai.state==='observe'){c.mainX=.75;c.offX=.7;c.offY=.7;}
@@ -447,7 +478,7 @@ export class DuelEngine{
       // the observed point in front of the near side of the balloon before
       // committing a thrust, instead of walking a long spear through the target
       // and aiming its harmless shaft at the centre indefinitely.
-      const gap=f.dir*(head.x-f.pose.tip.x),standOff=BALLOON_RADII.x*target.balloonSize+weapon.lungeReach*.35;
+      const gap=f.dir*(head.x-f.pose.tip.x),standOff=BALLOON_RADII.x*sensed.balloonSize+weapon.lungeReach*.35+tactics.spacing;
       c.lean=clamp((gap-standOff)*3,-1,1);
     }
     // The expert's nominal preparation reserves a bent elbow and raises the
@@ -474,7 +505,7 @@ export class DuelEngine{
       const error=Math.atan2(Math.sin(desired-actual),Math.cos(desired-actual));
       c.mainY=clamp(c.mainY+.9*error,-1,1);c.wrist=clamp(c.wrist+error,-1,1);
       if(!cautious||ai.committed||ai.patience>=maxWait){
-        const standOff=BALLOON_RADII.x*target.balloonSize+weapon.lungeReach*.16;
+        const standOff=BALLOON_RADII.x*sensed.balloonSize+weapon.lungeReach*.16+tactics.spacing;
         const gap=Math.hypot(head.x-hand.x,head.y-hand.y)-Math.hypot(point.x-hand.x,point.y-hand.y)-standOff;
         c.lean=clamp(gap*3,-1,1);
       }
@@ -489,7 +520,7 @@ export class DuelEngine{
         }
       }
     }
-    if(!(f.boss&&(ai.state==='recover'||ai.cycle===0&&ai.state==='observe'&&ai.time<ai.duration))){
+    if(sensed.tip&&!(f.boss&&(ai.state==='recover'||ai.cycle===0&&ai.state==='observe'&&ai.time<ai.duration))){
       // A stationary point also becomes dangerous when our head advances.
       // Recovery must not walk onto the blade displaced by our own last beat.
       // Use only observed velocities; the boss keeps its exposed recovery.
@@ -504,6 +535,8 @@ export class DuelEngine{
       // arena. This changes the physical intention, never hit eligibility.
       c.mainX=-.45;c.mainY=-.25;c.wrist=-.35;c.lean=0;c.thrust=false;
     }
+    c.offY=clamp(c.offY+tactics.guardHeight,-1,1);
+    if(!sensed.headVisible)c.thrust=false;
     this.setControl(f.slot,c);
   }
   #setAIState(f,state,duration){
@@ -565,7 +598,15 @@ export class DuelEngine{
     }
   }
   queueJointContact(contact){
-    if(this.phase==='fight'&&contact.a?.globIntact&&contact.b?.globIntact&&!contact.a.detachedAttack&&!contact.b.detachedAttack)this.jointContacts.push(contact);
+    if(this.phase==='fight'&&contact.a?.globIntact&&contact.b?.globIntact&&!contact.a.detachedAttack&&!contact.b.detachedAttack){
+      this.jointContacts.push(contact);
+      if(contact.impulse>1e-5&&!contact.head){
+        for(const [fighter,body,key,point,sign] of [[contact.a,contact.bodyA,contact.keyA,contact.pointA,1],[contact.b,contact.bodyB,contact.keyB,contact.pointB,-1]]){
+          if(!contact.normal)continue;
+          fighter.surfaceState?.record(fighter.pose,{body,key,point,normal:{x:sign*contact.normal.x,y:sign*contact.normal.y,z:sign*(contact.normal.z??0)},impulse:contact.impulse,slideSpeed:contact.slideSpeed??0,time:this.clock,dt:this.lastPhysicalDt||STEP});
+        }
+      }
+    }
   }
   applyJointDamage(dt=STEP){
     const contacts=this.jointContacts;this.jointContacts=[];
@@ -593,7 +634,7 @@ export class DuelEngine{
     return applied;
   }
   refreshRigPose(f,dt){
-    f.pose=f.rig.pose();const h=f.previousHead||f.pose.head;
+    f.pose=f.rig.pose();f.pose.surface??=f.surfaceState.snapshot(f.pose,this.clock,f.rig);const h=f.previousHead||f.pose.head;
     f.headVelocity={vx:clamp((f.pose.head.x-h.x)/Math.max(dt,STEP),-8,8),vy:clamp((f.pose.head.y-h.y)/Math.max(dt,STEP),-8,8),vz:clamp((f.pose.head.z-h.z)/Math.max(dt,STEP),-8,8)};
     return f.pose;
   }
@@ -613,7 +654,7 @@ export class DuelEngine{
   resolveWeaponContacts(dt,{project=true}={}){
     this.lastWeaponContact=null;
     if(this.fighters.some(f=>!f.globIntact))return;
-    const [a,b]=this.fighters,contact=resolveWeaponBind(a.rig,b.rig,{dt,project});
+    const [a,b]=this.fighters,contact=resolveWeaponBind(a.rig,b.rig,{dt,project,observeVelocities:this.clock>=(this.nextClang||0)});
     if(!contact.at)return;
     this.lastWeaponContact=contact;
     this.queueJointContact({a,b,...contact,source:'steel'});
@@ -625,7 +666,8 @@ export class DuelEngine{
       this.onEvent('clang',{at:contact.at,normal:contact.normal,keyA:contact.keyA,keyB:contact.keyB,bodyA:contact.bodyA,bodyB:contact.bodyB,
         material:contactMaterialPair(materialA,materialB),materialA,materialB,impulse:contact.impulse,force:contact.impulse/Math.max(dt,1e-9),
         closingSpeed:contact.closingSpeed,peakClosingSpeed:contact.closingSpeed,slideSpeed:contact.slideSpeed,
-        frictionImpulse:contact.frictionImpulse,frictionState:contact.frictionState,slidePower:contact.slidePower,weaponBind:true});
+        frictionImpulse:contact.frictionImpulse,frictionState:contact.frictionState,slidePower:contact.slidePower,weaponBind:true,
+        slotA:a.slot,slotB:b.slot,velocities:contact.velocities});
     }
   }
   updateFighter(f,dt,{deferSupport=false}={}){
@@ -659,6 +701,10 @@ export class DuelEngine{
     f.wasThrust=!!ctrl.thrust;
     if(pulse){f.lunge=1;f.lungeCool=weapon.cooldown;this.onEvent('thrust',{slot:f.slot});}
     const held=armed&&active&&!f.guard&&human&&ctrl.attackHeld===true;
+    const loading=this.lastWeaponContact,loaded=loading?.at&&loading.bodyA==='weapon'&&loading.bodyB==='weapon';
+    const withdraw=held&&!f.rig.passive?smooth01((-ctrl.mainX-.08)/.92):0;
+    const gripTarget=loaded?withdraw*(.3+.7*clamp((loading.impulse??0)/(54*Math.max(dt,STEP)),0,1)):0;
+    f.gripAdjustment=armed?lerp(f.gripAdjustment||0,gripTarget,1-Math.exp(-dt*12)):0;
     if(held){
       // Backward travel collects the weapon instead of holding a full lunge.
       // A diagonal withdraw can still aim/swing vertically, with continuously
@@ -680,6 +726,7 @@ export class DuelEngine{
     if(f.globIntact)this.buildPose(f,idle??f.controller);
     const intent=f.pose;
     f.rig.setIntent(intent,{baseX:f.baseX,baseVX:f.baseVX,waterLoad:rigWaterLoad(f,oldHead||intent.head)});
+    applyJointPlay(f.rig);
     f.rig.step(dt);f.pose=f.rig.pose();
     f.balloonMass=f.rig.waterLoad.mass;
     f.previousTip=previous||f.pose.tip;
@@ -703,7 +750,8 @@ export class DuelEngine{
   }
   initializeRig(f){
     const intent=this.buildPose(f);
-    f.rig=new ArticulatedRig({dir:f.dir,scale:f.boss?1.18:1,baseX:f.baseX,pose:intent,apronVariant:f.boss?'boss':'normal'});
+    f.rig=new ArticulatedRig({dir:f.dir,scale:f.boss?1.18:1,baseX:f.baseX,pose:intent,apronVariant:f.boss?'boss':'normal',flexibleWeapons:true,
+      surfaceSnapshot:(pose,rig)=>f.surfaceState.snapshot(pose,this.clock,rig)});
     f.pose=f.rig.pose();f.fluid.keepContained(f.pose.head,STEP,0,this.clock);
     f.previousHead={...f.pose.head};
     f.rig.setIntent(intent,{baseX:f.baseX,waterLoad:rigWaterLoad(f,f.pose.head)});
@@ -734,8 +782,13 @@ export class DuelEngine{
       // under a maul. Small gestures fade in without a jump at attackHeld=.25.
       swordAngle+=Math.PI/3*backward*travel*(1-Math.min(1,Math.abs(f.mainY)));
     }
-    let mainHand=reachableHand(mainShoulder,{x:mainShoulder.x+dir*((weapon.twoHanded?.56:stance.mainReach)+(weapon.twoHanded?.10:.19)*f.mainX+.085*f.lunge)*scale,
-      y:mainShoulder.y+(stance.mainRise+.46*f.mainY)*scale,z:.17},.52*scale,.52*scale,dir);
+    // A loaded withdrawing grip first collects the hand and rolls its wrist in
+    // the requested vertical direction. This only moves the motor target; the
+    // coupled rig and finite steel contact must actually free the weapon.
+    const grip=f.gripAdjustment||0;
+    swordAngle+=.10*grip*Math.sign(control.mainY||control.wrist||-1);
+    let mainHand=reachableHand(mainShoulder,{x:mainShoulder.x+dir*((weapon.twoHanded?.56:stance.mainReach)+(weapon.twoHanded?.10:.19)*f.mainX+.085*f.lunge-.07*grip)*scale,
+      y:mainShoulder.y+(stance.mainRise+.46*f.mainY+.035*grip*control.mainY)*scale,z:.17},.52*scale,.52*scale,dir);
     if(weapon.twoHanded){
       // Both grip intentions must lie inside the support arm's reach before the
       // closed-loop constraint solves their real masses and motor lag.
@@ -861,7 +914,7 @@ export class DuelEngine{
       this.queueJointContact({a:atk,b:def,keyA,keyB:'guard',bodyA:'weapon',bodyB,pointA:point,pointB:point,normal:incoming,impulse,closingSpeed,source:'guard'});
       // A geometric stop still informs UI/rules when its mechanical impulse is
       // zero. Explicit zero measurements keep Audio/FX silent in that case.
-      this.onEvent('clang',{at:point,normal,defender:def.slot,keyA,keyB:'guard',bodyA:'weapon',bodyB,
+      this.onEvent('clang',{at:point,normal,defender:def.slot,attacker:atk.slot,velocityBefore:va,velocityAfter:atk.rig.pointVelocity({point}),keyA,keyB:'guard',bodyA:'weapon',bodyB,
         material:contactMaterialPair(materialA,materialB),materialA,materialB,defenseMaterial:materialB,
         impulse,force:impulse/Math.max(step,1e-9),closingSpeed,peakClosingSpeed:Math.max(0,closingSpeed),slideSpeed});
     }
@@ -956,7 +1009,7 @@ export class DuelEngine{
     // Coherent liquid bulk: particle volume remains constant even after the burst.
     for(const f of this.fighters){
       if(f.fluid.released){
-        const domain={floor:.326,viscosity:.27,solidColliders};
+        const domain={floor:.326,viscosity:.27,solidColliders,capillarySurface:f.membrane.punctured?buildCapillarySurface(f.membrane):null};
         if(f.fluid.leaking){
           const opening=f.membrane.state;
           // Reduced normalized air pressure vents through the measured opening;
@@ -973,6 +1026,11 @@ export class DuelEngine{
         this.puddleStrength[index]=Math.min(1,this.puddleStrength[index]+wet*dt*.18);
         if(this.phase==='burst')f.footSlip+=f.dir*.002*this.puddleStrength[index]*dt;
       }
+    }
+    if(this.fighters.some(f=>f.fluid.released))for(const f of this.fighters){
+      if(!f.pose.apron||!f.rig.apron)continue;
+      wetApronFromParcels(f.rig.apron,f.pose.apron,this.fighters.map(other=>other.fluid),dt);
+      f.pose.apron.wetness={...f.rig.apron.wetness};
     }
     this.rings=this.rings.filter(p=>(p.age+=dt)<p.ttl);
     this.spark=this.spark.filter(p=>{p.age+=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.z+=p.vz*dt;return p.age<p.ttl;});

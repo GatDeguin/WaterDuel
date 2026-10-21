@@ -4,6 +4,7 @@ import {TABLE_TOP} from './dimensions.js';
 import {normalizeLoadout,getWeapon,getDefense} from '../equipment.js';
 import {ApronHinge,apronParentFrame} from './apron.js';
 import {DetachedCluster} from './detached-cluster.js';
+import {WeaponFlex,bladeLocalAt} from './weapon-flex.js';
 export const RIG_STEP=1/120;
 export const REFERENCE_STANCE=Object.freeze({hipHeight:.98,hipSocket:.11,frontFoot:.47,backFoot:-.64,
   thigh:.53,shin:.55,torso:.755,neck:.56,shoulderHalfWidth:.275,shoulderDrop:.05,lean:.12,mainReach:.82,mainRise:.02,offReach:-.76,offRise:.02});
@@ -125,7 +126,10 @@ export class ArticulatedRig{
   #massCache=new WeakMap();
   #constraintCache=new WeakMap();
   #floorCache=new WeakMap();
-  constructor({dir=1,scale=1,baseX=0,pose=null,gravity=-9.81,massScale=1,groundHeight=TABLE_TOP+.075,apronVariant='normal'}={}){
+  #flexibleWeapons=false;
+  #weaponFlex=null;
+  #surfaceSnapshot=null;
+  constructor({dir=1,scale=1,baseX=0,pose=null,gravity=-9.81,massScale=1,groundHeight=TABLE_TOP+.075,apronVariant='normal',flexibleWeapons=false,surfaceSnapshot=null}={}){
     this.limits=limits.map(value=>value.slice());this.passive=false;
     this.dir=dir<0?-1:1;this.scale=clamp(finite(scale,1),.75,1.6);
     this.massScale=clamp(finite(massScale,1),.1,20);this.gravity=clamp(finite(gravity,-9.81),-20,0);
@@ -137,6 +141,11 @@ export class ArticulatedRig{
     this.defenseDepth={position:-.08,velocity:0,target:-.08};
     this.intentBase=finite(baseX);this.intentVX=0;this.shieldRadius=.23;this.shieldRadiusX=.23;this.shieldRadiusY=.23;
     this.equipment=normalizeLoadout();this.weaponMass=.16;this.twoHanded=false;this.gripOffset=0;this.defenseLength=0;this.defenseRestAngle=0;
+    // Constructor capabilities and their class instances are not a plain
+    // coordinate snapshot. Copying mechanical fields must not enable a mode
+    // in another rig or turn its solver into a structured-cloned plain object.
+    this.#flexibleWeapons=flexibleWeapons===true;this.#weaponFlex=this.flexibleWeapons?new WeaponFlex(pose?.equipment?.weapon??'sword'):null;
+    this.#surfaceSnapshot=typeof surfaceSnapshot==='function'?surfaceSnapshot:null;
     this.depth={hip:0,frontHip:.20,backHip:-.18,shoulder:0,head:.025,mainShoulder:.11,mainElbow:.14,mainHand:.17,tip:.17,offShoulder:-.11,offElbow:-.10,offHand:-.08,offGrip:.17,defenseTip:.17,kneeF:.20,kneeB:-.18,footF:.29,footB:-.22};
     this.contacts=[];this.gait={swing:null,next:0,stanceBase:finite(baseX)};
     this.jointDamage={};this.jointDamageVersion=0;this.detachedBodies=new Set();this.detachedCoordinates=new Set();this.fragments=[];this.jointEvents=[];this.topologyVersion=0;this.gripReleased=false;
@@ -150,15 +159,19 @@ export class ArticulatedRig{
     this.apron=new ApronHinge(apronVariant);this.#advanceApron(0,state);
   }
 
+  get flexibleWeapons(){return this.#flexibleWeapons;}
+  get weaponFlex(){return this.#weaponFlex;}
+
   isBodyAttached(body){return !this.detachedBodies.has(body);}
   drainJointEvents(){const events=this.jointEvents;this.jointEvents=[];return events;}
-  damageJoint(name,amount){
+  damageJoint(name,amount,{surface=null}={}){
     if(!Number.isFinite(amount)||amount<0)throw new RangeError('joint damage must be finite and nonnegative');
     if(!Object.hasOwn(jointPivot,name))return {applied:false};
     const old=this.jointDamage[name]??{damage:0,detached:false};if(old.detached||amount===0)return {applied:false,...old};
     if(severedBodies[name]?.every(body=>!this.isBodyAttached(body)))return {applied:false,damage:old.damage,detached:true};
     const damage=clamp(old.damage+amount,0,1);if(damage===old.damage)return {applied:false,...old};
     const state=this.#kinematics(),sourcePose=this.pose(),at={...sourcePose[jointPivot[name]]};
+    if(surface)sourcePose.surface=surface;
     delete sourcePose.joints;delete sourcePose.detached;
     const record={damage,detached:false};this.jointDamage[name]=record;this.jointDamageVersion++;
     if(damage===1&&severedBodies[name]){
@@ -240,7 +253,7 @@ export class ArticulatedRig{
     return p;
   }
 
-  #kinematics(q=this.q,swordLength=this.swordLength,derivatives=true){
+  #kinematics(q=this.q,swordLength=this.swordLength,derivatives=true,bend=this.weaponFlex?.offset??0){
     // Contact manifolds, their Jacobians and render queries often inspect the
     // exact same coordinates. Reuse only a numerically identical current state;
     // interpolated CCD states remain independent. No tolerance or stale-frame
@@ -248,7 +261,7 @@ export class ArticulatedRig{
     const current=q===this.q&&derivatives,load=this.waterLoad;
     const parameters=current?[this.scale,this.dir,this.massScale,this.weaponMass,this.twoHanded,this.gripOffset,
       this.defenseLength,this.defenseRestAngle,this.wristRestAngle,this.neckLateral.angle,
-      load.mass,load.offset.x,load.offset.y,load.inertia,this.topologyVersion]:null;
+      load.mass,load.offset.x,load.offset.y,load.inertia,this.topologyVersion,bend,this.weaponFlex?.previousOffset??0]:null;
     const cached=this.#kinematicCache;
     if(current&&cached&&cached.length===swordLength&&parameters.every((v,i)=>v===cached.parameters[i])&&q.every((v,i)=>v===cached.q[i]))return cached.state;
     const s=this.scale,hip=point(q[0],q[1],derivatives);if(derivatives){hip.jx[0]=1;hip.jy[1]=1;}
@@ -279,6 +292,12 @@ export class ArticulatedRig{
     const mainHand=add('mainForearm',mainElbow,mainFore,.52*s,mainForeRot,'mainHand');
     const weaponAngle=mainFore+this.wristRestAngle+q[13],weaponRot=[...mainForeRot,13];
     add('weapon',mainHand,weaponAngle,swordLength,weaponRot,'tip');
+    let weaponCurve=null;
+    if(this.weaponFlex?.maximum&&(bend!==0||this.weaponFlex.offset!==0||this.weaponFlex.previousOffset!==0)){
+      weaponCurve=Array.from({length:5},(_,i)=>{const local=bladeLocalAt(swordLength,bend,i/4);return this.#offset(mainHand,local.x,local.y,weaponAngle,weaponRot);});
+      points.tip=weaponCurve[4];
+      if(derivatives){const body=bodies[bodies.length-1];body.center=weaponCurve[2];frames.weapon.end={x:points.tip.x,y:points.tip.y};frames.weapon.center={x:body.center.x,y:body.center.y};}
+    }
     if(this.twoHanded)points.offGrip=this.#offset(mainHand,-this.gripOffset,0,weaponAngle,weaponRot);
     const offShoulder=this.#offset(shoulder,-REFERENCE_STANCE.shoulderHalfWidth*s,-REFERENCE_STANCE.shoulderDrop*s,torsoAngle-PI/2,torsoRot);points.offShoulder=offShoulder;
     const offAngle=torsoAngle+q[6],offRot=[2,3,6],offElbow=add('offUpper',offShoulder,offAngle,.48*s,offRot,'offElbow');
@@ -294,7 +313,8 @@ export class ArticulatedRig{
       const center=this.#offset(head,this.waterLoad.offset.x,this.waterLoad.offset.y,neckAngle-PI/2,[2,3,12]);
       bodies.push({name:'water',mass:this.waterLoad.mass,inertia:this.waterLoad.inertia,center,rotations:[2,3,12]});
     }
-    const state={points,bodies:this.detachedBodies.size?bodies.filter(b=>this.isBodyAttached(b.name)):bodies,angles,frames,pelvisAngle:q[2]};
+    const state={points,bodies:this.detachedBodies.size?bodies.filter(b=>this.isBodyAttached(b.name)):bodies,angles,frames,pelvisAngle:q[2],weaponCurve,weaponLength:swordLength,
+      weaponRootDirection:{x:this.dir*Math.cos(weaponAngle),y:Math.sin(weaponAngle)}};
     if(current)this.#kinematicCache={q:q.slice(),length:swordLength,parameters,state};
     return state;
   }
@@ -304,8 +324,8 @@ export class ArticulatedRig{
     return {x:origin.x+dx,y:origin.y+dy};
   }
 
-  #geometryState(q,swordLength,key){
-    const s=this.scale,p={hip:{x:q[0],y:q[1]}},state={points:p,pelvisAngle:q[2]};
+  #geometryState(q,swordLength,key,bend=this.weaponFlex?.offset??0){
+    const s=this.scale,p={hip:{x:q[0],y:q[1]}},state={points:p,pelvisAngle:q[2],weaponLength:swordLength};
     if(key==='pelvis')return state;
     if(key==='frontThigh'||key==='frontShin'){
       p.frontHip=this.#geometryOffset(p.hip,REFERENCE_STANCE.hipSocket*s,0,q[2]);
@@ -320,13 +340,19 @@ export class ArticulatedRig{
       return state;
     }
     const torsoAngle=PI/2+q[2]+q[3];p.shoulder=this.#geometryOffset(p.hip,REFERENCE_STANCE.torso*s,0,torsoAngle);
-    const main=key==='mainUpper'||key==='mainForearm'||key==='weapon'||key==='weapon-head'||key==='main-palm'||key==='off-palm'&&this.twoHanded;
+    const main=key==='mainUpper'||key==='mainForearm'||key==='weapon'||key.startsWith('weapon-flex-')||key==='weapon-head'||key==='main-palm'||key==='off-palm'&&this.twoHanded;
     if(main){
       p.mainShoulder=this.#geometryOffset(p.shoulder,REFERENCE_STANCE.shoulderHalfWidth*s,-REFERENCE_STANCE.shoulderDrop*s,torsoAngle-PI/2);
       const angle=torsoAngle+q[4];p.mainElbow=this.#geometryOffset(p.mainShoulder,.52*s,0,angle);
       if(key!=='mainUpper'){
         const fore=angle+q[5];p.mainHand=this.#geometryOffset(p.mainElbow,.52*s,0,fore);
-        if(key!=='mainForearm')p.tip=this.#geometryOffset(p.mainHand,swordLength,0,fore+this.wristRestAngle+q[13]);
+        if(key!=='mainForearm'){
+          const angle=fore+this.wristRestAngle+q[13];p.tip=this.#geometryOffset(p.mainHand,swordLength,0,angle);
+          state.weaponRootDirection={x:this.dir*Math.cos(angle),y:Math.sin(angle)};
+          if(this.weaponFlex?.maximum&&(bend!==0||this.weaponFlex.offset!==0||this.weaponFlex.previousOffset!==0)){
+            state.weaponCurve=Array.from({length:5},(_,i)=>{const local=bladeLocalAt(swordLength,bend,i/4);return this.#geometryOffset(p.mainHand,local.x,local.y,angle);});p.tip=state.weaponCurve[4];
+          }
+        }
       }
     }
     if(key==='offUpper'||key==='offForearm'||key==='off-palm'){
@@ -361,6 +387,7 @@ export class ArticulatedRig{
     const angle=(a,b,fallback)=>a&&b?Math.atan2(b.y-a.y,this.dir*(b.x-a.x)):fallback;
     const t=this.target,s=this.scale,p=pose||{};
     if(p.equipment)this.equipment=normalizeLoadout(p.equipment);
+    if(this.flexibleWeapons&&this.weaponFlex?.weapon!==this.equipment.weapon)this.#weaponFlex=new WeaponFlex(this.equipment.weapon);
     this.weaponMass=clamp(finite(p.weaponMass,this.weaponMass),.05,1);
     this.twoHanded=!!p.twoHanded&&!this.gripReleased;this.gripOffset=clamp(finite(p.gripOffset),0,.35);
     t[0]=clamp(finite(p.hip?.x,this.intentBase),this.limits[0][0],this.limits[0][1]);t[1]=clamp(finite(p.hip?.y,TABLE_TOP+REFERENCE_STANCE.hipHeight*s),this.limits[1][0],this.limits[1][1]);t[2]=0;
@@ -562,7 +589,8 @@ export class ArticulatedRig{
       for(const [body,key] of [['frontShin','footF'],['backShin','footB']])for(const dx of [-.13,.13])samples.push({body,floorKey:key,x:p[key].x+dx*s,y:p[key].y-.075,jy:p[key].jy});
     }
     const weapon=getWeapon(this.equipment),width=weapon.shaftWidth??.034;
-    appendFloorPanel(samples,'weapon',p.mainHand,p.tip,width);
+    if(state.weaponCurve)for(let i=0;i<4;i++)appendFloorPanel(samples,'weapon',state.weaponCurve[i],state.weaponCurve[i+1],width);
+    else appendFloorPanel(samples,'weapon',p.mainHand,p.tip,width);
     if(weapon.headLength){
       const ux=(p.tip.x-p.mainHand.x)/this.swordLength,uy=(p.tip.y-p.mainHand.y)/this.swordLength;
       const center={x:p.tip.x+uy*weapon.headAcross,y:p.tip.y-ux*weapon.headAcross};
@@ -583,7 +611,7 @@ export class ArticulatedRig{
   }
 
   #collisionPanels(state,external=false,onlyKey=null,asSolids=false){
-    const p=state.points,weapon=!onlyKey||onlyKey==='weapon'||onlyKey==='weapon-head'?getWeapon(this.equipment):null;
+    const p=state.points,weapon=!onlyKey||onlyKey==='weapon'||onlyKey.startsWith('weapon-flex-')||onlyKey==='weapon-head'?getWeapon(this.equipment):null;
     const panels=[],wants=key=>!onlyKey||onlyKey===key,createPanel=asSolids?collisionSolid:collisionPanel;
     // The shoulder mount is an excluded .12-unit attachment band. These are
     // interior timber proxies, not bounding spheres around decorative hardware.
@@ -608,7 +636,14 @@ export class ArticulatedRig{
     if(wants('backThigh'))panels.push(createPanel('backThigh',p.backHip,p.kneeB,.20,-.17,.18));
     if(wants('backShin'))panels.push(createPanel('backShin',p.kneeB,p.footB,.17,-.17,.18));
     const swordLength=!onlyKey||onlyKey==='weapon'||onlyKey==='weapon-head'||onlyKey==='main-palm'?distance(p.mainHand,p.tip):0;
-    if(wants('weapon')){
+    if(state.weaponCurve&&(!onlyKey||onlyKey==='weapon'||onlyKey.startsWith('weapon-flex-'))){
+      const curve=state.weaponCurve;
+      for(let i=0;i<4;i++){
+        const key=i===3?'weapon':`weapon-flex-${i}`;if(!wants(key))continue;
+        const a=i===0?{x:curve[0].x+(curve[1].x-curve[0].x)*(.15/(state.weaponLength/4)),y:curve[0].y+(curve[1].y-curve[0].y)*(.15/(state.weaponLength/4))}:curve[i];
+        panels.push(createPanel('weapon',a,curve[i+1],weapon.shaftWidth??.034,.177,weapon.shaftWidth??.034,key));
+      }
+    }else if(wants('weapon')){
       const blade={x:p.mainHand.x+(p.tip.x-p.mainHand.x)*.15/swordLength,y:p.mainHand.y+(p.tip.y-p.mainHand.y)*.15/swordLength};
       panels.push(createPanel('weapon',blade,p.tip,weapon.shaftWidth??.034,.177,weapon.shaftWidth??.034));
     }
@@ -624,7 +659,7 @@ export class ArticulatedRig{
     // frame; it is timber, not another length of blade.
     const s=this.scale;
     if(wants('main-palm')){
-      const ux=(p.tip.x-p.mainHand.x)/swordLength,uy=(p.tip.y-p.mainHand.y)/swordLength;
+      const ux=state.weaponCurve?state.weaponRootDirection.x:(p.tip.x-p.mainHand.x)/swordLength,uy=state.weaponCurve?state.weaponRootDirection.y:(p.tip.y-p.mainHand.y)/swordLength;
       const palm=along=>({x:p.mainHand.x+ux*along*s-uy*.002743*s,y:p.mainHand.y+uy*along*s+ux*.002743*s});
       const hand=createPanel('weapon',palm(-.073147),palm(.072433),.127148*s,this.depth.mainHand+.007362*s,.14271*s,'main-palm');hand.material='wood';panels.push(hand);
     }
@@ -741,6 +776,7 @@ export class ArticulatedRig{
 
   #substep(h){
     this.lastSelfContactImpulse=0;
+    if(this.weaponFlex&&this.isBodyAttached('weapon'))this.weaponFlex.advance(h,{preservePrevious:true});
     this.#gaitStep(h);
     this.#advanceNeck(h);
     this.#advanceDefenseDepth(h);
@@ -813,6 +849,7 @@ export class ArticulatedRig{
     // Up to .25 s is retained; excess is reported for the host's pause policy.
     const supplied=Math.max(0,finite(dt)),accepted=Math.min(.25,supplied);
     this.previousQ=this.q.slice();this.previousSwordLength=this.lastSwordLength??this.swordLength;this.lastSwordLength=this.swordLength;
+    if(this.weaponFlex)this.weaponFlex.previousOffset=this.weaponFlex.offset;
     for(const fragment of this.fragments)fragment.beginStep();
     this.droppedTime=(this.droppedTime||0)+supplied-accepted;this.accumulator+=accepted;
     let steps=0;
@@ -825,21 +862,24 @@ export class ArticulatedRig{
   collisionPanelsAt(t){
     t=clamp(finite(t,1),0,1);
     const q=Float64Array.from(this.q,(value,i)=>(this.previousQ?.[i]??value)*(1-t)+value*t);
-    return this.#collisionPanels(this.#kinematics(q,(this.previousSwordLength??this.swordLength)*(1-t)+this.swordLength*t),true);
+    const bend=(this.weaponFlex?.previousOffset??0)*(1-t)+(this.weaponFlex?.offset??0)*t;
+    return this.#collisionPanels(this.#kinematics(q,(this.previousSwordLength??this.swordLength)*(1-t)+this.swordLength*t,true,bend),true);
   }
 
   collisionGeometryAt(t,onlyKey=null){
     t=clamp(finite(t,1),0,1);
     const q=new Array(N);for(let i=0;i<N;i++)q[i]=(this.previousQ?.[i]??this.q[i])*(1-t)+this.q[i]*t;
     const length=(this.previousSwordLength??this.swordLength)*(1-t)+this.swordLength*t;
-    return this.#collisionPanels(onlyKey?this.#geometryState(q,length,onlyKey):this.#kinematics(q,length,false),true,onlyKey);
+    const bend=(this.weaponFlex?.previousOffset??0)*(1-t)+(this.weaponFlex?.offset??0)*t;
+    return this.#collisionPanels(onlyKey?this.#geometryState(q,length,onlyKey,bend):this.#kinematics(q,length,false,bend),true,onlyKey);
   }
 
   collisionSolidsAt(t,onlyKey=null){
     t=clamp(finite(t,1),0,1);
     const q=new Array(N);for(let i=0;i<N;i++)q[i]=(this.previousQ?.[i]??this.q[i])*(1-t)+this.q[i]*t;
     const length=(this.previousSwordLength??this.swordLength)*(1-t)+this.swordLength*t;
-    return this.#collisionPanels(onlyKey?this.#geometryState(q,length,onlyKey):this.#kinematics(q,length,false),true,onlyKey,true);
+    const bend=(this.weaponFlex?.previousOffset??0)*(1-t)+(this.weaponFlex?.offset??0)*t;
+    return this.#collisionPanels(onlyKey?this.#geometryState(q,length,onlyKey,bend):this.#kinematics(q,length,false,bend),true,onlyKey,true);
   }
 
   static #contactResponse(r,body,p,n){
@@ -933,13 +973,24 @@ export class ArticulatedRig{
         keyA:`external:${c.keyA??c.bodyA}`,keyB:`external:${c.keyB??c.bodyB}`,external:true}));
     };
     const interpolate=(r,t)=>r.#kinematics(Float64Array.from(r.q,(q,i)=>(r.previousQ?.[i]??q)*(1-t)+q*t),
-      (r.previousSwordLength??r.swordLength)*(1-t)+r.swordLength*t);
+      (r.previousSwordLength??r.swordLength)*(1-t)+r.swordLength*t,true,(r.weaponFlex?.previousOffset??0)*(1-t)+(r.weaponFlex?.offset??0)*t);
     const allowed=(pa,pb)=>!(pa.body==='weapon'&&pb.body==='weapon'&&pa.material!=='wood'&&pb.material!=='wood');
     const anchor=(state,body,p)=>{
       const f=state.frames[body],dx=p.x-f.origin.x,dy=p.y-f.origin.y,c=Math.cos(f.angle),s=Math.sin(f.angle);
+      if(body==='weapon'&&state.weaponCurve){
+        let best=null;
+        for(let i=0;i<4;i++){const a=state.weaponCurve[i],b=state.weaponCurve[i+1],x=b.x-a.x,y=b.y-a.y,length=Math.hypot(x,y),t=clamp(((p.x-a.x)*x+(p.y-a.y)*y)/(length*length),0,1),px=a.x+x*t,py=a.y+y*t,d=(p.x-px)**2+(p.y-py)**2;
+          if(!best||d<best.distance)best={distance:d,arcFraction:(i+t)/4,across:(-(p.x-px)*y+(p.y-py)*x)/length,z:p.z};
+        }
+        return best;
+      }
       return {x:dx*c+dy*s,y:-dx*s+dy*c,z:p.z,length:distance(f.origin,f.end)};
     };
     const located=(state,body,p)=>{
+      if(body==='weapon'&&state.weaponCurve&&p.arcFraction!==undefined){
+        const i=Math.min(3,Math.floor(p.arcFraction*4)),t=p.arcFraction*4-i,a=state.weaponCurve[i],b=state.weaponCurve[i+1],x=b.x-a.x,y=b.y-a.y,length=Math.hypot(x,y);
+        return {x:a.x+x*t-y/length*p.across,y:a.y+y*t+x/length*p.across,z:p.z};
+      }
       const f=state.frames[body],c=Math.cos(f.angle),s=Math.sin(f.angle),x=p.x*(body==='weapon'?distance(f.origin,f.end)/Math.max(p.length,1e-8):1);
       return {x:f.origin.x+x*c-p.y*s,y:f.origin.y+x*s+p.y*c,z:p.z};
     };
@@ -948,6 +999,7 @@ export class ArticulatedRig{
       const A0=interpolate(a,0),B0=interpolate(b,0),A1=interpolate(a,1),B1=interpolate(b,1);
       const p0=a.#collisionPanels(A0,true),q0=b.#collisionPanels(B0,true),p1=a.#collisionPanels(A1,true),q1=b.#collisionPanels(B1,true);
       let travel=Math.abs(a.swordLength-a.previousSwordLength)+Math.abs(b.swordLength-b.previousSwordLength);
+      for(const r of [a,b])travel+=2*Math.abs((r.weaponFlex?.offset??0)-(r.weaponFlex?.previousOffset??0));
       for(const r of [a,b])for(let i=0;i<N;i++)travel+=Math.abs(r.q[i]-r.previousQ[i])*(i<2?1:3);
       const steps=Math.max(1,Math.min(64,Math.ceil(travel/.035))),samples=new Map([[0,{A:A0,B:B0,ap:p0,bp:q0}],[steps,{A:A1,B:B1,ap:p1,bp:q1}]]);
       const sample=index=>{
@@ -1099,7 +1151,9 @@ export class ArticulatedRig{
     pose.equipment={...this.equipment};pose.twoHanded=this.twoHanded;pose.gripOffset=this.gripOffset;
     pose.angles={...state.angles};pose.bodyFrames=Object.fromEntries(Object.entries(state.frames).map(([name,f])=>[name,{...f,origin:{...f.origin},end:{...f.end},center:{...f.center}}]));
     pose.wristAngle=this.q[13];pose.dynamic=true;pose.passive=this.passive;pose.apron=this.apron?.snapshot();
+    if(state.weaponCurve){pose.weaponCurve=state.weaponCurve.map(p=>({x:p.x,y:p.y,z:this.depth.tip}));pose.weaponCurve[0]={...pose.mainHand};pose.weaponFlex={offset:this.weaponFlex.offset,length:this.swordLength};pose.weaponRootDirection={...state.weaponRootDirection,z:0};}
     if(this.jointDamageVersion){pose.joints=Object.fromEntries(Object.entries(this.jointDamage).map(([name,record])=>[name,{damage:record.damage,detached:record.detached}]));pose.detached=this.fragments.map(f=>f.snapshot());}
+    if(this.#surfaceSnapshot)pose.surface=this.#surfaceSnapshot(pose,this);
     return pose;
   }
 

@@ -1,4 +1,5 @@
 /** Seeded presentation particles. These never carry physical water or damage. */
+import {prepareWorkshopAir,sampleWorkshopAir} from './workshop-air.js';
 const H=1/60,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export const EFFECT_LIMITS=Object.freeze({total:176,dust:64,smoke:16,wood:28,spark:28,mist:28,glint:12});
 const WINDOWS=Object.freeze([{x:-3.0051,y:3.7174,z:-4.5561},{x:3.0051,y:3.9759,z:-4.5561}]);
@@ -11,10 +12,10 @@ const position=p=>p&&[p.x,p.y,p.z??0].every(Number.isFinite)&&Math.abs(p.x)<20&&
 const ownParticle=p=>({kind:p.kind,source:p.source,x:p.x,y:p.y,z:p.z,r:p.r,alpha:p.alpha,age:p.age,ttl:p.ttl,visualOnly:true});
 
 export class WorkshopEffects{
-  constructor({seed=0x5744554c,ambient=true,windows=WINDOWS,combustionSources=[]}={}){
+  constructor({seed=0x5744554c,ambient=true,windows=WINDOWS,combustionSources=[],fanRotor=null}={}){
     this.state=(Number.isFinite(seed)?seed:0x5744554c)>>>0;this.ambient=!!ambient;this.particles=[];this.free=[];
     this.counts=Object.fromEntries(Object.keys(STYLES).map(kind=>[kind,0]));this.created=0;this.reused=0;this.time=0;this.accumulator=0;this.droppedTime=0;this.lastSteps=0;this.dustCredit=0;
-    this.windows=[];this.combustionSources=[];this.smokeCredit=[];this.configureEnvironment({windows,combustionSources});
+    this.windows=[];this.combustionSources=[];this.smokeCredit=[];this.air=null;this.configureEnvironment({windows,combustionSources,fanRotor});
     if(this.ambient)for(let i=0;i<24;i++)this.#dust(true);
   }
   #random(){this.state=(Math.imul(this.state,1664525)+1013904223)>>>0;return this.state/4294967296;}
@@ -31,7 +32,8 @@ export class WorkshopEffects{
     const fadeIn=p.kind==='smoke'||p.kind==='dust'?Math.min(1,p.age/.25):1;
     p.alpha=fadeIn*(1-u)**(p.kind==='spark'?1.2:1.7);p.r=p.r0*grow;
   }
-  configureEnvironment({windows,combustionSources}={}){
+  configureEnvironment({windows,combustionSources,fanRotor}={}){
+    if(fanRotor!==undefined)this.air=prepareWorkshopAir(fanRotor);
     if(Array.isArray(windows))this.windows=windows.slice(0,4).map(position).filter(Boolean);
     if(Array.isArray(combustionSources)){
       this.combustionSources=combustionSources.slice(0,8).filter(p=>p?.kind==='oilLamp'||p?.kind==='candle').map(p=>{const v=position(p);return v?{...v,kind:p.kind}:null;}).filter(Boolean).slice(0,4);
@@ -91,6 +93,10 @@ export class WorkshopEffects{
     this.time+=H;
     for(let i=this.particles.length-1;i>=0;i--){
       const p=this.particles[i];p.age+=H;if(p.age>=p.ttl){this.#retire(i);continue;}
+      if(this.air&&(p.kind==='dust'||p.kind==='smoke')){
+        const air=sampleWorkshopAir(this.air,p,this.time);
+        if(air.x||air.y||air.z){const response=1-Math.exp(-H*1.4);p.vx+=(air.x-p.vx)*response;p.vy+=(air.y-p.vy)*response;p.vz+=(air.z-p.vz)*response;}
+      }
       if(p.kind==='dust'){
         p.x+=H*(p.vx+.009*Math.sin(this.time*.6+p.phase));p.y+=H*(p.vy+.006*Math.cos(this.time*.8+p.phase));p.z+=H*p.vz;
       }else{

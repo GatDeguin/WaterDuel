@@ -26,3 +26,13 @@ export function apronMaterialOverride(fighter,part,material){
 }
 
 export function apronProceduralColor(fighter,authoredColor){return eligible(fighter)?balloonPalette(fighter).balloon:authoredColor;}
+
+const wetBounds=new WeakMap();
+/** Water contact belongs to the physical cloth, independently of its dye. */
+export function apronSurfaceOverride(fighter,part,material){
+  const dye=apronMaterialOverride(fighter,part,material),wet=fighter?.pose?.apron?.wetness;
+  if(part?.accessory!=='apron'||!clothNames.has(material?.name)||!wet||!(wet.top>0||wet.bottom>0))return dye;
+  let bounds=wetBounds.get(part);
+  if(!bounds){let min=Infinity,max=-Infinity;for(let i=1;i<part.positions.length;i+=3){min=Math.min(min,part.positions[i]);max=Math.max(max,part.positions[i]);}bounds=[min,max];wetBounds.set(part,bounds);}
+  return {...dye,wetTop:Math.max(0,Math.min(1,wet.top)),wetBottom:Math.max(0,Math.min(1,wet.bottom)),wetMinY:bounds[0],wetMaxY:bounds[1]};
+}

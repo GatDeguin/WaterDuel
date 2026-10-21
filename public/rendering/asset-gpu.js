@@ -53,7 +53,7 @@ function drawMaterial(material,textures){
 export class AssetGPU{
   constructor(gl,{decodeImage:decode=decodeImage}={}){
     this.gl=gl;this.decodeImage=decode;this.models=new Set();this.disposed=false;this.bufferBytes=0;this.sharedTextures=new SharedTextures(gl,decode);
-    this.normalScratch=new Float32Array(9);this.colorScratch=[1,1,1,1];this.deformScratch=[0,1,0];this.sheenScratch=[0,0,0,0];
+    this.normalScratch=new Float32Array(9);this.colorScratch=[1,1,1,1];this.deformScratch=[0,1,0];this.flexScratch=[0,1,1];this.wetScratch=[0,0,0,1];this.sheenScratch=[0,0,0,0];
     this.defaultMaterial=materialInfo();this.defaultDrawMaterial=drawMaterial(this.defaultMaterial,[]);
   }
   get bytes(){return this.bufferBytes+this.sharedTextures.bytes;}
@@ -90,7 +90,7 @@ export class AssetGPU{
     }catch(error){this.release(model);throw error;}
   }
   transparent(model,part){const m=model.materials[part.material]??this.defaultMaterial;return m.alphaMode==='BLEND'||m.transmission>0;}
-  draw(model,part,matrix,U,{deformStart=0,deformEnd=1,extension=0,tint=defaultTint,sheenColor}=noDeform){
+  draw(model,part,matrix,U,{deformStart=0,deformEnd=1,extension=0,flexOffset=0,flexLength=1,flexDirection=1,wetTop=0,wetBottom=0,wetMinY=0,wetMaxY=1,tint=defaultTint,sheenColor}=noDeform){
     if(this.disposed)return;const gl=this.gl,m=model.materials[part.material]??this.defaultMaterial,d=model.drawMaterials[part.material]??this.defaultDrawMaterial;gl.bindVertexArray(part.vao);
     gl.disableVertexAttribArray(2);gl.vertexAttrib4f(2,0,0,0,1);gl.disableVertexAttribArray(3);gl.vertexAttrib1f(3,.0045);
     gl.uniform1i(U.uInstancing,0);gl.uniform1i(U.uAssetEnabled,1);gl.uniform1i(U.uMaterial,21);gl.uniform1f(U.uWobble,0);gl.uniform1f(U.uWet,0);
@@ -101,6 +101,8 @@ export class AssetGPU{
     gl.uniform4fv(U.uAssetColor,color);gl.uniform4fv(U.uAssetParams,d.params);
     gl.uniform1f(U.uAssetCoatRoughness,m.coatRoughness);gl.uniform3fv(U.uAssetEmission,m.emissiveFactor);
     gl.uniform3fv(U.uAssetDeform,deform);gl.uniform1f(U.uAssetNormalScale,num(m.normalTexture?.scale,1));
+    const flex=this.flexScratch,wet=this.wetScratch;flex[0]=flexOffset;flex[1]=flexLength;flex[2]=flexDirection;wet[0]=wetTop;wet[1]=wetBottom;wet[2]=wetMinY;wet[3]=wetMaxY;
+    gl.uniform3fv(U.uAssetFlex,flex);gl.uniform4fv(U.uAssetWet,wet);
     gl.uniform1f(U.uAssetOcclusionStrength,num(m.occlusionTexture?.strength,1));gl.uniform1f(U.uAssetTransmission,m.transmission);gl.uniform1f(U.uAssetThickness,m.thickness);
     gl.uniform1i(U.uAssetAlphaMode,m.alphaMode==='MASK'?1:m.alphaMode==='BLEND'?2:0);gl.uniform1f(U.uAssetAlphaCutoff,num(m.alphaCutoff,.5));
     const sheen=sheenColor?this.sheenScratch:d.sheen;

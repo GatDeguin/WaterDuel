@@ -2,6 +2,7 @@ import {getWeapon,getDefense,WEAPONS,DEFENSES} from '../equipment.js';
 import {splitApronParts} from './apron-parts.js';
 import {apronParentFrame,apronMatrix} from '../physics/apron.js';
 import {bodyForBone,assertFragmentTransform,fragmentMatrix} from './joint-damage.js';
+import {equipmentFlex,equipmentRootTip,bendEquipmentPoint,HANDLE_RADII} from './equipment-flex.js';
 
 // Column-major glTF matrices. Geometry is prepared once; per-frame work consists
 // only of rigid/affine model matrices. This module never writes to the solver.
@@ -158,11 +159,13 @@ export function characterTransforms(prepared,fighter){
   // main/off pivots. Flipping both axes preserves handedness and the hip anchor.
   if(fighter.dir<0){x=times(x,-1);z=times(z,-1);}
   const torsoMap=multiply(basis(hip,x,y,z),inverse(source.torsoFrame));
-  const primary=equipmentTransform(fighter,getWeapon(fighter).id).matrix;
-  const handMain=multiply(primary,multiply(basis([0,0,0],[scale,0,0],[0,scale,0],[0,0,scale]),inverse(source.mainFrame)));
+  const weapon=getWeapon(fighter),primary=equipmentTransform(fighter,weapon.id).matrix,mainRadius=(HANDLE_RADII[weapon.id]??.045)/.045;
+  // Resize across the grip axis around the authored socket. Physical hand/root motion already owns readjustment.
+  const handMain=multiply(primary,multiply(basis([0,0,0],[scale*mainRadius,0,0],[0,scale,0],[0,0,scale*mainRadius]),inverse(source.mainFrame)));
   const defense=getDefense(fighter),offDirection=p.twoHanded?add(vector(p.offHand),subtract(vector(p.tip),vector(p.mainHand))):
     defense.kind==='knife'&&p.defenseTip?vector(p.defenseTip):add(vector(p.offHand),subtract(vector(p.offHand),vector(p.offElbow)));
-  const handOff=multiply(along(p.offHand,offDirection,scale,scale,scale),inverse(source.offFrame));
+  const offRadius=(p.twoHanded?HANDLE_RADII[weapon.id]:defense.kind==='knife'?HANDLE_RADII.knife:.045)/.045;
+  const handOff=multiply(along(p.offHand,offDirection,scale*offRadius,scale,scale*offRadius),inverse(source.offFrame));
   const feetMaps=new Map();
   for(const suffix of ['R','L'])if(bones.has(`foot.${suffix}`)){
     const socket=`Socket_Foot_${suffix}`,sourceSocket=origin(world(prepared.asset,prepared.nodesByName.get(socket)));
@@ -236,15 +239,16 @@ export function equipmentTransform(fighter,id){
   if(weapon||id==='knife'){
     const hand=weapon?p.mainHand:p.offHand,tip=weapon?p.tip:p.defenseTip;
     if(!tip)throw new Error(`Missing physical tip for ${id}`);
-    const length=Math.hypot(...subtract(vector(tip),vector(hand))),nominal=weapon?.length??defense.length;
+    const flex=weapon?equipmentFlex(fighter,id):{flexOffset:0,flexLength:0,flexDirection:fighter.dir<0?-1:1};
+    const length=flex.flexLength||Math.hypot(...subtract(vector(tip),vector(hand))),nominal=weapon?.length??defense.length;
     const [deformStart,deformEnd]=deformation[id],extension=length-nominal;
-    return {matrix:new Float32Array(along(hand,tip)),extension,deformStart,deformEnd,stretchAlong:1+extension/(deformEnd-deformStart)};
+    return {matrix:new Float32Array(along(hand,weapon?equipmentRootTip(fighter,id):tip)),extension,deformStart,deformEnd,stretchAlong:1+extension/(deformEnd-deformStart),...flex};
   }
   const sx=(p.shieldRadiusX??p.shieldRadius??defense.radiusX)/defense.radiusX,sy=(p.shieldRadiusY??p.shieldRadius??defense.radiusY)/defense.radiusY;
-  return {matrix:new Float32Array(basis(vector(p.offHand),[sx,0,0],[0,sy,0],[0,0,1])),extension:0,deformStart:0,deformEnd:1,stretchAlong:1};
+  return {matrix:new Float32Array(basis(vector(p.offHand),[sx,0,0],[0,sy,0],[0,0,1])),extension:0,deformStart:0,deformEnd:1,stretchAlong:1,flexOffset:0,flexLength:0,flexDirection:fighter.dir<0?-1:1};
 }
 
-export function deformEquipmentPoint(position,{extension=0,deformStart=0,deformEnd=1}={}){
+export function deformEquipmentPoint(position,{extension=0,deformStart=0,deformEnd=1,...flex}={}){
   const result=Array.from(position),t=Math.max(0,Math.min(1,(result[1]-deformStart)/(deformEnd-deformStart)));
-  result[1]+=extension*t;return result;
+  result[1]+=extension*t;return bendEquipmentPoint(result,flex);
 }

@@ -4,6 +4,7 @@ import {ReplayRecorder,replayView} from './replay.js';
 import {SinglePlayerSession} from './single-player.js';
 import {SessionEquipment} from './session-equipment.js';
 import {normalizeMenuCommand,sanitizeMenuState} from './remote-menu.js';
+import {fighterIdentity} from './identity.js';
 
 // Owns the match, independently of either display's DOM or transport.
 export class HostSession{
@@ -39,8 +40,9 @@ export class HostSession{
     if(this.managedOpponent){g.setLoadout(2,this.manualOpponentLoadout);this.managedOpponent=false;}
     g.setBalloonColor(2,'amber');
     g.setScenario(special?config.scenario:'duel');g.aiEnabled=special?config.aiEnabled:true;
-    this.sessionEquipment.sync(g,solo&&kind==='training');
-    if(solo&&['duel','campaign'].includes(kind)){
+    g.setTrainingDrill(special?config.trainingDrill??null:null);
+    this.sessionEquipment.sync(g,solo?kind:null);
+    if(solo&&['duel','campaign','parry','moving','depth'].includes(kind)){
       this.manualOpponentLoadout={...g.loadouts[1]};this.managedOpponent=true;
       g.setLoadout(2,config.opponentLoadout);g.setBalloonColor(2,config.opponentColor);
     }
@@ -120,11 +122,11 @@ export class HostSession{
       g.phase==='fight'?(g.suddenDeath?'Tiempo extra · gana el próximo pinchazo.':'Combate en curso.'):
       g.phase==='burst'?view.burstSubtitle:g.phase==='matchover'?`${view.winnerName} gana la partida. Iniciá la revancha desde este menú.`:this.message;
     return sanitizeMenuState({phase:g.phase,mode:g.mode,experience:this.individual.kind,difficulty:g.difficulty,bestOf:g.bestOf,arena:g.arena,
-      quality:g.quality,performanceMode:this.performanceMode,camera:g.cameraMode,lighting:g.lightingMode,audioOn:this.audioOn,volume:this.volume,
+      quality:g.quality,performanceMode:this.performanceMode,camera:g.cameraMode,lighting:g.lightingMode,audioOn:this.audioOn,volume:this.volume,performance:this.performanceReport??null,
       scores:g.scores,round:g.round,clock:view.clock,
-      fighters:view.fighters.map((f,index)=>({...f,slot:index+1,equipment:g.loadouts[index],balloonColor:g.fighters[index].balloonColor})),
+      fighters:view.fighters.map((f,index)=>({...f,slot:index+1,equipment:g.loadouts[index],balloonColor:g.fighters[index].balloonColor,emblem:fighterIdentity(g.fighters[index])})),
       objective:g.mode==='solo'?this.individual.view(g):null,
       replay:{clips:this.recorder.clips.map(({id,duration,complete})=>({id,duration,complete})),active:!!p,paused:p?.paused??true,speed:this.replaySpeed,position:p?.clip.duration?p.time/p.clip.duration:0,clipId:p?.clip.id??null},
-      configurable:this.configurable,trainingEquipmentLocked:this.sessionEquipment.locked,message:matchMessage,...(this.rendererError?{rendererError:this.rendererError}:{}),...(this.assetStatus?{assets:this.assetStatus}:{})});
+      configurable:this.configurable,trainingEquipmentLocked:this.sessionEquipment.locked,trainingEquipmentReason:this.sessionEquipment.reason,message:matchMessage,...(this.rendererError?{rendererError:this.rendererError}:{}),...(this.assetStatus?{assets:this.assetStatus}:{})});
   }
 }

@@ -4,6 +4,14 @@
 
 Pages publica la experiencia individual con los dos joysticks y el menú ☰. Para jugar de a dos con móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Versión 1.7.0
+
+La selección de 22 mejoras incorpora hojas elásticas con la misma curva visual y física, reajuste del agarre, manos adaptadas a cada empuñadura y holgura progresiva en articulaciones. La IA distingue amenazas visibles y recordadas y adapta sus decisiones al equipo rival. El menú móvil añade **Parada y contraataque**, **Blancos móviles** y **Esquiva en profundidad**, con progreso obtenido mediante contactos, esquivas y pinchazos físicos.
+
+Se añaden emblemas compartidos por globo, falda y mando, arañazos desde contactos reales, lubricación localizada, tela mojada por parcelas de agua, aire localizado del ventilador y sombras de contacto. El látex propaga desgarros con un presupuesto de energía; el agua incorpora contacto capilar reducido y absorción que excluye los huecos entre componentes separados cuando la GPU admite mezcla flotante.
+
+La preparación del renderer precede al inicio y reutiliza buffers. El menú móvil muestra métricas separadas para juego estable, choques, desprendimientos y ruptura. Se conserva toda la geometría, materiales y funciones; los assets actuales ya estaban agrupados, por lo que el agrupador adicional no acredita un ahorro en ellos. **60 FPS sostenidos siguen pendientes**: las capturas iniciales muestran mayor coste CPU en desprendimientos y ruptura, sin una mejora global acreditada. El navegador integrado limita además sus callbacks a aproximadamente 1 Hz e impide certificar la cadencia de pantalla. [Alcance, validación y límites de las 22 mejoras](docs/MEJORAS_1.7.md).
+
 ## Versión móvil 1.6.0
 
 Abrí **`/mobile.html`** desde un servidor web y girá el teléfono a horizontal. El juego se ejecuta en ese dispositivo: joystick izquierdo para distancia, agacharse y finta; derecho para orientar, atacar y parar al llevarlo hacia atrás. Ambos mandos son semitransparentes y quedan en las esquinas inferiores. El botón **☰** abre las opciones y pausa la partida local; Comenzar vuelve directamente al juego.
