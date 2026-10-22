@@ -4,6 +4,10 @@
 
 En móvil, Pages abre la experiencia individual con los dos joysticks y el menú ☰. En PC conserva la escena sin mandos ni menús. Para jugar en PC con los QR y dos móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo: Pages no ejecuta el servidor de sesiones. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Foley y efectos grabados 1.9.0
+
+Los choques, roces, pasos de madera, articulaciones, látex y agua usan un banco de 66 variantes grabadas, a 44,1 kHz, conectado al audio real del juego. Se prepara antes de los impactos, mantiene HRTF/XYZ y el límite de voces, y conserva la música de roda de muñecos. Los menús móviles incluyen los créditos y licencias. [Fuentes, preparación y alcance](docs/AUDIO_GRABADO_1.9.0.md).
+
 ## Defensa y entradas 1.8.0
 
 La defensa automática anticipa la trayectoria observada en XYZ, incluido el movimiento de la cabeza. El daño de hombro y codo defensivos reduce su probabilidad de respuesta y aumenta la demora; un brazo desprendido no puede defender. La reacción sigue siendo limitada, puede fallar y no decide los impactos: éstos dependen del contacto físico.

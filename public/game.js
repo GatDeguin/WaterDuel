@@ -3,7 +3,7 @@ import {Renderer3D} from './render3d.js';
 import {HostSession} from './host-session.js';
 import {RemoteInputBuffer,isFreshRemoteInput} from './remote-input.js';
 import {FrameMetrics} from './performance.js';
-import {GameAudio} from './game-audio.js';
+import {RecordedGameAudio as GameAudio} from './audio/recorded-game-audio.js';
 import {HostQRCodes} from './host-qr.js';
 import {AdaptiveQuality} from './adaptive-quality.js';
 import {mobileSession} from './mobile-session.js';

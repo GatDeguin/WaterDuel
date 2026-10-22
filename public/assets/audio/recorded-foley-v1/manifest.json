@@ -1,0 +1,4531 @@
+{
+  "schemaVersion": 1,
+  "title": "WaterDuel — Recorded workshop contact variants",
+  "format": {
+    "container": "WAV",
+    "encoding": "PCM signed 16-bit little-endian",
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16
+  },
+  "provenance": {
+    "externalRecordings": true,
+    "syntheticLayers": false,
+    "generator": "scripts/prepare-recorded-foley.py",
+    "variationDescription": "Edited variants from identified source recordings; some share originals and use different cuts or mixes, not 66 independent natural takes.",
+    "qualityScope": "Technical PCM checks only; perceptual listening and speaker/headphone approval remain pending."
+  },
+  "sources": {
+    "ogrebane/wood1.aif": {
+      "title": "wood1.aif",
+      "originalFile": "wood1.aif",
+      "originalSHA256": "a4d995635e7971c07e0c656213509ff36bf0c66d6ee707217c2974dcb12931a4",
+      "originalBytes": 88902,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 22050,
+      "duration": 0.5,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood1.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood2.aif": {
+      "title": "wood2.aif",
+      "originalFile": "wood2.aif",
+      "originalSHA256": "c412de8b8f45f3709eced16d87e16be9332672239c8c8bfd209c79dcbe1d7907",
+      "originalBytes": 88902,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 22050,
+      "duration": 0.5,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood2.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood3.aif": {
+      "title": "wood3.aif",
+      "originalFile": "wood3.aif",
+      "originalSHA256": "9976bc5b8277fa9bdf0c1d73312ba78888cc1c296592cd18f03c18bef1373e4c",
+      "originalBytes": 88902,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 22050,
+      "duration": 0.5,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood3.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/floor-creak-01.wav": {
+      "title": "floor-creak-01.wav",
+      "originalFile": "floor-creak-01.wav",
+      "originalSHA256": "565bd04de41d915c2ff7eb875f2a0b965e1b3688607215f7820ca9ca80a14b41",
+      "originalBytes": 114480,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 28576,
+      "duration": 0.6479818594104308,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/floor-creak-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/keyhole-lockbox-turn-01.wav": {
+      "title": "keyhole-lockbox-turn-01.wav",
+      "originalFile": "keyhole-lockbox-turn-01.wav",
+      "originalSHA256": "8a534c1cecba50a61ad031bb4fd2a2d085adb547b4652b960ec4e4fccc9bfb69",
+      "originalBytes": 163040,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 40716,
+      "duration": 0.923265306122449,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/keyhole-lockbox-turn-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/keyhole-lockbox-insert-01.wav": {
+      "title": "keyhole-lockbox-insert-01.wav",
+      "originalFile": "keyhole-lockbox-insert-01.wav",
+      "originalSHA256": "64e8e246cf97792714e71832610964f2542b70aa8ce98f4d1103c38f01a02502",
+      "originalBytes": 154324,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 38537,
+      "duration": 0.8738548752834467,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/keyhole-lockbox-insert-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/keyhole-lockbox-remove-01.wav": {
+      "title": "keyhole-lockbox-remove-01.wav",
+      "originalFile": "keyhole-lockbox-remove-01.wav",
+      "originalSHA256": "cf7feb0e78fd0f74205f0785d158e6ac7b374cb3c000767ae3c001363de35f9b",
+      "originalBytes": 134464,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 33572,
+      "duration": 0.7612698412698413,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/keyhole-lockbox-remove-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/sword-clash-01.wav": {
+      "title": "sword-clash-01.wav",
+      "originalFile": "sword-clash-01.wav",
+      "originalSHA256": "58072bf9c80d84a37c4cfaeb694659dad3b5c4ecd24e2f7fc1e7c2fcdc7fc325",
+      "originalBytes": 235684,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 58877,
+      "duration": 1.335079365079365,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/sword-clash-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/sword-clash-02.wav": {
+      "title": "sword-clash-02.wav",
+      "originalFile": "sword-clash-02.wav",
+      "originalSHA256": "6c8d3a0ca3daa0d8544848f847d879e17f60b49ab360507d7466f4fc42fbd0d5",
+      "originalBytes": 228264,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 57022,
+      "duration": 1.293015873015873,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/sword-clash-02.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/sword-clash-03.wav": {
+      "title": "sword-clash-03.wav",
+      "originalFile": "sword-clash-03.wav",
+      "originalSHA256": "2fb00a674fc987ef8aeca008c6b3987e0df9b0c11a81fc892ade97c59534b188",
+      "originalBytes": 140932,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 35189,
+      "duration": 0.7979365079365079,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/sword-clash-03.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/tube-plastic-whoosh-01.wav": {
+      "title": "tube-plastic-whoosh-01.wav",
+      "originalFile": "tube-plastic-whoosh-01.wav",
+      "originalSHA256": "6bf539745db12b4b546bb8bb1ab2f75ccf403db80c07fc8f473fa288d0d428b9",
+      "originalBytes": 59568,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 14848,
+      "duration": 0.33668934240362813,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/tube-plastic-whoosh-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/tube-plastic-whoosh-02.wav": {
+      "title": "tube-plastic-whoosh-02.wav",
+      "originalFile": "tube-plastic-whoosh-02.wav",
+      "originalSHA256": "2ba001b889f1465d949b5531e7c9f61425a0f81d2a40febe3bdb4e449e99c190",
+      "originalBytes": 70876,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 17675,
+      "duration": 0.4007936507936508,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/tube-plastic-whoosh-02.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/tin-whistle-whoosh-01.wav": {
+      "title": "tin-whistle-whoosh-01.wav",
+      "originalFile": "tin-whistle-whoosh-01.wav",
+      "originalSHA256": "8ac3354d54c8f3bfce39810a9ef821490eabba77d4fe10da504b2e0a61ab569d",
+      "originalBytes": 84716,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 21135,
+      "duration": 0.4792517006802721,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/tin-whistle-whoosh-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "water": {
+      "title": "vinrax-water.wav",
+      "originalFile": "vinrax-water.wav",
+      "originalSHA256": "5d1c09cb1bdd3acd15947026eb92311108ae9705f5e2699b37dc3416002fe93a",
+      "originalBytes": 1359404,
+      "sourceURL": "https://opengameart.org/content/water-sounds",
+      "downloadURL": "https://opengameart.org/sites/default/files/water_sounds.wav",
+      "author": "Vinrax",
+      "license": "CC-BY-3.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/3.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 339840,
+      "duration": 7.706122448979592,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": null,
+      "archiveMember": null,
+      "archiveSHA256": null,
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "latex": {
+      "title": "mike-koenig-balloon-squeaky.wav",
+      "originalFile": "mike-koenig-balloon-squeaky.wav",
+      "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+      "originalBytes": 253976,
+      "sourceURL": "https://soundbible.com/1111-Balloon-Squeaky.html",
+      "downloadURL": "https://soundbible.com/wav/Balloon%20Squeaky-SoundBible.com-2026883687.wav",
+      "author": "Mike Koenig",
+      "license": "CC-BY-3.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/3.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 63483,
+      "duration": 1.4395238095238094,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": null,
+      "archiveMember": null,
+      "archiveSHA256": null,
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/quiver-leather-squeeze-01.wav": {
+      "title": "quiver-leather-squeeze-01.wav",
+      "originalFile": "quiver-leather-squeeze-01.wav",
+      "originalSHA256": "e6c1f778db402d02aa20cbbb904fe4f7192fddda91d89ff70d818444a91bdc58",
+      "originalBytes": 80384,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 20052,
+      "duration": 0.4546938775510204,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/quiver-leather-squeeze-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/quiver-leather-squeeze-02.wav": {
+      "title": "quiver-leather-squeeze-02.wav",
+      "originalFile": "quiver-leather-squeeze-02.wav",
+      "originalSHA256": "f33ecdc45a63fff9ae019319674a737d1bd40b2247ee73b384704d3acc451446",
+      "originalBytes": 241096,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 60230,
+      "duration": 1.3657596371882086,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/quiver-leather-squeeze-02.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "pop": {
+      "title": "soundbible-balloon-popping-1522.wav",
+      "originalFile": "soundbible-balloon-popping-1522.wav",
+      "originalSHA256": "89e827ed5a424e8bcd5c818c08cc3c0fd034fffef125f2ff0913655cbd188784",
+      "originalBytes": 55912,
+      "sourceURL": "https://soundbible.com/1522-Balloon-Popping.html",
+      "downloadURL": "https://soundbible.com/grab.php?id=1522&type=wav",
+      "author": "Mike Koenig",
+      "license": "CC-BY-3.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/3.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 13967,
+      "duration": 0.3167120181405896,
+      "sourceFullScaleSamples": 84,
+      "archiveFile": null,
+      "archiveMember": null,
+      "archiveSHA256": null,
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "pop-cc0": {
+      "title": "antumdeluge-balloon-pop.flac",
+      "originalFile": "antumdeluge-balloon-pop.flac",
+      "originalSHA256": "4f15708bd01e1e20a92055381c1fc66d179f222d90f6963aee016ae1062f7f29",
+      "originalBytes": 22390,
+      "sourceURL": "https://opengameart.org/content/balloon-sounds",
+      "downloadURL": "https://opengameart.org/sites/default/files/balloon_pop.flac",
+      "author": "Gniffelbaf / AntumDeluge",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "frames": 24126,
+      "duration": 0.5470748299319728,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": null,
+      "archiveMember": null,
+      "archiveSHA256": null,
+      "decodedIntermediate": {
+        "file": "antumdeluge-balloon-pop-decoded.wav",
+        "sha256": "4c3ecda913fd492d107a48277ef29add949c9faf818c8458f2c7c76c18010bd4",
+        "bytes": 48296,
+        "process": "Browser Web Audio decodeAudioData in a 44100 Hz OfflineAudioContext; source STREAMINFO confirms native 44100 Hz mono PCM16. Exported to PCM16 without resampling or gain before this script.",
+        "reproduction": "Download the identified original FLAC. In a browser, decode its ArrayBuffer using new OfflineAudioContext(1, 24126, 44100).decodeAudioData(bytes). Write a standard 44-byte mono PCM16 WAV header and for each sample write Math.round(Math.max(-1,Math.min(1,sample))*32767) as signed little-endian int16. The resulting file must match this intermediate SHA-256 before running this script; do not substitute an arbitrary decoder output silently."
+      },
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/water-pour-01.wav": {
+      "title": "water-pour-01.wav",
+      "originalFile": "water-pour-01.wav",
+      "originalSHA256": "c2c1ad4d138873a803feade2d5e080ae169ba24edc2d9c388cdfc002f766d9f6",
+      "originalBytes": 284216,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 71010,
+      "duration": 1.610204081632653,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/water-pour-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/water-vial-fill-01.wav": {
+      "title": "water-vial-fill-01.wav",
+      "originalFile": "water-vial-fill-01.wav",
+      "originalSHA256": "6f1b325dcb28e726296185fcd3462b08ed77373559e4f6afd61ac0529e67d6d3",
+      "originalBytes": 404364,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 101047,
+      "duration": 2.291315192743764,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/water-vial-fill-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/water-drop-01.wav": {
+      "title": "water-drop-01.wav",
+      "originalFile": "water-drop-01.wav",
+      "originalSHA256": "999b0667e48503ff8e5e6effbcacc49f1fc88e64f05c96b37f66ae166b2c7238",
+      "originalBytes": 61264,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 15272,
+      "duration": 0.3463038548752834,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/water-drop-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/water-drop-02.wav": {
+      "title": "water-drop-02.wav",
+      "originalFile": "water-drop-02.wav",
+      "originalSHA256": "6dfd259c7375e7df9756f019b05182af72fff418295dd65c3a35223e8e20093e",
+      "originalBytes": 70376,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 17550,
+      "duration": 0.3979591836734694,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/water-drop-02.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/water-drop-03.wav": {
+      "title": "water-drop-03.wav",
+      "originalFile": "water-drop-03.wav",
+      "originalSHA256": "e66ce053a9c8b3a64d26f733310d3c4a62d582124af1c63f9af310bd847dd87b",
+      "originalBytes": 104780,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 26151,
+      "duration": 0.5929931972789115,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/water-drop-03.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "splash": {
+      "title": "soundbible-water-splash-1460.wav",
+      "originalFile": "soundbible-water-splash-1460.wav",
+      "originalSHA256": "0be6f25abdb4e1a3ed2947afed940597037856ef99ef111483b2c6f829892eb2",
+      "originalBytes": 199612,
+      "sourceURL": "https://soundbible.com/1460-Water-Splash.html",
+      "downloadURL": "https://soundbible.com/grab.php?id=1460&type=wav",
+      "author": "Mike Koenig",
+      "license": "CC-BY-3.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/3.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 49892,
+      "duration": 1.1313378684807256,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": null,
+      "archiveMember": null,
+      "archiveSHA256": null,
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/metal-knife-scrape-01.wav": {
+      "title": "metal-knife-scrape-01.wav",
+      "originalFile": "metal-knife-scrape-01.wav",
+      "originalSHA256": "80a8a2647f9ac8dfa5709b75563cda48a8c815725094de6107201d65815c9e7a",
+      "originalBytes": 402920,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 100686,
+      "duration": 2.2831292517006805,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/metal-knife-scrape-01.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/metal-knife-scrape-02.wav": {
+      "title": "metal-knife-scrape-02.wav",
+      "originalFile": "metal-knife-scrape-02.wav",
+      "originalSHA256": "8ecde2b02dd24529b706fb03d5dfeb46352ecc239a5f56d534118f9a87faaa33",
+      "originalBytes": 444920,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 111186,
+      "duration": 2.521224489795918,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/metal-knife-scrape-02.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "vehicle/metal-knife-scrape-03.wav": {
+      "title": "metal-knife-scrape-03.wav",
+      "originalFile": "metal-knife-scrape-03.wav",
+      "originalSHA256": "382883e307140a7fe3a8460a11132ec6ce9c38c40938ee580cda8c2ecb0d4151",
+      "originalBytes": 211924,
+      "sourceURL": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "downloadURL": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "author": "Vehicle",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 52937,
+      "duration": 1.2003854875283446,
+      "sourceFullScaleSamples": 2,
+      "archiveFile": "vehicle-tinysized.zip",
+      "archiveMember": "sfx-cc0/metal-knife-scrape-03.wav",
+      "archiveSHA256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/metal1.aif": {
+      "title": "metal1.aif",
+      "originalFile": "metal1.aif",
+      "originalSHA256": "970b970d73d4233e6cabe4e825f7a210d9223227616ee37374e0169ca602a0ed",
+      "originalBytes": 88902,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 22050,
+      "duration": 0.5,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/metal1.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/metal3.aif": {
+      "title": "metal3.aif",
+      "originalFile": "metal3.aif",
+      "originalSHA256": "8f6fdd0960671e4215fbfe71a73104d2dc73fc0d4c7f05b706a2c119965a5373",
+      "originalBytes": 88902,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 22050,
+      "duration": 0.5,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/metal3.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/metal4.aif": {
+      "title": "metal4.aif",
+      "originalFile": "metal4.aif",
+      "originalSHA256": "9a55c183217e33ad41046dcfd819ec7588371dbcfeb1720486dfbc9e800ce9da",
+      "originalBytes": 88902,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 22050,
+      "duration": 0.5,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/metal4.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood4.aif": {
+      "title": "wood4.aif",
+      "originalFile": "wood4.aif",
+      "originalSHA256": "76452277288a61fdc02cde2792d10649545cd86b0026ebb2d11af44ae54aa462",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood4.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood10.aif": {
+      "title": "wood10.aif",
+      "originalFile": "wood10.aif",
+      "originalSHA256": "0fb267034f211e89eb36ecff44ae1a90a6f4904e6d225140ff0e3fb1c71d964b",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood10.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood8.aif": {
+      "title": "wood8.aif",
+      "originalFile": "wood8.aif",
+      "originalSHA256": "055f479c5fe9fa5baf4f2ca6c7dac3ab1f97730594f7e5ca5082650150c91862",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood8.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood11.aif": {
+      "title": "wood11.aif",
+      "originalFile": "wood11.aif",
+      "originalSHA256": "9b267cd656d531eba45d268aa240bbfb82723ea7f4705af662d42723d721fd88",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood11.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood9.aif": {
+      "title": "wood9.aif",
+      "originalFile": "wood9.aif",
+      "originalSHA256": "51d16b27bc9fdc5e82548f81da44b75d31d32dd60eaf5c7980b796a5ecb08a55",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood9.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood12.aif": {
+      "title": "wood12.aif",
+      "originalFile": "wood12.aif",
+      "originalSHA256": "32f86add32619fd48c605e439f6165c74aff5f56cfe5116415a8637109a25164",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood12.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood6.aif": {
+      "title": "wood6.aif",
+      "originalFile": "wood6.aif",
+      "originalSHA256": "90e3fcdcdc74f0435f0514a769d2d467544c4386a44dc7d5ffee59a0f90dd221",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood6.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood7.aif": {
+      "title": "wood7.aif",
+      "originalFile": "wood7.aif",
+      "originalSHA256": "549cf8562b9ea0019c35e60fb222057323176fe4df224860f352b60c5521abdd",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood7.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood14.aif": {
+      "title": "wood14.aif",
+      "originalFile": "wood14.aif",
+      "originalSHA256": "8766d0131ea079335bf169e9d3a9bb9161ec75962b69a4aeef78c69c84668a57",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood14.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood13.aif": {
+      "title": "wood13.aif",
+      "originalFile": "wood13.aif",
+      "originalSHA256": "1c4cab0a4a17c5696ee0acb152caf845f313c51ca1e6169ed6bc90e829f7459e",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood13.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    },
+    "ogrebane/wood16.aif": {
+      "title": "wood16.aif",
+      "originalFile": "wood16.aif",
+      "originalSHA256": "ae4c2d5a531a194aed74065e24371f354f9b792906c43980497a9ff0fd4ba094",
+      "originalBytes": 110992,
+      "sourceURL": "https://opengameart.org/content/wood-and-metal-sound-effects-volume-2",
+      "downloadURL": "https://opengameart.org/sites/default/files/wood_and_metal_vol.2_0.zip",
+      "author": "Ogrebane",
+      "license": "CC0-1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sampleRate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "frames": 27562,
+      "duration": 0.6249886621315193,
+      "sourceFullScaleSamples": 0,
+      "archiveFile": "ogrebane-wood-metal-2.zip",
+      "archiveMember": "wood_and_metal_vol.2/wood16.aif",
+      "archiveSHA256": "91fd8fdac3d4f900223b96595e48610a6f3934c05cfa2bf5a4c9030f43a6f985",
+      "decodedIntermediate": null,
+      "downmix": "Arithmetic mean of original channels; no resampling or source reconstruction."
+    }
+  },
+  "cues": {
+    "wood": [
+      {
+        "file": "wood-0.wav",
+        "sha256": "1b0aff72f8337a532bc357db9001ac9841d4aaf865ff28a5394d90e82a9ea368",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 15307,
+        "duration": 0.3470975056689342,
+        "bytes": 30658,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood1.aif",
+            "originalSHA256": "a4d995635e7971c07e0c656213509ff36bf0c66d6ee707217c2974dcb12931a4",
+            "cut": {
+              "startFrame": 1871,
+              "endFrame": 17178,
+              "sampleRate": 44100,
+              "startSeconds": 0.04242630385487528,
+              "endSeconds": 0.38952380952380955
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 0.00036087209134956066
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -7.894575850639308,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.062310867852989976,
+          "dc": -9.769133913405631e-08
+        }
+      },
+      {
+        "file": "wood-1.wav",
+        "sha256": "d1507c4f5a6d98d980e9b8e24058fc0091e4a1073206e338c970367773f96f66",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 9997,
+        "duration": 0.22668934240362812,
+        "bytes": 20038,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood2.aif",
+            "originalSHA256": "c412de8b8f45f3709eced16d87e16be9332672239c8c8bfd209c79dcbe1d7907",
+            "cut": {
+              "startFrame": 3237,
+              "endFrame": 13234,
+              "sampleRate": 44100,
+              "startSeconds": 0.07340136054421768,
+              "endSeconds": 0.3000907029478458
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 0.00010805575485402494
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -7.877085334869152,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.020306908022074334,
+          "dc": 1.0989625012503751e-07
+        }
+      },
+      {
+        "file": "wood-2.wav",
+        "sha256": "8438e08fd891e5d26f56cd6721b859b9c7bd48d2b48d0bd042ff81c81c2a95aa",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 12225,
+        "duration": 0.27721088435374147,
+        "bytes": 24494,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood3.aif",
+            "originalSHA256": "9976bc5b8277fa9bdf0c1d73312ba78888cc1c296592cd18f03c18bef1373e4c",
+            "cut": {
+              "startFrame": 430,
+              "endFrame": 12655,
+              "sampleRate": 44100,
+              "startSeconds": 0.009750566893424037,
+              "endSeconds": 0.28696145124716554
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 0.0003054989492541808
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -7.904822309062469,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.06901116784402238,
+          "dc": -1.7224645322085889e-07
+        }
+      }
+    ],
+    "joint": [
+      {
+        "file": "joint-0.wav",
+        "sha256": "bb12be4d22f8998ed088a7e61fa039cfb1dbb0b906bbe53526d87d95cda30b5d",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 13318,
+        "duration": 0.3019954648526077,
+        "bytes": 26680,
+        "layers": [
+          {
+            "sourceId": "vehicle/floor-creak-01.wav",
+            "originalSHA256": "565bd04de41d915c2ff7eb875f2a0b965e1b3688607215f7820ca9ca80a14b41",
+            "cut": {
+              "startFrame": 637,
+              "endFrame": 11025,
+              "sampleRate": 44100,
+              "startSeconds": 0.014444444444444444,
+              "endSeconds": 0.25
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.002192745424992914
+          },
+          {
+            "sourceId": "vehicle/keyhole-lockbox-turn-01.wav",
+            "originalSHA256": "8a534c1cecba50a61ad031bb4fd2a2d085adb547b4652b960ec4e4fccc9bfb69",
+            "cut": {
+              "startFrame": 1323,
+              "endFrame": 14112,
+              "sampleRate": 44100,
+              "startSeconds": 0.03,
+              "endSeconds": 0.32
+            },
+            "gainDb": -12,
+            "delaySeconds": 0.012,
+            "dcRemoved": -0.00011232015031228009
+          }
+        ],
+        "peakTargetDbfs": -11,
+        "mixGainDb": -11.029768937388543,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.281829833984375,
+          "rms": 0.03709852727242264,
+          "dc": 2.5205988840291336e-08
+        }
+      },
+      {
+        "file": "joint-1.wav",
+        "sha256": "41b9f37711ceded212b00d4badd90e9acf0ee03741ec52288da0ac489844cf7a",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 13318,
+        "duration": 0.3019954648526077,
+        "bytes": 26680,
+        "layers": [
+          {
+            "sourceId": "vehicle/floor-creak-01.wav",
+            "originalSHA256": "565bd04de41d915c2ff7eb875f2a0b965e1b3688607215f7820ca9ca80a14b41",
+            "cut": {
+              "startFrame": 18571,
+              "endFrame": 25578,
+              "sampleRate": 44100,
+              "startSeconds": 0.4211111111111111,
+              "endSeconds": 0.58
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 5.7465848866959065e-05
+          },
+          {
+            "sourceId": "vehicle/keyhole-lockbox-insert-01.wav",
+            "originalSHA256": "64e8e246cf97792714e71832610964f2542b70aa8ce98f4d1103c38f01a02502",
+            "cut": {
+              "startFrame": 1323,
+              "endFrame": 14112,
+              "sampleRate": 44100,
+              "startSeconds": 0.03,
+              "endSeconds": 0.32
+            },
+            "gainDb": -12,
+            "delaySeconds": 0.012,
+            "dcRemoved": -4.407378747116663e-06
+          }
+        ],
+        "peakTargetDbfs": -11,
+        "mixGainDb": -3.8979221123679286,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.281829833984375,
+          "rms": 0.027313970599174373,
+          "dc": -2.291453530935576e-09
+        }
+      },
+      {
+        "file": "joint-2.wav",
+        "sha256": "c8543fdffb34dac6b08f66fc330c54a62caa5c13d303dd0c264cabe7dcc8861d",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 13318,
+        "duration": 0.3019954648526077,
+        "bytes": 26680,
+        "layers": [
+          {
+            "sourceId": "vehicle/floor-creak-01.wav",
+            "originalSHA256": "565bd04de41d915c2ff7eb875f2a0b965e1b3688607215f7820ca9ca80a14b41",
+            "cut": {
+              "startFrame": 1764,
+              "endFrame": 9702,
+              "sampleRate": 44100,
+              "startSeconds": 0.04,
+              "endSeconds": 0.22
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.00304544131201381
+          },
+          {
+            "sourceId": "vehicle/keyhole-lockbox-remove-01.wav",
+            "originalSHA256": "cf7feb0e78fd0f74205f0785d158e6ac7b374cb3c000767ae3c001363de35f9b",
+            "cut": {
+              "startFrame": 1323,
+              "endFrame": 14112,
+              "sampleRate": 44100,
+              "startSeconds": 0.03,
+              "endSeconds": 0.32
+            },
+            "gainDb": -12,
+            "delaySeconds": 0.012,
+            "dcRemoved": -0.00028822634365348153
+          }
+        ],
+        "peakTargetDbfs": -11,
+        "mixGainDb": -11.035328315992164,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.281829833984375,
+          "rms": 0.03646519730964423,
+          "dc": -5.270343121151825e-08
+        }
+      }
+    ],
+    "metal": [
+      {
+        "file": "metal-0.wav",
+        "sha256": "5ac55a5b1b5ab4ee70ac3ab9fd000301d77fa946de0b3f4957da3acd665f4125",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 28633,
+        "duration": 0.6492743764172335,
+        "bytes": 57310,
+        "layers": [
+          {
+            "sourceId": "vehicle/sword-clash-01.wav",
+            "originalSHA256": "58072bf9c80d84a37c4cfaeb694659dad3b5c4ecd24e2f7fc1e7c2fcdc7fc325",
+            "cut": {
+              "startFrame": 1242,
+              "endFrame": 29875,
+              "sampleRate": 44100,
+              "startSeconds": 0.02816326530612245,
+              "endSeconds": 0.677437641723356
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -5.5840003644687044e-05
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -7.9992188519074405,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.017497477687472934,
+          "dc": 6.288328534819962e-08
+        }
+      },
+      {
+        "file": "metal-1.wav",
+        "sha256": "4ad76fbe82d91d92b05ac6ae56fe8b99cffc91302bbfe5b31bd40fdb5deb2d1a",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 25316,
+        "duration": 0.5740589569160998,
+        "bytes": 50676,
+        "layers": [
+          {
+            "sourceId": "vehicle/sword-clash-02.wav",
+            "originalSHA256": "6c8d3a0ca3daa0d8544848f847d879e17f60b49ab360507d7466f4fc42fbd0d5",
+            "cut": {
+              "startFrame": 1506,
+              "endFrame": 26822,
+              "sampleRate": 44100,
+              "startSeconds": 0.03414965986394558,
+              "endSeconds": 0.6082086167800453
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -4.8874926632522524e-05
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -8.00030959785516,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.028854128757781403,
+          "dc": 1.084919430893506e-08
+        }
+      },
+      {
+        "file": "metal-2.wav",
+        "sha256": "63d96e161565784ec76e04fe5885d56ff033750dfb37ff52fd18ab1c8a62e595",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 27383,
+        "duration": 0.6209297052154195,
+        "bytes": 54810,
+        "layers": [
+          {
+            "sourceId": "vehicle/sword-clash-03.wav",
+            "originalSHA256": "2fb00a674fc987ef8aeca008c6b3987e0df9b0c11a81fc892ade97c59534b188",
+            "cut": {
+              "startFrame": 1229,
+              "endFrame": 28612,
+              "sampleRate": 44100,
+              "startSeconds": 0.027868480725623583,
+              "endSeconds": 0.6487981859410431
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.00017333158755221802
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -7.997536041990843,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.051131265872985256,
+          "dc": -4.123545231074024e-08
+        }
+      }
+    ],
+    "ring": [
+      {
+        "file": "ring-0.wav",
+        "sha256": "e6213562a3a5b4780e5e4ac6c28afcb894c004cb072aade32ba9f2b4d3d55e89",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 29326,
+        "duration": 0.6649886621315193,
+        "bytes": 58696,
+        "layers": [
+          {
+            "sourceId": "vehicle/sword-clash-01.wav",
+            "originalSHA256": "58072bf9c80d84a37c4cfaeb694659dad3b5c4ecd24e2f7fc1e7c2fcdc7fc325",
+            "cut": {
+              "startFrame": 3749,
+              "endFrame": 33075,
+              "sampleRate": 44100,
+              "startSeconds": 0.08501133786848072,
+              "endSeconds": 0.75
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -5.755007921458348e-05
+          }
+        ],
+        "peakTargetDbfs": -22,
+        "mixGainDb": -3.814205696068309,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.079437255859375,
+          "rms": 0.0058323378421331375,
+          "dc": -5.619413553672509e-08
+        }
+      },
+      {
+        "file": "ring-1.wav",
+        "sha256": "01ad7f9f73add614ee02ef6bf0ebdc1047e5d6900047333bf6285e590b4e62a8",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 32193,
+        "duration": 0.73,
+        "bytes": 64430,
+        "layers": [
+          {
+            "sourceId": "vehicle/sword-clash-02.wav",
+            "originalSHA256": "6c8d3a0ca3daa0d8544848f847d879e17f60b49ab360507d7466f4fc42fbd0d5",
+            "cut": {
+              "startFrame": 4410,
+              "endFrame": 36603,
+              "sampleRate": 44100,
+              "startSeconds": 0.1,
+              "endSeconds": 0.83
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -4.752392582675193e-05
+          }
+        ],
+        "peakTargetDbfs": -22,
+        "mixGainDb": -11.729702007992973,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.079437255859375,
+          "rms": 0.004775222821473019,
+          "dc": 4.455397669912714e-08
+        }
+      },
+      {
+        "file": "ring-2.wav",
+        "sha256": "fe2a483bfc7fd1179139ec12be46c919fb5c3e032b2662fd701f505d3492b6cc",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 23540,
+        "duration": 0.5337868480725624,
+        "bytes": 47124,
+        "layers": [
+          {
+            "sourceId": "vehicle/sword-clash-03.wav",
+            "originalSHA256": "2fb00a674fc987ef8aeca008c6b3987e0df9b0c11a81fc892ade97c59534b188",
+            "cut": {
+              "startFrame": 5072,
+              "endFrame": 28612,
+              "sampleRate": 44100,
+              "startSeconds": 0.11501133786848072,
+              "endSeconds": 0.6487981859410431
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.0002077337430245999
+          }
+        ],
+        "peakTargetDbfs": -22,
+        "mixGainDb": -21.99711318670047,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.079437255859375,
+          "rms": 0.010953916452754809,
+          "dc": 2.9558231998725576e-07
+        }
+      }
+    ],
+    "whoosh": [
+      {
+        "file": "whoosh-0.wav",
+        "sha256": "9b6713e21d78c1baa36cbde0f4c464073b9df799cfa8477560ebc5e4f94c2f5c",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 13119,
+        "duration": 0.2974829931972789,
+        "bytes": 26282,
+        "layers": [
+          {
+            "sourceId": "vehicle/tube-plastic-whoosh-01.wav",
+            "originalSHA256": "6bf539745db12b4b546bb8bb1ab2f75ccf403db80c07fc8f473fa288d0d428b9",
+            "cut": {
+              "startFrame": 1437,
+              "endFrame": 14556,
+              "sampleRate": 44100,
+              "startSeconds": 0.03258503401360544,
+              "endSeconds": 0.33006802721088435
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.0010506387414603397
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": -11.989418167424521,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.04397215777037794,
+          "dc": 1.7911834100350637e-07
+        }
+      },
+      {
+        "file": "whoosh-1.wav",
+        "sha256": "c872d0ee29d80e2338c0db54f2ccfea29bd2b841c08e20959a5507c764e3e7e8",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 14009,
+        "duration": 0.3176643990929705,
+        "bytes": 28062,
+        "layers": [
+          {
+            "sourceId": "vehicle/tube-plastic-whoosh-02.wav",
+            "originalSHA256": "2ba001b889f1465d949b5531e7c9f61425a0f81d2a40febe3bdb4e449e99c190",
+            "cut": {
+              "startFrame": 1450,
+              "endFrame": 15459,
+              "sampleRate": 44100,
+              "startSeconds": 0.032879818594104306,
+              "endSeconds": 0.35054421768707483
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.0005395456014630481
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": -11.99364992863593,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.03833840369277555,
+          "dc": -6.0995944571347e-08
+        }
+      },
+      {
+        "file": "whoosh-2.wav",
+        "sha256": "d5949bd4a41ff1c672b25f54a7be1c1f1171026f388739d1b9693969b5dc3b4c",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 6087,
+        "duration": 0.13802721088435374,
+        "bytes": 12218,
+        "layers": [
+          {
+            "sourceId": "vehicle/tin-whistle-whoosh-01.wav",
+            "originalSHA256": "8ac3354d54c8f3bfce39810a9ef821490eabba77d4fe10da504b2e0a61ab569d",
+            "cut": {
+              "startFrame": 4754,
+              "endFrame": 10841,
+              "sampleRate": 44100,
+              "startSeconds": 0.10780045351473923,
+              "endSeconds": 0.24582766439909298
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.00033216438085891296
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": -11.982862546450818,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.05456139700484403,
+          "dc": -1.604341218991293e-07
+        }
+      }
+    ],
+    "slosh": [
+      {
+        "file": "slosh-0.wav",
+        "sha256": "b1e6f1a17c662d07c5a1ba48f89fecabb24a9c95bbfb8e78fca4b7053b42a415",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 23373,
+        "duration": 0.53,
+        "bytes": 46790,
+        "layers": [
+          {
+            "sourceId": "water",
+            "originalSHA256": "5d1c09cb1bdd3acd15947026eb92311108ae9705f5e2699b37dc3416002fe93a",
+            "cut": {
+              "startFrame": 7497,
+              "endFrame": 30870,
+              "sampleRate": 44100,
+              "startSeconds": 0.17,
+              "endSeconds": 0.7
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 3.903972900087708e-07
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": 0.8591726565691862,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.01595790235528791,
+          "dc": 6.658950431587729e-08
+        }
+      },
+      {
+        "file": "slosh-1.wav",
+        "sha256": "cfc6e6c2e928d144ce166ae33bfad59659d9e8a41f1f1e4950251a0e65b4b915",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 24255,
+        "duration": 0.55,
+        "bytes": 48554,
+        "layers": [
+          {
+            "sourceId": "water",
+            "originalSHA256": "5d1c09cb1bdd3acd15947026eb92311108ae9705f5e2699b37dc3416002fe93a",
+            "cut": {
+              "startFrame": 61740,
+              "endFrame": 85995,
+              "sampleRate": 44100,
+              "startSeconds": 1.4,
+              "endSeconds": 1.95
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -6.813893881416203e-05
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": -3.497075732279631,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.025812777103970383,
+          "dc": 5.158609371779015e-08
+        }
+      },
+      {
+        "file": "slosh-2.wav",
+        "sha256": "ffda361cb07015be64ef9b8ce98c51e75955cf4f08571dfde28d4fa93772772a",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 37485,
+        "duration": 0.85,
+        "bytes": 75014,
+        "layers": [
+          {
+            "sourceId": "water",
+            "originalSHA256": "5d1c09cb1bdd3acd15947026eb92311108ae9705f5e2699b37dc3416002fe93a",
+            "cut": {
+              "startFrame": 143325,
+              "endFrame": 180810,
+              "sampleRate": 44100,
+              "startSeconds": 3.25,
+              "endSeconds": 4.1
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -9.352699413098573e-06
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": 0.8320502424101822,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.012053545950068408,
+          "dc": 4.884766406562625e-09
+        }
+      }
+    ],
+    "tension": [
+      {
+        "file": "tension-0.wav",
+        "sha256": "e81daf796dc4d71665c4d7ead30126ba5d4f8eba79631cecc94c91951eacce30",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 12723,
+        "duration": 0.2885034013605442,
+        "bytes": 25490,
+        "layers": [
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 7563,
+              "endFrame": 20286,
+              "sampleRate": 44100,
+              "startSeconds": 0.1714965986394558,
+              "endSeconds": 0.46
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.0003317978283491917
+          },
+          {
+            "sourceId": "vehicle/quiver-leather-squeeze-01.wav",
+            "originalSHA256": "e6c1f778db402d02aa20cbbb904fe4f7192fddda91d89ff70d818444a91bdc58",
+            "cut": {
+              "startFrame": 882,
+              "endFrame": 11025,
+              "sampleRate": 44100,
+              "startSeconds": 0.02,
+              "endSeconds": 0.25
+            },
+            "gainDb": -20,
+            "delaySeconds": 0.014,
+            "dcRemoved": -0.0004068950242008035
+          }
+        ],
+        "peakTargetDbfs": -15,
+        "mixGainDb": -14.16968890099051,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.177825927734375,
+          "rms": 0.013817476575659078,
+          "dc": 4.0776454305195315e-08
+        }
+      },
+      {
+        "file": "tension-1.wav",
+        "sha256": "e9f8c5063a04892edb8251afdd2c76f5f1051ec446c871709bbbcae6d5c1088a",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 18963,
+        "duration": 0.43,
+        "bytes": 37970,
+        "layers": [
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 20286,
+              "endFrame": 39249,
+              "sampleRate": 44100,
+              "startSeconds": 0.46,
+              "endSeconds": 0.89
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 9.138134155369997e-05
+          },
+          {
+            "sourceId": "vehicle/quiver-leather-squeeze-02.wav",
+            "originalSHA256": "f33ecdc45a63fff9ae019319674a737d1bd40b2247ee73b384704d3acc451446",
+            "cut": {
+              "startFrame": 5292,
+              "endFrame": 15435,
+              "sampleRate": 44100,
+              "startSeconds": 0.12,
+              "endSeconds": 0.35
+            },
+            "gainDb": -20,
+            "delaySeconds": 0.014,
+            "dcRemoved": 0.00026052016707951296
+          }
+        ],
+        "peakTargetDbfs": -15,
+        "mixGainDb": -14.106657584629458,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.177825927734375,
+          "rms": 0.01715555742416488,
+          "dc": 1.2874578125823972e-08
+        }
+      },
+      {
+        "file": "tension-2.wav",
+        "sha256": "1bfef1327cdfadb52e254f16954a51a2b09fc4a66e51c7b1b829a9a6dc51558e",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 10760,
+        "duration": 0.2439909297052154,
+        "bytes": 21564,
+        "layers": [
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 44280,
+              "endFrame": 53802,
+              "sampleRate": 44100,
+              "startSeconds": 1.0040816326530613,
+              "endSeconds": 1.22
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 0.0006475407323795996
+          },
+          {
+            "sourceId": "vehicle/quiver-leather-squeeze-02.wav",
+            "originalSHA256": "f33ecdc45a63fff9ae019319674a737d1bd40b2247ee73b384704d3acc451446",
+            "cut": {
+              "startFrame": 9702,
+              "endFrame": 19845,
+              "sampleRate": 44100,
+              "startSeconds": 0.22,
+              "endSeconds": 0.45
+            },
+            "gainDb": -20,
+            "delaySeconds": 0.014,
+            "dcRemoved": -0.0008025825182314774
+          }
+        ],
+        "peakTargetDbfs": -15,
+        "mixGainDb": -14.817174856499122,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.177825927734375,
+          "rms": 0.020511770609261647,
+          "dc": -1.3046548269052045e-07
+        }
+      }
+    ],
+    "puncture": [
+      {
+        "file": "puncture-0.wav",
+        "sha256": "8c60ee933d851568addb279f7e5104e4860d1204b402904f1b6f49178cb9a01c",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 13032,
+        "duration": 0.29551020408163264,
+        "bytes": 26108,
+        "layers": [
+          {
+            "sourceId": "pop",
+            "originalSHA256": "89e827ed5a424e8bcd5c818c08cc3c0fd034fffef125f2ff0913655cbd188784",
+            "cut": {
+              "startFrame": 0,
+              "endFrame": 11907,
+              "sampleRate": 44100,
+              "startSeconds": 0.0,
+              "endSeconds": 0.27
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 0.02345654945825263
+          },
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 7563,
+              "endFrame": 20286,
+              "sampleRate": 44100,
+              "startSeconds": 0.1714965986394558,
+              "endSeconds": 0.46
+            },
+            "gainDb": -17,
+            "delaySeconds": 0.007,
+            "dcRemoved": -0.0003317978283491917
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -6.874657437508819,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.12155549390444637,
+          "dc": 4.6834834445979125e-09
+        }
+      },
+      {
+        "file": "puncture-1.wav",
+        "sha256": "218ea59ac739c7f1754e4ced3ce636efa3605d9087504bae65c2546becccae52",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 24126,
+        "duration": 0.5470748299319728,
+        "bytes": 48296,
+        "layers": [
+          {
+            "sourceId": "pop-cc0",
+            "originalSHA256": "4f15708bd01e1e20a92055381c1fc66d179f222d90f6963aee016ae1062f7f29",
+            "cut": {
+              "startFrame": 0,
+              "endFrame": 24126,
+              "sampleRate": 44100,
+              "startSeconds": 0.0,
+              "endSeconds": 0.5470748299319728
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -6.469711383401206e-05
+          },
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 20286,
+              "endFrame": 39249,
+              "sampleRate": 44100,
+              "startSeconds": 0.46,
+              "endSeconds": 0.89
+            },
+            "gainDb": -21,
+            "delaySeconds": 0.007,
+            "dcRemoved": 9.138134155369997e-05
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -2.04216588681597,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.09084284227074015,
+          "dc": -8.222011846659205e-08
+        }
+      },
+      {
+        "file": "puncture-2.wav",
+        "sha256": "97a6ebbc8caba767970a1f8b85c4f797665f592b9f7fc061852a9f7213b22411",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 14112,
+        "duration": 0.32,
+        "bytes": 28268,
+        "layers": [
+          {
+            "sourceId": "pop",
+            "originalSHA256": "89e827ed5a424e8bcd5c818c08cc3c0fd034fffef125f2ff0913655cbd188784",
+            "cut": {
+              "startFrame": 0,
+              "endFrame": 12789,
+              "sampleRate": 44100,
+              "startSeconds": 0.0,
+              "endSeconds": 0.29
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 0.021691431124128892
+          },
+          {
+            "sourceId": "pop-cc0",
+            "originalSHA256": "4f15708bd01e1e20a92055381c1fc66d179f222d90f6963aee016ae1062f7f29",
+            "cut": {
+              "startFrame": 1102,
+              "endFrame": 14994,
+              "sampleRate": 44100,
+              "startSeconds": 0.024988662131519273,
+              "endSeconds": 0.34
+            },
+            "gainDb": -12,
+            "delaySeconds": 0.005,
+            "dcRemoved": -0.0005311029567658095
+          },
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 44280,
+              "endFrame": 53802,
+              "sampleRate": 44100,
+              "startSeconds": 1.0040816326530613,
+              "endSeconds": 1.22
+            },
+            "gainDb": -20,
+            "delaySeconds": 0.012,
+            "dcRemoved": 0.0006475407323795996
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -7.65378563231376,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.1077830896277393,
+          "dc": -1.0812633972859977e-08
+        }
+      }
+    ],
+    "tear": [
+      {
+        "file": "tear-0.wav",
+        "sha256": "059fb303aa13e72260aae4160515456e12467909e899eeb1455c15499a604eaf",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 12723,
+        "duration": 0.2885034013605442,
+        "bytes": 25490,
+        "layers": [
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 7563,
+              "endFrame": 20286,
+              "sampleRate": 44100,
+              "startSeconds": 0.1714965986394558,
+              "endSeconds": 0.46
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.0003317978283491917
+          },
+          {
+            "sourceId": "pop",
+            "originalSHA256": "89e827ed5a424e8bcd5c818c08cc3c0fd034fffef125f2ff0913655cbd188784",
+            "cut": {
+              "startFrame": 1102,
+              "endFrame": 8820,
+              "sampleRate": 44100,
+              "startSeconds": 0.024988662131519273,
+              "endSeconds": 0.2
+            },
+            "gainDb": -19,
+            "delaySeconds": 0.012,
+            "dcRemoved": 0.05952551081317112
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -9.17168553569693,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.0262973811208223,
+          "dc": -1.846933518529435e-07
+        }
+      },
+      {
+        "file": "tear-1.wav",
+        "sha256": "6eb77a59cde4d0140c26841c1b9347070e6ab1acaa3905e36e44f5bcedc83f92",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 18963,
+        "duration": 0.43,
+        "bytes": 37970,
+        "layers": [
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 20286,
+              "endFrame": 39249,
+              "sampleRate": 44100,
+              "startSeconds": 0.46,
+              "endSeconds": 0.89
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 9.138134155369997e-05
+          },
+          {
+            "sourceId": "pop-cc0",
+            "originalSHA256": "4f15708bd01e1e20a92055381c1fc66d179f222d90f6963aee016ae1062f7f29",
+            "cut": {
+              "startFrame": 1544,
+              "endFrame": 9922,
+              "sampleRate": 44100,
+              "startSeconds": 0.03501133786848073,
+              "endSeconds": 0.22498866213151927
+            },
+            "gainDb": -19,
+            "delaySeconds": 0.012,
+            "dcRemoved": 0.00044456294340460136
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -8.946741397037894,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.031227712663312,
+          "dc": 1.1265255860095976e-08
+        }
+      },
+      {
+        "file": "tear-2.wav",
+        "sha256": "0f19fd76f497b0005c0fb486be370ff5132c45eabe5a7384da9236a2cc690996",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 9570,
+        "duration": 0.21700680272108844,
+        "bytes": 19184,
+        "layers": [
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 44280,
+              "endFrame": 53802,
+              "sampleRate": 44100,
+              "startSeconds": 1.0040816326530613,
+              "endSeconds": 1.22
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 0.0006475407323795996
+          },
+          {
+            "sourceId": "pop",
+            "originalSHA256": "89e827ed5a424e8bcd5c818c08cc3c0fd034fffef125f2ff0913655cbd188784",
+            "cut": {
+              "startFrame": 1984,
+              "endFrame": 11025,
+              "sampleRate": 44100,
+              "startSeconds": 0.04498866213151927,
+              "endSeconds": 0.25
+            },
+            "gainDb": -19,
+            "delaySeconds": 0.012,
+            "dcRemoved": 0.0341574583759272
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -10.026169003258328,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.03860671478439739,
+          "dc": -8.291087055903866e-08
+        }
+      }
+    ],
+    "jet": [
+      {
+        "file": "jet-0.wav",
+        "sha256": "0f9f432686fcbc573762caf2e1167d89247da942d7186681a4c56c35cfc57e2e",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 39856,
+        "duration": 0.9037641723356009,
+        "bytes": 79756,
+        "layers": [
+          {
+            "sourceId": "vehicle/water-pour-01.wav",
+            "originalSHA256": "c2c1ad4d138873a803feade2d5e080ae169ba24edc2d9c388cdfc002f766d9f6",
+            "cut": {
+              "startFrame": 4244,
+              "endFrame": 44100,
+              "sampleRate": 44100,
+              "startSeconds": 0.09623582766439909,
+              "endSeconds": 1.0
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -7.051991050459299e-05
+          }
+        ],
+        "peakTargetDbfs": -11,
+        "mixGainDb": -10.999370319207806,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.281829833984375,
+          "rms": 0.017768597350258014,
+          "dc": 3.0627838343034927e-09
+        }
+      },
+      {
+        "file": "jet-1.wav",
+        "sha256": "5407a70a9dc2163b94a08aa052dc34b7c571e40f8ea29ab418eedc1f2a709522",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 46305,
+        "duration": 1.05,
+        "bytes": 92654,
+        "layers": [
+          {
+            "sourceId": "vehicle/water-vial-fill-01.wav",
+            "originalSHA256": "6f1b325dcb28e726296185fcd3462b08ed77373559e4f6afd61ac0529e67d6d3",
+            "cut": {
+              "startFrame": 6615,
+              "endFrame": 52920,
+              "sampleRate": 44100,
+              "startSeconds": 0.15,
+              "endSeconds": 1.2
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 8.960720169764334e-05
+          }
+        ],
+        "peakTargetDbfs": -11,
+        "mixGainDb": -7.6748897455483185,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.281829833984375,
+          "rms": 0.03185257856039581,
+          "dc": 7.183708056635353e-08
+        }
+      },
+      {
+        "file": "jet-2.wav",
+        "sha256": "45ff5ab46de3493e6a1fbd103369f49a74fec6e4101853b4a3ed8465b5f8668d",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 40131,
+        "duration": 0.91,
+        "bytes": 80306,
+        "layers": [
+          {
+            "sourceId": "vehicle/water-pour-01.wav",
+            "originalSHA256": "c2c1ad4d138873a803feade2d5e080ae169ba24edc2d9c388cdfc002f766d9f6",
+            "cut": {
+              "startFrame": 27342,
+              "endFrame": 67473,
+              "sampleRate": 44100,
+              "startSeconds": 0.62,
+              "endSeconds": 1.53
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -1.9194492772498194e-05
+          }
+        ],
+        "peakTargetDbfs": -11,
+        "mixGainDb": -8.982277560185823,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.281829833984375,
+          "rms": 0.011048817879226222,
+          "dc": 9.809791876915601e-08
+        }
+      }
+    ],
+    "drip": [
+      {
+        "file": "drip-0.wav",
+        "sha256": "723f967f10665cc1bfcd15f064acd1a07bb941c915b9bfa8576c2c7572cc0e44",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 7343,
+        "duration": 0.16650793650793652,
+        "bytes": 14730,
+        "layers": [
+          {
+            "sourceId": "vehicle/water-drop-01.wav",
+            "originalSHA256": "999b0667e48503ff8e5e6effbcacc49f1fc88e64f05c96b37f66ae166b2c7238",
+            "cut": {
+              "startFrame": 305,
+              "endFrame": 7648,
+              "sampleRate": 44100,
+              "startSeconds": 0.006916099773242631,
+              "endSeconds": 0.17342403628117914
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -8.847539870760215e-05
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": -11.961812004802344,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.03959904910296347,
+          "dc": 7.896418144831813e-08
+        }
+      },
+      {
+        "file": "drip-1.wav",
+        "sha256": "83ed365451659c8b58ebcc8ab909611def981da269c3ac8dd257f6149d569141",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 14275,
+        "duration": 0.32369614512471656,
+        "bytes": 28594,
+        "layers": [
+          {
+            "sourceId": "vehicle/water-drop-02.wav",
+            "originalSHA256": "6dfd259c7375e7df9756f019b05182af72fff418295dd65c3a35223e8e20093e",
+            "cut": {
+              "startFrame": 190,
+              "endFrame": 14465,
+              "sampleRate": 44100,
+              "startSeconds": 0.004308390022675737,
+              "endSeconds": 0.3280045351473923
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 8.328081875445157e-05
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": -12.000610555071232,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.010382536233584826,
+          "dc": -6.43487987084063e-07
+        }
+      },
+      {
+        "file": "drip-2.wav",
+        "sha256": "1e82817cf345a8f28eae55ca20c9611cda22309b391830dba20b845fec13e7d5",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 18697,
+        "duration": 0.423968253968254,
+        "bytes": 37438,
+        "layers": [
+          {
+            "sourceId": "vehicle/water-drop-03.wav",
+            "originalSHA256": "e66ce053a9c8b3a64d26f733310d3c4a62d582124af1c63f9af310bd847dd87b",
+            "cut": {
+              "startFrame": 785,
+              "endFrame": 19482,
+              "sampleRate": 44100,
+              "startSeconds": 0.017800453514739228,
+              "endSeconds": 0.4417687074829932
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -6.869985179223548e-06
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": -11.999789382151961,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.0089013880820448,
+          "dc": 4.096866935537787e-07
+        }
+      }
+    ],
+    "splash": [
+      {
+        "file": "splash-0.wav",
+        "sha256": "ba95cbf30ada0fdc4008059a381bdf228618b4d351befa976946d7892457a5dc",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 49892,
+        "duration": 1.1313378684807256,
+        "bytes": 99828,
+        "layers": [
+          {
+            "sourceId": "splash",
+            "originalSHA256": "0be6f25abdb4e1a3ed2947afed940597037856ef99ef111483b2c6f829892eb2",
+            "cut": {
+              "startFrame": 0,
+              "endFrame": 49892,
+              "sampleRate": 44100,
+              "startSeconds": 0.0,
+              "endSeconds": 1.1313378684807256
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 4.801631289209693e-08
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -2.088487786906967,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.016908046628504005,
+          "dc": -4.4040439850076165e-08
+        }
+      },
+      {
+        "file": "splash-1.wav",
+        "sha256": "231f52ae8b650a10b60804223fcd26c0bcec2303bccd5afa55fd5296c5280787",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 22667,
+        "duration": 0.5139909297052154,
+        "bytes": 45378,
+        "layers": [
+          {
+            "sourceId": "water",
+            "originalSHA256": "5d1c09cb1bdd3acd15947026eb92311108ae9705f5e2699b37dc3416002fe93a",
+            "cut": {
+              "startFrame": 31311,
+              "endFrame": 48069,
+              "sampleRate": 44100,
+              "startSeconds": 0.71,
+              "endSeconds": 1.09
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 9.70633079163683e-07
+          },
+          {
+            "sourceId": "splash",
+            "originalSHA256": "0be6f25abdb4e1a3ed2947afed940597037856ef99ef111483b2c6f829892eb2",
+            "cut": {
+              "startFrame": 6174,
+              "endFrame": 28224,
+              "sampleRate": 44100,
+              "startSeconds": 0.14,
+              "endSeconds": 0.64
+            },
+            "gainDb": -16,
+            "delaySeconds": 0.014,
+            "dcRemoved": -7.681987182893991e-06
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -7.91750731460104,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.023574444087840114,
+          "dc": 9.424407591432478e-09
+        }
+      },
+      {
+        "file": "splash-2.wav",
+        "sha256": "0b1fdffb4620b2b7af727a1e1827117499b68d4b6210d1793ef338a9395f4990",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 20727,
+        "duration": 0.47,
+        "bytes": 41498,
+        "layers": [
+          {
+            "sourceId": "water",
+            "originalSHA256": "5d1c09cb1bdd3acd15947026eb92311108ae9705f5e2699b37dc3416002fe93a",
+            "cut": {
+              "startFrame": 92169,
+              "endFrame": 112896,
+              "sampleRate": 44100,
+              "startSeconds": 2.09,
+              "endSeconds": 2.56
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 7.598106909541299e-06
+          },
+          {
+            "sourceId": "vehicle/water-pour-01.wav",
+            "originalSHA256": "c2c1ad4d138873a803feade2d5e080ae169ba24edc2d9c388cdfc002f766d9f6",
+            "cut": {
+              "startFrame": 28665,
+              "endFrame": 47628,
+              "sampleRate": 44100,
+              "startSeconds": 0.65,
+              "endSeconds": 1.08
+            },
+            "gainDb": -18,
+            "delaySeconds": 0.012,
+            "dcRemoved": 0.0003782647612703027
+          }
+        ],
+        "peakTargetDbfs": -8,
+        "mixGainDb": -3.3943286278183518,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.398101806640625,
+          "rms": 0.039702032931711595,
+          "dc": 3.680896671611907e-08
+        }
+      }
+    ],
+    "blade-beat": [
+      {
+        "file": "blade-beat-0.wav",
+        "sha256": "b5b366ee30cc7d0f92aff5b202c54f2e10abeea3d2ccea2810ff83d58d58e3de",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 19926,
+        "duration": 0.45183673469387753,
+        "bytes": 39896,
+        "layers": [
+          {
+            "sourceId": "vehicle/sword-clash-01.wav",
+            "originalSHA256": "58072bf9c80d84a37c4cfaeb694659dad3b5c4ecd24e2f7fc1e7c2fcdc7fc325",
+            "cut": {
+              "startFrame": 1242,
+              "endFrame": 21168,
+              "sampleRate": 44100,
+              "startSeconds": 0.02816326530612245,
+              "endSeconds": 0.48
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -7.887023556710011e-05
+          }
+        ],
+        "peakTargetDbfs": -7,
+        "mixGainDb": -6.998992765740328,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.4466552734375,
+          "rms": 0.02352674730657576,
+          "dc": 1.3018137813033223e-07
+        }
+      },
+      {
+        "file": "blade-beat-1.wav",
+        "sha256": "15025a70a6bc802bc94439087e9e5945b8168470c5a954405a1425c905833a26",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 22308,
+        "duration": 0.5058503401360545,
+        "bytes": 44660,
+        "layers": [
+          {
+            "sourceId": "vehicle/sword-clash-02.wav",
+            "originalSHA256": "6c8d3a0ca3daa0d8544848f847d879e17f60b49ab360507d7466f4fc42fbd0d5",
+            "cut": {
+              "startFrame": 1506,
+              "endFrame": 23814,
+              "sampleRate": 44100,
+              "startSeconds": 0.03414965986394558,
+              "endSeconds": 0.54
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -6.943024545369845e-05
+          }
+        ],
+        "peakTargetDbfs": -7,
+        "mixGainDb": -7.000393576866616,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.4466552734375,
+          "rms": 0.03448513604996298,
+          "dc": 3.9672304358301955e-08
+        }
+      },
+      {
+        "file": "blade-beat-2.wav",
+        "sha256": "5da3194f007a7ce72a4546539402c1cad753ca0ecba8f6078db6353862ea650b",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 25231,
+        "duration": 0.5721315192743764,
+        "bytes": 50506,
+        "layers": [
+          {
+            "sourceId": "vehicle/sword-clash-03.wav",
+            "originalSHA256": "2fb00a674fc987ef8aeca008c6b3987e0df9b0c11a81fc892ade97c59534b188",
+            "cut": {
+              "startFrame": 1229,
+              "endFrame": 26460,
+              "sampleRate": 44100,
+              "startSeconds": 0.027868480725623583,
+              "endSeconds": 0.6
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.00026677507211652024
+          }
+        ],
+        "peakTargetDbfs": -7,
+        "mixGainDb": -6.9972448597698715,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.4466552734375,
+          "rms": 0.05976788569290857,
+          "dc": -4.838108378581903e-09
+        }
+      }
+    ],
+    "blade-slide": [
+      {
+        "file": "blade-slide-0.wav",
+        "sha256": "23f4e9e421e87e3d1d2c33af6927d6310cea950f885aaab98d92604be5ca80bb",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 46305,
+        "duration": 1.05,
+        "bytes": 92654,
+        "layers": [
+          {
+            "sourceId": "vehicle/metal-knife-scrape-01.wav",
+            "originalSHA256": "80a8a2647f9ac8dfa5709b75563cda48a8c815725094de6107201d65815c9e7a",
+            "cut": {
+              "startFrame": 1323,
+              "endFrame": 47628,
+              "sampleRate": 44100,
+              "startSeconds": 0.03,
+              "endSeconds": 1.08
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -3.506638115315571e-05
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -10.000035925083763,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.020051968897224326,
+          "dc": 7.117802478134111e-08
+        }
+      },
+      {
+        "file": "blade-slide-1.wav",
+        "sha256": "6288edb8fd6fb2f4b9c4fd2061b5a3c052c8c44b401302bbf01418354896de5c",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 50715,
+        "duration": 1.15,
+        "bytes": 101474,
+        "layers": [
+          {
+            "sourceId": "vehicle/metal-knife-scrape-02.wav",
+            "originalSHA256": "8ecde2b02dd24529b706fb03d5dfeb46352ecc239a5f56d534118f9a87faaa33",
+            "cut": {
+              "startFrame": 4410,
+              "endFrame": 55125,
+              "sampleRate": 44100,
+              "startSeconds": 0.1,
+              "endSeconds": 1.25
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -2.2339240270383515e-05
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -9.999272766284042,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.019645248731519138,
+          "dc": -4.0557719917677214e-07
+        }
+      },
+      {
+        "file": "blade-slide-2.wav",
+        "sha256": "a28c27273743c7f00894e064f8032d4d62d2eb8daaace2a69e778987e3fe795c",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 40170,
+        "duration": 0.9108843537414966,
+        "bytes": 80384,
+        "layers": [
+          {
+            "sourceId": "vehicle/metal-knife-scrape-03.wav",
+            "originalSHA256": "382883e307140a7fe3a8460a11132ec6ce9c38c40938ee580cda8c2ecb0d4151",
+            "cut": {
+              "startFrame": 882,
+              "endFrame": 41052,
+              "sampleRate": 44100,
+              "startSeconds": 0.02,
+              "endSeconds": 0.9308843537414966
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.00032633174156262887
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -9.996352055810538,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.02845814667860905,
+          "dc": 2.2791320481702765e-08
+        }
+      }
+    ],
+    "shield-metal": [
+      {
+        "file": "shield-metal-0.wav",
+        "sha256": "11bf07d9e84992e922f630707d3e9816b10fd9f004822fcf28803f29868e8f88",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 10672,
+        "duration": 0.2419954648526077,
+        "bytes": 21388,
+        "layers": [
+          {
+            "sourceId": "ogrebane/metal1.aif",
+            "originalSHA256": "970b970d73d4233e6cabe4e825f7a210d9223227616ee37374e0169ca602a0ed",
+            "cut": {
+              "startFrame": 237,
+              "endFrame": 10909,
+              "sampleRate": 44100,
+              "startSeconds": 0.0053741496598639455,
+              "endSeconds": 0.24736961451247166
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 7.3269867842970526e-06
+          }
+        ],
+        "peakTargetDbfs": -6,
+        "mixGainDb": -5.89907752843779,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.50115966796875,
+          "rms": 0.06252484161984698,
+          "dc": 5.7191863052848575e-08
+        }
+      },
+      {
+        "file": "shield-metal-1.wav",
+        "sha256": "a6a76625c586ddd41e28f7c613af486e6497671121fc1fca7500393171d1420e",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 16373,
+        "duration": 0.37126984126984125,
+        "bytes": 32790,
+        "layers": [
+          {
+            "sourceId": "ogrebane/metal3.aif",
+            "originalSHA256": "8f6fdd0960671e4215fbfe71a73104d2dc73fc0d4c7f05b706a2c119965a5373",
+            "cut": {
+              "startFrame": 3809,
+              "endFrame": 20182,
+              "sampleRate": 44100,
+              "startSeconds": 0.0863718820861678,
+              "endSeconds": 0.45764172335600906
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 9.923056950644841e-05
+          }
+        ],
+        "peakTargetDbfs": -6,
+        "mixGainDb": -5.900994011249075,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.50115966796875,
+          "rms": 0.061526867564813965,
+          "dc": 9.319482723080682e-08
+        }
+      },
+      {
+        "file": "shield-metal-2.wav",
+        "sha256": "fcace9e9b4fdf7107272b818bfed535691375c14fefd7ad2c36434ae8eda634e",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 15154,
+        "duration": 0.3436281179138322,
+        "bytes": 30352,
+        "layers": [
+          {
+            "sourceId": "ogrebane/metal4.aif",
+            "originalSHA256": "9a55c183217e33ad41046dcfd819ec7588371dbcfeb1720486dfbc9e800ce9da",
+            "cut": {
+              "startFrame": 4046,
+              "endFrame": 19200,
+              "sampleRate": 44100,
+              "startSeconds": 0.09174603174603174,
+              "endSeconds": 0.43537414965986393
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -5.6101135115504536e-05
+          }
+        ],
+        "peakTargetDbfs": -6,
+        "mixGainDb": -5.686433357008242,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.50115966796875,
+          "rms": 0.059726748087948006,
+          "dc": 2.215212876963178e-08
+        }
+      }
+    ],
+    "shield-wood": [
+      {
+        "file": "shield-wood-0.wav",
+        "sha256": "eb29338e44256d799c42b8b7f896f15b9b09a8ae0d5dd7426b05ecb82ce5c395",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 17011,
+        "duration": 0.38573696145124714,
+        "bytes": 34066,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood4.aif",
+            "originalSHA256": "76452277288a61fdc02cde2792d10649545cd86b0026ebb2d11af44ae54aa462",
+            "cut": {
+              "startFrame": 4736,
+              "endFrame": 21747,
+              "sampleRate": 44100,
+              "startSeconds": 0.1073922902494331,
+              "endSeconds": 0.4931292517006803
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 0.0005440393299368242
+          },
+          {
+            "sourceId": "ogrebane/wood10.aif",
+            "originalSHA256": "0fb267034f211e89eb36ecff44ae1a90a6f4904e6d225140ff0e3fb1c71d964b",
+            "cut": {
+              "startFrame": 2372,
+              "endFrame": 11439,
+              "sampleRate": 44100,
+              "startSeconds": 0.05378684807256236,
+              "endSeconds": 0.2593877551020408
+            },
+            "gainDb": -15,
+            "delaySeconds": 0.008,
+            "dcRemoved": 3.182854294975873e-05
+          }
+        ],
+        "peakTargetDbfs": -7,
+        "mixGainDb": -6.990281279020531,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.4466552734375,
+          "rms": 0.06063800912498619,
+          "dc": 1.793990836811475e-08
+        }
+      },
+      {
+        "file": "shield-wood-1.wav",
+        "sha256": "37023525b671d5d1f5ef26da832f3197c56411ecf86436452c5ce858209c60d5",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 17483,
+        "duration": 0.39643990929705214,
+        "bytes": 35010,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood8.aif",
+            "originalSHA256": "055f479c5fe9fa5baf4f2ca6c7dac3ab1f97730594f7e5ca5082650150c91862",
+            "cut": {
+              "startFrame": 2668,
+              "endFrame": 20151,
+              "sampleRate": 44100,
+              "startSeconds": 0.060498866213151925,
+              "endSeconds": 0.45693877551020406
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 9.945561565600963e-05
+          },
+          {
+            "sourceId": "ogrebane/wood11.aif",
+            "originalSHA256": "9b267cd656d531eba45d268aa240bbfb82723ea7f4705af662d42723d721fd88",
+            "cut": {
+              "startFrame": 2249,
+              "endFrame": 12634,
+              "sampleRate": 44100,
+              "startSeconds": 0.05099773242630386,
+              "endSeconds": 0.2864852607709751
+            },
+            "gainDb": -15,
+            "delaySeconds": 0.008,
+            "dcRemoved": 4.9369340883734856e-05
+          }
+        ],
+        "peakTargetDbfs": -7,
+        "mixGainDb": -7.552266387194392,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.4466552734375,
+          "rms": 0.057362393828723164,
+          "dc": -3.491114582737516e-08
+        }
+      },
+      {
+        "file": "shield-wood-2.wav",
+        "sha256": "9b8f0ea038a31793f7e662866f911994cbd09d4a2d45f3bb4568ac722cf2ea93",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 13351,
+        "duration": 0.3027437641723356,
+        "bytes": 26746,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood9.aif",
+            "originalSHA256": "51d16b27bc9fdc5e82548f81da44b75d31d32dd60eaf5c7980b796a5ecb08a55",
+            "cut": {
+              "startFrame": 2265,
+              "endFrame": 14641,
+              "sampleRate": 44100,
+              "startSeconds": 0.05136054421768708,
+              "endSeconds": 0.3319954648526077
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 2.168185236353494e-05
+          },
+          {
+            "sourceId": "ogrebane/wood12.aif",
+            "originalSHA256": "32f86add32619fd48c605e439f6165c74aff5f56cfe5116415a8637109a25164",
+            "cut": {
+              "startFrame": 3509,
+              "endFrame": 16507,
+              "sampleRate": 44100,
+              "startSeconds": 0.07956916099773242,
+              "endSeconds": 0.37430839002267574
+            },
+            "gainDb": -15,
+            "delaySeconds": 0.008,
+            "dcRemoved": -2.8809116364355815e-05
+          }
+        ],
+        "peakTargetDbfs": -7,
+        "mixGainDb": -7.241187687921081,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.4466552734375,
+          "rms": 0.06443766160036522,
+          "dc": -1.0971790502584075e-07
+        }
+      }
+    ],
+    "wood-contact": [
+      {
+        "file": "wood-contact-0.wav",
+        "sha256": "50e9f77116ea57c847391f5c7afc341837bf037472a9679b6af2f4ae3055d401",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 8635,
+        "duration": 0.19580498866213153,
+        "bytes": 17314,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood6.aif",
+            "originalSHA256": "90e3fcdcdc74f0435f0514a769d2d467544c4386a44dc7d5ffee59a0f90dd221",
+            "cut": {
+              "startFrame": 2567,
+              "endFrame": 11202,
+              "sampleRate": 44100,
+              "startSeconds": 0.05820861678004535,
+              "endSeconds": 0.2540136054421769
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 7.825374914680992e-05
+          }
+        ],
+        "peakTargetDbfs": -9,
+        "mixGainDb": -8.902096277565969,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.35479736328125,
+          "rms": 0.04261383869394707,
+          "dc": 2.473920635495078e-08
+        }
+      },
+      {
+        "file": "wood-contact-1.wav",
+        "sha256": "ec8dc5b9116427ad48f2cfedac097b3d6f30a7b68da1736e27f3c98ddabee888",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 8958,
+        "duration": 0.20312925170068027,
+        "bytes": 17960,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood7.aif",
+            "originalSHA256": "549cf8562b9ea0019c35e60fb222057323176fe4df224860f352b60c5521abdd",
+            "cut": {
+              "startFrame": 2431,
+              "endFrame": 11389,
+              "sampleRate": 44100,
+              "startSeconds": 0.05512471655328798,
+              "endSeconds": 0.25825396825396824
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 1.4340892238407953e-05
+          }
+        ],
+        "peakTargetDbfs": -9,
+        "mixGainDb": -8.900286530698944,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.35479736328125,
+          "rms": 0.04665534084856683,
+          "dc": 6.132132242129939e-08
+        }
+      },
+      {
+        "file": "wood-contact-2.wav",
+        "sha256": "bad62f6bc78e1e6421fb413d16b2b678ca7d223dd658cc5f5e0299a843726f4b",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 8502,
+        "duration": 0.1927891156462585,
+        "bytes": 17048,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood14.aif",
+            "originalSHA256": "8766d0131ea079335bf169e9d3a9bb9161ec75962b69a4aeef78c69c84668a57",
+            "cut": {
+              "startFrame": 542,
+              "endFrame": 9044,
+              "sampleRate": 44100,
+              "startSeconds": 0.012290249433106576,
+              "endSeconds": 0.20507936507936508
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.00013693160462661453
+          }
+        ],
+        "peakTargetDbfs": -9,
+        "mixGainDb": -8.70645651951894,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.35479736328125,
+          "rms": 0.05419008055364673,
+          "dc": -3.589458730298753e-08
+        }
+      }
+    ],
+    "latex-rub": [
+      {
+        "file": "latex-rub-0.wav",
+        "sha256": "133c9ad3800f6cc3e45fd9086096b0c352751b6ddd59575278a0cca31d90c936",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 12723,
+        "duration": 0.2885034013605442,
+        "bytes": 25490,
+        "layers": [
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 7563,
+              "endFrame": 20286,
+              "sampleRate": 44100,
+              "startSeconds": 0.1714965986394558,
+              "endSeconds": 0.46
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.0003317978283491917
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": -11.169935869995754,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.01947291462103263,
+          "dc": 8.155290861039063e-08
+        }
+      },
+      {
+        "file": "latex-rub-1.wav",
+        "sha256": "d193454441662b9c82a6e63e77e903a96404b9ee771e93a13819bd64e9f753b0",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 18963,
+        "duration": 0.43,
+        "bytes": 37970,
+        "layers": [
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 20286,
+              "endFrame": 39249,
+              "sampleRate": 44100,
+              "startSeconds": 0.46,
+              "endSeconds": 0.89
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 9.138134155369997e-05
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": -11.106071111095218,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.024170948131432418,
+          "dc": 7.724746875494384e-08
+        }
+      },
+      {
+        "file": "latex-rub-2.wav",
+        "sha256": "dfc4271f834533c5b4f36f0a74e3e803daf72ecba8795b6a7d74cd8b44564ee5",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 9522,
+        "duration": 0.21591836734693878,
+        "bytes": 19088,
+        "layers": [
+          {
+            "sourceId": "latex",
+            "originalSHA256": "571a01cd3188655b773eeb59fbafb519f7d7f441147640c262e4c4aee82d2c10",
+            "cut": {
+              "startFrame": 44280,
+              "endFrame": 53802,
+              "sampleRate": 44100,
+              "startSeconds": 1.0040816326530613,
+              "endSeconds": 1.22
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 0.0006475407323795996
+          }
+        ],
+        "peakTargetDbfs": -12,
+        "mixGainDb": -11.793334038272151,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.251190185546875,
+          "rms": 0.03081115680630654,
+          "dc": -4.8074319667611844e-08
+        }
+      }
+    ],
+    "footstep-dry": [
+      {
+        "file": "footstep-dry-0.wav",
+        "sha256": "8305df8ef8bb2240195d3d628505a9799a6e7211be00b3b97cb45a2ea236ea26",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 9067,
+        "duration": 0.20560090702947845,
+        "bytes": 18178,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood10.aif",
+            "originalSHA256": "0fb267034f211e89eb36ecff44ae1a90a6f4904e6d225140ff0e3fb1c71d964b",
+            "cut": {
+              "startFrame": 2372,
+              "endFrame": 11439,
+              "sampleRate": 44100,
+              "startSeconds": 0.05378684807256236,
+              "endSeconds": 0.2593877551020408
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 5.280111922698767e-05
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -9.357541583537962,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.036937623256585075,
+          "dc": 6.7315712198080956e-09
+        }
+      },
+      {
+        "file": "footstep-dry-1.wav",
+        "sha256": "fa2ad9bcf6611968087ba33d39d96122e2c2e4d413c38e9f42a2f5f272490524",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 10385,
+        "duration": 0.2354875283446712,
+        "bytes": 20814,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood11.aif",
+            "originalSHA256": "9b267cd656d531eba45d268aa240bbfb82723ea7f4705af662d42723d721fd88",
+            "cut": {
+              "startFrame": 2249,
+              "endFrame": 12634,
+              "sampleRate": 44100,
+              "startSeconds": 0.05099773242630386,
+              "endSeconds": 0.2864852607709751
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 8.11059999357816e-05
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -9.595252434836757,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.04401403018730859,
+          "dc": -2.997393325710159e-07
+        }
+      },
+      {
+        "file": "footstep-dry-2.wav",
+        "sha256": "cf68f4505931e3e0c45ce5b5d6ec1c3d1efc8cd72348ad5c97b12687b1ed07f3",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 12998,
+        "duration": 0.2947392290249433,
+        "bytes": 26040,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood12.aif",
+            "originalSHA256": "32f86add32619fd48c605e439f6165c74aff5f56cfe5116415a8637109a25164",
+            "cut": {
+              "startFrame": 3509,
+              "endFrame": 16507,
+              "sampleRate": 44100,
+              "startSeconds": 0.07956916099773242,
+              "endSeconds": 0.37430839002267574
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -4.142882331969246e-05
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -9.805279772370257,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.04910551941875298,
+          "dc": 1.6200283817702723e-07
+        }
+      }
+    ],
+    "footstep-wet": [
+      {
+        "file": "footstep-wet-0.wav",
+        "sha256": "8d13d188c25f25b6c590817f95edc7f6d987a2b7e9411e9faa9578da089d5e3e",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 12609,
+        "duration": 0.28591836734693876,
+        "bytes": 25262,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood13.aif",
+            "originalSHA256": "1c4cab0a4a17c5696ee0acb152caf845f313c51ca1e6169ed6bc90e829f7459e",
+            "cut": {
+              "startFrame": 2264,
+              "endFrame": 14873,
+              "sampleRate": 44100,
+              "startSeconds": 0.05133786848072562,
+              "endSeconds": 0.3372562358276644
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 0.0001275948476178666
+          },
+          {
+            "sourceId": "vehicle/water-drop-01.wav",
+            "originalSHA256": "999b0667e48503ff8e5e6effbcacc49f1fc88e64f05c96b37f66ae166b2c7238",
+            "cut": {
+              "startFrame": 305,
+              "endFrame": 7648,
+              "sampleRate": 44100,
+              "startSeconds": 0.006916099773242631,
+              "endSeconds": 0.17342403628117914
+            },
+            "gainDb": -11,
+            "delaySeconds": 0.007,
+            "dcRemoved": -8.847539870760215e-05
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -9.906147857499363,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.040074909573538604,
+          "dc": 9.439174770996906e-08
+        }
+      },
+      {
+        "file": "footstep-wet-1.wav",
+        "sha256": "fb1a33bbd13f1dde96a78c4fa0ead3d2d90c592d8673c375d75b25c59e0171ef",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 14584,
+        "duration": 0.330702947845805,
+        "bytes": 29212,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood14.aif",
+            "originalSHA256": "8766d0131ea079335bf169e9d3a9bb9161ec75962b69a4aeef78c69c84668a57",
+            "cut": {
+              "startFrame": 542,
+              "endFrame": 9044,
+              "sampleRate": 44100,
+              "startSeconds": 0.012290249433106576,
+              "endSeconds": 0.20507936507936508
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.00021943769327976918
+          },
+          {
+            "sourceId": "vehicle/water-drop-02.wav",
+            "originalSHA256": "6dfd259c7375e7df9756f019b05182af72fff418295dd65c3a35223e8e20093e",
+            "cut": {
+              "startFrame": 190,
+              "endFrame": 14465,
+              "sampleRate": 44100,
+              "startSeconds": 0.004308390022675737,
+              "endSeconds": 0.3280045351473923
+            },
+            "gainDb": -11,
+            "delaySeconds": 0.007,
+            "dcRemoved": 8.328081875445157e-05
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -9.702637596624115,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.03707851110775747,
+          "dc": -1.3392244925946243e-07
+        }
+      },
+      {
+        "file": "footstep-wet-2.wav",
+        "sha256": "837564f7c255a4a04013658e8a36fb918e3da61be47658717d3c276327b2cac5",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 19006,
+        "duration": 0.4309750566893424,
+        "bytes": 38056,
+        "layers": [
+          {
+            "sourceId": "ogrebane/wood16.aif",
+            "originalSHA256": "ae4c2d5a531a194aed74065e24371f354f9b792906c43980497a9ff0fd4ba094",
+            "cut": {
+              "startFrame": 815,
+              "endFrame": 7413,
+              "sampleRate": 44100,
+              "startSeconds": 0.018480725623582765,
+              "endSeconds": 0.1680952380952381
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.00016040226437129338
+          },
+          {
+            "sourceId": "vehicle/water-drop-03.wav",
+            "originalSHA256": "e66ce053a9c8b3a64d26f733310d3c4a62d582124af1c63f9af310bd847dd87b",
+            "cut": {
+              "startFrame": 785,
+              "endFrame": 19482,
+              "sampleRate": 44100,
+              "startSeconds": 0.017800453514739228,
+              "endSeconds": 0.4417687074829932
+            },
+            "gainDb": -11,
+            "delaySeconds": 0.007,
+            "dcRemoved": -6.869985179223548e-06
+          }
+        ],
+        "peakTargetDbfs": -10,
+        "mixGainDb": -9.800590700323452,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.31622314453125,
+          "rms": 0.025819439467411043,
+          "dc": 1.9428743308034304e-07
+        }
+      }
+    ],
+    "water-burst": [
+      {
+        "file": "water-burst-0.wav",
+        "sha256": "dbc9709d9e42212b0104dbe8ae0fbcb76401ffd12d1584bdead4b42dc2efbf0b",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 49892,
+        "duration": 1.1313378684807256,
+        "bytes": 99828,
+        "layers": [
+          {
+            "sourceId": "splash",
+            "originalSHA256": "0be6f25abdb4e1a3ed2947afed940597037856ef99ef111483b2c6f829892eb2",
+            "cut": {
+              "startFrame": 0,
+              "endFrame": 49892,
+              "sampleRate": 44100,
+              "startSeconds": 0.0,
+              "endSeconds": 1.1313378684807256
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 4.801631289209693e-08
+          },
+          {
+            "sourceId": "vehicle/water-pour-01.wav",
+            "originalSHA256": "c2c1ad4d138873a803feade2d5e080ae169ba24edc2d9c388cdfc002f766d9f6",
+            "cut": {
+              "startFrame": 8820,
+              "endFrame": 44100,
+              "sampleRate": 44100,
+              "startSeconds": 0.2,
+              "endSeconds": 1.0
+            },
+            "gainDb": -10,
+            "delaySeconds": 0.055,
+            "dcRemoved": -0.0002738892085968502
+          }
+        ],
+        "peakTargetDbfs": -9,
+        "mixGainDb": -3.2360250248594435,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.35479736328125,
+          "rms": 0.0174672211468125,
+          "dc": 2.385523825212459e-08
+        }
+      },
+      {
+        "file": "water-burst-1.wav",
+        "sha256": "ffd67fd9f99cd19e080aadc34c49484aa99e5400d6c630654a700716179d0cf7",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 23814,
+        "duration": 0.54,
+        "bytes": 47672,
+        "layers": [
+          {
+            "sourceId": "water",
+            "originalSHA256": "5d1c09cb1bdd3acd15947026eb92311108ae9705f5e2699b37dc3416002fe93a",
+            "cut": {
+              "startFrame": 31311,
+              "endFrame": 50715,
+              "sampleRate": 44100,
+              "startSeconds": 0.71,
+              "endSeconds": 1.15
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 1.4956821684639765e-06
+          },
+          {
+            "sourceId": "splash",
+            "originalSHA256": "0be6f25abdb4e1a3ed2947afed940597037856ef99ef111483b2c6f829892eb2",
+            "cut": {
+              "startFrame": 4410,
+              "endFrame": 26460,
+              "sampleRate": 44100,
+              "startSeconds": 0.1,
+              "endSeconds": 0.6
+            },
+            "gainDb": -12,
+            "delaySeconds": 0.04,
+            "dcRemoved": 8.7864328674178e-06
+          }
+        ],
+        "peakTargetDbfs": -9,
+        "mixGainDb": -8.889389376384072,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.35479736328125,
+          "rms": 0.020687789959208752,
+          "dc": -1.153347623771731e-08
+        }
+      },
+      {
+        "file": "water-burst-2.wav",
+        "sha256": "429232282f68e6917c6f24258275c1edc01e96e1ff798d56c82347ee983c6096",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 35721,
+        "duration": 0.81,
+        "bytes": 71486,
+        "layers": [
+          {
+            "sourceId": "water",
+            "originalSHA256": "5d1c09cb1bdd3acd15947026eb92311108ae9705f5e2699b37dc3416002fe93a",
+            "cut": {
+              "startFrame": 92169,
+              "endFrame": 119952,
+              "sampleRate": 44100,
+              "startSeconds": 2.09,
+              "endSeconds": 2.72
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": 5.4284228158856134e-06
+          },
+          {
+            "sourceId": "splash",
+            "originalSHA256": "0be6f25abdb4e1a3ed2947afed940597037856ef99ef111483b2c6f829892eb2",
+            "cut": {
+              "startFrame": 11025,
+              "endFrame": 45864,
+              "sampleRate": 44100,
+              "startSeconds": 0.25,
+              "endSeconds": 1.04
+            },
+            "gainDb": -14,
+            "delaySeconds": 0.02,
+            "dcRemoved": 1.183772642100089e-05
+          }
+        ],
+        "peakTargetDbfs": -9,
+        "mixGainDb": -4.5017926445055725,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.35479736328125,
+          "rms": 0.026705307085968823,
+          "dc": -2.819294191442009e-08
+        }
+      }
+    ],
+    "blade-swish": [
+      {
+        "file": "blade-swish-0.wav",
+        "sha256": "ce5d8f2ab7e1ccbc68649644f2463ad3f0f2c19997d26455af892365d06502d6",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 11902,
+        "duration": 0.26988662131519275,
+        "bytes": 23848,
+        "layers": [
+          {
+            "sourceId": "vehicle/tube-plastic-whoosh-01.wav",
+            "originalSHA256": "6bf539745db12b4b546bb8bb1ab2f75ccf403db80c07fc8f473fa288d0d428b9",
+            "cut": {
+              "startFrame": 1328,
+              "endFrame": 13230,
+              "sampleRate": 44100,
+              "startSeconds": 0.030113378684807256,
+              "endSeconds": 0.3
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.0014484016262755102
+          }
+        ],
+        "peakTargetDbfs": -11,
+        "mixGainDb": -10.983878511742411,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.281829833984375,
+          "rms": 0.05182705005671247,
+          "dc": -1.5128021419719374e-07
+        }
+      },
+      {
+        "file": "blade-swish-1.wav",
+        "sha256": "5fe6d484915635dfeec1e258b0ce8a42ce03f0c9c83723def3aff4279cda0458",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 14009,
+        "duration": 0.3176643990929705,
+        "bytes": 28062,
+        "layers": [
+          {
+            "sourceId": "vehicle/tube-plastic-whoosh-02.wav",
+            "originalSHA256": "2ba001b889f1465d949b5531e7c9f61425a0f81d2a40febe3bdb4e449e99c190",
+            "cut": {
+              "startFrame": 1450,
+              "endFrame": 15459,
+              "sampleRate": 44100,
+              "startSeconds": 0.032879818594104306,
+              "endSeconds": 0.35054421768707483
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.0005976070712573224
+          }
+        ],
+        "peakTargetDbfs": -11,
+        "mixGainDb": -10.993647644421031,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.281829833984375,
+          "rms": 0.04301640882639523,
+          "dc": -4.7925385020344065e-08
+        }
+      },
+      {
+        "file": "blade-swish-2.wav",
+        "sha256": "2399189292de882ff6970eced8b5c30daf82be0800c48572b6751824f78da4fe",
+        "sampleRate": 44100,
+        "channels": 1,
+        "bits": 16,
+        "frames": 6087,
+        "duration": 0.13802721088435374,
+        "bytes": 12218,
+        "layers": [
+          {
+            "sourceId": "vehicle/tin-whistle-whoosh-01.wav",
+            "originalSHA256": "8ac3354d54c8f3bfce39810a9ef821490eabba77d4fe10da504b2e0a61ab569d",
+            "cut": {
+              "startFrame": 4754,
+              "endFrame": 10841,
+              "sampleRate": 44100,
+              "startSeconds": 0.10780045351473923,
+              "endSeconds": 0.24582766439909298
+            },
+            "gainDb": 0,
+            "delaySeconds": 0,
+            "dcRemoved": -0.00037507347521736407
+          }
+        ],
+        "peakTargetDbfs": -11,
+        "mixGainDb": -10.982858565251966,
+        "processing": [
+          "Read native 44.1 kHz recorded PCM; any prior FLAC decode is identified in source metadata. No resampling.",
+          "Arithmetic mean downmix with cancellation check; remove each cut's DC.",
+          "Trim below -46 dB relative to cut peak, preserving 3 ms pre-roll and 20 ms tail.",
+          "Apply sub-millisecond attack and 12 ms release edits; mix only identified real layers.",
+          "Remove residual mix DC with zero-ended window; set documented peak headroom.",
+          "Round once to mono PCM16 WAV; no limiting, synthesis, pitch shift or reconstruction."
+        ],
+        "metrics": {
+          "peak": 0.281829833984375,
+          "rms": 0.06121910281994706,
+          "dc": -2.9078684594217186e-07
+        }
+      }
+    ]
+  },
+  "totalBytes": 2681190,
+  "decodedFloat32Bytes": 5356572,
+  "preview": {
+    "file": "listening-montage.wav",
+    "sha256": "99177e10f3c9474ace6e4aa0ec0d03e4defef59d5a329475e172bd82fda850bf",
+    "bytes": 4311912,
+    "duration": 48.88739229024943,
+    "chapters": [
+      {
+        "kind": "variant",
+        "cue": "wood",
+        "variant": 0,
+        "start": 0.2,
+        "duration": 0.3470975056689342
+      },
+      {
+        "kind": "variant",
+        "cue": "wood",
+        "variant": 1,
+        "start": 0.7670975056689342,
+        "duration": 0.22668934240362812
+      },
+      {
+        "kind": "variant",
+        "cue": "wood",
+        "variant": 2,
+        "start": 1.2137868480725622,
+        "duration": 0.27721088435374147
+      },
+      {
+        "kind": "variant",
+        "cue": "joint",
+        "variant": 0,
+        "start": 1.7109977324263037,
+        "duration": 0.3019954648526077
+      },
+      {
+        "kind": "variant",
+        "cue": "joint",
+        "variant": 1,
+        "start": 2.2329931972789114,
+        "duration": 0.3019954648526077
+      },
+      {
+        "kind": "variant",
+        "cue": "joint",
+        "variant": 2,
+        "start": 2.7549886621315194,
+        "duration": 0.3019954648526077
+      },
+      {
+        "kind": "variant",
+        "cue": "metal",
+        "variant": 0,
+        "start": 3.276984126984127,
+        "duration": 0.6492743764172335
+      },
+      {
+        "kind": "variant",
+        "cue": "metal",
+        "variant": 1,
+        "start": 4.14625850340136,
+        "duration": 0.5740589569160998
+      },
+      {
+        "kind": "variant",
+        "cue": "metal",
+        "variant": 2,
+        "start": 4.94031746031746,
+        "duration": 0.6209297052154195
+      },
+      {
+        "kind": "variant",
+        "cue": "ring",
+        "variant": 0,
+        "start": 5.781247165532879,
+        "duration": 0.6649886621315193
+      },
+      {
+        "kind": "variant",
+        "cue": "ring",
+        "variant": 1,
+        "start": 6.666235827664399,
+        "duration": 0.73
+      },
+      {
+        "kind": "variant",
+        "cue": "ring",
+        "variant": 2,
+        "start": 7.616235827664399,
+        "duration": 0.5337868480725624
+      },
+      {
+        "kind": "variant",
+        "cue": "whoosh",
+        "variant": 0,
+        "start": 8.370022675736962,
+        "duration": 0.2974829931972789
+      },
+      {
+        "kind": "variant",
+        "cue": "whoosh",
+        "variant": 1,
+        "start": 8.88750566893424,
+        "duration": 0.3176643990929705
+      },
+      {
+        "kind": "variant",
+        "cue": "whoosh",
+        "variant": 2,
+        "start": 9.42517006802721,
+        "duration": 0.13802721088435374
+      },
+      {
+        "kind": "variant",
+        "cue": "slosh",
+        "variant": 0,
+        "start": 9.783197278911564,
+        "duration": 0.53
+      },
+      {
+        "kind": "variant",
+        "cue": "slosh",
+        "variant": 1,
+        "start": 10.533197278911564,
+        "duration": 0.55
+      },
+      {
+        "kind": "variant",
+        "cue": "slosh",
+        "variant": 2,
+        "start": 11.303197278911563,
+        "duration": 0.85
+      },
+      {
+        "kind": "variant",
+        "cue": "tension",
+        "variant": 0,
+        "start": 12.373197278911563,
+        "duration": 0.2885034013605442
+      },
+      {
+        "kind": "variant",
+        "cue": "tension",
+        "variant": 1,
+        "start": 12.881700680272107,
+        "duration": 0.43
+      },
+      {
+        "kind": "variant",
+        "cue": "tension",
+        "variant": 2,
+        "start": 13.531700680272108,
+        "duration": 0.2439909297052154
+      },
+      {
+        "kind": "variant",
+        "cue": "puncture",
+        "variant": 0,
+        "start": 13.995691609977323,
+        "duration": 0.29551020408163264
+      },
+      {
+        "kind": "variant",
+        "cue": "puncture",
+        "variant": 1,
+        "start": 14.511201814058955,
+        "duration": 0.5470748299319728
+      },
+      {
+        "kind": "variant",
+        "cue": "puncture",
+        "variant": 2,
+        "start": 15.278276643990928,
+        "duration": 0.32
+      },
+      {
+        "kind": "variant",
+        "cue": "tear",
+        "variant": 0,
+        "start": 15.818276643990927,
+        "duration": 0.2885034013605442
+      },
+      {
+        "kind": "variant",
+        "cue": "tear",
+        "variant": 1,
+        "start": 16.326780045351473,
+        "duration": 0.43
+      },
+      {
+        "kind": "variant",
+        "cue": "tear",
+        "variant": 2,
+        "start": 16.97678004535147,
+        "duration": 0.21700680272108844
+      },
+      {
+        "kind": "variant",
+        "cue": "jet",
+        "variant": 0,
+        "start": 17.41378684807256,
+        "duration": 0.9037641723356009
+      },
+      {
+        "kind": "variant",
+        "cue": "jet",
+        "variant": 1,
+        "start": 18.537551020408163,
+        "duration": 1.05
+      },
+      {
+        "kind": "variant",
+        "cue": "jet",
+        "variant": 2,
+        "start": 19.807551020408162,
+        "duration": 0.91
+      },
+      {
+        "kind": "variant",
+        "cue": "drip",
+        "variant": 0,
+        "start": 20.93755102040816,
+        "duration": 0.16650793650793652
+      },
+      {
+        "kind": "variant",
+        "cue": "drip",
+        "variant": 1,
+        "start": 21.324058956916097,
+        "duration": 0.32369614512471656
+      },
+      {
+        "kind": "variant",
+        "cue": "drip",
+        "variant": 2,
+        "start": 21.867755102040814,
+        "duration": 0.423968253968254
+      },
+      {
+        "kind": "variant",
+        "cue": "splash",
+        "variant": 0,
+        "start": 22.511723356009067,
+        "duration": 1.1313378684807256
+      },
+      {
+        "kind": "variant",
+        "cue": "splash",
+        "variant": 1,
+        "start": 23.863061224489794,
+        "duration": 0.5139909297052154
+      },
+      {
+        "kind": "variant",
+        "cue": "splash",
+        "variant": 2,
+        "start": 24.59705215419501,
+        "duration": 0.47
+      },
+      {
+        "kind": "variant",
+        "cue": "blade-beat",
+        "variant": 0,
+        "start": 25.28705215419501,
+        "duration": 0.45183673469387753
+      },
+      {
+        "kind": "variant",
+        "cue": "blade-beat",
+        "variant": 1,
+        "start": 25.958888888888886,
+        "duration": 0.5058503401360545
+      },
+      {
+        "kind": "variant",
+        "cue": "blade-beat",
+        "variant": 2,
+        "start": 26.68473922902494,
+        "duration": 0.5721315192743764
+      },
+      {
+        "kind": "variant",
+        "cue": "blade-slide",
+        "variant": 0,
+        "start": 27.47687074829932,
+        "duration": 1.05
+      },
+      {
+        "kind": "variant",
+        "cue": "blade-slide",
+        "variant": 1,
+        "start": 28.74687074829932,
+        "duration": 1.15
+      },
+      {
+        "kind": "variant",
+        "cue": "blade-slide",
+        "variant": 2,
+        "start": 30.11687074829932,
+        "duration": 0.9108843537414966
+      },
+      {
+        "kind": "variant",
+        "cue": "shield-metal",
+        "variant": 0,
+        "start": 31.247755102040816,
+        "duration": 0.2419954648526077
+      },
+      {
+        "kind": "variant",
+        "cue": "shield-metal",
+        "variant": 1,
+        "start": 31.709750566893423,
+        "duration": 0.37126984126984125
+      },
+      {
+        "kind": "variant",
+        "cue": "shield-metal",
+        "variant": 2,
+        "start": 32.30102040816326,
+        "duration": 0.3436281179138322
+      },
+      {
+        "kind": "variant",
+        "cue": "shield-wood",
+        "variant": 0,
+        "start": 32.86464852607709,
+        "duration": 0.38573696145124714
+      },
+      {
+        "kind": "variant",
+        "cue": "shield-wood",
+        "variant": 1,
+        "start": 33.47038548752834,
+        "duration": 0.39643990929705214
+      },
+      {
+        "kind": "variant",
+        "cue": "shield-wood",
+        "variant": 2,
+        "start": 34.08682539682539,
+        "duration": 0.3027437641723356
+      },
+      {
+        "kind": "variant",
+        "cue": "wood-contact",
+        "variant": 0,
+        "start": 34.60956916099772,
+        "duration": 0.19580498866213153
+      },
+      {
+        "kind": "variant",
+        "cue": "wood-contact",
+        "variant": 1,
+        "start": 35.025374149659854,
+        "duration": 0.20312925170068027
+      },
+      {
+        "kind": "variant",
+        "cue": "wood-contact",
+        "variant": 2,
+        "start": 35.44850340136053,
+        "duration": 0.1927891156462585
+      },
+      {
+        "kind": "variant",
+        "cue": "latex-rub",
+        "variant": 0,
+        "start": 35.86129251700679,
+        "duration": 0.2885034013605442
+      },
+      {
+        "kind": "variant",
+        "cue": "latex-rub",
+        "variant": 1,
+        "start": 36.36979591836733,
+        "duration": 0.43
+      },
+      {
+        "kind": "variant",
+        "cue": "latex-rub",
+        "variant": 2,
+        "start": 37.01979591836733,
+        "duration": 0.21591836734693878
+      },
+      {
+        "kind": "variant",
+        "cue": "footstep-dry",
+        "variant": 0,
+        "start": 37.455714285714265,
+        "duration": 0.20560090702947845
+      },
+      {
+        "kind": "variant",
+        "cue": "footstep-dry",
+        "variant": 1,
+        "start": 37.88131519274374,
+        "duration": 0.2354875283446712
+      },
+      {
+        "kind": "variant",
+        "cue": "footstep-dry",
+        "variant": 2,
+        "start": 38.33680272108841,
+        "duration": 0.2947392290249433
+      },
+      {
+        "kind": "variant",
+        "cue": "footstep-wet",
+        "variant": 0,
+        "start": 38.85154195011335,
+        "duration": 0.28591836734693876
+      },
+      {
+        "kind": "variant",
+        "cue": "footstep-wet",
+        "variant": 1,
+        "start": 39.35746031746029,
+        "duration": 0.330702947845805
+      },
+      {
+        "kind": "variant",
+        "cue": "footstep-wet",
+        "variant": 2,
+        "start": 39.908163265306094,
+        "duration": 0.4309750566893424
+      },
+      {
+        "kind": "variant",
+        "cue": "water-burst",
+        "variant": 0,
+        "start": 40.559138321995434,
+        "duration": 1.1313378684807256
+      },
+      {
+        "kind": "variant",
+        "cue": "water-burst",
+        "variant": 1,
+        "start": 41.91047619047616,
+        "duration": 0.54
+      },
+      {
+        "kind": "variant",
+        "cue": "water-burst",
+        "variant": 2,
+        "start": 42.67047619047616,
+        "duration": 0.81
+      },
+      {
+        "kind": "variant",
+        "cue": "blade-swish",
+        "variant": 0,
+        "start": 43.70047619047616,
+        "duration": 0.26988662131519275
+      },
+      {
+        "kind": "variant",
+        "cue": "blade-swish",
+        "variant": 1,
+        "start": 44.19036281179135,
+        "duration": 0.3176643990929705
+      },
+      {
+        "kind": "variant",
+        "cue": "blade-swish",
+        "variant": 2,
+        "start": 44.72802721088432,
+        "duration": 0.13802721088435374
+      },
+      {
+        "kind": "burst-layer-mix",
+        "variant": 0,
+        "start": 45.08605442176867,
+        "duration": 1.1713378684807256,
+        "note": "Existing pre-master cue gains and delays for relativeSpeed=2; playback-rate variation omitted for dry asset audition. No new invented impact."
+      },
+      {
+        "kind": "burst-layer-mix",
+        "variant": 1,
+        "start": 46.6573922902494,
+        "duration": 0.58,
+        "note": "Existing pre-master cue gains and delays for relativeSpeed=2; playback-rate variation omitted for dry asset audition. No new invented impact."
+      },
+      {
+        "kind": "burst-layer-mix",
+        "variant": 2,
+        "start": 47.637392290249394,
+        "duration": 0.85,
+        "note": "Existing pre-master cue gains and delays for relativeSpeed=2; playback-rate variation omitted for dry asset audition. No new invented impact."
+      }
+    ]
+  }
+}

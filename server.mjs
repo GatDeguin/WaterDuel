@@ -86,7 +86,7 @@ function svgQR(value) {
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n+8} ${n+8}" shape-rendering="crispEdges" role="img" aria-label="QR de conexión"><rect width="100%" height="100%" fill="#fff"/><path fill="#17282B" d="${blocks}"/></svg>`;
 }
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.json':'application/json'};
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.json':'application/json','.wav':'audio/wav'};
 const requestHandler=(req,res)=>{
   let url;
   try{url=new URL(req.url,`${req.socket.encrypted?'https':'http'}://${req.headers.host || 'localhost'}`)} catch {return respond(res,400,'text/plain','Bad request');}

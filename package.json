@@ -1,6 +1,6 @@
 {
   "name": "water-duel",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Duelo volumétrico de marionetas 3D con látex dinámico, agua y mandos LAN por QR",
   "type": "module",
   "private": true,
