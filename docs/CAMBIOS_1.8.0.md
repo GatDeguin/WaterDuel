@@ -33,6 +33,20 @@ ataques comprometidos. Una finta no dispara una reacción pendiente desde una
 observación vieja; retomar la aproximación reinicia su demora sin volver a sortear.
 El daño posterior al disparo no aumenta la duración máxima de guardia.
 
+La altura de intercepción usa la mano defensiva observada en el mundo: mover el
+cuello no desplaza el plano del escudo. Una aproximación curva puede completar
+una reacción ya iniciada durante un puente menor de 0,15 s, con movimiento actual
+finito y corredor Z compatible. Ese puente nunca inicia episodios ni prolonga
+la guardia. Retirada, pérdida de observación o salida de profundidad lo vetan
+hasta adquirir otra amenaza proyectada y cumplir de nuevo la reacción.
+
+La preparación de estocadas de los estilos de IA también comprueba el alcance
+observado en XYZ. La distancia XY por sí sola podía habilitar ataques que aún
+quedaban fuera de la sección del globo a esa profundidad. Esta decisión sólo
+produce intención de ataque; el contacto barrido sigue decidiendo el pinchazo.
+Conserva la longitud de estocada del modelo planar actual; la profundidad se
+incluye al comprobar el segmento contra el volumen observado del globo.
+
 ## Colisiones de agua
 
 El avance conservador de la colisión entre agua y sólidos reutiliza un registro

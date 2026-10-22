@@ -409,7 +409,14 @@ export class DuelEngine{
       const pulseLength=(weapon.length+weapon.lungeReach*Math.exp(-STEP*weapon.lungeDecay)+weapon.extension)*(f.boss?1.05:1);
       const x=hand.x+(blade.x-hand.x)/length*pulseLength,y=hand.y+(blade.y-hand.y)/length*pulseLength;
       const rx=BALLOON_RADII.x*sensed.balloonSize,ry=BALLOON_RADII.y*sensed.balloonSize;
-      ai.projectedReach=pointSegDist(0,0,(hand.x-head.x)/rx,(hand.y-head.y)/ry,(x-head.x)/rx,(y-head.y)/ry);
+      // Reach is a decision from the observed head and our own blade, not a
+      // physical hit oracle. Depth reduces the reachable balloon cross-section.
+      const rz=BALLOON_RADII.z*sensed.balloonSize,handZ=hand.z??.17;
+      const z=handZ+((blade.z??.17)-handZ)/length*pulseLength;
+      const ax=(hand.x-head.x)/rx,ay=(hand.y-head.y)/ry,az=(handZ-(head.z??.025))/rz;
+      const bx=(x-head.x)/rx,by=(y-head.y)/ry,bz=(z-(head.z??.025))/rz;
+      const dx=bx-ax,dy=by-ay,dz=bz-az,t=clamp(-(ax*dx+ay*dy+az*dz)/(dx*dx+dy*dy+dz*dz||1),0,1);
+      ai.projectedReach=Math.hypot(ax+dx*t,ay+dy*t,az+dz*t);
       ai.readyToThrust=ai.projectedReach<=1;
     }
     // Follow through after visibly committing the preparation. A passive blade

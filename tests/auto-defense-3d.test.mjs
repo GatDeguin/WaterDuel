@@ -48,11 +48,47 @@ test('un cruce oblicuo cercano al borde respeta los radios XYZ distintos del glo
   }
 });
 
+test('la altura de intercepción sigue la mano defensiva observada y no traslada su plano con el cuello',()=>{
+  const forward=defender(),rear=defender();forward.pose.offHand={x:.55,y:2.3,z:.1};rear.pose.offHand={x:.3,y:2.3,z:.1};
+  const target=moving(forward,{y:2.5,vy:.8}),a=run(forward,target),b=run(rear,target);
+  assert.ok(a.first>=0&&b.first>=0);assert.ok(a.outputs[a.first].offY<b.outputs[b.first].offY,'un arma ascendente llega antes a la mano situada adelante');
+  const shifted=structuredClone(forward);shifted.previousHead={...shifted.pose.head,x:shifted.pose.head.x-.01};
+  const c=run(shifted,target);assert.ok(c.first>=0);assert.equal(c.outputs[c.first].offY,a.outputs[a.first].offY,'mover el cuello cambia el riesgo, no el plano mundial de la mano');
+});
+
 test('una finta abandonada antes de reaccionar no dispara desde una observación antigua',()=>{
   const f=defender(),assist=new AutoDefense({seed:5}),target=moving(f);
   for(let i=0;i<14;i++)assert.equal(assist.update(f,target,input(),DT).guard,false);
   const retreat=moving(f,{vx:3.6*f.dir});
   for(let i=0;i<60;i++)assert.equal(assist.update(f,retreat,input(),DT).guard,false);
+});
+
+test('la curvatura XY breve conserva reacción sólo mientras la punta sigue aproximándose en profundidad compatible',()=>{
+  const f=defender(),assist=new AutoDefense({seed:5}),target=moving(f);
+  for(let i=0;i<14;i++)assert.equal(assist.update(f,target,input(),DT).guard,false);
+  const random=assist.snapshot().random,curve=moving(f,{vy:7.5});let guarded=false;
+  for(let i=0;i<12;i++)guarded||=assist.update(f,curve,input(),DT).guard;
+  assert.equal(guarded,true,'la proyección curva no borra una aproximación observable de hace menos de .15 s');assert.equal(assist.snapshot().random,random);
+  const fresh=run(f,curve);assert.equal(fresh.first,-1,'una mera aproximación que no cruza el globo nunca inicia episodio');assert.equal(fresh.assist.snapshot().episode,0);
+});
+
+test('la memoria breve no dispara ante salida Z, pérdida de observación o una aproximación no confirmada durante .15 s',()=>{
+  for(const kind of ['depth','lost','expired']){
+    const f=defender(),assist=new AutoDefense({seed:5}),target=moving(f);
+    const ticks=kind==='expired'?1:14;for(let i=0;i<ticks;i++)assist.update(f,target,input(),DT);
+    const next=kind==='depth'?moving(f,{z:.25,vz:3.6}):kind==='lost'?{pose:{},previousTip:target.previousTip}:moving(f,{vy:7.5});
+    for(let i=0;i<70;i++)assert.equal(assist.update(f,next,input(),DT).guard,false,kind);
+  }
+});
+
+test('una interrupción real veta el puente hasta reacquirir otra amenaza proyectada',()=>{
+  for(const kind of ['retreat','lost','depth']){
+    const f=defender(),assist=new AutoDefense({seed:5}),target=moving(f);
+    for(let i=0;i<14;i++)assist.update(f,target,input(),DT);
+    const stop=kind==='retreat'?moving(f,{vx:3.6}):kind==='lost'?{pose:{},previousTip:target.previousTip}:moving(f,{z:.25,vz:3.6});
+    assert.equal(assist.update(f,stop,input(),DT).guard,false);
+    for(let i=0;i<14;i++)assert.equal(assist.update(f,moving(f,{vy:7.5}),input(),DT).guard,false,kind);
+  }
 });
 
 test('retomar la amenaza después de una finta requiere otra observación sostenida sin volver a sortear',()=>{

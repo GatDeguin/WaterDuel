@@ -2,7 +2,7 @@ import {getDefense} from './equipment.js';
 import {BALLOON_RADII} from './physics/dimensions.js';
 import {bodyAttached,weaponActor} from './physics/limb-state.js';
 
-export const AUTO_DEFENSE=Object.freeze({attemptChance:.70,reactionMin:.15,reactionMax:.25,guardSeconds:.40,cooldown:.65,damageReaction:.18,damageAttemptPenalty:.55});
+export const AUTO_DEFENSE=Object.freeze({attemptChance:.70,reactionMin:.15,reactionMax:.25,guardSeconds:.40,cooldown:.65,damageReaction:.18,damageAttemptPenalty:.55,memorySeconds:.15});
 const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
 function mix(seed){let x=seed>>>0;x^=x>>>16;x=Math.imul(x,0x7feb352d);x^=x>>>15;x=Math.imul(x,0x846ca68b);return (x^(x>>>16))>>>0;}
 function observedThreat(fighter,opponent,dt){
@@ -21,10 +21,15 @@ function observedThreat(fighter,opponent,dt){
   // relative XYZ in ellipsoid space so depth motion and an escaping head count.
   const qx=dx/rx,qy=dy/ry,qz=dz/rz,ux=rxv/rx,uy=ryv/ry,uz=rzv/rz;
   const time=clamp((qx*ux+qy*uy+qz*uz)/(ux*ux+uy*uy+uz*uz),0,.55);
-  if((qx-ux*time)**2+(qy-uy*time)**2+(qz-uz*time)**2>1)return null;
-  // Predict the height at the shield's front plane using observed motion only.
-  const front=head.x+fighter.dir*.20,t=Math.abs(rxv)>.1?clamp((front-tip.x)/rxv,0,.45):time;
-  return {height:tip.y+vy*t};
+  const threat=(qx-ux*time)**2+(qy-uy*time)**2+(qz-uz*time)**2<=1;
+  // Risk follows the head, but interception follows the actual guard hand in
+  // world space. A moving neck must not move the shield's plane or mix frames.
+  const front=Number.isFinite(fighter.pose?.offHand?.x)?fighter.pose.offHand.x:head.x+fighter.dir*.20;
+  const t=Math.abs(vx)>.1?clamp((front-tip.x)/vx,0,.45):time;
+  // A curved XY approach may briefly leave the linear projection. Preserve
+  // that observation only while its whole short Z corridor remains compatible.
+  const depthMemory=Math.abs(dz)+Math.abs(rzv)*AUTO_DEFENSE.memorySeconds<=rz;
+  return {height:tip.y+vy*t,threat,depthMemory};
 }
 
 function defenseDamage(fighter){
@@ -36,18 +41,20 @@ function defenseDamage(fighter){
 /** Deterministic human assistance. This class never resolves or predicts a hit. */
 export class AutoDefense{
   constructor({seed=1}={}){this.seed=seed>>>0;this.reset();}
-  reset(){this.random=mix(this.seed)||0x6d2b79f5;this.elapsed=0;this.episode=0;this.tracking=false;this.attempt=false;this.started=0;this.reaction=0;this.reactionBase=0;this.attemptRoll=0;this.quiet=0;this.fired=false;this.guardUntil=0;this.cooldown=0;this.height=0;}
+  reset(){this.random=mix(this.seed)||0x6d2b79f5;this.elapsed=0;this.episode=0;this.tracking=false;this.attempt=false;this.started=0;this.reaction=0;this.reactionBase=0;this.attemptRoll=0;this.quiet=0;this.interrupted=false;this.fired=false;this.guardUntil=0;this.cooldown=0;this.height=0;}
   next(){let x=this.random;x^=x<<13;x^=x>>>17;x^=x<<5;this.random=x>>>0;return this.random/4294967296;}
-  snapshot(){return {seed:this.seed,random:this.random,elapsed:this.elapsed,episode:this.episode,tracking:this.tracking,attempt:this.attempt,reaction:this.reaction,reactionBase:this.reactionBase,attemptRoll:this.attemptRoll,quiet:this.quiet,fired:this.fired,guardUntil:this.guardUntil,cooldown:this.cooldown};}
+  snapshot(){return {seed:this.seed,random:this.random,elapsed:this.elapsed,episode:this.episode,tracking:this.tracking,attempt:this.attempt,reaction:this.reaction,reactionBase:this.reactionBase,attemptRoll:this.attemptRoll,quiet:this.quiet,interrupted:this.interrupted,fired:this.fired,guardUntil:this.guardUntil,cooldown:this.cooldown};}
   update(fighter,opponent,control,dt){
     if(!Number.isFinite(dt)||dt<=0||dt>.04)return control;
     this.elapsed+=dt;this.cooldown=Math.max(0,this.cooldown-dt);
-    const observed=observedThreat(fighter,opponent,dt);
-    if(observed&&this.quiet>0&&this.tracking&&!this.fired)this.started=this.elapsed;
+    const approach=observedThreat(fighter,opponent,dt),observed=approach?.threat?approach:null;
+    if(observed&&this.interrupted&&this.tracking&&!this.fired)this.started=this.elapsed;
     this.quiet=observed?0:this.quiet+dt;if(observed)this.height=observed.height;
+    const continuing=!this.interrupted&&!!approach?.depthMemory&&this.quiet<AUTO_DEFENSE.memorySeconds;
+    if(observed)this.interrupted=false;else if(!continuing)this.interrupted=true;
     if(this.quiet>.30&&this.elapsed>=this.guardUntil)this.tracking=false;
     if(observed&&!this.tracking&&this.cooldown<=0){
-      this.tracking=true;this.episode++;this.started=this.elapsed;this.fired=false;
+      this.tracking=true;this.episode++;this.started=this.elapsed;this.fired=false;this.interrupted=false;
       this.attemptRoll=this.next();
       this.reactionBase=AUTO_DEFENSE.reactionMin+this.next()*(AUTO_DEFENSE.reactionMax-AUTO_DEFENSE.reactionMin);
     }
@@ -58,7 +65,7 @@ export class AutoDefense{
     const committed=fighter.lunge>.21||control.thrust||control.attackHeld===true&&fighter.lungeCool<=dt;
     const holding=this.fired&&this.elapsed<this.guardUntil;
     const available=bodyAttached(fighter,'offForearm')&&fighter.globIntact&&equipped&&!fighter.guardBroken&&fighter.guardEnergy>(holding?0:.35);
-    if(observed&&this.tracking&&this.attempt&&!this.fired&&this.elapsed-this.started>=this.reaction&&available&&!committed){
+    if((observed||continuing)&&this.tracking&&this.attempt&&!this.fired&&this.elapsed-this.started>=this.reaction&&available&&!committed){
       this.fired=true;this.guardUntil=this.elapsed+AUTO_DEFENSE.guardSeconds;this.cooldown=AUTO_DEFENSE.cooldown;
     }
     // A reacting arm must not retract while the same observed point is still
