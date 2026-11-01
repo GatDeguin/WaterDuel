@@ -1,0 +1,14 @@
+{
+  "scope": "Isolated CPU projection of new real GLB contact marks; not whole-render, GPU or FPS",
+  "referenceSHA": "596af1bdcd1ca980979ddf1853e764073f20b6164e7cd03d5c7381b417238d2b",
+  "candidateSHA": "70d45960934b3335b5bf44c650650e2db22baa003d7e2a9fbdc28c91973b5298",
+  "corpusCases": 378,
+  "timedCases": 42,
+  "oracleSHA": "c073cbbe0bdf9af6b49bf44043b2c4e9262860201a4e142c5b16e6c3432e26b3",
+  "baselineMedianMs": 1581.5762000000004,
+  "candidateMedianMs": 95.28174999999965,
+  "medianImprovementPercent": 93.9488316588821,
+  "aaMedianPercent": 2.6257718546383275,
+  "aaMaxPercent": 24.740908741779393,
+  "summaryMethod": "Conventional median: average the two central values for eight measurements; original samples unchanged."
+}

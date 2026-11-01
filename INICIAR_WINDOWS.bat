@@ -20,9 +20,10 @@ echo.
 echo Los celulares ingresan escaneando J1/J2 en las esquinas de la arena.
 echo En la PC se ve la escena y los QR. Todas las opciones estan en MENU del movil.
 echo La consola anunciara las direcciones cuando TLS y el servidor esten listos.
+echo La arena se abrira en Google Chrome a pantalla completa al estar lista.
 echo No cierres esta ventana mientras quieras jugar.
 echo.
-"%WATERDUEL_NODE%" "%~dp0scripts\windows-start.mjs" %*
+"%WATERDUEL_NODE%" "%~dp0scripts\windows-start.mjs" --chrome %*
 if errorlevel 1 goto failed
 exit /b 0
 :failed

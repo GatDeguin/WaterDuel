@@ -5,6 +5,7 @@ import {promisify} from 'node:util';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {loadLocalHTTPS,canonicalPublicURL} from './local-https.mjs';
 import {lanAddresses} from './network-addresses.mjs';
+import {openArenaInChrome} from './open-chrome.mjs';
 
 const execute=promisify(execFile);
 const ROOT=fileURLToPath(new URL('..',import.meta.url));
@@ -88,14 +89,18 @@ export async function preflightWindowsStart({root=ROOT,env=process.env,nodeVersi
   return {...result,tls:'prepared',powerShell:powerShell.path};
 }
 
-export async function startWindows({check=false,...options}={},dependencies={}){
+export async function startWindows({check=false,openChrome=false,...options}={},dependencies={}){
   const sourceEnvironment=options.env||process.env;
   const env={...sourceEnvironment,HTTPS:sourceEnvironment.HTTPS==='0'?'0':'1'};
   const result=await preflightWindowsStart({...options,env},dependencies);
   if(!check){
     // The server validates TLS again. Missing files at that boundary must stay fatal.
     process.env.HTTPS=env.HTTPS;
-    await (dependencies.importServer||(url=>import(url)))(pathToFileURL(path.join(options.root||ROOT,'server.mjs')).href,{env});
+    const server=await (dependencies.importServer||(url=>import(url)))(pathToFileURL(path.join(options.root||ROOT,'server.mjs')).href,{env});
+    if(openChrome){
+      if(server?.arenaStartup?.ready!==true)throw failure('SERVER_NOT_READY','La arena no está lista; no se abrirá Chrome.');
+      result.browser=await (dependencies.openChrome||openArenaInChrome)(server.arenaStartup.url,{env});
+    }
   }
   return result;
 }
@@ -103,12 +108,14 @@ export async function startWindows({check=false,...options}={},dependencies={}){
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   try{
     const args=process.argv.slice(2);
-    if(args.length>1||args.some(arg=>arg!=='--check'))throw new Error('Uso: node scripts/windows-start.mjs [--check]');
-    const result=await startWindows({check:args.includes('--check')});
+    if(args.length>2||new Set(args).size!==args.length||args.some(arg=>!['--check','--chrome'].includes(arg)))throw new Error('Uso: node scripts/windows-start.mjs [--check] [--chrome]');
+    const result=await startWindows({check:args.includes('--check'),openChrome:args.includes('--chrome')});
     if(args.includes('--check')){
       console.log(`Node.js ${result.nodeVersion} · ${result.execPath}`);
       console.log(result.tls==='disabled'?'HTTP explícito (HTTPS=0).':result.tls==='reused'?'TLS existente validado; no se regeneraron certificados.':'TLS local preparado y validado; confianza del sistema sin cambios.');
       console.log('Comprobación terminada sin iniciar el servidor.');
+    }else if(result.browser){
+      console.log(result.browser.opened?'  Arena abierta en Google Chrome.':`  No se pudo abrir Google Chrome automáticamente. La arena sigue activa: ${result.browser.url}`);
     }
   }catch(error){console.error('No se inicia WaterDuel: '+error.message);process.exitCode=1;}
 }

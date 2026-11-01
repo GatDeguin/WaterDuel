@@ -1041,7 +1041,11 @@ export class ArticulatedRig{
         if(depth>1e-6){const index=out.findIndex(o=>o.keyA===c.keyA&&o.keyB===c.keyB),current={...c,pointA,pointB,penetration:depth};if(index>=0)out[index]=current;else out.push(current);}
       }
       if(headRadiiA&&headRadiiB){
-        const p=a.pose().head,q=b.pose().head,rx=headRadiiA.x+headRadiiB.x,ry=headRadiiA.y+headRadiiB.y,rz=headRadiiA.z+headRadiiB.z;
+        // Collision already owns both current kinematic states. A presentation
+        // pose also copies cloth, damage and surface marks; none is needed here.
+        const p={x:as.points.head.x,y:as.points.head.y,z:a.depth.head+REFERENCE_STANCE.neck*a.scale*Math.sin(a.neckLateral.angle)},
+          q={x:bs.points.head.x,y:bs.points.head.y,z:b.depth.head+REFERENCE_STANCE.neck*b.scale*Math.sin(b.neckLateral.angle)},
+          rx=headRadiiA.x+headRadiiB.x,ry=headRadiiA.y+headRadiiB.y,rz=headRadiiA.z+headRadiiB.z;
         const yz=((q.y-p.y)/ry)**2+((q.z-p.z)/rz)**2,required=rx*Math.sqrt(Math.max(0,1-yz)),dx=q.x-p.x;
         if(yz<1&&Math.abs(dx)<required)out.push({a:'neck',b:'neck',keyA:'head',keyB:'head',normal:{x:dx<0?-1:1,y:0},penetration:required-Math.abs(dx),pointA:p,pointB:q,head:true});
       }

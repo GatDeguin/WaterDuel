@@ -25,7 +25,8 @@ import {bodyForBone,bodyVisible,equipmentBody,jointMarks,rigidRenderer,drawParti
 import {SHEEN_GLSL} from './rendering/sheen.js';
 import {prepareWorkshopLights} from './rendering/workshop-lights.js';
 import {prepareWorkshopMotion,splitWorkshopMotionAsset,environmentPartMatrix} from './rendering/workshop-motion.js';
-import {cinematicCamera as duelCamera,burstCameraFocus} from './rendering/cinematic-camera.js';
+import {roomCamera as duelCamera,burstCameraFocus} from './rendering/room-camera.js';
+import {loadWorkshopSurroundings,completeWorkshopLighting} from './rendering/workshop-surroundings.js';
 import {effectBatches,EFFECT_LIMITS} from './workshop-effects.js';
 import {balloonPalette} from './opponent-loadouts.js';
 import {apronSurfaceOverride,apronProceduralColor} from './rendering/apron-color.js';
@@ -580,7 +581,7 @@ export class Renderer3D {
           const batched=batchRigidCharacter(prepared,source.materials);
           if(batched.parts.length<prepared.parts.length)prepared=batched;
         }
-        let lightingPresets=null,motion=null,uploadSource=source,batchStats=null;
+        let lightingPresets=null,motion=null,uploadSource=source,batchStats=null,surroundings=null;
         if(job.kind==='environment'){
           const response=await fetch(runtimeAsset('environment/workshop/asset-contract-v3.json'),{signal:this.assetAbort.signal});
           if(!response.ok)throw Error('No se pudo leer el contrato de luces del taller.');
@@ -591,8 +592,21 @@ export class Renderer3D {
           const framesResponse=await fetch(runtimeAsset('environment/workshop/light-directions.json'),{signal:this.assetAbort.signal});
           if(!framesResponse.ok)throw Error('No se pudo leer la orientación de luces del taller.');
           const frames=await framesResponse.json();
+          let lightingContract=contract,lightingFrames=frames;
+          try{
+            const completion=await loadWorkshopSurroundings(runtimeAsset('environment/workshop/'),{signal:this.assetAbort.signal});
+            if(this.disposed)return;
+            const merged=completeWorkshopLighting(contract,frames,completion.contract);
+            for(const arena of ['atelier','midnight','dojo'])prepareWorkshopLights(merged.contract,arena,merged.frames);
+            const completedGPU=await this.assetGPU.upload(completion.source);
+            surroundings={gpu:completedGPU,contract:completion.contract,batchStats:completion.source.batchStats};
+            lightingContract=merged.contract;lightingFrames=merged.frames;
+          }catch(error){
+            if(this.disposed)return;
+            this.assetStatus.errors.push('No se pudo completar el taller 360°. Se conserva el taller principal.');console.error(error);
+          }
           lightingPresets=Object.fromEntries(['atelier','midnight','dojo'].map(arena=>{
-            const lights=prepareWorkshopLights(contract,arena,frames);
+            const lights=prepareWorkshopLights(lightingContract,arena,lightingFrames);
             // Raster staging: give the front softboxes enough return to reveal
             // wood and brass against the bright windows. Keep source positions,
             // colors and practical lamps; these gains are artistic, not watts.
@@ -607,7 +621,7 @@ export class Renderer3D {
         if(this.disposed)return;
         if(job.kind==='character')this.assetScene.characters[job.key]={prepared,gpu};
         else if(job.kind==='equipment')this.assetScene.equipment[job.key]={prepared,gpu};
-        else this.assetScene.environment={gpu,transform:I(),lightingPresets,motion,batchStats};
+        else this.assetScene.environment={gpu,transform:I(),lightingPresets,motion,batchStats,surroundings};
         this.assetStatus.ready++;this.assetStatus.names.push(job.label);this.environment.key=null;
       }catch(error){if(this.disposed)return;this.assetStatus.errors.push(`No se pudo cargar ${job.label}. Se usa su representación procedural.`);console.error(error);}
       publish();
@@ -712,9 +726,10 @@ export class Renderer3D {
  }
  drawArena(game,t){
   if(this.assetScene.environment){
-    const {gpu,transform,motion}=this.assetScene.environment;
+    const {gpu,transform,motion,surroundings}=this.assetScene.environment;
     const tint=game.arena==='midnight'?[.33,.54,.68]:game.arena==='dojo'?[1.24,1.14,.94]:[1,1,1];
     for(const part of gpu.parts){const matrix=environmentPartMatrix(part,motion,game.clock??t,{staticCapture:!!this.staticShadowPass});if(matrix)this.assetPart(gpu,part,mul(transform,matrix),{tint});}
+    if(surroundings)for(const part of surroundings.gpu.parts)this.assetPart(surroundings.gpu,part,part.worldMatrix,{tint});
     for(let i=0;i<2;i++){const wet=game.puddleStrength?.[i]||0;if(wet>.001)this.sphere(i===0?-1.55:1.55,.341,.32,.5+wet*.8,.006,.3+wet*.45,0x62a5a8,19,.09*wet);}
     return;
   }
@@ -1187,6 +1202,7 @@ export class Renderer3D {
   this.stats.assets={...this.assetStatus,gpuBytesApprox:this.assetGPU.bytes};this.stats.streaming={...this.floatStream.stats};
   if(this.prepared)this.stats.preparation={...this.preparation,lateGpuAllocations:this.floatStream.stats.allocations-this.preparation.gpuAllocations};
   this.stats.batches=this.assetScene.environment?.batchStats??null;
+  this.stats.surroundings=this.assetScene.environment?.surroundings?.batchStats??null;
   // Loading is an atomic presentation boundary: partial detailed models never
   // replace visible procedural versions one by one. Failures settle before
   // showing their permanent fallback, with no desktop loading interface.
@@ -1212,7 +1228,7 @@ export class Renderer3D {
   const aspect=this.width/this.height;
   this.cameraMotionPreference??=globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')??{matches:false};
   const camera=duelCamera({phase:game.phase,phaseClock:game.phaseClock,clock:game.clock,round:game.round,replay:game.replay,
-    cameraMode:game.cameraMode,aspect,reducedMotion:game.reducedMotion??this.cameraMotionPreference.matches,burstFocus:burstCameraFocus(game)});
+    cameraMode:game.cameraMode,aspect,reducedMotion:game.reducedMotion??this.cameraMotionPreference.matches,burstFocus:burstCameraFocus(game),roomInterior:this.assetScene.environment?.surroundings?.contract.cameraInterior});
   const {eye,target,fov}=camera;this.stats.camera={...camera,aspect};
   gl.uniform2f(U.uOpticalPlanes,camera.near,camera.far);
   const vp=mul(perspective(fov,aspect,camera.near,camera.far),lookAt(eye,target,[0,1,0]));

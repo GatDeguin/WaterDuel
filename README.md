@@ -4,6 +4,12 @@
 
 En móvil, Pages abre la experiencia individual con los dos joysticks y el menú ☰. En PC conserva la escena sin mandos ni menús. Para jugar en PC con los QR y dos móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo: Pages no ejecuta el servidor de sesiones. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Taller 360° y contactos 1.11.0
+
+El taller incorpora frente, laterales, techo, suelo y mobiliario para los nuevos ángulos de cámara: 10,54 MB, 14 batches y 33.420 triángulos, con las texturas originales exactas. La cámara permanece dentro de la sala y adapta el campo visual en pantallas estrechas. El lanzador `.bat` abre Chrome a pantalla completa con la escena y los QR cuando la arena está lista; `--check` comprueba sin abrirla, y un fallo del navegador deja la arena activa.
+
+La proyección de marcas nuevas reduce un 93,95 % su CPU aislada en ocho comparaciones ABBA, con 378 casos exactos. La optimización de contactos reduce un 5,17 % el tiempo del motor en cuatro ABBA, conservando 1.013 pasos físicos. Cada cifra corresponde a su propio escenario de medición; **60 FPS sostenidos siguen sin certificarse**. [Cambios, mediciones y alcance](docs/CAMBIOS_1.11.0.md).
+
 ## Duelo y sonido 1.10.0
 
 Los duelos comienzan con una separación de 3,8 unidades; contra el Maestro Hidráulico, de 4,0. La apertura se restaura en cada ronda y el filo del hacha mira hacia el rival en ambos jugadores. Se conserva la IA histórica y su ventana de contraataque. La música usa la intro y las tres batallas de `music`, con continuidad entre rondas.

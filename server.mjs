@@ -311,3 +311,4 @@ try{
   console.error(`No se pudo iniciar la arena (${error.code||'SERVER_ERROR'}). Revisá los puertos HTTP/HTTPS configurados.`);
   server.close();secureServer?.close();process.exitCode=1;
 }
+export const arenaStartup=Object.freeze({ready:server.listening&&(!secureServer||secureServer.listening),url:`http://localhost:${PORT}/?view=desktop`});

@@ -10,20 +10,28 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const finite=(v,fallback=0)=>Number.isFinite(v)?v:fallback;
 const dot=(p,n)=>p.x*n.x+p.y*n.y;
 const panels=rig=>rig.collisionPanels().filter(p=>p.body==='weapon'&&p.material!=='wood');
-const project=(p,n)=>{const a=p.vertices.map(v=>dot(v,n));return {min:Math.min(...a),max:Math.max(...a)};};
-const half=(p,axis)=>Math.max(...p.vertices.map(v=>Math.abs(dot({x:v.x-p.center.x,y:v.y-p.center.y},axis))));
+const project=(p,n)=>{
+  let min=Infinity,max=-Infinity;for(const v of p.vertices){const value=dot(v,n);min=Math.min(min,value);max=Math.max(max,value);}return {min,max};
+};
+const half=(p,axis)=>{
+  let extent=-Infinity;for(const v of p.vertices)extent=Math.max(extent,Math.abs((v.x-p.center.x)*axis.x+(v.y-p.center.y)*axis.y));return extent;
+};
 const anchor=(p,v)=>p.axes.map(axis=>dot({x:v.x-p.center.x,y:v.y-p.center.y},axis)/Math.max(half(p,axis),1e-9));
-const located=(p,uv)=>({x:p.center.x+p.axes.reduce((s,n,i)=>s+n.x*uv[i]*half(p,n),0),
-  y:p.center.y+p.axes.reduce((s,n,i)=>s+n.y*uv[i]*half(p,n),0),z:p.z});
-const support=(p,n,tangent,coordinate)=>{
-  const extent=project(p,n).max,face=p.vertices.filter(v=>extent-dot(v,n)<1e-7),along=face.map(v=>dot(v,tangent));
-  const t=clamp(coordinate,Math.min(...along),Math.max(...along));
-  return {x:n.x*extent+tangent.x*t,y:n.y*extent+tangent.y*t};
+const located=(p,uv)=>{
+  let x=0,y=0;for(let i=0;i<p.axes.length;i++){const n=p.axes[i],extent=half(p,n);x+=n.x*uv[i]*extent;y+=n.y*uv[i]*extent;}return {x:p.center.x+x,y:p.center.y+y,z:p.z};
+};
+const supportFace=(p,n,tangent)=>{
+  const extent=project(p,n).max;let min=Infinity,max=-Infinity;
+  for(const v of p.vertices)if(extent-dot(v,n)<1e-7){const value=dot(v,tangent);min=Math.min(min,value);max=Math.max(max,value);}return {extent,min,max};
+};
+const support=(face,n,tangent,coordinate)=>{
+  const t=clamp(coordinate,face.min,face.max);return {x:n.x*face.extent+tangent.x*t,y:n.y*face.extent+tangent.y*t};
 };
 
 function separation(a,b,dir=1){
   let gap=-Infinity,normal;
-  for(const axis of [...a.axes,...b.axes]){
+  for(let i=0;i<a.axes.length+b.axes.length;i++){
+    const axis=i<a.axes.length?a.axes[i]:b.axes[i-a.axes.length];
     let n=axis;const facing=dot({x:b.center.x-a.center.x,y:b.center.y-a.center.y},n);
     if(facing< -1e-12||(Math.abs(facing)<1e-12&&(n.x*dir< -1e-12||(Math.abs(n.x)<1e-12&&n.y<0))))n={x:-n.x,y:-n.y};
     const A=project(a,n),B=project(b,n),g=B.min-A.max;
@@ -35,12 +43,10 @@ function separation(a,b,dir=1){
 
 function manifold(a,b,normal){
   const tangent={x:-normal.y,y:normal.x},reverse={x:-normal.x,y:-normal.y};
-  const extentA=project(a,normal).max,extentB=project(b,reverse).max;
-  const faceA=a.vertices.filter(v=>extentA-dot(v,normal)<1e-7).map(v=>dot(v,tangent));
-  const faceB=b.vertices.filter(v=>extentB-dot(v,reverse)<1e-7).map(v=>dot(v,tangent));
-  const along=(Math.max(Math.min(...faceA),Math.min(...faceB))+Math.min(Math.max(...faceA),Math.max(...faceB)))/2;
+  const faceA=supportFace(a,normal,tangent),faceB=supportFace(b,reverse,tangent);
+  const along=(Math.max(faceA.min,faceB.min)+Math.min(faceA.max,faceB.max))/2;
   const z=(Math.max(a.z-a.depth/2,b.z-b.depth/2)+Math.min(a.z+a.depth/2,b.z+b.depth/2))/2;
-  return {pointA:{...support(a,normal,tangent,along),z},pointB:{...support(b,reverse,tangent,along),z}};
+  return {pointA:{...support(faceA,normal,tangent,along),z},pointB:{...support(faceB,reverse,tangent,along),z}};
 }
 
 // Bound on travel of any material point over this step. Every active weapon

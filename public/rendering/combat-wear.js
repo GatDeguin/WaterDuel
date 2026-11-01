@@ -29,11 +29,28 @@ function sources(geometry,mark){
   }
   return geometry.prepared&&geometry.matrices?[{prepared:geometry.prepared,matrices:geometry.matrices,materials:geometry.materials,kind:'character'}]:[];
 }
-function rayHit(origin,direction,a,b,c,maximum=.16){
-  const e=sub(b,a),f=sub(c,a),p=cross(direction,f),det=dot(e,p);if(Math.abs(det)<1e-12)return null;
-  const s=sub(origin,a),u=dot(s,p)/det;if(u<0||u>1)return null;
-  const q=cross(s,e),v=dot(direction,q)/det;if(v<0||u+v>1)return null;
-  const t=dot(f,q)/det;return t>=0&&t<=maximum?{u,v,t}:null;
+// Refill one scratch view per part, using the canonical deformation unchanged.
+// Indexed triangles share vertices; no cross-frame deformation is assumed.
+const projectionVertices=new WeakMap();
+function projectedPositions(part,deform){
+  if(!deform)return part.positions;
+  let result=projectionVertices.get(part);
+  if(!result||result.length!==part.positions.length){result=new Float64Array(part.positions.length);projectionVertices.set(part,result);}
+  for(let at=0;at<part.positions.length;at+=3){
+    const p=deformEquipmentPoint([part.positions[at],part.positions[at+1],part.positions[at+2]],deform);
+    result[at]=p[0];result[at+1]=p[1];result[at+2]=p[2];
+  }
+  return result;
+}
+function rayDistance(origin,direction,positions,ia,ib,ic,maximum){
+  const a=ia*3,b=ib*3,c=ic*3,ax=positions[a],ay=positions[a+1],az=positions[a+2];
+  const ex=positions[b]-ax,ey=positions[b+1]-ay,ez=positions[b+2]-az,fx=positions[c]-ax,fy=positions[c+1]-ay,fz=positions[c+2]-az;
+  const px=direction[1]*fz-direction[2]*fy,py=direction[2]*fx-direction[0]*fz,pz=direction[0]*fy-direction[1]*fx;
+  // Match dot's left-to-right accumulation, including its initial +0.
+  const det=0+ex*px+ey*py+ez*pz;if(Math.abs(det)<1e-12)return null;
+  const sx=origin[0]-ax,sy=origin[1]-ay,sz=origin[2]-az,u=(0+sx*px+sy*py+sz*pz)/det;if(u<0||u>1)return null;
+  const qx=sy*ez-sz*ey,qy=sz*ex-sx*ez,qz=sx*ey-sy*ex,v=(0+direction[0]*qx+direction[1]*qy+direction[2]*qz)/det;if(v<0||u+v>1)return null;
+  const t=(0+fx*qx+fy*qy+fz*qz)/det;return t>=0&&t<=maximum?t:null;
 }
 function barycentric(p,a,b,c){const e=sub(b,a),f=sub(c,a),d=sub(p,a),aa=dot(e,e),ab=dot(e,f),bb=dot(f,f),pa=dot(d,e),pb=dot(d,f),den=aa*bb-ab*ab;return [(bb*pa-ab*pb)/den,(aa*pb-ab*pa)/den];}
 function clipPatch(polygon){
@@ -50,16 +67,17 @@ function project(mark,geometry,oil=false){
     const part=source.prepared.parts[pi];if(source.kind==='character'&&bodyForBone(part.boneName)!==mark.body||part.accessory)continue;
     const material=materialOf(source,part);if(oil&&material!=='metal')continue;
     const deform=source.kind==='equipment'?source.transform:null,matrix=source.kind==='equipment'?(source.transform?.matrix??source.matrix):source.matrices[pi],inv=inverse(matrix);if(!inv)continue;
-    const from=point(inv,origin),ray=vector(inv,direction);
+    const from=point(inv,origin),ray=vector(inv,direction),positions=projectedPositions(part,deform);
     for(let at=0;at<part.indices.length;at+=3){
-      const indices=Array.from(part.indices.subarray(at,at+3)),local=indices.map(i=>vertex(part,i,deform)),hit=rayHit(from,ray,...local,oil?.24:.16);if(!hit||best&&hit.t>=best.distance)continue;
+      const ia=part.indices[at],ib=part.indices[at+1],ic=part.indices[at+2],distance=rayDistance(from,ray,positions,ia,ib,ic,oil?.24:.16);if(distance===null||best&&distance>=best.distance)continue;
+      const indices=[ia,ib,ic],local=indices.map(i=>vertex(part,i,deform));
       const world=local.map(p=>point(matrix,p)),normal=unit(cross(sub(world[1],world[0]),sub(world[2],world[0])));if(!normal||Math.abs(dot(normal,direction))<.08)continue;
       const normalSign=dot(normal,direction)<0?-1:1;if(normalSign<0)for(let k=0;k<3;k++)normal[k]*=-1;
-      const center=origin.map((v,i)=>v+direction[i]*hit.t),requested=xyz(mark.tangent??{x:1,y:0,z:0}),projected=requested.map((v,i)=>v-normal[i]*dot(requested,normal));
+      const center=origin.map((v,i)=>v+direction[i]*distance),requested=xyz(mark.tangent??{x:1,y:0,z:0}),projected=requested.map((v,i)=>v-normal[i]*dot(requested,normal));
       const tangent=unit(projected)??unit(sub(world[1],world[0])),across=cross(normal,tangent),length=clamp(mark.length??.015,.004,.086),width=oil?.006:material==='metal'?.00065:.0011;
       const corners=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([x,y])=>barycentric(center.map((v,i)=>v+tangent[i]*x*length/2+across[i]*y*width/2),...world)),polygon=clipPatch(corners);
       if(polygon.length<3)continue;
-      best={prepared:source.prepared,kind:source.kind,partIndex:pi,indices,polygon,normalSign,distance:hit.t,material:oil?'oil':material??(mark.body==='weapon'?'metal':'wood')};
+      best={prepared:source.prepared,kind:source.kind,partIndex:pi,indices,polygon,normalSign,distance,material:oil?'oil':material??(mark.body==='weapon'?'metal':'wood')};
     }
   }
   return best;
