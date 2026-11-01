@@ -6,6 +6,7 @@ import {SessionEquipment} from './session-equipment.js';
 import {normalizeMenuCommand,sanitizeMenuState} from './remote-menu.js';
 import {fighterIdentity} from './identity.js';
 import {SOUND_COMMANDS,loadSoundPreferences,saveSoundPreferences} from './audio/sound-settings.js';
+import {setEffectEnabled} from './audio/effect-controls.js';
 
 // Owns the match, independently of either display's DOM or transport.
 export class HostSession{
@@ -29,7 +30,7 @@ export class HostSession{
     this.game.matchApronToBalloon=true;this.game.fighters[1].matchApronToBalloon=true;
   }
   get configurable(){return !this.playback&&['ready','matchover'].includes(this.game.phase);}
-  get audioOptions(){return {music:this.musicVolume/100,effects:this.effectsVolume/100,distortion:this.distortion/100,reverb:this.reverb/100,reverbDecay:this.reverbDecay/1000};}
+  get audioOptions(){return {music:this.musicVolume/100,effects:this.effectsVolume/100,distortion:this.distortion/100,reverb:this.reverb/100,reverbDecay:this.reverbDecay/1000,effectMask:this.effectMask};}
   get presentationBlocked(){return this.assetStatus?.loading===true||!!this.rendererError;}
   neutralize(){for(const slot of [1,2])this.game.setControl(slot,neutral());this.onNeutralize();}
   closeReplay(){if(!this.playback)return;this.playback=null;this.neutralize();this.onSettings('replay');}
@@ -69,8 +70,9 @@ export class HostSession{
   handleCommand(message){
     const c=normalizeMenuCommand(message);if(!c)return {ok:false,message:'Comando o valor inválido.'};
     const g=this.game,{command,value}=c;
-    if(Object.hasOwn(SOUND_COMMANDS,command)||command==='setAudio'){
-      this[command==='setAudio'?'audioOn':SOUND_COMMANDS[command]]=value;
+    if(Object.hasOwn(SOUND_COMMANDS,command)||command==='setAudio'||command==='setEffectEnabled'){
+      if(command==='setEffectEnabled')this.effectMask=setEffectEnabled(this.effectMask,value.id,value.enabled);
+      else this[command==='setAudio'?'audioOn':SOUND_COMMANDS[command]]=value;
       saveSoundPreferences(this.soundStorage,this);this.onSettings('audio');this.message='Sonido actualizado.';
       return {ok:true,message:this.message};
     }
@@ -128,7 +130,7 @@ export class HostSession{
       g.phase==='burst'?view.burstSubtitle:g.phase==='matchover'?`${view.winnerName} gana la partida. Iniciá la revancha desde este menú.`:this.message;
     return sanitizeMenuState({phase:g.phase,mode:g.mode,experience:this.individual.kind,difficulty:g.difficulty,bestOf:g.bestOf,arena:g.arena,
       quality:g.quality,performanceMode:this.performanceMode,camera:g.cameraMode,lighting:g.lightingMode,audioOn:this.audioOn,volume:this.volume,
-      musicVolume:this.musicVolume,effectsVolume:this.effectsVolume,distortion:this.distortion,reverb:this.reverb,reverbDecay:this.reverbDecay,performance:this.performanceReport??null,
+      musicVolume:this.musicVolume,effectsVolume:this.effectsVolume,distortion:this.distortion,reverb:this.reverb,reverbDecay:this.reverbDecay,effectMask:this.effectMask,performance:this.performanceReport??null,
       scores:g.scores,round:g.round,clock:view.clock,
       fighters:view.fighters.map((f,index)=>({...f,slot:index+1,equipment:g.loadouts[index],balloonColor:g.fighters[index].balloonColor,emblem:fighterIdentity(g.fighters[index])})),
       objective:g.mode==='solo'?this.individual.view(g):null,

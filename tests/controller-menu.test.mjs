@@ -5,8 +5,10 @@ import vm from 'node:vm';
 import {fileURLToPath} from 'node:url';
 import {normalizeMenuCommand,sanitizeMenuState} from '../public/remote-menu.js';
 import {RadialJoystick,weaponGesture,movementGesture} from '../public/joysticks.js';
+import {AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled} from '../public/audio/effect-controls.js';
 const source=await readFile(new URL('../public/controller.js',import.meta.url),'utf8');
 const markup=await readFile(new URL('../public/controller.html',import.meta.url),'utf8');
+const mobileMarkup=await readFile(new URL('../public/mobile.html',import.meta.url),'utf8');
 
 class Element{
   constructor(id=''){this.id=id;this.listeners=new Map();this.attrs=new Map();this.children=[];this.style={};this.dataset={};this.hidden=false;this.disabled=false;this.value='';this.textContent='';this.open=false;this.captures=new Set();const classes=new Set();this.classList={add:n=>classes.add(n),remove:n=>classes.delete(n),toggle:(n,on)=>{if(on??!classes.has(n))classes.add(n);else classes.delete(n);},contains:n=>classes.has(n)};}
@@ -17,27 +19,107 @@ class Element{
   setPointerCapture(id){this.captures.add(id);}hasPointerCapture(id){return this.captures.has(id);}
   releasePointerCapture(id){if(this.captures.delete(id))this.fire('lostpointercapture',{pointerId:id});}
   focus(){this.owner.activeElement=this;}showModal(){this.open=true;}close(){this.open=false;this.fire('close');}
-  appendChild(child){this.children.push(child);return child;}replaceChildren(...children){this.children=children;}
+  appendChild(child){this.children.push(child);if(child.id)this.owner.elements.set(child.id,child);return child;}replaceChildren(...children){this.children=children;}
   querySelectorAll(){return [...this.owner.elements.values()].filter(e=>e.id.startsWith('menu')&&!e.disabled&&!e.hidden);}
   set innerHTML(_value){throw Error('El contenido remoto debe presentarse como texto, nunca HTML.');}
 }
-function fixture(slot=1){
-  const elements=new Map();for(const m of markup.matchAll(/<[^>]*\bid="([^"]+)"[^>]*>/g)){
+function fixture(slot=1,view='controller'){
+  const html=view==='mobile'?mobileMarkup:markup;
+  const elements=new Map();for(const m of html.matchAll(/<[^>]*\bid="([^"]+)"[^>]*>/g)){
     const e=new Element(m[1]);for(const a of m[0].matchAll(/([\w:-]+)="([^"]*)"/g))e.setAttribute(a[1],a[2]);e.hidden=/\bhidden\b/.test(m[0]);elements.set(e.id,e);
   }
   const document=new Element('document');document.elements=elements;document.hidden=false;document.body=new Element('body');document.getElementById=id=>elements.get(id)??null;document.createElement=()=>{const e=new Element();e.owner=document;return e;};
+  document.documentElement={dataset:{mobileGame:String(view==='mobile')}};
   for(const e of elements.values())e.owner=document;const window=new Element('window');window.isSecureContext=false;
   const sockets=[],timers=new Map();let timer=0;
   class Socket{static OPEN=1;static CONNECTING=0;static CLOSED=3;constructor(){this.readyState=0;this.messages=[];sockets.push(this);}send(raw){this.messages.push(JSON.parse(raw));}open(){this.readyState=1;this.onopen?.();}receive(data){this.onmessage?.({data:JSON.stringify(data)});}close(){this.readyState=3;this.onclose?.();}}
   const ctx=vm.createContext({document,window,navigator:{vibrate(){}},location:{search:`?slot=${slot}&key=private-fixture`,protocol:'http:',host:'fixture.local:8787'},WebSocket:Socket,URLSearchParams,Date,console,RadialJoystick,weaponGesture,movementGesture,
+    AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled,connectMobileController:()=>new Socket(),
     setInterval:()=>++timer,setTimeout:fn=>{timers.set(++timer,fn);return timer;},clearTimeout:id=>timers.delete(id)});
   new vm.Script(source.replace(/^import[^\n]+;\s*$/gm,''),{filename:fileURLToPath(new URL('../public/controller.js',import.meta.url)),importModuleDynamically:vm.constants.USE_MAIN_CONTEXT_DEFAULT_LOADER}).runInContext(ctx);
   const socket=sockets[0];socket.open();socket.receive({type:'welcome',role:'controller',slot,hostOnline:true,serverTime:Date.now()+10000});
   return {document,window,elements,socket,timers,ctx,el:id=>{assert.ok(elements.has(id),`falta superficie móvil ${id}`);return elements.get(id);},commands:()=>socket.messages.filter(m=>m.type==='command'),controls:()=>socket.messages.filter(m=>m.type==='control'),
     receive:state=>socket.receive({type:'menu-state',state}),open(){this.el('menuBtn').fire('click');},change(id,value){this.el(id).value=String(value);this.el(id).fire('change');}};
 }
-const state=(extra={})=>({phase:'ready',mode:'solo',experience:'duel',difficulty:'normal',bestOf:3,arena:'atelier',quality:'high',camera:'combat',lighting:'cinematic',audioOn:true,volume:55,scores:[1,0],round:2,clock:'00:37',fighters:[{slot:1,name:'Mint',equipment:{weapon:'sword',defense:'short'},guardPercent:70,guardLabel:'GUARDIA',wins:[true,false]},{slot:2,name:'Amber',equipment:{weapon:'spear',defense:'long'},guardPercent:20,guardLabel:'ACTIVA',wins:[false,false]}],objective:{title:'Escuela',instruction:'Mové el brazo real',progress:2,total:7,completed:false,nextAction:null},replay:{clips:[{id:7,duration:2.8,complete:true}],active:false,paused:true,speed:.5,position:.25},configurable:true,trainingEquipmentLocked:false,message:'Preparados',...extra});
+const state=(extra={})=>({phase:'ready',mode:'solo',experience:'duel',difficulty:'normal',bestOf:3,arena:'atelier',quality:'high',camera:'combat',lighting:'cinematic',audioOn:true,volume:55,effectMask:ALL_EFFECTS_MASK,scores:[1,0],round:2,clock:'00:37',fighters:[{slot:1,name:'Mint',equipment:{weapon:'sword',defense:'short'},guardPercent:70,guardLabel:'GUARDIA',wins:[true,false]},{slot:2,name:'Amber',equipment:{weapon:'spear',defense:'long'},guardPercent:20,guardLabel:'ACTIVA',wins:[false,false]}],objective:{title:'Escuela',instruction:'Mové el brazo real',progress:2,total:7,completed:false,nextAction:null},replay:{clips:[{id:7,duration:2.8,complete:true}],active:false,paused:true,speed:.5,position:.25},configurable:true,trainingEquipmentLocked:false,message:'Preparados',...extra});
 const neutral={offX:0,offY:0,mainX:0,mainY:0,lean:0,bodyY:0,wrist:0,thrust:false,guard:false,attackHeld:false,headX:0,headZ:0};
+
+test('both handset surfaces offer every catalogued effect with accessible grouped controls and no master unmute',()=>{
+ for(const view of ['controller','mobile']){
+  const f=fixture(1,view);f.receive(state({audioOn:false,volume:0,effectsVolume:0}));f.open();
+  assert.equal(AUDIO_EFFECTS.length,27);assert.equal(f.el('menuEffectsDetails').getAttribute('aria-describedby'),'menuEffectsHint');
+  for(const effect of AUDIO_EFFECTS){const input=f.el('menuEffect_'+effect.id);assert.equal(input.type,'checkbox');assert.equal(input.checked,true);assert.equal(input.disabled,false);assert.equal(input.getAttribute('aria-label'),effect.label);}
+  assert.match(f.el('menuEffectsCount').textContent,/27\s*\/\s*27/);assert.match(f.el('menuEffectsHint').textContent,/apagado/i);
+  const effect=AUDIO_EFFECTS[0];f.el('menuEffect_'+effect.id).checked=false;f.el('menuEffect_'+effect.id).fire('change');
+  const sent=f.commands().at(-1);assert.equal(sent.command,'setEffectEnabled');assert.deepEqual(sent.value,{id:effect.id,enabled:false});
+  assert.equal(f.commands().some(m=>m.command==='setAudio'||m.command==='setVolume'||m.command==='setEffectsVolume'),false);
+  assert.equal(f.el('mobileMenu').open,true,'sound changes do not dismiss the menu or start a game');
+ }
+});
+
+test('individual FX retains intent across stale states until ACK and a newer matching authority state',()=>{
+ const f=fixture(),id=AUDIO_EFFECTS[0].id,inputId='menuEffect_'+id,mask=setEffectEnabled(ALL_EFFECTS_MASK,id,false);
+ f.receive(state());f.open();f.el(inputId).checked=false;f.el(inputId).fire('change');const first=f.commands().at(-1);
+ assert.equal(f.el(inputId).checked,false);assert.equal(f.el(inputId).disabled,true);assert.equal(f.el('menuEffectsEnableAll').disabled,true);
+ f.receive(state());assert.equal(f.el(inputId).checked,false,'older authority cannot erase the pending checkbox intent');
+ f.receive(state({effectMask:mask}));f.socket.receive({type:'command-result',requestId:first.requestId,ok:true});assert.equal(f.el(inputId).disabled,true,'state received before ACK cannot settle it');
+ f.receive(state());assert.equal(f.el(inputId).checked,false);assert.equal(f.el(inputId).disabled,true);
+ f.receive(state({effectMask:mask}));assert.equal(f.el(inputId).checked,false);assert.equal(f.el(inputId).disabled,false);
+ assert.match(f.el('menuEffectsCount').textContent,/26\s*\/\s*27/);
+});
+
+test('two independent FX can change concurrently and acknowledgements only settle their own bits',()=>{
+ const f=fixture(),[a,b]=AUDIO_EFFECTS;f.receive(state());f.open();
+ for(const effect of [a,b]){const input=f.el('menuEffect_'+effect.id);assert.equal(input.disabled,false);input.checked=false;input.fire('change');}
+ const [first,second]=f.commands();assert.equal(f.el('menuEffect_'+a.id).disabled,true);assert.equal(f.el('menuEffect_'+b.id).disabled,true);
+ assert.equal(f.el('menuEffectsDisableAll').disabled,true);assert.equal(f.el('menuEffect_'+AUDIO_EFFECTS[2].id).disabled,false);
+ f.socket.receive({type:'command-result',requestId:second.requestId,ok:true});
+ const onlyB=setEffectEnabled(ALL_EFFECTS_MASK,b.id,false);f.receive(state({effectMask:onlyB}));
+ assert.equal(f.el('menuEffect_'+b.id).disabled,false);assert.equal(f.el('menuEffect_'+a.id).disabled,true);assert.equal(f.el('menuEffect_'+a.id).checked,false);
+ f.socket.receive({type:'command-result',requestId:first.requestId,ok:true});f.receive(state({effectMask:setEffectEnabled(onlyB,a.id,false)}));
+ assert.equal(f.el('menuEffect_'+a.id).disabled,false);assert.equal(f.el('menuEffectsEnableAll').disabled,false);assert.match(f.el('menuEffectsCount').textContent,/25\s*\/\s*27/);
+});
+
+test('rejection, timeout and disconnect restore the last authoritative FX mask without resending',()=>{
+ for(const outcome of ['reject','timeout','disconnect']){
+  const f=fixture(),id=AUDIO_EFFECTS[0].id,element='menuEffect_'+id,mask=setEffectEnabled(ALL_EFFECTS_MASK,id,false);f.receive(state({effectMask:mask}));f.open();
+  f.el(element).checked=true;f.el(element).fire('change');const sent=f.commands().at(-1);assert.equal(f.el(element).checked,true);
+  if(outcome==='reject')f.socket.receive({type:'command-result',requestId:sent.requestId,ok:false,message:'FX rechazado'});
+  else if(outcome==='timeout')for(const timer of [...f.timers.values()])timer();else f.socket.close();
+  assert.equal(f.el(element).checked,false,outcome);assert.equal(f.commands().length,1);assert.equal(f.el(element).disabled,outcome==='disconnect');
+  assert.equal(f.el('menuFeedback').classList.contains('error'),true,outcome);
+ }
+});
+
+test('bulk FX uses one scalar command, preserves pending intent, blocks individual changes and restores rejection',()=>{
+ const f=fixture();f.receive(state());f.open();f.el('menuEffectsDisableAll').fire('click');const sent=f.commands().at(-1);
+ assert.equal(sent.command,'setEffectMask');assert.equal(sent.value,0);assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*27/);
+ for(const effect of AUDIO_EFFECTS){assert.equal(f.el('menuEffect_'+effect.id).checked,false);assert.equal(f.el('menuEffect_'+effect.id).disabled,true);}
+ f.receive(state());assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*27/);
+ f.socket.receive({type:'command-result',requestId:sent.requestId,ok:true});f.receive(state());assert.equal(f.el('menuEffectsEnableAll').disabled,true);
+ f.receive(state({effectMask:0}));assert.equal(f.el('menuEffectsEnableAll').disabled,false);
+ f.el('menuEffectsEnableAll').fire('click');const second=f.commands().at(-1);assert.equal(second.value,ALL_EFFECTS_MASK);
+ f.socket.receive({type:'command-result',requestId:second.requestId,ok:false,message:'Cambio no aplicado'});
+ assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*27/);for(const effect of AUDIO_EFFECTS)assert.equal(f.el('menuEffect_'+effect.id).checked,false);
+});
+
+test('FX send refusal restores checkbox intent at the shared pending limit and unknown mask cannot confirm it',()=>{
+ const f=fixture();f.receive(state());f.open();
+ for(const effect of AUDIO_EFFECTS.slice(0,8)){const input=f.el('menuEffect_'+effect.id);input.checked=false;input.fire('change');}
+ const ninth=f.el('menuEffect_'+AUDIO_EFFECTS[8].id);ninth.checked=false;ninth.fire('change');
+ assert.equal(f.commands().length,8);assert.equal(ninth.checked,true,'the unsent ninth change returns to authority');
+ const sent=f.commands()[0];f.socket.receive({type:'command-result',requestId:sent.requestId,ok:true});
+ f.receive(state({effectMask:undefined}));assert.equal(f.el('menuEffect_'+AUDIO_EFFECTS[0].id).disabled,true);assert.equal(f.el('menuEffect_'+AUDIO_EFFECTS[0].id).checked,false,'missing scalar is not applied confirmation');
+});
+
+test('FX transport failures restore both checkbox and bulk display without unmuting or retrying',()=>{
+ const f=fixture(),effect=AUDIO_EFFECTS[0];f.receive(state({effectMask:0,audioOn:false,volume:0}));f.open();
+ f.socket.send=()=>{throw Error('Transporte cerrado');};
+ const input=f.el('menuEffect_'+effect.id);input.checked=true;input.fire('change');assert.equal(input.checked,false);assert.equal(input.disabled,false);
+ f.el('menuEffectsEnableAll').fire('click');assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*27/);
+ assert.equal(f.el('menuEffectsEnableAll').disabled,false);assert.equal(f.commands().length,0);assert.equal(f.el('menuAudio').checked,false);assert.equal(f.el('menuVolume').value,'0');
+ assert.equal(f.el('menuFeedback').classList.contains('error'),true);
+});
 
 test('audio sliders confirm their applied state, retain local drags and restore rejected values',()=>{
   const f=fixture(),fields=[['menuMusicVolume','musicVolume','setMusicVolume',24,36],['menuEffectsVolume','effectsVolume','setEffectsVolume',100,72],['menuDistortion','distortion','setDistortion',3,2],['menuReverb','reverb','setReverb',8,5],['menuReverbDecay','reverbDecay','setReverbDecay',1100,800]];

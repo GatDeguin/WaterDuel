@@ -17,7 +17,7 @@ test('host exposes subtle sound defaults and independently normalizes all buses 
   for(const [field,[name,,max,defaultValue]] of Object.entries(controls)){
     assert.equal(state[field],defaultValue,field);assert.equal(host.handleCommand(cmd(name,max)).ok,true);assert.equal(host.menuState()[field],max);
   }
-  assert.deepEqual(host.audioOptions,{music:1,effects:1,distortion:1,reverb:1,reverbDecay:2.4});
+  assert.deepEqual(host.audioOptions,{music:1,effects:1,distortion:1,reverb:1,reverbDecay:2.4,effectMask:134217727});
   assert.equal(host.handleCommand(cmd('setMusicVolume',-1)).ok,false);assert.equal(host.musicVolume,100);assert.deepEqual(host.game.scores,[0,0]);
 });
 test('sound preferences survive host reload and reject damaged storage without changing game progress',()=>{
@@ -26,7 +26,7 @@ test('sound preferences survive host reload and reject damaged storage without c
   host.handleCommand(cmd('setAudio',true));host.handleCommand(cmd('setVolume',62));host.handleCommand(cmd('setMusicVolume',17));host.handleCommand(cmd('setEffectsVolume',83));host.handleCommand(cmd('setDistortion',2));host.handleCommand(cmd('setReverb',6));host.handleCommand(cmd('setReverbDecay',900));
   const restored=new HostSession({storage}),state=restored.menuState();
   assert.equal(state.audioOn,true);assert.equal(state.volume,62);assert.equal(state.musicVolume,17);assert.equal(state.effectsVolume,83);assert.equal(state.distortion,2);assert.equal(state.reverb,6);assert.equal(state.reverbDecay,900);
-  assert.deepEqual(restored.audioOptions,{music:.17,effects:.83,distortion:.02,reverb:.06,reverbDecay:.9});assert.deepEqual(restored.game.scores,[0,0]);
+  assert.deepEqual(restored.audioOptions,{music:.17,effects:.83,distortion:.02,reverb:.06,reverbDecay:.9,effectMask:134217727});assert.deepEqual(restored.game.scores,[0,0]);
   map.set('waterduel.audio.v1','{broken');assert.equal(new HostSession({storage}).menuState().distortion,3);
   assert.doesNotThrow(()=>new HostSession({storage:{getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}}}).handleCommand(cmd('setReverb',5)));
 });

@@ -3,6 +3,7 @@ import {StreamedMusic} from './streamed-music.js';
 import {EffectsRack} from './effects-rack.js';
 import {WorkshopAcoustics} from './spatial-audio.js';
 import {AudioScene} from './scene-audio.js';
+import {ALL_EFFECTS_MASK,validEffectMask,effectEnabled} from './effect-controls.js';
 export const WORKSHOP_AUDIO_DEFAULTS=Object.freeze({music:.24,effects:1,distortion:.03,reverb:.08,reverbDecay:1.1});
 const clamp=(value,min,max,fallback)=>Number.isFinite(value)?Math.max(min,Math.min(max,value)):fallback;
 const PHASES=new Set(['ready','countdown','fight','burst','matchover']);
@@ -22,10 +23,16 @@ class WorkshopMotionScene extends AudioScene{
  * The protected historical soundtrack remains available only in its old class. */
 export class WorkshopGameAudio extends RecordedGameAudio{
   constructor({mediaFactory,...options}={}){
-    super(options);this.mediaFactory=mediaFactory;this.stream=null;this.fxRack=null;this.distortion=.03;this.reverb=.08;this.reverbDecay=1.1;this.lastMusicGain=null;this.musicPhase='ready';this.scene=new WorkshopMotionScene();
+    super(options);this.mediaFactory=mediaFactory;this.stream=null;this.fxRack=null;this.distortion=.03;this.reverb=.08;this.reverbDecay=1.1;this.effectMask=ALL_EFFECTS_MASK;this.lastMusicGain=null;this.musicPhase='ready';this.scene=new WorkshopMotionScene();
   }
-  configure(enabled,volume,{music=this.musicVolume,effects=this.effectsVolume,distortion=this.distortion,reverb=this.reverb,reverbDecay=this.reverbDecay}={}){
+  configure(enabled,volume,{music=this.musicVolume,effects=this.effectsVolume,distortion=this.distortion,reverb=this.reverb,reverbDecay=this.reverbDecay,effectMask=this.effectMask}={}){
     const oldMaster=this.master?.gain.value,oldEffects=this.effects?.gain.value;
+    if(validEffectMask(effectMask)&&effectMask!==this.effectMask){
+      this.effectMask=effectMask;
+      // Stop active and scheduled sources individually. Shared room tails from
+      // earlier cues decay naturally without cutting other effects or music.
+      for(const voice of this.voices)if(!effectEnabled(effectMask,voice.name))this.retire(voice);
+    }
     this.distortion=clamp(distortion,0,1,.03);this.reverb=clamp(reverb,0,1,.08);this.reverbDecay=clamp(reverbDecay,.2,2.4,1.1);
     super.configure(enabled,volume,{music,effects});
     if(this.audible&&oldMaster!==undefined&&oldMaster!==this.volume)this.rampMix(this.master.gain,oldMaster,this.volume);
@@ -75,8 +82,9 @@ export class WorkshopGameAudio extends RecordedGameAudio{
     return super.handleEvent(name,data,game);
   }
   play(name,options){
-    // Removed by request, including composite damage plans and fallback audio.
-    if(name==='wood-contact')return false;
+    // Reject before inherited option parsing, buffer lookup or context creation.
+    // The catalogue permanently excludes the removed wood-contact cue.
+    if(!effectEnabled(this.effectMask,name))return false;
     const played=super.play(name,options);if(played)this.fxRack?.markActive();return played;
   }
   stopEffects(){super.stopEffects();this.fxRack?.reset();}

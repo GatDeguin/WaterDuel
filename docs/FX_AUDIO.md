@@ -36,6 +36,12 @@ El registro histórico conserva 28 nombres y el banco original de 66 WAV para su
 
 Los sonidos genéricos disponibles no se disparan todos continuamente. Los contactos actuales eligen sonidos específicos según material y acción. El daño articular conserva `joint`, su física y sus señales de daño; la capa `wood-contact` ya no suena. Una rotura combina `puncture`, `tear` y `water-burst`. El golpe de agua contra el suelo se dispara aparte, cuando ocurre el contacto físico.
 
+## Activar o silenciar cada efecto
+
+En el menú del móvil, abrí **Sonido → Efectos individuales**. Los 27 interruptores se agrupan por cuerpo y pasos, armas y escudos, látex, agua y avisos. El contador muestra cuántos están seleccionados. **Activar todos** y **Silenciar todos** cambian únicamente esta selección: no activan el sonido general ni modifican sus volúmenes o la música.
+
+La selección queda guardada en el dispositivo que ejecuta la arena: la PC en partidas LAN o el teléfono en el juego móvil individual. Los mandos remotos esperan la confirmación de la arena antes de dar el cambio por aplicado; un corte de conexión restaura el último estado confirmado. Apagar un FX detiene sus fuentes activas y programadas; la reverberación que ya emitió termina de decaer naturalmente. Las preferencias antiguas conservan los 27 seleccionados y mantienen sus volúmenes anteriores. `wood-contact` sigue excluido.
+
 ## Golpeteos repetitivos de madera
 
 El observador de movimiento puede emitir `wood` cada 0,22 s y `joint` cada 0,18 s por personaje si supera sus umbrales de velocidad. Esos son máximos permitidos, no temporizadores que fabriquen sonidos estando inmóvil.

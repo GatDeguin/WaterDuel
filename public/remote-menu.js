@@ -1,6 +1,7 @@
 /** Shared wire contract. Neither controller payloads nor the host's scene leak into menu DTOs. */
 import {WEAPONS,DEFENSES,normalizeLoadout} from './equipment.js';
 import {SOUND_COMMANDS,validSoundValue,soundPreferences} from './audio/sound-settings.js';
+import {ALL_EFFECTS_MASK,effectEnabled} from './audio/effect-controls.js';
 
 const oneOf=(value,values,fallback)=>values.includes(value)?value:fallback;
 const finite=(value,min,max,fallback=0)=>typeof value==='number'&&Number.isFinite(value)?Math.max(min,Math.min(max,value)):fallback;
@@ -42,6 +43,10 @@ export function normalizeMenuCommand(message){
     if(!options[command].includes(value))return null;
   }else if(Object.hasOwn(SOUND_COMMANDS,command)){
     if(!validSoundValue(SOUND_COMMANDS[command],value))return null;
+  }else if(command==='setEffectEnabled'){
+    const effect=record(value);
+    if(!Object.hasOwn(effect,'id')||!Object.hasOwn(effect,'enabled')||typeof effect.id!=='string'||typeof effect.enabled!=='boolean'||!effectEnabled(ALL_EFFECTS_MASK,effect.id))return null;
+    return {...clean,value:{id:effect.id,enabled:effect.enabled}};
   }else if(command==='replayOpen'){
     if(!positive(value))return null;
   }else if(command==='replaySeek'){

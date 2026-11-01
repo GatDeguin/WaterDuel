@@ -67,6 +67,13 @@
    </div>
    <label>Cola de reverberación <output id="menuReverbDecayValue">1.1 s</output><input id="menuReverbDecay" type="range" min="200" max="2400" step="100" value="1100" aria-describedby="menuSoundHelp"></label>
    <p id="menuSoundHelp" class="menu-muted">Distorsión y reverberación se aplican sólo a los efectos, en ese orden. En 0% se desactivan. Los valores iniciales son sutiles. La música tiene su propio volumen. El navegador de la PC necesita un gesto local para habilitar el audio.</p>
+   <details id="menuEffectsDetails" class="menu-effects" aria-describedby="menuEffectsHint">
+    <summary><span>Efectos individuales</span><output id="menuEffectsCount" aria-live="polite">Esperando arena</output></summary>
+    <div class="menu-effects-body"><p id="menuEffectsHint" class="menu-muted">Esperando que la arena confirme los efectos.</p>
+     <div class="menu-actions"><button id="menuEffectsEnableAll" type="button" disabled>ACTIVAR TODOS</button><button id="menuEffectsDisableAll" type="button" disabled>SILENCIAR TODOS</button></div>
+     <div id="menuEffectGroups" class="menu-effect-groups"></div>
+    </div>
+   </details>
   </section>
   <p class="menu-muted"><a href="./assets/audio/recorded-foley-v1/credits.html" target="_blank" rel="noopener">Créditos de sonidos y licencias</a></p>
   <details class="menu-section"><summary>Rendimiento local de la arena</summary><p class="menu-muted">Intervalos de cuadros y tiempos CPU. Las pausas y la carga se excluyen. Estos datos no certifican la presentación de la GPU ni el rendimiento de otro dispositivo.</p><output id="menuPerformanceReport" style="white-space:pre-line">Todavía no hay muestras.</output></details>

@@ -1,5 +1,6 @@
 import {RadialJoystick,weaponGesture,movementGesture} from './joysticks.js';
 import {connectMobileController} from './mobile-session.js';
+import {AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled} from './audio/effect-controls.js';
 
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
@@ -15,6 +16,8 @@ let rumbleUntil=0,rumblePriority=0;
 const pendingCommands=new Map();
 const soundSliders=[['menuMusicVolume','musicVolume',24,0,100],['menuEffectsVolume','effectsVolume',100,0,100],['menuDistortion','distortion',3,0,100],['menuReverb','reverb',8,0,100],['menuReverbDecay','reverbDecay',1100,200,2400]];
 const soundDragging=new Set();
+const effectInputs=new Map();
+let authoritativeEffectMask=null;
 const soundLabel=(id,value)=>id==='menuReverbDecay'?`${(value/1000).toFixed(1)} s`:`${value}%`;
 const resetControls=[];
 const presentationBlocked=()=>menuState?.assets?.loading===true||!!menuState?.rendererError;
@@ -171,7 +174,7 @@ const safeText=(value,max=360)=>String(value??'').slice(0,max);
 const connected=()=>welcomed&&hostOnline&&!invitationInvalid&&ws?.readyState===WebSocket.OPEN;
 function presentationReason(s){return s?.assets?.loading===true?'La arena está cargando el escenario y los modelos. Esperá a que termine para comenzar.':s?.rendererError?'La arena 3D no está disponible. Esperá a que se recupere para comenzar.':'';}
 const awaiting=id=>[...pendingCommands.values()].some(item=>item.element===id);
-const commandStateFields={setMode:'mode',setExperience:'experience',setDifficulty:'difficulty',setBestOf:'bestOf',setArena:'arena',setQuality:'quality',setPerformanceMode:'performanceMode',setCamera:'camera',setLighting:'lighting',setAudio:'audioOn',setVolume:'volume',...Object.fromEntries(soundSliders.map(([,field])=>['set'+field[0].toUpperCase()+field.slice(1),field]))};
+const commandStateFields={setMode:'mode',setExperience:'experience',setDifficulty:'difficulty',setBestOf:'bestOf',setArena:'arena',setQuality:'quality',setPerformanceMode:'performanceMode',setCamera:'camera',setLighting:'lighting',setAudio:'audioOn',setVolume:'volume',setEffectMask:'effectMask',...Object.fromEntries(soundSliders.map(([,field])=>['set'+field[0].toUpperCase()+field.slice(1),field]))};
 const preparationCommands=new Set(['setMode','setExperience','setDifficulty','setBestOf','setArena','setLoadout']);
 const arenaActionCommands=new Set(['start','reset','nextEncounter','resetCampaign','replayOpen','replayClose']);
 const returnToControlsCommands=new Set(['start','nextEncounter','replayClose']);
@@ -208,6 +211,7 @@ function settleAppliedCommands(){
       const equipment=menuState?.fighters?.find(f=>f.slot===pending.value.slot)?.equipment;
       applied=equipment?.weapon===pending.value.weapon&&equipment?.defense===pending.value.defense;
     }
+    if(pending.command==='setEffectEnabled')applied=validEffectMask(menuState?.effectMask)&&effectEnabled(menuState.effectMask,pending.value.id)===pending.value.enabled;
     if(!applied)continue;clearTimeout(pending.timer);pendingCommands.delete(id);
     if(id===requestId)feedback(pending.message||'Estado aplicado confirmado por la arena.');
   }
@@ -289,6 +293,48 @@ function closeMenu({toControls=false}={}){
   if(localMode)ws.send(JSON.stringify({type:'ui-state',menuOpen:false}));
   document.body?.classList.remove('menu-open');const dialog=$('mobileMenu');if(typeof dialog.close==='function'&&dialog.open)dialog.close();else dialog.removeAttribute?.('open');renderResult({preparing:false,changingArena:[...pendingCommands.values()].some(item=>arenaActionCommands.has(item.command))});$(resultState&&!resultAccepted&&!$('resultActionBtn').hidden?'resultActionBtn':toControls?'mainPad':'menuBtn').focus?.();
 }
+function installEffectControls(){
+  if(effectInputs.size)return;
+  const groups=new Map();
+  for(const effect of AUDIO_EFFECTS){
+    if(!groups.has(effect.group)){
+      const fieldset=document.createElement('fieldset'),legend=document.createElement('legend'),list=document.createElement('div');
+      legend.textContent=effect.group;list.classList.add('menu-effect-list');fieldset.appendChild(legend);fieldset.appendChild(list);$('menuEffectGroups').appendChild(fieldset);groups.set(effect.group,list);
+    }
+    const label=document.createElement('label'),input=document.createElement('input'),caption=document.createElement('span');
+    label.classList.add('menu-check');label.classList.add('menu-effect-toggle');input.type='checkbox';input.id='menuEffect_'+effect.id;
+    input.setAttribute('aria-label',effect.label);caption.textContent=effect.label;label.appendChild(input);label.appendChild(caption);groups.get(effect.group).appendChild(label);
+    input.addEventListener('change',()=>{if(!command('setEffectEnabled',{id:effect.id,enabled:input.checked},input.id))renderMenu();});
+    effectInputs.set(effect.id,input);
+  }
+}
+function renderEffectControls(s,usable){
+  const count=$('menuEffectsCount'),hint=$('menuEffectsHint'),enable=$('menuEffectsEnableAll'),disable=$('menuEffectsDisableAll');
+  // Before the first authority state, keep startup/connection independent of
+  // catalogue DOM creation. A disconnect retains the last confirmed mask.
+  if(!s&&authoritativeEffectMask===null){enable.disabled=true;disable.disabled=true;count.textContent='Esperando arena';return;}
+  installEffectControls();
+  const valid=!!s&&validEffectMask(s.effectMask);
+  if(valid)authoritativeEffectMask=s.effectMask;
+  let displayed=authoritativeEffectMask??ALL_EFFECTS_MASK,bulkPending=false,anyPending=false;
+  for(const pending of pendingCommands.values()){
+    if(pending.command==='setEffectMask'){displayed=pending.value;bulkPending=true;anyPending=true;}
+    if(pending.command==='setEffectEnabled'){displayed=setEffectEnabled(displayed,pending.value.id,pending.value.enabled);anyPending=true;}
+  }
+  let active=0;
+  for(const effect of AUDIO_EFFECTS){
+    const input=effectInputs.get(effect.id);input.checked=effectEnabled(displayed,effect.id);if(input.checked)active++;
+    input.disabled=!usable||!valid||bulkPending||awaiting(input.id);input.setAttribute('aria-busy',String(awaiting(input.id)||bulkPending));
+  }
+  enable.disabled=disable.disabled=!usable||!valid||anyPending;
+  enable.setAttribute('aria-busy',String(awaiting(enable.id)));disable.setAttribute('aria-busy',String(awaiting(disable.id)));
+  const text=`${active} / ${AUDIO_EFFECTS.length} activos${anyPending?' · pendiente':''}`;
+  if(count.textContent!==text)count.textContent=text;
+  const message=!usable?'Sin conexión. Se conserva la última selección confirmada.':!valid?'Esperando que la arena confirme los efectos.':
+    !s.audioOn?'Podés preparar los efectos; el sonido general sigue apagado.':Number(s.volume)===0?'Podés preparar los efectos; el volumen general sigue en 0%.':
+    s.effectsVolume===0?'Podés preparar los efectos; su volumen sigue en 0%.':anyPending?'Esperando confirmación de la arena para los cambios indicados.':'Elegí qué sonidos participan en el duelo. La música conserva su propio volumen.';
+  if(hint.textContent!==message)hint.textContent=message;
+}
 function renderMenu(){
   const online=connected(),s=menuState,usable=online&&!!s;
   const sceneIssue=presentationReason(s);
@@ -336,6 +382,7 @@ function renderMenu(){
     }
     const labels={ready:'EN ESPERA',countdown:'PREPARADOS',fight:'¡DUELO ACTIVO!',burst:'RONDA RESUELTA',matchover:'FIN DE PARTIDA'};$('phaseText').textContent=labels[s.phase]??safeText(s.phase,30);
   }
+  renderEffectControls(s,usable);
   $('menuCombatNotice').hidden=!['fight','countdown'].includes(s?.phase);
   $('menuCombatNotice').textContent=sceneIssue?'La partida está en pausa mientras se prepara la arena. Tus mandos permanecen en neutro.':localMode?'El juego está pausado mientras el menú está abierto. Cerralo para continuar.':'El duelo continúa mientras el menú está abierto. Tu muñeco queda con los mandos en neutro.';
   if(sceneIssue)$('phaseText').textContent=s?.assets?.loading?'CARGANDO ARENA':'ARENA EN PAUSA';
@@ -385,6 +432,7 @@ for(const [id,commandName,allowed,numeric]of [
 ])$(id).addEventListener('change',()=>{const value=$(id).value;if(!allowed.includes(value)){renderMenu();return;}command(commandName,numeric?Number(value):value,id);});
 for(const [id,name]of [['menuStartBtn','start'],['menuResetBtn','reset'],['menuNextBtn','nextEncounter'],['menuCampaignResetBtn','resetCampaign'],['menuReplayToggleBtn','replayToggle'],['menuReplayCloseBtn','replayClose'],['menuReplayClearBtn','replayClear']])$(id).addEventListener('click',()=>command(name,undefined,id));
 $('menuAudio').addEventListener('change',()=>command('setAudio',$('menuAudio').checked,'menuAudio'));
+for(const [id,mask]of [['menuEffectsEnableAll',ALL_EFFECTS_MASK],['menuEffectsDisableAll',0]])$(id).addEventListener('click',()=>{if(!command('setEffectMask',mask,id))renderMenu();});
 $('menuVolume').addEventListener('input',()=>{volumeDragging=true;$('menuVolumeValue').textContent=`${$('menuVolume').value}%`;});
 $('menuVolume').addEventListener('change',()=>{volumeDragging=false;const volume=Number($('menuVolume').value);if(Number.isFinite(volume))command('setVolume',Math.round(clamp(volume,0,100)),'menuVolume');});
 for(const [id,field,,min,max]of soundSliders){

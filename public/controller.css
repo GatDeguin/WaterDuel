@@ -164,6 +164,18 @@ button:focus-visible,select:focus-visible,input:focus-visible,.pad-frame:focus-v
 .menu-content legend {padding:0 6px;color:var(--acc);font-size:13px;font-weight:800;overflow-wrap:anywhere}
 .menu-check {grid-template-columns:26px 1fr;align-items:center;align-content:center;min-height:48px;padding:8px}
 .menu-check input {appearance:auto;accent-color:var(--acc);width:24px;height:24px;margin:0}
+.menu-effects {border:1px solid var(--brass);border-radius:4px;background:var(--wood)}
+.menu-effects>summary {display:list-item;min-height:48px;padding:14px 12px;color:var(--brass-light);font-size:13px;font-weight:800;cursor:pointer}
+.menu-effects>summary output {float:right;margin-left:12px;color:var(--white);font-size:11px;font-weight:650}
+.menu-effects-body {display:grid;gap:12px;padding:0 12px 12px}
+.menu-effect-groups {display:grid;gap:12px}
+.menu-effect-groups fieldset {gap:6px;background:var(--field);border-color:var(--border)}
+.menu-effect-list {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px}
+.menu-effect-toggle {column-gap:8px;min-width:0;line-height:1.4;border-bottom:1px solid #b69a6029}
+.menu-effect-toggle span {overflow-wrap:anywhere}
+.menu-effect-toggle:has(input:focus-visible) {outline:2px solid var(--brass-light);outline-offset:1px}
+.menu-effect-toggle:has(input:disabled) {color:var(--muted)}
+@media(max-width:440px){.menu-effect-list {grid-template-columns:minmax(0,1fr)}.menu-effects>summary output {float:none;display:block;margin:6px 0 0 17px}}
 .mobile-menu input[type="range"] {accent-color:var(--acc);margin:0;touch-action:pan-x}
 .mobile-menu output {color:var(--acc);font-variant-numeric:tabular-nums}
 .menu-bottom-back {margin-top:3px}

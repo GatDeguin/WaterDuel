@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 import {RadialJoystick,weaponGesture,movementGesture} from '../public/joysticks.js';
+import {AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled} from '../public/audio/effect-controls.js';
 
 const source=await readFile(new URL('../public/controller.js',import.meta.url),'utf8');
 const markup=await readFile(new URL('../public/controller.html',import.meta.url),'utf8');
@@ -57,7 +58,7 @@ function controller({slot=1,offset=120000,secure=false,permission='granted',redu
     URLSearchParams,WebSocket:Socket,Date:ClockDate,
     setInterval:(callback,ms)=>{intervals.push({callback,ms});return nextTimer++;},
     setTimeout:(callback,ms)=>{const id=nextTimer++;timeouts.set(id,{callback,ms});return id;},
-    clearTimeout:id=>timeouts.delete(id),console,RadialJoystick,weaponGesture,movementGesture});
+    clearTimeout:id=>timeouts.delete(id),console,RadialJoystick,weaponGesture,movementGesture,AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled});
   new vm.Script(source.replace(/^import[^\n]+;\s*$/gm,''),{filename:'public/controller.js'}).runInContext(context,{timeout:1000});
   const socket=sockets[0];assert.ok(socket);socket.open();
   socket.receive({type:'welcome',role:'controller',hostOnline:true,serverTime:clock.now+offset});

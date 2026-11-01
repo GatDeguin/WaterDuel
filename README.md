@@ -4,6 +4,10 @@
 
 En móvil, Pages abre la experiencia individual con los dos joysticks y el menú ☰. En PC conserva la escena sin mandos ni menús. Para jugar en PC con los QR y dos móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo: Pages no ejecuta el servidor de sesiones. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Efectos de audio individuales 1.12.0
+
+En el móvil, abrí **☰ → Sonido → Efectos individuales** para activar o silenciar cada uno de los 27 FX del juego. Están agrupados en cuerpo y pasos, armas y escudos, látex, agua y avisos, con contador y botones para activarlos o silenciarlos todos. Los cambios se aplican al confirmarse y quedan guardados; conservan la música, los volúmenes y el silencio general. Funciona tanto en el juego móvil como en los mandos QR de la PC. [Cambios y uso](docs/CAMBIOS_1.12.0.md).
+
 ## Taller 360° y contactos 1.11.0
 
 El taller incorpora frente, laterales, techo, suelo y mobiliario para los nuevos ángulos de cámara: 10,54 MB, 14 batches y 33.420 triángulos, con las texturas originales exactas. La cámara permanece dentro de la sala y adapta el campo visual en pantallas estrechas. El lanzador `.bat` abre Chrome a pantalla completa con la escena y los QR cuando la arena está lista; `--check` comprueba sin abrirla, y un fallo del navegador deja la arena activa.
