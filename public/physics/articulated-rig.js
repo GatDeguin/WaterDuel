@@ -1,7 +1,7 @@
 // Reduced-coordinate planar multibody plus a reduced lateral neck hinge.
 // Other limb depth remains a layer; this is not a full 3D/Coulomb-contact solver.
 import {TABLE_TOP} from './dimensions.js';
-import {normalizeLoadout,getWeapon,getDefense} from '../equipment.js';
+import {normalizeLoadout,getWeapon,getDefense,equipmentAcrossSign} from '../equipment.js';
 import {ApronHinge,apronParentFrame} from './apron.js';
 import {DetachedCluster} from './detached-cluster.js';
 import {WeaponFlex,bladeLocalAt} from './weapon-flex.js';
@@ -77,8 +77,9 @@ const collisionSolid=(body,a,b,width,z,depth,key=body)=>{
   return {body,key,center:{x,y,z},axes:[{x:ux,y:uy,z:0},{x:-uy,y:ux,z:0},{x:0,y:0,z:1}],half:[extent(ux,uy),extent(-uy,ux),depth/2]};
 };
 const projection=(panel,n)=>{
-  const values=panel.vertices.map(p=>p.x*n.x+p.y*n.y);
-  return {min:Math.min(...values),max:Math.max(...values)};
+  let min=Infinity,max=-Infinity;
+  for(const p of panel.vertices){const value=p.x*n.x+p.y*n.y;min=Math.min(min,value);max=Math.max(max,value);}
+  return {min,max};
 };
 const sharesContactFace=(a,b,n)=>{
   if(!a||!b||Math.abs(a.z-b.z)>=(a.depth+b.depth)/2-.00001)return false;
@@ -86,9 +87,11 @@ const sharesContactFace=(a,b,n)=>{
   return A.max>=B.min-1e-6&&B.max>=A.min-1e-6;
 };
 const supportFace=(panel,n,tangent)=>{
-  const extent=projection(panel,n).max,face=panel.vertices.filter(p=>extent-p.x*n.x-p.y*n.y<1e-7);
-  const along=face.map(p=>p.x*tangent.x+p.y*tangent.y);
-  return {extent,min:Math.min(...along),max:Math.max(...along)};
+  const extent=projection(panel,n).max;let min=Infinity,max=-Infinity;
+  for(const p of panel.vertices)if(extent-p.x*n.x-p.y*n.y<1e-7){
+    const value=p.x*tangent.x+p.y*tangent.y;min=Math.min(min,value);max=Math.max(max,value);
+  }
+  return {extent,min,max};
 };
 const support=(face,n,tangent,coordinate)=>{
   const t=clamp(coordinate,face.min,face.max);
@@ -597,7 +600,8 @@ export class ArticulatedRig{
     else appendFloorPanel(samples,'weapon',p.mainHand,p.tip,width);
     if(weapon.headLength){
       const ux=(p.tip.x-p.mainHand.x)/this.swordLength,uy=(p.tip.y-p.mainHand.y)/this.swordLength;
-      const center={x:p.tip.x+uy*weapon.headAcross,y:p.tip.y-ux*weapon.headAcross};
+      const across=weapon.headAcross*equipmentAcrossSign(weapon.id,this.dir);
+      const center={x:p.tip.x+uy*across,y:p.tip.y-ux*across};
       appendFloorPanel(samples,'weapon',{x:center.x-ux*weapon.headLength,y:center.y-uy*weapon.headLength},center,weapon.headWidth,'weapon-head');
     }
     const result=this.detachedBodies.size?samples.filter(p=>this.isBodyAttached(p.body)):samples;
@@ -653,7 +657,8 @@ export class ArticulatedRig{
     }
     if(wants('weapon-head')&&weapon.headLength){
       const ux=(p.tip.x-p.mainHand.x)/swordLength,uy=(p.tip.y-p.mainHand.y)/swordLength;
-      const center={x:p.tip.x+uy*weapon.headAcross,y:p.tip.y-ux*weapon.headAcross};
+      const across=weapon.headAcross*equipmentAcrossSign(weapon.id,this.dir);
+      const center={x:p.tip.x+uy*across,y:p.tip.y-ux*across};
       panels.push(createPanel('weapon',{x:center.x-ux*weapon.headLength,y:center.y-uy*weapon.headLength},center,
         weapon.headWidth,.177,weapon.id==='maul'?.35:.06,'weapon-head'));
     }

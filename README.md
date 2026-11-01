@@ -4,6 +4,14 @@
 
 En móvil, Pages abre la experiencia individual con los dos joysticks y el menú ☰. En PC conserva la escena sin mandos ni menús. Para jugar en PC con los QR y dos móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo: Pages no ejecuta el servidor de sesiones. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Duelo y sonido 1.10.0
+
+Los duelos comienzan con una separación de 3,8 unidades; contra el Maestro Hidráulico, de 4,0. La apertura se restaura en cada ronda y el filo del hacha mira hacia el rival en ambos jugadores. Se conserva la IA histórica y su ventana de contraataque. La música usa la intro y las tres batallas de `music`, con continuidad entre rondas.
+
+El menú móvil permite guardar volúmenes independientes y ajustar distorsión y reverberación, inicialmente muy sutiles. Se retira el efecto `wood-contact`; se conservan los golpes de madera, las articulaciones y los eventos de daño. La cámara incorpora barridos y cambios de altura en la espera y las entradas. Durante la rotura hace una órbita amplia y un primer plano que acompaña la caída del agua, con regreso al frontal antes de reanudar el combate.
+
+Se eliminan arrays temporales en dos consultas de contacto (−85,84 % en ese tramo aislado), conservando estados físicos exactos. La medición integrada queda dentro del ruido; **60 FPS sostenidos siguen sin certificarse**. [Cambios, pruebas y límites](docs/CAMBIOS_1.10.0.md).
+
 ## Foley y efectos grabados 1.9.0
 
 Los choques, roces, pasos de madera, articulaciones, látex y agua usan un banco de 66 variantes grabadas, a 44,1 kHz, conectado al audio real del juego. Se prepara antes de los impactos, mantiene HRTF/XYZ y el límite de voces, y conserva la música de roda de muñecos. Los menús móviles incluyen los créditos y licencias. [Fuentes, preparación y alcance](docs/AUDIO_GRABADO_1.9.0.md).

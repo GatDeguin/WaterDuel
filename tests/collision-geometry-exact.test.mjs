@@ -3,11 +3,12 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {ArticulatedRig} from '../public/physics/articulated-rig.js';
 import {getWeapon} from '../public/equipment.js';
+import {applyAxeFacingReference} from './fixtures/axe-facing-reference-layer.mjs';
 import {fluidSolidColliders,resolveLiquidSolid} from '../public/physics/fluid-solids.js';
 import {fluidSolidColliders as beforeColliders,resolveLiquidSolid as beforeResolve} from '../audit/fluid-solids-gpu-burst-before.js';
 
 const temporary=new URL(`../public/physics/.geometry-exact-baseline-${process.pid}.mjs`,import.meta.url);
-await fs.writeFile(temporary,await fs.readFile(new URL('../audit/articulated-rig-gpu-burst-before.js',import.meta.url),'utf8'));
+await fs.writeFile(temporary,applyAxeFacingReference(await fs.readFile(new URL('../audit/articulated-rig-gpu-burst-before.js',import.meta.url),'utf8'),'gpu'));
 const {ArticulatedRig:Baseline}=await import(temporary.href);
 const copy=(Type,r)=>Object.assign(new Type(),Object.fromEntries(Object.entries(r).filter(([key])=>key!=='apron').map(([key,value])=>[key,structuredClone(value)])));
 const solid=panel=>({center:{...panel.center,z:panel.z},axes:[...panel.axes.map(v=>({...v,z:0})),{x:0,y:0,z:1}],

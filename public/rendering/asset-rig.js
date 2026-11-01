@@ -1,4 +1,4 @@
-import {getWeapon,getDefense,WEAPONS,DEFENSES} from '../equipment.js';
+import {getWeapon,getDefense,WEAPONS,DEFENSES,equipmentAcrossSign} from '../equipment.js';
 import {splitApronParts} from './apron-parts.js';
 import {apronParentFrame,apronMatrix} from '../physics/apron.js';
 import {bodyForBone,assertFragmentTransform,fragmentMatrix} from './joint-damage.js';
@@ -242,7 +242,9 @@ export function equipmentTransform(fighter,id){
     const flex=weapon?equipmentFlex(fighter,id):{flexOffset:0,flexLength:0,flexDirection:fighter.dir<0?-1:1};
     const length=flex.flexLength||Math.hypot(...subtract(vector(tip),vector(hand))),nominal=weapon?.length??defense.length;
     const [deformStart,deformEnd]=deformation[id],extension=length-nominal;
-    return {matrix:new Float32Array(along(hand,weapon?equipmentRootTip(fighter,id):tip)),extension,deformStart,deformEnd,stretchAlong:1+extension/(deformEnd-deformStart),...flex};
+    const matrix=along(hand,weapon?equipmentRootTip(fighter,id):tip),sign=equipmentAcrossSign(id,fighter.dir);
+    if(sign<0)for(const i of[0,1,2,8,9,10])matrix[i]=-matrix[i];
+    return {matrix:new Float32Array(matrix),extension,deformStart,deformEnd,stretchAlong:1+extension/(deformEnd-deformStart),...flex};
   }
   const sx=(p.shieldRadiusX??p.shieldRadius??defense.radiusX)/defense.radiusX,sy=(p.shieldRadiusY??p.shieldRadius??defense.radiusY)/defense.radiusY;
   return {matrix:new Float32Array(basis(vector(p.offHand),[sx,0,0],[0,sy,0],[0,0,1])),extension:0,deformStart:0,deformEnd:1,stretchAlong:1,flexOffset:0,flexLength:0,flexDirection:fighter.dir<0?-1:1};

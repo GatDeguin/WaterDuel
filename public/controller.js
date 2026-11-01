@@ -13,6 +13,9 @@ let welcomed=false,menuOpen=false,menuVisit=0,menuState=null,menuStateSerial=0,r
 let resultState=null,resultVisit=0,resultAccepted=false,resultOffline=false,resultNeedsControlFocus=false;
 let rumbleUntil=0,rumblePriority=0;
 const pendingCommands=new Map();
+const soundSliders=[['menuMusicVolume','musicVolume',24,0,100],['menuEffectsVolume','effectsVolume',100,0,100],['menuDistortion','distortion',3,0,100],['menuReverb','reverb',8,0,100],['menuReverbDecay','reverbDecay',1100,200,2400]];
+const soundDragging=new Set();
+const soundLabel=(id,value)=>id==='menuReverbDecay'?`${(value/1000).toFixed(1)} s`:`${value}%`;
 const resetControls=[];
 const presentationBlocked=()=>menuState?.assets?.loading===true||!!menuState?.rendererError;
 const controlsEnabled=()=>!menuOpen&&!resultState&&!presentationBlocked()&&!document.hidden&&inputFocused&&welcomed&&hostOnline&&!invitationInvalid;
@@ -147,6 +150,7 @@ window.addEventListener('deviceorientation',e=>{
 });
 function neutralize(){
   stopRumble();
+  soundDragging.clear();volumeDragging=false;
   for(const reset of resetControls)reset();
   Object.assign(state,{offX:0,offY:0,mainX:0,mainY:0,lean:0,bodyY:0,wrist:0,thrust:false,guard:false,attackHeld:false,headX:0,headZ:0});
   clearHeadSensor();$('headPadValue').textContent='CABEZA CENTRADA';send(true);
@@ -167,7 +171,7 @@ const safeText=(value,max=360)=>String(value??'').slice(0,max);
 const connected=()=>welcomed&&hostOnline&&!invitationInvalid&&ws?.readyState===WebSocket.OPEN;
 function presentationReason(s){return s?.assets?.loading===true?'La arena está cargando el escenario y los modelos. Esperá a que termine para comenzar.':s?.rendererError?'La arena 3D no está disponible. Esperá a que se recupere para comenzar.':'';}
 const awaiting=id=>[...pendingCommands.values()].some(item=>item.element===id);
-const commandStateFields={setMode:'mode',setExperience:'experience',setDifficulty:'difficulty',setBestOf:'bestOf',setArena:'arena',setQuality:'quality',setPerformanceMode:'performanceMode',setCamera:'camera',setLighting:'lighting',setAudio:'audioOn',setVolume:'volume'};
+const commandStateFields={setMode:'mode',setExperience:'experience',setDifficulty:'difficulty',setBestOf:'bestOf',setArena:'arena',setQuality:'quality',setPerformanceMode:'performanceMode',setCamera:'camera',setLighting:'lighting',setAudio:'audioOn',setVolume:'volume',...Object.fromEntries(soundSliders.map(([,field])=>['set'+field[0].toUpperCase()+field.slice(1),field]))};
 const preparationCommands=new Set(['setMode','setExperience','setDifficulty','setBestOf','setArena','setLoadout']);
 const arenaActionCommands=new Set(['start','reset','nextEncounter','resetCampaign','replayOpen','replayClose']);
 const returnToControlsCommands=new Set(['start','nextEncounter','replayClose']);
@@ -319,12 +323,17 @@ function renderMenu(){
   if(['fight','countdown'].includes(s?.phase)&&!s?.replay?.active)$('menuCamera').disabled=true;
   $('menuConfigNotice').textContent=sceneIssue|| (changingArena?'Esperando la acción solicitada. Los cambios de combate quedan en pausa.':preparing?'Esperando que la arena aplique tu selección antes de comenzar.':configurable?'Elegí las opciones y tocá Comenzar. Al confirmarse, volvés directamente a los mandos.':'La partida está en curso. Las opciones de combate se habilitan al terminar o preparar otra partida.');
   for(const id of ['menuAudio','menuVolume'])$(id).disabled=!usable||awaiting(id);
+  for(const [id]of soundSliders)$(id).disabled=!usable||awaiting(id);
   if(s){
     const own=s.fighters?.find(f=>f.slot===slot);if(own?.emblem){$('seatSymbol').textContent=own.emblem.glyph;$('seatSymbol').setAttribute('aria-label',own.emblem.name);for(const id of ['offKnob','mainKnob'])$(id).dataset.emblem=own.emblem.glyph;}
     const report=$('menuPerformanceReport');if(report){const labels={steady:'Duelo estable',clash:'Choques',detach:'Desprendimientos',burst:'Ruptura'};report.textContent=Object.entries(labels).map(([kind,label])=>{const m=s.performance?.[kind];return m?`${label}: ${m.fpsMean.toFixed(1)} FPS · P95 ${m.frameP95Ms.toFixed(1)} ms · pico ${m.sessionMaxMs.toFixed(1)} ms (${m.samples} cuadros)`:`${label}: sin muestras`;}).join('\n');}
     const scores=Array.isArray(s.scores)?s.scores:[0,0];$('menuScore').textContent=`${Number(scores[0])||0} : ${Number(scores[1])||0}`;$('scoreText').textContent=$('menuScore').textContent;
     $('menuRound').textContent=safeText(s.round,8);$('menuClock').textContent=safeText(s.clock,24);$('menuMatchMessage').textContent=safeText(s.message);
     $('menuAudio').checked=!!s.audioOn;if(!volumeDragging)$('menuVolume').value=String(clamp(Number(s.volume)||0,0,100));$('menuVolumeValue').textContent=`${$('menuVolume').value}%`;
+    for(const [id,field,fallback,min,max]of soundSliders){
+      const slider=$(id);if(!soundDragging.has(id))slider.value=String(clamp(Number.isFinite(s[field])?s[field]:fallback,min,max));
+      const label=soundLabel(id,Number(slider.value));$(id+'Value').textContent=label;slider.setAttribute('aria-valuetext',label);
+    }
     const labels={ready:'EN ESPERA',countdown:'PREPARADOS',fight:'¡DUELO ACTIVO!',burst:'RONDA RESUELTA',matchover:'FIN DE PARTIDA'};$('phaseText').textContent=labels[s.phase]??safeText(s.phase,30);
   }
   $('menuCombatNotice').hidden=!['fight','countdown'].includes(s?.phase);
@@ -378,6 +387,11 @@ for(const [id,name]of [['menuStartBtn','start'],['menuResetBtn','reset'],['menuN
 $('menuAudio').addEventListener('change',()=>command('setAudio',$('menuAudio').checked,'menuAudio'));
 $('menuVolume').addEventListener('input',()=>{volumeDragging=true;$('menuVolumeValue').textContent=`${$('menuVolume').value}%`;});
 $('menuVolume').addEventListener('change',()=>{volumeDragging=false;const volume=Number($('menuVolume').value);if(Number.isFinite(volume))command('setVolume',Math.round(clamp(volume,0,100)),'menuVolume');});
+for(const [id,field,,min,max]of soundSliders){
+  const slider=$(id);
+  slider.addEventListener('input',()=>{soundDragging.add(id);const label=soundLabel(id,Number(slider.value));$(id+'Value').textContent=label;slider.setAttribute('aria-valuetext',label);});
+  slider.addEventListener('change',()=>{soundDragging.delete(id);const value=Number(slider.value);if(Number.isFinite(value))command('set'+field[0].toUpperCase()+field.slice(1),Math.round(clamp(value,min,max)),id);});
+}
 $('menuReplayOpenBtn').addEventListener('click',()=>{const id=Number($('menuReplayClip').value);if(Number.isSafeInteger(id)&&id>0)command('replayOpen',id,'menuReplayOpenBtn');});
 $('menuReplaySeek').addEventListener('input',()=>{seekDragging=true;$('menuReplayPosition').textContent=`${Math.round(Number($('menuReplaySeek').value)/10)}%`;});
 $('menuReplaySeek').addEventListener('change',()=>{seekDragging=false;const fraction=Number($('menuReplaySeek').value)/1000;if(Number.isFinite(fraction))command('replaySeek',clamp(fraction,0,1),'menuReplaySeek');});

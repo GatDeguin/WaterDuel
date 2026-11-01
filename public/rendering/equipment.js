@@ -1,4 +1,4 @@
-import {getWeapon,getDefense,DEFENSES} from '../equipment.js';
+import {getWeapon,getDefense,DEFENSES,equipmentAcrossSign} from '../equipment.js';
 import {equipmentFlex,equipmentRootTip,bendEquipmentPoint,HANDLE_RADII} from './equipment-flex.js';
 
 // Convex, closed profiles have a raised center ridge and a thin, faceted edge.
@@ -84,6 +84,7 @@ export function drawMaulSupportArm(renderer,fighter,pal){
 
 export function drawWeapon(renderer,fighter,pal){
   const p=fighter.pose,weapon=getWeapon(fighter.equipment??p.equipment),flex=equipmentFlex(fighter,weapon.id),f={...frame(p.mainHand,equipmentRootTip(fighter,weapon.id),fighter.dir),...flex};
+  if(equipmentAcrossSign(weapon.id,fighter.dir)<0){f.x=f.x.map(v=>-v);f.z=f.z.map(v=>-v);}
   f.length=flex.flexLength||f.length;f.gripRadius=HANDLE_RADII[weapon.id];const length=f.length;
   if(weapon.id==='sword'){
     grip(renderer,f,pal,0,.045,.25);

@@ -57,3 +57,6 @@ export function normalizeLoadout(value={}){
 }
 export function getWeapon(value){return WEAPONS[normalizeLoadout(typeof value==='string'?{weapon:value}:value?.equipment??value).weapon];}
 export function getDefense(value){return DEFENSES[normalizeLoadout(typeof value==='string'?{defense:value}:value?.equipment??value).defense];}
+// The asymmetric axe rolls around its shaft for the mirrored opponent. A roll
+// preserves the grip, nominal tip and triangle winding while facing its edge inward.
+export const equipmentAcrossSign=(id,dir)=>id==='axe'&&dir<0?-1:1;

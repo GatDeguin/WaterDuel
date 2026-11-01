@@ -1,0 +1,678 @@
+{
+  "scope": "Exact same frozen1.9.0 graph except panel projection helpers. Seeded actual HostSession puncture until return,120Hzphysics/60Hzpresentation,2warmups pervariant,4ABBAcycles andAAcontrol,GCbeforeeach. Node CPU only,noGPU/audio/FPS.",
+  "exactChecksums": true,
+  "warm": [
+    {
+      "variant": "A",
+      "kind": "warm",
+      "pass": 0,
+      "startedAt": "2026-11-01T19:43:35.729Z",
+      "ms": 5726.362,
+      "cpuMs": 8391,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "warm",
+      "pass": 0,
+      "startedAt": "2026-11-01T19:43:41.501Z",
+      "ms": 5410.128000000001,
+      "cpuMs": 8329,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "warm",
+      "pass": 1,
+      "startedAt": "2026-11-01T19:43:46.948Z",
+      "ms": 5549.6793,
+      "cpuMs": 7953,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "warm",
+      "pass": 1,
+      "startedAt": "2026-11-01T19:43:52.527Z",
+      "ms": 5251.580099999999,
+      "cpuMs": 7516,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    }
+  ],
+  "raw": [
+    {
+      "variant": "A",
+      "kind": "control",
+      "pass": 0,
+      "startedAt": "2026-11-01T19:43:57.807Z",
+      "ms": 5352.509000000002,
+      "cpuMs": 7796,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "pass": 0,
+      "startedAt": "2026-11-01T19:44:03.189Z",
+      "ms": 5438.910799999998,
+      "cpuMs": 7985,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "pass": 0,
+      "startedAt": "2026-11-01T19:44:08.656Z",
+      "ms": 5502.135899999994,
+      "cpuMs": 7688,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "pass": 0,
+      "startedAt": "2026-11-01T19:44:14.187Z",
+      "ms": 5267.5494000000035,
+      "cpuMs": 7625,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "pass": 0,
+      "startedAt": "2026-11-01T19:44:19.482Z",
+      "ms": 5347.593699999998,
+      "cpuMs": 7640,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "pass": 0,
+      "startedAt": "2026-11-01T19:44:24.858Z",
+      "ms": 5403.225299999998,
+      "cpuMs": 7610,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "pass": 1,
+      "startedAt": "2026-11-01T19:44:30.288Z",
+      "ms": 5395.873800000001,
+      "cpuMs": 7468,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "pass": 1,
+      "startedAt": "2026-11-01T19:44:35.711Z",
+      "ms": 5356.467600000004,
+      "cpuMs": 7579,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "pass": 1,
+      "startedAt": "2026-11-01T19:44:41.094Z",
+      "ms": 5198.391799999998,
+      "cpuMs": 7390,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "pass": 1,
+      "startedAt": "2026-11-01T19:44:46.320Z",
+      "ms": 5427.637100000007,
+      "cpuMs": 7798,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "pass": 1,
+      "startedAt": "2026-11-01T19:44:51.776Z",
+      "ms": 5333.049199999994,
+      "cpuMs": 7422,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "pass": 1,
+      "startedAt": "2026-11-01T19:44:57.136Z",
+      "ms": 5457.676699999996,
+      "cpuMs": 8032,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "pass": 2,
+      "startedAt": "2026-11-01T19:45:02.622Z",
+      "ms": 5441.21209999999,
+      "cpuMs": 7906,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "pass": 2,
+      "startedAt": "2026-11-01T19:45:08.094Z",
+      "ms": 5776.284199999995,
+      "cpuMs": 8249,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "pass": 2,
+      "startedAt": "2026-11-01T19:45:13.902Z",
+      "ms": 5978.5288,
+      "cpuMs": 8296,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "pass": 2,
+      "startedAt": "2026-11-01T19:45:19.913Z",
+      "ms": 5461.680000000008,
+      "cpuMs": 7687,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "pass": 2,
+      "startedAt": "2026-11-01T19:45:25.400Z",
+      "ms": 5211.606899999999,
+      "cpuMs": 7032,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "pass": 2,
+      "startedAt": "2026-11-01T19:45:30.639Z",
+      "ms": 5509.532099999997,
+      "cpuMs": 7781,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "pass": 3,
+      "startedAt": "2026-11-01T19:45:36.178Z",
+      "ms": 5332.588400000008,
+      "cpuMs": 7562,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "pass": 3,
+      "startedAt": "2026-11-01T19:45:41.538Z",
+      "ms": 5175.779600000009,
+      "cpuMs": 7297,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "B",
+      "kind": "paired",
+      "pass": 3,
+      "startedAt": "2026-11-01T19:45:46.742Z",
+      "ms": 5225.936499999982,
+      "cpuMs": 7625,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "paired",
+      "pass": 3,
+      "startedAt": "2026-11-01T19:45:51.995Z",
+      "ms": 5351.844400000002,
+      "cpuMs": 7718,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "pass": 3,
+      "startedAt": "2026-11-01T19:45:57.374Z",
+      "ms": 5441.0380000000005,
+      "cpuMs": 7750,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    },
+    {
+      "variant": "A",
+      "kind": "control",
+      "pass": 3,
+      "startedAt": "2026-11-01T19:46:02.842Z",
+      "ms": 5325.152800000011,
+      "cpuMs": 7547,
+      "ticks": 481,
+      "phases": {
+        "fight": 90,
+        "burst": 391
+      },
+      "realPuncture": true,
+      "checksum": "58786a2d37d9f90d39b53b15500775d7782aac745ca047b5ada8ffa6d515e38f",
+      "events": {
+        "reset": 1,
+        "clang": 1,
+        "material-contact": 70,
+        "joint-damage": 12,
+        "burst": 1,
+        "start": 1
+      }
+    }
+  ],
+  "cycles": [
+    {
+      "pass": 0,
+      "changePercent": -2.6612424355095254,
+      "controlAAChangePercent": 1.6142298873293992
+    },
+    {
+      "pass": 1,
+      "changePercent": -2.4821104952183926,
+      "controlAAChangePercent": 2.3368901228213446
+    },
+    {
+      "pass": 2,
+      "changePercent": -7.092354463406359,
+      "controlAAChangePercent": 6.158041514316359
+    },
+    {
+      "pass": 3,
+      "changePercent": -2.6460618480376286,
+      "controlAAChangePercent": -2.1298362555084105
+    }
+  ],
+  "baselineMeanMs": 5487.670725000001,
+  "candidateMeanMs": 5280.6256875,
+  "wallChangePercent": -3.772912914704829,
+  "cpuChangePercent": -3.3042102033235876
+}

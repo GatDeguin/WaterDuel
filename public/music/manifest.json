@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "title": "Música provista para WaterDuel",
+  "source": "Carpeta music del proyecto, copiada sin alteraciones",
+  "playback": "Un stream HTMLAudio a la vez; intro y tres pistas de batalla",
+  "tracks": [
+    {
+      "file": "intro.mp3",
+      "bytes": 4286864,
+      "sha256": "7fde9236f002ca692c70dd48c0e0d3fbb96448d0f476c3f643f1edc7bbd43418",
+      "sampleRate": 44100,
+      "channels": 2,
+      "mpegLayer": 3,
+      "encodedFrames": 6828,
+      "encodedDuration": 178.36408163265307,
+      "audioStart": 6127,
+      "audioEnd": 4286864,
+      "minBitrateKbps": 192,
+      "maxBitrateKbps": 192
+    },
+    {
+      "file": "batalla.mp3",
+      "bytes": 4330122,
+      "sha256": "311367042ea5f32c0603005b4be1ee8d41f71d0874817f384b81351cd5da1a73",
+      "sampleRate": 44100,
+      "channels": 2,
+      "mpegLayer": 3,
+      "encodedFrames": 6897,
+      "encodedDuration": 180.16653061224488,
+      "audioStart": 6127,
+      "audioEnd": 4330122,
+      "minBitrateKbps": 192,
+      "maxBitrateKbps": 192
+    },
+    {
+      "file": "batalla2.mp3",
+      "bytes": 4293133,
+      "sha256": "3d9e4513ed63d4cc38506ca3fadb5c984130ec4d94798e4cad964908663a0b2e",
+      "sampleRate": 44100,
+      "channels": 2,
+      "mpegLayer": 3,
+      "encodedFrames": 6838,
+      "encodedDuration": 178.625306122449,
+      "audioStart": 6127,
+      "audioEnd": 4293133,
+      "minBitrateKbps": 192,
+      "maxBitrateKbps": 192
+    },
+    {
+      "file": "batalla3.mp3",
+      "bytes": 4293133,
+      "sha256": "979dd24e4d0cb3ccc9027a480b7aa639fe2104665111a5db94cd4ce7d4612e8b",
+      "sampleRate": 44100,
+      "channels": 2,
+      "mpegLayer": 3,
+      "encodedFrames": 6838,
+      "encodedDuration": 178.625306122449,
+      "audioStart": 6127,
+      "audioEnd": 4293133,
+      "minBitrateKbps": 192,
+      "maxBitrateKbps": 192
+    }
+  ]
+}

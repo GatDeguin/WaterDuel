@@ -4,12 +4,13 @@ import fs from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {ArticulatedRig} from '../public/physics/articulated-rig.js';
 import {DuelEngine,STEP} from '../public/engine.js';
+import {applyAxeFacingReference} from './fixtures/axe-facing-reference-layer.mjs';
 
 // This independently frozen implementation supplies the complete Jacobians
 // for the requested configuration, before the private Y-only optimization.
 const frozen=await fs.readFile(new URL('./fixtures/articulated-rig-pre-goal-y-only-1.7.4.js.txt',import.meta.url),'utf8');
 assert.equal(createHash('sha256').update(frozen).digest('hex'),'11fd0cc7fb655b404b4e911f8adea509ef9d37a742c169f13dcd9eb496398d60');
-const source=frozen.replace(/(from\s*)(['"])(\.[^'"\n]+)\2/g,(_match,prefix,quote,specifier)=>prefix+quote+new URL(specifier,new URL('../public/physics/articulated-rig.js',import.meta.url)).href+quote);
+const source=applyAxeFacingReference(frozen,'goal').replace(/(from\s*)(['"])(\.[^'"\n]+)\2/g,(_match,prefix,quote,specifier)=>prefix+quote+new URL(specifier,new URL('../public/physics/articulated-rig.js',import.meta.url)).href+quote);
 const {ArticulatedRig:Baseline}=await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
 
 function fixture(Type,weapon='sword',dir=1,scale=1){

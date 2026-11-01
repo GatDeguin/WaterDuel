@@ -1,0 +1,406 @@
+{
+  "scope": "Isolated projection+support face helpers, real rigid panel corpus (18 combinations,8poses), exact arithmetic checks plus empty/signed-zero/nonfinite cases; no renderer or FPS.",
+  "caseCount": 4227,
+  "block": 300000,
+  "cycles": [
+    {
+      "cycle": 0,
+      "a": 151.53875000000005,
+      "b": 21.343000000000018,
+      "changePercent": -85.91581361202992,
+      "controlPercent": -0.6397249802899352
+    },
+    {
+      "cycle": 1,
+      "a": 192.2473,
+      "b": 34.94190000000003,
+      "changePercent": -81.82450416728868,
+      "controlPercent": 1.1164451088671257
+    },
+    {
+      "cycle": 2,
+      "a": 154.5916000000002,
+      "b": 21.29600000000005,
+      "changePercent": -86.22434854157663,
+      "controlPercent": 1.8376570331391617
+    },
+    {
+      "cycle": 3,
+      "a": 159.6373000000001,
+      "b": 22.676999999999907,
+      "changePercent": -85.79467330003709,
+      "controlPercent": 6.412747567301924
+    },
+    {
+      "cycle": 4,
+      "a": 160.67920000000004,
+      "b": 26.366050000000087,
+      "changePercent": -83.59087548357218,
+      "controlPercent": 0.7786516676179245
+    },
+    {
+      "cycle": 5,
+      "a": 155.01890000000003,
+      "b": 21.299099999999726,
+      "changePercent": -86.26032051575665,
+      "controlPercent": 1.1455991438121371
+    },
+    {
+      "cycle": 6,
+      "a": 162.17089999999962,
+      "b": 22.717399999999998,
+      "changePercent": -85.991691481024,
+      "controlPercent": -2.3713954891719458
+    },
+    {
+      "cycle": 7,
+      "a": 151.17210000000023,
+      "b": 21.887300000000323,
+      "changePercent": -85.52160087741039,
+      "controlPercent": 7.364923529018386
+    }
+  ],
+  "rows": [
+    {
+      "cycle": 0,
+      "kind": "paired",
+      "v": "A",
+      "ms": 150.05280000000005,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 0,
+      "kind": "paired",
+      "v": "B",
+      "ms": 21.192800000000034,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 0,
+      "kind": "paired",
+      "v": "B",
+      "ms": 21.4932,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 0,
+      "kind": "paired",
+      "v": "A",
+      "ms": 153.02470000000005,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 0,
+      "kind": "control",
+      "v": "A",
+      "ms": 149.92379999999991,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 0,
+      "kind": "control",
+      "v": "A",
+      "ms": 148.9647,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 1,
+      "kind": "paired",
+      "v": "A",
+      "ms": 171.2138,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 1,
+      "kind": "paired",
+      "v": "B",
+      "ms": 35.752300000000105,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 1,
+      "kind": "paired",
+      "v": "B",
+      "ms": 34.13149999999996,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 1,
+      "kind": "paired",
+      "v": "A",
+      "ms": 213.2808,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 1,
+      "kind": "control",
+      "v": "A",
+      "ms": 155.18900000000008,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 1,
+      "kind": "control",
+      "v": "A",
+      "ms": 156.9215999999999,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 2,
+      "kind": "paired",
+      "v": "A",
+      "ms": 155.09990000000016,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 2,
+      "kind": "paired",
+      "v": "B",
+      "ms": 20.996500000000196,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 2,
+      "kind": "paired",
+      "v": "B",
+      "ms": 21.5954999999999,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 2,
+      "kind": "paired",
+      "v": "A",
+      "ms": 154.08330000000024,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 2,
+      "kind": "control",
+      "v": "A",
+      "ms": 152.6509000000001,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 2,
+      "kind": "control",
+      "v": "A",
+      "ms": 155.45610000000033,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 3,
+      "kind": "paired",
+      "v": "A",
+      "ms": 165.25239999999985,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 3,
+      "kind": "paired",
+      "v": "B",
+      "ms": 23.94470000000001,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 3,
+      "kind": "paired",
+      "v": "B",
+      "ms": 21.409299999999803,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 3,
+      "kind": "paired",
+      "v": "A",
+      "ms": 154.02220000000034,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 3,
+      "kind": "control",
+      "v": "A",
+      "ms": 157.06839999999966,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 3,
+      "kind": "control",
+      "v": "A",
+      "ms": 167.14079999999967,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 4,
+      "kind": "paired",
+      "v": "A",
+      "ms": 154.79269999999997,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 4,
+      "kind": "paired",
+      "v": "B",
+      "ms": 26.06750000000011,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 4,
+      "kind": "paired",
+      "v": "B",
+      "ms": 26.664600000000064,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 4,
+      "kind": "paired",
+      "v": "A",
+      "ms": 166.5657000000001,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 4,
+      "kind": "control",
+      "v": "A",
+      "ms": 164.3481999999999,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 4,
+      "kind": "control",
+      "v": "A",
+      "ms": 165.62789999999995,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 5,
+      "kind": "paired",
+      "v": "A",
+      "ms": 161.67199999999957,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 5,
+      "kind": "paired",
+      "v": "B",
+      "ms": 21.422099999999773,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 5,
+      "kind": "paired",
+      "v": "B",
+      "ms": 21.17609999999968,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 5,
+      "kind": "paired",
+      "v": "A",
+      "ms": 148.3658000000005,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 5,
+      "kind": "control",
+      "v": "A",
+      "ms": 165.19740000000002,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 5,
+      "kind": "control",
+      "v": "A",
+      "ms": 167.08989999999994,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 6,
+      "kind": "paired",
+      "v": "A",
+      "ms": 166.2488999999996,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 6,
+      "kind": "paired",
+      "v": "B",
+      "ms": 21.74619999999959,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 6,
+      "kind": "paired",
+      "v": "B",
+      "ms": 23.688600000000406,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 6,
+      "kind": "paired",
+      "v": "A",
+      "ms": 158.09289999999964,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 6,
+      "kind": "control",
+      "v": "A",
+      "ms": 155.11120000000028,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 6,
+      "kind": "control",
+      "v": "A",
+      "ms": 151.4328999999998,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 7,
+      "kind": "paired",
+      "v": "A",
+      "ms": 151.90059999999994,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 7,
+      "kind": "paired",
+      "v": "B",
+      "ms": 22.749800000000505,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 7,
+      "kind": "paired",
+      "v": "B",
+      "ms": 21.02480000000014,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 7,
+      "kind": "paired",
+      "v": "A",
+      "ms": 150.44360000000052,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 7,
+      "kind": "control",
+      "v": "A",
+      "ms": 155.71920000000046,
+      "checksum": 146122.28119404026
+    },
+    {
+      "cycle": 7,
+      "kind": "control",
+      "v": "A",
+      "ms": 167.1877999999997,
+      "checksum": 146122.28119404026
+    }
+  ],
+  "baselineMedian": 157.32810000000006,
+  "candidateMedian": 22.282150000000115,
+  "changePercent": -85.83714543047294,
+  "controlMedianAbs": 1.4916280884756494,
+  "medianMethod": "Conventional midpoint of two central values for even counts"
+}

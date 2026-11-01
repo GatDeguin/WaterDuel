@@ -64,13 +64,24 @@
    <fieldset><legend id="menuFighter1">Jugador 1</legend><p id="menuGuard1" class="menu-muted"></p><label>Arma<select id="menuWeapon1" disabled><option value="sword">Cargando catálogo…</option></select></label><label>Defensa<select id="menuDefense1" disabled><option value="short">Cargando catálogo…</option></select></label></fieldset>
    <fieldset><legend id="menuFighter2">Jugador 2</legend><p id="menuGuard2" class="menu-muted"></p><label>Arma<select id="menuWeapon2" disabled><option value="sword">Cargando catálogo…</option></select></label><label>Defensa<select id="menuDefense2" disabled><option value="short">Cargando catálogo…</option></select></label></fieldset>
   </div></section>
-  <section class="menu-section" aria-labelledby="menuPresentationTitle"><h3 id="menuPresentationTitle">Imagen y sonido de la arena</h3><div class="menu-grid">
+  <section class="menu-section" aria-labelledby="menuPresentationTitle"><h3 id="menuPresentationTitle">Imagen y fluidez</h3><div class="menu-grid">
    <label>Fluidez<select id="menuPerformanceMode" aria-describedby="menuPerformanceHelp"><option value="fixed">Calidad fija</option><option value="adaptive">Adaptativa experimental</option></select></label>
    <label>Calidad máxima<select id="menuQuality"><option value="high">Alta</option><option value="ultra">Cinemática</option><option value="eco">Económica</option></select></label>
    <label>Cámara<select id="menuCamera"><option value="combat">Duelo completo</option><option value="detail">Detalle de articulaciones</option></select></label>
    <label>Iluminación<select id="menuLighting"><option value="cinematic">Taller cinematográfico</option><option value="neutral">Inspección neutra</option></select></label>
+  </div><p id="menuPerformanceHelp" class="menu-muted">Calidad fija conserva los ajustes elegidos. La opción adaptativa experimental ajusta el detalle y la resolución según la carga, sin superar la calidad máxima seleccionada.</p><p class="menu-muted">La cámara de detalle se reserva para fuera del combate.</p></section>
+  <section class="menu-section" aria-labelledby="menuSoundTitle"><h3 id="menuSoundTitle">Sonido</h3>
    <label class="menu-check"><input id="menuAudio" type="checkbox"> Sonido de la arena</label>
-  </div><p id="menuPerformanceHelp" class="menu-muted">Calidad fija conserva los ajustes elegidos. La opción adaptativa experimental ajusta el detalle y la resolución según la carga, sin superar la calidad máxima seleccionada.</p><label>Volumen <output id="menuVolumeValue">0%</output><input id="menuVolume" type="range" min="0" max="100" step="1" value="55"></label><p class="menu-muted">La cámara de detalle se reserva para fuera del combate. Activá el sonido para escucharlo en este dispositivo.</p></section>
+   <label>Volumen general <output id="menuVolumeValue">55%</output><input id="menuVolume" type="range" min="0" max="100" step="1" value="55"></label>
+   <div class="menu-grid">
+    <label>Música <output id="menuMusicVolumeValue">24%</output><input id="menuMusicVolume" type="range" min="0" max="100" step="1" value="24"></label>
+    <label>Efectos <output id="menuEffectsVolumeValue">100%</output><input id="menuEffectsVolume" type="range" min="0" max="100" step="1" value="100"></label>
+    <label>Distorsión <output id="menuDistortionValue">3%</output><input id="menuDistortion" type="range" min="0" max="100" step="1" value="3" aria-describedby="menuSoundHelp"></label>
+    <label>Reverberación <output id="menuReverbValue">8%</output><input id="menuReverb" type="range" min="0" max="100" step="1" value="8" aria-describedby="menuSoundHelp"></label>
+   </div>
+   <label>Cola de reverberación <output id="menuReverbDecayValue">1.1 s</output><input id="menuReverbDecay" type="range" min="200" max="2400" step="100" value="1100" aria-describedby="menuSoundHelp"></label>
+   <p id="menuSoundHelp" class="menu-muted">Distorsión y reverberación se aplican sólo a los efectos, en ese orden. En 0% se desactivan. Los valores iniciales son sutiles. La música tiene su propio volumen. Activá el sonido para escucharlo en este dispositivo.</p>
+  </section>
   <p class="menu-muted"><a href="./assets/audio/recorded-foley-v1/credits.html" target="_blank" rel="noopener">Créditos de sonidos y licencias</a></p>
   <details class="menu-section"><summary>Rendimiento local de la arena</summary><p class="menu-muted">Intervalos de cuadros y tiempos CPU. Las pausas y la carga se excluyen. Estos datos no certifican la presentación de la GPU ni el rendimiento de otro dispositivo.</p><output id="menuPerformanceReport" style="white-space:pre-line">Todavía no hay muestras.</output></details>
   <section class="menu-section" aria-labelledby="menuReplayTitle"><h3 id="menuReplayTitle">Repeticiones</h3><label>Momento guardado<select id="menuReplayClip"><option value="">Todavía no hay repeticiones</option></select></label><div class="menu-actions"><button id="menuReplayOpenBtn">VER REPETICIÓN</button><button id="menuReplayClearBtn">BORRAR REPETICIONES</button></div>

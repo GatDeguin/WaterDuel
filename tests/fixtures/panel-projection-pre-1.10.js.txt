@@ -1,0 +1,11 @@
+const projection=(panel,n)=>{
+  const values=panel.vertices.map(p=>p.x*n.x+p.y*n.y);
+  return {min:Math.min(...values),max:Math.max(...values)};
+};
+
+const supportFace=(panel,n,tangent)=>{
+  const extent=projection(panel,n).max,face=panel.vertices.filter(p=>extent-p.x*n.x-p.y*n.y<1e-7);
+  const along=face.map(p=>p.x*tangent.x+p.y*tangent.y);
+  return {extent,min:Math.min(...along),max:Math.max(...along)};
+};
+

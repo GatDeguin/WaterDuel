@@ -25,7 +25,7 @@ import {bodyForBone,bodyVisible,equipmentBody,jointMarks,rigidRenderer,drawParti
 import {SHEEN_GLSL} from './rendering/sheen.js';
 import {prepareWorkshopLights} from './rendering/workshop-lights.js';
 import {prepareWorkshopMotion,splitWorkshopMotionAsset,environmentPartMatrix} from './rendering/workshop-motion.js';
-import {duelCamera} from './rendering/duel-camera.js';
+import {cinematicCamera as duelCamera,burstCameraFocus} from './rendering/cinematic-camera.js';
 import {effectBatches,EFFECT_LIMITS} from './workshop-effects.js';
 import {balloonPalette} from './opponent-loadouts.js';
 import {apronSurfaceOverride,apronProceduralColor} from './rendering/apron-color.js';
@@ -1212,7 +1212,7 @@ export class Renderer3D {
   const aspect=this.width/this.height;
   this.cameraMotionPreference??=globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')??{matches:false};
   const camera=duelCamera({phase:game.phase,phaseClock:game.phaseClock,clock:game.clock,round:game.round,replay:game.replay,
-    cameraMode:game.cameraMode,aspect,reducedMotion:game.reducedMotion??this.cameraMotionPreference.matches});
+    cameraMode:game.cameraMode,aspect,reducedMotion:game.reducedMotion??this.cameraMotionPreference.matches,burstFocus:burstCameraFocus(game)});
   const {eye,target,fov}=camera;this.stats.camera={...camera,aspect};
   gl.uniform2f(U.uOpticalPlanes,camera.near,camera.far);
   const vp=mul(perspective(fov,aspect,camera.near,camera.far),lookAt(eye,target,[0,1,0]));

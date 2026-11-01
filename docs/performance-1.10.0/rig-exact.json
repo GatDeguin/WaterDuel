@@ -1,0 +1,117 @@
+{
+  "scope": "16 complete120-tick physical traces,120Hz,damage/sever/collapse,30checkpoints of pose/rigmatrix/contacts/water/replay/events each,all exact.",
+  "result": [
+    {
+      "weapon": "sword",
+      "dir": -1,
+      "boss": false,
+      "exact": true,
+      "checksum": "9ff7654e4364d58e2b866125babd52d3b694e0d27600e9909ab312182e7ba510"
+    },
+    {
+      "weapon": "sword",
+      "dir": -1,
+      "boss": true,
+      "exact": true,
+      "checksum": "ecfa2c6a641d7ec2191468072f622ae1e8af9095a76688f1293f20be42d1d8da"
+    },
+    {
+      "weapon": "sword",
+      "dir": 1,
+      "boss": false,
+      "exact": true,
+      "checksum": "487445ec59a115250251e5d1a34478091403ee6d63e9ea9d0f3f2574798809f5"
+    },
+    {
+      "weapon": "sword",
+      "dir": 1,
+      "boss": true,
+      "exact": true,
+      "checksum": "4522b525924b66b7e670e34bb764115b79bde559f393e806e179d7dcd20434f8"
+    },
+    {
+      "weapon": "spear",
+      "dir": -1,
+      "boss": false,
+      "exact": true,
+      "checksum": "1a94992e4bd8ed8b8d99d82f310143c04bf0cdcb7970be3a385b277d77c14b75"
+    },
+    {
+      "weapon": "spear",
+      "dir": -1,
+      "boss": true,
+      "exact": true,
+      "checksum": "49ae6a113651554cc0eb44499dec345a1df1b97242d14c68abc04af382e44d22"
+    },
+    {
+      "weapon": "spear",
+      "dir": 1,
+      "boss": false,
+      "exact": true,
+      "checksum": "9475fa0f4881ccfc608a293c6864e694fc112833dac3898760ac7b860e6a782a"
+    },
+    {
+      "weapon": "spear",
+      "dir": 1,
+      "boss": true,
+      "exact": true,
+      "checksum": "ff79ddb4e8a671dc487534ef7d3110fcb9bce27d077c6176dc02ebeaa9112207"
+    },
+    {
+      "weapon": "axe",
+      "dir": -1,
+      "boss": false,
+      "exact": true,
+      "checksum": "c7f9c877ffdbc3f5d09c8afb28be5f26810e912e27e53f38f32a99d491b2a7f9"
+    },
+    {
+      "weapon": "axe",
+      "dir": -1,
+      "boss": true,
+      "exact": true,
+      "checksum": "aa74f4abc5a5f4b31fa63f7cf755bea478a7eb4a6dc4878d961a26544372224d"
+    },
+    {
+      "weapon": "axe",
+      "dir": 1,
+      "boss": false,
+      "exact": true,
+      "checksum": "8e85e6f467679da76b49c4bf5c3028e33fbed0491394213a98e7d7eb1676c481"
+    },
+    {
+      "weapon": "axe",
+      "dir": 1,
+      "boss": true,
+      "exact": true,
+      "checksum": "ba35caee5e4150d95e7c450ffbfe09d8ca0a518f0ea988e7556d30ee6c7d17fa"
+    },
+    {
+      "weapon": "maul",
+      "dir": -1,
+      "boss": false,
+      "exact": true,
+      "checksum": "dd69ed7e9d9131da5e1054f1653a6b95fde71acc2153b0c18309d94265704577"
+    },
+    {
+      "weapon": "maul",
+      "dir": -1,
+      "boss": true,
+      "exact": true,
+      "checksum": "183ec117f432d43cfd43a74ed0fe7c4594c71617127b489db49e3370a40448d4"
+    },
+    {
+      "weapon": "maul",
+      "dir": 1,
+      "boss": false,
+      "exact": true,
+      "checksum": "f72f84975532920e1ba413d91af4cb4dbeef0715d31dfc3b3b882db6f6f64ff6"
+    },
+    {
+      "weapon": "maul",
+      "dir": 1,
+      "boss": true,
+      "exact": true,
+      "checksum": "60491b908dcf1d0e835183bb3849618c49564b00179908f054d6ad4fb2585c34"
+    }
+  ]
+}

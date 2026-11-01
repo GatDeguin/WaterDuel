@@ -76,7 +76,10 @@ test('the listening montage contains all variants and the three physical burst l
 
 test('the shipped game uses the recorded bank and both phone menus expose the actual credits page',async()=>{
   const game=await readFile(new URL('../public/game.js',import.meta.url),'utf8');
-  assert.match(game,/import\s*\{\s*RecordedGameAudio\s+as\s+GameAudio\s*\}\s*from\s*['"]\.\/audio\/recorded-game-audio\.js['"]/);
+  assert.match(game,/import\s*\{\s*WorkshopGameAudio\s+as\s+GameAudio\s*\}\s*from\s*['"]\.\/audio\/workshop-game-audio\.js['"]/);
+  const workshop=await readFile(new URL('../public/audio/workshop-game-audio.js',import.meta.url),'utf8');
+  assert.match(workshop,/import\s*\{\s*RecordedGameAudio\s*\}\s*from\s*['"]\.\/recorded-game-audio\.js['"]/);
+  assert.match(workshop,/class\s+WorkshopGameAudio\s+extends\s+RecordedGameAudio/);
   assert.match(game,/audio\s*=\s*new GameAudio\(/);assert.doesNotMatch(game,/from\s*['"]\.\/game-audio\.js['"]/);
   const href='./assets/audio/recorded-foley-v1/credits.html';
   for(const filename of ['mobile.html','controller.html']){

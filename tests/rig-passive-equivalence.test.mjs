@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {DuelEngine,STEP} from '../public/engine.js';
 import {ArticulatedRig as Current} from '../public/physics/articulated-rig.js';
+import {applyAxeFacingReference} from './fixtures/axe-facing-reference-layer.mjs';
 
 const temporary=new URL(`../public/physics/.passive-exact-baseline-${process.pid}.mjs`,import.meta.url);
-await fs.writeFile(temporary,await fs.readFile(new URL('../audit/articulated-rig-passive-spikes-before.js',import.meta.url),'utf8'));
+await fs.writeFile(temporary,applyAxeFacingReference(await fs.readFile(new URL('../audit/articulated-rig-passive-spikes-before.js',import.meta.url),'utf8'),'passive'));
 const {ArticulatedRig:Before}=await import(temporary.href);
 test.after(async()=>fs.unlink(temporary));
 const capture=r=>({q:r.q.slice(),velocity:r.velocity.slice(),pose:r.pose(),diagnostics:r.diagnostics(),panels:r.collisionPanels()});

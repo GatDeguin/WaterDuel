@@ -8,7 +8,7 @@ import {ArticulatedRig,resolveRigContact,REFERENCE_STANCE,NECK_CONE} from './phy
 import {advanceBodyEvasion,CROUCH_DEPTH} from './physics/body-evasion.js';
 import {advanceLocomotion} from './physics/locomotion.js';
 import {BALLOON_RADII,TABLE_TOP} from './physics/dimensions.js';
-import {WEAPONS,DEFENSES,normalizeLoadout,getWeapon,getDefense} from './equipment.js';
+import {WEAPONS,DEFENSES,normalizeLoadout,getWeapon,getDefense,equipmentAcrossSign} from './equipment.js';
 import {observedPointVelocity,relativePointSpeed,segmentConvexPolygonContact} from './physics/equipment-contact.js';
 import {segmentEllipsoidContact} from './physics/head-contact.js';
 import {AutoDefense} from './auto-defense.js';
@@ -30,6 +30,7 @@ export const STEP = 1/120;
 export const RULES=Object.freeze({roundsToWin:2,regulationSeconds:90});
 // Includes the v2 resting lean, both active lean motors, boss scale and slosh.
 export const FOOTWORK=Object.freeze({arenaHalfWidth:2.2,minSeparation:2.7,maxSpeed:.65,acceleration:3});
+export const OPENING_DISTANCE=Object.freeze({normal:3.8,boss:4.0});
 const PUNCTURE_LUNGE=.21;
 // World-space volumes are game units, not metres. This explicit mass density
 // maps a normally filled head's ledger to ~1.776 model mass units.
@@ -114,11 +115,13 @@ export function parryContact(previous,tip,pose,defense){
   const point={x:lerp(previous.x,tip.x,hit.t),y:lerp(previous.y,tip.y,hit.t),z:lerp(previous.z??.17,tip.z??.17,hit.t)};
   return {...hit,point,surfacePoint:{...point}};
 }
-function strikePoints(tip,direction,weapon){
-  return (weapon.strikePoints??[{along:0,across:0}]).map(({along,across})=>({
-    x:tip.x+direction.x*along+direction.y*across,
-    y:tip.y+direction.y*along-direction.x*across,z:tip.z??.17
-  }));
+function strikePoints(tip,direction,weapon,dir){
+  const sign=equipmentAcrossSign(weapon.id,dir);
+  return (weapon.strikePoints??[{along:0,across:0}]).map(({along,across})=>{
+    const offset=across*sign;
+    return {x:tip.x+direction.x*along+direction.y*offset,
+      y:tip.y+direction.y*along-direction.x*offset,z:tip.z??.17};
+  });
 }
 export function sweptEllipse(prev,now,cx,cy,rx,ry){
   return segmentEllipseContact(prev,now,cx,cy,rx,ry)!==null;
@@ -254,7 +257,7 @@ export class DuelEngine{
     this.phase='ready';this.phaseClock=0;this.scores=[0,0];this.round=1;this.winner=0;this.suddenDeath=false;this.demonstration=false;
     this.resetRound();this.onEvent('reset',{mode:this.mode});
   }
-  resetRound(){
+  resetRound({opening=false}={}){
     this.burstStepClock.reset();
     this.presentation.reset();
     this.guardContactEpisodes.clear();
@@ -268,6 +271,9 @@ export class DuelEngine{
       // Spawn both rigs with visible clearance; ordinary footwork can close it.
       for(const f of this.fighters)f.baseX=-f.dir*1.75;
     }
+    // Ready/inspection retains the reference stance. Every playable countdown,
+    // including a rematch or campaign encounter, starts outside immediate range.
+    if(opening)for(const f of this.fighters)f.baseX=-f.dir*(enemy.boss?OPENING_DISTANCE.boss:OPENING_DISTANCE.normal)/2;
     this.particles=[];this.shards=[];this.rings=[];this.spark=[];
     this.fluidVersion=1;this.puddleStrength=[0,0];
     this.elapsed=0;this.suddenDeath=false;this.winner=0;
@@ -280,7 +286,7 @@ export class DuelEngine{
     this.#startRound();
   }
   #startRound(){
-    this.resetRound();this.phase='countdown';this.phaseClock=0;this.count=3;this.lastMessage='Que gane la precisión';
+    this.resetRound({opening:this.scenario==='duel'});this.phase='countdown';this.phaseClock=0;this.count=3;this.lastMessage='Que gane la precisión';
     this.onEvent('start',{round:this.round});
   }
   setControl(slot,state,{connected=false}={}){
@@ -840,7 +846,7 @@ export class DuelEngine{
       const target=dp.head;
       const weapon=getWeapon(atk),dx=ap.tip.x-ap.mainHand.x,dy=ap.tip.y-ap.mainHand.y,length=Math.hypot(dx,dy)||1;
       const forward={x:dx,y:dy,z:(ap.tip.z??0)-(ap.mainHand.z??0)},direction={x:dx/length,y:dy/length};
-      const currentPoints=strikePoints(ap.tip,direction,weapon),previousPoints=strikePoints(previous,atk.previousWeaponDirection??direction,weapon);
+      const currentPoints=strikePoints(ap.tip,direction,weapon,atk.dir),previousPoints=strikePoints(previous,atk.previousWeaponDirection??direction,weapon,atk.dir);
       const step=this.lastPhysicalDt||STEP;
       const headRadii=Object.fromEntries(Object.entries(BALLOON_RADII).map(([axis,radius])=>[axis,(radius+BALLOON_COLLISION_SKIN)*def.balloonSize]));
       const headSweep=(from,to,temporal=true)=>segmentEllipsoidContact(from,to,target,headRadii,

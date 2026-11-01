@@ -39,6 +39,23 @@ function fixture(slot=1){
 const state=(extra={})=>({phase:'ready',mode:'solo',experience:'duel',difficulty:'normal',bestOf:3,arena:'atelier',quality:'high',camera:'combat',lighting:'cinematic',audioOn:true,volume:55,scores:[1,0],round:2,clock:'00:37',fighters:[{slot:1,name:'Mint',equipment:{weapon:'sword',defense:'short'},guardPercent:70,guardLabel:'GUARDIA',wins:[true,false]},{slot:2,name:'Amber',equipment:{weapon:'spear',defense:'long'},guardPercent:20,guardLabel:'ACTIVA',wins:[false,false]}],objective:{title:'Escuela',instruction:'Mové el brazo real',progress:2,total:7,completed:false,nextAction:null},replay:{clips:[{id:7,duration:2.8,complete:true}],active:false,paused:true,speed:.5,position:.25},configurable:true,trainingEquipmentLocked:false,message:'Preparados',...extra});
 const neutral={offX:0,offY:0,mainX:0,mainY:0,lean:0,bodyY:0,wrist:0,thrust:false,guard:false,attackHeld:false,headX:0,headZ:0};
 
+test('audio sliders confirm their applied state, retain local drags and restore rejected values',()=>{
+  const f=fixture(),fields=[['menuMusicVolume','musicVolume','setMusicVolume',24,36],['menuEffectsVolume','effectsVolume','setEffectsVolume',100,72],['menuDistortion','distortion','setDistortion',3,2],['menuReverb','reverb','setReverb',8,5],['menuReverbDecay','reverbDecay','setReverbDecay',1100,800]];
+  for(const [id,field,command,initial,value] of fields){
+    f.receive(state({[field]:initial}));f.el(id).value=String(value);f.el(id).fire('input');f.receive(state({[field]:initial}));assert.equal(f.el(id).value,String(value),'server refresh cannot move an active drag');
+    f.el(id).fire('change');const sent=f.commands().at(-1);assert.equal(sent.command,command);assert.equal(sent.value,value);assert.equal(f.el(id).disabled,true);
+    f.socket.receive({type:'command-result',requestId:sent.requestId,ok:true});assert.equal(f.el(id).disabled,true,'ACK alone does not confirm applied state');
+    f.receive(state({[field]:value}));assert.equal(f.el(id).disabled,false);assert.equal(f.el(id).value,String(value));
+    f.change(id,initial);const rejected=f.commands().at(-1);f.socket.receive({type:'command-result',requestId:rejected.requestId,ok:false,message:'Rechazado'});assert.equal(f.el(id).value,String(value));
+  }
+});
+
+test('an interrupted sound drag restores authoritative values without sending a stale change',()=>{
+  const f=fixture();f.receive(state({musicVolume:24}));f.open();const before=f.commands().length;
+  f.el('menuMusicVolume').value='90';f.el('menuMusicVolume').fire('input');f.window.fire('blur');f.window.fire('focus');
+  f.receive(state({musicVolume:24}));assert.equal(f.el('menuMusicVolume').value,'24');assert.equal(f.commands().length,before);
+});
+
 test('MENÚ y volver neutralizan captura multitáctil y no reactivan un hold viejo',()=>{
   const f=fixture();f.receive(state());f.el('mainPad').fire('pointerdown',{pointerId:1,clientX:100,clientY:0});f.el('headPad').fire('pointerdown',{pointerId:3,clientX:100,clientY:0});
   f.el('offPad').fire('pointerdown',{pointerId:4,clientX:50,clientY:86});assert.equal(f.controls().at(-1).bodyY,-1);

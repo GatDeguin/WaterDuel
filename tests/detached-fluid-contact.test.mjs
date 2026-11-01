@@ -1,11 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
+import fs from 'node:fs/promises';
 import {ArticulatedRig,RIG_STEP} from '../public/physics/articulated-rig.js';
 import {FluidVolume} from '../public/physics/fluid.js';
 import {fluidSolidColliders,resolveLiquidSolid} from '../public/physics/fluid-solids.js';
 import {TABLE_TOP,waterDropRadius} from '../public/physics/dimensions.js';
 import {getDefense} from '../public/equipment.js';
+import {AXE_REFERENCE_PINS,applyAxeFacingReference} from './fixtures/axe-facing-reference-layer.mjs';
+
+const frozenRig=await fs.readFile(new URL('./fixtures/articulated-rig-pre-goal-y-only-1.7.4.js.txt',import.meta.url),'utf8');
+assert.equal(createHash('sha256').update(frozenRig).digest('hex'),AXE_REFERENCE_PINS.goal);
+const importReference=source=>import('data:text/javascript;base64,'+Buffer.from(source.replace(/(from\s*)(['"])(\.[^'"\n]+)\2/g,(_match,prefix,quote,specifier)=>prefix+quote+new URL(specifier,new URL('../public/physics/articulated-rig.js',import.meta.url)).href+quote)).toString('base64'));
+const {ArticulatedRig:LegacyRig}=await importReference(frozenRig);
+const {ArticulatedRig:FacingReferenceRig}=await importReference(applyAxeFacingReference(frozenRig,'goal'));
 
 function digest(value){
   const hash=createHash('sha256');
@@ -34,15 +42,20 @@ function separated(point,solid,radius){
 test('intact liquid colliders retain the original IEEE values, ordering, CCD samples and surface velocities',()=>{
   // Captured before the detached-water change from fluid-solids SHA256
   // 8f86d2f5ba787f4d0d4f47a96e21dba716a625f85f40e04357bc3e22c0822f33.
-  const states=[];
+  function statesFor(Rig){const states=[];
   for(const dir of [-1,1])for(const scale of [1,1.18])for(const weapon of ['sword','spear','axe','maul']){
-    const rig=new ArticulatedRig({dir,scale});rig.equipment={weapon,defense:weapon==='maul'?'none':'short'};rig.twoHanded=weapon==='maul';rig.gripOffset=rig.twoHanded?.22:0;
+    const rig=new Rig({dir,scale});rig.equipment={weapon,defense:weapon==='maul'?'none':'short'};rig.twoHanded=weapon==='maul';rig.gripOffset=rig.twoHanded?.22:0;
     rig.swordLength=1.69;rig.previousSwordLength=1.03;rig.previousQ=rig.q.slice();
     for(let i=0;i<rig.q.length;i++){rig.q[i]=Math.max(rig.limits[i][0],Math.min(rig.limits[i][1],rig.q[i]+.13*Math.sin(i+2)));rig.velocity[i]=.2*Math.cos(i);}
     states.push(fluidSolidColliders([{rig}]).map(c=>({body:c.body,key:c.key,center:c.center,axes:c.axes,half:c.half,bounds:c.bounds,motion:c.motion,
       samples:[0,.13,.5,.88,1].map(t=>c.motionAt(t)),velocities:[c.center,{x:c.center.x+.13,y:c.center.y-.19,z:c.center.z}].map(p=>c.velocityAt(p))})));
   }
-  assert.equal(digest(states),'72e3ee2b19323642f0d14abc76206378ed8bc922fa0ee4941ebeed3144e65179');
+  return states;}
+  // Retain the original checksum against its pinned implementation. The live
+  // product is compared in full IEEE detail to that same source with only the
+  // reversible, user-authorized mirrored axe head correction applied.
+  assert.equal(digest(statesFor(LegacyRig)),'72e3ee2b19323642f0d14abc76206378ed8bc922fa0ee4941ebeed3144e65179');
+  assert.deepEqual(statesFor(ArticulatedRig),statesFor(FacingReferenceRig));
 });
 
 test('short and long severed shields retain their exact pose envelope, depth, floor corners and original mass',()=>{

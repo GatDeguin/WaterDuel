@@ -5,13 +5,14 @@ import {SinglePlayerSession} from './single-player.js';
 import {SessionEquipment} from './session-equipment.js';
 import {normalizeMenuCommand,sanitizeMenuState} from './remote-menu.js';
 import {fighterIdentity} from './identity.js';
+import {SOUND_COMMANDS,loadSoundPreferences,saveSoundPreferences} from './audio/sound-settings.js';
 
 // Owns the match, independently of either display's DOM or transport.
 export class HostSession{
   constructor({storage=null,onEvent=()=>{},onSettings=()=>{},onNeutralize=()=>{},opponentSeed,opponentRandom=null}={}){
     this.individual=new SinglePlayerSession({storage,seed:opponentSeed,random:opponentRandom});this.recorder=new ReplayRecorder();
     this.sessionEquipment=new SessionEquipment();this.playback=null;this.replaySpeed=.5;
-    this.audioOn=false;this.volume=55;this.performanceMode='fixed';this.message='Elegí las opciones e iniciá desde el menú del móvil.';
+    this.soundStorage=storage;Object.assign(this,loadSoundPreferences(storage));this.performanceMode='fixed';this.message='Elegí las opciones e iniciá desde el menú del móvil.';
     this.onSettings=onSettings;this.onNeutralize=onNeutralize;this.rendererError='';
     this.preferences={difficulty:'normal',bestOf:3,arena:'atelier'};
     this.game=new DuelEngine((name,data)=>{
@@ -28,6 +29,7 @@ export class HostSession{
     this.game.matchApronToBalloon=true;this.game.fighters[1].matchApronToBalloon=true;
   }
   get configurable(){return !this.playback&&['ready','matchover'].includes(this.game.phase);}
+  get audioOptions(){return {music:this.musicVolume/100,effects:this.effectsVolume/100,distortion:this.distortion/100,reverb:this.reverb/100,reverbDecay:this.reverbDecay/1000};}
   get presentationBlocked(){return this.assetStatus?.loading===true||!!this.rendererError;}
   neutralize(){for(const slot of [1,2])this.game.setControl(slot,neutral());this.onNeutralize();}
   closeReplay(){if(!this.playback)return;this.playback=null;this.neutralize();this.onSettings('replay');}
@@ -67,6 +69,11 @@ export class HostSession{
   handleCommand(message){
     const c=normalizeMenuCommand(message);if(!c)return {ok:false,message:'Comando o valor inválido.'};
     const g=this.game,{command,value}=c;
+    if(Object.hasOwn(SOUND_COMMANDS,command)||command==='setAudio'){
+      this[command==='setAudio'?'audioOn':SOUND_COMMANDS[command]]=value;
+      saveSoundPreferences(this.soundStorage,this);this.onSettings('audio');this.message='Sonido actualizado.';
+      return {ok:true,message:this.message};
+    }
     if(['start','nextEncounter'].includes(command)&&this.presentationBlocked)return {ok:false,message:this.assetStatus?.loading===true?
       'La arena sigue cargando el escenario y los modelos. Esperá a que termine para comenzar.':'La arena 3D no está disponible. Esperá a que se recupere para comenzar.'};
     const prep=new Set(['setMode','setExperience','setDifficulty','setBestOf','setArena','setLoadout','resetCampaign','nextEncounter']);
@@ -96,8 +103,6 @@ export class HostSession{
       case 'setPerformanceMode':this.performanceMode=value;this.onSettings('performance');break;
       case 'setCamera':g.cameraMode=value;break;
       case 'setLighting':g.lightingMode=value;break;
-      case 'setAudio':this.audioOn=value;this.onSettings('audio');break;
-      case 'setVolume':this.volume=value;this.onSettings('audio');break;
       case 'nextEncounter':
         if(g.mode!=='solo'||!this.individual.next())return {ok:false,message:'Todavía no hay un siguiente encuentro disponible.'};
         this.configure();g.start();break;
@@ -122,7 +127,8 @@ export class HostSession{
       g.phase==='fight'?(g.suddenDeath?'Tiempo extra · gana el próximo pinchazo.':'Combate en curso.'):
       g.phase==='burst'?view.burstSubtitle:g.phase==='matchover'?`${view.winnerName} gana la partida. Iniciá la revancha desde este menú.`:this.message;
     return sanitizeMenuState({phase:g.phase,mode:g.mode,experience:this.individual.kind,difficulty:g.difficulty,bestOf:g.bestOf,arena:g.arena,
-      quality:g.quality,performanceMode:this.performanceMode,camera:g.cameraMode,lighting:g.lightingMode,audioOn:this.audioOn,volume:this.volume,performance:this.performanceReport??null,
+      quality:g.quality,performanceMode:this.performanceMode,camera:g.cameraMode,lighting:g.lightingMode,audioOn:this.audioOn,volume:this.volume,
+      musicVolume:this.musicVolume,effectsVolume:this.effectsVolume,distortion:this.distortion,reverb:this.reverb,reverbDecay:this.reverbDecay,performance:this.performanceReport??null,
       scores:g.scores,round:g.round,clock:view.clock,
       fighters:view.fighters.map((f,index)=>({...f,slot:index+1,equipment:g.loadouts[index],balloonColor:g.fighters[index].balloonColor,emblem:fighterIdentity(g.fighters[index])})),
       objective:g.mode==='solo'?this.individual.view(g):null,

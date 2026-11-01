@@ -3,7 +3,7 @@ import {Renderer3D} from './render3d.js';
 import {HostSession} from './host-session.js';
 import {RemoteInputBuffer,isFreshRemoteInput} from './remote-input.js';
 import {FrameMetrics} from './performance.js';
-import {RecordedGameAudio as GameAudio} from './audio/recorded-game-audio.js';
+import {WorkshopGameAudio as GameAudio} from './audio/workshop-game-audio.js';
 import {HostQRCodes} from './host-qr.js';
 import {AdaptiveQuality} from './adaptive-quality.js';
 import {mobileSession} from './mobile-session.js';
@@ -29,7 +29,7 @@ const host=new HostSession({storage,onNeutralize:clearInputs,onSettings:kind=>{
   if(kind==='quality'||kind==='performance'||kind==='replay')adaptiveQuality.reset();
   if(kind==='quality'||kind==='replay'){renderer?.waterSurfaces.clear();if(renderer)renderer.quality={high:1.55,ultra:2,eco:1}[host.game.quality];}
   if(kind==='replay')audio.setPaused(audioPaused());
-  if(kind==='audio'){audio.configure(host.audioOn,host.volume);if(mobileMode)audio.unlock();}
+  if(kind==='audio'){audio.configure(host.audioOn,host.volume,host.audioOptions);if(mobileMode)audio.unlock();}
 },onEvent:(name,data)=>{
   if(typeof metrics!=='undefined')metrics.markEvent?.(name,performance.now());
   const jointEvent=name==='joint-damage'||name==='joint-break';
@@ -39,6 +39,7 @@ const host=new HostSession({storage,onNeutralize:clearInputs,onSettings:kind=>{
   if(event)send({type:'event',name:event,slot:eventSlot||0});
 }});
 const game=host.game;
+audio.configure(host.audioOn,host.volume,host.audioOptions);
 if(mobileMode){
   hasAuthority=true;
   mobileSession.bindHost(host,{onInteraction:()=>audio.unlock(),onPause:()=>{

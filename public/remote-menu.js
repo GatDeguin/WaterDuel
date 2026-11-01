@@ -1,5 +1,6 @@
 /** Shared wire contract. Neither controller payloads nor the host's scene leak into menu DTOs. */
 import {WEAPONS,DEFENSES,normalizeLoadout} from './equipment.js';
+import {SOUND_COMMANDS,validSoundValue,soundPreferences} from './audio/sound-settings.js';
 
 const oneOf=(value,values,fallback)=>values.includes(value)?value:fallback;
 const finite=(value,min,max,fallback=0)=>typeof value==='number'&&Number.isFinite(value)?Math.max(min,Math.min(max,value)):fallback;
@@ -39,8 +40,8 @@ export function normalizeMenuCommand(message){
   if(actions.has(command))return value===undefined?clean:null;
   if(Object.hasOwn(options,command)){
     if(!options[command].includes(value))return null;
-  }else if(command==='setVolume'){
-    if(!Number.isInteger(value)||value<0||value>100)return null;
+  }else if(Object.hasOwn(SOUND_COMMANDS,command)){
+    if(!validSoundValue(SOUND_COMMANDS[command],value))return null;
   }else if(command==='replayOpen'){
     if(!positive(value))return null;
   }else if(command==='replaySeek'){
@@ -68,8 +69,7 @@ export function sanitizeMenuState(value){
     difficulty:oneOf(state.difficulty,['rookie','normal','expert','boss'],'normal'),
     bestOf:state.bestOf===5?5:3,arena:oneOf(state.arena,['atelier','dojo','midnight'],'atelier'),
     quality:oneOf(state.quality,['high','ultra','eco'],'high'),performanceMode:oneOf(state.performanceMode,['adaptive','fixed'],'fixed'),camera:oneOf(state.camera,['combat','detail'],'combat'),
-    lighting:oneOf(state.lighting,['cinematic','neutral'],'cinematic'),audioOn:state.audioOn===true,
-    volume:integer(state.volume,0,100,70),
+    lighting:oneOf(state.lighting,['cinematic','neutral'],'cinematic'),...soundPreferences(state),
     scores:[integer(state.scores?.[0],0,9999),integer(state.scores?.[1],0,9999)],round:integer(state.round,1,9999,1),
     clock:typeof state.clock==='string'&&/^\+?\d{2,3}:\d{2}$/.test(state.clock)?state.clock:'01:30',
     fighters:fighters.map((raw,index)=>{const fighter=record(raw);return {

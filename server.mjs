@@ -13,6 +13,7 @@ import { createRequire } from 'node:module';
 import {normalizeMenuCommand,sanitizeMenuState} from './public/remote-menu.js';
 import {loadLocalHTTPS,canonicalPublicURL,certificateCovers,needsHTTPS} from './scripts/local-https.mjs';
 import {lanAddresses} from './scripts/network-addresses.mjs';
+import {serveAudio} from './scripts/audio-response.mjs';
 
 const require = createRequire(import.meta.url);
 const QRCode = require('./vendor/qr/index.js');
@@ -72,8 +73,9 @@ const linkFor = (slot,base=baseURL) => `${base}/controller.html?slot=${slot}&key
 const tlsSummary={enabled:!!localTLS,port:localTLS?HTTPS_PORT:null,caCertificatePath:localTLS?.ca?'/certs/waterduel-local-ca.crt':null,
   caFingerprint256:localTLS?.caFingerprint??null,requiresManualTrust:!!localTLS?.localAuthority};
 
+const responseHeaders=type=>({'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','X-Frame-Options':'DENY'});
 function respond(res, code, type, body, headers={}) {
-  res.writeHead(code, {'Content-Type':type,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','X-Frame-Options':'DENY',...headers});
+  res.writeHead(code, {...responseHeaders(type),...headers});
   res.end(body);
 }
 function svgQR(value) {
@@ -86,7 +88,7 @@ function svgQR(value) {
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n+8} ${n+8}" shape-rendering="crispEdges" role="img" aria-label="QR de conexión"><rect width="100%" height="100%" fill="#fff"/><path fill="#17282B" d="${blocks}"/></svg>`;
 }
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.json':'application/json','.wav':'audio/wav'};
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.json':'application/json','.wav':'audio/wav','.mp3':'audio/mpeg'};
 const requestHandler=(req,res)=>{
   let url;
   try{url=new URL(req.url,`${req.socket.encrypted?'https':'http'}://${req.headers.host || 'localhost'}`)} catch {return respond(res,400,'text/plain','Bad request');}
@@ -118,6 +120,7 @@ const requestHandler=(req,res)=>{
     const stat=fs.statSync(full);
     if(!stat.isFile()) throw new Error('not file');
     const ext=path.extname(full);
+    if(ext==='.mp3'||ext==='.wav')return serveAudio(req,res,{file:full,size:stat.size,headers:responseHeaders(mime[ext])});
     const data=fs.readFileSync(full);
     return respond(res,200,mime[ext]||'application/octet-stream',data);
   } catch {return respond(res,404,'text/plain','Not found');}
