@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QA · Personajes v4</title>
+  <style>
+    :root{color-scheme:dark;--background:#10191c;--surface:#192629;--text:#edf4f1;--muted:#b3c9c2;--line:#49645b;--accent:#93dfc2}
+    *{box-sizing:border-box}body{margin:0;background:var(--background);color:var(--text);font:14px system-ui,sans-serif}
+    main{max-width:1440px;margin:auto}header{padding:16px}h1{font-size:20px;margin:0 0 8px}p{margin:8px 0;color:var(--muted);line-height:1.5}
+    nav,.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}button{font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--text);cursor:pointer}
+    button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}button:disabled{opacity:.5;cursor:wait}
+    canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#0a1113}pre{margin:0;padding:16px;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,monospace;border-top:1px solid var(--line)}
+    #status{color:var(--text)}@media(max-width:480px){header,pre{padding:12px}button{flex:1 0 auto}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>QA · Personajes v4</h1>
+      <p>Rigs, equipo, pies y paño reales. Los presets envían mandos al motor; daño y celebración invocan APIs explícitas de QA. Esta página no abre sesiones ni sockets.</p>
+      <nav aria-label="Presets de personajes">
+        <button type="button" data-preset="guardia" aria-pressed="false" disabled>Guardia</button>
+        <button type="button" data-preset="marcha" aria-pressed="false" disabled>Marcha</button>
+        <button type="button" data-preset="esquiva" aria-pressed="false" disabled>Esquiva</button>
+        <button type="button" data-preset="pano" aria-pressed="false" disabled>Paño</button>
+        <button type="button" data-preset="dano" aria-pressed="false" disabled>Daño · QA</button>
+        <button type="button" data-preset="celebracion" aria-pressed="false" disabled>Celebración · QA</button>
+        <button type="button" data-preset="jefe" aria-pressed="false" disabled>Jefe</button>
+      </nav>
+      <div class="actions">
+        <button type="button" id="pause" aria-pressed="false" disabled>Pausar</button>
+        <button type="button" id="step-second" disabled>Avanzar 1 s</button>
+        <button type="button" id="reset" disabled>Reiniciar preset</button>
+      </div>
+      <p id="status" role="status" aria-live="polite">Cargando personajes v4, equipo y taller…</p>
+    </header>
+    <canvas id="canvas" width="1280" height="720" aria-label="Vista 3D de los dos personajes del preset">La vista requiere WebGL. El informe inferior describe el estado de la simulación.</canvas>
+    <pre id="result" aria-label="Informe JSON de la fixture"></pre>
+  </main>
+  <script type="module" src="./personajes-v4.js"></script>
+</body>
+</html>

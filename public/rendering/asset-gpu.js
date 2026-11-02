@@ -1,5 +1,6 @@
 import {materialSheen} from './sheen.js';
 import {SharedTextures} from './shared-textures.js';
+import {applyWorkshopFinish} from './materials.js';
 const identity=()=>Float32Array.from([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
 function normalMatrix(m,out){
   const x0=m[5]*m[10]-m[6]*m[9],x1=m[6]*m[8]-m[4]*m[10],x2=m[4]*m[9]-m[5]*m[8],
@@ -32,12 +33,12 @@ function withFlatNormals(p){
 }
 function materialInfo(raw={}){
   const p=params(raw),e=raw.extensions??{},base=p.baseColorFactor??raw.baseColorFactor??[1,1,1,1],sheen=materialSheen(raw);
-  return {...raw,baseColorFactor:base,roughnessFactor:num(p.roughnessFactor,1),metallicFactor:num(p.metallicFactor,1),
+  return applyWorkshopFinish({...raw,baseColorFactor:base,roughnessFactor:num(p.roughnessFactor,1),metallicFactor:num(p.metallicFactor,1),
     baseColorTexture:p.baseColorTexture??raw.baseColorTexture,metallicRoughnessTexture:p.metallicRoughnessTexture??raw.metallicRoughnessTexture,
     emissiveFactor:(raw.emissiveFactor??[0,0,0]).map(v=>v*num(e.KHR_materials_emissive_strength?.emissiveStrength,1)),
     ior:num(e.KHR_materials_ior?.ior,1.5),coat:num(e.KHR_materials_clearcoat?.clearcoatFactor,0),coatRoughness:num(e.KHR_materials_clearcoat?.clearcoatRoughnessFactor,.1),
     transmission:num(e.KHR_materials_transmission?.transmissionFactor,0),thickness:num(e.KHR_materials_volume?.thicknessFactor,.025),
-    sheenColor:[...sheen.color],sheenRoughness:sheen.roughness,sheenColorTexture:sheen.colorTexture,sheenRoughnessTexture:sheen.roughnessTexture};
+    sheenColor:[...sheen.color],sheenRoughness:sheen.roughness,sheenColorTexture:sheen.colorTexture,sheenRoughnessTexture:sheen.roughnessTexture});
 }
 function drawMaterial(material,textures){
   let flags=0;const bindings=[],coordinates=[];
@@ -75,23 +76,32 @@ export class AssetGPU{
       model.drawMaterials=model.materials.map(material=>drawMaterial(material,model.textures));
       for(const sourcePrimitive of asset.primitives){const primitive=withFlatNormals(sourcePrimitive);
         const vao=gl.createVertexArray();if(!vao)throw Error('No se pudo reservar VAO.');model.vaos.push(vao);gl.bindVertexArray(vao);
-        const buffer=(data,location,size)=>{
+        const buffer=(data,location,size,dynamic=false)=>{
           const object=gl.createBuffer();if(!object)throw Error('No se pudo reservar buffer.');model.buffers.push(object);
-          gl.bindBuffer(gl.ARRAY_BUFFER,object);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,size,gl.FLOAT,false,0,0);model.bytes+=data.byteLength;model.bufferBytes+=data.byteLength;this.bufferBytes+=data.byteLength;
+          gl.bindBuffer(gl.ARRAY_BUFFER,object);gl.bufferData(gl.ARRAY_BUFFER,data,dynamic?gl.DYNAMIC_DRAW:gl.STATIC_DRAW);gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,size,gl.FLOAT,false,0,0);model.bytes+=data.byteLength;model.bufferBytes+=data.byteLength;this.bufferBytes+=data.byteLength;return object;
         };
-        buffer(primitive.positions,0,3);buffer(primitive.normals,1,3);
+        const dynamic=primitive.apronPanel!==undefined,positionBuffer=buffer(primitive.positions,0,3,dynamic),normalBuffer=buffer(primitive.normals,1,3,dynamic);
         buffer(primitive.uv??new Float32Array(primitive.positions.length/3*2),4,2);
         if(primitive.uv1)buffer(primitive.uv1,5,2);else{gl.disableVertexAttribArray(5);gl.vertexAttrib2f(5,0,0);}
         if(primitive.colors)buffer(primitive.colors,6,4);else{gl.disableVertexAttribArray(6);gl.vertexAttrib4f(6,1,1,1,1);}
         const ib=gl.createBuffer();if(!ib)throw Error('No se pudo reservar índices.');model.buffers.push(ib);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,ib);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,primitive.indices,gl.STATIC_DRAW);model.bytes+=primitive.indices.byteLength;model.bufferBytes+=primitive.indices.byteLength;this.bufferBytes+=primitive.indices.byteLength;
-        model.parts.push({vao,count:primitive.indices.length,material:primitive.material??0,nodeName:primitive.nodeName,nodeIndex:primitive.nodeIndex,worldMatrix:primitive.worldMatrix??identity()});
+        model.parts.push({vao,count:primitive.indices.length,material:primitive.material??0,nodeName:primitive.nodeName,nodeIndex:primitive.nodeIndex,worldMatrix:primitive.worldMatrix??identity(),
+          positionBuffer,normalBuffer,sourceGeometry:{positions:primitive.positions,normals:primitive.normals},activeGeometry:null});
       }
       gl.bindVertexArray(null);gl.bindTexture(gl.TEXTURE_2D,null);this.models.add(model);return model;
     }catch(error){this.release(model);throw error;}
   }
   transparent(model,part){const m=model.materials[part.material]??this.defaultMaterial;return m.alphaMode==='BLEND'||m.transmission>0;}
-  draw(model,part,matrix,U,{deformStart=0,deformEnd=1,extension=0,flexOffset=0,flexLength=1,flexDirection=1,wetTop=0,wetBottom=0,wetMinY=0,wetMaxY=1,tint=defaultTint,sheenColor}=noDeform){
-    if(this.disposed)return;const gl=this.gl,m=model.materials[part.material]??this.defaultMaterial,d=model.drawMaterials[part.material]??this.defaultDrawMaterial;gl.bindVertexArray(part.vao);
+  updateGeometry(part,geometry=null){
+    if(part.activeGeometry===geometry)return;
+    const data=geometry??part.sourceGeometry;
+    for(const key of ['positions','normals'])if(!(data?.[key] instanceof Float32Array)||data[key].length!==part.sourceGeometry[key].length||!data[key].every(Number.isFinite))throw Error('Geometría dinámica de asset inválida.');
+    const gl=this.gl;
+    gl.bindBuffer(gl.ARRAY_BUFFER,part.positionBuffer);gl.bufferSubData(gl.ARRAY_BUFFER,0,data.positions);
+    gl.bindBuffer(gl.ARRAY_BUFFER,part.normalBuffer);gl.bufferSubData(gl.ARRAY_BUFFER,0,data.normals);part.activeGeometry=geometry;
+  }
+  draw(model,part,matrix,U,{deformStart=0,deformEnd=1,extension=0,flexOffset=0,flexLength=1,flexDirection=1,wetTop=0,wetBottom=0,wetMinY=0,wetMaxY=1,tint=defaultTint,sheenColor,geometry=null}=noDeform){
+    if(this.disposed)return;this.updateGeometry(part,geometry);const gl=this.gl,m=model.materials[part.material]??this.defaultMaterial,d=model.drawMaterials[part.material]??this.defaultDrawMaterial;gl.bindVertexArray(part.vao);
     gl.disableVertexAttribArray(2);gl.vertexAttrib4f(2,0,0,0,1);gl.disableVertexAttribArray(3);gl.vertexAttrib1f(3,.0045);
     gl.uniform1i(U.uInstancing,0);gl.uniform1i(U.uAssetEnabled,1);gl.uniform1i(U.uMaterial,21);gl.uniform1f(U.uWobble,0);gl.uniform1f(U.uWet,0);
     const determinant=normalMatrix(matrix,this.normalScratch),color=this.colorScratch,deform=this.deformScratch;

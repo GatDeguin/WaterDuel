@@ -49,7 +49,22 @@ const contains=(outer,inner)=>[0,1,2].every(a=>inner.min[a]>=outer.min[a]&&inner
 /** Positions remain bone-local. The descriptor alone uses canonical world axes,
  * relative to the hip and divided by authoredScale. Never mutate source parts. */
 export function splitApronParts(parts,bones,source){
-  const fabric=parts.filter(isCloth),report={brassComponents:0,apronBrassComponents:0,clothTriangles:0,apronTriangles:0};
+  // v4 saddle stitches share the woven material but belong to the rigid belt.
+  // Classify whole connected components against the measured hanging cloth;
+  // material names alone would pull the buckle and raise the cloth's anchor.
+  const classified=[];
+  for(const p of parts){
+    if(!isCloth(p)){classified.push(p);continue;}
+    const model=APRON_GEOMETRY[/Boss/i.test(p.nodeName)?'boss':'normal'],vertices=canonicalPositions(p,bones,source),hanging=[],fixed=[];
+    for(const component of connectedTriangles(p,vertices)){
+      const bounds=boundsOf(vertices,component),target=bounds.max[1]<=model.pivot[1]+.006?hanging:fixed;
+      target.push(...component);
+    }
+    if(fixed.length)classified.push({...subset(p,fixed,false),apronRigidBelt:true});
+    if(hanging.length)classified.push(subset(p,hanging,true));
+  }
+  parts=classified;
+  const fabric=parts.filter(p=>isCloth(p)&&!p.apronRigidBelt),report={brassComponents:0,apronBrassComponents:0,clothTriangles:0,apronTriangles:0};
   if(!fabric.length)return {parts:[...parts],descriptor:null,report};
   const clothBounds=emptyBounds();
   for(const p of fabric){
@@ -62,7 +77,7 @@ export function splitApronParts(parts,bones,source){
     max:[clothBounds.max[0]+.012,clothBounds.max[1]+.006,clothBounds.max[2]+.020]};
   const output=[];
   for(const p of parts){
-    if(isCloth(p)){
+    if(isCloth(p)&&!p.apronRigidBelt){
       output.push(subset(p,p.indices,true));report.clothTriangles+=p.indices.length/3;continue;
     }
     if(!isBrass(p)){output.push(p);continue;}

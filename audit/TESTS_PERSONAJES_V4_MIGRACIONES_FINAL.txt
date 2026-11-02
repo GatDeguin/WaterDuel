@@ -1,0 +1,23 @@
+✔ Abajo agacha pelvis y cabeza mediante articulaciones con pies apoyados, y soltar recupera (2496.6871ms)
+✔ Arriba inicia una sola finta de profundidad y vuelve aunque se mantenga el gesto (1766.301ms)
+✔ Eje corporal se valida y nunca activa ataque ni defensa; reset borra su intención (141.6195ms)
+✔ Los globos intactos no se interpenetran y el caso original conserva su pinchazo temprano (4415.0262ms)
+✔ N16: dos humanos con armas bajas avanzan hasta el límite real y conservan globos vivos sin solaparlos (5681.9779ms)
+✔ La lanza activa encuentra la mesa en ambos slots conservando apoyos (4845.4429ms)
+✔ La madera rival detiene la hoja real del GLB; sólo un pinchazo posterior libre puede otorgar victoria (2361.6029ms)
+✔ La primera entrada en madera fina XYZ bloquea un headhit posterior del mismo punto material (14.5265ms)
+✔ El piso activo conserva extremos y cabezales de las cuatro armas con apoyos en ambos tamaños (6288.5614ms)
+✔ N16 isolated head contact separates real ellipsoids and arrests closing: dir=-1, scale=1 (18.9378ms)
+✔ N16 isolated head contact separates real ellipsoids and arrests closing: dir=-1, scale=1.18 (8.2241ms)
+✔ N16 isolated head contact separates real ellipsoids and arrests closing: dir=1, scale=1 (4.8456ms)
+✔ N16 isolated head contact separates real ellipsoids and arrests closing: dir=1, scale=1.18 (5.2252ms)
+✔ Histórico N14: dos humanos con armas bajas acercan globos vivos dentro del guard original (4557.567ms)
+ℹ N14 historical minimum=1.024719334697024; 81×.04 + 390×STEP; both balloons intact; scores=0,0
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23748.4619

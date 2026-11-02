@@ -112,20 +112,36 @@ function incoming(slot,weapon,{upperPreparation=weapon==='sword',gesture={x:-1,y
   for(let i=0;i<150&&game.phase==='fight';i++){
     game.setControl(slot,defend);game.setControl(3-slot,upperPreparation?{mainX:0,mainY:.6,wrist:0}:{mainX:-1,mainY:-1,wrist:-1});game.update(STEP);
   }
-  const prepared=game.phase==='fight';events.length=0;reactions.length=0;
+  const prepared=game.phase==='fight';events.length=0;reactions.length=0;let attackContacts=0,attackDeflection=0;
   for(let i=0;i<220&&game.phase==='fight';i++){
     game.setControl(slot,defend);game.setControl(3-slot,{mainX:1,mainY:.6,lean:1,thrust:i>=54&&i<59});game.update(STEP);
+    if(i<59){
+      attackContacts=events.filter(e=>e.name==='clang'&&e.data.weaponBind&&e.data.impulse>0).length;
+      attackDeflection=Math.max(0,...reactions.map(r=>r.separatingDelta));
+    }
     assert.ok(game.fighters.every(f=>[...f.rig.q,...f.rig.velocity].every(Number.isFinite)));
   }
-  return {game,defender,attacker,events,reactions,prepared};
+  return {game,defender,attacker,events,reactions,prepared,attackContacts,attackDeflection};
 }
 
 for(const slot of [1,2])for(const weapon of ['sword','maul'])test(`J${slot}: atrás intercepta ${weapon} y desvía su movimiento por un impulso físico finito`,()=>{
   const f=incoming(slot,weapon);
+  if(weapon==='sword'){
+    assert.ok(f.attackContacts>0,'la parada de espada ocurre durante el primer ataque');
+    assert.ok(f.attackDeflection>.001,'el arma entrante se desvía físicamente durante el primer ataque');
+  }
   assert.equal(f.prepared,true);assert.deepEqual(f.game.scores,[0,0]);assert.equal(f.game.phase,'fight');
   assert.ok(f.events.some(e=>e.name==='clang'&&e.data.weaponBind&&e.data.impulse>0),'debe existir contacto real de armas');
   assert.ok(f.reactions.some(r=>r.separatingDelta>.001),'el impulso debe desviar la velocidad normal del arma rival hacia separación');
   assert.equal(f.defender.guard,false);assert.equal(f.defender.guardEnergy,1,'la parada principal no usa energía de escudo');
+});
+
+test('La presión continua de espada puede superar una guardia ligeramente baja después de un desvío real',()=>{
+  const f=incoming(1,'sword',{gesture:{x:-Math.sqrt(.99),y:-.1}});
+  assert.ok(f.reactions.some(r=>r.separatingDelta>.001));
+  const burst=f.events.find(e=>e.name==='burst')?.data;
+  assert.equal(burst?.loser,1);assert.equal(burst.contact,true);assert.equal(burst.demonstration,false);
+  assert.equal(f.defender.membrane.punctured,true);
 });
 
 test('Un mazo puede superar la parada principal y perforar: no existe invulnerabilidad por mantener atrás',()=>{

@@ -1,0 +1,90 @@
+{
+  "revision": 4,
+  "files": [
+    {
+      "file": "public/assets/characters/water-mannequin/v4/asset-info.json",
+      "bytes": 68682,
+      "sha256": "25520090a0a7b515ee570bdead723e82782d8685cebabe08ef73f78532a363a7"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v4/rig-contract.json",
+      "bytes": 70329,
+      "sha256": "50c73e01e1ee64bef4e07675e4d951103a103745bf619fc994e69398bb33f42e"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v4/pose-sweep.json",
+      "bytes": 64453,
+      "sha256": "b9a39aa0248841fc61ee1365be38c80dc4d03a782ff2dc6e9c9843d0a336061e"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v4/waterduel-models-v4.png",
+      "bytes": 1153672,
+      "sha256": "bc8f7f78a93a48bf657f97d2a2f121fa0b49357feca581a01b1246c9dd00798a"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v4/water-mannequin.glb",
+      "bytes": 6606872,
+      "sha256": "ce5c2112b20dde50c14abdb86ed66020f51ba3e5747e30c7964ee80183cabb05"
+    },
+    {
+      "file": "docs/assets/characters/v4/water-mannequin.blend",
+      "bytes": 3736260,
+      "sha256": "f691ce2d2910b1851fc4b16d8f671d0cc8e63217fddc3b44a689bab7e8a823f4"
+    },
+    {
+      "file": "docs/assets/characters/v4/water-mannequin-physical.json",
+      "bytes": 55920,
+      "sha256": "1a79aba996a1583d7cb497c717195cb1be14fd72c3a50b2021f16c5e9209f41e"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v4/water-mannequin-amber.glb",
+      "bytes": 6606820,
+      "sha256": "f6d4b87764f6bcbfeacc4206caee3c14dcadc2fed0e46072416d30ed0c9d0961"
+    },
+    {
+      "file": "docs/assets/characters/v4/water-mannequin-amber.blend",
+      "bytes": 3736219,
+      "sha256": "cfce85d2608907a877e6a6315961e52aedc9e3e31c00ad9bbc53a9d5e195d0da"
+    },
+    {
+      "file": "docs/assets/characters/v4/water-mannequin-amber-physical.json",
+      "bytes": 55926,
+      "sha256": "52cb8455dfc15b30749b49d78ca6810ce4cab5353b2afeff639d91c763eaa19b"
+    },
+    {
+      "file": "public/assets/characters/water-mannequin/v4/water-mannequin-boss.glb",
+      "bytes": 8162492,
+      "sha256": "a270d2b54956f62632080284820756223f82e01d072f370ec6dd821fc593d6d3"
+    },
+    {
+      "file": "docs/assets/characters/v4/water-mannequin-boss.blend",
+      "bytes": 4233938,
+      "sha256": "58b25a67c5d9cba5d4926ccc74a8839e2ef7d853f24cb52f90973b6a3f13328e"
+    },
+    {
+      "file": "docs/assets/characters/v4/water-mannequin-boss-physical.json",
+      "bytes": 60492,
+      "sha256": "5e95e0f4ad0a0f9ef38715985d8432c3bb58f050a240d6ca9b9465d74d7ebd13"
+    },
+    {
+      "file": "docs/assets/characters/v4/textures/body-basecolor.png",
+      "bytes": 462692,
+      "sha256": "8e3e96f24f89b784ea51f9159fa293affc8663ce605680c8f97d4cee6e3f120b"
+    },
+    {
+      "file": "docs/assets/characters/v4/textures/body-normal.png",
+      "bytes": 775984,
+      "sha256": "8d40f8e18b2ad21e7fac15acc8bc4e983da9bdd312bf6ab84393cd6e5208b28c"
+    },
+    {
+      "file": "docs/assets/characters/v4/textures/body-orm.png",
+      "bytes": 418501,
+      "sha256": "d85732e01721fea6820d385570244e9632d89de53548c522439ee3e9d9d0d25d"
+    },
+    {
+      "file": "docs/assets/characters/v4/textures/atlas-stats.json",
+      "bytes": 315770,
+      "sha256": "6d62d0e5537fac355d89a3e7d9b576d382479caf11b5571ad03ae72c4e70fa82"
+    }
+  ]
+}

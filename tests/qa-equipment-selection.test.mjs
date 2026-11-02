@@ -73,3 +73,12 @@ test('volver desde caché de navegación reinicia la fixture cuyo renderer fue d
  f.events.get('pageshow')({persisted:false});assert.equal(f.reloads,0);
  f.events.get('pageshow')({persisted:true});assert.equal(f.reloads,1);
 });
+
+test('fixture permite comparar agarres del cuchillo, intercambiarlos y devolver el normal compatible',()=>{
+ const f=fixture();f.change('defense1','knife');f.change('defense2','knife');
+ assert.equal(f.el('knifeGrip1').disabled,false);f.change('knifeGrip1','reverse');
+ assert.deepEqual(f.state().loadouts[0],{weapon:'sword',defense:'knife',knifeGrip:'reverse'});
+ f.click('swap');assert.equal(f.state().loadouts[1].knifeGrip,'reverse');
+ f.change('knifeGrip2','normal');assert.deepEqual(f.state().loadouts[1],{weapon:'sword',defense:'knife'});
+ f.change('weapon1','maul');assert.equal(f.el('knifeGrip1').disabled,true);assert.equal(f.el('knifeGripField1').hidden,true);
+});

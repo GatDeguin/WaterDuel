@@ -1,6 +1,7 @@
 import {getDefense} from './equipment.js';
 import {BALLOON_RADII} from './physics/dimensions.js';
 import {bodyAttached,weaponActor} from './physics/limb-state.js';
+import {normalizeKnifeGrip} from './knife-technique.js';
 
 export const AUTO_DEFENSE=Object.freeze({attemptChance:.70,reactionMin:.15,reactionMax:.25,guardSeconds:.40,cooldown:.65,damageReaction:.18,damageAttemptPenalty:.55,memorySeconds:.15});
 const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
@@ -77,7 +78,11 @@ export class AutoDefense{
     // controls send guard:false and leave both secondary axes to this assist.
     if(control.guard||committed||!available||!this.fired||this.elapsed>=this.guardUntil)return control;
     const scale=fighter.boss?1.18:1,shoulder=fighter.pose.offShoulder;
-    const offY=clamp((this.height-shoulder.y-.13*scale)/(.51*scale),-.25,1);
+    const reverse=getDefense(fighter).kind==='knife'&&normalizeKnifeGrip(fighter.equipment?.knifeGrip)==='reverse';
+    // Aim the reversed blade's middle, rather than pretending the hand itself
+    // is the whole defense. The pose's collected guard remains reach-limited.
+    const handHeight=this.height+(reverse?getDefense(fighter).length*Math.sqrt(1-.45**2)*.5:0);
+    const offY=reverse?clamp((handHeight-fighter.pose.head.y+.32*scale)/(.04*scale),-1,1):clamp((this.height-shoulder.y-.13*scale)/(.51*scale),-.25,1);
     return {...control,offX:.85,offY,guard:true};
   }
 }

@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "variants": [
+    {
+      "file": "WaterDuel_Atelier_v4.blend",
+      "sha256": "0102459d4961b52620f24e9de99cef8e4f122733fab65bae582d6f07b4e18f86",
+      "lights": 22,
+      "visibleMeshes": 56,
+      "camerasPreserved": true,
+      "linearCyclicFan": true,
+      "samples": [
+        {
+          "degrees": 0,
+          "pivotDrift": 0.0,
+          "angularError": 0.0
+        },
+        {
+          "degrees": 90,
+          "pivotDrift": 0.0,
+          "angularError": 4.371139006309477e-08
+        },
+        {
+          "degrees": 180,
+          "pivotDrift": 0.0,
+          "angularError": 8.742278012618954e-08
+        },
+        {
+          "degrees": 360,
+          "pivotDrift": 0.0,
+          "angularError": 1.7484556025237907e-07
+        },
+        {
+          "degrees": 450,
+          "pivotDrift": 0.0,
+          "angularError": 4.0133925896036784e-07
+        }
+      ],
+      "windowAlpha": 0.6600000262260437,
+      "glassMaxBroadFaceTiltDegrees": 2.2617451839547282,
+      "packedFileImages": 99,
+      "referencesPreserved": [
+        "w1.png",
+        "w2.png",
+        "w3.png",
+        "w4.png"
+      ],
+      "sourceUnchanged": true
+    },
+    {
+      "file": "WaterDuel_Atelier_v4_noche.blend",
+      "sha256": "26e9b7471245ec3250fe2b416bd3d6c93af5aee1ce479a6048674d81611d44c9",
+      "lights": 22,
+      "visibleMeshes": 56,
+      "camerasPreserved": true,
+      "linearCyclicFan": true,
+      "samples": [
+        {
+          "degrees": 0,
+          "pivotDrift": 0.0,
+          "angularError": 0.0
+        },
+        {
+          "degrees": 90,
+          "pivotDrift": 0.0,
+          "angularError": 4.371139006309477e-08
+        },
+        {
+          "degrees": 180,
+          "pivotDrift": 0.0,
+          "angularError": 8.742278012618954e-08
+        },
+        {
+          "degrees": 360,
+          "pivotDrift": 0.0,
+          "angularError": 1.7484556025237907e-07
+        },
+        {
+          "degrees": 450,
+          "pivotDrift": 0.0,
+          "angularError": 4.0133925896036784e-07
+        }
+      ],
+      "windowAlpha": 0.6600000262260437,
+      "glassMaxBroadFaceTiltDegrees": 2.2617451839547282,
+      "packedFileImages": 30,
+      "referencesPreserved": [
+        "w1.png",
+        "w2.png",
+        "w3.png",
+        "w4.png"
+      ],
+      "sourceUnchanged": true
+    }
+  ],
+  "scope": "Native day/night source, evaluated fan loop and original v3 cameras. No saving or rendering."
+}

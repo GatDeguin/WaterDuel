@@ -1,0 +1,16 @@
+{
+  "variant": "water-mannequin-amber",
+  "source_baseline": "v3",
+  "rig_rest_pose_sockets_exact": true,
+  "protected_head_geometry_hash_before": "024de780bdfc0252d25485303b1cfdae695e6cac628e3d30ae3c7bd302af9197",
+  "protected_head_geometry_hash_after": "024de780bdfc0252d25485303b1cfdae695e6cac628e3d30ae3c7bd302af9197",
+  "chamfer_metres": 0.002,
+  "screw_slot_depth_metres": 0.0024,
+  "clearance_design": {
+    "parent_front_cheek_to_legacy_cap_axial_metres": 0.003,
+    "ankle_parent_bore_to_child_bushing_radial_metres": 0.002,
+    "elbow_parent_bore_to_child_bushing_radial_metres": 0.0048,
+    "insertions": "Original through-axle passes both parent cheeks; child bushing overlaps its legacy cap intentionally; screw underside meets original pin face."
+  },
+  "pose_sweep": "Requires runtime poses; this receipt certifies construction and unchanged pivot axes only."
+}

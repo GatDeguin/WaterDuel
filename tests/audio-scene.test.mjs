@@ -8,6 +8,19 @@ import {AudioScene} from '../public/audio/scene-audio.js';
 const H=1/60;
 const observer=()=>new AudioScene();
 const game=()=>new DuelEngine();
+function legacyFootGame(){
+  const g=game();
+  // These historical observer fixtures edit proxy centres and stance anchors,
+  // rather than the achieved N16 hulls exercised in audio-feet-n16-113.
+  for(const f of g.fighters){
+    delete f.pose.feet;
+    for(const key of ['footF','footB']){
+      f.pose[key].y=TABLE_TOP+.075;
+      const contact=f.rig.contacts.find(c=>c.key===key);contact.y=contact.floor=TABLE_TOP+.075;
+    }
+  }
+  return g;
+}
 const names=cues=>cues.map(c=>c.name);
 function move(f,amount){
   f.pose.mainHand.x+=amount;f.pose.mainHand.y+=amount*.5;
@@ -134,7 +147,7 @@ test('observed blade speed and physical weapon mass shape swish dynamics and pit
 const steps=cues=>cues.filter(c=>c.name==='footstep-dry'||c.name==='footstep-wet');
 test('stationary support stays silent even in puddles; only observed grounded sliding sounds dry or wet',()=>{
   for(const [wet,want] of [[0,'footstep-dry'],[.8,'footstep-wet']]){
-    const g=game(),s=observer(),f=g.fighters[0];g.puddleStrength[0]=wet;s.update(g,H);
+    const g=legacyFootGame(),s=observer(),f=g.fighters[0];g.puddleStrength[0]=wet;s.update(g,H);
     for(let i=0;i<60;i++)assert.equal(steps(s.update(g,H)).length,0);
     let cues=[];for(let i=0;i<4;i++){f.pose.footF.x+=.025;cues.push(...s.update(g,H));}
     assert.equal(steps(cues).length,1);assert.equal(steps(cues)[0].name,want);
@@ -144,7 +157,7 @@ test('stationary support stays silent even in puddles; only observed grounded sl
 });
 
 test('airborne foot motion stays silent until a measured landing at the physical standing height',()=>{
-  const g=game(),s=observer(),f=g.fighters[0],support=f.rig.contacts.find(c=>c.key==='footF');
+  const g=legacyFootGame(),s=observer(),f=g.fighters[0],support=f.rig.contacts.find(c=>c.key==='footF');
   s.update(g,H);support.stance=false;f.pose.footF.y=TABLE_TOP+.075+.09;
   assert.equal(steps(s.update(g,H)).length,0);
   f.pose.footF.x+=.12;assert.equal(steps(s.update(g,H)).length,0);
@@ -156,14 +169,14 @@ test('airborne foot motion stays silent until a measured landing at the physical
 });
 
 test('foot slide density uses distance and elapsed seconds consistently at 30 and 60 Hz',()=>{
-  const run=hz=>{const g=game(),s=observer(),f=g.fighters[0];s.update(g,1/hz);let count=0;
+  const run=hz=>{const g=legacyFootGame(),s=observer(),f=g.fighters[0];s.update(g,1/hz);let count=0;
     for(let i=0;i<hz*3;i++){f.pose.footF.x+=.4/hz;count+=steps(s.update(g,1/hz)).length;}return count;};
   const slow=run(30),fast=run(60);assert.ok(slow>=8&&slow<=20,`bounded physical slide density ${slow}`);
   assert.ok(Math.abs(slow-fast)<=2,`30Hz=${slow},60Hz=${fast}`);
 });
 
 test('foot-only teleports and observer reset discard travel instead of replaying steps',()=>{
-  const g=game(),s=observer(),f=g.fighters[0];s.update(g,H);
+  const g=legacyFootGame(),s=observer(),f=g.fighters[0];s.update(g,H);
   f.pose.footF.x+=.04;s.update(g,H);s.reset();f.pose.footF.x+=.04;
   assert.deepEqual(s.update(g,H),[]);assert.equal(steps(s.update(g,H)).length,0);
   f.pose.footF.x+=2;f.pose.mainHand.x+=.025;f.pose.tip.x+=.025;
@@ -172,7 +185,7 @@ test('foot-only teleports and observer reset discard travel instead of replaying
 });
 
 test('a landing suppressed by the foot rate gate is discarded instead of delayed into a later tiny slide',()=>{
-  const g=game(),s=observer(),f=g.fighters[0],support=f.rig.contacts.find(c=>c.key==='footF');s.update(g,H);
+  const g=legacyFootGame(),s=observer(),f=g.fighters[0],support=f.rig.contacts.find(c=>c.key==='footF');s.update(g,H);
   f.pose.footF.x+=.07;assert.equal(steps(s.update(g,H)).length,1);
   support.stance=false;f.pose.footF.y+=.09;s.update(g,H);
   support.stance=true;f.pose.footF.y=TABLE_TOP+.075;assert.equal(steps(s.update(g,H)).length,0);

@@ -1,0 +1,5078 @@
+{
+  "schema": 4,
+  "size": 1024,
+  "origin": "top-left",
+  "padding": 4,
+  "regions": [
+    {
+      "id": "Torso_Rounded_Beech",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2107178689,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        0,
+        144,
+        144
+      ]
+    },
+    {
+      "id": "Boss_Long_Burgundy_Tabard",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 232006780,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        144,
+        0,
+        112,
+        112
+      ]
+    },
+    {
+      "id": "Medallion_Enamel",
+      "material": "Mint_Woven_Sash",
+      "kind": "cloth",
+      "seed": 1038039728,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        256,
+        0,
+        112,
+        112
+      ]
+    },
+    {
+      "id": "Workshop_Sash",
+      "material": "Mint_Woven_Sash",
+      "kind": "cloth",
+      "seed": 2409050832,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        368,
+        0,
+        112,
+        112
+      ]
+    },
+    {
+      "id": "Foot_L",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2433345181,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "sole",
+      "rect": [
+        480,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "id": "Foot_R",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2773157550,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "sole",
+      "rect": [
+        576,
+        0,
+        96,
+        96
+      ]
+    },
+    {
+      "id": "Balance_Finger_0",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 251953219,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        672,
+        0,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Balance_Finger_1",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 804246392,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        752,
+        0,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Balance_Finger_2",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2109913699,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        832,
+        0,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Balance_Finger_3",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 1346898871,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        912,
+        0,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Balance_Hand_Palm",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 1738622838,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Boss_Greave_L_Rounded_Wood",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2871540719,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        80,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Boss_Greave_R_Rounded_Wood",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 3420703246,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        160,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_L_Domed_Wood",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 3758949962,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        240,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_R_Domed_Wood",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 1107965028,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        320,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_L_Rounded_Wood",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2790983243,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_R_Rounded_Wood",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 73145890,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        480,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_L_Rounded_Wood",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 133933958,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        560,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_R_Rounded_Wood",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 703009171,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        640,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Forearm_L",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 1164024102,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        720,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Forearm_R",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 3383675330,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        800,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Grip_Hand_R",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 1394755817,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        880,
+        144,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Grip_Phalange_0a",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 1100296900,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Grip_Phalange_0b",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 1332411901,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        80,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Grip_Phalange_1a",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2352325310,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        160,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Grip_Phalange_1b",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2025707451,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        240,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Grip_Phalange_2a",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2653282715,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        320,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Grip_Phalange_2b",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 944865647,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Grip_Phalange_3a",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 1638131012,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        480,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Grip_Phalange_3b",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2907715481,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        560,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Grip_Thumb",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 918976579,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        640,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Neck_Wooden_Peg",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 570687638,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        720,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Pelvis_Beech",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 585017295,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        800,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Shin_L",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2476174276,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        880,
+        224,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Shin_R",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 2987162641,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        304,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Thigh_L",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 1382867545,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        80,
+        304,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Thigh_R",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 3122174721,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        160,
+        304,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Upper_Arm_L",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 189719409,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        240,
+        304,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Upper_Arm_R",
+      "material": "Beech_Wood_Grain",
+      "kind": "wood",
+      "seed": 1081656957,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        320,
+        304,
+        80,
+        80
+      ]
+    },
+    {
+      "id": "Foot_L:endgrain:0",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 285067122,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "sole",
+      "rect": [
+        400,
+        304,
+        48,
+        48
+      ]
+    },
+    {
+      "id": "Foot_L:endgrain:97",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1988822674,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "sole",
+      "rect": [
+        448,
+        304,
+        48,
+        48
+      ]
+    },
+    {
+      "id": "Foot_R:endgrain:0",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1831067687,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "sole",
+      "rect": [
+        496,
+        304,
+        48,
+        48
+      ]
+    },
+    {
+      "id": "Foot_R:endgrain:97",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3947895475,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "sole",
+      "rect": [
+        544,
+        304,
+        48,
+        48
+      ]
+    },
+    {
+      "id": "Ankle_L_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 2041133007,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        592,
+        304,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Ankle_L_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 654351651,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        632,
+        304,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Ankle_L_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 381028036,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        672,
+        304,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Ankle_L_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 3971314045,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        712,
+        304,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Ankle_L_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 466115223,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        752,
+        304,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Ankle_R_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 3676223244,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        792,
+        304,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Ankle_R_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3853046238,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        832,
+        304,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Ankle_R_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 2225999917,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        872,
+        304,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Ankle_R_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 1524279756,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        912,
+        304,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Ankle_R_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 37535594,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        952,
+        304,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Belt_Buckle",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 424188029,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Crown_Gold_Base",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3613122074,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        40,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Dark_Heraldic_Shield",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 2434890465,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        80,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Gold_Crown",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 80901651,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        120,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Gold_Hydraulic_Base",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 170416543,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        160,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Gold_Hydraulic_Column_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 65013477,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        200,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Gold_Hydraulic_Column_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2345635655,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        240,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Gold_Hydraulic_Column_2",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1822254047,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        280,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Shield_Brass_Border",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2402440958,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        320,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Shield_Rivet_-1_1.762",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 92516152,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        360,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Shield_Rivet_-1_1.856",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4275090437,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Shield_Rivet_1_1.762",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1090348867,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        440,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Chest_Shield_Rivet_1_1.856",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 959357015,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        480,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Crest_Hydraulic_Column_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3940784343,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        520,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Crest_Hydraulic_Column_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3788107156,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        560,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Crest_Hydraulic_Column_2",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2041165769,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        600,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Crown_Emblem",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3830011974,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        640,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Crown_Gold_Base",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4138531469,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        680,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_L_Brass_Edge_Left",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2121322254,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        720,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_L_Brass_Edge_Right",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2846054216,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        760,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_L_Recessed_Mount",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 3062029462,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        800,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_L_Retaining_Band_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 67433943,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        840,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_L_Retaining_Band_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4116252595,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        880,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_L_Rivet_0_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3320932907,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        920,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_L_Rivet_0_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3830100673,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        960,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_L_Rivet_1_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3211203558,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_L_Rivet_1_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2831631558,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        40,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_R_Brass_Edge_Left",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2928186298,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        80,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_R_Brass_Edge_Right",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 126995703,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        120,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_R_Recessed_Mount",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 325075238,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        160,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_R_Retaining_Band_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4016307167,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        200,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_R_Retaining_Band_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3956779444,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        240,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_R_Rivet_0_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4268331149,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        280,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_R_Rivet_0_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1347973643,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        320,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_R_Rivet_1_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2122210185,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        360,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Greave_R_Rivet_1_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 815997463,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_-1_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3182799704,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        440,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_-1_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 381754599,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        480,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_-1_2",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 560270,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        520,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_-1_3",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2349058571,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        560,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_-1_4",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 857177818,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        600,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_-1_5",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 909100692,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        640,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_1_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3604741324,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        680,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_1_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2988349629,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        720,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_1_2",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3229705569,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        760,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_1_3",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3406330308,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        800,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_1_4",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4074208551,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        840,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Leaf_1_5",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1420316498,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        880,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Stem_-1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3925982509,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        920,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Laurel_Stem_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 521395375,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        960,
+        424,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_L_Crown_Strap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2189457323,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_L_Heavy_Brass_Rim",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2119801178,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        40,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_L_Rivet_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1564752222,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        80,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_L_Rivet_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2775861229,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        120,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_L_Rivet_2",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1676376705,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        160,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_L_Rivet_3",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3592841509,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        200,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_L_Rivet_4",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1822649920,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        240,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_R_Crown_Strap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1626357935,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        280,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_R_Heavy_Brass_Rim",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3865029958,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        320,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_R_Rivet_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3928377575,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        360,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_R_Rivet_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 357968680,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_R_Rivet_2",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1931697313,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        440,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_R_Rivet_3",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1496088163,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        480,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Shoulder_R_Rivet_4",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3265831386,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        520,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Tabard_Gold_Edge_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4018519653,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        560,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Tabard_Gold_Edge_12",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 431518367,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        600,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Tabard_Scalloped_Gold_Hem",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2096411573,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        640,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_L_Brass_Edge_Left",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2541876699,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        680,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_L_Brass_Edge_Right",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3399867694,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        720,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_L_Recessed_Mount",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 2178754153,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        760,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_L_Retaining_Band_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1799714587,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        800,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_L_Retaining_Band_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3536678014,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        840,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_L_Rivet_0_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1482205585,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        880,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_L_Rivet_0_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2417730581,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        920,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_L_Rivet_1_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1169337737,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        960,
+        464,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_L_Rivet_1_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3391785527,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_R_Brass_Edge_Left",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1203238690,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        40,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_R_Brass_Edge_Right",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 728613313,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        80,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_R_Recessed_Mount",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 1852928849,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        120,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_R_Retaining_Band_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4048334851,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        160,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_R_Retaining_Band_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3999360944,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        200,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_R_Rivet_0_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2780946452,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        240,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_R_Rivet_0_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 846477540,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        280,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_R_Rivet_1_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 755617782,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        320,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Thigh_Plate_R_Rivet_1_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4071415517,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        360,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_L_Brass_Edge_Left",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3719172008,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_L_Brass_Edge_Right",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3976361985,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        440,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_L_Recessed_Mount",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 1555672494,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        480,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_L_Retaining_Band_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1864505593,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        520,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_L_Retaining_Band_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3542758935,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        560,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_L_Rivet_0_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1874786247,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        600,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_L_Rivet_0_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1642383707,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        640,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_L_Rivet_1_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 727282384,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        680,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_L_Rivet_1_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3940159910,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        720,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_R_Brass_Edge_Left",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4180523084,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        760,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_R_Brass_Edge_Right",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2225877528,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        800,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_R_Recessed_Mount",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 2019848466,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        840,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_R_Retaining_Band_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2194420720,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        880,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_R_Retaining_Band_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1773906855,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        920,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_R_Rivet_0_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1164003296,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        960,
+        504,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_R_Rivet_0_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 137393483,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_R_Rivet_1_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3824414239,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        40,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Boss_Vambrace_R_Rivet_1_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2633386300,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        80,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Chest_Medallion",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3940768806,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        120,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Chest_Retaining_Strap_-0.155",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3430691110,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        160,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Chest_Retaining_Strap_0.155",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3900661009,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        200,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Chest_Strap_Rivet_-0.1551.66",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 61153976,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        240,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Chest_Strap_Rivet_-0.1551.9",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 257532504,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        280,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Chest_Strap_Rivet_0.1551.66",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2611292284,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        320,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Chest_Strap_Rivet_0.1551.9",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2423646311,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        360,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Crest_Hydraulic_Bar_-0.018",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1147198103,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Crest_Hydraulic_Bar_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3788357693,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        440,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Crest_Hydraulic_Bar_0.018",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 920662344,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        480,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_L_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 1171991222,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        520,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_L_Bearing_Rim",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3429062591,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        560,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_L_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 36952297,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        600,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_L_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 3818902319,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        640,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_L_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 766564565,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        680,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_L_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 659056865,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        720,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_R_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 945072785,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        760,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_R_Bearing_Rim",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 819355503,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        800,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_R_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1835349713,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        840,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_R_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 772681034,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        880,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_R_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 956846422,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        920,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Elbow_R_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2823101639,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        960,
+        544,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Grip_Knuckle_0",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4037138019,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Grip_Knuckle_1",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3297170040,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        40,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Grip_Knuckle_2",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1821762301,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        80,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Grip_Knuckle_3",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2588910864,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        120,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hip_L_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 690535133,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        160,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hip_L_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 525331420,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        200,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hip_L_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 1193396663,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        240,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hip_L_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 130996174,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        280,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hip_L_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4225747349,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        320,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hip_R_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 1088073073,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        360,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hip_R_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2057132157,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hip_R_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 775811458,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        440,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hip_R_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 2602733495,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        480,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hip_R_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2036454886,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        520,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hydraulic_Barrel_L",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1886789232,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        560,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hydraulic_Barrel_R",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3348551172,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        600,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hydraulic_Clevis_L0",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 3323541436,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        640,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hydraulic_Clevis_L1",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 3531048546,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        680,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hydraulic_Clevis_R0",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 3549495122,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        720,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Hydraulic_Clevis_R1",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 2736831484,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        760,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_L_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 1555142733,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        800,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_L_Bearing_Rim",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 20695981,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        840,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_L_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3471245923,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        880,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_L_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 1036404958,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        920,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_L_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 2867900346,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        960,
+        584,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_L_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3735396216,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        0,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_R_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 3519039584,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        40,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_R_Bearing_Rim",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 711045351,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        80,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_R_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 645315700,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        120,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_R_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 3961789368,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        160,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_R_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 3690172344,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        200,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Knee_R_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3658814158,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        240,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Neck_Brass_Collar",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 964987245,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        280,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shin_Band_L",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3073188977,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        320,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shin_Band_R",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1971427528,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        360,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_Guard_L",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1252366200,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_Guard_R",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3289240995,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        440,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_L_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 1845824924,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        480,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_L_Bearing_Rim",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1663707605,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        520,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_L_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1297472232,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        560,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_L_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 562060009,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        600,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_L_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 1943794532,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        640,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_L_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3795914111,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        680,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_R_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 3533056947,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        720,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_R_Bearing_Rim",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2787536469,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        760,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_R_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3610193255,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        800,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_R_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 4147786801,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        840,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_R_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 4171656615,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        880,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Shoulder_R_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3184240469,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        920,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Ankle_L_Child_Bushing",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1355709387,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        960,
+        624,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Ankle_L_Parent_Clevis_Back",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3466337044,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Ankle_L_Parent_Clevis_Front",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3813492612,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        40,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Ankle_L_Recessed_Screw",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4080318467,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        80,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Ankle_R_Child_Bushing",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1154806480,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        120,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Ankle_R_Parent_Clevis_Back",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3656369292,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        160,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Ankle_R_Parent_Clevis_Front",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4403680,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        200,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Ankle_R_Recessed_Screw",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3412451744,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        240,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Belt_Compressed_Overlap",
+      "material": "Wrapped_Brown_Leather",
+      "kind": "leather",
+      "seed": 28277338,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        280,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Elbow_L_Child_Bushing",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1581688484,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        320,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Elbow_L_Parent_Clevis_Back",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3660729217,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        360,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Elbow_L_Parent_Clevis_Front",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2793705332,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Elbow_L_Recessed_Screw",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2482319930,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        440,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Elbow_R_Child_Bushing",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2277053257,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        480,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Elbow_R_Parent_Clevis_Back",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2730292521,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        520,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Elbow_R_Parent_Clevis_Front",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4123395221,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        560,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Elbow_R_Recessed_Screw",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4239531431,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        600,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Knee_L_Child_Bushing",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3463333182,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        640,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Knee_L_Parent_Clevis_Back",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 141360105,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        680,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Knee_L_Parent_Clevis_Front",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1564223066,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        720,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Knee_L_Recessed_Screw",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4294211161,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        760,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Knee_R_Child_Bushing",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2806004219,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        800,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Knee_R_Parent_Clevis_Back",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 334412327,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        840,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Knee_R_Parent_Clevis_Front",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2974602105,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        880,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Knee_R_Recessed_Screw",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 4190965391,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        920,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Shoulder_L_Child_Bushing",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2018042052,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        960,
+        664,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Shoulder_L_Parent_Clevis_Back",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3982379517,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        0,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Shoulder_L_Parent_Clevis_Front",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1748518959,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        40,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Shoulder_L_Recessed_Screw",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 651208153,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        80,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Shoulder_R_Child_Bushing",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 791309580,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        120,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Shoulder_R_Parent_Clevis_Back",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 3275505982,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        160,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Shoulder_R_Parent_Clevis_Front",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2277628700,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        200,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "V4_Shoulder_R_Recessed_Screw",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 606181229,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        240,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Waist_Ball",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 972909926,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        280,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Waist_Leather_Belt",
+      "material": "Wrapped_Brown_Leather",
+      "kind": "leather",
+      "seed": 2131781426,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        320,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Wrist_L_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 1762815453,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        360,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Wrist_L_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2156272271,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Wrist_L_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 2886742737,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        440,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Wrist_L_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 3001551548,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        480,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Wrist_L_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 1594411368,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        520,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Wrist_R_Axle",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 2547540441,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        560,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Wrist_R_Brass_Cap",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 623387436,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        600,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Wrist_R_Core",
+      "material": "Endgrain_Joints",
+      "kind": "endgrain",
+      "seed": 1896067913,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "recess",
+      "rect": [
+        640,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Wrist_R_Inset",
+      "material": "Recessed_Steel",
+      "kind": "steel",
+      "seed": 2284564328,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        680,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Wrist_R_Pin",
+      "material": "Satin_Brass",
+      "kind": "brass",
+      "seed": 2318985710,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "contact",
+      "rect": [
+        720,
+        704,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "Balance_Finger_0:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 615322209,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        760,
+        704,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Balance_Finger_0:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 240198923,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        792,
+        704,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Balance_Finger_1:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 969937017,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        824,
+        704,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Balance_Finger_1:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1239175204,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        856,
+        704,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Balance_Finger_2:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3395396106,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        888,
+        704,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Balance_Finger_2:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3141560238,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        920,
+        704,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Balance_Finger_3:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3306940960,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        952,
+        704,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Balance_Finger_3:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1658288117,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        984,
+        704,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Forearm_L:endgrain:48",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3714991260,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        0,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Forearm_L:endgrain:49",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1587180038,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        32,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Forearm_R:endgrain:48",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 2938750193,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        64,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Forearm_R:endgrain:49",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 2394558783,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        96,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_0a:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 536159489,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        128,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_0a:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 4291989476,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        160,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_0b:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3514931640,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        192,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_0b:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 645845339,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        224,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_1a:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 4281901563,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        256,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_1a:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 995348342,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        288,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_1b:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 535151649,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        320,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_1b:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 4076103258,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        352,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_2a:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1176218685,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        384,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_2a:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 265089570,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        416,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_2b:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3267106965,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        448,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_2b:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 2573833145,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        480,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_3a:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 2260731167,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        512,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_3a:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3449164767,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        544,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_3b:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 2409867493,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        576,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Phalange_3b:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1466507540,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        608,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Thumb:endgrain:18",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 10076814,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        640,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Grip_Thumb:endgrain:21",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3709036693,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        672,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Neck_Wooden_Peg:endgrain:80",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 4240336058,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        704,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Neck_Wooden_Peg:endgrain:83",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 2803487651,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        736,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Pelvis_Beech:endgrain:12",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 2628842846,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        768,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Pelvis_Beech:endgrain:183",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1273493249,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        800,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Shin_L:endgrain:48",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 906886218,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        832,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Shin_L:endgrain:49",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3780140713,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        864,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Shin_R:endgrain:48",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 418047995,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        896,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Shin_R:endgrain:49",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3046545572,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        928,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Thigh_L:endgrain:48",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 4180828370,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        960,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Thigh_L:endgrain:49",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3410572009,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        992,
+        744,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Thigh_R:endgrain:48",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3148617148,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        0,
+        776,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Thigh_R:endgrain:49",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1834126807,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        32,
+        776,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Torso_Rounded_Beech:endgrain:257",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1754032288,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        64,
+        776,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Torso_Rounded_Beech:endgrain:48",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 239143480,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        96,
+        776,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Upper_Arm_L:endgrain:48",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 1052757786,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        128,
+        776,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Upper_Arm_L:endgrain:49",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 3223884507,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        160,
+        776,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Upper_Arm_R:endgrain:48",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 4228386626,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        192,
+        776,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "Upper_Arm_R:endgrain:49",
+      "material": "Beech_Wood_Grain",
+      "kind": "endgrain",
+      "seed": 574093011,
+      "padding": 4,
+      "grainAxis": "radial",
+      "function": "housing",
+      "rect": [
+        224,
+        776,
+        32,
+        32
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_0_00",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 1100829733,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        256,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_0_01",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 105833290,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        280,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_0_02",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 317290430,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        304,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_0_03",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 64031421,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        328,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_0_04",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 637953135,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        352,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_0_10",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 2768950705,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        376,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_0_11",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 319742649,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        400,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_0_12",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 2812412620,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        424,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_0_13",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 3627933398,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        448,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_1_00",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 375444719,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        472,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_1_01",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 3744923471,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        496,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_1_02",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 940673332,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        520,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_1_03",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 3649889227,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        544,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_1_04",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 2656904036,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        568,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_1_10",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 1227754778,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        592,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_1_11",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 2436584255,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        616,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_1_12",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 2049143252,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        640,
+        776,
+        24,
+        24
+      ]
+    },
+    {
+      "id": "V4_Belt_Saddle_Stitch_1_13",
+      "material": "Boss_Burgundy_Woven_Cloth",
+      "kind": "cloth",
+      "seed": 3999501312,
+      "padding": 4,
+      "grainAxis": "v",
+      "function": "body",
+      "rect": [
+        664,
+        776,
+        24,
+        24
+      ]
+    }
+  ]
+}

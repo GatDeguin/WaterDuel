@@ -1,0 +1,241 @@
+{
+  "variant": "water-mannequin-boss",
+  "version": "v4",
+  "bones": 18,
+  "sockets": 5,
+  "wood_uv0_degenerate_triangles": 0,
+  "feet": {
+    "L": {
+      "minimum": 3.7662271097360644e-06,
+      "coplanar_sole_vertices": 24,
+      "sole_span": [
+        0.2211219072341919,
+        0.3754519745707512
+      ],
+      "bounds": {
+        "min": [
+          -0.8616410493850708,
+          -0.3053244948387146,
+          3.7662271097360644e-06
+        ],
+        "max": [
+          -0.6103662252426147,
+          0.12132547795772552,
+          0.12650518119335175
+        ]
+      }
+    },
+    "R": {
+      "minimum": -3.99915325033362e-06,
+      "coplanar_sole_vertices": 24,
+      "sole_span": [
+        0.22112178802490234,
+        0.3754517436027527
+      ],
+      "bounds": {
+        "min": [
+          0.4148658514022827,
+          -0.2823236286640167,
+          -3.99915325033362e-06
+        ],
+        "max": [
+          0.6661406755447388,
+          0.14432606101036072,
+          0.12649695575237274
+        ]
+      }
+    }
+  },
+  "uv1_degenerate_triangles": 0,
+  "joint_axes": [
+    {
+      "object": "Hip_L_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Knee_L_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Ankle_L_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Hip_R_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Knee_R_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Ankle_R_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Shoulder_L_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Elbow_L_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Wrist_L_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Shoulder_R_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Elbow_R_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "Wrist_R_Axle",
+      "center_to_axis_metres": 0.0,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Shoulder_L_Parent_Clevis_Front",
+      "center_to_axis_metres": 2.457562461863554e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Shoulder_L_Parent_Clevis_Back",
+      "center_to_axis_metres": 2.457562461863554e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Shoulder_L_Child_Bushing",
+      "center_to_axis_metres": 5.960464477539063e-08,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Shoulder_R_Parent_Clevis_Front",
+      "center_to_axis_metres": 2.457562461863554e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Shoulder_R_Parent_Clevis_Back",
+      "center_to_axis_metres": 2.457562461863554e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Shoulder_R_Child_Bushing",
+      "center_to_axis_metres": 5.960464477539063e-08,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Elbow_L_Parent_Clevis_Front",
+      "center_to_axis_metres": 3.371747880871523e-07,
+      "axis_error_degrees": 0.019782341029446364
+    },
+    {
+      "object": "V4_Elbow_L_Parent_Clevis_Back",
+      "center_to_axis_metres": 3.371747880871523e-07,
+      "axis_error_degrees": 0.019782341029446364
+    },
+    {
+      "object": "V4_Elbow_L_Child_Bushing",
+      "center_to_axis_metres": 2.457562461863554e-07,
+      "axis_error_degrees": 0.019782341029446364
+    },
+    {
+      "object": "V4_Elbow_R_Parent_Clevis_Front",
+      "center_to_axis_metres": 2.384185791015625e-07,
+      "axis_error_degrees": 0.019782341029446364
+    },
+    {
+      "object": "V4_Elbow_R_Parent_Clevis_Back",
+      "center_to_axis_metres": 2.384185791015625e-07,
+      "axis_error_degrees": 0.019782341029446364
+    },
+    {
+      "object": "V4_Elbow_R_Child_Bushing",
+      "center_to_axis_metres": 1.3328003749250113e-07,
+      "axis_error_degrees": 0.019782341029446364
+    },
+    {
+      "object": "V4_Knee_L_Parent_Clevis_Front",
+      "center_to_axis_metres": 1.7943374184954607e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Knee_L_Parent_Clevis_Back",
+      "center_to_axis_metres": 1.7943374184954607e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Knee_L_Child_Bushing",
+      "center_to_axis_metres": 2.9839552036674004e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Knee_R_Parent_Clevis_Front",
+      "center_to_axis_metres": 1.9371509552001953e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Knee_R_Parent_Clevis_Back",
+      "center_to_axis_metres": 1.9371509552001953e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Knee_R_Child_Bushing",
+      "center_to_axis_metres": 3.03925246810483e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Ankle_L_Parent_Clevis_Front",
+      "center_to_axis_metres": 1.228781230931777e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Ankle_L_Parent_Clevis_Back",
+      "center_to_axis_metres": 1.228781230931777e-07,
+      "axis_error_degrees": 0.0
+    },
+    {
+      "object": "V4_Ankle_L_Child_Bushing",
+      "center_to_axis_metres": 3.332000937312528e-08,
+      "axis_error_degrees": 0.019782341029446364
+    },
+    {
+      "object": "V4_Ankle_R_Parent_Clevis_Front",
+      "center_to_axis_metres": 1.228781230931777e-07,
+      "axis_error_degrees": 0.019782341029446364
+    },
+    {
+      "object": "V4_Ankle_R_Parent_Clevis_Back",
+      "center_to_axis_metres": 1.228781230931777e-07,
+      "axis_error_degrees": 0.019782341029446364
+    },
+    {
+      "object": "V4_Ankle_R_Child_Bushing",
+      "center_to_axis_metres": 9.06402249678704e-08,
+      "axis_error_degrees": 0.0
+    }
+  ],
+  "max_bounds_error_metres": 6.717712039971957e-06,
+  "socket_error_metres": {
+    "Socket_MainHand": 2.5037941869986857e-06,
+    "Socket_SecondaryHand": 2.515122785769519e-07,
+    "Socket_Neck": 2.524377454368159e-07,
+    "Socket_Foot_L": 8.386789328239862e-06,
+    "Socket_Foot_R": 7.91765473884839e-06
+  },
+  "ok": true
+}

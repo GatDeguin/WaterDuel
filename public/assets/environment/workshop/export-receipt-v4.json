@@ -1,0 +1,14 @@
+{
+  "file": "workshop-runtime-v4.glb",
+  "sha256": "9dafb0641072e9ec5e281e43aa0ad1282468fb21b84bfd0955d9166813f1afbe",
+  "bytes": 48890340,
+  "triangles": 398587,
+  "groups": 56,
+  "ready": true,
+  "validation": {
+    "completedAt": "2026-11-02T05:05:10.357Z",
+    "glbSha256": "9dafb0641072e9ec5e281e43aa0ad1282468fb21b84bfd0955d9166813f1afbe",
+    "visuallyInspected": true,
+    "previewCount": 11
+  }
+}

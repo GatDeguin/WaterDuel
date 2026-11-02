@@ -3,7 +3,7 @@
 import {APRON_GEOMETRY} from './apron-geometry.js';
 import {apronPoint} from './apron.js';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const originKeys={pelvis:'hip',torso:'hip',neck:'shoulder',weapon:'mainHand',mainUpper:'mainShoulder',mainForearm:'mainElbow',offUpper:'offShoulder',offForearm:'offElbow',offWeapon:'offHand',frontThigh:'frontHip',frontShin:'kneeF',backThigh:'backHip',backShin:'kneeB'};
+const originKeys={pelvis:'hip',torso:'hip',neck:'shoulder',weapon:'mainHand',mainUpper:'mainShoulder',mainForearm:'mainElbow',offUpper:'offShoulder',offForearm:'offElbow',offWeapon:'offHand',frontThigh:'frontHip',frontShin:'kneeF',frontFoot:'ankleF',backThigh:'backHip',backShin:'kneeB',backFoot:'ankleB'};
 const valid=p=>p&&[p.x,p.y,p.z??0].every(Number.isFinite);
 const root=(pose,body)=>{const f=pose.bodyFrames?.[body],key=originKeys[body];return f&&key?{...f.origin,z:pose[key]?.z??0,angle:f.angle}:null;};
 function onCurve(pose,s){
@@ -61,6 +61,30 @@ function triangleDistance(p,a,b,c){
   return Math.min(edgeDistance(p,a,b),edgeDistance(p,b,c),edgeDistance(p,c,a));
 }
 export function wetApronFromParcels(apron,pose,sources,dt){
+  // v4 contacts the live piecewise planar cloth. The legacy box below is only
+  // for snapshots predating the cloth contract, never a second v4 collider.
+  if(pose?.cloth?.revision===4){
+    if(!apron?.wetness||!Number.isFinite(dt)||dt<=0||dt>.04)return 0;
+    const {positions,rest,triangles,thickness}=pose.cloth;let touches=0;
+    const min=[0,1,2].map(k=>Math.min(...positions.map(p=>p[k]))-thickness),max=[0,1,2].map(k=>Math.max(...positions.map(p=>p[k]))+thickness);
+    const middle=(rest[0][1]+rest[11][1])/2;
+    for(const source of sources){
+      if(!source.released)continue;
+      for(const p of source.particles){
+        if(source.leaking&&!p.free||!valid(p)||!Number.isFinite(p.volume)||p.volume<=0)continue;
+        const radius=clamp(Number.isFinite(p.r)?p.r:.026,.001,.06),values=[p.x,p.y,p.z??0];
+        if(values.some((v,k)=>v+radius<min[k]||v-radius>max[k]))continue;
+        let nearest=Infinity,region='bottom';
+        for(const triangle of triangles){
+          const distance=triangleDistance(values,...triangle.map(i=>positions[i]));
+          if(distance<nearest){nearest=distance;region=triangle.reduce((s,i)=>s+rest[i][1]/3,0)>=middle?'top':'bottom';}
+        }
+        if(nearest>(radius+thickness)**2)continue;
+        apron.wetness[region]=clamp(apron.wetness[region]+dt*Math.min(4,p.volume/.0001),0,1);touches++;
+      }
+    }
+    return touches;
+  }
   const m=pose?.canonicalMatrix,g=APRON_GEOMETRY[pose?.variant];if(!m||!g||!apron?.wetness||!Number.isFinite(dt)||dt<=0||dt>.04)return 0;
   const inv=inverse(m);if(!inv)return 0;
   const world=g.corners.map(p=>apronPoint(m,p)),min=[0,1,2].map(k=>Math.min(...world.map(p=>p[k]))),max=[0,1,2].map(k=>Math.max(...world.map(p=>p[k])));

@@ -49,11 +49,11 @@ export const DEFENSES=catalogue([
     kind:'knife',radiusX:0,radiusY:0,guardRadiusX:0,guardRadiusY:0,length:.42,guardDrain:.18,regeneration:.28,blockCost:.42,canGuard:true}
 ]);
 
-const own=(object,key)=>Object.prototype.hasOwnProperty.call(object,key);
+const own=(object,key)=>typeof key==='string'&&Object.prototype.hasOwnProperty.call(object,key);
 export function normalizeLoadout(value={}){
   const weapon=own(WEAPONS,value?.weapon)?value.weapon:'sword';
   const defense=WEAPONS[weapon].twoHanded?'none':own(DEFENSES,value?.defense)?value.defense:'short';
-  return {weapon,defense};
+  return {weapon,defense,...(defense==='knife'&&value?.knifeGrip==='reverse'?{knifeGrip:'reverse'}:{})};
 }
 export function getWeapon(value){return WEAPONS[normalizeLoadout(typeof value==='string'?{weapon:value}:value?.equipment??value).weapon];}
 export function getDefense(value){return DEFENSES[normalizeLoadout(typeof value==='string'?{defense:value}:value?.equipment??value).defense];}

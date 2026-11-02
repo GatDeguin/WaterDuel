@@ -1,0 +1,57 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const ROOT=fileURLToPath(new URL('../',import.meta.url));
+const OUTPUT='audit/ITEMS_SELECTED_2026-11-02_MANIFEST.json';
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+const assetDir='public/assets/equipment/workshop/v3/';
+const runtime=['public/equipment.js','public/knife-technique.js','public/item-haptics.js','public/engine.js',
+ 'public/physics/articulated-rig.js','public/rendering/asset-rig.js','public/auto-defense.js','public/remote-menu.js',
+ 'public/controller.js','public/controller.html','public/mobile.html','public/game.js','public/mobile-session.js','server.mjs',
+ 'public/render3d.js','public/qa/equipment-selection.html'];
+const tests=['tests/knife-technique.test.mjs','tests/knife-defense-integration.test.mjs','tests/item-knife-contract.test.mjs',
+ 'tests/item-haptics.test.mjs','tests/item-haptics-transport.test.mjs','tests/controller-menu.test.mjs','tests/controller.test.mjs',
+ 'tests/mobile-runtime.test.mjs','tests/host-runtime.test.mjs','tests/qa-equipment-selection.test.mjs'];
+const docs=['docs/ENTREGA_ITEMS_SELECCIONADOS_2026-11-02.md','docs/superpowers/specs/2026-11-02-items-selected-design.md',
+ 'docs/superpowers/plans/2026-11-02-items-selected.md','scripts/seal-selected-items.mjs'];
+const logs=['audit/TESTS_ITEMS_SELECTED_REGRESSION.txt','audit/TESTS_ITEMS_SELECTED_FOCAL.txt'];
+const shared=new Set([...runtime,...tests].filter(file=>!['public/knife-technique.js','public/item-haptics.js','public/qa/equipment-selection.html',
+ 'tests/knife-technique.test.mjs','tests/knife-defense-integration.test.mjs','tests/item-knife-contract.test.mjs',
+ 'tests/item-haptics.test.mjs','tests/item-haptics-transport.test.mjs','tests/qa-equipment-selection.test.mjs'].includes(file)));
+async function check(records){for(const r of records){const bytes=await readFile(path.join(ROOT,r.path??r.file));if(bytes.length!==r.bytes||sha(bytes)!==r.sha256)throw Error(`Hash mismatch: ${r.path??r.file}`);}}
+const assets=JSON.parse(await readFile(path.join(ROOT,assetDir+'delivery-sha256.json'),'utf8'));
+await check(assets.files);
+if(process.argv.includes('--verify')){
+ const receipt=JSON.parse(await readFile(path.join(ROOT,OUTPUT),'utf8'));await check(receipt.files);
+ console.log(JSON.stringify({ok:true,files:receipt.files.length,assetFiles:assets.files.length}));
+}else{
+ const proof=JSON.parse(await readFile(path.join(ROOT,assetDir+'validation.json'),'utf8'));
+ if(!proof.passed||proof.assets.length!==7)throw Error('Asset validation must pass');
+ const evidence=[];
+ for(const file of logs){
+  const text=await readFile(path.join(ROOT,file),'utf8');
+  const count=Number(text.match(/(?:ℹ|#)\s*tests\s+(\d+)/)?.[1]),passed=Number(text.match(/(?:ℹ|#)\s*pass\s+(\d+)/)?.[1]),failed=Number(text.match(/(?:ℹ|#)\s*fail\s+(\d+)/)?.[1]);
+  if(!count||passed!==count||failed!==0)throw Error(`Failed/incomplete test evidence: ${file}`);
+  evidence.push({log:file,tests:count,passed,failed});
+ }
+ const names=new Set([...runtime,...tests,...docs,...logs,...assets.files.map(r=>r.path??r.file),assetDir+'delivery-sha256.json',assetDir+'validation.json']);
+ const records=[],sharedReferences=[];
+ for(const file of [...names].sort()){
+  const bytes=await readFile(path.join(ROOT,file)),entry={path:file,bytes:bytes.length,sha256:sha(bytes)};
+  (shared.has(file)?sharedReferences:records).push(entry);
+ }
+ const receipt={date:'2026-11-02',createdAt:new Date().toISOString(),selection:[26,27,34,36,37,44],
+  status:'Items blocks frozen for integration; shared files may subsequently change in Principal/Personajes.',
+  localRuntime:'Equipment loader points to workshop/v3; optional reverse grip and measured contact haptics integrated.',
+  publication:'Unchanged; controlled by Principal.',visualRuntimeQA:'Pending joint stable runtime window with Principal; GLB offline renders inspected.',
+  physicalHandsetHaptics:'Not measured; policy and LAN/local transport verified.',
+  evidence,evidenceScope:'These logs describe the Items cut before subsequent Principal/Personajes campaign/pose/N16 integration. Shared-file hashes are observations at handoff, not assertions that later shared revisions produced these logs. Joint verification remains required.',
+  sharedReferences,assetValidation:{passed:7,baselinesPreserved:14,textureAdditions:0},
+  verificationCommands:[
+   'node --test tests/knife-technique.test.mjs tests/knife-defense-integration.test.mjs tests/item-knife-contract.test.mjs tests/item-haptics.test.mjs tests/item-haptics-transport.test.mjs tests/controller-menu.test.mjs tests/qa-equipment-selection.test.mjs',
+   'node --test tests/knife-technique.test.mjs tests/knife-defense-integration.test.mjs tests/item-knife-contract.test.mjs tests/item-haptics.test.mjs tests/item-haptics-transport.test.mjs tests/controller-menu.test.mjs tests/qa-equipment-selection.test.mjs tests/auto-defense.test.mjs tests/remote-menu.test.mjs tests/mobile-session.test.mjs tests/mobile-runtime.test.mjs tests/controller.test.mjs tests/guard-mount.test.mjs tests/guard-contact-episodes.test.mjs tests/equipment.test.mjs tests/equipment-render.test.mjs tests/asset-rig.test.mjs tests/replay.test.mjs',
+   'node scripts/validate-equipment-craft-v3.mjs','node scripts/seal-selected-items.mjs --verify'],files:records};
+ await writeFile(path.join(ROOT,OUTPUT),JSON.stringify(receipt,null,2)+'\n');
+ console.log(JSON.stringify({ok:true,manifest:OUTPUT,files:records.length,evidence}));
+}

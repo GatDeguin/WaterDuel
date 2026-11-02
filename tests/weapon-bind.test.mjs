@@ -142,8 +142,9 @@ test('Acero anterior bloquea sólo su punto material: globo anterior y trayector
   }
 });
 
-function beatFixture(dir=1){
-  const a=new ArticulatedRig({dir,baseX:-dir*1.35,gravity:0}),b=new ArticulatedRig({dir:-dir,baseX:dir*1.35,gravity:0}),h=a.pose().head,p=b.pose().mainHand;
+function beatFixture(dir=1,{nativeGravity=false}={}){
+  const environment=nativeGravity?{}:{gravity:0};
+  const a=new ArticulatedRig({dir,baseX:-dir*1.35,...environment}),b=new ArticulatedRig({dir:-dir,baseX:dir*1.35,...environment}),h=a.pose().head,p=b.pose().mainHand;
   // Initial mechanism state: defender points at the real opposing head; the
   // attacking wrist is observed crossing upward through that physical blade.
   const neutralLocal=a.pose().angles.weapon*(dir===1?1:-1)+(dir===1?0:Math.PI);
@@ -163,7 +164,10 @@ function counterLine(a,b,path){
 test('El desvío abre una trayectoria de estocada alcanzable y la recuperación vuelve a cerrarla, en ambos roles',()=>{
   const resolve=api('resolveWeaponBind');
   for(const dir of [-1,1]){
-    const {a,b}=beatFixture(dir),baseline=beatFixture(dir);
+    // N16 supports are unilateral: in zero gravity the contact lifts the
+    // whole rig permanently. Recovery here uses the game's native gravity,
+    // rather than treating a floating body as an unrecovered wrist motor.
+    const {a,b}=beatFixture(dir,{nativeGravity:true}),baseline=beatFixture(dir,{nativeGravity:true});
     const contact=resolve(a,b,{dt:STEP});assert.ok(contact.impulse>.01);
     for(let i=0;i<12;i++)for(const r of [a,b,baseline.a,baseline.b])r.step(STEP);
     // Search the actual visible head section for a counterthrust available from

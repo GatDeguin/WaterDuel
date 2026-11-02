@@ -1,0 +1,2499 @@
+{
+  "ok": true,
+  "scope": "CPU geometry/ground sweep from motor inputs; no triangle-triangle clearance proof, no GPU or FPS claim",
+  "profiles": 32,
+  "samples": 200,
+  "verticesExamined": 10070700,
+  "maximumBelowFloor": 0.0000010651607587064404,
+  "violations": [],
+  "results": [
+    {
+      "boss": false,
+      "dir": -1,
+      "weapon": "sword",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994713158118,
+          "belowFloor": 5.286841882057303e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.324500693712156,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245024895032824,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 39
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245351655959491,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3244995401377409,
+          "belowFloor": 4.598622591056589e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449984437028123,
+          "belowFloor": 1.5562971877880472e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "caida360",
+          "minimumY": 0.32449935447824707,
+          "belowFloor": 6.455217529399704e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 76
+          },
+          "selfPenetration": 3.1639702235963796e-7
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": -1,
+      "weapon": "sword",
+      "defense": "short",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994713158118,
+          "belowFloor": 5.286841882057303e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32450069350821065,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245046535302484,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 45
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245357430037047,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3244995577528035,
+          "belowFloor": 4.422471965304098e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244998662073717,
+          "belowFloor": 1.337926283095925e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": -1,
+      "weapon": "sword",
+      "defense": "long",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994713158118,
+          "belowFloor": 5.286841882057303e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32450069350821065,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245046535302484,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 45
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245357430037047,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3244995577528035,
+          "belowFloor": 4.422471965304098e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244998662073717,
+          "belowFloor": 1.337926283095925e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": -1,
+      "weapon": "sword",
+      "defense": "knife",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.32449947197083123,
+          "belowFloor": 5.280291687781435e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32450066467170957,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245050554381948,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 45
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32453599983506237,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.324499534764492,
+          "belowFloor": 4.652355080070336e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244998809881131,
+          "belowFloor": 1.1901188690099929e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": -1,
+      "weapon": "sword",
+      "defense": "knife",
+      "knifeGrip": "reverse",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994719689952,
+          "belowFloor": 5.280310048094705e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32450066464387545,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245057285084877,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 48
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32453635198100533,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 72
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3244995299548803,
+          "belowFloor": 4.700451197159339e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244998817078291,
+          "belowFloor": 1.1829217089198707e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": -1,
+      "weapon": "spear",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994714400004,
+          "belowFloor": 5.285599996018853e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3245006675428081,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450248979404595,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 39
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32453516036059726,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.324499553686191,
+          "belowFloor": 4.4631380902160345e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449981293936003,
+          "belowFloor": 1.8706063997786515e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": -1,
+      "weapon": "axe",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994720718859,
+          "belowFloor": 5.279281141135073e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3245006411786949,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.324502506049848,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 39
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245351347942359,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3244995522252837,
+          "belowFloor": 4.477747163056378e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449981590079435,
+          "belowFloor": 1.8409920565787274e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": -1,
+      "weapon": "maul",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.324499516862326,
+          "belowFloor": 4.831376740344062e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32450061912181716,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245026712804266,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 42
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245004552548908,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3244995356268675,
+          "belowFloor": 4.643731325026934e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3245130108791269,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "caida360",
+          "minimumY": 0.32450050212172643,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 5.039700291531446e-7
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": 1,
+      "weapon": "sword",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994719734017,
+          "belowFloor": 5.280265983342858e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32450061522159124,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450252724561834,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 39
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245350370648482,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32449954840711515,
+          "belowFloor": 4.515928848647377e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449963835921103,
+          "belowFloor": 3.616407889817097e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "caida360",
+          "minimumY": 0.3244994416901959,
+          "belowFloor": 5.58309804110646e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 76
+          },
+          "selfPenetration": 7.438368492262981e-7
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": 1,
+      "weapon": "sword",
+      "defense": "short",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994719734017,
+          "belowFloor": 5.280265983342858e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3245006154027699,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450479982577196,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 45
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32453564318001027,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32449955281781606,
+          "belowFloor": 4.471821839491241e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244996621176224,
+          "belowFloor": 3.3788237763232587e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": 1,
+      "weapon": "sword",
+      "defense": "long",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994719734017,
+          "belowFloor": 5.280265983342858e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3245006154027699,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450479982577196,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 45
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32453564318001027,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32449955281781606,
+          "belowFloor": 4.471821839491241e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244996621176224,
+          "belowFloor": 3.3788237763232587e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": 1,
+      "weapon": "sword",
+      "defense": "knife",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994719813333,
+          "belowFloor": 5.280186667344644e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32450061627546817,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245051811270766,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 45
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32453582163305233,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32449953632440987,
+          "belowFloor": 4.6367559014548476e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449968194078543,
+          "belowFloor": 3.1805921457683795e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": 1,
+      "weapon": "sword",
+      "defense": "knife",
+      "knifeGrip": "reverse",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994719796441,
+          "belowFloor": 5.280203558832852e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3245006163073415,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450568591585394,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 48
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245364016339025,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.324499527483423,
+          "belowFloor": 4.7251657703251126e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244996821180913,
+          "belowFloor": 3.178819086846474e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": 1,
+      "weapon": "spear",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994721371749,
+          "belowFloor": 5.278628251170758e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32450058896793316,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245025565508005,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 39
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245350166125514,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32449953046905733,
+          "belowFloor": 4.6953094268165074e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.324499631730008,
+          "belowFloor": 3.682699920015686e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": 1,
+      "weapon": "axe",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244994714469773,
+          "belowFloor": 5.285530227383539e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32450059228584616,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450254183211924,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 39
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245350371954774,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32449955378841683,
+          "belowFloor": 4.462115831826985e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244996318343235,
+          "belowFloor": 3.681656765008867e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": false,
+      "dir": 1,
+      "weapon": "maul",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244995169550084,
+          "belowFloor": 4.830449916171098e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.324500540606209,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245026066530373,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 42
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245004508676935,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32449954963469646,
+          "belowFloor": 4.5036530355035964e-7,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3245135086204532,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "caida360",
+          "minimumY": 0.3245005177306166,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 3.297282125114265e-7
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": -1,
+      "weapon": "sword",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.32449923633633415,
+          "belowFloor": 7.636636658592266e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32449962759158646,
+          "belowFloor": 3.724084135514616e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450530339763084,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 39
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.324511646816395,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3245128716497563,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449986301344824,
+          "belowFloor": 1.369865517686364e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "caida360",
+          "minimumY": 0.3244998150409324,
+          "belowFloor": 1.849590676172852e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 4
+          },
+          "selfPenetration": 0.000005965458329648676
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": -1,
+      "weapon": "sword",
+      "defense": "short",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.32449923633633415,
+          "belowFloor": 7.636636658592266e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32449962755341605,
+          "belowFloor": 3.724465839627378e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450887591724,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 51
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32450074340932,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.324512796693158,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449988659199647,
+          "belowFloor": 1.1340800354364688e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": -1,
+      "weapon": "sword",
+      "defense": "long",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.32449923633633415,
+          "belowFloor": 7.636636658592266e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32449962755341605,
+          "belowFloor": 3.724465839627378e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450887591724,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 51
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32450074340932,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.324512796693158,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449988659199647,
+          "belowFloor": 1.1340800354364688e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": -1,
+      "weapon": "sword",
+      "defense": "knife",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992371570471,
+          "belowFloor": 7.628429529171754e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3244996273745103,
+          "belowFloor": 3.726254896863068e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450961301600056,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 54
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245007295736132,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3245128950019227,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244999170697896,
+          "belowFloor": 8.293021042105053e-8,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": -1,
+      "weapon": "sword",
+      "defense": "knife",
+      "knifeGrip": "reverse",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992371570471,
+          "belowFloor": 7.628429529171754e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32449962726097026,
+          "belowFloor": 3.727390297525446e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32451037292696455,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 63
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.324500716322772,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32451291705018415,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244999007358206,
+          "belowFloor": 9.926417943173504e-8,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": -1,
+      "weapon": "spear",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992369729937,
+          "belowFloor": 7.630270063008204e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3244995991577665,
+          "belowFloor": 4.008422335166628e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245053138816823,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 39
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32450452254774753,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3245128119147531,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244999116403773,
+          "belowFloor": 8.835962272968345e-8,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": -1,
+      "weapon": "axe",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992371570471,
+          "belowFloor": 7.628429529171754e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3244996010069444,
+          "belowFloor": 3.9899305559476517e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450531000922156,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 39
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32450072220574366,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32451288608182605,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244997995388732,
+          "belowFloor": 2.004611268091594e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": -1,
+      "weapon": "maul",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992561155662,
+          "belowFloor": 7.438844338292228e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3244996052736805,
+          "belowFloor": 3.947263195192008e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245064726217506,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 45
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245007354067459,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32450083348817627,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32450935259086827,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "caida360",
+          "minimumY": 0.3245006927184846,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0.000018340087707846564
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": 1,
+      "weapon": "sword",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992371570471,
+          "belowFloor": 7.628429529171754e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32449960300355934,
+          "belowFloor": 3.9699644066581996e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450542849410363,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 42
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245355746026274,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32451249793016723,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244996104243366,
+          "belowFloor": 3.8957566339536953e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "caida360",
+          "minimumY": 0.3244989348392413,
+          "belowFloor": 0.0000010651607587064404,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 4
+          },
+          "selfPenetration": 0.000040170045811915855
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": 1,
+      "weapon": "sword",
+      "defense": "short",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992371570471,
+          "belowFloor": 7.628429529171754e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32449960302385866,
+          "belowFloor": 3.969761413480377e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450897777871157,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 51
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245007273348792,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3245124370417436,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449960203949635,
+          "belowFloor": 3.979605036619205e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": 1,
+      "weapon": "sword",
+      "defense": "long",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992371570471,
+          "belowFloor": 7.628429529171754e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32449960302385866,
+          "belowFloor": 3.969761413480377e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450897777871157,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 51
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245007273348792,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3245124370417436,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449960203949635,
+          "belowFloor": 3.979605036619205e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": 1,
+      "weapon": "sword",
+      "defense": "knife",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.32449923693220084,
+          "belowFloor": 7.630677991699031e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3244995730141727,
+          "belowFloor": 4.2698582730649193e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245097024229746,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 54
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32452724807643674,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32451252030080946,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244996486317724,
+          "belowFloor": 3.513682276246044e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": 1,
+      "weapon": "sword",
+      "defense": "knife",
+      "knifeGrip": "reverse",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992371570471,
+          "belowFloor": 7.628429529171754e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3244995729393858,
+          "belowFloor": 4.270606142053879e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245103656562842,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 63
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245007161884331,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3245125293107227,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244996266069555,
+          "belowFloor": 3.7339304448380517e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": 1,
+      "weapon": "spear",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992371570471,
+          "belowFloor": 7.628429529171754e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32449957446231825,
+          "belowFloor": 4.255376817585699e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245054369833831,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 42
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.3245354844052892,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.32451242757421506,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32449956483947306,
+          "belowFloor": 4.3516052694592133e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": 1,
+      "weapon": "axe",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992371570471,
+          "belowFloor": 7.628429529171754e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.32449957626885795,
+          "belowFloor": 4.2373114206295526e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.3245053988860913,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 42
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32453116947745797,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 39
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3245123581821532,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.3244995779207821,
+          "belowFloor": 4.2207921790993197e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 5
+          },
+          "selfPenetration": 0
+        }
+      ]
+    },
+    {
+      "boss": true,
+      "dir": 1,
+      "weapon": "maul",
+      "defense": "none",
+      "knifeGrip": "normal",
+      "samples": [
+        {
+          "label": "guardia",
+          "minimumY": 0.3244992561253759,
+          "belowFloor": 7.438746241206218e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "avance",
+          "minimumY": 0.3244995513766329,
+          "belowFloor": 4.486233671219253e-7,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 1
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "parada",
+          "minimumY": 0.32450668703896135,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 45
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "esquiva",
+          "minimumY": 0.32450073190499434,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "extension",
+          "minimumY": 0.3245025343646599,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 5
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "recuperacion",
+          "minimumY": 0.32450956475533904,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.L",
+            "index": 41
+          },
+          "selfPenetration": 0
+        },
+        {
+          "label": "caida360",
+          "minimumY": 0.32450069601349707,
+          "belowFloor": 0,
+          "lowest": {
+            "node": "WD_Boss_Beech_Wood_Grain",
+            "bone": "foot.R",
+            "index": 41
+          },
+          "selfPenetration": 0.000019388018760668757
+        }
+      ]
+    }
+  ]
+}

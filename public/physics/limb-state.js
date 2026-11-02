@@ -1,7 +1,7 @@
 // The physical topology is authoritative. Replay/visual views have no solver;
 // their owned joint records describe the same connected chains.
 const chains={weapon:['mainShoulder','mainElbow','wrist'],offForearm:['offShoulder','offElbow'],
-  frontShin:['frontHip','frontKnee'],backShin:['backHip','backKnee']};
+  frontShin:['frontHip','frontKnee'],frontFoot:['frontHip','frontKnee'],backShin:['backHip','backKnee'],backFoot:['backHip','backKnee']};
 export function bodyAttached(fighter,body){
   if(fighter?.rig?.isBodyAttached)return fighter.rig.isBodyAttached(body);
   return !(chains[body]??[]).some(name=>fighter?.pose?.joints?.[name]?.detached);

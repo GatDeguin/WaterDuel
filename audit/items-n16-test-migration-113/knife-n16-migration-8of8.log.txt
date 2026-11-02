@@ -1,0 +1,16 @@
+✔ Normal conserva la intención anterior; reverse invierte la hoja real y recoge la guardia fuera del globo (1060.0217ms)
+✔ La palma física sigue la mano invertida mientras la hoja conserva su punta y perfil de parada (842.552ms)
+✔ Los sockets de daga GLB v2 y v3 coinciden con la punta física en ambos agarres y jugadores (1636.9436ms)
+✔ Los mandos producen una parada real con desvío tangencial y reacción opuesta, sin asignar puntos (8942.7096ms)
+✔ La mano GLB conserva el agarre real en su socket y sus vértices de palma invierten respecto de la hoja (866.8926ms)
+✔ El desprendimiento real retira la parada inversa aun si queda una pose de guardia anterior (4292.6605ms)
+✔ Un brazo dañado conserva topología y números finitos; cambiar a otra defensa retira la hoja invertida (542.3295ms)
+✔ El filo real .125–.42 de la daga evita madera propia al estabilizar ambas guardias y lados (801.4836ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19114.5364

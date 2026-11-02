@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 import {RadialJoystick,weaponGesture,movementGesture} from '../public/joysticks.js';
 import {AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled} from '../public/audio/effect-controls.js';
+import {contactHaptic} from '../public/item-haptics.js';
 
 const source=await readFile(new URL('../public/controller.js',import.meta.url),'utf8');
 const markup=await readFile(new URL('../public/controller.html',import.meta.url),'utf8');
@@ -58,7 +59,8 @@ function controller({slot=1,offset=120000,secure=false,permission='granted',redu
     URLSearchParams,WebSocket:Socket,Date:ClockDate,
     setInterval:(callback,ms)=>{intervals.push({callback,ms});return nextTimer++;},
     setTimeout:(callback,ms)=>{const id=nextTimer++;timeouts.set(id,{callback,ms});return id;},
-    clearTimeout:id=>timeouts.delete(id),console,RadialJoystick,weaponGesture,movementGesture,AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled});
+    clearTimeout:id=>timeouts.delete(id),console,RadialJoystick,weaponGesture,movementGesture,AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled,
+    contactHaptic:(data,localSlot)=>contactHaptic(data==null?data:JSON.parse(JSON.stringify(data)),localSlot)});
   new vm.Script(source.replace(/^import[^\n]+;\s*$/gm,''),{filename:'public/controller.js'}).runInContext(context,{timeout:1000});
   const socket=sockets[0];assert.ok(socket);socket.open();
   socket.receive({type:'welcome',role:'controller',hostOnline:true,serverTime:clock.now+offset});
@@ -247,6 +249,19 @@ test('Articulación, desprendimiento y globo tienen patrones distintos y el golp
   h.socket.receive({type:'event',name:'clang',slot:0});
   h.socket.receive({type:'event',name:'joint-damage',slot:1});assert.equal(h.haptics.length,count);
   h.clock.now+=300;h.socket.receive({type:'event',name:'clang',slot:0});assert.equal(h.haptics.at(-1),27);
+});
+
+test('El mando real usa metadatos físicos: cero/reposo/ajeno quedan silenciosos y contactos se separan 80 ms',()=>{
+  const h=controller(),impact={impulse:.18,closingSpeed:1,materialA:'steel',materialB:'wood',attacker:1,defender:2};
+  for(const data of [null,{...impact,impulse:0},{...impact,closingSpeed:0},{...impact,attacker:2,defender:0}])
+    h.socket.receive({type:'event',name:'clang',slot:0,impact:data});
+  assert.equal(h.haptics.length,0);
+  h.socket.receive({type:'event',name:'clang',slot:0,impact});assert.deepEqual(Array.from(h.haptics[0]),contactHaptic(impact,1).pattern);
+  h.clock.now+=60;h.socket.receive({type:'event',name:'clang',slot:0,impact});assert.equal(h.haptics.length,1);
+  h.clock.now+=21;h.socket.receive({type:'event',name:'clang',slot:0,impact});assert.equal(h.haptics.length,2);
+  const p2=controller({slot:2});p2.socket.receive({type:'event',name:'clang',slot:0,impact:{...impact,attacker:1,defender:0}});assert.equal(p2.haptics.length,0);
+  const disconnected=controller();disconnected.socket.close();disconnected.socket.receive({type:'event',name:'clang',slot:0,impact});assert.equal(disconnected.haptics.length,0);
+  const hidden=controller();hidden.document.hidden=true;hidden.socket.receive({type:'event',name:'clang',slot:0,impact});assert.equal(hidden.haptics.length,0);
 });
 
 test('Salir del mando cancela la vibración de daño y una página oculta no vuelve a iniciarla',()=>{

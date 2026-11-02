@@ -1,6 +1,7 @@
 // The standalone page shares one HostSession in process. This transport owns
 // neither a simulation clock nor a renderer and is safe to import on a remote
 // controller: no engine, network, DOM or timers are created by this module.
+import {sanitizeItemImpact} from './item-haptics.js';
 const neutral=()=>({offX:0,offY:0,mainX:0,mainY:0,lean:0,bodyY:0,wrist:0,thrust:false,guard:false,attackHeld:false,headX:0,headZ:0});
 const axes=['offX','offY','mainX','mainY','lean','bodyY','wrist','headX','headZ'];
 const record=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
@@ -103,8 +104,14 @@ export class MobileSession{
     this.deliver({type:'state',phase:game.phase,mode:game.mode,score:[...game.scores],time:game.elapsed});
     this.deliver({type:'menu-state',state:this.host.menuState()});
   }
-  event(name,slot=0){
+  event(name,slot=0,physicalImpact){
     if(typeof name!=='string'||name.length===0||name.length>64||![0,1,2].includes(slot))return;
+    if(name==='clang'&&arguments.length>=3){
+      const impact=sanitizeItemImpact(physicalImpact);
+      if(impact?![impact.attacker,impact.defender,impact.slot].includes(1):slot===2)return;
+      this.deliver({type:'event',name,slot,impact});return;
+    }
+    if(name==='clang'&&slot===2)return;
     this.deliver({type:'event',name,slot});
   }
 }

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {DuelEngine,STEP} from '../public/engine.js';
+import {DuelEngine,STEP,FOOTWORK} from '../public/engine.js';
 import {TABLE_TOP,BALLOON_RADII} from '../public/physics/dimensions.js';
 import fs from 'node:fs/promises';
 import {parseGLB} from '../public/rendering/glb.js';
@@ -41,9 +41,15 @@ test('Los globos intactos no se interpenetran y el caso original conserva su pin
   assert.ok(bursts.some(b=>b.contact===true),'el fixture original conserva la perforación temprana de punta libre');assert.deepEqual(g.scores,expected);
 });
 
-test('Dos humanos con armas bajas acercan sus globos vivos sin solaparlos ni perforarse',()=>{
+test('N16: dos humanos con armas bajas avanzan hasta el límite real y conservan globos vivos sin solaparlos',()=>{
   const g=new DuelEngine();g.setLoadout(1,{defense:'none'});g.setLoadout(2,{defense:'none'});start(g);
-  let minimum=Infinity;
+  // The exact historical <1.15 guard is retained with the pinned N14 engine
+  // and rig in inter-rig-legacy-approach.test.mjs. Its bilateral foot anchors
+  // are not a posture oracle for N16's unilateral support. N16 head contact
+  // itself has a non-vacuous analytic isolation test in inter-rig-heads-v4.
+  const initialX=g.fighters.map(f=>f.rig.q[0]),advance=[0,0];
+  let minimum=Infinity,minimumBaseGap=Infinity;
+  assert.equal(FOOTWORK.minSeparation,2.7,'the production base cap is unchanged');
   for(let tick=0;tick<390;tick++){
     const lean=tick<90?0:1;
     g.setControl(1,{mainX:-1,mainY:-1,wrist:-1,lean,headX:lean});
@@ -51,9 +57,15 @@ test('Dos humanos con armas bajas acercan sus globos vivos sin solaparlos ni per
     const [a,b]=g.fighters;assert.ok(a.globIntact&&b.globIntact,'la preparación y el acercamiento mantienen ambos globos vivos');
     const p=a.pose.head,q=b.pose.head,s=a.balloonSize+b.balloonSize;
     minimum=Math.min(minimum,Math.hypot((p.x-q.x)/(BALLOON_RADII.x*s),(p.y-q.y)/(BALLOON_RADII.y*s),(p.z-q.z)/(BALLOON_RADII.z*s)));
+    const gap=b.baseX-a.baseX;minimumBaseGap=Math.min(minimumBaseGap,gap);
+    assert.ok(gap>=2.7-1e-10,'legal input never crosses the base cap');
+    for(let i=0;i<2;i++)advance[i]=Math.max(advance[i],g.fighters[i].dir*(g.fighters[i].rig.q[0]-initialX[i]));
     for(const f of g.fighters)stable(f);
   }
-  assert.ok(minimum>=1-1e-5,`minimum ${minimum}`);assert.ok(minimum<1.15,`el control debe ejercitar cercanía real: ${minimum}`);assert.deepEqual(g.scores,[0,0]);
+  assert.ok(minimum>=1-1e-5,`minimum ${minimum}`);
+  assert.ok(Math.abs(minimumBaseGap-2.7)<1e-10,'the same 390 ticks reach the base cap');
+  for(const [i,distance]of advance.entries())assert.ok(distance>.47,`J${i+1} achieves more than one front stance offset of real approach: ${distance}`);
+  assert.deepEqual(g.scores,[0,0]);
 });
 
 test('La lanza activa encuentra la mesa en ambos slots conservando apoyos',()=>{

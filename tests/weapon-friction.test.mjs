@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {ArticulatedRig} from '../public/physics/articulated-rig.js';
 import {resolveWeaponBind,firstWeaponContact,WEAPON_BIND} from '../public/physics/weapon-bind.js';
+import {TABLE_TOP} from '../public/physics/dimensions.js';
 
 function slider(y,velocity,mass=1){
   const vertices=[{x:-.5,y:y-.017},{x:.5,y:y-.017},{x:.5,y:y+.017},{x:-.5,y:y+.017}];
@@ -39,9 +40,13 @@ test('Adherencia breve y deslizamiento son finitos; fricción cero conserva la l
   assert.equal(smooth.frictionImpulse,0);close(e.velocity.x-f.velocity.x,.8);
 });
 
-test('La inercia de contacto reutiliza una preparación y respeta la masa articulada en ambos ejes',()=>{
+test('En vuelo libre la inercia de contacto conserva igualdad 1e-8 en ambos ejes',()=>{
   for(const dir of [-1,1]){
-    const rig=new ArticulatedRig({dir,baseX:-dir*1.53,gravity:0}),pose=rig.pose(),point=pose.mainHand;
+    const rig=new ArticulatedRig({dir,baseX:-dir*1.53,gravity:0});rig.q[1]=1.85;
+    const d=rig.diagnostics();assert.ok(d.minimumGroundY>TABLE_TOP+.2,'every floor collider is far from contact');
+    assert.ok(d.coordinates.every(c=>c.position>c.min+.001&&c.position<c.max-.001),'all coordinate stops are inactive');
+    assert.ok(Object.values(rig.pose().feet).every(foot=>!foot.stance&&foot.groundReaction===0));
+    const point=rig.pose().mainHand;
     const normal={x:.6,y:.8},tangent={x:-.8,y:.6};
     assert.equal(typeof rig.contactInertia,'function');
     const response=rig.contactInertia({body:'weapon',point,normal});
@@ -60,8 +65,8 @@ test('Un adaptador sin inercia tangencial completa conserva el choque normal sin
 });
 
 test('El forcejeo real conserva intención, energía y simetría sin desactivar la punta ni regalar daño',()=>{
-  for(const dir of [-1,1]){
-    const a=new ArticulatedRig({dir,baseX:-dir*1.53,gravity:0}),b=new ArticulatedRig({dir:-dir,baseX:dir*1.53,gravity:0});
+  for(const dir of [-1,1])for(const scale of [1,1.18]){
+    const a=new ArticulatedRig({dir,scale,baseX:-dir*1.53*scale,gravity:0}),b=new ArticulatedRig({dir:-dir,scale,baseX:dir*1.53*scale,gravity:0});
     b.q[1]+=.025;a.previousQ=a.q.slice();b.previousQ=b.q.slice();
     const contact=firstWeaponContact(a,b);assert.ok(contact);
     const n=contact.normal,t={x:-n.y,y:n.x};
@@ -70,10 +75,19 @@ test('El forcejeo real conserva intención, energía y simetría sin desactivar 
     // placement too, before measuring collision work (as in weapon-bind).
     b.reactImpulse({body:'weapon',point:contact.pointB,impulse:{x:-n.x*.06-t.x*.035,y:-n.y*.06-t.y*.035}});
     const before=a.diagnostics().kineticEnergy+b.diagnostics().kineticEnergy,targets=[Array.from(a.target),Array.from(b.target)];
+    const applied=[0,0],predicted=[];
+    for(const [i,rig,point] of [[0,a,contact.pointA],[1,b,contact.pointB]]){
+      const apply=rig.reactImpulse.bind(rig);
+      rig.reactImpulse=options=>{applied[i]++;predicted[i]=rig.trialContactImpulse({...options,normal:n});return apply(options);};
+    }
     const result=resolveWeaponBind(a,b,{project:false});
     assert.ok(Number.isFinite(result.frictionImpulse));assert.ok(result.impulse>0);
+    assert.ok(Math.abs(result.frictionImpulse)<=WEAPON_BIND.staticFriction*result.impulse+1e-12);
     assert.ok(a.diagnostics().kineticEnergy+b.diagnostics().kineticEnergy<=before+1e-8);
     assert.deepEqual([Array.from(a.target),Array.from(b.target)],targets);
     close(a.lastImpulse.impulse.x+b.lastImpulse.impulse.x,0);close(a.lastImpulse.impulse.y+b.lastImpulse.impulse.y,0);
+    assert.deepEqual(applied,[1,1],'bounded trials may apply the final signed total impulse only once per body');
+    assert.deepEqual(a.velocity,predicted[0].velocity);assert.deepEqual(b.velocity,predicted[1].velocity);
+    assert.ok(result.contactIterations<=8&&result.contactBacktracks<=8);
   }
 });

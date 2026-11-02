@@ -4,6 +4,14 @@
 
 En móvil, Pages abre la experiencia individual con los dos joysticks y el menú ☰. En PC conserva la escena sin mandos ni menús. Para jugar en PC con los QR y dos móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo: Pages no ejecuta el servidor de sesiones. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Campaña, personajes y taller 1.13.0
+
+La campaña normal entrega el trofeo del Campeón y desbloquea una campaña avanzada de siete encuentros con progreso independiente. En el móvil, elegí **☰ → Partida → Campaña → Vuelta de campaña**; el botón verde del final normal también permite comenzar la avanzada. Completarla entrega el trofeo del Maestro. Las ceremonias se muestran en la escena; las opciones permanecen en el móvil.
+
+Los personajes v4 incorporan tobillos y suelas físicos, transferencia de peso, fintas corporales, paño flexible y daño visible vinculado a las articulaciones reales. El Maestro Hidráulico tiene cuatro preparaciones en su segunda fase y recuperaciones para contraatacar. Los siete equipos añaden detalles de construcción; el cuchillo secundario admite agarre normal o invertido y desvíos medidos por contacto.
+
+El taller v4 completa la sala para las órbitas de cámara y tiene iluminación diurna y nocturna propia. La cámara conserva el origen del pinchazo, encuadra ambos personajes en estallidos dobles y vuelve al frontal. [Cambios, pruebas y límites](docs/CAMBIOS_1.13.0.md).
+
 ## Efectos de audio individuales 1.12.0
 
 En el móvil, abrí **☰ → Sonido → Efectos individuales** para activar o silenciar cada uno de los 27 FX del juego. Están agrupados en cuerpo y pasos, armas y escudos, látex, agua y avisos, con contador y botones para activarlos o silenciarlos todos. Los cambios se aplican al confirmarse y quedan guardados; conservan la música, los volúmenes y el silencio general. Funciona tanto en el juego móvil como en los mandos QR de la PC. [Cambios y uso](docs/CAMBIOS_1.12.0.md).

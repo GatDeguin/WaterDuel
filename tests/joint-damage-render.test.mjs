@@ -10,6 +10,8 @@ import {drawDefense} from '../public/rendering/equipment.js';
 import {bodyForBone,bodyVisible,jointMarks,rigidRenderer} from '../public/rendering/joint-damage.js';
 import {captureReplayState,replayView} from '../public/replay.js';
 import {SimulationPresentation} from '../public/simulation-presentation.js';
+import {ArticulatedRig} from '../public/physics/articulated-rig.js';
+import {FOOT_SHAPES} from '../public/physics/foot-geometry.js';
 
 const identity=()=>[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1];
 const delta=(angle,x=0,y=0)=>{const m=identity(),c=Math.cos(angle),s=Math.sin(angle);m[0]=c;m[1]=s;m[4]=-s;m[5]=c;m[12]=x;m[13]=y;return m;};
@@ -25,24 +27,62 @@ function fracture(f,joint='mainElbow',transform=identity()){
   f.pose={...f.pose,joints:{[joint]:{damage:1,detached:true}},detached:[fragment]};return fragment;
 }
 function recorder(){
-  const r=Object.create(Renderer3D.prototype),calls=[];r.assetScene={characters:{},equipment:{}};r.assetPoseCache=new WeakMap();r.depthOnly=true;
+  const r=Object.create(Renderer3D.prototype),calls=[],dynamic=[];r.assetScene={characters:{},equipment:{}};r.assetPoseCache=new WeakMap();r.depthOnly=true;
   r.draw=(shape,matrix,color,material=0,opacity=1,wobble=0,wet=0)=>calls.push({shape,matrix:matrix.slice(),color,material,opacity,wobble,wet});
-  return {r,calls};
+  r.dynamicDraw=(mesh,color,material,opacity=1,order=0)=>dynamic.push({mesh,color,material,opacity,order});
+  return {r,calls,dynamic};
 }
 function callBytes(c){return Buffer.concat([Buffer.from(JSON.stringify([c.shape,c.color,c.material,c.opacity,c.wobble,c.wet])),Buffer.from(c.matrix.buffer,c.matrix.byteOffset,c.matrix.byteLength)]);}
 function digest(calls,unordered=false){const bytes=calls.map(callBytes);if(unordered)bytes.sort(Buffer.compare);const h=createHash('sha256');for(const data of bytes)h.update(data);return h.digest('hex');}
 let preparedPromise;
 const character=()=>preparedPromise??=readFile(new URL('../public/assets/characters/water-mannequin/v3/water-mannequin.glb',import.meta.url)).then(bytes=>prepareCharacter(parseGLB(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength))));
 
-test('Healthy conserva payload procedural F32 aprobado 1.7, también mazo/jefe',async()=>{
+test('Pose legacy estática conserva payload procedural F32 aprobado 1.7, también mazo/jefe',async()=>{
   // Intentional 1.7 changes: three generic ground blobs are absent from depth
   // passes; maul fingers fit its .054 m handle. Shaders now bend the physical
   // blade, shade regional cloth wetness and integrate disjoint liquid paths.
   const expected=[['sword',false,218,'87b8f359b7fc0cb5ab6591669f4e6582d9430c8f7ac8c09a9bc0f47332ccfbd1'],['sword',true,248,'6ff1a96c13fc9c46b339b98f3d9a01971cd9c64d48984fd3e0682dd6e6bb4adc'],
     ['maul',false,226,'61bf9866981436b6ff1f7609ca24f5976a3b4247c8bed010ed44100d78c32ced'],['maul',true,256,'589391b22abc16cd1e788752942d1e39035ce534cd6ea1be5ee8d5f643afd5ba']];
-  for(const [weapon,boss,count,sha]of expected){const {f}=fighter(weapon,boss),{r,calls}=recorder();r.drawPuppet(f,.5,{quality:'high'});assert.equal(calls.length,count);assert.equal(digest(calls),sha);}
+  // Captured from the immutable pre-v4 N14 engine/rig, not the live N16 solver.
+  // Historical hashes stay literal here: changing the fixture cannot bless a
+  // replacement payload. See audit/PERSONAJES_V4_LEGACY_RENDER.md for provenance.
+  const bytes=await readFile(new URL('./fixtures/procedural-legacy-characters-1.12.json',import.meta.url));
+  assert.equal(createHash('sha256').update(bytes).digest('hex'),'75f2eaf7678b20f372267af6fece9a0fd6f6bd0729e5faae8b59c7d5fcb1105f','historical actor corpus must not be regenerated from the current solver');
+  const fixture=JSON.parse(bytes);assert.equal(fixture.cases.length,expected.length);
+  for(const [weapon,boss,count,sha]of expected){
+    const entry=fixture.cases.find(item=>item.weapon===weapon&&item.boss===boss);assert.ok(entry);
+    assert.equal(entry.count,count);assert.equal(entry.digest,sha);
+    const f=structuredClone(entry.actor);assert.equal('feet'in f.pose,false);assert.equal('ankleF'in f.pose,false);assert.equal('ankleB'in f.pose,false);
+    const {r,calls,dynamic}=recorder();r.drawPuppet(f,.5,{quality:'high'});
+    assert.equal(dynamic.length,0,'legacy ABI keeps the historical six procedural foot pieces');
+    assert.equal(calls.length,count,`${weapon}/${boss}: historical draw count`);assert.equal(digest(calls),sha,`${weapon}/${boss}: historical ordered F32 payload`);
+  }
   const source=await readFile(new URL('../public/render3d.js',import.meta.url),'utf8');
   assert.equal(createHash('sha256').update(source.slice(source.indexOf('const vert=`'),source.indexOf('function buildProgram('))).digest('hex'),'178065a1e4e30b754e730bda414c821a1f84403a3ccf5a497851ede5cc70ac49');
+});
+
+test('Fallback N16 proyecta los dos hulls físicos con su foot frame, sin piezas proxy legacy',()=>{
+  const pal={wood:0xa16c42};
+  for(const boss of [false,true])for(const dir of [1,-1]){
+    const rig=new ArticulatedRig({dir,scale:boss?1.18:1,baseX:dir*-.9});
+    rig.q[2]=.29;rig.q[8]+=.08;rig.q[9]-=.13;rig.q[14]=.37;rig.q[15]=-.28;
+    const {f}=fighter();f.boss=boss;f.dir=dir;f.pose=rig.pose();
+    const {r,calls,dynamic}=recorder();r.drawProceduralPuppet(f,.5,pal,new Set(['frontFoot','backFoot']));
+    assert.equal(calls.length,0,'physical foot ownership must not emit the old box/cylinder proxies');
+    assert.equal(dynamic.length,2,'one dynamic hull per physical foot');
+    for(const [i,side]of ['front','back'].entries()){
+      const foot=f.pose.feet[side],shape=FOOT_SHAPES[boss?'boss':'normal'][side],{mesh,color,material}=dynamic[i];
+      assert.equal(color,pal.wood);assert.equal(material,0);assert.ok(mesh.p instanceof Float32Array);assert.equal(mesh.p.length,mesh.n.length);assert.ok(mesh.n.every(Number.isFinite));
+      // Independent descriptor projection: no proceduralFootMesh call is used
+      // as the expected result. Both mirrored facing and boss scale matter.
+      const projected=shape.hull.flatMap(([x,y])=>[shape.minZ,shape.maxZ].map(z=>point(foot.matrix,[x,y,z])));
+      const vertices=Array.from({length:mesh.p.length/3},(_,j)=>Array.from(mesh.p.slice(j*3,j*3+3)));
+      const matches=(a,b)=>Math.hypot(...a.map((v,j)=>v-b[j]))<2e-6;
+      for(const vertex of vertices)assert.ok(projected.some(p=>matches(p,vertex)),`${boss}/${dir}/${side}: vertex belongs to physical frame`);
+      for(const vertex of projected)assert.ok(vertices.some(p=>matches(p,vertex)),`${boss}/${dir}/${side}: hull boundary is present`);
+      assert.ok(Math.abs(Math.min(...vertices.map(p=>p[1]))-foot.support.y)<2e-6,'drawn sole and physical support share the same height');
+    }
+  }
 });
 
 test('Cada hueso/palma sigue su cuerpo físico y las marcas sólo aparecen ante daño real',()=>{

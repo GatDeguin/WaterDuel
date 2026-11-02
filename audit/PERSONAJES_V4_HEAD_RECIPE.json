@@ -1,0 +1,739 @@
+{
+  "protocol": {
+    "countdownUpdates": 81,
+    "countdownDt": 0.04,
+    "ticks": 390,
+    "dt": 0.008333333333333333,
+    "minSeparation": 2.7,
+    "loadout": {
+      "defense": "none"
+    },
+    "arms": "same mainX/mainY/wrist for both human slots",
+    "leanSchedule": [
+      {
+        "ticks": [
+          0,
+          89
+        ],
+        "lean": 0,
+        "headX": [
+          0,
+          0
+        ]
+      },
+      {
+        "ticks": [
+          90,
+          389
+        ],
+        "lean": 1,
+        "headX": [
+          1,
+          -1
+        ]
+      }
+    ],
+    "legalOnly": "No injected pose, q, target, solver change, threshold change, time extension or source modification."
+  },
+  "sources": {
+    "public/engine.js": "6010172e62c893c699cddee6d3303c4c02dde79ad94cb82fcf51c66434f9dd78",
+    "public/physics/articulated-rig.js": "98a049f8b2aec9f11d2a54e5d959d0cafa40810c5e064e7bd9b4937be4a46a45",
+    "public/physics/body-evasion.js": "db9cb198f83a67272097bfb86332821dbbef123a6c3b8ea2d96ed05291b471c3",
+    "public/physics/locomotion.js": "61d0e664723f033ba559d2ca894b3c9e0eae382c55227be7c66f2a0aa7ded5c0",
+    "public/physics/dimensions.js": "668a137cff5e6b6ecec2c08d1cbe10394374450d700a63216fe4e4028820f8ec",
+    "tests/inter-rig-contact.test.mjs": "20bc9c9a0704c4ab7aa294a7f3a979c06177f332201f33677439d39d358bbc0b",
+    "tests/fixtures/procedural-legacy-characters-1.12.json": "75f2eaf7678b20f372267af6fece9a0fd6f6bd0729e5faae8b59c7d5fcb1105f"
+  },
+  "attempts": [
+    {
+      "controls": {
+        "mainX": 0,
+        "mainY": -1,
+        "wrist": -1
+      },
+      "minimum": 1.5384035235731863,
+      "minimumTick": 371,
+      "firstNearTick": null,
+      "allIntact": true,
+      "zeroScoreThroughout": true,
+      "scores": [
+        0,
+        0
+      ],
+      "phase": "fight",
+      "bursts": 0,
+      "stable": true,
+      "maxContactError": 9.570380044010562e-10,
+      "minimumWeaponY": 0.32449993866755555,
+      "weaponFloorOK": true,
+      "tipY": {
+        "minimum": [
+          0.32451193552900826,
+          0.32543716288728697
+        ],
+        "maximumDuringLean": [
+          0.4655380515618477,
+          0.447019454654242
+        ]
+      },
+      "samples": [
+        {
+          "tick": 89,
+          "normalized": 4.078543767924189,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 179,
+          "normalized": 2.3199398326644483,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 269,
+          "normalized": 2.0409609546030016,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 389,
+          "normalized": 1.543673365422122,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        }
+      ],
+      "passes": false
+    },
+    {
+      "controls": {
+        "mainX": 0.5,
+        "mainY": -1,
+        "wrist": -1
+      },
+      "minimum": 1.7323820925247693,
+      "minimumTick": 371,
+      "firstNearTick": null,
+      "allIntact": true,
+      "zeroScoreThroughout": true,
+      "scores": [
+        0,
+        0
+      ],
+      "phase": "fight",
+      "bursts": 0,
+      "stable": true,
+      "maxContactError": 8.32298230335482e-10,
+      "minimumWeaponY": 0.32449990786608923,
+      "weaponFloorOK": true,
+      "tipY": {
+        "minimum": [
+          0.3249589190559323,
+          0.32450099279050604
+        ],
+        "maximumDuringLean": [
+          0.4098863917896265,
+          0.3896064805295496
+        ]
+      },
+      "samples": [
+        {
+          "tick": 89,
+          "normalized": 4.049633921673588,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 179,
+          "normalized": 2.390883282470264,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 269,
+          "normalized": 2.089739361682075,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 389,
+          "normalized": 1.741474076816931,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        }
+      ],
+      "passes": false
+    },
+    {
+      "controls": {
+        "mainX": 1,
+        "mainY": -1,
+        "wrist": -1
+      },
+      "minimum": 1.9194042213957523,
+      "minimumTick": 380,
+      "firstNearTick": null,
+      "allIntact": true,
+      "zeroScoreThroughout": true,
+      "scores": [
+        0,
+        0
+      ],
+      "phase": "fight",
+      "bursts": 0,
+      "stable": true,
+      "maxContactError": 9.451532889670489e-10,
+      "minimumWeaponY": 0.3244999031241013,
+      "weaponFloorOK": true,
+      "tipY": {
+        "minimum": [
+          0.3247900166769182,
+          0.3245086058483795
+        ],
+        "maximumDuringLean": [
+          0.3944417223093313,
+          0.36209677540685203
+        ]
+      },
+      "samples": [
+        {
+          "tick": 89,
+          "normalized": 4.014060409534588,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 179,
+          "normalized": 2.430015139439749,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 269,
+          "normalized": 2.175070914839745,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 389,
+          "normalized": 1.9204799207653565,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        }
+      ],
+      "passes": false
+    },
+    {
+      "controls": {
+        "mainX": 0,
+        "mainY": -1,
+        "wrist": -0.7
+      },
+      "minimum": 1.5408123703163392,
+      "minimumTick": 368,
+      "firstNearTick": null,
+      "allIntact": true,
+      "zeroScoreThroughout": true,
+      "scores": [
+        0,
+        0
+      ],
+      "phase": "fight",
+      "bursts": 0,
+      "stable": true,
+      "maxContactError": 9.568337233645252e-10,
+      "minimumWeaponY": 0.32449990715945215,
+      "weaponFloorOK": true,
+      "tipY": {
+        "minimum": [
+          0.32461050453167495,
+          0.324779821798016
+        ],
+        "maximumDuringLean": [
+          0.5510584474433948,
+          0.535124487272395
+        ]
+      },
+      "samples": [
+        {
+          "tick": 89,
+          "normalized": 4.079802549668729,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 179,
+          "normalized": 2.3573014539746953,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 269,
+          "normalized": 2.082889272462639,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 389,
+          "normalized": 1.5470320158659765,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        }
+      ],
+      "passes": false
+    },
+    {
+      "controls": {
+        "mainX": 0.5,
+        "mainY": -1,
+        "wrist": -0.7
+      },
+      "minimum": 1.7689706293450909,
+      "minimumTick": 375,
+      "firstNearTick": null,
+      "allIntact": true,
+      "zeroScoreThroughout": true,
+      "scores": [
+        0,
+        0
+      ],
+      "phase": "fight",
+      "bursts": 0,
+      "stable": true,
+      "maxContactError": 9.551824886600002e-10,
+      "minimumWeaponY": 0.3244999060633015,
+      "weaponFloorOK": true,
+      "tipY": {
+        "minimum": [
+          0.3250802060558937,
+          0.3246155042250274
+        ],
+        "maximumDuringLean": [
+          0.5097248687133958,
+          0.47509309332567407
+        ]
+      },
+      "samples": [
+        {
+          "tick": 89,
+          "normalized": 4.051749082284063,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 179,
+          "normalized": 2.468558844942546,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 269,
+          "normalized": 2.1388267137662784,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 389,
+          "normalized": 1.7742204428105046,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        }
+      ],
+      "passes": false
+    },
+    {
+      "controls": {
+        "mainX": 1,
+        "mainY": -1,
+        "wrist": -0.7
+      },
+      "minimum": 1.9948044453523475,
+      "minimumTick": 389,
+      "firstNearTick": null,
+      "allIntact": true,
+      "zeroScoreThroughout": true,
+      "scores": [
+        0,
+        0
+      ],
+      "phase": "fight",
+      "bursts": 0,
+      "stable": true,
+      "maxContactError": 8.004279461459873e-10,
+      "minimumWeaponY": 0.3244999085755435,
+      "weaponFloorOK": true,
+      "tipY": {
+        "minimum": [
+          0.3245060847557646,
+          0.32504502641289856
+        ],
+        "maximumDuringLean": [
+          0.47469444294011065,
+          0.5259850210480644
+        ]
+      },
+      "samples": [
+        {
+          "tick": 89,
+          "normalized": 4.03230296133842,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 179,
+          "normalized": 2.52643333224366,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 269,
+          "normalized": 2.186283837761731,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 389,
+          "normalized": 1.9948044453523475,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        }
+      ],
+      "passes": false
+    },
+    {
+      "controls": {
+        "mainX": -1,
+        "mainY": -1,
+        "wrist": -0.7
+      },
+      "minimum": 1.1698897797054097,
+      "minimumTick": 364,
+      "firstNearTick": null,
+      "allIntact": true,
+      "zeroScoreThroughout": true,
+      "scores": [
+        0,
+        0
+      ],
+      "phase": "fight",
+      "bursts": 0,
+      "stable": true,
+      "maxContactError": 8.597700329460167e-10,
+      "minimumWeaponY": 0.324499901446816,
+      "weaponFloorOK": true,
+      "tipY": {
+        "minimum": [
+          0.32679945568929747,
+          0.3266069443107892
+        ],
+        "maximumDuringLean": [
+          0.6338876461446253,
+          0.6266623953214981
+        ]
+      },
+      "samples": [
+        {
+          "tick": 89,
+          "normalized": 4.138974537490191,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 179,
+          "normalized": 2.284322282120325,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 269,
+          "normalized": 1.8529199304494077,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 389,
+          "normalized": 1.1905564865113136,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        }
+      ],
+      "passes": false
+    },
+    {
+      "controls": {
+        "mainX": -1,
+        "mainY": -1,
+        "wrist": -0.4
+      },
+      "minimum": 1.2049117285647892,
+      "minimumTick": 366,
+      "firstNearTick": null,
+      "allIntact": true,
+      "zeroScoreThroughout": true,
+      "scores": [
+        0,
+        0
+      ],
+      "phase": "fight",
+      "bursts": 0,
+      "stable": true,
+      "maxContactError": 7.44746486702752e-10,
+      "minimumWeaponY": 0.3244999014857613,
+      "weaponFloorOK": true,
+      "tipY": {
+        "minimum": [
+          0.32697725203379013,
+          0.3263610472028444
+        ],
+        "maximumDuringLean": [
+          0.7525099378048379,
+          0.7462427046716477
+        ]
+      },
+      "samples": [
+        {
+          "tick": 89,
+          "normalized": 4.141962089078805,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 179,
+          "normalized": 2.288107891453143,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 269,
+          "normalized": 1.9222749556792278,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "tick": 389,
+          "normalized": 1.2269000945636366,
+          "intact": [
+            true,
+            true
+          ],
+          "scores": [
+            0,
+            0
+          ]
+        }
+      ],
+      "passes": false
+    }
+  ],
+  "selected": null,
+  "sourceHashesUnchanged": true,
+  "totalRuns": 8,
+  "outcome": {
+    "status": "No passing recipe in eight legal control-only arrangements; no migration proposed.",
+    "testedCases": 8,
+    "repeats": 0,
+    "repeatReason": "No initial case passed the unchanged proximity guard.",
+    "bestAttempt": {
+      "mainX": -1,
+      "mainY": -1,
+      "wrist": -0.7
+    },
+    "bestMinimum": 1.1698897797054097,
+    "priorOriginalRecipeMinimum": 1.165962725975689,
+    "priorOriginalRecipeEvidence": "audit/PERSONAJES_V4_HEAD_APPROACH.json",
+    "allCandidatesIntact": true,
+    "allCandidatesZeroScores": true,
+    "allCandidatesStable": true,
+    "thresholdsUnchanged": {
+      "minimumAtLeast": 1,
+      "minimumBelow": 1.15,
+      "deadlineTicks": 390,
+      "minSeparation": 2.7
+    }
+  }
+}

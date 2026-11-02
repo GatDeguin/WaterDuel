@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "day": {
+    "path": "output/blender/WaterDuel_Atelier_v4.blend",
+    "sha256": "0102459d4961b52620f24e9de99cef8e4f122733fab65bae582d6f07b4e18f86",
+    "preview": "output/blender/WaterDuel_Atelier_v4_dia.png",
+    "renderSeconds": 36.499414920806885,
+    "previewSha256": "48ca8ffe5549a40e49232be16c62b55729e8799e31e16b2cfab2bd2c35fc6b51"
+  },
+  "night": {
+    "path": "output/blender/WaterDuel_Atelier_v4_noche.blend",
+    "sha256": "26e9b7471245ec3250fe2b416bd3d6c93af5aee1ce479a6048674d81611d44c9",
+    "preview": "output/blender/WaterDuel_Atelier_v4_noche.png",
+    "renderSeconds": 38.902709007263184,
+    "previewSha256": "a985bcee61f28a3fd484f6f16ae786852cb9d875cf102bbe751b4e68c1959097"
+  },
+  "resolution": [
+    1280,
+    720
+  ],
+  "lightsPerVariant": 22,
+  "cameraPreserved": true,
+  "renderer": "Cycles CPU 24 samples; actual scene materials",
+  "reflectionFile": "public/assets/environment/workshop/reflection-v4.hdr",
+  "sourceFilesUnchangedDuringRender": true
+}

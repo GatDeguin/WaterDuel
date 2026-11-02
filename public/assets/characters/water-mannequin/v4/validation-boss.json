@@ -1,0 +1,120 @@
+{
+  "ok": true,
+  "file": "D:\\2026\\WaterDuel\\public\\assets\\characters\\water-mannequin\\v4\\water-mannequin-boss.glb",
+  "bytes": 8162492,
+  "chunks": [
+    {
+      "type": "JSON",
+      "length": 34508
+    },
+    {
+      "type": "BIN",
+      "length": 8127956
+    }
+  ],
+  "meshes": 15,
+  "primitives": 15,
+  "vertices": 70235,
+  "triangles": 85150,
+  "triangleInstances": 85150,
+  "nodes": 39,
+  "materials": 12,
+  "skins": 1,
+  "joints": [
+    18
+  ],
+  "skinnedNodes": 15,
+  "textures": 24,
+  "images": 9,
+  "bounds": {
+    "space": "glTF world, initial node and skin transforms; animations not evaluated",
+    "min": [
+      -1.3052278999706863,
+      0.0000013192890592626901,
+      -0.3382832407951355
+    ],
+    "max": [
+      2.6342230330733747,
+      3.0703975621565585,
+      0.3760499549114603
+    ],
+    "size": [
+      3.939450933044061,
+      3.070396242867499,
+      0.7143331957065958
+    ]
+  },
+  "characterBounds": {
+    "Balloon_Latex": {
+      "min": [
+        -0.31882041399329253,
+        2.1067630916499334,
+        -0.3382832407951355
+      ],
+      "max": [
+        0.43658304013366733,
+        2.919773086113643,
+        0.3382832407951355
+      ],
+      "size": [
+        0.7554034541269599,
+        0.8130099944637097,
+        0.676566481590271
+      ]
+    },
+    "Water_Contained": {
+      "min": [
+        -0.3073872710490392,
+        2.118711903704629,
+        -0.3277164399623871
+      ],
+      "max": [
+        0.4247110171737386,
+        2.6724607512284995,
+        0.3277164399623871
+      ],
+      "size": [
+        0.7320982882227778,
+        0.5537488475238703,
+        0.6554328799247742
+      ]
+    }
+  },
+  "transparency": {
+    "Balloon_Latex": [
+      {
+        "material": "Mint_Latex_Transmission",
+        "transmission": 0.9700000286102295,
+        "ior": 1.4199999570846558
+      }
+    ],
+    "Water_Contained": [
+      {
+        "material": "Water_IOR_1.333",
+        "transmission": 1,
+        "ior": 1.3329999446868896
+      }
+    ]
+  },
+  "materialNames": [
+    "Mint_Latex_Transmission",
+    "Polished_Rapier_Steel",
+    "Preview_Original_Satin_Brass",
+    "Preview_Original_Wrapped_Brown_Leather",
+    "Water_IOR_1.333",
+    "Beech_Wood_Grain",
+    "Boss_Burgundy_Woven_Cloth",
+    "Endgrain_Joints",
+    "Recessed_Steel",
+    "Satin_Brass",
+    "Water_Surface_Crest",
+    "Wrapped_Brown_Leather"
+  ],
+  "extensionsUsed": [
+    "KHR_materials_clearcoat",
+    "KHR_materials_transmission",
+    "KHR_materials_volume",
+    "KHR_materials_ior",
+    "KHR_materials_sheen"
+  ]
+}

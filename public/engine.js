@@ -13,6 +13,7 @@ import {observedPointVelocity,relativePointSpeed,segmentConvexPolygonContact} fr
 import {segmentEllipsoidContact} from './physics/head-contact.js';
 import {AutoDefense} from './auto-defense.js';
 import {standbyTargets} from './physics/standby.js';
+import {characterIntent,resultIntent} from './physics/character-intent.js';
 import {WorkshopEffects} from './workshop-effects.js';
 import {resolveWeaponBind,firstWeaponPointContact,weaponBindManifold} from './physics/weapon-bind.js';
 import {classifyEquipmentContact,contactMaterialPair} from './physics/contact-materials.js';
@@ -26,6 +27,8 @@ import {applyJointPlay} from './physics/joint-play.js';
 import {TRAINING_DRILL_KINDS,trainingOpponentControl} from './training-drills.js';
 import {AIPerception,loadoutTactics} from './ai-perception.js';
 import {SurfaceState,wetApronFromParcels} from './physics/surface-state.js';
+import {normalizeKnifeGrip,knifeTip,knifeFrame,knifeWorldNormal,solveDefensiveImpulse} from './knife-technique.js';
+import {bossSecondPhasePattern,bossSecondPhaseControl} from './boss-choreography.js';
 export const STEP = 1/120;
 export const RULES=Object.freeze({roundsToWin:2,regulationSeconds:90});
 // Includes the v2 resting lean, both active lean motors, boss scale and slosh.
@@ -103,11 +106,9 @@ export function parryContact(previous,tip,pose,defense){
     return contactExtrusion(previous,tip,(a,b)=>segmentEllipseContact(a,b,pose.offHand.x,pose.offHand.y,rx,ry),min,max);
   }
   if(defense.kind!=='knife'||!pose.defenseTip)return null;
-  const a=pose.offHand,b=pose.defenseTip,dx=b.x-a.x,dy=b.y-a.y,dz=(b.z??.17)-(a.z??.17),length=Math.hypot(dx,dy,dz),xy=Math.hypot(dx,dy);
-  if(length<1e-6)return null;
-  const u=[dx/length,dy/length,dz/length],v=xy>1e-8?[-dy/xy,dx/xy,0]:[1,0,0];
-  const w=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]],center=[(a.x+b.x)/2,(a.y+b.y)/2,((a.z??.17)+(b.z??.17))/2];
-  const local=p=>{const d=[p.x-center[0],p.y-center[1],(p.z??.17)-center[2]],dot=q=>d.reduce((sum,x,i)=>sum+x*q[i],0);return {x:dot(u),y:dot(v),z:dot(w)};};
+  const frame=knifeFrame(pose.offHand,pose.defenseTip);if(!frame)return null;
+  const {u,v,w,center,length}=frame;
+  const local=p=>{const d={x:p.x-center.x,y:p.y-center.y,z:(p.z??.17)-center.z},dot=q=>d.x*q.x+d.y*q.y+d.z*q.z;return {x:dot(u),y:dot(v),z:dot(w)};};
   // A finite thin blade profile follows both the XY angle and the actual depth
   // from its moving hand to its tip; the handle does not become a shield.
   const hit=contactExtrusion(local(previous),local(tip),(p,q)=>segmentEllipseContact(p,q,0,0,length/2,.055),-.012,.012);
@@ -225,8 +226,14 @@ export class DuelEngine{
   setLoadout(slot,selection){
     if(![1,2].includes(slot)||!['ready','matchover'].includes(this.phase)||!selection||typeof selection!=='object'||Array.isArray(selection))return false;
     const has=(object,key)=>Object.prototype.hasOwnProperty.call(object,key);
-    if(has(selection,'weapon')&&!has(WEAPONS,selection.weapon)||has(selection,'defense')&&!has(DEFENSES,selection.defense))return false;
-    const loadout=normalizeLoadout({...this.loadouts[slot-1],...selection});
+    if((has(selection,'weapon')&&(typeof selection.weapon!=='string'||!has(WEAPONS,selection.weapon)))||
+      (has(selection,'defense')&&(typeof selection.defense!=='string'||!has(DEFENSES,selection.defense)))||
+      (has(selection,'knifeGrip')&&!['normal','reverse'].includes(selection.knifeGrip)))return false;
+    const selected={...this.loadouts[slot-1],...selection};
+    // A complete secondary selection without an optional grip is the legacy
+    // normal grip. A main-weapon-only update keeps the selected knife grip.
+    if(has(selection,'defense')&&!has(selection,'knifeGrip'))delete selected.knifeGrip;
+    const loadout=normalizeLoadout(selected);
     this.loadouts[slot-1]=loadout;
     const fighter=this.fighters[slot-1];fighter.equipment={...loadout};fighter.guard=false;
     this.initializeRig(fighter);fighter.previousTip={...fighter.pose.tip};
@@ -375,9 +382,10 @@ export class DuelEngine{
     const style=AI_STYLES.includes(this.aiStyle)?this.aiStyle:'balanced';
     const scale=f.boss?1.18:1;
     ai.phase=f.boss&&this.scores[0]>0?2:1;
+    const choreography=f.boss&&ai.phase===2?bossSecondPhasePattern(ai.cycle):null;
     const cautious=style==='defender'||style==='counter',maxWait=style==='defender'?2.2:2.8;
-    const windup=profile.windup*(ai.phase===2?.85:1)*(style==='precision'?1.25:1)*(f.boss&&ai.cycle===0?1.45:1);
-    const recovery=profile.recover*tactics.recoverScale*(ai.phase===2?.9:1)*(style==='aggressive'?.85:style==='defender'||style==='precision'?1.1:style==='boss'&&ai.pattern==='heavy'?1.25:style==='erratic'?[.8,1.2,1,.9][ai.cycle%4]:1);
+    const windup=choreography?choreography.windup:profile.windup*(ai.phase===2?.85:1)*(style==='precision'?1.25:1)*(f.boss&&ai.cycle===0?1.45:1);
+    const recovery=choreography?Math.max(1.27,profile.recover*tactics.recoverScale,choreography.recovery):profile.recover*tactics.recoverScale*(ai.phase===2?.9:1)*(style==='aggressive'?.85:style==='defender'||style==='precision'?1.1:style==='boss'&&ai.pattern==='heavy'?1.25:style==='erratic'?[.8,1.2,1,.9][ai.cycle%4]:1);
     if(!ai.initialized){ai.initialized=true;this.#setAIState(f,'observe',f.boss?Math.max(1.35,observationDuration(style,profile,ai.cycle)):observationDuration(style,profile,ai.cycle)*tactics.observeScale);}
     ai.time+=dt;
     const attack=sensed.armed?sensed:null,head=sensed.head,tip=sensed.tip??head;
@@ -404,11 +412,7 @@ export class DuelEngine{
     // Aim into the observed volume. Treating its near silhouette as the arm's
     // destination left the dynamic point skimming outside the XYZ section.
     const aimX=head.x;
-    const actualAngle=Math.atan2(blade.y-hand.y,f.dir*(blade.x-hand.x));
-    const targetAngle=Math.atan2(head.y+lead-hand.y,Math.max(.3,f.dir*(aimX-hand.x)));
-    const alignment=Math.abs(Math.atan2(Math.sin(targetAngle-actualAngle),Math.cos(targetAngle-actualAngle)));
-    const prepared=f.dir*(hand.x-f.pose.mainShoulder.x)>.78*scale&&alignment<.085;
-    if(style!=='balanced'){
+    {
       // Predict only the reach of our own currently observed blade direction.
       // This is not a hit/result oracle: actual swept contact still decides it.
       const length=Math.hypot(blade.x-hand.x,blade.y-hand.y)||1;
@@ -439,14 +443,14 @@ export class DuelEngine{
     if(ai.state==='observe'&&(ai.time>=ai.duration||opportunity||cautious&&ai.patience>=maxWait)&&Math.abs(head.x-f.pose.mainShoulder.x)<attackReach){
       const patterns=ai.phase===2?['feint','high','low']:['high','low','feint'];
       const stylePatterns=style==='boss'&&ai.phase===2?['feint','high','heavy','low']:STYLE_PATTERNS[style];
-      ai.pattern=style==='counter'?(opportunity?'counter':'probe'):stylePatterns?stylePatterns[ai.cycle%stylePatterns.length]:f.boss?patterns[ai.cycle%patterns.length]:'direct';
+      ai.pattern=choreography?choreography.id:style==='counter'?(opportunity?'counter':'probe'):stylePatterns?stylePatterns[ai.cycle%stylePatterns.length]:f.boss?patterns[ai.cycle%patterns.length]:'direct';
       ai.aimY=clamp(aim+profile.error*(style==='precision'?.2:1)*(ai.cycle%2===0?1:-1),-1,1);
       if(cautious)ai.committed=true;
-      this.#setAIState(f,ai.pattern==='feint'?'feint':'windup',ai.pattern==='feint'?.28:windup*(style==='boss'&&ai.pattern==='heavy'?1.25:1));
+      const feintDuration=choreography?.feint??(ai.pattern==='feint'?.28:0);
+      this.#setAIState(f,feintDuration?'feint':'windup',feintDuration||windup*(style==='boss'&&ai.pattern==='heavy'?1.25:1));
     }else if(ai.state==='feint'&&ai.time>=ai.duration){
       this.#setAIState(f,'windup',windup);
-    }else if(ai.state==='windup'&&sensed.headVisible&&ai.time>=ai.duration&&f.lungeCool<=0&&
-      (style==='balanced'?(prepared||ai.time>=ai.duration+.6):ai.readyToThrust)){
+    }else if(ai.state==='windup'&&sensed.headVisible&&ai.time>=ai.duration&&f.lungeCool<=0&&!ai.disengage&&ai.readyToThrust){
       this.#setAIState(f,'attack',.23);
       if(cautious){ai.patience=0;ai.counterWindow=0;ai.sawThreat=false;ai.committed=false;}
     }else if(ai.state==='attack'&&ai.time>=ai.duration){
@@ -467,7 +471,7 @@ export class DuelEngine{
     }
     if(ai.state==='windup'){
       const cue=(ai.pattern==='high'?.25:ai.pattern==='low'?-.35:ai.pattern==='heavy'?-.18:0)*
-        (style==='balanced'?1:clamp(1-ai.time/(ai.duration*.55),0,1));
+        clamp(1-ai.time/(ai.duration*.55),0,1);
       // The articulated shoulder and wrist need the whole visible windup to
       // settle. Retraction until the last .28 s consumed the lunge before the
       // physical arm reached its range, so a passive retreat became invulnerable.
@@ -478,7 +482,6 @@ export class DuelEngine{
       if(style==='feint'){c.offX=.4;c.offY=.2;}
     }else if(ai.state==='attack'){
       c.mainX=1;c.mainY=ai.aimY;c.thrust=!ai.attackIssued;
-      if(c.thrust)ai.attackIssued=true;
     }else if(ai.state==='recover'){
       c.mainX=-.6;c.mainY=-.3;c.offX=.25;c.offY=0;c.lean=f.boss?1:.25;
     }else if(ai.state==='defend'){
@@ -494,10 +497,13 @@ export class DuelEngine{
       const gap=f.dir*(head.x-f.pose.tip.x),standOff=BALLOON_RADII.x*sensed.balloonSize+weapon.lungeReach*.35+tactics.spacing;
       c.lean=clamp((gap-standOff)*3,-1,1);
     }
+    const staging=choreography?bossSecondPhaseControl({state:ai.state,time:ai.time,pattern:ai.pattern,twoHanded:weapon.twoHanded}):null;
+    if(staging)Object.assign(c,staging.control);
+    const trackingAim=!staging||staging.trackingAim;
     // The expert's nominal preparation reserves a bent elbow and raises the
     // point with its wrist; contact feedback below may request more arm lift.
     if(((this.difficulty==='expert'&&style!=='erratic')||style==='precision')&&['observe','windup','attack'].includes(ai.state))c.mainY=Math.min(c.mainY,.42);
-    if(['observe','windup','attack','feint'].includes(ai.state)){
+    if(trackingAim&&['observe','windup','attack','feint'].includes(ai.state)){
       // Aim through the actual hand and target, rather than treating an IK
       // intention as an already achieved arm pose. The wrist is still the same
       // limited dynamic motor available to the human controller.
@@ -508,7 +514,7 @@ export class DuelEngine{
       const length=(weapon.length+weapon.lungeReach*pulse+weapon.extension*c.mainX)*(f.boss?1.05:1);
       c.wrist=clamp((desired-Math.atan2(.58*c.mainY,length))/(Math.PI/4),-1,1);
     }
-    if(['observe','windup','attack','feint'].includes(ai.state)&&!(f.boss&&ai.cycle===0&&ai.state==='observe'&&ai.time<ai.duration)){
+    if(trackingAim&&['observe','windup','attack','feint'].includes(ai.state)&&!(f.boss&&ai.cycle===0&&ai.state==='observe'&&ai.time<ai.duration)){
       // A requested IK pose is not an achieved aim. Contact can hold the blade
       // below the opponent's wooden arm while its wrist reaches the stop.
       // Close the loop on the observed point and move out before lifting it.
@@ -520,7 +526,9 @@ export class DuelEngine{
       if(!cautious||ai.committed||ai.patience>=maxWait){
         const standOff=BALLOON_RADII.x*sensed.balloonSize+weapon.lungeReach*.16+tactics.spacing;
         const gap=Math.hypot(head.x-hand.x,head.y-hand.y)-Math.hypot(point.x-hand.x,point.y-hand.y)-standOff;
-        c.lean=clamp(gap*3,-1,1);
+        // At the translation stop this also drives torso reach. Do not trim a
+        // authored preparation short; observed point avoidance still wins below.
+        c.lean=(cautious&&ai.committed||f.boss)&&ai.state==='windup'&&!ai.readyToThrust&&gap>0?1:clamp(gap*3,-1,1);
       }
       ai.blockedAimTime=Math.abs(error)>.35?(ai.blockedAimTime||0)+dt:0;
       ai.disengageCooldown=Math.max(0,(ai.disengageCooldown||0)-dt);
@@ -550,6 +558,9 @@ export class DuelEngine{
     }
     c.offY=clamp(c.offY+tactics.guardHeight,-1,1);
     if(!sensed.headVisible)c.thrust=false;
+    // A contact escape or lost visibility may cancel this output. Commit only
+    // the pulse that survives every guard and actually reaches the controller.
+    if(c.thrust)ai.attackIssued=true;
     this.setControl(f.slot,c);
   }
   #setAIState(f,state,duration){
@@ -580,7 +591,7 @@ export class DuelEngine{
       const cone=Math.hypot(pitch,yaw);if(cone>NECK_CONE){pitch*=NECK_CONE/cone;yaw*=NECK_CONE/cone;}
       return {x:f.dir*f.lean*.18+f.dir*Math.sin(theta)*REFERENCE_STANCE.torso*scale+f.torsoTwist*.04+
         f.dir*Math.sin(theta+pitch)*REFERENCE_STANCE.neck*scale*Math.cos(yaw)+f.waterShift*.15,
-        y:TABLE_TOP+(REFERENCE_STANCE.hipHeight-CROUCH_DEPTH*(f.evasion?.crouch??0))*scale+Math.cos(theta)*REFERENCE_STANCE.torso*scale+Math.cos(theta+pitch)*REFERENCE_STANCE.neck*scale*Math.cos(yaw),
+        y:TABLE_TOP+(REFERENCE_STANCE.hipHeight-CROUCH_DEPTH*(f.evasion?.motorCrouch??f.evasion?.crouch??0))*scale+Math.cos(theta)*REFERENCE_STANCE.torso*scale+Math.cos(theta+pitch)*REFERENCE_STANCE.neck*scale*Math.cos(yaw),
         z:.025+Math.sin(yaw)*REFERENCE_STANCE.neck*scale};
     });
     const size=ordered[0].balloonSize+ordered[1].balloonSize;
@@ -688,10 +699,13 @@ export class DuelEngine{
     const active=this.phase==='fight';
     const human=this.mode==='versus'||f.slot===1;
     const idle=standbyTargets({phase:this.phase,clock:this.clock,phaseClock:this.phaseClock,round:this.round,slot:f.slot,
-      controller:f.controller,globIntact:f.globIntact,passive:f.rig.passive,reducedMotion:this.reducedMotion});
+      controller:f.controller,globIntact:f.globIntact,passive:f.rig.passive,reducedMotion:this.reducedMotion})??
+      resultIntent(f,{phase:this.phase,phaseClock:this.phase==='burst'&&Number.isFinite(this.burstStepClock?.origin)?this.clock-this.burstStepClock.origin:this.phaseClock,
+        clock:this.clock,winner:this.winner,reducedMotion:this.reducedMotion});
     const ctrl=active?(human?f.autoDefense.update(f,this.fighters.find(other=>other!==f),f.controller,dt):f.controller):(idle??neutral()),weapon=getWeapon(f),defense=getDefense(f);
     const armed=bodyAttached(f,'weapon'),canDefend=bodyAttached(f,'offForearm');
     advanceBodyEvasion(f,ctrl.bodyY,dt,active&&f.globIntact&&!f.rig.passive);
+    f.bodyIntent=characterIntent(f,{phase:this.phase,dt,controller:ctrl,reducedMotion:this.reducedMotion},f.bodyIntent);
     for(const prop of ['mainX','mainY','offX','offY']){
       [f[prop],f[prop+'V']]=spring(f[prop],f[prop+'V'],ctrl[prop],75,16,dt);
     }
@@ -699,7 +713,7 @@ export class DuelEngine{
     // segment inertia, limits, gravity, water load and support reactions once.
     const torque=ctrl.lean*.22 + f.recoil*.36-f.evasion.feint*.045;
     [f.torsoTwist,f.twistVel]=spring(f.torsoTwist,f.twistVel,torque,28,9,dt);
-    let tLean=ctrl.lean*.35+f.recoil*.22 + f.torsoTwist*.16-f.evasion.feint*.11;
+    let tLean=ctrl.lean*.35+f.recoil*.22 + f.torsoTwist*.16-f.evasion.feint*.11+f.bodyIntent.lean;
     [f.lean,f.leanVel]=spring(f.lean,f.leanVel,tLean,37,10,dt);
     if(active){
       if(ctrl.guard&&defense.canGuard&&canDefend)f.guardEnergy=clamp(f.guardEnergy-defense.guardDrain*dt,0,1);
@@ -762,6 +776,7 @@ export class DuelEngine{
     f.membrane.advance(dt,{head:f.pose.head,waterVolume:f.fluid.retainedVolume,waterFrame:f.fluid.surfaceFrame,slosh:f.waterShift});
   }
   initializeRig(f){
+    f.bodyIntent=null;
     const intent=this.buildPose(f);
     f.rig=new ArticulatedRig({dir:f.dir,scale:f.boss?1.18:1,baseX:f.baseX,pose:intent,apronVariant:f.boss?'boss':'normal',flexibleWeapons:true,
       surfaceSnapshot:(pose,rig)=>f.surfaceState.snapshot(pose,this.clock,rig)});
@@ -773,7 +788,7 @@ export class DuelEngine{
   }
   buildPose(f,control=f.controller){
     const dir=f.dir,scale=f.boss?1.18:1,weapon=getWeapon(f),defense=getDefense(f),stance=REFERENCE_STANCE;
-    const hip={x:f.baseX+dir*(f.lean*.18),y:TABLE_TOP+(stance.hipHeight-CROUCH_DEPTH*(f.evasion?.crouch??0))*scale};
+    const hip={x:f.baseX+dir*(f.lean*.18),y:TABLE_TOP+(stance.hipHeight-CROUCH_DEPTH*(f.evasion?.motorCrouch??f.evasion?.crouch??0))*scale};
     const theta=clamp(stance.lean+f.lean,-.95,.95),sn=Math.sin(theta),cs=Math.cos(theta);
     const shoulder={x:hip.x+dir*sn*stance.torso*scale+f.torsoTwist*.04,y:hip.y+cs*stance.torso*scale};
     let neckPitch=dir*clamp(control.headX??0,-1,1)*.30,neckYaw=clamp(control.headZ??0,-1,1)*.34-(f.evasion?.feint??0)*NECK_CONE;
@@ -811,12 +826,25 @@ export class DuelEngine{
     }
     const mainElbow=ik2(mainShoulder,mainHand,.52*scale,.52*scale,dir===1?-1:1);
     const tip={x:mainHand.x+dir*Math.cos(swordAngle)*swordLength,y:mainHand.y+Math.sin(swordAngle)*swordLength,z:.17};
-    const offTarget=weapon.twoHanded?{x:mainHand.x-dir*Math.cos(swordAngle)*weapon.gripOffset,y:mainHand.y-Math.sin(swordAngle)*weapon.gripOffset,z:.17}:
+    let offTarget=weapon.twoHanded?{x:mainHand.x-dir*Math.cos(swordAngle)*weapon.gripOffset,y:mainHand.y-Math.sin(swordAngle)*weapon.gripOffset,z:.17}:
       // The reference's free arm rests behind the torso. Positive controller
       // travel must still carry that hand to the front; retaining the old .28
       // range would leave even a fully extended shield behind the balloon.
       {x:offShoulder.x+dir*(f.guard?.56+.28*f.offX:stance.offReach+(f.offX>0?1.5:.28)*f.offX)*scale,
         y:offShoulder.y+(stance.offRise+.51*f.offY+(f.guard?.11:0))*scale,z:f.guard?.10:-.08};
+    if(!weapon.twoHanded&&defense.kind==='none'){
+      offTarget.x+=dir*(f.bodyIntent?.freeHandX??0)*scale;
+      offTarget.y+=(f.bodyIntent?.freeHandY??0)*scale;
+    }
+    if(f.guard&&defense.kind==='knife'&&normalizeKnifeGrip(f.equipment.knifeGrip)==='reverse'){
+      // A collected low guard places the reversed blade close to the torso.
+      // Keep the requested hand outside an inflated lower-front latex contour;
+      // the ordinary two-link IK still owns reach and motor lag afterwards.
+      const y=head.y-(.32-.04*clamp(f.offY,-1,1))*scale;
+      const rx=BALLOON_RADII.x*f.balloonSize+.065*scale,ry=BALLOON_RADII.y*f.balloonSize+.065*scale;
+      const front=rx*Math.sqrt(Math.max(0,1-((y-head.y)/ry)**2));
+      offTarget={x:head.x+dir*front,y,z:.10};
+    }
     const offHand=reachableHand(offShoulder,offTarget,.48*scale,.47*scale,dir);
     const offElbow=ik2(offShoulder,offHand,.48*scale,.47*scale,dir===1?1:-1);
     const frontHip={x:hip.x+dir*stance.hipSocket*scale,y:hip.y,z:.20},backHip={x:hip.x-dir*stance.hipSocket*scale,y:hip.y,z:-.18};
@@ -828,7 +856,7 @@ export class DuelEngine{
     const pose={hip,frontHip,backHip,shoulder,head,mainShoulder,mainElbow,mainHand,offShoulder,offElbow,offHand,tip,kneeF,kneeB,footF,footB,
       neckYawTarget:neckYaw,headBaseZ:.025,defenseDepthTarget:f.guard?.10:-.08,equipment:{...f.equipment},weaponMass:weapon.mass,twoHanded:weapon.twoHanded,gripOffset:weapon.gripOffset,
       shieldRadius:shieldRadiusX,shieldRadiusX,shieldRadiusY};
-    if(defense.kind==='knife')pose.defenseTip={x:offHand.x+dir*defense.length*.45,y:offHand.y+defense.length*Math.sqrt(1-.45**2),z:.17};
+    if(defense.kind==='knife')pose.defenseTip=knifeTip(offHand,{dir,length:defense.length,grip:f.equipment.knifeGrip});
     f.pose=pose;
     if(!f.membrane.attached)f.membrane.attach(head);
     return pose;
@@ -913,23 +941,29 @@ export class DuelEngine{
       if(defense.kind==='knife'){
         // parryContact's thin dagger profile returns its local u/v/w normal.
         // Convert presentation/impulse metadata to the actual world frame.
-        const a=def.pose.offHand,b=def.pose.defenseTip,dx=b.x-a.x,dy=b.y-a.y,dz=(b.z??.17)-(a.z??.17),length=Math.hypot(dx,dy,dz),xy=Math.hypot(dx,dy);
-        const u=[dx/length,dy/length,dz/length],v=xy>1e-8?[-dy/xy,dx/xy,0]:[1,0,0],w=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
-        const local=normal;
-        normal=Object.fromEntries(['x','y','z'].map((axis,i)=>[axis,u[i]*local.x+v[i]*local.y+w[i]*(local.z??0)]));
+        normal=knifeWorldNormal(def.pose.offHand,def.pose.defenseTip,normal)??{x:0,y:0,z:0};
       }
       const size=Math.hypot(normal.x,normal.y)||1,incoming={x:-normal.x/size,y:-normal.y/size};
       const va=atk.rig.pointVelocity({point}),vb=def.rig.pointVelocity({body:bodyB,point});
       const slideSpeed=va&&vb?Math.abs((va.x-vb.x)*-incoming.y+(va.y-vb.y)*incoming.x):0;
-      const response=resolveRigContact(atk.rig,def.rig,{point,normal:incoming,bodyB,maxImpulse:.45});
-      const impulse=response.impulse,closingSpeed=response.closingSpeed??0,keyA=getWeapon(atk).headLength?'weapon-head':'weapon';
+      let response;
+      if(defense.kind==='knife'){
+        response=solveDefensiveImpulse({velocityA:va,velocityB:vb,normal:incoming,maxImpulse:.45,
+          inertiaA:atk.rig.contactInertia?.({body:'weapon',point,normal:incoming}),inertiaB:def.rig.contactInertia?.({body:bodyB,point,normal:incoming})});
+        if(response.normalImpulse>0){
+          atk.rig.reactImpulse({body:'weapon',point,impulse:response.impulseA});
+          def.rig.reactImpulse({body:bodyB,point,impulse:response.impulseB});
+        }
+      }else response=resolveRigContact(atk.rig,def.rig,{point,normal:incoming,bodyB,maxImpulse:.45});
+      const impulse=response.normalImpulse??response.impulse,closingSpeed=response.closingSpeed??0,keyA=getWeapon(atk).headLength?'weapon-head':'weapon';
       const materialA=classifyEquipmentContact(atk,keyA,point),materialB=classifyEquipmentContact(def,'guard',point),step=this.lastPhysicalDt||STEP;
       this.queueJointContact({a:atk,b:def,keyA,keyB:'guard',bodyA:'weapon',bodyB,pointA:point,pointB:point,normal:incoming,impulse,closingSpeed,source:'guard'});
       // A geometric stop still informs UI/rules when its mechanical impulse is
       // zero. Explicit zero measurements keep Audio/FX silent in that case.
       this.onEvent('clang',{at:point,normal,defender:def.slot,attacker:atk.slot,velocityBefore:va,velocityAfter:atk.rig.pointVelocity({point}),keyA,keyB:'guard',bodyA:'weapon',bodyB,
         material:contactMaterialPair(materialA,materialB),materialA,materialB,defenseMaterial:materialB,
-        impulse,force:impulse/Math.max(step,1e-9),closingSpeed,peakClosingSpeed:Math.max(0,closingSpeed),slideSpeed});
+        impulse,force:impulse/Math.max(step,1e-9),closingSpeed,peakClosingSpeed:Math.max(0,closingSpeed),slideSpeed,
+        ...(defense.kind==='knife'?{frictionImpulse:response.tangentImpulse,frictionState:response.state,dissipatedWork:response.dissipatedWork}:{})});
     }
     // Geometric separation or lowering/breaking the guard ends the episode.
     this.guardContactEpisodes=touchingGuards;

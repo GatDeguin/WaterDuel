@@ -1,0 +1,77 @@
+# Ítems seleccionados: 26, 27, 34, 36, 37 y 44
+
+Implementación del corte de Items solicitado el 2026-11-02. Las seis mejoras están conectadas al código del juego y verificadas de forma focal. Principal centraliza la revisión conjunta, la pasada visual del runtime y la publicación; la versión pública no se modifica mediante esta entrega.
+
+**Actualización, revisión 3:** el [addendum del contrato CPU](ENTREGA_ITEMS_CONTRATO_CPU_REV3_2026-11-02.md) registra una nueva corrida focal **16/16** sobre engine AB55 y rig E02. Se reemplazó únicamente el bloque de sockets por tres controles independientes de precisión y se ajustaron dos valores de puntería inversa; las demás comprobaciones y el `near` global `1e-7` permanecen intactos. La alineación geométrica F64 conserva `<1e-7`; el extremo virtual con datos Float32 tiene una cota derivada por componente. Esta evidencia no acredita ejecución GPU ni Global2. Los apartados 206/104 y 8/8 que siguen describen sus cortes históricos, archivados sin sobrescritura.
+
+El manifiesto activo es revisión 3. El sellador comprueba los 51 originales, los 56 archivos curados de revisión 2 (redirigiendo guía y sellador a copias de sus bytes anteriores) y los archivos actuales. Helper y prueba estática nuevos quedan curados; la integración activa sigue en `sharedReferences`, con su snapshot probado protegido por separado. El nuevo recibo, el stdout capturado y los dos JSON de recetas están en `audit/items-knife-contract-113-revision3/`; no dependen de conservar las rutas `.runtime` de Principal.
+
+## Cuchillo: agarre y parada
+
+En los dos menús móviles, al elegir **Cuchillo** como defensa aparece **Agarre del cuchillo** con Normal e Invertido. Se selecciona fuera del combate, con los mismos bloqueos de Escuela, encuentro gestionado y replay. El ACK requiere un estado posterior que confirme también el agarre, además del arma y la defensa.
+
+El normal conserva el equipo histórico `{weapon,defense}`. Solo el invertido agrega `knifeGrip:'reverse'`; cambiar a un escudo o al mazo elimina esa propiedad. Cambiar únicamente el arma principal conserva el agarre si sigue equipado el cuchillo. Elegir un equipo completo normal limpia el agarre invertido anterior. Valores y tipos desconocidos se rechazan en el protocolo y el motor. Rondas y replay conservan su propia copia.
+
+La hoja invertida apunta debajo de la mano y ligeramente hacia el rival, con la guardia recogida. La palma visual y su proxy físico mantienen su orientación relativa al mango; no se rota simplemente mano y daga como una unidad. La longitud y el perfil fino de parada se conservan. Las pruebas comparan sockets y vértices reales de la mano GLB del personaje v3, y la punta de las dagas GLB v2/v3, para ambos jugadores y agarres.
+
+El desvío usa las velocidades observadas en el punto de contacto y los tensores de inercia de los dos rigs. La respuesta aplica un único par de impulsos iguales y opuestos, con fricción limitada y trabajo pasivo. No cambia el solver general, no añade ataques secundarios y no asigna impactos ni puntajes. Lesión y desprendimiento del brazo conservan la puerta topológica de defensa; el filo no atraviesa la madera propia en el ensayo de estabilización.
+
+## Construcción, sellos y grabados
+
+Los siete GLB nuevos están en `public/assets/equipment/workshop/v3/`. El renderer apunta a esa versión. La fuente editable es `docs/assets/equipment/v3/workshop-craft-v3.blend`, con capas separadas por pieza.
+
+- Detalles constructivos: costuras, testigos de ajuste y uniones, marcas de montaje, veta de testa y herrajes.
+- Sello original: **Taller del Cauce**, con un conducto bifurcado y ondas como marca hidráulica artesanal.
+- Motivos propios: canales del estoque, escala de presión de la lanza, uniones del hacha, bancada del mazo, anillos del broquel, duelas del escudo y arcos de parada de la daga.
+
+Son microincrustaciones proyectadas sobre las superficies, con materiales PBR originales y trazos subdivididos para seguir las curvaturas. No hay cortes booleanos ni colliders decorativos nuevos. Los materiales explícitos evitan el blanco por defecto del exportador. Se corrigieron cruces de sellos con pasadores y ornamentos existentes.
+
+El BIN base y los nodos/accesores/materiales/sockets originales se conservan y se anexan capas nuevas. V1 y v2 permanecen intactas. El crecimiento por modelo queda entre **4.12 y 10.97 % de triángulos**, y entre **1.92 y 5.53 % de bytes**, sin texturas nuevas. El escudo largo queda en 24 343 triángulos. La expansión máxima es 0.149 mm frontal en la daga por la microincrustación; no cambia la geometría funcional.
+
+Lámina y once primeros planos: `public/assets/equipment/workshop/v3/workshop-craft-v3-preview.png` y `previews/`. Son renders de inspección obtenidos reimportando los GLB finales, no capturas del juego.
+
+## Háptica por contacto
+
+`public/item-haptics.js` valida un paquete físico pequeño y decide patrones de duración según material, impulso y velocidad de cierre. La vibración usa duración/patrón; no se promete control de amplitud del dispositivo.
+
+El host agrega datos sanitizados al evento real `clang`. LAN y sesión móvil local filtran los destinatarios involucrados. Un `impact:null` medido no se convierte en vibración genérica. No se emite un segundo evento de material que duplique el mismo choque.
+
+La política descarta impulso menor que 0.001 y velocidad de cierre menor que 0.06, además de datos no finitos y contactos ajenos. Los patrones quedan dentro de 120 ms y tienen separación mínima de 80 ms. Contacto tiene prioridad 0; daño articular 1, desprendimiento 2 y cabeza 3 conservan precedencia. Mando oculto, sin foco, desconectado o sin soporte de vibración no recibe pulsos. Audio apagado, volumen cero o FX silenciados no silencian un contacto táctil válido.
+
+## Evidencia
+
+- `audit/TESTS_ITEMS_SELECTED_REGRESSION.txt`: **206/206** pruebas históricas del corte original, con el test anterior a N16. No se atribuyen a la receta migrada.
+- `audit/TESTS_ITEMS_SELECTED_FOCAL.txt`: **104/104** foco histórico del mismo corte original; no es una ejecución nueva de N16.
+- `public/assets/equipment/workshop/v3/validation.json`: **7/7** GLB, materiales PBR explícitos, catorce modelos previos intactos, sockets y datos base preservados.
+- `public/assets/equipment/workshop/v3/roundtrip-proof.json`: renders y reimportación de los GLB finales.
+- Revisión independiente: corrigió coerción indebida de arrays como ids. No quedaron bloqueantes de los bloques revisados. Ensayos de cuatro paradas reales redujeron energía cinética; la política pura pasó además un sondeo de 50 000 tensores positivos sin energía añadida.
+- `audit/ITEMS_SELECTED_2026-11-02_MANIFEST.json`: archivos, hashes, comandos, límites y estado del corte.
+
+La fixture pública `public/qa/equipment-selection.html` permite comparar los dos agarres, intercambiar equipos y comprobar el bloqueo al comenzar, con motor y renderer reales, sin autenticación ni autoridad LAN. Se amplió su prueba a **6/6** casos.
+
+## Coordinación y límites
+
+Los bloques de Items están congelados para handoff. Principal y Personajes retomaron otros bloques de campaña/movimiento/IA/pies/paño en archivos compartidos. El manifiesto separa archivos propios sellados de `sharedReferences`: estos últimos son observaciones de hashes al entregar, no una afirmación de que las modificaciones posteriores produjeran los logs anteriores. La verificación SHA exige los archivos propios congelados y los originales archivados. El conjunto deberá repetir validación después de sus integraciones; el foco específico de N16 ya dispone del resultado separado descrito abajo.
+
+### Migración documental del test a N16
+
+Principal adaptó únicamente la preparación y las recetas de mandos de `tests/knife-defense-integration.test.mjs` al countdown real y al cuerpo N16. Su ejecución separada pasó **8/8**, sin omisiones, en 19.114 s. Se conservaron las comprobaciones originales, la tolerancia de sockets **1e-7** y los **285 pasos de combate**. No se aplicó la ampliación de tolerancia sugerida durante el diagnóstico anterior.
+
+El test activo pasa a `sharedReferences`, con su hash observado y nota de migración. El recibo previo se conserva byte por byte en `audit/items-n16-test-migration-113/ITEMS_SELECTED_2026-11-02_MANIFEST.before-n16.json` (14 414 bytes; SHA-256 `1e2e8598d79deb39f5883dda117d5dead956d52e39774410ddec7b4930b7b4e4`).
+
+En ese mismo directorio, `knife-defense-integration.before.mjs.txt` conserva el original de Items (11 210 bytes; SHA-256 `aa7d821b6d2486f28f839e51150cbda82c739e3830c9aa9c39dd2d6b0b392fa3`). También se preservaron la guía y el sellador anteriores, la instantánea del test N16 que pasó y una copia cruda de su log. El log de origen de Principal es `.runtime/knife-n16-migration-113.log`, leído sin modificarlo.
+
+`node scripts/seal-selected-items.mjs --verify` exige los **51 originales** del recibo histórico: 48 archivos directos y tres redirigidos a sus backups explícitos (test, guía y sellador), además del recibo histórico y los archivos del recibo actual. La utilidad nunca escribe sobre esos archivos históricos. La verificación de hashes no ejecuta nuevamente las pruebas ni acredita el conjunto global o la revisión visual.
+
+La revisión visual pública del juego se coordina con Principal sobre el conjunto estable. No se utilizaron mandos autenticados ni servidores alternativos en esta implementación. La háptica está comprobada por política y transporte; no se acredita sensación táctil en un teléfono físico. Tampoco se acreditan FPS, VRAM observada, Wi-Fi o una nueva publicación.
+
+## Reproducción
+
+```powershell
+node --test tests/knife-technique.test.mjs tests/knife-defense-integration.test.mjs tests/item-knife-contract.test.mjs tests/item-haptics.test.mjs tests/item-haptics-transport.test.mjs tests/controller-menu.test.mjs tests/qa-equipment-selection.test.mjs
+node scripts/validate-equipment-craft-v3.mjs
+```
+
+Plan y decisiones: `docs/superpowers/specs/2026-11-02-items-selected-design.md` y `docs/superpowers/plans/2026-11-02-items-selected.md`. El registro de pruebas amplio conserva el comando completo en el manifiesto de entrega.
+
+Los comandos anteriores ejecutan el estado actual de integración. Las cifras históricas 206/206 y 104/104 siguen vinculadas al test original archivado; el 8/8 N16 se identifica por separado con su instantánea y log.

@@ -1,0 +1,39 @@
+✔ La postura baja conserva suelo y apoyos también en GLB v2/v4 de ambos sentidos y tamaños (5399.6521ms)
+✔ El impacto unilateral de suelo sin gravedad no crea energía ni tensión hacia la tarima (12.7701ms)
+✔ crouch starts promptly but rises gently, keeping the same maximum depth and continuous state (1.6396ms)
+✔ depth feint reaches its unchanged maximum earlier and returns with zero-slope endpoints in the same duration (0.3311ms)
+✔ holding cannot repeat, neutral rearms, cooldown still blocks an early retry and disabled state cannot keep a feint (0.1931ms)
+✔ time partitions preserve crouch/feint response and every value stays bounded for invalid inputs (1.1769ms)
+✔ Abajo agacha pelvis y cabeza mediante articulaciones con pies apoyados, y soltar recupera (3960.902ms)
+✔ Arriba inicia una sola finta de profundidad y vuelve aunque se mantenga el gesto (2390.9589ms)
+✔ Eje corporal se valida y nunca activa ataque ni defensa; reset borra su intención (154.5333ms)
+✔ Crouch conserva intención rápida y limita sólo el motor físico en unidades mundiales de ambos tamaños (4.6465ms)
+✔ Un objetivo analógico igual al motor en movimiento conserva el límite de aceleración (0.2457ms)
+✔ dt0 conserva la velocidad física aunque el mando coincida con la meta interior actual (0.2019ms)
+✔ Reversiones y metas analógicas cerca de ambos límites conservan V/A en tres relojes fijos (3.1166ms)
+✔ Un estado de crouch ya existente inicia el motor en el valor previo, sin salto ni velocidad heredada inválida (0.2434ms)
+✔ La separación física no modifica controles ni la finta original de .85 segundos (0.4569ms)
+✔ buildPose usa el motor para Y y mantiene fallback para estados anteriores sin motor (34.8214ms)
+✔ La predicción de clearance usa Y física, no la intención rápida adelantada (39.4995ms)
+✔ Crouch legal y retorno sostienen ambos pies, profundidad y caps físicos sin motor externo de base (6817.5965ms)
+ℹ [{"difficulty":"normal","slot":1,"boss":false,"maxGap":0.00005545823390568083,"minNormal":18.55035488548863,"maxTargetV":0.8000000000000185,"maxTargetA":5.0000000000071765,"descent":0.27568939813556703,"returnError":0.000011665585787135058},{"difficulty":"normal","slot":2,"boss":false,"maxGap":0.000055458103042083096,"minNormal":18.57572952733219,"maxTargetV":0.8000000000000185,"maxTargetA":5.0000000000071765,"descent":0.27568804848982364,"returnError":0.000012563683529531744},{"difficulty":"boss","slot":1,"boss":false,"maxGap":0.00005545823390568083,"minNormal":18.55035488549007,"maxTargetV":0.8000000000000185,"maxTargetA":5.0000000000071765,"descent":0.2756893981355668,"returnError":0.000011665585787135058},{"difficulty":"boss","slot":2,"boss":true,"maxGap":0.000051652007342417594,"minNormal":21.69970635421866,"maxTargetV":0.8000000000000185,"maxTargetA":5.0000000000071765,"descent":0.3232255751682678,"returnError":0.000010119459112001294}]
+✔ La fixture usa host real en Versus, dos pads reales y sólo expone evidencia local segura (242.6194ms)
+✔ El mando izquierdo entra por movementGesture y setControl cada STEP y agacha el rig real (6185.9323ms)
+✔ Flecha arriba pide una única finta sostenida y el derecho actúa sin botón de ataque (4352.1354ms)
+✔ Preparación, pérdida de foco y ocultación cancelan gestos, deuda y captura (2825.6897ms)
+✔ Pagehide libera el renderer y volver desde bfcache reconstruye la fixture (5.8348ms)
+✔ Inspección abajo sólo entra en fight y sostiene una intención real hasta Centrar (3839.5654ms)
+✔ La inspección de finta pausa el scheduler al pico resuelto, sin mover poses manualmente (3077.3279ms)
+✔ Centrar reanuda sin intención ni deuda de la pausa y Preparación borra la inspección (3331.172ms)
+✔ La postura inicial física coincide con la base, rodillas y brazos de la segunda referencia en ambos tamaños (43.9604ms)
+✔ La postura de referencia se sostiene con masa de agua real y conserva apoyos durante dos segundos (4159.4446ms)
+✔ La nueva guardia es intención dinámica: entradas altas/bajas mueven manos sin alterar piezas ni congelar la pose (3250.4181ms)
+✔ Histórico N14 conserva postura inicial/240 pasos, centros de pie y guardia activa originales (1983.5968ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 24064.7973

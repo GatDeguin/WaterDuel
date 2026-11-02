@@ -8,6 +8,7 @@ import {MobileSession} from '../public/mobile-session.js';
 import {RemoteInputBuffer,isFreshRemoteInput} from '../public/remote-input.js';
 import {FrameMetrics} from '../public/performance.js';
 import {AdaptiveQuality} from '../public/adaptive-quality.js';
+import {sanitizeItemImpact} from '../public/item-haptics.js';
 
 const source=await readFile(new URL('../public/game.js',import.meta.url),'utf8');
 const flush=async()=>{for(let i=0;i<8;i++)await Promise.resolve();};
@@ -21,7 +22,7 @@ async function runtime(){
   class Audio{configure(){}handleEvent(){}update(){}unlock(){unlocks.push(clock.now);}setPaused(value){pauses.push(value);}}
   class Network{static OPEN=1;static CONNECTING=0;constructor(){throw Error('Standalone must not open WebSocket');}}
   vm.runInNewContext(source.replace(/^import[^\n]+;\s*$/gm,''),{
-    document,window,mobileSession,STEP,neutral,HostSession:Host,Renderer3D:Renderer,GameAudio:Audio,
+    document,window,mobileSession,STEP,neutral,HostSession:Host,Renderer3D:Renderer,GameAudio:Audio,sanitizeItemImpact,
     RemoteInputBuffer,isFreshRemoteInput,FrameMetrics,AdaptiveQuality,HostQRCodes:class{hide(){}setSession(){throw Error('No QR session on standalone');}},
     performance:{now:()=>clock.now},requestAnimationFrame:fn=>raf.push(fn),Date,WebSocket:Network,
     location:{protocol:'http:',host:'localhost'},AbortSignal,console,
@@ -52,4 +53,19 @@ test('Perder foco en móvil pausa física y audio; volver requiere un gesto nuev
   const r=await runtime();r.start();r.send({type:'control',seq:1,lean:1});r.frame(40);
   r.window.fire('blur');const before=r.host.game.clock;r.frame(80);assert.equal(r.host.game.clock,before);assert.equal(r.pauses.at(-1),true);
   r.window.fire('focus');r.frame(40);assert.ok(r.host.game.clock>before);assert.equal(r.host.game.fighters[0].controller.lean,0);
+});
+
+test('Impacto táctil real atraviesa la autoridad móvil aun con audio apagado y blade-beat silenciado',async()=>{
+  const r=await runtime();
+  const command=(command,value,requestId)=>r.host.handleCommand({type:'command',requestId,sentAt:0,command,value});
+  assert.equal(command('setAudio',false,11).ok,true);
+  assert.equal(command('setEffectEnabled',{id:'blade-beat',enabled:false},12).ok,true);
+  assert.equal(command('setEffectMask',0,13).ok,true);assert.equal(r.host.audioOn,false);assert.equal(r.host.effectMask,0);
+  await flush();r.messages.length=0;
+  const impact={impulse:.18,closingSpeed:1,materialA:'steel',materialB:'brass',attacker:1,defender:2};
+  r.host.game.onEvent('clang',impact);await flush();
+  const event=r.messages.find(message=>message.type==='event'&&message.name==='clang');assert.ok(event?.impact);
+  assert.equal(event.impact.impulse,.18);assert.equal(event.impact.attacker,1);assert.equal(event.impact.defender,2);
+  const count=r.messages.filter(message=>message.type==='event').length;
+  r.host.game.onEvent('material-contact',impact);await flush();assert.equal(r.messages.filter(message=>message.type==='event').length,count,'audio material-contact must not duplicate the same haptic');
 });

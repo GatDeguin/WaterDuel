@@ -223,6 +223,47 @@ function frictionResponse(vn,vt,kn,kt,kc,cap,restitution,staticFriction,dynamicF
   return {normal,tangent,state};
 }
 
+function signedFrictionResponse(a,b,pointA,pointB,n,t,vn,vt,cap,restitution,muStatic,muDynamic){
+  if(typeof a.trialContactImpulse!=='function'||typeof b.trialContactImpulse!=='function')return null;
+  const trial=response=>{
+    const x=n.x*response.normal+t.x*response.tangent,y=n.y*response.normal+t.y*response.tangent;
+    const A=a.trialContactImpulse({body:'weapon',point:pointA,normal:n,impulse:{x:-x,y:-y},compact:true}),
+      B=b.trialContactImpulse({body:'weapon',point:pointB,normal:n,impulse:{x,y},compact:true});
+    if(!A||!B)return null;
+    const relative={x:A.pointVelocityAfter.x-B.pointVelocityAfter.x,y:A.pointVelocityAfter.y-B.pointVelocityAfter.y};
+    return {A,B,kn:A.normal+B.normal,kt:A.tangent+B.tangent,kc:A.cross+B.cross,vn:dot(relative,n),vt:dot(relative,t)};
+  };
+  let response={normal:0,tangent:0,state:'free'},result,converged=false,iterations=0;
+  // Each iterate starts from the unchanged initial velocities. A(-p), B(+p)
+  // select their own common active sets for that same signed TOTAL impulse.
+  for(;iterations<8;iterations++){
+    result=trial(response);if(!result)break;
+    const {kn,kt,kc}=result;
+    // The frozen-set response is affine because velocity/gap stabilization
+    // need not be zero. Recover its intercept before solving the Coulomb cone.
+    const baseN=result.vn+kn*response.normal+kc*response.tangent,
+      baseT=result.vt+kc*response.normal+kt*response.tangent;
+    const next=frictionResponse(baseN+restitution*Math.max(0,vn),baseT,kn,kt,kc,cap,0,muStatic,muDynamic);
+    if(Math.hypot(next.normal-response.normal,next.tangent-response.tangent)<1e-9){response=next;converged=true;break;}
+    response=next;
+  }
+  const admissible=(r,p)=>r&&[r.A,r.B].every(s=>s.constraintSummary.minMultiplier>=0&&s.constraintSummary.minSlack>=-1e-7&&s.constraintSummary.maxComplementarity<1e-7)&&
+    r.A.energyAfter+r.B.energyAfter<=r.A.energyBefore+r.B.energyBefore+1e-9&&r.vn<=vn+1e-8&&
+    p.normal>=0&&p.normal<=cap+1e-12&&Math.abs(p.tangent)<=muStatic*p.normal+1e-12;
+  result=trial(response);
+  // A bounded solver need not converge on a change of active set. Backtrack
+  // only this same physical impulse and validate the real unilateral result;
+  // never apply an unchecked tensor prediction or mutate either rig in trials.
+  let backtracks=0;
+  while(!admissible(result,response)&&backtracks<8){
+    response={...response,normal:response.normal*.5,tangent:response.tangent*.5};result=trial(response);backtracks++;
+  }
+  if(!admissible(result,response)){response={normal:0,tangent:0,state:'free'};result=trial(response);converged=false;}
+  return {response,inverseMass:result?.kn??0,tangentMass:result?.kt??0,crossMass:result?.kc??0,
+    dissipatedWork:response.normal>0?Math.max(0,result.A.energyBefore+result.B.energyBefore-result.A.energyAfter-result.B.energyAfter):0,
+    contactIterations:Math.min(iterations+1,8),contactConverged:converged&&backtracks===0,contactBacktracks:backtracks};
+}
+
 export function resolveWeaponBind(a,b,{dt=1/120,maxForce=WEAPON_BIND.maxForce,restitution=WEAPON_BIND.restitution,project=true,
   staticFriction=WEAPON_BIND.staticFriction,dynamicFriction=WEAPON_BIND.dynamicFriction,observeVelocities=false}={}){
   const c=firstWeaponContact(a,b);if(!c)return {impulse:0,reason:'no-contact'};
@@ -233,16 +274,17 @@ export function resolveWeaponBind(a,b,{dt=1/120,maxForce=WEAPON_BIND.maxForce,re
   const closingSpeed=(va.x-vb.x)*n.x+(va.y-vb.y)*n.y;
   const tangent={x:-n.y,y:n.x},slide=(va.x-vb.x)*tangent.x+(va.y-vb.y)*tangent.y,slideSpeed=Math.abs(slide);
   const muStatic=clamp(finite(staticFriction),0,1),muDynamic=Math.min(muStatic,clamp(finite(dynamicFriction),0,1));
-  const A=contactInertia(a,pointA,n,muStatic>0),B=contactInertia(b,pointB,n,muStatic>0);
+  const cap=Math.min(.45,Math.max(0,finite(maxForce))*clamp(finite(dt),0,1/30)),bounce=clamp(finite(restitution),0,.3);
+  const signed=signedFrictionResponse(a,b,pointA,pointB,n,tangent,closingSpeed,slide,cap,bounce,muStatic,muDynamic);
+  const A=signed?null:contactInertia(a,pointA,n,muStatic>0),B=signed?null:contactInertia(b,pointB,n,muStatic>0);
   // A duck-typed legacy collider exposes only normal inverse mass. Without
   // both complete tensors, preserve its normal response rather than predict
   // tangential work using only half of the actual system.
-  const complete=A.complete&&B.complete;
-  const inverseMass=A.normal+B.normal,tangentMass=complete?A.tangent+B.tangent:0,crossMass=complete?A.cross+B.cross:0;
-  const cap=Math.min(.45,Math.max(0,finite(maxForce))*clamp(finite(dt),0,1/30));
-  const response=frictionResponse(closingSpeed,slide,inverseMass,tangentMass,crossMass,cap,clamp(finite(restitution),0,.3),muStatic,muDynamic);
+  const complete=!signed&&A.complete&&B.complete;
+  const inverseMass=signed?.inverseMass??A.normal+B.normal,tangentMass=signed?.tangentMass??(complete?A.tangent+B.tangent:0),crossMass=signed?.crossMass??(complete?A.cross+B.cross:0);
+  const response=signed?.response??frictionResponse(closingSpeed,slide,inverseMass,tangentMass,crossMass,cap,bounce,muStatic,muDynamic);
   const impulse=response.normal,frictionImpulse=response.tangent;
-  const dissipatedWork=Math.max(0,closingSpeed*impulse+slide*frictionImpulse-.5*(inverseMass*impulse**2+2*crossMass*impulse*frictionImpulse+tangentMass*frictionImpulse**2));
+  const dissipatedWork=Math.min(signed?.dissipatedWork??Infinity,Math.max(0,closingSpeed*impulse+slide*frictionImpulse-.5*(inverseMass*impulse**2+2*crossMass*impulse*frictionImpulse+tangentMass*frictionImpulse**2)));
   let flexWork=0;
   let velocities;
   if(impulse>0){
@@ -275,6 +317,7 @@ export function resolveWeaponBind(a,b,{dt=1/120,maxForce=WEAPON_BIND.maxForce,re
   p=current();pointA=located(p.a,c.anchorA);pointB=located(p.b,c.anchorB);
   const slipAfterNormal=slide-crossMass*impulse;
   const slidePower=Math.max(0,frictionImpulse*slipAfterNormal-.5*tangentMass*frictionImpulse**2)/Math.max(finite(dt),1e-9);
-  return {...c,pointA,pointB,bodyA:'weapon',bodyB:'weapon',impulse,frictionImpulse,frictionState:response.state,slidePower,closingSpeed,slideSpeed,dissipatedWork,flexWork,...(velocities?{velocities}:{}),penetration:Math.max(0,penetration),iterations,
+  return {...c,pointA,pointB,bodyA:'weapon',bodyB:'weapon',impulse,frictionImpulse,frictionState:response.state,slidePower,closingSpeed,slideSpeed,dissipatedWork,flexWork,
+    ...(signed?{contactIterations:signed.contactIterations,contactConverged:signed.contactConverged,contactBacktracks:signed.contactBacktracks}:{}),...(velocities?{velocities}:{}),penetration:Math.max(0,penetration),iterations,
     at:{x:(c.pointA.x+c.pointB.x)/2,y:(c.pointA.y+c.pointB.y)/2,z:(c.pointA.z+c.pointB.z)/2}};
 }

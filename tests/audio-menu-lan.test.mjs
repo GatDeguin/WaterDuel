@@ -25,4 +25,15 @@ test('all sound controls cross the authenticated LAN relay and return their appl
  }
  controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command:'setEffectEnabled',value:{id:'wood-contact',enabled:true}}));assert.equal((await receive(m=>m.type==='command-result'&&m.requestId===requestId)).ok,false);assert.equal(host.effectMask,134217727);
  controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command:'setReverb',value:101}));assert.equal((await receive(m=>m.type==='command-result'&&m.requestId===requestId)).ok,false);assert.equal(host.reverb,6);
+ // Campaign settings use the same authenticated relay and strict applied-state ordering.
+ // The preceding twelve requests fill the relay's one-second options window.
+ await delay(1010);
+ for(const [command,value]of [['setExperience','campaign'],['setCampaignTier','normal']]){
+  controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command,value}));
+  const result=await receive(m=>m.type==='command-result'&&m.requestId===requestId);assert.equal(result.ok,true,command+': '+result.message);
+  const state=await receive(m=>m.type==='menu-state'&&m.state.experience==='campaign'&&m.state.objective?.campaignTier==='normal');
+  assert.ok(wireMessages.indexOf(state)>wireMessages.indexOf(result));assert.equal(state.state.objective.advancedUnlocked,false);
+ }
+ controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command:'setCampaignTier',value:'advanced'}));
+ assert.equal((await receive(m=>m.type==='command-result'&&m.requestId===requestId)).ok,false);assert.equal(host.individual.campaignTier,'normal');
 });

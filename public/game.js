@@ -7,6 +7,7 @@ import {WorkshopGameAudio as GameAudio} from './audio/workshop-game-audio.js';
 import {HostQRCodes} from './host-qr.js';
 import {AdaptiveQuality} from './adaptive-quality.js';
 import {mobileSession} from './mobile-session.js';
+import {sanitizeItemImpact} from './item-haptics.js';
 
 const canvas=document.getElementById('gameCanvas');
 const mobileMode=document.documentElement?.dataset?.mobileGame==='true';
@@ -36,9 +37,16 @@ const host=new HostSession({storage,onNeutralize:clearInputs,onSettings:kind=>{
   audio.handleEvent(jointEvent?'material-contact':name,jointEvent?{...data,jointEvent:name}:data,host.game);
   const event=jointEvent?name:{burst:'burst',clang:'clang',countdown:'countdown',matchover:'victory'}[name];
   const eventSlot=name==='burst'?(data.draw?0:data.loser):data.defender||data.slot||data.winner||0;
-  if(event)send({type:'event',name:event,slot:eventSlot||0});
+   if(event)send({type:'event',name:event,slot:eventSlot||0,...(name==='clang'?{impact:sanitizeItemImpact(data)}:{})});
 }});
 const game=host.game;
+// Share the OS preference across automatic body motion and presentation.
+// User-driven movement remains part of the physical simulation.
+const motionPreference=window.matchMedia?.('(prefers-reduced-motion: reduce)');
+if(motionPreference){
+  const syncMotionPreference=()=>{game.reducedMotion=motionPreference.matches;};
+  syncMotionPreference();motionPreference.addEventListener?.('change',syncMotionPreference);
+}
 audio.configure(host.audioOn,host.volume,host.audioOptions);
 if(mobileMode){
   hasAuthority=true;
@@ -55,7 +63,16 @@ function refreshJoinCodes(){
     joinCodes.hide();console.warn?.('No se pudieron presentar los QR de conexión. La arena continúa conectándose.');
   }
 }
-function send(message){if(mobileMode){if(message.type==='event')mobileSession.event(message.name,message.slot);return;}if(hasAuthority&&socket?.readyState===WebSocket.OPEN)socket.send(JSON.stringify(message));}
+function send(message){
+  if(mobileMode){
+    if(message.type==='event'){
+      if(Object.hasOwn(message,'impact'))mobileSession.event(message.name,message.slot,message.impact);
+      else mobileSession.event(message.name,message.slot);
+    }
+    return;
+  }
+  if(hasAuthority&&socket?.readyState===WebSocket.OPEN)socket.send(JSON.stringify(message));
+}
 function broadcast(){
   if(mobileMode){mobileSession.publish();return;}
   send({type:'state',phase:game.phase,mode:game.mode,score:game.scores,time:game.elapsed});

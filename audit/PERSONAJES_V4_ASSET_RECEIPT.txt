@@ -1,0 +1,42 @@
+{
+  "ok": true,
+  "runtimeSelected": true,
+  "variants": [
+    "mint",
+    "amber",
+    "boss"
+  ],
+  "filesHashed": 17,
+  "budget": {
+    "runtimeUniqueImages": [
+      {
+        "name": "body-normal",
+        "width": 1024,
+        "height": 1024,
+        "encodedBytes": 775984,
+        "sha256": "8d40f8e18b2ad21e7fac15acc8bc4e983da9bdd312bf6ab84393cd6e5208b28c",
+        "gpuRGBA8MipBytes": 5592404
+      },
+      {
+        "name": "body-orm",
+        "width": 1024,
+        "height": 1024,
+        "encodedBytes": 418501,
+        "sha256": "d85732e01721fea6820d385570244e9632d89de53548c522439ee3e9d9d0d25d",
+        "gpuRGBA8MipBytes": 5592404
+      },
+      {
+        "name": "body-basecolor",
+        "width": 1024,
+        "height": 1024,
+        "encodedBytes": 462692,
+        "sha256": "8e3e96f24f89b784ea51f9159fa293affc8663ce605680c8f97d4cee6e3f120b",
+        "gpuRGBA8MipBytes": 5592404
+      }
+    ],
+    "runtimeRGBA8MipBytes": 16777212,
+    "rawEmbeddedUniqueImages": 9,
+    "rawEmbeddedRGBA8MipBytes": 25165812,
+    "note": "Visible character resources pruned/remapped before GPU upload; optional rapier images remain embedded for authoring previews. RGBA8+mips estimates exclude driver overhead."
+  }
+}

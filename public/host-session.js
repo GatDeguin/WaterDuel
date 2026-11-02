@@ -7,6 +7,7 @@ import {normalizeMenuCommand,sanitizeMenuState} from './remote-menu.js';
 import {fighterIdentity} from './identity.js';
 import {SOUND_COMMANDS,loadSoundPreferences,saveSoundPreferences} from './audio/sound-settings.js';
 import {setEffectEnabled} from './audio/effect-controls.js';
+import {campaignCeremony} from './rendering/campaign-ceremony.js';
 
 // Owns the match, independently of either display's DOM or transport.
 export class HostSession{
@@ -16,9 +17,11 @@ export class HostSession{
     this.soundStorage=storage;Object.assign(this,loadSoundPreferences(storage));this.performanceMode='fixed';this.message='Elegí las opciones e iniciá desde el menú del móvil.';
     this.onSettings=onSettings;this.onNeutralize=onNeutralize;this.rendererError='';
     this.preferences={difficulty:'normal',bestOf:3,arena:'atelier'};
+    this.ceremonyStartedAt=null;
     this.game=new DuelEngine((name,data)=>{
-      if(name==='reset'){this.recorder.newMatch();this.closeReplay();}
+      if(name==='reset'){this.ceremonyStartedAt=null;this.recorder.newMatch();this.closeReplay();}
       this.recorder.event(name,data);this.individual.event(name,data,this.game);
+      if(name==='matchover'&&this.ceremonyStartedAt===null&&campaignCeremony(this.game,this.individual,this.game?.clock))this.ceremonyStartedAt=this.game.clock;
       onEvent(name,data);
     });
     this.game.cameraMode='combat';this.game.lightingMode='cinematic';
@@ -57,7 +60,12 @@ export class HostSession{
   }
   update(dt){if(this.presentationBlocked){this.neutralize();return;}if(this.playback)return;this.game.update(dt);this.individual.observe(this.game,dt);this.recorder.record(this.game,dt);}
   renderState(dt=0,realRemainder=0){
-    if(!this.playback){this.game.precisionTarget=this.game.mode==='solo'?this.individual.view(this.game).target:null;return {scene:this.game.presentationState(this.presentationBlocked?0:realRemainder),time:this.game.clock};}
+    if(!this.playback){
+      this.game.precisionTarget=this.game.mode==='solo'?this.individual.view(this.game).target:null;
+      const source=this.game.presentationState(this.presentationBlocked?0:realRemainder),ceremony=campaignCeremony(this.game,this.individual,this.ceremonyStartedAt);
+      const scene=ceremony?{...source,ceremony}:source;
+      return {scene,time:this.game.clock};
+    }
     const p=this.playback;
     if(!p.paused&&!this.presentationBlocked){p.time=Math.min(p.clip.duration,p.time+Math.max(0,Math.min(dt,.1))*this.replaySpeed);if(p.time>=p.clip.duration)p.paused=true;}
     const frames=p.clip.frames,at=p.clip.startTime+p.time;let index=0;
@@ -76,15 +84,16 @@ export class HostSession{
       saveSoundPreferences(this.soundStorage,this);this.onSettings('audio');this.message='Sonido actualizado.';
       return {ok:true,message:this.message};
     }
-    if(['start','nextEncounter'].includes(command)&&this.presentationBlocked)return {ok:false,message:this.assetStatus?.loading===true?
+    if(['start','nextEncounter','beginAdvancedCampaign'].includes(command)&&this.presentationBlocked)return {ok:false,message:this.assetStatus?.loading===true?
       'La arena sigue cargando el escenario y los modelos. Esperá a que termine para comenzar.':'La arena 3D no está disponible. Esperá a que se recupere para comenzar.'};
-    const prep=new Set(['setMode','setExperience','setDifficulty','setBestOf','setArena','setLoadout','resetCampaign','nextEncounter']);
+    const prep=new Set(['setMode','setExperience','setDifficulty','setBestOf','setArena','setLoadout','resetCampaign','nextEncounter','setCampaignTier','beginAdvancedCampaign']);
     // A finished training/precision exercise may be repeated while its free-practice round is running.
     const canNext=command==='nextEncounter'&&!this.playback&&g.mode==='solo'&&!!this.individual.view(g).nextAction;
     if(prep.has(command)&&!this.configurable&&!canNext)return {ok:false,message:'Esta opción está disponible antes o después de la partida.'};
     if(['setDifficulty','setBestOf'].includes(command)&&g.mode==='solo'&&this.individual.kind!=='duel')return {ok:false,message:'Esta experiencia establece su dificultad y formato.'};
     if(command==='setArena'&&g.mode==='solo'&&this.individual.kind==='campaign')return {ok:false,message:'El encuentro de campaña establece su escenario.'};
     if(command==='setExperience'&&g.mode!=='solo')return {ok:false,message:'Elegí primero el modo individual.'};
+    if(['setCampaignTier','beginAdvancedCampaign'].includes(command)&&(g.mode!=='solo'||this.individual.kind!=='campaign'))return {ok:false,message:'Elegí primero la campaña individual.'};
     if(command==='setCamera'&&!this.playback&&['fight','countdown'].includes(g.phase))return {ok:false,message:'La cámara se puede cambiar fuera del combate.'};
     switch(command){
       case 'start':
@@ -93,6 +102,12 @@ export class HostSession{
       case 'reset':this.closeReplay();g.resetMatch();this.neutralize();break;
       case 'setMode':g.setMode(value);this.configure();break;
       case 'setExperience':this.individual.select(value);this.configure();break;
+      case 'setCampaignTier':
+        if(!this.individual.setCampaignTier(value))return {ok:false,message:'Completá la campaña normal para desbloquear la avanzada.'};
+        this.configure();break;
+      case 'beginAdvancedCampaign':
+        if(!this.individual.setCampaignTier('advanced'))return {ok:false,message:'Completá la campaña normal para desbloquear la avanzada.'};
+        this.configure();g.start();break;
       case 'setDifficulty':this.preferences.difficulty=value;this.configure();break;
       case 'setBestOf':this.preferences.bestOf=value;g.setBestOf(value);break;
       case 'setArena':this.preferences.arena=value;g.setArena(value);break;

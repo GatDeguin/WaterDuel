@@ -20,6 +20,8 @@ function fixture(){
   ]};
 }
 const genuine=(impact,extra={})=>({winner:1,loser:2,draw:false,contact:true,impact:{...impact},relativeSpeed:1.2,...extra});
+// Like HostSession.configure(), a new campaign match has new fighter actors.
+function finishCampaign(s,g,winner,extra={}){g.phase='matchover';g.winner=winner;g.fighters=g.fighters.map(f=>({...f}));s.event('matchover',{winner,...extra},g);}
 function observe(s,g,seconds=.1){for(let elapsed=0;elapsed<seconds-1e-8;elapsed+=STEP){g.clock+=STEP;s.observe(g,STEP);}}
 function trainToPuncture(s,g){
   const f=g.fighters[0];s.select('training');observe(s,g);
@@ -101,10 +103,10 @@ test('campaña exige victoria confirmada y ofrece reintento tras derrota',()=>{
   const s=session(),g=fixture();s.select('campaign');const first=s.configuration();
   assert.equal(first.aiStyle,'aggressive');assert.equal(s.next(),false);
   s.event('burst',genuine({x:1,y:2,z:.17}),g);assert.equal(s.next(),false);
-  s.event('matchover',{winner:0},g);assert.equal(s.next(),false);
-  s.event('matchover',{winner:2},g);assert.equal(s.view(g).nextAction,'retry');assert.equal(s.next(),true);
+  finishCampaign(s,g,0);assert.equal(s.next(),false);
+  finishCampaign(s,g,2);assert.equal(s.view(g).nextAction,'retry');assert.equal(s.next(),true);
   assert.equal(s.configuration().aiStyle,'aggressive');
-  s.event('matchover',{winner:1},g);assert.equal(s.view(g).nextAction,'advance');assert.equal(s.view(g).progress,1);assert.equal(s.next(),true);
+  finishCampaign(s,g,1);assert.equal(s.view(g).nextAction,'advance');assert.equal(s.view(g).progress,1);assert.equal(s.next(),true);
   assert.equal(s.configuration().aiStyle,'defender');
 });
 
@@ -112,7 +114,7 @@ test('los siete encuentros terminan en jefe y guardan sólo progreso ganado',()=
   const values=new Map(),storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value),removeItem:key=>values.delete(key)};
   const s=session({storage}),g=fixture();s.select('campaign');const styles=[];
   for(let index=0;index<7;index++){
-    styles.push(s.configuration().aiStyle);s.event('matchover',{winner:1},g);
+    styles.push(s.configuration().aiStyle);finishCampaign(s,g,1);
     if(index<6)assert.equal(s.next(),true);
   }
   assert.deepEqual(styles,['aggressive','defender','counter','feint','precision','erratic','boss']);
@@ -133,20 +135,20 @@ test('JSON corrupto, versión futura y rango inválido no fabrican progreso',()=
 test('storage denegado y datos devueltos mutados no afectan jugar ni el catálogo',()=>{
   const s=session({storage:{getItem(){throw Error('denied');},setItem(){throw Error('denied');},removeItem(){throw Error('denied');}}}),g=fixture();
   s.select('campaign');const config=s.configuration();config.aiStyle='boss';assert.equal(s.configuration().aiStyle,'aggressive');
-  s.event('matchover',{winner:1},g);assert.equal(s.next(),true);assert.equal(s.configuration().aiStyle,'defender');
+  finishCampaign(s,g,1);assert.equal(s.next(),true);assert.equal(s.configuration().aiStyle,'defender');
   s.resetProgress();assert.equal(s.configuration().aiStyle,'aggressive');assert.equal(Object.isFrozen(CAMPAIGN),true);
 });
 
 test('eventos demo no pueden ganar campaña ni heredar su resultado',()=>{
   const s=session(),g=fixture();s.select('campaign');s.event('burst',genuine({x:1,y:2,z:.17},{demonstration:true}),g);
-  s.event('matchover',{winner:1},g);assert.equal(s.next(),false);
-  s.event('reset',{},g);s.event('matchover',{winner:1,demonstration:true},g);assert.equal(s.next(),false);
-  s.event('reset',{},g);s.event('matchover',{winner:1},g);assert.equal(s.next(),true);
+  finishCampaign(s,g,1);assert.equal(s.next(),false);
+  s.event('reset',{},g);finishCampaign(s,g,1,{demonstration:true});assert.equal(s.next(),false);
+  s.event('reset',{},g);finishCampaign(s,g,1);assert.equal(s.next(),true);
 });
 
 test('la marca autoritativa de demostración bloquea campaña aunque falte en el evento',()=>{
   const s=session(),g=fixture();s.select('campaign');g.demonstration=true;
-  s.event('matchover',{winner:1},g);assert.equal(s.next(),false);assert.equal(s.view(g).progress,0);
+  finishCampaign(s,g,1);assert.equal(s.next(),false);assert.equal(s.view(g).progress,0);
 });
 
 test('una sesión individual conservada no acredita acciones ni victorias de Versus',()=>{
@@ -154,7 +156,7 @@ test('una sesión individual conservada no acredita acciones ni victorias de Ver
   g.fighters[0].controller.mainY=1;g.fighters[0].pose.mainHand.y+=.3;observe(s,g);
   assert.equal(s.view(g).progress,0);
   s.select('precision');s.event('burst',genuine(s.view(g).target),g);assert.equal(s.view(g).progress,0);
-  s.select('campaign');s.event('matchover',{winner:1},g);assert.equal(s.next(),false);
+  s.select('campaign');finishCampaign(s,g,1);assert.equal(s.next(),false);
 });
 
 test('un fallo de precisión consume ese globo y no acepta un segundo contacto inventado',()=>{

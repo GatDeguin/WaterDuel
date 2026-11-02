@@ -1,7 +1,7 @@
 /** Decals anchored to actual delivered triangles. Projection is done once per
  * owned contact ID; subsequent frames only evaluate the same barycentric patch
  * with the renderer's already-computed bone/equipment matrices. */
-import {bodyForBone,bodyVisible,equipmentBody} from './joint-damage.js';
+import {bodyForBone,bodyVisible,equipmentBody,jointDamageTraces} from './joint-damage.js';
 import {deformEquipmentPoint} from './asset-rig.js';
 const caches=new WeakMap(),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const xyz=p=>[p.x,p.y,p.z??0],sub=(a,b)=>a.map((v,i)=>v-b[i]),dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
@@ -27,7 +27,7 @@ function sources(geometry,mark){
     const items=Array.isArray(geometry.equipment)?geometry.equipment:Object.values(geometry.equipment??{});
     return items.filter(item=>equipmentBody(item.prepared?.id)===mark.body).map(item=>({...item,kind:'equipment'}));
   }
-  return geometry.prepared&&geometry.matrices?[{prepared:geometry.prepared,matrices:geometry.matrices,materials:geometry.materials,kind:'character'}]:[];
+  return geometry.prepared&&geometry.matrices?[{prepared:geometry.prepared,matrices:geometry.matrices,materials:geometry.materials,pose:geometry.pose,kind:'character'}]:[];
 }
 // Refill one scratch view per part, using the canonical deformation unchanged.
 // Indexed triangles share vertices; no cross-frame deformation is assumed.
@@ -64,17 +64,17 @@ function project(mark,geometry,oil=false){
   const direction=unit(xyz(mark.normal));if(!direction)return null;
   const position=xyz(mark.position),origin=position.map((v,i)=>v-direction[i]*.035);let best=null;
   for(const source of sources(geometry,mark))for(let pi=0;pi<source.prepared.parts.length;pi++){
-    const part=source.prepared.parts[pi];if(source.kind==='character'&&bodyForBone(part.boneName)!==mark.body||part.accessory)continue;
+    const part=source.prepared.parts[pi];if(source.kind==='character'&&bodyForBone(part.boneName,source.pose)!==mark.body||part.accessory)continue;
     const material=materialOf(source,part);if(oil&&material!=='metal')continue;
     const deform=source.kind==='equipment'?source.transform:null,matrix=source.kind==='equipment'?(source.transform?.matrix??source.matrix):source.matrices[pi],inv=inverse(matrix);if(!inv)continue;
     const from=point(inv,origin),ray=vector(inv,direction),positions=projectedPositions(part,deform);
     for(let at=0;at<part.indices.length;at+=3){
-      const ia=part.indices[at],ib=part.indices[at+1],ic=part.indices[at+2],distance=rayDistance(from,ray,positions,ia,ib,ic,oil?.24:.16);if(distance===null||best&&distance>=best.distance)continue;
+      const ia=part.indices[at],ib=part.indices[at+1],ic=part.indices[at+2],distance=rayDistance(from,ray,positions,ia,ib,ic,oil?.24:clamp(mark.projectDistance??.16,.04,.42));if(distance===null||best&&distance>=best.distance)continue;
       const indices=[ia,ib,ic],local=indices.map(i=>vertex(part,i,deform));
       const world=local.map(p=>point(matrix,p)),normal=unit(cross(sub(world[1],world[0]),sub(world[2],world[0])));if(!normal||Math.abs(dot(normal,direction))<.08)continue;
       const normalSign=dot(normal,direction)<0?-1:1;if(normalSign<0)for(let k=0;k<3;k++)normal[k]*=-1;
       const center=origin.map((v,i)=>v+direction[i]*distance),requested=xyz(mark.tangent??{x:1,y:0,z:0}),projected=requested.map((v,i)=>v-normal[i]*dot(requested,normal));
-      const tangent=unit(projected)??unit(sub(world[1],world[0])),across=cross(normal,tangent),length=clamp(mark.length??.015,.004,.086),width=oil?.006:material==='metal'?.00065:.0011;
+      const tangent=unit(projected)??unit(sub(world[1],world[0])),across=cross(normal,tangent),length=clamp(mark.length??.015,.004,.086),width=oil?.006:clamp(mark.width??(material==='metal'?.00065:.0011),.0004,.003);
       const corners=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([x,y])=>barycentric(center.map((v,i)=>v+tangent[i]*x*length/2+across[i]*y*width/2),...world)),polygon=clipPatch(corners);
       if(polygon.length<3)continue;
       best={prepared:source.prepared,kind:source.kind,partIndex:pi,indices,polygon,normalSign,distance,material:oil?'oil':material??(mark.body==='weapon'?'metal':'wood')};
@@ -96,7 +96,7 @@ function append(batch,patch,source,delta){
   for(let i=1;i<vertices.length-1;i++)for(const at of [0,i,i+1]){batch.p.push(...(delta?point(delta,vertices[at]):vertices[at]));batch.n.push(...n);}
 }
 const joints={mainShoulder:['mainUpper','mainShoulder'],mainElbow:['mainForearm','mainElbow'],wrist:['weapon','mainHand'],offShoulder:['offUpper','offShoulder'],offElbow:['offForearm','offElbow'],frontHip:['frontThigh','frontHip'],frontKnee:['frontShin','kneeF'],backHip:['backThigh','backHip'],backKnee:['backShin','kneeB']};
-export function drawCombatWear(renderer,fighter,{depthOnly=false,geometry=null,onlyBodies=null,transform=null,owner=fighter,generation=null}={}){
+export function drawCombatWear(renderer,fighter,{depthOnly=false,geometry=null,onlyBodies=null,transform=null,owner=fighter,generation=null,includeOil=true}={}){
   if(depthOnly||renderer.depthOnly||!fighter?.pose||!geometry||transform&&(transform.length!==16||!Array.from(transform).every(Number.isFinite)))return {marks:0,grease:0,draws:0};
   const equipment=Array.isArray(geometry.equipment)?geometry.equipment:Object.values(geometry.equipment??{}),prepareds=[geometry.prepared,...equipment.map(e=>e.prepared)];
   let cache=caches.get(owner);if(!cache||cache.generation!==generation||prepareds.length!==cache.prepareds.length||prepareds.some((p,i)=>p!==cache.prepareds[i])){cache={marks:new Map(),oil:new Map(),generation,prepareds,batches:{wood:{p:[],n:[]},metal:{p:[],n:[]},oil:{p:[],n:[]}}};caches.set(owner,cache);}
@@ -109,7 +109,7 @@ export function drawCombatWear(renderer,fighter,{depthOnly=false,geometry=null,o
     if(!patch)continue;const source=currentSource(geometry,patch);if(!source){cache.marks.delete(mark.id);continue;}append(batches[patch.material],patch,source,transform);marks++;
   }
   for(const id of cache.marks.keys())if(!live.has(id))cache.marks.delete(id);
-  for(const [name,d] of Object.entries(joints)){
+  for(const [name,d] of includeOil?Object.entries(joints):[]){
     const record=fighter.pose.joints?.[name]??{damage:0};if(record.detached||!bodyVisible(fighter.pose,d[0],onlyBodies)||!fighter.pose[d[1]])continue;
     const damage=Math.floor(clamp(record.damage||0,0,1)*5);let entry=cache.oil.get(name);
     if(!entry||entry.damage!==damage){entry={damage,patch:project({body:d[0],key:d[0]==='weapon'?'main-palm':d[0],position:fighter.pose[d[1]],normal:{x:0,y:0,z:1},tangent:{x:1,y:0,z:0},length:.012+.018*damage/5},geometry,true)};cache.oil.set(name,entry);}const patch=entry.patch;
@@ -127,4 +127,14 @@ export function drawCombatWear(renderer,fighter,{depthOnly=false,geometry=null,o
     }else renderer.dynamicDraw({p:new Float32Array(batch.p),n:new Float32Array(batch.n)},color,material,opacity,-.2);draws++;
   }
   return {marks,grease,draws};
+}
+
+const damageOwners=new WeakMap();
+export function drawJointDamageWear(renderer,fighter,options={}){
+  if(!fighter?.pose||!options.geometry||options.depthOnly||renderer.depthOnly)return {marks:0,grease:0,draws:0};
+  const owner=options.owner??fighter;let damageOwner=damageOwners.get(owner);
+  if(!damageOwner){damageOwner={};damageOwners.set(owner,damageOwner);}
+  const marks=jointDamageTraces(fighter.pose,options.onlyBodies);
+  const source={...fighter,pose:{...fighter.pose,joints:{},surface:{marks}}};
+  return drawCombatWear(renderer,source,{...options,owner:damageOwner,includeOil:false});
 }

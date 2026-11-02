@@ -86,15 +86,16 @@ test('La defensa depende de una amenaza observada y respeta un tiempo de reacciÃ
 test('El perfil defensor de IA reacciona a una estocada humana y logra una parada fÃ­sica',()=>{
   const events=[],g=new DuelEngine((name,data)=>events.push({name,data,time:g.elapsed}));
   g.setDifficulty('normal');assert.equal(g.setAIStyle('defender'),true);g.phase='fight';
+  const collected=weaponGesture({x:-.8,y:.6}),aim=weaponGesture({x:.8,y:.6});
   let responded=false,steps=0;
   for(let i=0;i<240&&g.phase==='fight';i++){
     const t=i*STEP;
-    // A short retreat clears the resting steel before the human advances.
-    // The defensive style observes this real preparation instead of racing
-    // its own passive point into the human before the attempted thrust.
+    // N16's coupled wrist needs a collected, raised preparation. Use the real
+    // pad's aim and a depth dodge, then keep the legacy pulse for this API
+    // compatibility case. Every subsequent block still comes from contact.
     responded=responded||events.some(e=>e.name==='clang'&&e.data.defender===2);
-    g.setControl(1,responded?{mainX:-1,mainY:1,wrist:1,lean:-1}:
-      {mainX:1,mainY:.6,lean:t<.3?-1:1,thrust:t>=.70&&t<.74});
+    g.setControl(1,responded?{mainX:-1,mainY:1,wrist:1,lean:-1,headZ:-1}:
+      {...(t<.45?collected:aim),attackHeld:false,headZ:-1,lean:t<.45?-1:1,thrust:t>=1.30&&t<1.34});
     g.update(STEP);steps++;
   }
   assert.ok(events.some(e=>e.name==='thrust'&&e.data.slot===1),'el humano debe ejecutar una estocada real');

@@ -5,6 +5,7 @@ import {Renderer3D} from '../public/render3d.js';
 import {DuelEngine,STEP} from '../public/engine.js';
 import {buildFluidSurface} from '../public/physics/surfaces.js';
 import {AdaptiveQuality} from '../public/adaptive-quality.js';
+import {TABLE_TOP} from '../public/physics/dimensions.js';
 function fakeWebGL2(){
   const trace={draws:[],depthMasks:[],uniforms:{},uploads:[],buffers:new Set(),shaders:new Set(),programs:new Set()};
   let depthWrite=true,vao=null;
@@ -358,16 +359,52 @@ test('El disco defensivo visible coincide con el centro y radio de parada de amb
 
 test('Los cuatro pies descansan sobre las tablas sin cambiar las poses de la simulación',()=>{
   const {render,game,gl}=scene();
-  const feetBefore=game.fighters.map(f=>structuredClone([f.pose.footF,f.pose.footB]));
+  const posesBefore=game.fighters.map(f=>structuredClone(f.pose)),feet=[];
+  const drawPuppet=render.drawProceduralPuppet.bind(render),drawDynamic=render.dynamicDraw.bind(render);
+  let owner=null;
+  render.drawProceduralPuppet=(fighter,...args)=>{
+    owner=fighter;try{return drawPuppet(fighter,...args);}finally{owner=null;}
+  };
+  render.dynamicDraw=(mesh,color,material,...args)=>{
+    if(owner&&material===0)feet.push({fighter:owner,positions:mesh.p.slice()});
+    return drawDynamic(mesh,color,material,...args);
+  };
   render.render(game,0);
-  const feet=gl.trace.draws.filter(d=>d.vao===render.mesh.box.vao && Math.abs(d.model[0]-.42)<1e-6
-    && Math.abs(d.model[5]-.12)<1e-6 && Math.abs(d.model[10]-.25)<1e-6);
-  assert.equal(feet.length,4);
-  for(const {model:m} of feet){
-    const bottom=m[13]-m[5]/2;
-    assert.ok(bottom>=.32449 && bottom<=.3295,`foot bottom ${bottom} must rest on the stage at .3245`);
+  assert.equal(feet.length,4,'both attached physical feet of both fighters must be drawn');
+  for(const fighter of game.fighters){
+    const drawn=feet.filter(foot=>foot.fighter===fighter);assert.equal(drawn.length,2);
+    for(const [index,side] of ['front','back'].entries()){
+      const physical=fighter.pose.feet[side],positions=drawn[index].positions,actual=[];
+      for(let i=0;i<positions.length;i+=3)actual.push(Array.from(positions.subarray(i,i+3)));
+      // Independent world-space extrusion oracle, without calling proceduralFootMesh.
+      const expected=physical.hull.flatMap(p=>[-1,1].map(sign=>[p.x,p.y,physical.center.z+sign*physical.depth/2]));
+      const matches=(a,b)=>a.every((value,i)=>Math.abs(value-b[i])<1e-6);
+      assert.equal(actual.length,(4*physical.hull.length-4)*3,'closed hull needs both caps and every side');
+      assert.ok(actual.every(p=>expected.some(q=>matches(p,q))),'rendered vertices must belong to the physical extrusion');
+      assert.ok(expected.every(p=>actual.some(q=>matches(p,q))),'every physical hull vertex must reach both depth faces');
+      const bottom=Math.min(...actual.map(p=>p[1]));
+      assert.ok(Math.abs(bottom-physical.support.y)<1e-6,'visible sole must share the achieved support');
+      assert.ok(bottom>=TABLE_TOP-1e-6&&bottom<=TABLE_TOP+.005,`foot bottom ${bottom} must rest on the stage`);
+      assert.ok(Math.max(...actual.map(p=>p[1]))<fighter.pose[side==='front'?'kneeF':'kneeB'].y,'feet remain below their legs');
+    }
   }
-  assert.deepEqual(game.fighters.map(f=>[f.pose.footF,f.pose.footB]),feetBefore);
+  assert.deepEqual(game.fighters.map(f=>f.pose),posesBefore);
+
+  // Historical replay poses retain the original horizontal-box fallback.
+  for(const fighter of game.fighters){
+    fighter.pose=structuredClone(fighter.pose);delete fighter.pose.feet;delete fighter.pose.ankleF;delete fighter.pose.ankleB;
+  }
+  const legacyBefore=game.fighters.map(f=>structuredClone(f.pose));
+  gl.trace.draws.length=0;feet.length=0;render.render(game,0);
+  const boxes=gl.trace.draws.filter(d=>d.vao===render.mesh.box.vao && Math.abs(d.model[0]-.42)<1e-6
+    && Math.abs(d.model[5]-.12)<1e-6 && Math.abs(d.model[10]-.25)<1e-6);
+  assert.equal(boxes.length,4);assert.equal(feet.length,0,'legacy poses do not invent physical foot hulls');
+  for(const {model:m} of boxes){
+    const bottom=m[13]-m[5]/2;
+    assert.ok(bottom>=TABLE_TOP-1e-6&&bottom<=TABLE_TOP+.005,`legacy foot bottom ${bottom} must rest on the stage`);
+  }
+  assert.deepEqual(game.fighters.map(f=>f.pose),legacyBefore);
+  render.dispose();
 });
 
 test('Toda la pasada transparente mantiene depthMask(false), incluso tras lotes de gotas',()=>{

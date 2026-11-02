@@ -2,7 +2,7 @@ import {emblemSegments} from '../identity.js';
 const cache=new WeakMap();
 const transform=(m,p)=>m?[0,1,2].map(i=>m[i]*p[0]+m[i+4]*p[1]+m[i+8]*p[2]+m[i+12]):p;
 /** Frontmost triangle hit, so pigment follows the actual skin/fabric surface. */
-export function surfaceEmblem(fighter,{positions,indices=null,center,scale,matrix=null,owner=fighter},channel='balloon'){
+export function surfaceEmblem(fighter,{positions,deformedPositions=null,indices=null,center,scale,matrix=null,matrixForVertex=null,owner=fighter},channel='balloon'){
  let channels=cache.get(owner);if(!channels){channels={};cache.set(owner,channels);}
  const mesh=channels[channel]??={p:[],n:[],anchors:[],key:null};mesh.p.length=mesh.n.length=0;
  const key=`${fighter.balloonColor}:${positions.length}:${indices?.length??0}`;
@@ -36,7 +36,8 @@ export function surfaceEmblem(fighter,{positions,indices=null,center,scale,matri
  // frames only sample the same physical triangles: pigment does not slide.
  for(let i=0;i<mesh.anchors.length;i+=3){
   const points=[];
-  for(let k=0;k<3;k++){const h=mesh.anchors[i+k];points.push(transform(matrix,[0,1,2].map(a=>positions[h.a+a]*h.u+positions[h.b+a]*h.v+positions[h.c+a]*h.w)));}
+  const current=deformedPositions??positions;
+  for(let k=0;k<3;k++){const h=mesh.anchors[i+k];points.push(transform(matrixForVertex?.(h.a/3)??matrix,[0,1,2].map(a=>current[h.a+a]*h.u+current[h.b+a]*h.v+current[h.c+a]*h.w)));}
   const [a,b,c]=points,ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2],vx=c[0]-a[0],vy=c[1]-a[1],vz=c[2]-a[2],n=[uy*vz-uz*vy,uz*vx-ux*vz,ux*vy-uy*vx],len=Math.hypot(...n)||1;
   for(const p of points)for(let axis=0;axis<3;axis++){mesh.p.push(p[axis]+.0008*n[axis]/len);mesh.n.push(n[axis]/len);}
  }return mesh;

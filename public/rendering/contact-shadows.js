@@ -33,7 +33,7 @@ export function contactShadows(fighter,{floor=TABLE_TOP,maxGap=.12,fragments=nul
  };
  for(const [key,body]of [['footF','frontShin'],['footB','backShin']]){
   if(bodyAttached(fighter,body)&&!(pose.detached??[]).some(f=>f.bodies?.includes(body))&&pose[key])
-   stamp(key,'foot',{...pose[key],y:pose[key].y-FOOT_HALF_HEIGHT},.13*scale,.10*scale,.23);
+   stamp(key,'foot',pose.feet?.[key==='footF'?'front':'back']?.support??{...pose[key],y:pose[key].y-FOOT_HALF_HEIGHT},.13*scale,.10*scale,.23);
  }
  const parts=fragments??pose.detached??fighter?.rig?.fragments??[];
  for(const fragment of parts){

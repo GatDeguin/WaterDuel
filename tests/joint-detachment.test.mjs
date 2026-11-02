@@ -3,16 +3,28 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {ArticulatedRig,RIG_STEP} from '../public/physics/articulated-rig.js';
 import {TABLE_TOP} from '../public/physics/dimensions.js';
+import {createHash} from 'node:crypto';
+import {AXE_REFERENCE_PINS,applyAxeFacingReference} from './fixtures/axe-facing-reference-layer.mjs';
+import {assertNumericalRig} from './fixtures/rig-v4-numerical-reference.mjs';
 const baseline=JSON.parse(readFileSync(new URL('./fixtures/rig-pre-joint-damage.json',import.meta.url)));
 for(const frame of baseline.frames)frame.pose.apron.canonicalMatrix=new Float64Array(Object.values(frame.pose.apron.canonicalMatrix));
 const finite=values=>values.every(Number.isFinite);
 
-test('an intact rig retains every original coordinate, velocity, pose and collision panel',()=>{
-  const rig=new ArticulatedRig({baseX:-1.53});rig.reactImpulse({body:'weapon',point:rig.pose().tip,impulse:{x:.05,y:.09}});
+test('the historical N14 rig retains its immutable pre-damage fixture; intact N16 satisfies independent mass/Jacobian invariants',async()=>{
+  // v4 intentionally adds foot mass and two coordinates. Keep the old fixture
+  // and its original engine pinned, rather than overwrite it with v4 output.
+  const frozen=readFileSync(new URL('./fixtures/articulated-rig-pre-goal-y-only-1.7.4.js.txt',import.meta.url),'utf8');
+  assert.equal(createHash('sha256').update(frozen).digest('hex'),AXE_REFERENCE_PINS.goal);
+  const rigURL=new URL('../public/physics/articulated-rig.js',import.meta.url),source=applyAxeFacingReference(frozen,'goal')
+    .replace(/(from\s*)(['"])(\.[^'"\n]+)\2/g,(_match,prefix,quote,specifier)=>prefix+quote+new URL(specifier,rigURL).href+quote);
+  const {ArticulatedRig:LegacyRig}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+  const rig=new LegacyRig({baseX:-1.53}),current=new ArticulatedRig({baseX:-1.53});
+  for(const r of [rig,current])r.reactImpulse({body:'weapon',point:r.pose().tip,impulse:{x:.05,y:.09}});
   for(let step=1;step<=24;step++){
-    rig.step(RIG_STEP);const expected=baseline.frames.find(f=>f.step===step);if(!expected)continue;
+    rig.step(RIG_STEP);current.step(RIG_STEP);const expected=baseline.frames.find(f=>f.step===step);if(!expected)continue;
     assert.deepEqual([...rig.q],expected.q);assert.deepEqual([...rig.velocity],expected.velocity);
     assert.deepEqual(rig.pose(),expected.pose);assert.deepEqual(rig.collisionPanels(),expected.panels);
+    assertNumericalRig(current,`intact-v4/${step}`);assert.deepEqual(current.jointDamage,{});assert.equal(current.fragments.length,0);
   }
 });
 

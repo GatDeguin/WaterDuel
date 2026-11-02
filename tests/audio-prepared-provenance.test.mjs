@@ -6,6 +6,7 @@ import {SOURCE_TRANSFORMS,transformSource} from '../audit/audio-prepared-promoti
 import {AUTHORIZED_JOINT_AUDIO,transformAuthorizedJointAudio} from '../audit/audio-prepared-promotion-post1.4/authorized-joint-audio-hunks.mjs';
 import {AUTHORIZED_CONTEXTUAL_AUDIO,transformContextualAudio,beforeContextualAudio} from '../audit/audio-contextual-1.5.2/authorized-contextual-audio-hunks.mjs';
 import {AUTHORIZED_RODA_AUDIO,transformRodaAudio,beforeRodaAudio} from './fixtures/audio-roda-v4-hunks.mjs';
+import {AUTHORIZED_N16_FEET_AUDIO,transformN16FeetAudio,beforeN16FeetAudio} from './fixtures/audio-feet-n16-hunks.mjs';
 
 const root=new URL('../',import.meta.url),promotion=new URL('../audit/audio-prepared-promotion-post1.4/',import.meta.url);
 const manifest=JSON.parse(await readFile(new URL('sources.json',promotion),'utf8'));
@@ -24,11 +25,12 @@ function assertHistoricalAudioLineage(actual,snapshot,entry){
     assert.ok(actual.equals(snapshot),'Snapshot differs: '+entry.path);
   }
 }
-const assertAudioLineage=(actual,snapshot,entry)=>assertHistoricalAudioLineage(beforeContextualAudio(beforeRodaAudio(actual,entry.path),entry.path),snapshot,entry);
+const beforeRecentAudio=(bytes,path)=>beforeRodaAudio(beforeN16FeetAudio(bytes,path),path);
+const assertAudioLineage=(actual,snapshot,entry)=>assertHistoricalAudioLineage(beforeContextualAudio(beforeRecentAudio(actual,entry.path),entry.path),snapshot,entry);
 
 test('promoted sources reverse byte-for-byte to the three frozen browser-tested clones',async()=>{
   for(const spec of SOURCE_TRANSFORMS){
-    const clone=await readFile(new URL(spec.source,root)),actual=beforeContextualAudio(beforeRodaAudio(await readFile(new URL(spec.target,root)),spec.target),spec.target);
+    const clone=await readFile(new URL(spec.source,root)),actual=beforeContextualAudio(beforeRecentAudio(await readFile(new URL(spec.target,root)),spec.target),spec.target);
     assert.equal(sha256(clone),spec.sha256);
     assert.ok(transformSource(actual,spec,true).equals(clone),'Reverse differs: '+spec.target);
     assert.equal(sha256(actual),manifest.targets.find(target=>target.path===spec.target).proposedSha256);
@@ -52,7 +54,7 @@ test('joint audio exceptions are literal, reversible hunks limited to the two au
 
 test('audio provenance rejects unrelated edits, altered hunks, duplicate hunks and changed historical snapshots',async()=>{
   for(const spec of AUTHORIZED_JOINT_AUDIO){
-    const actual=beforeContextualAudio(beforeRodaAudio(await readFile(new URL(spec.path,root)),spec.path),spec.path),snapshot=await readFile(new URL('before/'+spec.path,promotion));
+    const actual=beforeContextualAudio(beforeRecentAudio(await readFile(new URL(spec.path,root)),spec.path),spec.path),snapshot=await readFile(new URL('before/'+spec.path,promotion));
     const entry=manifest.protected.find(entry=>entry.path===spec.path),hunk=spec.hunks[0];
     assert.throws(()=>assertHistoricalAudioLineage(Buffer.concat([actual,Buffer.from('// unrelated edit\r\n')]),snapshot,entry),/Unexpected delta/);
     const unrelated=spec.path.endsWith('scene-audio.js')?['MAX_PARCELS=320','MAX_PARCELS=319']:['cooldown:.095','cooldown:.096'];
@@ -71,7 +73,7 @@ test('contextual audio is a reversible, hash-pinned later layer over all histori
  assert.deepEqual(AUTHORIZED_CONTEXTUAL_AUDIO.map(spec=>spec.path),['public/game-audio.js','public/audio/scene-audio.js','public/audio/contact-audio.js','tests/game-audio.test.mjs']);
  assert.deepEqual(AUTHORIZED_CONTEXTUAL_AUDIO.map(spec=>spec.hunks.length),[14,6,3,1]);
  for(const spec of AUTHORIZED_CONTEXTUAL_AUDIO){
-  const actual=beforeRodaAudio(await readFile(new URL(spec.path,root)),spec.path),baseline=await readFile(new URL('../audit/audio-contextual-1.5.2/baseline/'+spec.path,import.meta.url));
+  const actual=beforeRecentAudio(await readFile(new URL(spec.path,root)),spec.path),baseline=await readFile(new URL('../audit/audio-contextual-1.5.2/baseline/'+spec.path,import.meta.url));
   assert.equal(sha256(actual),spec.currentSha256);assert.equal(sha256(baseline),spec.baselineSha256);
   assert.ok(transformContextualAudio(actual,spec,true).equals(baseline));assert.ok(transformContextualAudio(baseline,spec).equals(actual));
   for(const changed of [Buffer.concat([actual,Buffer.from('// unrelated\n')]),Buffer.from(actual.toString('utf8').replace(spec.hunks[0].after,spec.hunks[0].after+' ')),Buffer.concat([actual,Buffer.from(spec.hunks[0].after)])])assert.throws(()=>transformContextualAudio(changed,spec,true),/Unexpected delta/);
@@ -124,4 +126,35 @@ test('puppet roda selection is a pinned literal layer over intact contextual and
   assert.throws(()=>transformRodaAudio(Buffer.from(actual.toString('utf8').replaceAll('\n','\r\n')),spec,true),/Unexpected delta/);
   assert.throws(()=>transformRodaAudio(Buffer.concat([prior,Buffer.from('\n')]),spec),/Unexpected delta/);
  }
+});
+
+test('N16 foot support reverses one literal hunk to the unchanged contextual endpoint and original promotion bytes',async()=>{
+ assert.deepEqual(AUTHORIZED_N16_FEET_AUDIO.map(spec=>spec.path),['public/audio/scene-audio.js']);
+ assert.deepEqual(AUTHORIZED_N16_FEET_AUDIO.map(spec=>spec.hunks.length),[1]);
+ const spec=AUTHORIZED_N16_FEET_AUDIO[0],actual=await readFile(new URL(spec.path,root)),prior=transformN16FeetAudio(actual,spec,true);
+ assert.equal(spec.baselineSha256,'238c558d7ab455df1ae686788ca02a2e4f423c9fd2a6ec8cda98d0dd049772fd');
+ assert.equal(spec.currentSha256,'0cb426a1c7c414bdc5a56d900e669f3edd6f5c52ec28e24aae77a9642d9d1473');
+ const contextual=AUTHORIZED_CONTEXTUAL_AUDIO.find(entry=>entry.path===spec.path);
+ assert.equal(sha256(prior),contextual.currentSha256,'N16 removal must expose the unchanged historical contextual endpoint');
+ assert.ok(transformN16FeetAudio(prior,spec).equals(actual));assert.ok(beforeN16FeetAudio(actual,spec.path).equals(prior));
+ const entry=manifest.protected.find(entry=>entry.path===spec.path),snapshot=await readFile(new URL('before/'+spec.path,promotion));
+ assertHistoricalAudioLineage(beforeContextualAudio(beforeRodaAudio(prior,spec.path),spec.path),snapshot,entry);
+ const unrelated=Buffer.from('// scope probe\n');assert.equal(beforeN16FeetAudio(unrelated,'public/game.js'),unrelated);
+});
+
+test('N16 provenance rejects unrelated deltas, changed endpoints, malformed hunks, duplicates, missing hunks and newline normalization',async()=>{
+ const spec=AUTHORIZED_N16_FEET_AUDIO[0],actual=await readFile(new URL(spec.path,root)),prior=transformN16FeetAudio(actual,spec,true),hunk=spec.hunks[0];
+ for(const changed of [Buffer.concat([actual,Buffer.from('// unrelated\n')]),Buffer.from(actual.toString('utf8').replace('MAX_PARCELS=320','MAX_PARCELS=319')),
+  Buffer.from(actual.toString('utf8').replace(hunk.after,hunk.after+' ')),Buffer.from(actual.toString('utf8').replaceAll('\n','\r\n'))])assert.throws(()=>transformN16FeetAudio(changed,spec,true),/Unexpected delta/);
+ assert.throws(()=>transformN16FeetAudio(Buffer.concat([prior,Buffer.from('\n')]),spec),/Unexpected delta/);
+ const changedBefore=structuredClone(spec);changedBefore.hunks[0].before+=' ';assert.throws(()=>transformN16FeetAudio(actual,changedBefore,true),/Unexpected transformed/);
+ const changedAfter=structuredClone(spec);changedAfter.hunks[0].after+='X';assert.throws(()=>transformN16FeetAudio(actual,changedAfter,true),/missing or ambiguous/);
+ const duplicate=structuredClone(spec);duplicate.hunks.push(structuredClone(hunk));assert.throws(()=>transformN16FeetAudio(actual,duplicate,true),/missing or ambiguous/);
+ for(const corrupted of [Buffer.concat([actual,Buffer.from(hunk.after)]),Buffer.from(actual.toString('utf8').replace(hunk.after,'')),
+  Buffer.from(actual.toString('utf8').replace(hunk.after,hunk.before)),Buffer.from(actual.toString('utf8').replace(hunk.after,'X'+hunk.after.slice(1)))]){
+  const alteredPin=structuredClone(spec);alteredPin.currentSha256=sha256(corrupted);
+  assert.throws(()=>transformN16FeetAudio(corrupted,alteredPin,true),/missing or ambiguous/,'a forged endpoint cannot bypass literal hunk uniqueness');
+ }
+ const nonUtf8=Buffer.concat([actual,Buffer.from([255])]),alteredPin=structuredClone(spec);alteredPin.currentSha256=sha256(nonUtf8);
+ assert.throws(()=>transformN16FeetAudio(nonUtf8,alteredPin,true),/Non-lossless UTF-8/);
 });

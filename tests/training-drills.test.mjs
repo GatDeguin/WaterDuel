@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {SinglePlayerSession} from '../public/single-player.js';
 import {trainingOpponentControl} from '../public/training-drills.js';
 import {DuelEngine,STEP} from '../public/engine.js';
+import {BALLOON_RADII} from '../public/physics/dimensions.js';
+import {segmentEllipsoidContact} from '../public/physics/head-contact.js';
 
 function fixture(){
   return {mode:'solo',phase:'fight',clock:1,elapsed:1,lastPhysicalDt:.02,round:1,scores:[0,0],fighters:[
@@ -28,6 +30,17 @@ test('el movimiento del blanco usa sólo controles acotados y no altera la escen
   assert.deepEqual(g,before);assert.notEqual(a.headZ,b.headZ);assert.notEqual(a.lean,b.lean);
   for(const c of [a,b])for(const [key,value] of Object.entries(c))if(typeof value==='number')assert.ok(Number.isFinite(value)&&Math.abs(value)<=1,key);
   assert.equal(a.thrust,false);assert.equal(trainingOpponentControl('invalid',g,.02),null);
+});
+
+test('profundidad recoge abajo, eleva sin sobrepasar la muñeca y conserva su ventana y período',()=>{
+  const g=fixture();g.elapsed=.2;const before=structuredClone(g),withdraw=trainingOpponentControl('depth',g);
+  assert.deepEqual(g,before);assert.equal(withdraw.mainX,-1);assert.equal(withdraw.mainY,-1);assert.equal(withdraw.wrist,-1);assert.equal(withdraw.lean,-1);
+  g.elapsed=.8;const raise=trainingOpponentControl('depth',g);
+  assert.equal(raise.mainX,-1);assert.equal(raise.mainY,1);assert.equal(raise.wrist,0);assert.equal(raise.lean,1);
+  g.elapsed=1.3;const approach=trainingOpponentControl('depth',g);assert.equal(approach.mainX,1);
+  g.elapsed=1.9;assert.equal(trainingOpponentControl('depth',g).mainX,-1,'la aproximación sigue durando .7 segundos');
+  g.elapsed=1.3+5.6;assert.deepEqual(trainingOpponentControl('depth',g),approach,'el período sigue siendo 5.6 segundos');
+  for(const c of [withdraw,raise,approach]){assert.equal(c.thrust,false);assert.equal(c.guard,false);for(const value of Object.values(c))if(typeof value==='number')assert.ok(Number.isFinite(value)&&Math.abs(value)<=1);}
 });
 
 test('paradas exige contacto, desvío físico y perforación real dentro de la apertura',()=>{
@@ -85,16 +98,42 @@ test('los ejercicios ignoran Versus, replay implícito, demos y datos no finitos
   }
 });
 
-test('el ejercicio de profundidad permite una esquiva real con la cabeza articulada',()=>{
-  const s=select('depth');let g;
-  g=new DuelEngine((name,data)=>s.event(name,data,g));g.aiEnabled=false;g.setScenario('practice');g.setLoadout(1,{weapon:'sword',defense:'none'});g.setLoadout(2,{weapon:'sword',defense:'none'});g.phase='fight';
-  for(let i=0;i<360&&g.phase==='fight';i++){
-    g.clock+=STEP;g.elapsed+=STEP;g.setControl(2,trainingOpponentControl('depth',g));
-    g.setControl(1,{headZ:-1,mainY:-.8,wrist:-.7});g.stepPhysics(STEP);s.observe(g,STEP);
+function physicalDepth({complete=false,countdown=false}={}){
+  const s=select('depth'),bursts=[];let g;
+  g=new DuelEngine((name,data)=>{s.event(name,data,g);if(name==='burst')bursts.push(data);});
+  if(complete){g.setDifficulty('rookie');g.aiStyle='precision';}else g.aiEnabled=false;
+  g.setScenario('practice');if(complete)g.setTrainingDrill({kind:'depth'});
+  g.setLoadout(1,{weapon:'sword',defense:'none'});g.setLoadout(2,{weapon:'sword',defense:'none'});
+  if(countdown){g.start();for(let i=0;i<81;i++)g.update(.04);assert.equal(g.phase,'fight');assert.deepEqual(g.scores,[0,0]);}
+  else g.phase='fight';
+  let steps=0,cleanEntries=0,escapedWithoutScore=false;
+  for(let i=0;i<(complete?840:360)&&g.phase==='fight'&&(!complete||!s.view(g).completed);i++){
+    if(complete){
+      if(s.view(g).progress===1&&g.elapsed>=2.8)g.updateAI(g.fighters[0],STEP);
+      else g.setControl(1,{mainX:-1,mainY:-.8,wrist:-.7,headZ:s.view(g).progress===0||g.elapsed<2.1?-1:0});
+      g.update(STEP);
+    }else{
+      g.clock+=STEP;g.elapsed+=STEP;g.setControl(2,trainingOpponentControl('depth',g));
+      // Back/down collects the blade as instructed; down alone leaves a long
+      // neutral reach that can parry or puncture before a clean depth dodge.
+      g.setControl(1,{mainX:-1,headZ:-1,mainY:-.8,wrist:-.7});g.stepPhysics(STEP);
+    }
+    const [player,opponent]=g.fighters,head=player.pose.head,previousHead=player.previousHead??head,z=s.drill.reference?.head.z??head.z;
+    const centered=segmentEllipsoidContact(opponent.previousTip,opponent.pose.tip,{...head,z},BALLOON_RADII,{previousCenter:{...previousHead,z}});
+    const actual=segmentEllipsoidContact(opponent.previousTip,opponent.pose.tip,head,BALLOON_RADII,{previousCenter:previousHead});
+    if(centered&&!centered.startedInside&&!actual)cleanEntries++;
+    s.observe(g,STEP);steps++;
+    if(s.view(g).progress===1&&g.scores.every(score=>score===0))escapedWithoutScore=true;
   }
+  return {s,g,bursts,steps,cleanEntries,escapedWithoutScore};
+}
+
+test('el ejercicio de profundidad permite una esquiva real con la cabeza articulada',()=>{
+  const {s,g,steps,cleanEntries}=physicalDepth();
   assert.equal(g.fighters[0].globIntact,true,'el globo desplazado sale de la trayectoria de ataque');
   assert.equal(s.view(g).progress,1,'la punta real atraviesa el volumen anterior y deja intacto el volumen actual');
   assert.deepEqual(g.scores,[0,0],'la esquiva nunca adjudica un punto canónico');
+  assert.equal(steps,360);assert.ok(cleanEntries>0,'la amenaza medida entra en el globo centrado y evita el desplazado');
 });
 
 test('una intercepción de acero sólo abre la parada si la punta entrante cambia de trayectoria',()=>{
@@ -127,15 +166,22 @@ test('la cadencia de paradas abre una oportunidad desde una parada física y ret
 });
 
 test('profundidad se completa al recuperar el alcance y perforar con el motor real',()=>{
-  const s=select('depth');let g;
-  g=new DuelEngine((name,data)=>s.event(name,data,g));g.setDifficulty('rookie');g.aiStyle='precision';g.setScenario('practice');g.setTrainingDrill({kind:'depth'});
-  g.setLoadout(1,{weapon:'sword',defense:'none'});g.setLoadout(2,{weapon:'sword',defense:'none'});g.phase='fight';
-  for(let i=0;i<840&&g.phase==='fight'&&!s.view(g).completed;i++){
-    if(s.view(g).progress===1&&g.elapsed>=2.8)g.updateAI(g.fighters[0],STEP);
-    else g.setControl(1,{mainY:-.8,wrist:-.7,headZ:s.view(g).progress===0||g.elapsed<2.1?-1:0});
-    g.update(STEP);s.observe(g,STEP);
-  }
+  const {s,g,bursts,steps,cleanEntries,escapedWithoutScore}=physicalDepth({complete:true});
   assert.equal(s.view(g).completed,true);assert.equal(g.fighters[0].globIntact,true);assert.deepEqual(g.scores,[1,0]);
+  assert.ok(steps<=840&&cleanEntries>0&&escapedWithoutScore);
+  assert.ok(bursts.some(b=>b.contact===true&&!b.demonstration&&b.winner===1&&b.relativeSpeed>0));
+});
+
+test('profundidad conserva la amenaza y la esquiva de 360 pasos después de la cuenta atrás real',()=>{
+  const {s,g,steps,cleanEntries,escapedWithoutScore}=physicalDepth({countdown:true});
+  assert.equal(steps,360);assert.equal(s.view(g).progress,1);assert.equal(g.fighters[0].globIntact,true);assert.deepEqual(g.scores,[0,0]);
+  assert.ok(cleanEntries>0&&escapedWithoutScore);
+});
+
+test('profundidad recupera el alcance y completa con burst real antes de 840 pasos después de la cuenta atrás',()=>{
+  const {s,g,bursts,steps,cleanEntries,escapedWithoutScore}=physicalDepth({complete:true,countdown:true});
+  assert.ok(steps<=840);assert.equal(s.view(g).completed,true);assert.equal(g.fighters[0].globIntact,true);assert.deepEqual(g.scores,[1,0]);
+  assert.ok(cleanEntries>0&&escapedWithoutScore);assert.ok(bursts.some(b=>b.contact===true&&!b.demonstration&&b.winner===1&&b.relativeSpeed>0));
 });
 
 test('un contacto posterior y una punta estática no fabrican una esquiva en profundidad',()=>{

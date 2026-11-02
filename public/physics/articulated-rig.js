@@ -2,33 +2,33 @@
 // Other limb depth remains a layer; this is not a full 3D/Coulomb-contact solver.
 import {TABLE_TOP} from './dimensions.js';
 import {normalizeLoadout,getWeapon,getDefense,equipmentAcrossSign} from '../equipment.js';
-import {ApronHinge,apronParentFrame} from './apron.js';
+import {ApronCloth,apronParentFrame} from './apron.js';
 import {DetachedCluster} from './detached-cluster.js';
 import {WeaponFlex,bladeLocalAt} from './weapon-flex.js';
+import {knifeHandDirection} from '../knife-technique.js';
+import {FOOT_SHAPES} from './foot-geometry.js';
+import {shinFloorSupport} from './shin-geometry.js';
 export const RIG_STEP=1/120;
 export const REFERENCE_STANCE=Object.freeze({hipHeight:.98,hipSocket:.11,frontFoot:.47,backFoot:-.64,
   thigh:.53,shin:.55,torso:.755,neck:.56,shoulderHalfWidth:.275,shoulderDrop:.05,lean:.12,mainReach:.82,mainRise:.02,offReach:-.76,offRise:.02});
 export const NECK_CONE=25*Math.PI/180;
-const N=14,PI=Math.PI,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const N=16,PI=Math.PI,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const finite=(v,fallback=0)=>Number.isFinite(v)?v:fallback;
 const wrap=a=>Math.atan2(Math.sin(a),Math.cos(a));
-const names=['baseX','baseY','pelvis','torso','mainShoulder','mainElbow','offShoulder','offElbow','frontHip','frontKnee','backHip','backKnee','neck','wrist'];
+const names=['baseX','baseY','pelvis','torso','mainShoulder','mainElbow','offShoulder','offElbow','frontHip','frontKnee','backHip','backKnee','neck','wrist','frontAnkle','backAnkle'];
 const severedBodies={mainShoulder:['mainUpper','mainForearm','weapon'],mainElbow:['mainForearm','weapon'],wrist:['weapon'],
-  offShoulder:['offUpper','offForearm','offWeapon'],offElbow:['offForearm','offWeapon'],frontHip:['frontThigh','frontShin'],frontKnee:['frontShin'],backHip:['backThigh','backShin'],backKnee:['backShin']};
-const severedCoordinates={mainShoulder:[4,5,13],mainElbow:[5,13],wrist:[13],offShoulder:[6,7],offElbow:[7],frontHip:[8,9],frontKnee:[9],backHip:[10,11],backKnee:[11]};
+  offShoulder:['offUpper','offForearm','offWeapon'],offElbow:['offForearm','offWeapon'],frontHip:['frontThigh','frontShin','frontFoot'],frontKnee:['frontShin','frontFoot'],backHip:['backThigh','backShin','backFoot'],backKnee:['backShin','backFoot']};
+const severedCoordinates={mainShoulder:[4,5,13],mainElbow:[5,13],wrist:[13],offShoulder:[6,7],offElbow:[7],frontHip:[8,9,14],frontKnee:[9,14],backHip:[10,11,15],backKnee:[11,15]};
 const jointPivot={mainShoulder:'mainShoulder',mainElbow:'mainElbow',wrist:'mainHand',offShoulder:'offShoulder',offElbow:'offElbow',frontHip:'frontHip',frontKnee:'kneeF',backHip:'backHip',backKnee:'kneeB',pelvis:'hip',torso:'hip',neck:'shoulder'};
-const limits=[[-20,20],[.40,1.95],[-.32,.32],[-.92,.92],[-3.12,1.48],[.035,2.96],[-1.52,2.85],[-2.96,-.035],[-3.10,-.035],[-2.82,-.025],[-3.10,-.035],[-2.82,-.025],[-.40,.40],[-PI/4,PI/4]];
+const limits=[[-20,20],[.40,1.95],[-.32,.32],[-.92,.92],[-3.12,1.48],[.035,2.96],[-1.52,2.85],[-2.96,-.035],[-3.10,-.035],[-2.82,-.025],[-3.10,-.035],[-2.82,-.025],[-.40,.40],[-PI/4,PI/4],[-1.25,1.25],[-1.25,1.25]];
 const STOP_ROWS=Array.from({length:N},(_,i)=>[-1,1].map(sign=>{const row=new Float64Array(N);row[i]=sign;return row;}));
-const masses={pelvis:.55,torso:1.35,neck:.13,mainUpper:.34,mainForearm:.25,offUpper:.31,offForearm:.23,frontThigh:.34,frontShin:.25,backThigh:.34,backShin:.25,weapon:.16,offWeapon:.055};
-const PASSIVE_DRAG=Object.freeze([3,3,4,2,4,4,4,4,10,10,10,10,2,4]);
-// Bounds measured in the delivered v2 shin frame, normalized by authored scale.
-// Include normal and armoured geometry with a 2e-5 export/float margin. Its distal
-// end is the ankle (.115 above the sole), not the .075-high foot proxy centre.
+const masses={pelvis:.55,torso:1.35,neck:.13,mainUpper:.34,mainForearm:.25,offUpper:.31,offForearm:.23,frontThigh:.34,frontShin:.25,backThigh:.34,backShin:.25,weapon:.16,offWeapon:.055,frontFoot:.12,backFoot:.12};
+const PASSIVE_DRAG=Object.freeze([3,3,4,2,4,4,4,4,10,10,10,10,2,4,4,4]);
+// Exact v4 wood/hardware hulls are measured in shin-geometry.js. Their distal
+// endpoint is the achieved ankle, never the legacy proxy centre of the foot.
 const SHIN_FLOOR=[
-  {body:'frontShin',knee:'kneeF',foot:'footF',length:.5546372701022435,ankleZ:-.095,
-    min:[-.10187,-.07043,-.09091],max:[.10187,.51998,.13504]},
-  {body:'backShin',knee:'kneeB',foot:'footB',length:.5558772302552334,ankleZ:-.015,
-    min:[-.10187,-.07053,-.09062],max:[.10187,.52130,.13504]}
+  {body:'frontShin',knee:'kneeF',foot:'ankleF'},
+  {body:'backShin',knee:'kneeB',foot:'ankleB'}
 ];
 const point=(x,y,derivatives=true)=>({x,y,jx:derivatives?new Array(N).fill(0):null,jy:derivatives?new Array(N).fill(0):null});
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
@@ -48,7 +48,7 @@ const solve=(L,rhs)=>{
   return x;
 };
 // Adjacent links intentionally overlap inside their hinge/clevis mounting.
-const adjacent=new Set(['pelvis:torso','frontThigh:pelvis','backThigh:pelvis','frontShin:frontThigh','backShin:backThigh',
+const adjacent=new Set(['pelvis:torso','frontThigh:pelvis','backThigh:pelvis','frontShin:frontThigh','backShin:backThigh','frontFoot:frontShin','backFoot:backShin',
   'mainUpper:torso','mainForearm:mainUpper','offUpper:torso','offForearm:offUpper','mainForearm:weapon']);
 const neighborNames=new Map();
 for(const pair of adjacent){const [a,b]=pair.split(':');for(const [from,to]of [[a,b],[b,a]]){if(!neighborNames.has(from))neighborNames.set(from,new Set());neighborNames.get(from).add(to);}}
@@ -137,7 +137,7 @@ export class ArticulatedRig{
     this.dir=dir<0?-1:1;this.scale=clamp(finite(scale,1),.75,1.6);
     this.massScale=clamp(finite(massScale,1),.1,20);this.gravity=clamp(finite(gravity,-9.81),-20,0);
     this.groundHeight=clamp(finite(groundHeight,TABLE_TOP+.075),.1,.55);
-    this.q=new Float64Array([finite(baseX),TABLE_TOP+REFERENCE_STANCE.hipHeight*this.scale,0,-REFERENCE_STANCE.lean,-2.0,1.25,2.6,-1.5,-.74,-.89,-1.85,-.48,0,0]);
+    this.q=new Float64Array([finite(baseX),TABLE_TOP+REFERENCE_STANCE.hipHeight*this.scale,0,-REFERENCE_STANCE.lean,-2.0,1.25,2.6,-1.5,-.74,-.89,-1.85,-.48,0,0,0,0]);
     this.velocity=new Float64Array(N);this.target=this.q.slice();this.accumulator=0;this.time=0;
     this.waterLoad={mass:0,offset:{x:0,y:0},inertia:0,lateralInertia:0,lateralOffset:0};this.wristRestAngle=-.68;this.swordLength=1.02;
     this.neckLateral={angle:0,velocity:0,target:0,inertia:0,motorTorque:0};
@@ -149,7 +149,7 @@ export class ArticulatedRig{
     // in another rig or turn its solver into a structured-cloned plain object.
     this.#flexibleWeapons=flexibleWeapons===true;this.#weaponFlex=this.flexibleWeapons?new WeaponFlex(pose?.equipment?.weapon??'sword'):null;
     this.#surfaceSnapshot=typeof surfaceSnapshot==='function'?surfaceSnapshot:null;
-    this.depth={hip:0,frontHip:.20,backHip:-.18,shoulder:0,head:.025,mainShoulder:.11,mainElbow:.14,mainHand:.17,tip:.17,offShoulder:-.11,offElbow:-.10,offHand:-.08,offGrip:.17,defenseTip:.17,kneeF:.20,kneeB:-.18,footF:.29,footB:-.22};
+    this.depth={hip:0,frontHip:.20,backHip:-.18,shoulder:0,head:.025,mainShoulder:.11,mainElbow:.14,mainHand:.17,tip:.17,offShoulder:-.11,offElbow:-.10,offHand:-.08,offGrip:.17,defenseTip:.17,kneeF:.20,kneeB:-.18,footF:.29,footB:-.22,ankleF:.20,ankleB:-.18};
     this.contacts=[];this.gait={swing:null,next:0,stanceBase:finite(baseX)};
     this.jointDamage={};this.jointDamageVersion=0;this.detachedBodies=new Set();this.detachedCoordinates=new Set();this.fragments=[];this.jointEvents=[];this.topologyVersion=0;this.gripReleased=false;
     this.lastReaction=[0,0,0,0];this.lastMotor=new Float64Array(N);this.lastGravity=new Float64Array(N);this.lastImpulse=null;this.lastSelfContactImpulse=0;
@@ -158,8 +158,8 @@ export class ArticulatedRig{
     const state=this.#kinematics();
     this.contacts=[{key:'footF',x:state.points.footF.x,y:state.points.footF.y,stance:true,vx:0,vy:0},
       {key:'footB',x:state.points.footB.x,y:state.points.footB.y,stance:true,vx:0,vy:0}];
-    for(const c of this.contacts){c.offset=c.x-this.intentBase;c.floor=c.y;}
-    this.apron=new ApronHinge(apronVariant);this.#advanceApron(0,state);
+    for(const c of this.contacts){c.offset=c.x-this.intentBase;c.floor=c.y;c.groundReaction=0;c.tangentReaction=0;}
+    this.apron=new ApronCloth(apronVariant);this.#advanceApron(0,state);
   }
 
   get flexibleWeapons(){return this.#flexibleWeapons;}
@@ -215,8 +215,9 @@ export class ArticulatedRig{
   }
 
   #advanceApron(dt,state){
-    const p={};for(const name of ['hip','mainShoulder','offShoulder'])p[name]={x:state.points[name].x,y:state.points[name].y,z:this.depth[name]??0};
-    this.apron.advance(dt,{frame:apronParentFrame(p,this.dir,this.scale,this.apron.geometry),passive:this.passive,gravity:this.gravity});
+    const p={};for(const name of ['hip','mainShoulder','offShoulder','frontHip','backHip','kneeF','kneeB','ankleF','ankleB'])p[name]={x:state.points[name].x,y:state.points[name].y,z:this.depth[name]??0};
+    p.clothLegs=Object.fromEntries(['frontThigh','frontShin','backThigh','backShin'].map(body=>[body,this.isBodyAttached(body)]));
+    this.apron.advance(dt,{frame:apronParentFrame(p,this.dir,this.scale,this.apron.geometry),pose:p,passive:this.passive,gravity:this.gravity});
   }
 
   #advanceNeck(h){
@@ -313,14 +314,30 @@ export class ArticulatedRig{
     const frontHip=this.#offset(hip,REFERENCE_STANCE.hipSocket*s,0,q[2],[2]),backHip=this.#offset(hip,-REFERENCE_STANCE.hipSocket*s,0,q[2],[2]);
     points.frontHip=frontHip;points.backHip=backHip;
     const frontAngle=q[2]+q[8],frontKnee=add('frontThigh',frontHip,frontAngle,REFERENCE_STANCE.thigh*s,[2,8],'kneeF');
-    add('frontShin',frontKnee,frontAngle+q[9],REFERENCE_STANCE.shin*s,[2,8,9],'footF');
+    add('frontShin',frontKnee,frontAngle+q[9],REFERENCE_STANCE.shin*s,[2,8,9],'ankleF');
     const backAngle=q[2]+q[10],backKnee=add('backThigh',backHip,backAngle,REFERENCE_STANCE.thigh*s,[2,10],'kneeB');
-    add('backShin',backKnee,backAngle+q[11],REFERENCE_STANCE.shin*s,[2,10,11],'footB');
+    add('backShin',backKnee,backAngle+q[11],REFERENCE_STANCE.shin*s,[2,10,11],'ankleB');
+    const feet={};
+    for(const [side,suffix,hipIndex,kneeIndex,index] of [['front','F',8,9,14],['back','B',10,11,15]]){
+      const ankle=points['ankle'+suffix],angle=q[2]+q[hipIndex]+q[kneeIndex]+PI/2+q[index],rotations=[2,hipIndex,kneeIndex,index];
+      const shape=FOOT_SHAPES[this.scale>1.1?'boss':'normal'][side],half=shape.halfWidth*s;
+      const hull=shape.hull.map(([x,y])=>({...this.#offset(ankle,x*s,y*s,angle,rotations),localX:x,localY:y}));
+      const sole=hull.filter(v=>Math.abs(v.localY-shape.soleY)<1e-7),heel=sole[0],toe=sole.at(-1);
+      const center=this.#offset(ankle,0,shape.centerY*s,angle,rotations);
+      const rear=this.#offset(ankle,-half,shape.centerY*s,angle,rotations),front=this.#offset(ankle,half,shape.centerY*s,angle,rotations);
+      const support=hull.reduce((a,b)=>a.y<b.y?a:b);
+      points['foot'+suffix]=center;feet[side]={ankle,center,heel,toe,rear,front,angle,shape,hull,support};
+      if(derivatives){const name=side+'Foot',mass=masses[name]*this.massScale*s**3;
+        bodies.push({name,mass,inertia:mass*((2*half)**2+(shape.height*s)**2)/12,center,rotations});angles[name]=this.dir===1?angle:PI-angle;
+        const axis=this.#offset(ankle,half,0,angle,rotations);
+        frames[name]={origin:{x:ankle.x,y:ankle.y},end:{x:axis.x,y:axis.y},center:{x:center.x,y:center.y},angle:angles[name]};
+      }
+    }
     if(derivatives&&this.waterLoad.mass>0){
       const center=this.#offset(head,this.waterLoad.offset.x,this.waterLoad.offset.y,neckAngle-PI/2,[2,3,12]);
       bodies.push({name:'water',mass:this.waterLoad.mass,inertia:this.waterLoad.inertia,center,rotations:[2,3,12]});
     }
-    const state={points,bodies:this.detachedBodies.size?bodies.filter(b=>this.isBodyAttached(b.name)):bodies,angles,frames,pelvisAngle:q[2],weaponCurve,weaponLength:swordLength,
+    const state={points,feet,bodies:this.detachedBodies.size?bodies.filter(b=>this.isBodyAttached(b.name)):bodies,angles,frames,pelvisAngle:q[2],weaponCurve,weaponLength:swordLength,
       weaponRootDirection:{x:this.dir*Math.cos(weaponAngle),y:Math.sin(weaponAngle)}};
     if(current&&!yOnly)this.#kinematicCache={q:q.slice(),length:swordLength,parameters,state};
     return state;
@@ -333,17 +350,18 @@ export class ArticulatedRig{
 
   #geometryState(q,swordLength,key,bend=this.weaponFlex?.offset??0){
     const s=this.scale,p={hip:{x:q[0],y:q[1]}},state={points:p,pelvisAngle:q[2],weaponLength:swordLength};
+    if(key==='frontFoot'||key==='backFoot')return this.#kinematics(q,swordLength,false,bend);
     if(key==='pelvis')return state;
     if(key==='frontThigh'||key==='frontShin'){
       p.frontHip=this.#geometryOffset(p.hip,REFERENCE_STANCE.hipSocket*s,0,q[2]);
       const angle=q[2]+q[8];p.kneeF=this.#geometryOffset(p.frontHip,REFERENCE_STANCE.thigh*s,0,angle);
-      if(key==='frontShin')p.footF=this.#geometryOffset(p.kneeF,REFERENCE_STANCE.shin*s,0,angle+q[9]);
+      if(key==='frontShin')p.ankleF=this.#geometryOffset(p.kneeF,REFERENCE_STANCE.shin*s,0,angle+q[9]);
       return state;
     }
     if(key==='backThigh'||key==='backShin'){
       p.backHip=this.#geometryOffset(p.hip,-REFERENCE_STANCE.hipSocket*s,0,q[2]);
       const angle=q[2]+q[10];p.kneeB=this.#geometryOffset(p.backHip,REFERENCE_STANCE.thigh*s,0,angle);
-      if(key==='backShin')p.footB=this.#geometryOffset(p.kneeB,REFERENCE_STANCE.shin*s,0,angle+q[11]);
+      if(key==='backShin')p.ankleB=this.#geometryOffset(p.kneeB,REFERENCE_STANCE.shin*s,0,angle+q[11]);
       return state;
     }
     const torsoAngle=PI/2+q[2]+q[3];p.shoulder=this.#geometryOffset(p.hip,REFERENCE_STANCE.torso*s,0,torsoAngle);
@@ -404,11 +422,15 @@ export class ArticulatedRig{
     const off=angle(p.offShoulder,p.offElbow,torso+t[6]),offFore=angle(p.offElbow,p.offHand,off+t[7]);
     t[6]=wrap(off-torso);t[7]=wrap(offFore-off);
     for(const [hipIndex,kneeIndex,key,side] of [[8,9,'footF',1],[10,11,'footB',-1]]){
-      const foot=p[key]||{x:t[0]+this.dir*(side>0?REFERENCE_STANCE.frontFoot:REFERENCE_STANCE.backFoot)*s,y:this.groundHeight};
+      const foot=p[key]||{x:t[0]+this.dir*(side>0?REFERENCE_STANCE.frontFoot:REFERENCE_STANCE.backFoot)*s,y:TABLE_TOP+.055*s};
+      // Intents from buildPose before v4 use a .075-high proxy centre. Poses
+      // emitted by this rig carry an explicit ankle and never use that fallback.
+      const ankle=p[side>0?'ankleF':'ankleB']??{x:foot.x,y:p[key]?foot.y-.075+.115*s:foot.y+.06*s};
       const socketX=t[0]+this.dir*side*REFERENCE_STANCE.hipSocket*s;
-      const x=this.dir*(foot.x-socketX),y=Math.max(this.groundHeight,foot.y)-t[1],l1=REFERENCE_STANCE.thigh*s,l2=REFERENCE_STANCE.shin*s,d=clamp(Math.hypot(x,y),.001,l1+l2-.001);
+      const x=this.dir*(ankle.x-socketX),y=Math.max(TABLE_TOP+.115*s,ankle.y)-t[1],l1=REFERENCE_STANCE.thigh*s,l2=REFERENCE_STANCE.shin*s,d=clamp(Math.hypot(x,y),.001,l1+l2-.001);
       const bend=-Math.acos(clamp((d*d-l1*l1-l2*l2)/(2*l1*l2),-1,1));
       t[hipIndex]=Math.atan2(y,x)-Math.atan2(l2*Math.sin(bend),l1+l2*Math.cos(bend));t[kneeIndex]=bend;
+      t[side>0?14:15]=wrap((p.feet?.[side>0?'front':'back']?.angle??0)-t[hipIndex]-bend-PI/2);
     }
     t[12]=wrap(angle(p.shoulder,p.head,torso)-torso);
     this.neckLateral.target=clamp(finite(p.neckYawTarget),-NECK_CONE,NECK_CONE);
@@ -423,6 +445,9 @@ export class ArticulatedRig{
       if(!this.twoHanded&&Number.isFinite(p.defenseDepthTarget)&&['offHand','offElbow'].includes(key))continue;
       this.depth[key]=finite(p[key]?.z,this.depth[key]);
     }
+    // Default lower legs remain planar, preserving the rigid knee/ankle
+    // distance in 3D as well as XY. Explicit ankle-depth intentions still win.
+    for(const suffix of ['F','B'])if(!Number.isFinite(p['ankle'+suffix]?.z))this.depth['ankle'+suffix]=this.depth['knee'+suffix];
     if(Number.isFinite(p.headBaseZ))this.depth.head=p.headBaseZ;
     this.shieldRadius=clamp(finite(p.shieldRadius,.23),0,.5);
     this.shieldRadiusX=clamp(finite(p.shieldRadiusX,this.shieldRadius),0,.5);
@@ -445,14 +470,18 @@ export class ArticulatedRig{
     const gait=this.gait;
     if(!gait.swing&&Math.abs(this.intentBase-gait.stanceBase)>.09){
       const index=gait.next,c=this.contacts[index],endX=clamp(this.intentBase+c.offset,c.x-.32*this.scale,c.x+.32*this.scale);
-      gait.swing={index,time:0,duration:.28,startX:c.x,endX};c.stance=false;
+      gait.swing={index,time:0,transfer:0,duration:this.scale>1.1?.34:.28,startX:c.x,endX};
     }
     if(!gait.swing)return;
-    const swing=gait.swing,c=this.contacts[swing.index];swing.time=Math.min(swing.duration,swing.time+h);
+    const swing=gait.swing,c=this.contacts[swing.index],support=this.contacts[1-swing.index];
+    const state=this.#kinematics(),mass=state.bodies.reduce((sum,b)=>sum+b.mass,0),com=state.bodies.reduce((sum,b)=>sum+b.mass*b.center.x,0)/mass;
+    gait.balanceOffset=clamp(support.x-com,-.16*this.scale,.16*this.scale);
+    if(swing.transfer<.12){swing.transfer+=h;return;}
+    c.stance=false;swing.time=Math.min(swing.duration,swing.time+h);
     const t=swing.time/swing.duration,u=t*t*(3-2*t),du=6*t*(1-t)/swing.duration;
     c.x=swing.startX+(swing.endX-swing.startX)*u;c.y=c.floor+.095*this.scale*Math.sin(PI*t);
     c.vx=(swing.endX-swing.startX)*du;c.vy=.095*this.scale*PI*Math.cos(PI*t)/swing.duration;
-    if(t>=1){c.y=c.floor;c.stance=true;c.vx=0;c.vy=0;gait.next=1-swing.index;gait.swing=null;gait.stanceBase=this.contacts.reduce((sum,foot)=>sum+foot.x-foot.offset,0)/2;}
+    if(t>=1){c.y=c.floor;c.stance=true;c.vx=0;c.vy=0;gait.next=1-swing.index;gait.swing=null;gait.balanceOffset=0;gait.stanceBase=this.contacts.reduce((sum,foot)=>sum+foot.x-foot.offset,0)/2;}
   }
 
   // Returns M^-1 J^T lambda. Contact impulses use the same coupled mass as
@@ -490,11 +519,12 @@ export class ArticulatedRig{
     sample.jy=row;return row;
   }
 
-  #unilateralDelta(L,rows,values,inequalities){
-    const base=this.#constraintDelta(L,rows,values).delta,delta=base.slice(),active=[],responses=[],products=[],baseValues=[];
+  #unilateralDelta(L,rows,values,inequalities,reactions=null){
+    const baseResult=this.#constraintDelta(L,rows,values),base=baseResult.delta,delta=base.slice(),active=[],responses=[],constraintResponses=[],products=[],baseValues=[];
     const response=index=>{
       if(!responses[index]){
         const free=solve(L,inequalities[index].row),reaction=this.#constraintDelta(L,rows,rows.map(r=>-dot(r,free)));
+        constraintResponses[index]=reaction.lambda;
         responses[index]=Float64Array.from(free,(v,i)=>v+reaction.delta[i]);
       }
       return responses[index];
@@ -504,6 +534,7 @@ export class ArticulatedRig{
       if(row[j]===undefined)row[j]=dot(inequalities[i].row,response(j));return row[j];
     };
     const baseValue=i=>{if(baseValues[i]===undefined)baseValues[i]=inequalities[i].value-dot(inequalities[i].row,base);return baseValues[i];};
+    let finalLambda=[];
     for(let pass=0;pass<N*8;pass++){
       let worst=-1,violation=1e-9;
       for(let i=0;i<inequalities.length;i++)if(!active.includes(i)){
@@ -518,19 +549,28 @@ export class ArticulatedRig{
         let remove=-1,lowest=-1e-9;
         for(let i=0;i<lambda.length;i++)if(lambda[i]<lowest){lowest=lambda[i];remove=i;}
         if(remove>=0){active.splice(remove,1);continue;}
-        delta.set(base);
+        finalLambda=Array.from(lambda);delta.set(base);
         for(let j=0;j<active.length;j++)for(let i=0;i<N;i++)delta[i]+=response(active[j])[i]*Math.max(0,lambda[j]);
         break;
       }
       if(!active.length)delta.set(base);
     }
+    if(reactions){
+      reactions.constraints=Array.from(baseResult.lambda);
+      if(reactions.captureActive)reactions.active=active.map((index,j)=>({index,lambda:Math.max(0,finalLambda[j]??0)}));
+      for(let j=0;j<active.length;j++){
+        const index=active[j],amount=Math.max(0,finalLambda[j]??0),key=inequalities[index].floorKey;
+        if(key)reactions[key]=(reactions[key]??0)+amount;
+        for(let i=0;i<rows.length;i++)reactions.constraints[i]+=(constraintResponses[index]?.[i]??0)*amount;
+      }
+    }
     return delta;
   }
 
   #floorInequalities(state,velocity=false,h=RIG_STEP){
-    const result=this.#floorSamples(state).filter(sample=>!this.contacts.some(c=>c.key===sample.floorKey&&c.y>=TABLE_TOP+.075-1e-9)).map(sample=>{
+    const result=this.#floorSamples(state).map(sample=>{
       const row=this.#floorRow(state,sample),depth=TABLE_TOP-sample.y;
-      return {row,value:velocity?Math.min(0,depth/h)-dot(row,this.velocity):depth+(depth>1e-9?1e-7:0)};
+      return {row,floorKey:sample.floorKey,value:velocity?Math.min(0,depth/h)-dot(row,this.velocity):depth+(depth>1e-9?1e-7:0)};
     });
     for(let i=1;i<N;i++)for(const sign of [-1,1]){
       const row=STOP_ROWS[i][sign===-1?0:1];
@@ -541,11 +581,14 @@ export class ArticulatedRig{
   }
 
   #contactRows(state,velocity=false,h=RIG_STEP,includeFloor=true){
-    const rows=[],values=[];
+    const rows=[],values=[],footRows=[];
     for(const c of this.contacts){
-      const p=state.points[c.key];rows.push(p.jx,p.jy);
-      if(velocity)values.push(c.vx-.22*(p.x-c.x)/h-dot(p.jx,this.velocity),c.vy-.22*(p.y-c.y)/h-dot(p.jy,this.velocity));
-      else values.push(c.x-p.x,c.y-p.y);
+      if(!c.stance)continue;
+      const foot=state.feet[c.key==='footF'?'front':'back'];
+      if(foot.support.y>TABLE_TOP+.002)continue;
+      const p=foot.support,anchor=c.x+this.dir*p.localX*this.scale;footRows.push({key:c.key,index:rows.length});rows.push(p.jx);
+      if(velocity)values.push(c.vx-.22*(p.x-anchor)/h-dot(p.jx,this.velocity));
+      else values.push(anchor-p.x);
     }
     if(this.twoHanded){
       const hand=state.points.offHand,grip=state.points.offGrip;
@@ -563,11 +606,11 @@ export class ArticulatedRig{
         if(speed<0&&speed<allowed){rows.push(row);values.push(allowed-speed);}
       }else if(sample.y<=TABLE_TOP+1e-7){rows.push(row);values.push(Math.max(0,TABLE_TOP-sample.y));}
     }
-    return {rows,values};
+    return {rows,values,footRows};
   }
 
   #floorSamples(state,weaponOnly=false){
-    const parameters=[this.scale,this.dir,this.equipment.weapon,this.depth.footF,this.depth.footB,this.depth.kneeF,this.depth.kneeB,this.topologyVersion];
+    const parameters=[this.scale,this.dir,this.equipment.weapon,this.depth.footF,this.depth.footB,this.depth.ankleF,this.depth.ankleB,this.depth.kneeF,this.depth.kneeB,this.topologyVersion];
     const cached=this.#floorCache.get(state),cacheKey=weaponOnly?'weapon':'all';
     if(cached&&parameters.every((v,i)=>v===cached.parameters[i])&&cached[cacheKey])return cached[cacheKey];
     const p=state.points,s=this.scale,samples=[];
@@ -578,22 +621,22 @@ export class ArticulatedRig{
     if(!weaponOnly){
       for(const [body,a,b,width] of links)appendFloorPanel(samples,body,a,b,width);
       for(const shape of SHIN_FLOOR){
-        const knee=p[shape.knee],foot=p[shape.foot],dx=foot.x-knee.x,dy=foot.y-.075+.115*s-knee.y;
-        const dz=(this.depth[shape.foot]??0)+this.dir*shape.ankleZ*s-(this.depth[shape.knee]??0),h=Math.hypot(dx,dy),length=Math.hypot(h,dz);
+        const knee=p[shape.knee],foot=p[shape.foot],dx=foot.x-knee.x,dy=foot.y-knee.y;
+        const dz=(this.depth[shape.foot]??0)-(this.depth[shape.knee]??0),h=Math.hypot(dx,dy),length=Math.hypot(h,dz);
         if(h<1e-9)continue;
         // Same affine limb frame used by characterTransforms. Differentiate its
         // vertices through both endpoints; a rigid-body point Jacobian would be
         // wrong because the ankle frame stays attached to the supported foot.
-        const bend=1/(h*h*h*length)+1/(h*length*length*length);
-        for(const bx of [shape.min[0],shape.max[0]])for(const by of [shape.min[1],shape.max[1]])for(const bz of [shape.min[2],shape.max[2]]){
-          const x=knee.x+dy/h*bx*s+dx/shape.length*by-dx*dz/(h*length)*bz*s;
-          const y=knee.y-dx/h*bx*s+dy/shape.length*by-dy*dz/(h*length)*bz*s;
+        const bend=1/(h*h*h*length)+1/(h*length*length*length),measured=shinFloorSupport(this.scale>1.1?'boss':'normal',shape.body==='frontShin'?'front':'back',s,dz,REFERENCE_STANCE.shin*s);
+        for(const [bx,by,bz] of measured.vertices){
+          const x=knee.x+dy/h*bx*s+dx/measured.length*by-dx*dz/(h*length)*bz*s;
+          const y=knee.y-dx/h*bx*s+dy/measured.length*by-dy*dz/(h*length)*bz*s;
           const gx=-dy*dy/(h*h*h)*bx*s+dy*dz*dx*bend*bz*s;
-          const gy=dx*dy/(h*h*h)*bx*s+by/shape.length+(-dz/(h*length)+dy*dy*dz*bend)*bz*s;
+          const gy=dx*dy/(h*h*h)*bx*s+by/measured.length+(-dz/(h*length)+dy*dy*dz*bend)*bz*s;
           samples.push({body:shape.body,x,y,knee,foot,gx,gy});
         }
       }
-      for(const [body,key] of [['frontShin','footF'],['backShin','footB']])for(const dx of [-.13,.13])samples.push({body,floorKey:key,x:p[key].x+dx*s,y:p[key].y-.075,jy:p[key].jy});
+      for(const side of ['front','back'])for(const v of state.feet[side].hull)samples.push({body:side+'Foot',floorKey:side==='front'?'footF':'footB',x:v.x,y:v.y,jy:v.jy});
     }
     const weapon=getWeapon(this.equipment),width=weapon.shaftWidth??.034;
     if(state.weaponCurve)for(let i=0;i<4;i++)appendFloorPanel(samples,'weapon',state.weaponCurve[i],state.weaponCurve[i+1],width);
@@ -640,9 +683,20 @@ export class ArticulatedRig{
     if(wants('offForearm'))panels.push(createPanel('offForearm',p.offElbow,p.offHand,.17,this.twoHanded||external?(this.depth.offElbow+this.depth.offHand)/2:-.10,
       .15+Math.max(0,Math.abs(this.depth.offHand-this.depth.offElbow)-(this.twoHanded?0:.02))));
     if(wants('frontThigh'))panels.push(createPanel('frontThigh',p.frontHip,p.kneeF,.19,.19,.18));
-    if(wants('frontShin'))panels.push(createPanel('frontShin',p.kneeF,p.footF,.18,.19,.18));
+    if(wants('frontShin'))panels.push(createPanel('frontShin',p.kneeF,p.ankleF,.18,.19,.18));
     if(wants('backThigh'))panels.push(createPanel('backThigh',p.backHip,p.kneeB,.20,-.17,.18));
-    if(wants('backShin'))panels.push(createPanel('backShin',p.kneeB,p.footB,.17,-.17,.18));
+    if(wants('backShin'))panels.push(createPanel('backShin',p.kneeB,p.ankleB,.17,-.17,.18));
+    for(const side of ['front','back'])if(wants(side+'Foot')){
+      const f=state.feet[side],z=this.depth[side==='front'?'ankleF':'ankleB']+this.dir*(f.shape.minZ+f.shape.maxZ)/2*this.scale;
+      const panel=createPanel(side+'Foot',f.rear,f.front,f.shape.height*this.scale,z,(f.shape.maxZ-f.shape.minZ)*this.scale);
+      if(!asSolids){panel.vertices=f.hull.map(v=>({x:v.x,y:v.y}));panel.axes.push(...f.hull.map((v,i)=>{const w=f.hull[(i+1)%f.hull.length],dx=w.x-v.x,dy=w.y-v.y,length=Math.hypot(dx,dy);return {x:-dy/length,y:dx/length};}));
+        panel.minX=Math.min(...f.hull.map(v=>v.x));panel.maxX=Math.max(...f.hull.map(v=>v.x));panel.minY=Math.min(...f.hull.map(v=>v.y));panel.maxY=Math.max(...f.hull.map(v=>v.y));}
+      else for(let i=0;i<2;i++){
+        const axis=panel.axes[i];
+        panel.half[i]=Math.max(...f.hull.map(v=>Math.abs((v.x-panel.center.x)*axis.x+(v.y-panel.center.y)*axis.y)));
+      }
+      panels.push(panel);
+    }
     const swordLength=!onlyKey||onlyKey==='weapon'||onlyKey==='weapon-head'||onlyKey==='main-palm'?distance(p.mainHand,p.tip):0;
     if(state.weaponCurve&&(!onlyKey||onlyKey==='weapon'||onlyKey.startsWith('weapon-flex-'))){
       const curve=state.weaponCurve;
@@ -673,7 +727,8 @@ export class ArticulatedRig{
       const hand=createPanel('weapon',palm(-.073147),palm(.072433),.127148*s,this.depth.mainHand+.007362*s,.14271*s,'main-palm');hand.material='wood';panels.push(hand);
     }
     if(!wants('off-palm'))return this.#attachedPanels(panels);
-    const offVector=this.twoHanded?{x:p.tip.x-p.mainHand.x,y:p.tip.y-p.mainHand.y,z:this.depth.tip-this.depth.mainHand}:this.defenseLength>0?{x:p.defenseTip.x-p.offHand.x,y:p.defenseTip.y-p.offHand.y,z:this.depth.defenseTip-this.depth.offHand}:{x:p.offHand.x-p.offElbow.x,y:p.offHand.y-p.offElbow.y,z:this.depth.offHand-this.depth.offElbow};
+    const handDirection=this.defenseLength>0?knifeHandDirection({...p.offHand,z:this.depth.offHand},{...p.defenseTip,z:this.depth.defenseTip},this.equipment.knifeGrip):null;
+    const offVector=this.twoHanded?{x:p.tip.x-p.mainHand.x,y:p.tip.y-p.mainHand.y,z:this.depth.tip-this.depth.mainHand}:handDirection?{x:handDirection.x-p.offHand.x,y:handDirection.y-p.offHand.y,z:handDirection.z-this.depth.offHand}:{x:p.offHand.x-p.offElbow.x,y:p.offHand.y-p.offElbow.y,z:this.depth.offHand-this.depth.offElbow};
     const offLength=Math.hypot(offVector.x,offVector.y)||1,ox=offVector.x/offLength,oy=offVector.y/offLength;
     const spatialLength=Math.hypot(offLength,offVector.z),c=offLength/spatialLength,uz=offVector.z/spatialLength;
     const alongMin=-.075001*c+Math.min(.042*uz,-.057617*uz),alongMax=.099982*c+Math.max(.042*uz,-.057617*uz);
@@ -732,8 +787,15 @@ export class ArticulatedRig{
   }
 
   #projectFloorVelocity(L,state,h=RIG_STEP){
-    const {rows,values}=this.#contactRows(state,true,h,false),delta=this.#unilateralDelta(L,rows,values,this.#floorInequalities(state,true,h));
+    const reactions={}, {rows,values,footRows}=this.#contactRows(state,true,h,false),delta=this.#unilateralDelta(L,rows,values,this.#floorInequalities(state,true,h),reactions);
+    for(const c of this.contacts)c.groundReaction=(c.groundReaction??0)+(reactions[c.key]??0)/h;
+    this.#recordTangentialReaction(footRows,reactions.constraints,h);
     for(let i=0;i<N;i++)this.velocity[i]+=delta[i];
+  }
+
+  #recordTangentialReaction(footRows,lambda,h=RIG_STEP){
+    for(const row of footRows){const contact=this.contacts.find(c=>c.key===row.key);if(contact)contact.tangentReaction=(contact.tangentReaction??0)+(lambda[row.index]??0)/h;}
+    this.lastReaction=['footF','footB'].flatMap(key=>{const contact=this.contacts.find(c=>c.key===key);return [contact?.tangentReaction??0,contact?.groundReaction??0];});
   }
 
   #projectPositions(L){
@@ -784,6 +846,7 @@ export class ArticulatedRig{
   }
 
   #substep(h){
+    for(const c of this.contacts){c.groundReaction=0;c.tangentReaction=0;}
     this.lastSelfContactImpulse=0;
     if(this.weaponFlex&&this.isBodyAttached('weapon'))this.weaponFlex.advance(h,{preservePrevious:true});
     this.#gaitStep(h);
@@ -792,7 +855,21 @@ export class ArticulatedRig{
     // Pelvis/torso are serial joints of an inverted pendulum. Their combined
     // stiffness must exceed the gravitational load gradient of the filled head;
     // independently soft springs otherwise settle against both angular stops.
-    const state=this.#kinematics(),M=this.#matrix(state),K=[500,1800,420,300,24,14,20,13,60,45,60,45,100,26];
+    const state=this.#kinematics(),M=this.#matrix(state),K=[0,0,420,300,24,14,20,13,60,45,60,45,100,26,60,60];
+    const motorTarget=this.target.slice();
+    if(this.gait.swing){
+      const progress=this.gait.swing.time/this.gait.swing.duration,start=this.gait.stanceBase+(this.gait.balanceOffset??0);
+      motorTarget[0]=start+(this.target[0]-start)*progress;
+    }
+    for(const c of this.contacts)if(!c.stance){
+      const front=c.key==='footF',hi=front?8:10,ki=hi+1,ai=front?14:15,hip=state.points[front?'frontHip':'backHip'];
+      const goalHip=c.stance?{x:motorTarget[0]+this.dir*(front?1:-1)*REFERENCE_STANCE.hipSocket*this.scale,y:motorTarget[1]}:hip;
+      const x=this.dir*(c.x-goalHip.x),y=c.y+.06*this.scale-goalHip.y,l1=REFERENCE_STANCE.thigh*this.scale,l2=REFERENCE_STANCE.shin*this.scale,d=clamp(Math.hypot(x,y),.001,l1+l2-.001);
+      const knee=-Math.acos(clamp((d*d-l1*l1-l2*l2)/(2*l1*l2),-1,1)),leg=Math.atan2(y,x)-Math.atan2(l2*Math.sin(knee),l1+l2*Math.cos(knee));
+      motorTarget[hi]=clamp(leg-this.q[2],...this.limits[hi]);motorTarget[ki]=clamp(knee,...this.limits[ki]);
+      const t=this.gait.swing?this.gait.swing.time/this.gait.swing.duration:0,roll=c.stance?0:.20*Math.sin(2*PI*t);
+      motorTarget[ai]=clamp(roll-leg-knee-PI/2,...this.limits[ai]);if(!c.stance){K[hi]=260;K[ki]=220;}
+    }
     const gravity=new Float64Array(N),bias=new Float64Array(N),feedforward=new Float64Array(N),epsilon=1e-5;
     const advanced=Float64Array.from(this.q,(q,i)=>q+this.velocity[i]*epsilon),next=this.#kinematics(advanced);
     for(let b=0;b<state.bodies.length;b++){
@@ -821,13 +898,31 @@ export class ArticulatedRig{
       const joint=this.jointDamage[names[i]];if(joint?.damage)K[i]*=Math.max(i===2||i===3?.8:.45,1-.55*joint.damage);
       if(this.detachedCoordinates.has(i)){K[i]=0;feedforward[i]=0;this.velocity[i]=0;}
       if(this.fragments.length&&this.contacts.length===0){feedforward[i]=0;if(i<2)K[i]=0;}
-      const damping=this.passive?PASSIVE_DRAG[i]*Math.sqrt(M[i][i]):1.8*Math.sqrt(K[i]*M[i][i]),error=this.target[i]-this.q[i];
+      // Existing elastic coordinates ring briefly only when a physical impulse
+      // excites them; no separate oscillator adds displacement or energy.
+      const impactAge=Math.hypot(this.lastImpulse?.impulse.x??0,this.lastImpulse?.impulse.y??0)>1e-12?this.time-(this.lastImpulse.time??-Infinity):Infinity,dampingRatio=impactAge<.12&&[4,5,13].includes(i)?1.25:1.8;
+      const damping=this.passive?PASSIVE_DRAG[i]*Math.sqrt(M[i][i]):dampingRatio*Math.sqrt(K[i]*M[i][i]),error=motorTarget[i]-this.q[i];
       const desiredVelocity=!this.passive&&i===0?this.intentVX:0;
       A[i][i]+=h*damping+h*h*K[i];
       rhs[i]=dot(M[i],this.velocity)+h*(K[i]*error+damping*desiredVelocity+gravity[i]-bias[i]+feedforward[i]);
       this.lastMotor[i]=this.passive?0:K[i]*error+damping*(desiredVelocity-this.velocity[i])+feedforward[i];
     }
-    this.velocity=solve(factor(A),rhs);
+    // Pelvis positioning is an internal hip-to-foot actuator. Its equal and
+    // opposite endpoint forces leave the two free base coordinates unforced;
+    // only a real floor contact can support or propel the whole body.
+    const supports=this.contacts.filter(c=>c.stance&&state.feet[c.key==='footF'?'front':'back'].support.y<=TABLE_TOP+.002);
+    if(!this.passive)for(const contact of supports)for(const axis of ['x','y']){
+      const j=axis==='x'?'jx':'jy',foot=state.points[contact.key],hip=state.points.hip,row=Float64Array.from(hip[j],(v,i)=>v-foot[j][i]);
+      const strength=(axis==='x'?500:1800)*this.scale**3/supports.length,damping=2*Math.sqrt(strength*state.bodies.reduce((sum,b)=>sum+b.mass,0)/supports.length);
+      const desired=motorTarget[axis==='x'?0:1]-contact[axis],error=desired-(hip[axis]-foot[axis]),speed=axis==='x'?this.intentVX:0;
+      const supportWeight=axis==='y'?-this.gravity*state.bodies.reduce((sum,b)=>sum+b.mass,0)/supports.length:0;
+      for(let i=2;i<N;i++){
+        rhs[i]+=h*row[i]*(strength*error+damping*speed+supportWeight);
+        this.lastMotor[i]+=row[i]*(strength*error+damping*(speed-dot(row,this.velocity))+supportWeight);
+        for(let k=2;k<N;k++)A[i][k]+=(h*damping+h*h*strength)*row[i]*row[k];
+      }
+    }
+    const velocityFactor=factor(A);this.velocity=solve(velocityFactor,rhs);
     for(let i=0;i<N;i++){
       const speed=this.passive?(i<2?2:6):(i<2?4:14);this.velocity[i]=clamp(this.velocity[i],-speed,speed);
     }
@@ -837,17 +932,21 @@ export class ArticulatedRig{
       const proposed=this.q[i]+h*this.velocity[i],bounded=clamp(proposed,this.limits[i][0],this.limits[i][1]);
       if(proposed!==bounded){const row=STOP_ROWS[i][1];contacts.rows.push(row);contacts.values.push((bounded-this.q[i])/h-this.velocity[i]);}
     }
-    const reaction=this.#constraintDelta(massFactor,contacts.rows,contacts.values);
+    // The integrated constraints share the implicit motor/damping metric A.
+    // A later instantaneous impulse and position repair still use physical M.
+    const reaction=this.#constraintDelta(velocityFactor,contacts.rows,contacts.values);
+    this.#recordTangentialReaction(contacts.footRows,reaction.lambda,h);
     for(let i=0;i<N;i++)this.velocity[i]+=reaction.delta[i];
-    this.#projectFloorVelocity(massFactor,state,h);
+    this.#projectFloorVelocity(velocityFactor,state,h);
     for(let i=0;i<N;i++)this.q[i]+=h*this.velocity[i];
-    this.lastReaction=Array.from(reaction.lambda.slice(0,4),value=>value/h);this.lastGravity.set(gravity);
+    this.lastGravity.set(gravity);
     this.#projectPositions(massFactor);
     // Remove residual normal/tangential drift after nonlinear position repair.
-    const after=this.#kinematics(),correction=this.#contactRows(after,true,h,false),settled=this.#constraintDelta(massFactor,correction.rows,correction.values);
+    const after=this.#kinematics(),correction=this.#contactRows(after,true,h,false),settled=this.#constraintDelta(velocityFactor,correction.rows,correction.values);
+    this.#recordTangentialReaction(correction.footRows,settled.lambda,h);
     for(let i=0;i<N;i++)this.velocity[i]+=settled.delta[i];
     this.#projectSelfVelocity(massFactor,after);
-    this.#projectFloorVelocity(massFactor,after,h);
+    this.#projectFloorVelocity(velocityFactor,after,h);
     this.#limitNeck();
     this.#advanceApron(h,this.#kinematics());
     this.time+=h;
@@ -953,16 +1052,16 @@ export class ArticulatedRig{
     const steps=Math.max(1,Math.min(128,Math.ceil(rotation/.01+Math.hypot(to.x-from.x,to.y-from.y,(to.z??0)-(from.z??0))/.025)));
     const position=t=>({x:from.x+(to.x-from.x)*t,y:from.y+(to.y-from.y)*t,z:(from.z??0)+((to.z??0)-(from.z??0))*t});
     const local=(p,panel)=>[...panel.axes.map(axis=>(p.x-panel.center.x)*axis.x+(p.y-panel.center.y)*axis.y),(p.z??0)-panel.z];
-    const half=panel=>[...panel.axes.map(axis=>Math.max(...panel.vertices.map(p=>Math.abs((p.x-panel.center.x)*axis.x+(p.y-panel.center.y)*axis.y)))),panel.depth/2];
+    const bounds=panel=>[...panel.axes.map(axis=>{const projected=panel.vertices.map(p=>(p.x-panel.center.x)*axis.x+(p.y-panel.center.y)*axis.y);return [Math.min(...projected),Math.max(...projected)];}),[-panel.depth/2,panel.depth/2]];
     for(let k=0;k<steps;k++){
       const t0=k/steps,t1=(k+1)/steps,A=at(t0),B=at(t1),p=position(t0),q=position(t1);let best=null;
       for(let index=0;index<A.length;index++){
         const a=A[index],b=B[index];if(a.body==='weapon'&&a.material!=='wood')continue;
-        const x=local(p,a),y=local(q,b),ha=half(a),hb=half(b);let enter=0,exit=1,valid=true;
-        for(let axis=0;axis<3;axis++){
-          const h=Math.max(ha[axis],hb[axis]),speed=y[axis]-x[axis];
-          if(Math.abs(speed)<1e-12){if(Math.abs(x[axis])>h+1e-10){valid=false;break;}continue;}
-          let lo=(-h-x[axis])/speed,hi=(h-x[axis])/speed;if(lo>hi)[lo,hi]=[hi,lo];enter=Math.max(enter,lo);exit=Math.min(exit,hi);
+        const x=local(p,a),y=local(q,b),ha=bounds(a),hb=bounds(b);let enter=0,exit=1,valid=true;
+        for(let axis=0;axis<x.length;axis++){
+          const min=Math.min(ha[axis][0],hb[axis][0]),max=Math.max(ha[axis][1],hb[axis][1]),speed=y[axis]-x[axis];
+          if(Math.abs(speed)<1e-12){if(x[axis]<min-1e-10||x[axis]>max+1e-10){valid=false;break;}continue;}
+          let lo=(min-x[axis])/speed,hi=(max-x[axis])/speed;if(lo>hi)[lo,hi]=[hi,lo];enter=Math.max(enter,lo);exit=Math.min(exit,hi);
           if(enter>exit+1e-12){valid=false;break;}
         }
         if(valid&&exit>=0&&enter<=1){const t=t0+(t1-t0)*Math.max(0,enter);if(!best||t<best.t)best={t,point:position(t),body:a.body,key:a.key,material:'wood'};}
@@ -1106,55 +1205,103 @@ export class ArticulatedRig{
     return jacobian?{x:dot(jacobian.jx,this.velocity),y:dot(jacobian.jy,this.velocity)}:null;
   }
 
-  effectiveInverseMass({body='weapon',point:hit,normal}={}){
-    const state=this.#kinematics(),jacobian=this.#pointJacobian(state,body,hit);
-    if(!jacobian||!normal||![normal.x,normal.y].every(Number.isFinite))return 0;
-    const length=Math.hypot(normal.x,normal.y);if(!Number.isFinite(length)||length<1e-8)return 0;
-    const nx=normal.x/length,ny=normal.y/length;
-    const generalized=Float64Array.from(jacobian.jx,(value,i)=>value*nx+jacobian.jy[i]*ny);
-    const L=this.#massFactor(state),delta=solve(L,generalized),rows=this.#contactRows(state).rows;
-    const constrained=this.#constraintDelta(L,rows,rows.map(row=>-dot(row,delta)));
-    for(let i=0;i<N;i++)delta[i]+=constrained.delta[i];
-    return Math.max(0,dot(generalized,delta));
+  effectiveInverseMass(options={}){return this.contactInertia(options)?.normal??0;}
+
+  contactInertia({body='weapon',point,normal,impulse}={}){
+    if(!normal||![normal.x,normal.y].every(Number.isFinite))return null;
+    const length=Math.hypot(normal.x,normal.y);if(length<1e-8)return null;
+    // Without a supplied total, this compatibility query asks for the local
+    // directional response. A unit probe could reach a distant predictive stop
+    // and report its inertia even in otherwise unconstrained free flight.
+    const trial=this.trialContactImpulse({body,point,normal,impulse:impulse??{x:normal.x/length*1e-6,y:normal.y/length*1e-6},compact:true});
+    return trial?{normal:trial.normal,tangent:trial.tangent,cross:trial.cross}:null;
   }
 
-  contactInertia({body='weapon',point:hit,normal}={}){
+  // A signed TOTAL impulse chooses one unilateral active set. Trial and apply
+  // share initial velocity, gap allowances and anchor stabilization. A query
+  // never installs a trial velocity or changes public reaction telemetry.
+  trialContactImpulse({body='weapon',point:hit,normal={x:1,y:0},impulse,compact=false}={}){
     const state=this.#kinematics(),jacobian=this.#pointJacobian(state,body,hit);
-    if(!jacobian||!normal||![normal.x,normal.y].every(Number.isFinite))return null;
+    if(!jacobian||!normal||!impulse||![normal.x,normal.y,impulse.x,impulse.y].every(Number.isFinite))return null;
     const length=Math.hypot(normal.x,normal.y);if(length<1e-8||!Number.isFinite(length))return null;
-    const nx=normal.x/length,ny=normal.y/length;
-    const normalRow=Float64Array.from(jacobian.jx,(value,i)=>value*nx+jacobian.jy[i]*ny);
-    const tangentRow=Float64Array.from(jacobian.jx,(value,i)=>-value*ny+jacobian.jy[i]*nx);
-    // Both directions use this one pose, Jacobian and mass factor. Nothing is
-    // cached across impulses or projections, which can change the supports.
-    const L=this.#massFactor(state),rows=this.#contactRows(state).rows;
-    const response=row=>{
-      const delta=solve(L,row),reaction=this.#constraintDelta(L,rows,rows.map(row=>-dot(row,delta)));
-      for(let i=0;i<N;i++)delta[i]+=reaction.delta[i];return delta;
+    let px=clamp(impulse.x,-5,5),py=clamp(impulse.y,-5,5);
+    const magnitude=Math.hypot(px,py);if(magnitude>5){px*=5/magnitude;py*=5/magnitude;}
+    const {jx,jy}=jacobian,nx=normal.x/length,ny=normal.y/length,L=this.#massFactor(state),initial=this.velocity;
+    const generalized=Float64Array.from(jx,(value,i)=>value*px+jy[i]*py),free=solve(L,generalized);
+    const unconstrained=Float64Array.from(initial,(value,i)=>value+free[i]);
+    const contacts=this.#contactRows(state,true,RIG_STEP,false),footByRow=new Map(contacts.footRows.map(r=>[r.index,r.key]));
+    const inequalities=this.#floorInequalities(state,true,RIG_STEP).map(c=>({...c,value:c.value-dot(c.row,free)}));
+    const released=new Set();let rows,values,footRows,reactions,correction;
+    // Tangential anchors need compressive impulse support. An unloaded foot
+    // releases its anchor for this impulse, without re-sticking during that
+    // same impulse. The monotone policy terminates after at most two releases.
+    for(let pass=0;pass<=contacts.footRows.length;pass++){
+      rows=[];values=[];footRows=[];
+      for(let i=0;i<contacts.rows.length;i++){
+        const key=footByRow.get(i);if(key&&released.has(key))continue;
+        if(key)footRows.push({key,index:rows.length});rows.push(contacts.rows[i]);values.push(contacts.values[i]-dot(contacts.rows[i],free));
+      }
+      reactions={captureActive:true};correction=this.#unilateralDelta(L,rows,values,inequalities,reactions);
+      const unloaded=footRows.filter(r=>!(reactions[r.key]>1e-10));if(!unloaded.length)break;
+      for(const r of unloaded)released.add(r.key);
+    }
+    const velocity=Float64Array.from(unconstrained,(value,i)=>value+correction[i]);
+    const active=reactions.active??[],activeRows=active.map(a=>inequalities[a.index].row);
+    const equalityResponse=row=>{
+      const free=solve(L,row),reaction=this.#constraintDelta(L,rows,rows.map(r=>-dot(r,free)));
+      return Float64Array.from(free,(value,i)=>value+reaction.delta[i]);
     };
-    const normalDelta=response(normalRow),tangentDelta=response(tangentRow);
-    return {normal:Math.max(0,dot(normalRow,normalDelta)),tangent:Math.max(0,dot(tangentRow,tangentDelta)),cross:dot(normalRow,tangentDelta)};
+    // Both columns are projected through this SAME set, using the exact Schur
+    // regularization of the trial solve. No separate one-sided columns or PSD
+    // clamp can substitute for this common symmetric mass-metric projector.
+    const activeResponses=activeRows.map(equalityResponse),activeFactor=active.length?factor(activeRows.map((row,i)=>Float64Array.from(activeRows,(_,j)=>dot(row,activeResponses[j])+(i===j?1e-10:0)))):null;
+    const response=row=>{
+      const result=equalityResponse(row);if(!activeFactor)return result;
+      const lambda=solve(activeFactor,activeRows.map(r=>-dot(r,result)));
+      for(let j=0;j<active.length;j++)for(let i=0;i<N;i++)result[i]+=activeResponses[j][i]*lambda[j];return result;
+    };
+    const normalRow=Float64Array.from(jx,(value,i)=>value*nx+jy[i]*ny),tangentRow=Float64Array.from(jx,(value,i)=>-value*ny+jy[i]*nx);
+    const normalDelta=response(normalRow),tangentDelta=response(tangentRow),M=this.#matrix(state),energy=v=>.5*v.reduce((sum,value,i)=>sum+value*dot(M[i],v),0);
+    const multipliers=new Map(active.map(a=>[a.index,a.lambda]));
+    let diagnostics;
+    if(compact){
+      // Runtime needs complementarity, not owned copies of every 16-entry
+      // row. Keep the rich default for inspection and independent oracles.
+      let minMultiplier=Infinity,minSlack=Infinity,maxComplementarity=0;
+      for(let index=0;index<inequalities.length;index++){
+        const c=inequalities[index],multiplier=multipliers.get(index)??0,slack=dot(c.row,correction)-c.value;
+        minMultiplier=Math.min(minMultiplier,multiplier);minSlack=Math.min(minSlack,slack);
+        maxComplementarity=Math.max(maxComplementarity,Math.abs(multiplier*slack));
+      }
+      diagnostics={constraintSummary:{minMultiplier,minSlack,maxComplementarity}};
+    }else diagnostics={constraints:inequalities.map((c,index)=>({index,foot:c.floorKey??null,multiplier:multipliers.get(index)??0,
+      slack:dot(c.row,correction)-c.value,row:Array.from(c.row),targetVelocity:c.value+dot(c.row,unconstrained)}))};
+    return {velocity,deltaVelocity:Float64Array.from(velocity,(value,i)=>value-initial[i]),impulse:{x:px,y:py},generalized:Array.from(generalized),
+      pointVelocityBefore:{x:dot(jx,initial),y:dot(jy,initial)},pointVelocityAfter:{x:dot(jx,velocity),y:dot(jy,velocity)},
+      normal:dot(normalRow,normalDelta),tangent:dot(tangentRow,tangentDelta),cross:dot(normalRow,tangentDelta),
+      energyBefore:energy(initial),energyAfter:energy(velocity),releasedFeet:[...released],footRows:footRows.map(r=>({...r})),constraintImpulses:reactions.constraints.slice(),
+      groundImpulses:{footF:reactions.footF??0,footB:reactions.footB??0},activeSet:active.map(a=>a.index),...diagnostics};
   }
 
   reactImpulse({point:hit,impulse,body='weapon'}={}){
-    const state=this.#kinematics(),jacobian=this.#pointJacobian(state,body,hit);
-    if(!jacobian||!impulse||![impulse.x,impulse.y].every(Number.isFinite))return false;
-    const {jx,jy}=jacobian;
-    let px=clamp(impulse.x,-5,5),py=clamp(impulse.y,-5,5);
-    const magnitude=Math.hypot(px,py);if(magnitude>5){px*=5/magnitude;py*=5/magnitude;}
-    const generalized=Float64Array.from(jx,(value,i)=>value*px+jy[i]*py);
-    const L=this.#massFactor(state),delta=solve(L,generalized);
-    for(let i=0;i<N;i++)this.velocity[i]+=delta[i];
-    const contacts=this.#contactRows(state,true,RIG_STEP,false),reaction=this.#constraintDelta(L,contacts.rows,contacts.values);
-    for(let i=0;i<N;i++)this.velocity[i]+=reaction.delta[i];
-    this.#projectFloorVelocity(L,state);
-    this.lastImpulse={body,point:{x:hit.x,y:hit.y},impulse:{x:px,y:py},generalized:Array.from(generalized)};
+    const trial=this.trialContactImpulse({body,point:hit,impulse,compact:true});if(!trial)return false;
+    this.velocity.set(trial.velocity);
+    for(const c of this.contacts)c.groundReaction=(c.groundReaction??0)+(trial.groundImpulses[c.key]??0)/RIG_STEP;
+    this.#recordTangentialReaction(trial.footRows,trial.constraintImpulses);
+    this.lastImpulse={body,point:{x:hit.x,y:hit.y},impulse:{...trial.impulse},generalized:trial.generalized.slice(),time:this.time};
     return true;
   }
 
   pose(){
     const state=this.#kinematics(),pose={};
     for(const [key,p] of Object.entries(state.points))pose[key]={x:p.x,y:p.y,z:this.depth[key]??0};
+    pose.feet={};
+    for(const [side,suffix] of [['front','F'],['back','B']]){
+      const f=state.feet[side],a=f.angle,c=Math.cos(a),sn=Math.sin(a),z=this.depth['ankle'+suffix],s=this.scale;
+      const position=p=>({x:p.x,y:p.y,z:z+this.dir*(f.shape.minZ+f.shape.maxZ)/2*s});pose['foot'+suffix].z=position(f.center).z;
+      pose.feet[side]={matrix:new Float64Array([this.dir*c*s,sn*s,0,0,-this.dir*sn*s,c*s,0,0,0,0,this.dir*s,0,f.ankle.x,f.ankle.y,z,1]),
+        heel:position(f.heel),toe:position(f.toe),center:position(f.center),support:position(f.support),hull:f.hull.map(position),depth:(f.shape.maxZ-f.shape.minZ)*s,height:f.shape.height*s,angle:a,stance:this.isBodyAttached(side+'Foot')&&f.support.y<=TABLE_TOP+.002,groundReaction:this.contacts.find(c=>c.key==='foot'+suffix)?.groundReaction??0};
+    }
     pose.neckPivot={...pose.shoulder,z:this.depth.head};
     pose.head.z=this.depth.head+REFERENCE_STANCE.neck*this.scale*Math.sin(this.neckLateral.angle);
     pose.headBaseZ=this.depth.head;pose.neckYawTarget=this.neckLateral.target;pose.neckLateral={...this.neckLateral};
@@ -1175,7 +1322,9 @@ export class ArticulatedRig{
     const selfContacts=this.#selfContacts(state).map(c=>({...c,normalVelocity:dot(this.#selfContactRow(state,c),this.velocity)}));
     return {passive:this.passive,neckLateral:{...this.neckLateral},minimumWeaponY:Math.min(...this.#floorSamples(state).filter(p=>p.body==='weapon').map(p=>p.y)),minimumGroundY:Math.min(...this.#floorSamples(state).map(p=>p.y)),coordinates:names.map((name,i)=>({name,position:this.q[i],velocity:this.velocity[i],target:this.target[i],min:this.limits[i][0],max:this.limits[i][1]})),
       bodies:state.bodies.map(b=>({name:b.name,mass:b.mass,inertia:b.inertia,center:{x:b.center.x,y:b.center.y}})),massMatrix:M.map(row=>Array.from(row)),
-      contacts:this.contacts.map(c=>({...c,error:distance(c,state.points[c.key])})),waterLoad:{...this.waterLoad,offset:{...this.waterLoad.offset}},time:this.time,
+      contacts:this.contacts.map(c=>{const f=state.feet[c.key==='footF'?'front':'back'],p=f.support,anchor=c.x+this.dir*p.localX*this.scale;
+        const grounded=p.y<=TABLE_TOP+.002;
+        return {...c,support:{x:p.x,y:p.y},supportX:anchor,grounded,error:c.stance&&grounded?Math.abs(p.x-anchor):0,targetError:distance(c,state.points[c.key])};}),waterLoad:{...this.waterLoad,offset:{...this.waterLoad.offset}},time:this.time,
       kineticEnergy:.5*this.velocity.reduce((sum,v,i)=>sum+v*dot(M[i],this.velocity),0),gravityTorque:Array.from(this.lastGravity),motorTorque:Array.from(this.lastMotor),
       contactReaction:this.lastReaction.slice(),lastImpulse:this.lastImpulse,droppedTime:this.droppedTime||0,
       selfContacts,maxSelfPenetration:Math.max(0,...selfContacts.map(c=>c.penetration)),selfContactImpulse:this.lastSelfContactImpulse};

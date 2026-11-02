@@ -1,5 +1,5 @@
-import {matrixCamera} from './matrix-camera.js';
-export {burstCameraFocus} from './matrix-camera.js';
+import {directedBurstCamera,ceremonyCamera} from './shot-direction.js';
+export {directedBurstFocus as burstCameraFocus} from './shot-direction.js';
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 const smooth=v=>{const t=clamp(v,0,1);return t*t*t*(t*(t*6-15)+10);};
 const envelope=[];
@@ -8,7 +8,7 @@ for(const x of [-3.7,3.7])for(const y of [.3245,3.8])for(const z of [-.6,.6])env
 /** The entry crane and round bridge share the same staging pose at a given
  * simulation clock. No render history or extra simulation is required. */
 export function cinematicCamera(options={}){
-  const base=matrixCamera(options);
+  const base=directedBurstCamera(options);
   if(options.reducedMotion||options.cameraMode==='detail'||options.phase==='fight')return base;
   const time=Number.isFinite(options.phaseClock)?Math.max(0,options.phaseClock):0;
   const clock=Number.isFinite(options.clock)?Math.max(0,options.clock):0;
@@ -36,5 +36,5 @@ export function cinematicCamera(options={}){
     const x=point[0]-target[0],y=point[1]-target[1],z=point[2]-target[2],depth=x*forward[0]+y*forward[1]+z*forward[2];
     distance=Math.max(distance,Math.abs(x*right[0]+y*right[1]+z*right[2])/(tangent*aspect*.93)-depth,Math.abs(x*up[0]+y*up[1]+z*up[2])/(tangent*.85)-depth);
   }
-  return {...base,eye:target.map((v,i)=>v+direction[i]*distance),target,fov,far:Math.max(base.far,distance+32),motionWeight:Math.max(staging,arc)};
+  return ceremonyCamera({...base,eye:target.map((v,i)=>v+direction[i]*distance),target,fov,far:Math.max(base.far,distance+32),motionWeight:Math.max(staging,arc)},options);
 }

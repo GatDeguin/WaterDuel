@@ -16,10 +16,13 @@ export function completeWorkshopLighting(contract,frames,surroundings){
   return {contract:{...contract,lighting:{...contract.lighting,hints:[...contract.lighting.hints,...hints]}},frames:{...frames,lights:[...frames.lights,...lights]}};
 }
 
-export async function loadWorkshopSurroundings(baseURL,{signal,fetchImpl=globalThis.fetch}={}){
-  const response=await fetchImpl(new URL('workshop-360.json',baseURL),{signal});
+export async function loadWorkshopSurroundings(baseURL,{signal,fetchImpl=globalThis.fetch,revision=1}={}){
+  if(revision!==1&&revision!==4)throw Error('Revisión de cerramiento del taller desconocida.');
+  const stem=revision===4?'workshop-360-v4':'workshop-360';
+  const response=await fetchImpl(new URL(stem+'.json',baseURL),{signal});
   if(!response.ok)throw Error('No se pudo cargar el contrato del taller 360°.');
   const contract=validateWorkshopSurroundings(await response.json());
-  const source=await loadGLB(new URL('workshop-360.glb',baseURL),{signal,fetchImpl});
+  if(revision===4&&(contract.version!==4||contract.asset!==stem+'.glb'))throw Error('El contrato del cerramiento no corresponde a la revisión v4.');
+  const source=await loadGLB(new URL(stem+'.glb',baseURL),{signal,fetchImpl});
   return {contract,source:batchStaticAsset(source)};
 }

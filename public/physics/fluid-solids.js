@@ -24,8 +24,8 @@ function panelSolid(panel){
 // come from its actual frames, so boss proportions and shoulder/hip offsets
 // participate without a normal-size, whole-body reach constant.
 const parentBody={torso:'pelvis',neck:'torso',mainUpper:'torso',mainForearm:'mainUpper',weapon:'mainForearm',
-  offUpper:'torso',offForearm:'offUpper',offWeapon:'offForearm',frontThigh:'pelvis',frontShin:'frontThigh',backThigh:'pelvis',backShin:'backThigh'};
-const bodyJoint={pelvis:2,torso:3,neck:12,mainUpper:4,mainForearm:5,weapon:13,offUpper:6,offForearm:7,offWeapon:7,frontThigh:8,frontShin:9,backThigh:10,backShin:11};
+  offUpper:'torso',offForearm:'offUpper',offWeapon:'offForearm',frontThigh:'pelvis',frontShin:'frontThigh',frontFoot:'frontShin',backThigh:'pelvis',backShin:'backThigh',backFoot:'backShin'};
+const bodyJoint={pelvis:2,torso:3,neck:12,mainUpper:4,mainForearm:5,weapon:13,offUpper:6,offForearm:7,offWeapon:7,frontThigh:8,frontShin:9,backThigh:10,backShin:11,frontFoot:14,backFoot:15};
 function panelMotion(r,panel,solid,pose,before,extension){
   const translation={x:r.q[0]-before[0],y:r.q[1]-before[1],z:0},frames=pose.bodyFrames;
   const extending=panel.key==='weapon'?.5:panel.key==='weapon-head'?1:0;

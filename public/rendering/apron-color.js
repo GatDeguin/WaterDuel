@@ -32,7 +32,15 @@ const wetBounds=new WeakMap();
 export function apronSurfaceOverride(fighter,part,material){
   const dye=apronMaterialOverride(fighter,part,material),wet=fighter?.pose?.apron?.wetness;
   if(part?.accessory!=='apron'||!clothNames.has(material?.name)||!wet||!(wet.top>0||wet.bottom>0))return dye;
-  let bounds=wetBounds.get(part);
+  const cloth=fighter.pose.apron.cloth;
+  if(cloth?.revision===4&&part.apronPanel!==undefined){
+    // Dynamic vertices are in world space. Keep the two material regions tied
+    // to their rest triangles, rather than letting gravity move a wet boundary.
+    const triangle=cloth.triangles[part.apronPanel],middle=(cloth.rest[0][1]+cloth.rest[11][1])/2;
+    const region=triangle.reduce((sum,i)=>sum+cloth.rest[i][1]/3,0)>=middle?'top':'bottom',amount=Math.max(0,Math.min(1,wet[region]));
+    return {...dye,wetTop:amount,wetBottom:amount,wetMinY:0,wetMaxY:1};
+  }
+  let bounds=part.apronWetBounds??wetBounds.get(part);
   if(!bounds){let min=Infinity,max=-Infinity;for(let i=1;i<part.positions.length;i+=3){min=Math.min(min,part.positions[i]);max=Math.max(max,part.positions[i]);}bounds=[min,max];wetBounds.set(part,bounds);}
   return {...dye,wetTop:Math.max(0,Math.min(1,wet.top)),wetBottom:Math.max(0,Math.min(1,wet.bottom)),wetMinY:bounds[0],wetMaxY:bounds[1]};
 }

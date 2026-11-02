@@ -35,11 +35,16 @@ function stretchOf(membrane){
 }
 
 function feetOf(fighter,pose){
-  const feet={},contacts=fighter.rig?.contacts;
-  // Engine foot points are ankle/boot centers, .075 above TABLE_TOP. Grounded
-  // means the observed pose is near that physical support height, and any rig
-  // contact actually reports stance. Swinging support targets alone are not hits.
+  const feet={},contacts=fighter.rig?.contacts,physical=fighter.pose?.feet,hasPhysical=Object.hasOwn(fighter.pose??{},'feet');
   for(const key of FEET){
+    if(hasPhysical){
+      // N16 exports achieved hull support separately from its moving centre.
+      // Gait anchors are intentions; malformed physical data stays silent.
+      const foot=physical?.[key==='footF'?'front':'back'],support=foot?.support;
+      feet[key]={grounded:!!pose[key]&&foot?.stance===true&&finite(support?.x)&&finite(support?.y)&&finite(support?.z)&&Math.abs(support.y-TABLE_TOP)<=.002};
+      continue;
+    }
+    // Historical poses use .075-high proxy centres and optional stance targets.
     let support=null;
     if(Array.isArray(contacts))for(let i=0;i<Math.min(contacts.length,2);i++)if(contacts[i]?.key===key){support=contacts[i];break;}
     const floor=finite(support?.floor)?support.floor:STANDING_HEIGHT;

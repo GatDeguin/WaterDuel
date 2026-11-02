@@ -23,18 +23,23 @@ import {prepareCharacter,characterTransforms,detachedCharacterTransforms,prepare
 import {DetachedPoseMatrixCache} from './rendering/detached-pose-cache.js';
 import {bodyForBone,bodyVisible,equipmentBody,jointMarks,rigidRenderer,drawPartialMaulSupport} from './rendering/joint-damage.js';
 import {SHEEN_GLSL} from './rendering/sheen.js';
-import {prepareWorkshopLights} from './rendering/workshop-lights.js';
 import {prepareWorkshopMotion,splitWorkshopMotionAsset,environmentPartMatrix} from './rendering/workshop-motion.js';
 import {roomCamera as duelCamera,burstCameraFocus} from './rendering/room-camera.js';
-import {loadWorkshopSurroundings,completeWorkshopLighting} from './rendering/workshop-surroundings.js';
+import {loadWorkshopSurroundings} from './rendering/workshop-surroundings.js';
+import {loadWorkshopV4Metadata,prepareWorkshopV4Presets,createWorkshopV4VariantController} from './rendering/workshop-runtime-v4.js';
 import {effectBatches,EFFECT_LIMITS} from './workshop-effects.js';
 import {balloonPalette} from './opponent-loadouts.js';
 import {apronSurfaceOverride,apronProceduralColor} from './rendering/apron-color.js';
+import {apronEmblemBindings,deformApronGeometry,deformApronEmblem} from './rendering/apron-deform.js';
 import {batchStaticAsset} from './rendering/static-batches.js';
 import {FloatStream} from './rendering/float-stream.js';
 import {surfaceEmblem} from './rendering/emblems.js';
-import {drawCombatWear} from './rendering/combat-wear.js';
+import {drawCombatWear,drawJointDamageWear} from './rendering/combat-wear.js';
+import {characterResources} from './rendering/character-resources.js';
+import {proceduralFootMesh} from './rendering/physical-feet.js';
+import {physicalNeckMatrices} from './rendering/character-neck.js';
 import {batchRigidCharacter} from './rendering/rigid-batches.js';
+import {drawCampaignCeremony} from './rendering/campaign-ceremony.js';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const rgb=h=>[(h>>16&255)/255,(h>>8&255)/255,(h&255)/255];
 const I=()=>new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
@@ -564,9 +569,9 @@ export class Renderer3D {
   if(this.assetPromise)return this.assetPromise;
   this.assetAbort=new AbortController();this.assetStatus.loading=true;
   const jobs=[
-    ...[['mint','water-mannequin.glb'],['amber','water-mannequin-amber.glb'],['boss','water-mannequin-boss.glb']].map(([key,file])=>({kind:'character',key,label:{mint:'Mint Mamba',amber:'Amber Ace',boss:'Maestro Hidráulico'}[key],url:runtimeAsset(`characters/water-mannequin/v3/${file}`)})),
-    ...['sword','spear','axe','maul','short','long','knife'].map(key=>({kind:'equipment',key,label:key,url:runtimeAsset(`equipment/workshop/v2/${key}.glb`)})),
-    {kind:'environment',key:'workshop',label:'Taller',url:runtimeAsset('environment/workshop/workshop-runtime-v3.glb')},
+    ...[['mint','water-mannequin.glb'],['amber','water-mannequin-amber.glb'],['boss','water-mannequin-boss.glb']].map(([key,file])=>({kind:'character',key,label:{mint:'Mint Mamba',amber:'Amber Ace',boss:'Maestro Hidráulico'}[key],url:runtimeAsset(`characters/water-mannequin/v4/${file}`)})),
+    ...['sword','spear','axe','maul','short','long','knife'].map(key=>({kind:'equipment',key,label:key,url:runtimeAsset(`equipment/workshop/v3/${key}.glb`)})),
+    {kind:'environment',key:'workshop',label:'Taller',url:runtimeAsset('environment/workshop/workshop-runtime-v4.glb')},
   ];
   const publish=()=>{this.assetStatus.gpuBytesApprox=this.assetGPU.bytes;onStatus({...this.assetStatus,names:[...this.assetStatus.names],errors:[...this.assetStatus.errors]});};
   publish();
@@ -581,47 +586,30 @@ export class Renderer3D {
           const batched=batchRigidCharacter(prepared,source.materials);
           if(batched.parts.length<prepared.parts.length)prepared=batched;
         }
-        let lightingPresets=null,motion=null,uploadSource=source,batchStats=null,surroundings=null;
+        let lightingPresets=null,motion=null,uploadSource=source,batchStats=null,surroundings=null,environmentMetadata=null;
         if(job.kind==='environment'){
-          const response=await fetch(runtimeAsset('environment/workshop/asset-contract-v3.json'),{signal:this.assetAbort.signal});
-          if(!response.ok)throw Error('No se pudo leer el contrato de luces del taller.');
-          const contract=await response.json();if(contract.stable!==true)throw Error('La exportación del taller todavía no está estable.');
+          environmentMetadata=await loadWorkshopV4Metadata(runtimeAsset('environment/workshop/'),{signal:this.assetAbort.signal});
+          const {contract}=environmentMetadata;
           motion=prepareWorkshopMotion(contract,source.primitives);
           const moving=new Set([motion?.name,...(motion?.dynamicNames??[]),...(contract.geometryCorrection?.transforms??[]).filter(group=>/^apron-/.test(group.id)).flatMap(group=>group.sourceObjects)]);
           uploadSource=batchStaticAsset(splitWorkshopMotionAsset(source,motion),{dynamicNames:moving});batchStats=uploadSource.batchStats;
-          const framesResponse=await fetch(runtimeAsset('environment/workshop/light-directions.json'),{signal:this.assetAbort.signal});
-          if(!framesResponse.ok)throw Error('No se pudo leer la orientación de luces del taller.');
-          const frames=await framesResponse.json();
-          let lightingContract=contract,lightingFrames=frames;
           try{
-            const completion=await loadWorkshopSurroundings(runtimeAsset('environment/workshop/'),{signal:this.assetAbort.signal});
+            const completion=await loadWorkshopSurroundings(runtimeAsset('environment/workshop/'),{signal:this.assetAbort.signal,revision:4});
             if(this.disposed)return;
-            const merged=completeWorkshopLighting(contract,frames,completion.contract);
-            for(const arena of ['atelier','midnight','dojo'])prepareWorkshopLights(merged.contract,arena,merged.frames);
+            prepareWorkshopV4Presets(environmentMetadata,completion.contract);
             const completedGPU=await this.assetGPU.upload(completion.source);
             surroundings={gpu:completedGPU,contract:completion.contract,batchStats:completion.source.batchStats};
-            lightingContract=merged.contract;lightingFrames=merged.frames;
           }catch(error){
             if(this.disposed)return;
             this.assetStatus.errors.push('No se pudo completar el taller 360°. Se conserva el taller principal.');console.error(error);
           }
-          lightingPresets=Object.fromEntries(['atelier','midnight','dojo'].map(arena=>{
-            const lights=prepareWorkshopLights(lightingContract,arena,lightingFrames);
-            // Raster staging: give the front softboxes enough return to reveal
-            // wood and brass against the bright windows. Keep source positions,
-            // colors and practical lamps; these gains are artistic, not watts.
-            lights.names.forEach((name,index)=>{
-              const gain=index===0?1.8:/^Soft front return$/i.test(name)?1.6:1;
-              lights.positions[index*4+3]*=gain;
-            });
-            return [arena,lights];
-          }));
+          lightingPresets=prepareWorkshopV4Presets(environmentMetadata,surroundings?.contract);
         }
-        const gpu=await this.assetGPU.upload(prepared?{...source,primitives:prepared.parts}:uploadSource);
+        const gpu=await this.assetGPU.upload(job.kind==='character'?characterResources(source,prepared.parts):prepared?{...source,primitives:prepared.parts}:uploadSource);
         if(this.disposed)return;
         if(job.kind==='character')this.assetScene.characters[job.key]={prepared,gpu};
         else if(job.kind==='equipment')this.assetScene.equipment[job.key]={prepared,gpu};
-        else this.assetScene.environment={gpu,transform:I(),lightingPresets,motion,batchStats,surroundings};
+        else this.assetScene.environment={gpu,transform:I(),lightingPresets,motion,batchStats,surroundings,revision:4,variants:createWorkshopV4VariantController(gpu,environmentMetadata)};
         this.assetStatus.ready++;this.assetStatus.names.push(job.label);this.environment.key=null;
       }catch(error){if(this.disposed)return;this.assetStatus.errors.push(`No se pudo cargar ${job.label}. Se usa su representación procedural.`);console.error(error);}
       publish();
@@ -641,8 +629,8 @@ export class Renderer3D {
   let cached=this.assetPoseCache.get(f);
   if(!cached||cached.pose!==f.pose||cached.entry!==entry){cached={pose:f.pose,entry,matrices:characterTransforms(entry.prepared,f)};this.assetPoseCache.set(f,cached);}
   entry.gpu.parts.forEach((part,index)=>{
-    if(bodyVisible(f.pose,bodyForBone(entry.prepared.parts[index].boneName)))this.assetPart(entry.gpu,part,cached.matrices[index],
-      apronSurfaceOverride(f,entry.prepared.parts[index],entry.gpu.materials[part.material]));
+    const source=entry.prepared.parts[index],override=apronSurfaceOverride(f,source,entry.gpu.materials[part.material]),geometry=deformApronGeometry(source,f.pose.apron);
+    if(bodyVisible(f.pose,bodyForBone(source.boneName,f.pose)))this.assetPart(entry.gpu,part,cached.matrices[index],geometry?{...override,geometry}:override);
   });return true;
  }
  detailedEquipment(f,key){
@@ -657,7 +645,7 @@ export class Renderer3D {
   for(const key of [f.equipment?.weapon??'sword',f.equipment?.defense??'short']){
     const model=this.assetScene.equipment?.[key],transform=equipmentTransform(f,key);if(model&&transform)equipment.push({prepared:model.prepared,materials:model.gpu.materials,transform});
   }
-  return {prepared:entry.prepared,matrices,materials:entry.gpu.materials,equipment};
+  return {prepared:entry.prepared,matrices,materials:entry.gpu.materials,equipment,pose:f.pose};
  }
  workshopLighting(game){
   const gl=this.gl,U=this.U,lighting=this.assetScene.environment?.lightingPresets?.[game.arena];
@@ -672,7 +660,8 @@ export class Renderer3D {
     gl.uniform3fv(U.uLamp1,new Float32Array([-2.45,4.1,3]));gl.uniform3fv(U.uLamp2,new Float32Array([3.25,3.7,-.25]));
     if(this.lightingKey){this.shadows.matrix=shadowViewProjection();this.lightingKey=null;}
   }
-  this.stats.lighting={sources:lighting?.count??3,preset:game.arena,areaModel:'Directional softened emitter approximation',keyGain:lighting?1.8:1,frontReturnGain:lighting?1.6:1,diffuseProbe:'Broad mip approximation',keyShadow:this.shadows.available};
+  const legacyGain=lighting&&this.assetScene.environment?.revision!==4;
+  this.stats.lighting={sources:lighting?.count??3,preset:game.arena,areaModel:'Directional softened emitter approximation',keyGain:legacyGain?1.8:1,frontReturnGain:legacyGain?1.6:1,diffuseProbe:'Broad mip approximation',keyShadow:this.shadows.available};
  }
  resize(){const dpr=Math.min(window.devicePixelRatio||1,this.quality)*(this.renderScale??1);let w=Math.max(1,Math.min(2240,Math.round(this.canvas.clientWidth*dpr))),h=Math.max(1,Math.min(1440,Math.round(this.canvas.clientHeight*dpr)));
   if(w!==this.canvas.width||h!==this.canvas.height){this.canvas.width=w;this.canvas.height=h;}this.width=w;this.height=h;this.gl.viewport(0,0,w,h);}
@@ -727,7 +716,7 @@ export class Renderer3D {
  drawArena(game,t){
   if(this.assetScene.environment){
     const {gpu,transform,motion,surroundings}=this.assetScene.environment;
-    const tint=game.arena==='midnight'?[.33,.54,.68]:game.arena==='dojo'?[1.24,1.14,.94]:[1,1,1];
+    const tint=this.assetScene.environment.revision===4?[1,1,1]:game.arena==='midnight'?[.33,.54,.68]:game.arena==='dojo'?[1.24,1.14,.94]:[1,1,1];
     for(const part of gpu.parts){const matrix=environmentPartMatrix(part,motion,game.clock??t,{staticCapture:!!this.staticShadowPass});if(matrix)this.assetPart(gpu,part,mul(transform,matrix),{tint});}
     if(surroundings)for(const part of surroundings.gpu.parts)this.assetPart(surroundings.gpu,part,part.worldMatrix,{tint});
     for(let i=0;i<2;i++){const wet=game.puddleStrength?.[i]||0;if(wet>.001)this.sphere(i===0?-1.55:1.55,.341,.32,.5+wet*.8,.006,.3+wet*.45,0x62a5a8,19,.09*wet);}
@@ -801,16 +790,18 @@ export class Renderer3D {
  }
  drawProceduralPuppet(f,time,pal,only=null){
   const p=f.pose,dir=f.dir,h=p.head,show=part=>bodyVisible(p,part,only);
-  // Keep the wooden soles above the stage without changing collision/rig poses.
-  const knee={...p.kneeF,z:.19},heel={...p.kneeB,z:-.17};
-  const front={...p.footF,y:Math.max(p.footF.y,STAGE_TOP+.075)};
-  const rear={...p.footB,y:Math.max(p.footB.y,STAGE_TOP+.075)};
+  // V4 shins stop at their ankles; legacy poses retain the original proxy.
+  const knee={...p.kneeF,z:p.feet?(p.kneeF.z??.19):.19},heel={...p.kneeB,z:p.feet?(p.kneeB.z??-.17):-.17};
+  const front=p.ankleF??{...p.footF,y:Math.max(p.footF.y,STAGE_TOP+.075)};
+  const rear=p.ankleB??{...p.footB,y:Math.max(p.footB.y,STAGE_TOP+.075)};
   for(const [part,a,b,z,width] of [['frontThigh',p.frontHip??p.hip,knee,.19,.19],['frontShin',knee,front,.19,.18],['backThigh',p.backHip??p.hip,heel,-.17,.20],['backShin',heel,rear,-.17,.17]])if(show(part))this.limb(a,b,width,.18,pal.wood,pal.metal,z);
   for(const [j,part]of [[knee,'frontShin'],[heel,'backShin']])if(show(part))this.joint(j,(j.z||0)+.105,.092,pal.metal);
   if(show('frontShin'))this.clevis(knee,.19,.070);if(show('backShin'))this.clevis(heel,-.17,.070);
   if(show('frontThigh'))this.actuator({x:p.hip.x-dir*.08,y:p.hip.y-.10},{x:knee.x-dir*.09,y:knee.y+.08},.32,.024);
   if(show('backShin'))this.actuator({x:heel.x+dir*.08,y:heel.y+.04},{x:rear.x+dir*.08,y:rear.y+.14},-.29,.020);
-  for(const [foot,part]of [[front,'frontShin'],[rear,'backShin']])if(show(part)){
+  if(p.feet){
+    for(const side of ['front','back'])if(show(side+'Foot'))this.dynamicDraw(proceduralFootMesh(p.feet[side]),pal.wood,0);
+  }else for(const [foot,part]of [[front,'frontShin'],[rear,'backShin']])if(show(part)){
     this.box(foot.x+dir*.055,foot.y-.015,foot.z,.42,.12,.25,pal.wood);
     this.box(foot.x-dir*.1,foot.y+.054,foot.z,.08,.14,.235,pal.edge,1);
     this.cylinder(foot.x-dir*.08,foot.y+.11,foot.z+.14,.027,.026,.027,pal.metal,1,Math.PI/2);
@@ -887,9 +878,14 @@ export class Renderer3D {
   }
   // Highly detailed head mount and tensile ring below water mass.
   if(show('neck')){
+  if(p.feet){
+    const [bar,outer,inner]=physicalNeckMatrices(p,f.balloonSize??1);
+    this.draw('cylinder',bar,pal.edge,0);this.draw('cylinder',outer,pal.metal,1);this.draw('cylinder',inner,0x392e25,1);
+  }else{
   this.beam({...p.shoulder,z:0},{x:h.x,y:h.y-.40,z:.025},.075,pal.edge,0);
   this.cylinder(h.x,h.y-.47,.018,.183,.050,.183,pal.metal,1);
   this.cylinder(h.x,h.y-.435,.018,.116,.051,.116,0x392e25,1);
+  }
   }
  }
  drawJointMarks(pose,only=null){
@@ -911,8 +907,10 @@ export class Renderer3D {
       const entry=this.assetScene.characters[f.boss?'boss':f.slot===1?'mint':'amber'];
       this.detachedPoseCache??=new DetachedPoseMatrixCache();
       const matrices=detachedCharacterTransforms(entry.prepared,source,fragment,this.detachedPoseCache.get(entry,source,fragment));
-      entry.gpu.parts.forEach((part,index)=>{if(matrices[index])this.assetPart(entry.gpu,part,matrices[index],
-        apronSurfaceOverride(source,entry.prepared.parts[index],entry.gpu.materials[part.material]));});
+      entry.gpu.parts.forEach((part,index)=>{if(matrices[index]){
+        const prepared=entry.prepared.parts[index],override=apronSurfaceOverride(source,prepared,entry.gpu.materials[part.material]),geometry=deformApronGeometry(prepared,source.pose.apron);
+        this.assetPart(entry.gpu,part,matrices[index],geometry?{...override,geometry}:override);
+      }});
       if(bodies.has('weapon')&&!proxy.detailedEquipment(source,source.equipment?.weapon??'sword'))drawWeapon(proxy,source,pal);
       if(bodies.has(equipmentBody(source.equipment?.defense??'short'))&&!proxy.detailedEquipment(source,source.equipment?.defense??'short'))drawDefense(proxy,source,pal);
       if(!this.depthOnly){
@@ -920,7 +918,7 @@ export class Renderer3D {
         drawCombatWear(this,source,{geometry:this.wearGeometry(source,this.detachedPoseCache.get(entry,source,fragment)),onlyBodies:bodies,transform:fragment.transform,owner:this.wearOwners.get(key),generation:fragment.id});
       }
     }else proxy.drawProceduralPuppet(source,time,pal,bodies);
-    proxy.drawJointMarks(pose,bodies);
+    if(!detailed)proxy.drawJointMarks(pose,bodies);
   }
  }
  drawPuppet(f,time,game){
@@ -937,19 +935,19 @@ export class Renderer3D {
   }else{
   this.drawProceduralPuppet(f,time,pal);
   }
-  this.drawDetachedPuppet(f,time,pal,detailed);this.drawJointMarks(f.pose);
+  this.drawDetachedPuppet(f,time,pal,detailed);if(!detailed)this.drawJointMarks(f.pose);
   if(this.depthOnly)return;
   this.wearOwners??=new Map();const wearKey=`${f.slot}:live`;if(!this.wearOwners.has(wearKey))this.wearOwners.set(wearKey,{});
   for(const key of this.wearOwners.keys())if(key.startsWith(`${f.slot}:fragment:`)&&!(p.detached??[]).some(fragment=>key===`${f.slot}:fragment:${fragment.id}`))this.wearOwners.delete(key);
   drawCombatWear(this,f,{geometry:this.wearGeometry(f),owner:this.wearOwners.get(wearKey),generation:game.round});
+  drawJointDamageWear(this,f,{geometry:this.wearGeometry(f),owner:this.wearOwners.get(wearKey),generation:game.round});
   this.emblemOwners??=new Map();if(!this.emblemOwners.has(f.slot))this.emblemOwners.set(f.slot,{});const emblemOwner=this.emblemOwners.get(f.slot);
   if(detailed&&this.assetScene?.characters&&bodyVisible(p,'pelvis')){
     const entry=this.assetScene.characters[f.boss?'boss':f.slot===1?'mint':'amber'],matrices=this.assetPoseCache.get(f)?.matrices;
-    const index=entry.prepared.parts.findIndex(part=>part.accessory==='apron'&&/Woven_(?:Sash|Cloth)/.test(part.nodeName));
-    if(index>=0&&matrices){
-      const part=entry.prepared.parts[index];let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
-      for(let i=0;i<part.positions.length;i+=3){minX=Math.min(minX,part.positions[i]);maxX=Math.max(maxX,part.positions[i]);minY=Math.min(minY,part.positions[i+1]);maxY=Math.max(maxY,part.positions[i+1]);}
-      this.dynamicDraw(surfaceEmblem(f,{positions:part.positions,indices:part.indices,center:[(minX+maxX)/2,minY+(maxY-minY)*.3],scale:[(maxX-minX)*.24,(maxY-minY)*.12],matrix:matrices[index],owner:emblemOwner},'apron'),0xe9d6a4,8,1,3);
+    if(matrices){
+      const binding=apronEmblemBindings(entry.prepared,emblemOwner),{surface}=binding;
+      const mesh=surfaceEmblem(f,{...surface,deformedPositions:deformApronEmblem(binding,f.pose.apron),matrixForVertex:vertex=>matrices[surface.partIndices[vertex]]},'apron');
+      if(mesh.p.length)this.dynamicDraw(mesh,0xe9d6a4,8,1,3);
     }
   }
   if(f.fluid.retainedVolume>0){
@@ -1146,7 +1144,7 @@ export class Renderer3D {
   gl.uniform1i(U.uHasShadow,0);this.shadows.ensure(game.quality);
   if(this.shadows.available){
     this.pending.length=0;this.depthOnly=true;gl.uniform1i(U.uDepthPass,1);gl.uniform1f(U.uTime,time);gl.uniformMatrix4fv(U.uVP,false,this.shadows.matrix);
-    try{this.shadows.capture(()=>{this.drawArena(game,time);for(const f of game.fighters)this.drawPuppet(f,time,game);},shadowReturn(this.shadows));}
+    try{this.shadows.capture(()=>{this.drawArena(game,time);for(const f of game.fighters)this.drawPuppet(f,time,game);if(game.phase==='matchover'&&!game.replay)drawCampaignCeremony(this,game.ceremony,game.reducedMotion??this.cameraMotionPreference?.matches??false);},shadowReturn(this.shadows));}
     finally{this.depthOnly=false;this.pending.length=0;gl.uniform1i(U.uDepthPass,0);}
     this.shadows.bind(gl.TEXTURE0);gl.uniformMatrix4fv(U.uShadowVP,false,this.shadows.matrix);gl.uniform1f(U.uShadowSize,this.shadows.size);gl.uniform1i(U.uHasShadow,1);
   }
@@ -1210,6 +1208,8 @@ export class Renderer3D {
     gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,this.width,this.height);gl.clearColor(0,0,0,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);return;
   }
   gl.clearColor(.024,.035,.043,1);gl.useProgram(this.program);
+  this.cameraMotionPreference??=globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')??{matches:false};
+  this.assetScene.environment?.variants?.apply(game.arena);
   this.workshopLighting(game);
   gl.uniform1i(U.uNeutral,game.lightingMode==='neutral'?1:0);
   this.captureShadows(game,time);
@@ -1226,9 +1226,8 @@ export class Renderer3D {
   // Simulated phase time drives presentation only. Combat stays authored and
   // stable; round transitions return to it before control resumes.
   const aspect=this.width/this.height;
-  this.cameraMotionPreference??=globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')??{matches:false};
   const camera=duelCamera({phase:game.phase,phaseClock:game.phaseClock,clock:game.clock,round:game.round,replay:game.replay,
-    cameraMode:game.cameraMode,aspect,reducedMotion:game.reducedMotion??this.cameraMotionPreference.matches,burstFocus:burstCameraFocus(game),roomInterior:this.assetScene.environment?.surroundings?.contract.cameraInterior});
+    cameraMode:game.cameraMode,aspect,reducedMotion:game.reducedMotion??this.cameraMotionPreference.matches,burstFocus:burstCameraFocus(game),ceremony:game.ceremony,roomInterior:this.assetScene.environment?.surroundings?.contract.cameraInterior});
   const {eye,target,fov}=camera;this.stats.camera={...camera,aspect};
   gl.uniform2f(U.uOpticalPlanes,camera.near,camera.far);
   const vp=mul(perspective(fov,aspect,camera.near,camera.far),lookAt(eye,target,[0,1,0]));
@@ -1236,6 +1235,7 @@ export class Renderer3D {
   gl.uniform1i(U.uNeutral,game.lightingMode==='neutral'?1:0);
   this.drawArena(game,time);
   for(const f of game.fighters)this.drawPuppet(f,time,game);
+  if(game.phase==='matchover'&&!game.replay)drawCampaignCeremony(this,game.ceremony,game.reducedMotion??this.cameraMotionPreference.matches);
   this.renderLiquid(game,time);
   this.drawEffects(game);
   if(this.transmission.prepare()){gl.uniform1i(U.uHasScene,1);gl.uniform2f(U.uSceneSize,this.width,this.height);}

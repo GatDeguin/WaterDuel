@@ -1,0 +1,390 @@
+{
+  "version": 4,
+  "asset": "workshop-runtime-v4.glb",
+  "assetSha256": "9dafb0641072e9ec5e281e43aa0ad1282468fb21b84bfd0955d9166813f1afbe",
+  "features": [
+    {
+      "id": 4,
+      "label": "Reflejos del propio taller",
+      "status": "implemented",
+      "implementation": "HDR equirectangular1024x512 capturado por Cycles desde la tarima; los materiales metálicos/vidrio reflejan la geometría del atelier en la fuente y son compatibles con el cubemap actual del motor.",
+      "evidence": [
+        {
+          "kind": "file",
+          "path": "reflection-v4.hdr",
+          "role": "runtime",
+          "sha256": "54c10bba24c5d3c19cee5f2d2bfa5ba05100c64a06d1a03563f51ed194c0c8ef"
+        },
+        {
+          "kind": "file",
+          "path": "reflection-v4.json",
+          "role": "runtime",
+          "sha256": "06ad1e39707d3adbd7331216a717659d57c254892979ff0953944bbb4e462a63"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_StaticBrass"
+        },
+        {
+          "kind": "file",
+          "path": "preview-native-day-v4.png",
+          "role": "preview",
+          "sha256": "48ca8ffe5549a40e49232be16c62b55729e8799e31e16b2cfab2bd2c35fc6b51"
+        }
+      ],
+      "limitations": [
+        "La integración GPU de la ruta v4 la valida Principal. El HDR es una captura de referencia; el motor ya genera su propio cubemap."
+      ]
+    },
+    {
+      "id": 6,
+      "label": "Techo con profundidad",
+      "status": "implemented",
+      "implementation": "Dos pools ambientales existentes se reubicaron al techo con tonos/energías diferentes; se mantienen22luces y dos slots para el cerramiento.",
+      "evidence": [
+        {
+          "kind": "file",
+          "path": "light-directions-v4.json",
+          "role": "runtime",
+          "sha256": "5f4f6accac53b4c2ff2d9de5e0e6ad97e0721d268c772d399e022886aae81f63"
+        },
+        {
+          "kind": "file",
+          "path": "lighting-day-v4.json",
+          "role": "runtime",
+          "sha256": "b81920ac43cf5e5b2c063997c0290b040a55168230af47e29d1bb9c1cb6d38cf"
+        },
+        {
+          "kind": "file",
+          "path": "preview-native-day-v4.png",
+          "role": "preview",
+          "sha256": "48ca8ffe5549a40e49232be16c62b55729e8799e31e16b2cfab2bd2c35fc6b51"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 7,
+      "label": "Exterior insinuado",
+      "status": "implemented",
+      "implementation": "Huecos físicos en la fachada, reveles abiertos y patio distante con edificios, cubiertas, chimeneas y copas de árboles; el cerramiento360v4 abre el paso tras la fachada.",
+      "evidence": [
+        {
+          "kind": "node",
+          "name": "Workshop_V4_Exterior_wd-v4-ext-distant-foliage"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_Exterior_wd-v4-ext-distant-roofs"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_Exterior_wd-v4-ext-distant-slate"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_Exterior_wd-v4-ext-overcast-sky"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_Exterior_wd-v4-ext-recessed-window-reveal"
+        },
+        {
+          "kind": "file",
+          "path": "workshop-360-v4.glb",
+          "role": "runtime",
+          "sha256": "5bc507ab91bf5e0a39a827d2eb35ad81ff8494f83e952f2499dd15c483c408a4"
+        },
+        {
+          "kind": "file",
+          "path": "workshop-360-v4.json",
+          "role": "runtime",
+          "sha256": "bf78b5439197a61153f23bdd0bba5c8117d2cb4416d6a887e7b8fa567afbf172"
+        },
+        {
+          "kind": "file",
+          "path": "preview-native-day-v4.png",
+          "role": "preview",
+          "sha256": "48ca8ffe5549a40e49232be16c62b55729e8799e31e16b2cfab2bd2c35fc6b51"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 10,
+      "label": "Variante nocturna",
+      "status": "implemented",
+      "implementation": "Fuente Blender nocturna completa, luces cálidas predominantes y exterior azul oscuro; preset portable de22luces y dos overrides de material.",
+      "evidence": [
+        {
+          "kind": "file",
+          "path": "lighting-night-v4.json",
+          "role": "runtime",
+          "sha256": "482989e0b9bf7cf7b28099b9aabae50bccbf0ce7dd21e983970e6b5593cf153e"
+        },
+        {
+          "kind": "file",
+          "path": "preview-native-night-v4.png",
+          "role": "preview",
+          "sha256": "a985bcee61f28a3fd484f6f16ae786852cb9d875cf102bbe751b4e68c1959097"
+        }
+      ],
+      "limitations": [
+        "El preset no se activa automáticamente en el renderer hasta su integración."
+      ]
+    },
+    {
+      "id": 11,
+      "label": "Vetas distintas por pieza",
+      "status": "implemented",
+      "implementation": "Semillas deterministas individuales y dominio de textura orientado por pieza; se hornearon color, rugosidad y normal.",
+      "evidence": [
+        {
+          "kind": "material",
+          "name": "Workshop v4 PBR | stage-wet-oak-1"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_stage-wet-oak-1"
+        },
+        {
+          "kind": "file",
+          "path": "preview-native-day-v4.png",
+          "role": "preview",
+          "sha256": "48ca8ffe5549a40e49232be16c62b55729e8799e31e16b2cfab2bd2c35fc6b51"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 12,
+      "label": "Testa creíble",
+      "status": "implemented",
+      "implementation": "Máscara por normal real de cada cara en coordenadas originales, con anillos en extremos y continuidad longitudinal en laterales.",
+      "evidence": [
+        {
+          "kind": "material",
+          "name": "Workshop v4 PBR | oak-aged-endgrain-and-open-pores"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_oak-aged-endgrain-and-open-pores"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 13,
+      "label": "Golpes reales en latón",
+      "status": "implemented",
+      "implementation": "102 vértices de protección frontal deformados localmente; profundidad máxima fuente0.0071m. Rotor separado intacto.",
+      "evidence": [
+        {
+          "kind": "node",
+          "name": "Workshop_StaticBrass"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 14,
+      "label": "Humedad irregular",
+      "status": "implemented",
+      "implementation": "Campo continuo de humedad sobre caras superiores de tarima; variación de color/rugosidad correlacionada entre tablones.",
+      "evidence": [
+        {
+          "kind": "material",
+          "name": "Workshop v4 PBR | stage-wet-oak-1"
+        },
+        {
+          "kind": "material",
+          "name": "Workshop v4 PBR | stage-wet-oak-2"
+        },
+        {
+          "kind": "file",
+          "path": "preview-native-day-v4.png",
+          "role": "preview",
+          "sha256": "48ca8ffe5549a40e49232be16c62b55729e8799e31e16b2cfab2bd2c35fc6b51"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 15,
+      "label": "Reparaciones de carpintería",
+      "status": "implemented",
+      "implementation": "Catorce injertos/tapones sobre cantos y mesones; madera con grano por pieza y acabados diferenciados.",
+      "evidence": [
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P15_wd-v4-detail-wood-wax-pale"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P15_wd-v4-detail-wood-shellac-amber"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P15_wd-v4-detail-wood-oil-dark"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 16,
+      "label": "Tornillería variada",
+      "status": "implemented",
+      "implementation": "Diez fijaciones nuevas con arandelas, cabezas/rebajes y geometría de sustitución sobre muebles laterales.",
+      "evidence": [
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P16_wd-v4-detail-repair-satin-steel"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P16_wd-v4-detail-charcoal-workshop-paint"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 17,
+      "label": "Depósitos de fugas en cobre",
+      "status": "implemented",
+      "implementation": "Verdín localizado junto a uniones; mezcla dieléctrica con color/rugosidad/normal y Metallic horneado en el azul del ORM.",
+      "evidence": [
+        {
+          "kind": "material",
+          "name": "Workshop v4 PBR | copper-oxidized-plumbing"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_copper-oxidized-plumbing"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 18,
+      "label": "Cristal antiguo",
+      "status": "implemented",
+      "implementation": "Cristales subdivididos con ondulación máxima fuente0.00420m, reflexión especular eIOR1,47; alpha0.6600000262260437. Marcos sin deformar.",
+      "evidence": [
+        {
+          "kind": "node",
+          "name": "Workshop_window-cold-diffuse-daylight"
+        },
+        {
+          "kind": "material",
+          "name": "Workshop v4 PBR | old undulating window glass"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 19,
+      "label": "Restos de barniz",
+      "status": "implemented",
+      "implementation": "Capas nativas de acabado y desgaste correlacionado; la versión portátil conserva sus señales en color, rugosidad y normales.",
+      "evidence": [
+        {
+          "kind": "material",
+          "name": "Workshop v4 PBR | walnut-smoke-and-worn-varnish"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_walnut-smoke-and-worn-varnish"
+        }
+      ],
+      "limitations": [
+        "El GLB PBR hornea el acabado; no serializa todos los nodos procedurales de autoría."
+      ]
+    },
+    {
+      "id": 20,
+      "label": "Mampostería reparada",
+      "status": "implemented",
+      "implementation": "Juntas expuestas y parches de cal localizados, proyectados por cara; atlas2048color/1024normal para conservar lectura.",
+      "evidence": [
+        {
+          "kind": "material",
+          "name": "Workshop v4 PBR | wall-limewash-soot-and-age"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_wall-limewash-soot-and-age"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 21,
+      "label": "Muestrario de acabados",
+      "status": "implemented",
+      "implementation": "Muestras de madera con grano y acabados CERA/ACEITE/GOMA LACA, etiquetas tridimensionales y bandeja de banco lateral.",
+      "evidence": [
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P21_wd-v4-detail-wood-oil-dark"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P21_wd-v4-detail-wood-wax-pale"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P21_wd-v4-detail-cream-workshop-paint"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P21_wd-v4-detail-charcoal-workshop-paint"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P21_wd-v4-detail-wood-shellac-amber"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "id": 22,
+      "label": "Siluetas de herramientas",
+      "status": "implemented",
+      "implementation": "Tablero con perfiles pintados de formón, llave y martillo; tres ganchos vacíos y etiquetas.",
+      "evidence": [
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P22_wd-v4-detail-charcoal-workshop-paint"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P22_wd-v4-detail-repair-satin-steel"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P22_wd-v4-detail-wood-oil-dark"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P22_wd-v4-detail-wood-wax-pale"
+        },
+        {
+          "kind": "node",
+          "name": "Workshop_V4_P22_wd-v4-detail-cream-workshop-paint"
+        }
+      ],
+      "limitations": []
+    }
+  ],
+  "assets": {
+    "reflection": {
+      "path": "reflection-v4.hdr",
+      "sha256": "54c10bba24c5d3c19cee5f2d2bfa5ba05100c64a06d1a03563f51ed194c0c8ef"
+    },
+    "nightLighting": {
+      "path": "lighting-night-v4.json",
+      "sha256": "482989e0b9bf7cf7b28099b9aabae50bccbf0ce7dd21e983970e6b5593cf153e"
+    }
+  },
+  "runtimeIntegrationVerified": false
+}

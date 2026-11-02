@@ -1,0 +1,81 @@
+{
+  "recipe": {
+    "countdown": {
+      "ticks": 81,
+      "dt": 0.04
+    },
+    "ticks": 390,
+    "dt": 0.008333333333333333,
+    "transitionTick": 90,
+    "minSeparation": 2.7,
+    "threshold": 1.15,
+    "bodyYCases": [
+      -0.25,
+      -0.5,
+      -1
+    ],
+    "controls": "both mainX/mainY/wrist=-1; lean/head zero before 90 then lean=1 and headX=+1/-1; bodyY only from90"
+  },
+  "hashes": {
+    "public/physics/articulated-rig.js": "98a049f8b2aec9f11d2a54e5d959d0cafa40810c5e064e7bd9b4937be4a46a45",
+    "public/physics/body-evasion.js": "db9cb198f83a67272097bfb86332821dbbef123a6c3b8ea2d96ed05291b471c3",
+    "public/engine.js": "6010172e62c893c699cddee6d3303c4c02dde79ad94cb82fcf51c66434f9dd78",
+    "tests/inter-rig-contact.test.mjs": "20bc9c9a0704c4ab7aa294a7f3a979c06177f332201f33677439d39d358bbc0b"
+  },
+  "cases": [
+    {
+      "bodyY": -0.25,
+      "minimum": 1.2803933179928038,
+      "minimumTick": 359,
+      "alive": true,
+      "stable": true,
+      "maxContactError": 8.004916729476008e-10,
+      "scores": [
+        0,
+        0
+      ],
+      "minimumBaseSeparation": 2.7,
+      "finalCrouch": [
+        0.2499999999999766,
+        0.2499999999999766
+      ],
+      "pass": false
+    },
+    {
+      "bodyY": -0.5,
+      "minimum": 1.3217913251069695,
+      "minimumTick": 372,
+      "alive": true,
+      "stable": true,
+      "maxContactError": 8.004916729476008e-10,
+      "scores": [
+        0,
+        0
+      ],
+      "minimumBaseSeparation": 2.7,
+      "finalCrouch": [
+        0.4999999999999532,
+        0.4999999999999532
+      ],
+      "pass": false
+    },
+    {
+      "bodyY": -1,
+      "minimum": 1.5806241022111764,
+      "minimumTick": 362,
+      "alive": true,
+      "stable": true,
+      "maxContactError": 8.004916729476008e-10,
+      "scores": [
+        0,
+        0
+      ],
+      "minimumBaseSeparation": 2.7,
+      "finalCrouch": [
+        0.9999999999999064,
+        0.9999999999999064
+      ],
+      "pass": false
+    }
+  ]
+}

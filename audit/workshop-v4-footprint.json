@@ -1,0 +1,111 @@
+{
+  "scope": "Environment main + 360 only. Real parse, motion split and batching; same sampler/colorspace/content identities as SharedTextures. RGBA8+mips CPU estimate; not measured VRAM, process memory, FPS or GPU render time.",
+  "before": {
+    "models": [
+      {
+        "file": "workshop-runtime-v3.glb",
+        "sha256": "1a947c7e2a5b2387e5a0db4cd55169445dad91d2a0fda59bac5c51c0751bb930",
+        "fileBytes": 40556884,
+        "triangles": 355284,
+        "sourceGroups": 36,
+        "drawGroups": 48,
+        "gpuBufferBytes": 15975936,
+        "textures": {
+          "textures": 68,
+          "rgba8MipBytes": 133343960
+        }
+      },
+      {
+        "file": "workshop-360.glb",
+        "sha256": "18a1d202cee0b05b0b627880e775906350b877bf6e159099d607d0c70575e7d2",
+        "fileBytes": 10540948,
+        "triangles": 33420,
+        "sourceGroups": 14,
+        "drawGroups": 14,
+        "gpuBufferBytes": 3476304,
+        "textures": {
+          "textures": 33,
+          "rgba8MipBytes": 51118102
+        }
+      }
+    ],
+    "totals": {
+      "fileBytes": 51097832,
+      "triangles": 388704,
+      "drawGroups": 62,
+      "gpuBufferBytes": 19452240,
+      "sharedTextureObjects": 68,
+      "sharedRgba8MipBytes": 133343960,
+      "gpuAssetBytesEstimate": 152796200
+    }
+  },
+  "after": {
+    "models": [
+      {
+        "file": "workshop-runtime-v4.glb",
+        "sha256": "9dafb0641072e9ec5e281e43aa0ad1282468fb21b84bfd0955d9166813f1afbe",
+        "fileBytes": 48890340,
+        "triangles": 398587,
+        "sourceGroups": 56,
+        "drawGroups": 65,
+        "gpuBufferBytes": 18103924,
+        "textures": {
+          "textures": 88,
+          "rgba8MipBytes": 170743184
+        }
+      },
+      {
+        "file": "workshop-360-v4.glb",
+        "sha256": "5bc507ab91bf5e0a39a827d2eb35ad81ff8494f83e952f2499dd15c483c408a4",
+        "fileBytes": 10550632,
+        "triangles": 33440,
+        "sourceGroups": 14,
+        "drawGroups": 14,
+        "gpuBufferBytes": 3479616,
+        "textures": {
+          "textures": 33,
+          "rgba8MipBytes": 51118102
+        }
+      }
+    ],
+    "totals": {
+      "fileBytes": 59440972,
+      "triangles": 432027,
+      "drawGroups": 79,
+      "gpuBufferBytes": 21583540,
+      "sharedTextureObjects": 103,
+      "sharedRgba8MipBytes": 199054746,
+      "gpuAssetBytesEstimate": 220638286
+    }
+  },
+  "delta": {
+    "fileBytes": {
+      "absolute": 8343140,
+      "percent": 16.32777688102305
+    },
+    "triangles": {
+      "absolute": 43323,
+      "percent": 11.145498888614469
+    },
+    "drawGroups": {
+      "absolute": 17,
+      "percent": 27.419354838709676
+    },
+    "gpuBufferBytes": {
+      "absolute": 2131300,
+      "percent": 10.956578779616134
+    },
+    "sharedTextureObjects": {
+      "absolute": 35,
+      "percent": 51.470588235294116
+    },
+    "sharedRgba8MipBytes": {
+      "absolute": 65710786,
+      "percent": 49.27916195079251
+    },
+    "gpuAssetBytesEstimate": {
+      "absolute": 67842086,
+      "percent": 44.40037514021946
+    }
+  }
+}

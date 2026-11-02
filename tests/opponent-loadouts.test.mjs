@@ -24,7 +24,7 @@ test('los siete rivales de campaña tienen equipos distintos, legales y estables
     if(WEAPONS[loadout.weapon].twoHanded)assert.equal(loadout.defense,'none');
     assert.ok(BALLOON_COLORS.includes(a.opponentColor));
     loadout.weapon='unknown';assert.notEqual(s.configuration().opponentLoadout.weapon,'unknown');
-    if(stage<6){s.event('matchover',{winner:1},{mode:'solo'});assert.equal(s.next(),true);}
+    if(stage<6){s.event('matchover',{winner:1},{mode:'solo',phase:'matchover',winner:1,fighters:[{slot:1},{slot:2}]});assert.equal(s.next(),true);}
   }
 });
 

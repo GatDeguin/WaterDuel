@@ -1,0 +1,1569 @@
+{
+  "ok": true,
+  "version": 4,
+  "file": "workshop-360-v4.glb",
+  "errors": [],
+  "checks": {
+    "sha256": true,
+    "boundsAndBudgets": true,
+    "selfContainedStaticGeometry": true,
+    "originalPreservation": true,
+    "cameraInteriorClear": true,
+    "storedProofMatchesGeometry": true,
+    "closedRoomGuards9": true,
+    "windowApertures64": true,
+    "inputsUnchanged": true
+  },
+  "requireStable": true,
+  "scope": {
+    "offlineArtifactVerification": true,
+    "GPUExecuted": false,
+    "runtimeIntegrationIndependentlyVerified": false
+  },
+  "stable": true,
+  "runtimeIntegrationVerified": false,
+  "glbSha256": "5bc507ab91bf5e0a39a827d2eb35ad81ff8494f83e952f2499dd15c483c408a4",
+  "sha256": "5bc507ab91bf5e0a39a827d2eb35ad81ff8494f83e952f2499dd15c483c408a4",
+  "bytes": 10550632,
+  "contractSha256": "bf78b5439197a61153f23bdd0bba5c8117d2cb4416d6a887e7b8fa567afbf172",
+  "triangles": 33440,
+  "groups": 14,
+  "materials": 14,
+  "embeddedImages": 33,
+  "bounds": {
+    "min": [
+      -12.279999732971191,
+      -0.5786972641944885,
+      -6.480000019073486
+    ],
+    "max": [
+      12.279999732971191,
+      8.239999771118164,
+      16.280000686645508
+    ]
+  },
+  "preservation": {
+    "originalBinaryPrefixExact": true,
+    "materialDefinitionsExact": true,
+    "embeddedImageBytesExact": true,
+    "other13PrimitivesExact": true,
+    "originalWallAttributesExact": true,
+    "unselectedWallTrianglesExact": true,
+    "removedClosureTriangles": 12,
+    "newFrameTriangles": 32,
+    "frame": {
+      "manifoldAfterWeldingPositions": true,
+      "connected": true,
+      "weldedVertices": 16,
+      "edges": 48,
+      "triangles": 32,
+      "signedVolume": 28.374413485008898,
+      "expectedVolume": 28.37441348500891,
+      "normalsMatchWinding": true
+    },
+    "cameraInteriorExact": true,
+    "twoLightingHintsExact": true
+  },
+  "windowProjectionRays": [
+    {
+      "window": 0,
+      "pane": [
+        0,
+        0
+      ],
+      "origin": [
+        -3.8840136054421777,
+        1.6493299319727892,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        0,
+        1
+      ],
+      "origin": [
+        -3.8840136054421777,
+        2.2180374149659867,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        0,
+        2
+      ],
+      "origin": [
+        -3.8840136054421777,
+        2.786744897959184,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        0,
+        3
+      ],
+      "origin": [
+        -3.8840136054421777,
+        3.3554523809523813,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        0,
+        4
+      ],
+      "origin": [
+        -3.8840136054421777,
+        3.9241598639455786,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        0,
+        5
+      ],
+      "origin": [
+        -3.8840136054421777,
+        4.492867346938776,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        0,
+        6
+      ],
+      "origin": [
+        -3.8840136054421777,
+        5.061574829931973,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        0,
+        7
+      ],
+      "origin": [
+        -3.8840136054421777,
+        5.63028231292517,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        1,
+        0
+      ],
+      "origin": [
+        -3.2978571428571435,
+        1.6493299319727892,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        1,
+        1
+      ],
+      "origin": [
+        -3.2978571428571435,
+        2.2180374149659867,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        1,
+        2
+      ],
+      "origin": [
+        -3.2978571428571435,
+        2.786744897959184,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        1,
+        3
+      ],
+      "origin": [
+        -3.2978571428571435,
+        3.3554523809523813,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        1,
+        4
+      ],
+      "origin": [
+        -3.2978571428571435,
+        3.9241598639455786,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        1,
+        5
+      ],
+      "origin": [
+        -3.2978571428571435,
+        4.492867346938776,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        1,
+        6
+      ],
+      "origin": [
+        -3.2978571428571435,
+        5.061574829931973,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        1,
+        7
+      ],
+      "origin": [
+        -3.2978571428571435,
+        5.63028231292517,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        2,
+        0
+      ],
+      "origin": [
+        -2.7117006802721093,
+        1.6493299319727892,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        2,
+        1
+      ],
+      "origin": [
+        -2.7117006802721093,
+        2.2180374149659867,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        2,
+        2
+      ],
+      "origin": [
+        -2.7117006802721093,
+        2.786744897959184,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        2,
+        3
+      ],
+      "origin": [
+        -2.7117006802721093,
+        3.3554523809523813,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        2,
+        4
+      ],
+      "origin": [
+        -2.7117006802721093,
+        3.9241598639455786,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        2,
+        5
+      ],
+      "origin": [
+        -2.7117006802721093,
+        4.492867346938776,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        2,
+        6
+      ],
+      "origin": [
+        -2.7117006802721093,
+        5.061574829931973,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        2,
+        7
+      ],
+      "origin": [
+        -2.7117006802721093,
+        5.63028231292517,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        3,
+        0
+      ],
+      "origin": [
+        -2.1255442176870756,
+        1.6493299319727892,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        3,
+        1
+      ],
+      "origin": [
+        -2.1255442176870756,
+        2.2180374149659867,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        3,
+        2
+      ],
+      "origin": [
+        -2.1255442176870756,
+        2.786744897959184,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        3,
+        3
+      ],
+      "origin": [
+        -2.1255442176870756,
+        3.3554523809523813,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        3,
+        4
+      ],
+      "origin": [
+        -2.1255442176870756,
+        3.9241598639455786,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        3,
+        5
+      ],
+      "origin": [
+        -2.1255442176870756,
+        4.492867346938776,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        3,
+        6
+      ],
+      "origin": [
+        -2.1255442176870756,
+        5.061574829931973,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 0,
+      "pane": [
+        3,
+        7
+      ],
+      "origin": [
+        -2.1255442176870756,
+        5.63028231292517,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        0,
+        0
+      ],
+      "origin": [
+        2.126190476190476,
+        1.6493299319727892,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        0,
+        1
+      ],
+      "origin": [
+        2.126190476190476,
+        2.2180374149659867,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        0,
+        2
+      ],
+      "origin": [
+        2.126190476190476,
+        2.786744897959184,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        0,
+        3
+      ],
+      "origin": [
+        2.126190476190476,
+        3.3554523809523813,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        0,
+        4
+      ],
+      "origin": [
+        2.126190476190476,
+        3.9241598639455786,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        0,
+        5
+      ],
+      "origin": [
+        2.126190476190476,
+        4.492867346938776,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        0,
+        6
+      ],
+      "origin": [
+        2.126190476190476,
+        5.061574829931973,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        0,
+        7
+      ],
+      "origin": [
+        2.126190476190476,
+        5.63028231292517,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        1,
+        0
+      ],
+      "origin": [
+        2.7123469387755104,
+        1.6493299319727892,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        1,
+        1
+      ],
+      "origin": [
+        2.7123469387755104,
+        2.2180374149659867,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        1,
+        2
+      ],
+      "origin": [
+        2.7123469387755104,
+        2.786744897959184,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        1,
+        3
+      ],
+      "origin": [
+        2.7123469387755104,
+        3.3554523809523813,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        1,
+        4
+      ],
+      "origin": [
+        2.7123469387755104,
+        3.9241598639455786,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        1,
+        5
+      ],
+      "origin": [
+        2.7123469387755104,
+        4.492867346938776,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        1,
+        6
+      ],
+      "origin": [
+        2.7123469387755104,
+        5.061574829931973,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        1,
+        7
+      ],
+      "origin": [
+        2.7123469387755104,
+        5.63028231292517,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        2,
+        0
+      ],
+      "origin": [
+        3.2985034013605445,
+        1.6493299319727892,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        2,
+        1
+      ],
+      "origin": [
+        3.2985034013605445,
+        2.2180374149659867,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        2,
+        2
+      ],
+      "origin": [
+        3.2985034013605445,
+        2.786744897959184,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        2,
+        3
+      ],
+      "origin": [
+        3.2985034013605445,
+        3.3554523809523813,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        2,
+        4
+      ],
+      "origin": [
+        3.2985034013605445,
+        3.9241598639455786,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        2,
+        5
+      ],
+      "origin": [
+        3.2985034013605445,
+        4.492867346938776,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        2,
+        6
+      ],
+      "origin": [
+        3.2985034013605445,
+        5.061574829931973,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        2,
+        7
+      ],
+      "origin": [
+        3.2985034013605445,
+        5.63028231292517,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        3,
+        0
+      ],
+      "origin": [
+        3.8846598639455787,
+        1.6493299319727892,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        3,
+        1
+      ],
+      "origin": [
+        3.8846598639455787,
+        2.2180374149659867,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        3,
+        2
+      ],
+      "origin": [
+        3.8846598639455787,
+        2.786744897959184,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        3,
+        3
+      ],
+      "origin": [
+        3.8846598639455787,
+        3.3554523809523813,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        3,
+        4
+      ],
+      "origin": [
+        3.8846598639455787,
+        3.9241598639455786,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        3,
+        5
+      ],
+      "origin": [
+        3.8846598639455787,
+        4.492867346938776,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        3,
+        6
+      ],
+      "origin": [
+        3.8846598639455787,
+        5.061574829931973,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    },
+    {
+      "window": 1,
+      "pane": [
+        3,
+        7
+      ],
+      "origin": [
+        3.8846598639455787,
+        5.63028231292517,
+        -4.8
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 3.2,
+      "oldHits": 2,
+      "v4Hits": 0,
+      "passed": true
+    }
+  ],
+  "closedRoomGuards": [
+    {
+      "id": "left rear return",
+      "origin": [
+        -9,
+        3,
+        -5
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 2,
+      "oldNearestHit": 1.1999998092651367,
+      "nearestHit": 1.1999998092651367,
+      "passed": true
+    },
+    {
+      "id": "right rear return",
+      "origin": [
+        9,
+        3,
+        -5
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 2,
+      "oldNearestHit": 1.1999998092651367,
+      "nearestHit": 1.1999998092651367,
+      "passed": true
+    },
+    {
+      "id": "upper rear panel",
+      "origin": [
+        0,
+        7.5,
+        -5
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 2,
+      "oldNearestHit": 1.1999998092651367,
+      "nearestHit": 1.1999998092651367,
+      "passed": true
+    },
+    {
+      "id": "bottom rear seal",
+      "origin": [
+        0,
+        -0.422,
+        -5
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "distance": 2,
+      "oldNearestHit": 1.1999998092651367,
+      "nearestHit": 1.1999998092651367,
+      "passed": true
+    },
+    {
+      "id": "left outer wall",
+      "origin": [
+        0,
+        3.5,
+        8
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "distance": 14,
+      "oldNearestHit": 11.999999999999998,
+      "nearestHit": 11.999999999999998,
+      "passed": true
+    },
+    {
+      "id": "right outer wall",
+      "origin": [
+        0,
+        3.5,
+        8
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "distance": 14,
+      "oldNearestHit": 11.999999999999998,
+      "nearestHit": 11.999999999999998,
+      "passed": true
+    },
+    {
+      "id": "front outer wall",
+      "origin": [
+        0,
+        3.5,
+        8
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "distance": 10,
+      "oldNearestHit": 7.725000381469727,
+      "nearestHit": 7.725000381469727,
+      "passed": true
+    },
+    {
+      "id": "roof",
+      "origin": [
+        0,
+        3.5,
+        8
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "distance": 6,
+      "oldNearestHit": 4.560000419616699,
+      "nearestHit": 4.560000419616699,
+      "passed": true
+    },
+    {
+      "id": "floor extension",
+      "origin": [
+        0,
+        3.5,
+        8
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ],
+      "distance": 5,
+      "oldNearestHit": 3.9186972677707668,
+      "nearestHit": 3.9186972677707668,
+      "passed": true
+    }
+  ],
+  "reportFile": "D:\\2026\\WaterDuel\\public\\assets\\environment\\workshop\\verification-360-v4.json"
+}

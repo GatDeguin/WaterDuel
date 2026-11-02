@@ -12,6 +12,7 @@ import {captureReplayState} from '../public/replay.js';
 import {AssetGPU} from '../public/rendering/asset-gpu.js';
 import {bendEquipmentPoint} from '../public/rendering/equipment-flex.js';
 import {equipmentTransform,deformEquipmentPoint} from '../public/rendering/asset-rig.js';
+import {sanitizeItemImpact} from '../public/item-haptics.js';
 
 function context(){
   let serial=0;const trace={buffers:new Set(),vaos:new Set(),programs:new Set(),shaders:new Set(),uniforms:{},uniformOwners:new Map(),program:null,sources:[],draws:0,mask:[true,true,true,true]};
@@ -60,6 +61,7 @@ test('Preparar el renderer presenta el estado real sin pasos físicos ni cambios
 test('game.js mantiene el inicio y RAF bloqueados después de cargar assets hasta completar prepareGame',async()=>{
   const source=await readFile(new URL('../public/game.js',import.meta.url),'utf8');
   const raf=[],state={now:0,host:null,prepareStarted:false,renderer:null},handlers=()=>({addEventListener(){}});
+  const motion={matches:true,listener:null,addEventListener(type,callback){assert.equal(type,'change');this.listener=callback;}};
   let finish;const preparation=new Promise(resolve=>finish=resolve);
   class Host extends HostSession{constructor(o){super(o);state.host=this;this.updates=0;}update(dt){this.updates++;super.update(dt);}}
   class Render{
@@ -72,13 +74,15 @@ test('game.js mantiene el inicio y RAF bloqueados después de cargar assets hast
   const mobileSession={paused:false,bindHost(){},neutralize(){},sample:neutral,publish(){},event(){}};
   vm.runInNewContext(source.replace(/^import[^\n]+;\s*$/gm,''),{
     STEP,neutral,Renderer3D:Render,HostSession:Host,RemoteInputBuffer,isFreshRemoteInput,FrameMetrics,AdaptiveQuality,GameAudio:Audio,
-    HostQRCodes:class{setSession(){}hide(){}},mobileSession,
+    HostQRCodes:class{setSession(){}hide(){}},mobileSession,sanitizeItemImpact,
     document:{...handlers(),hidden:false,documentElement:{dataset:{mobileGame:'true'}},getElementById:()=>handlers()},
-    window:{...handlers(),localStorage:null},performance:{now:()=>state.now},console,
+    window:{...handlers(),localStorage:null,matchMedia:()=>motion},performance:{now:()=>state.now},console,
     requestAnimationFrame:callback=>raf.push(callback),setTimeout:()=>0,clearTimeout(){},
   },{filename:'public/game.js'});
   await new Promise(setImmediate);
   const h=state.host;assert.equal(state.prepareStarted,true);assert.equal(h.presentationBlocked,true);
+  assert.equal(h.game.reducedMotion,true,'system motion preference reaches automatic body intentions as well as the renderer');
+  motion.matches=false;motion.listener();assert.equal(h.game.reducedMotion,false,'changing the system preference updates the same authoritative engine');
   const start={type:'command',requestId:1,sentAt:Date.now(),command:'start'};
   assert.equal(h.handleCommand(start).ok,false);
   const frozen=captureReplayState(h.game);

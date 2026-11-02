@@ -1,0 +1,4288 @@
+{
+  "version": 4,
+  "selected": [
+    4,
+    6,
+    7,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "baseObjects": [
+    "Workshop_blackened-iron-worn-workshop-steel",
+    "Workshop_bottle-glass-green-crown-glass",
+    "Workshop_StaticBrass",
+    "Workshop_brick-0",
+    "Workshop_brick-1",
+    "Workshop_brick-2",
+    "Workshop_brick-3",
+    "Workshop_canvas-waterduel-deep-forest",
+    "Workshop_carbon-black",
+    "Workshop_copper-oxidized-plumbing",
+    "Workshop_forest-green-woven-cotton-velvet",
+    "Workshop_gold-thread-brushed-antique-gold",
+    "Workshop_ivy-pale-leaf-veins",
+    "Workshop_ivy-waxy-variegated-deep-green",
+    "Workshop_lamp-warm-tungsten-filament",
+    "Workshop_leather-oxblood-oil-and-tooling",
+    "Workshop_mint-enamel",
+    "Workshop_oak-aged-endgrain-and-open-pores",
+    "Workshop_oak-aged-endgrain-and-open-pores-grain-y",
+    "Workshop_oak-aged-endgrain-and-open-pores-grain-z",
+    "Workshop_paper-warm-vellum",
+    "Workshop_stage-wet-oak-1",
+    "Workshop_stage-wet-oak-2",
+    "Workshop_stage-wet-oak-3",
+    "Workshop_stage-wet-oak-4",
+    "Workshop_stage-wet-oak-5",
+    "Workshop_steel-satin-machined-surface",
+    "Workshop_stoneware-chalk-glaze",
+    "Workshop_technical-drawing-charcoal-ink",
+    "Workshop_wall-limewash-soot-and-age",
+    "Workshop_walnut-smoke-and-worn-varnish",
+    "Workshop_walnut-smoke-and-worn-varnish-grain-y",
+    "Workshop_walnut-smoke-and-worn-varnish-grain-y-floor",
+    "Workshop_walnut-smoke-and-worn-varnish-grain-z",
+    "Workshop_window-cold-diffuse-daylight",
+    "Workshop_FanRotor"
+  ],
+  "extraObjects": [
+    "Workshop_V4_P15_wd-v4-detail-wood-wax-pale",
+    "Workshop_V4_P15_wd-v4-detail-wood-shellac-amber",
+    "Workshop_V4_P15_wd-v4-detail-wood-oil-dark",
+    "Workshop_V4_P16_wd-v4-detail-repair-satin-steel",
+    "Workshop_V4_P16_wd-v4-detail-charcoal-workshop-paint",
+    "Workshop_V4_P21_wd-v4-detail-wood-oil-dark",
+    "Workshop_V4_P21_wd-v4-detail-wood-wax-pale",
+    "Workshop_V4_P21_wd-v4-detail-cream-workshop-paint",
+    "Workshop_V4_P21_wd-v4-detail-charcoal-workshop-paint",
+    "Workshop_V4_P21_wd-v4-detail-wood-shellac-amber",
+    "Workshop_V4_P22_wd-v4-detail-charcoal-workshop-paint",
+    "Workshop_V4_P22_wd-v4-detail-repair-satin-steel",
+    "Workshop_V4_P22_wd-v4-detail-wood-oil-dark",
+    "Workshop_V4_P22_wd-v4-detail-wood-wax-pale",
+    "Workshop_V4_P22_wd-v4-detail-cream-workshop-paint",
+    "Workshop_V4_Exterior_wd-v4-ext-distant-foliage",
+    "Workshop_V4_Exterior_wd-v4-ext-distant-roofs",
+    "Workshop_V4_Exterior_wd-v4-ext-distant-slate",
+    "Workshop_V4_Exterior_wd-v4-ext-overcast-sky",
+    "Workshop_V4_Exterior_wd-v4-ext-recessed-window-reveal"
+  ],
+  "records": {
+    "blackened-iron-worn-workshop-steel": {
+      "sourceMaterial": "Blackened iron | worn workshop steel",
+      "sourceBakeMaterial": "WD_SOURCE_blackened-iron-worn-workshop-steel",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.017641954123973846,
+        0.02518685907125473,
+        0.024157632142305374,
+        1
+      ],
+      "roughness": 0.41999998688697815,
+      "metallic": 1,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_blackened-iron-worn-workshop-steel",
+      "trianglesBefore": 63232,
+      "trianglesAfter": 37938,
+      "runtimeMaterial": "Workshop v2 PBR | blackened-iron-worn-workshop-steel",
+      "textures": {
+        "basecolor": "textures-v2/blackened-iron-worn-workshop-steel-basecolor.png",
+        "orm": "textures-v2/blackened-iron-worn-workshop-steel-orm.png",
+        "normal": "textures-v2/blackened-iron-worn-workshop-steel-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "bottle-glass-green-crown-glass": {
+      "sourceMaterial": "Bottle glass | green crown glass",
+      "sourceBakeMaterial": "WD_SOURCE_bottle-glass-green-crown-glass",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.23074005544185638,
+        0.3277781009674072,
+        0.1384316086769104,
+        1
+      ],
+      "roughness": 0.14000000059604645,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": true,
+      "decimationRatio": 0.6,
+      "object": "Workshop_bottle-glass-green-crown-glass",
+      "trianglesBefore": 22896,
+      "trianglesAfter": 13736,
+      "runtimeMaterial": "Workshop v2 PBR | bottle-glass-green-crown-glass",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "brass-tarnish-patina-polished-edges": {
+      "sourceMaterial": "Brass | tarnish, patina, polished edges",
+      "sourceBakeMaterial": "WD_SOURCE_brass-tarnish-patina-polished-edges",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.37123769521713257,
+        0.1946178376674652,
+        0.039546236395835876,
+        1
+      ],
+      "roughness": 0.27000001072883606,
+      "metallic": 1,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_StaticBrass",
+      "trianglesBefore": 124692,
+      "trianglesAfter": 74814,
+      "runtimeMaterial": "Workshop v2 PBR | brass-tarnish-patina-polished-edges",
+      "textures": {
+        "basecolor": "textures-v2/brass-tarnish-patina-polished-edges-basecolor.png",
+        "orm": "textures-v2/brass-tarnish-patina-polished-edges-orm.png",
+        "normal": "textures-v2/brass-tarnish-patina-polished-edges-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          256,
+          256
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2",
+      "additionalObjects": [
+        "Workshop_FanRotor"
+      ]
+    },
+    "brick-0": {
+      "sourceMaterial": "Brick 0",
+      "sourceBakeMaterial": "WD_SOURCE_brick-0",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.07036009430885315,
+        0.05448027700185776,
+        0.039546236395835876,
+        1
+      ],
+      "roughness": 0.8500000238418579,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_brick-0",
+      "trianglesBefore": 11092,
+      "trianglesAfter": 6654,
+      "runtimeMaterial": "Workshop v2 PBR | brick-0",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "brick-1": {
+      "sourceMaterial": "Brick 1",
+      "sourceBakeMaterial": "WD_SOURCE_brick-1",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.15292614698410034,
+        0.09758734703063965,
+        0.06480326503515244,
+        1
+      ],
+      "roughness": 0.8500000238418579,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_brick-1",
+      "trianglesBefore": 11280,
+      "trianglesAfter": 6768,
+      "runtimeMaterial": "Workshop v2 PBR | brick-1",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "brick-2": {
+      "sourceMaterial": "Brick 2",
+      "sourceBakeMaterial": "WD_SOURCE_brick-2",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.17144110798835754,
+        0.10461648553609848,
+        0.06301001459360123,
+        1
+      ],
+      "roughness": 0.8500000238418579,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_brick-2",
+      "trianglesBefore": 8648,
+      "trianglesAfter": 5188,
+      "runtimeMaterial": "Workshop v2 PBR | brick-2",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "brick-3": {
+      "sourceMaterial": "Brick 3",
+      "sourceBakeMaterial": "WD_SOURCE_brick-3",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.09989872574806213,
+        0.07421357184648514,
+        0.05126945674419403,
+        1
+      ],
+      "roughness": 0.8500000238418579,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_brick-3",
+      "trianglesBefore": 10716,
+      "trianglesAfter": 6428,
+      "runtimeMaterial": "Workshop v2 PBR | brick-3",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "canvas-waterduel-deep-forest": {
+      "sourceMaterial": "Canvas | WaterDuel deep forest",
+      "sourceBakeMaterial": "WD_SOURCE_canvas-waterduel-deep-forest",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.006048833020031452,
+        0.04666508734226227,
+        0.03310476616024971,
+        1
+      ],
+      "roughness": 0.7799999713897705,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_canvas-waterduel-deep-forest",
+      "trianglesBefore": 2256,
+      "trianglesAfter": 1352,
+      "runtimeMaterial": "Workshop v2 PBR | canvas-waterduel-deep-forest",
+      "textures": {
+        "normal": "textures/canvas-waterduel-deep-forest-normal.png",
+        "basecolor": "textures-v2/canvas-waterduel-deep-forest-basecolor.png",
+        "orm": "textures-v2/canvas-waterduel-deep-forest-orm.png"
+      },
+      "textureDimensions": {
+        "normal": [
+          256,
+          256
+        ],
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "carbon-black": {
+      "sourceMaterial": "Carbon black",
+      "sourceBakeMaterial": "WD_SOURCE_carbon-black",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.0027317428030073643,
+        0.0043914420530200005,
+        0.0043914420530200005,
+        1
+      ],
+      "roughness": 0.7200000286102295,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_carbon-black",
+      "trianglesBefore": 17196,
+      "trianglesAfter": 10316,
+      "runtimeMaterial": "Workshop v2 PBR | carbon-black",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "copper-oxidized-plumbing": {
+      "sourceMaterial": "Copper | oxidized plumbing",
+      "sourceBakeMaterial": "WD_SOURCE_V4_copper-oxidized-plumbing",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.19806931912899017,
+        0.0666259378194809,
+        0.024157632142305374,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 1,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_copper-oxidized-plumbing",
+      "trianglesBefore": 15328,
+      "trianglesAfter": 9196,
+      "runtimeMaterial": "Workshop v2 PBR | copper-oxidized-plumbing",
+      "textures": {
+        "basecolor": "textures-v2/copper-oxidized-plumbing-basecolor.png",
+        "orm": "textures-v2/copper-oxidized-plumbing-orm.png",
+        "normal": "textures-v2/copper-oxidized-plumbing-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ],
+        "normal": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "forest-green-woven-cotton-velvet": {
+      "sourceMaterial": "Forest green | woven cotton velvet",
+      "sourceBakeMaterial": "WD_SOURCE_forest-green-woven-cotton-velvet",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.012000000104308128,
+        0.061000000685453415,
+        0.0430000014603138,
+        1
+      ],
+      "roughness": 0.8299999833106995,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.24,
+      "object": "Workshop_forest-green-woven-cotton-velvet",
+      "trianglesBefore": 113856,
+      "trianglesAfter": 27324,
+      "runtimeMaterial": "Workshop v2 PBR | forest-green-woven-cotton-velvet",
+      "textures": {
+        "normal": "textures/forest-green-woven-cotton-velvet-normal.png",
+        "basecolor": "textures-v2/forest-green-woven-cotton-velvet-basecolor.png",
+        "orm": "textures-v2/forest-green-woven-cotton-velvet-orm.png"
+      },
+      "textureDimensions": {
+        "normal": [
+          512,
+          512
+        ],
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "gold-thread-brushed-antique-gold": {
+      "sourceMaterial": "Gold thread | brushed antique gold",
+      "sourceBakeMaterial": "WD_SOURCE_gold-thread-brushed-antique-gold",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.5457244515419006,
+        0.32314321398735046,
+        0.07421357184648514,
+        1
+      ],
+      "roughness": 0.41999998688697815,
+      "metallic": 0.7599999904632568,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.045,
+      "object": "Workshop_gold-thread-brushed-antique-gold",
+      "trianglesBefore": 375536,
+      "trianglesAfter": 16899,
+      "runtimeMaterial": "Workshop v2 PBR | gold-thread-brushed-antique-gold",
+      "textures": {
+        "basecolor": "textures/gold-thread-brushed-antique-gold-basecolor.png",
+        "orm": "textures/gold-thread-brushed-antique-gold-orm.png",
+        "normal": "textures/gold-thread-brushed-antique-gold-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          256,
+          256
+        ],
+        "orm": [
+          128,
+          128
+        ],
+        "normal": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "ivy-pale-leaf-veins": {
+      "sourceMaterial": "Ivy | pale leaf veins",
+      "sourceBakeMaterial": "WD_SOURCE_ivy-pale-leaf-veins",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.10000000149011612,
+        0.18000000715255737,
+        0.027000000700354576,
+        1
+      ],
+      "roughness": 0.5299999713897705,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.7,
+      "object": "Workshop_ivy-pale-leaf-veins",
+      "trianglesBefore": 12000,
+      "trianglesAfter": 8400,
+      "runtimeMaterial": "Workshop v2 PBR | ivy-pale-leaf-veins",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "ivy-waxy-variegated-deep-green": {
+      "sourceMaterial": "Ivy | waxy variegated deep green",
+      "sourceBakeMaterial": "WD_SOURCE_ivy-waxy-variegated-deep-green",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.7,
+      "object": "Workshop_ivy-waxy-variegated-deep-green",
+      "trianglesBefore": 40000,
+      "trianglesAfter": 28000,
+      "runtimeMaterial": "Workshop v2 PBR | ivy-waxy-variegated-deep-green",
+      "textures": {
+        "basecolor": "textures/ivy-waxy-variegated-deep-green-basecolor.png",
+        "normal": "textures/ivy-waxy-variegated-deep-green-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "lamp-warm-tungsten-filament": {
+      "sourceMaterial": "Lamp | warm tungsten filament",
+      "sourceBakeMaterial": "WD_SOURCE_lamp-warm-tungsten-filament",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        1,
+        0.6583748459815979,
+        0.35153260827064514,
+        1
+      ],
+      "roughness": 0.2800000011920929,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": true,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_lamp-warm-tungsten-filament",
+      "trianglesBefore": 10656,
+      "trianglesAfter": 6392,
+      "runtimeMaterial": "Workshop v2 PBR | lamp-warm-tungsten-filament",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "leather-oxblood-oil-and-tooling": {
+      "sourceMaterial": "Leather | oxblood oil and tooling",
+      "sourceBakeMaterial": "WD_SOURCE_leather-oxblood-oil-and-tooling",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.05780543014407158,
+        0.017641954123973846,
+        0.009721217676997185,
+        1
+      ],
+      "roughness": 0.7799999713897705,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_leather-oxblood-oil-and-tooling",
+      "trianglesBefore": 8416,
+      "trianglesAfter": 5048,
+      "runtimeMaterial": "Workshop v2 PBR | leather-oxblood-oil-and-tooling",
+      "textures": {
+        "normal": "textures-v2/leather-oxblood-oil-and-tooling-normal.png",
+        "basecolor": "textures-v2/leather-oxblood-oil-and-tooling-basecolor.png",
+        "orm": "textures-v2/leather-oxblood-oil-and-tooling-orm.png"
+      },
+      "textureDimensions": {
+        "normal": [
+          256,
+          256
+        ],
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "mint-enamel": {
+      "sourceMaterial": "Mint | enamel",
+      "sourceBakeMaterial": "WD_SOURCE_mint-enamel",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.06847816705703735,
+        0.42869049310684204,
+        0.2622506618499756,
+        1
+      ],
+      "roughness": 0.3199999928474426,
+      "metallic": 0.4000000059604645,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_mint-enamel",
+      "trianglesBefore": 2400,
+      "trianglesAfter": 1440,
+      "runtimeMaterial": "Workshop v2 PBR | mint-enamel",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "oak-aged-endgrain-and-open-pores": {
+      "sourceMaterial": "Oak | aged endgrain and open pores",
+      "sourceBakeMaterial": "WD_SOURCE_V4_oak-aged-endgrain-and-open-pores",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.2581828534603119,
+        0.09989872574806213,
+        0.028426039963960648,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_oak-aged-endgrain-and-open-pores",
+      "trianglesBefore": 22940,
+      "trianglesAfter": 13764,
+      "runtimeMaterial": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores",
+      "textures": {
+        "basecolor": "textures-v2/oak-aged-endgrain-and-open-pores-basecolor.png",
+        "orm": "textures-v2/oak-aged-endgrain-and-open-pores-orm.png",
+        "normal": "textures-v2/oak-aged-endgrain-and-open-pores-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "oak-aged-endgrain-and-open-pores-grain-y": {
+      "sourceMaterial": "Oak | aged endgrain and open pores / grain Y",
+      "sourceBakeMaterial": "WD_SOURCE_V4_oak-aged-endgrain-and-open-pores-grain-y",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.2581828534603119,
+        0.09989872574806213,
+        0.028426039963960648,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_oak-aged-endgrain-and-open-pores-grain-y",
+      "trianglesBefore": 2632,
+      "trianglesAfter": 1578,
+      "runtimeMaterial": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-y",
+      "textures": {
+        "basecolor": "textures-v2/oak-aged-endgrain-and-open-pores-grain-y-basecolor.png",
+        "orm": "textures-v2/oak-aged-endgrain-and-open-pores-grain-y-orm.png",
+        "normal": "textures-v2/oak-aged-endgrain-and-open-pores-grain-y-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "oak-aged-endgrain-and-open-pores-grain-z": {
+      "sourceMaterial": "Oak | aged endgrain and open pores / grain Z",
+      "sourceBakeMaterial": "WD_SOURCE_V4_oak-aged-endgrain-and-open-pores-grain-z",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.2581828534603119,
+        0.09989872574806213,
+        0.028426039963960648,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_oak-aged-endgrain-and-open-pores-grain-z",
+      "trianglesBefore": 2640,
+      "trianglesAfter": 1584,
+      "runtimeMaterial": "Workshop v2 PBR | oak-aged-endgrain-and-open-pores-grain-z",
+      "textures": {
+        "basecolor": "textures-v2/oak-aged-endgrain-and-open-pores-grain-z-basecolor.png",
+        "orm": "textures-v2/oak-aged-endgrain-and-open-pores-grain-z-orm.png",
+        "normal": "textures-v2/oak-aged-endgrain-and-open-pores-grain-z-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "paper-warm-vellum": {
+      "sourceMaterial": "Paper | warm vellum",
+      "sourceBakeMaterial": "WD_SOURCE_paper-warm-vellum",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.5394794940948486,
+        0.4019777774810791,
+        0.20863686501979828,
+        1
+      ],
+      "roughness": 0.8299999833106995,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.065,
+      "object": "Workshop_paper-warm-vellum",
+      "trianglesBefore": 115660,
+      "trianglesAfter": 7516,
+      "runtimeMaterial": "Workshop v2 PBR | paper-warm-vellum",
+      "textures": {
+        "basecolor": "textures-v2/paper-warm-vellum-basecolor.png",
+        "orm": "textures-v2/paper-warm-vellum-orm.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "stage-wet-oak-1": {
+      "sourceMaterial": "Stage | wet oak 1",
+      "sourceBakeMaterial": "WD_SOURCE_V4_stage-wet-oak-1",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.28744083642959595,
+        0.1119324266910553,
+        0.03189603239297867,
+        1
+      ],
+      "roughness": 0.23999999463558197,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.85,
+      "object": "Workshop_stage-wet-oak-1",
+      "trianglesBefore": 1504,
+      "trianglesAfter": 1278,
+      "runtimeMaterial": "Workshop v2 PBR | stage-wet-oak-1",
+      "textures": {
+        "basecolor": "textures-v2/stage-wet-oak-1-basecolor.png",
+        "orm": "textures-v2/stage-wet-oak-1-orm.png",
+        "normal": "textures-v2/stage-wet-oak-1-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "stage-wet-oak-2": {
+      "sourceMaterial": "Stage | wet oak 2",
+      "sourceBakeMaterial": "WD_SOURCE_V4_stage-wet-oak-2",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.1946178376674652,
+        0.07618538290262222,
+        0.023153366521000862,
+        1
+      ],
+      "roughness": 0.23999999463558197,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.85,
+      "object": "Workshop_stage-wet-oak-2",
+      "trianglesBefore": 1504,
+      "trianglesAfter": 1278,
+      "runtimeMaterial": "Workshop v2 PBR | stage-wet-oak-2",
+      "textures": {
+        "basecolor": "textures-v2/stage-wet-oak-2-basecolor.png",
+        "orm": "textures-v2/stage-wet-oak-2-orm.png",
+        "normal": "textures-v2/stage-wet-oak-2-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "stage-wet-oak-3": {
+      "sourceMaterial": "Stage | wet oak 3",
+      "sourceBakeMaterial": "WD_SOURCE_V4_stage-wet-oak-3",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.35640013217926025,
+        0.15896083414554596,
+        0.04373503103852272,
+        1
+      ],
+      "roughness": 0.23999999463558197,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.85,
+      "object": "Workshop_stage-wet-oak-3",
+      "trianglesBefore": 940,
+      "trianglesAfter": 798,
+      "runtimeMaterial": "Workshop v2 PBR | stage-wet-oak-3",
+      "textures": {
+        "basecolor": "textures-v2/stage-wet-oak-3-basecolor.png",
+        "orm": "textures-v2/stage-wet-oak-3-orm.png",
+        "normal": "textures-v2/stage-wet-oak-3-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "stage-wet-oak-4": {
+      "sourceMaterial": "Stage | wet oak 4",
+      "sourceBakeMaterial": "WD_SOURCE_V4_stage-wet-oak-4",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.16513219475746155,
+        0.061246052384376526,
+        0.019382361322641373,
+        1
+      ],
+      "roughness": 0.23999999463558197,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.85,
+      "object": "Workshop_stage-wet-oak-4",
+      "trianglesBefore": 1316,
+      "trianglesAfter": 1118,
+      "runtimeMaterial": "Workshop v2 PBR | stage-wet-oak-4",
+      "textures": {
+        "basecolor": "textures-v2/stage-wet-oak-4-basecolor.png",
+        "orm": "textures-v2/stage-wet-oak-4-orm.png",
+        "normal": "textures-v2/stage-wet-oak-4-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "stage-wet-oak-5": {
+      "sourceMaterial": "Stage | wet oak 5",
+      "sourceBakeMaterial": "WD_SOURCE_V4_stage-wet-oak-5",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.33716362714767456,
+        0.14126329123973846,
+        0.0423114113509655,
+        1
+      ],
+      "roughness": 0.23999999463558197,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.85,
+      "object": "Workshop_stage-wet-oak-5",
+      "trianglesBefore": 1128,
+      "trianglesAfter": 958,
+      "runtimeMaterial": "Workshop v2 PBR | stage-wet-oak-5",
+      "textures": {
+        "basecolor": "textures-v2/stage-wet-oak-5-basecolor.png",
+        "orm": "textures-v2/stage-wet-oak-5-orm.png",
+        "normal": "textures-v2/stage-wet-oak-5-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "steel-satin-machined-surface": {
+      "sourceMaterial": "Steel | satin machined surface",
+      "sourceBakeMaterial": "WD_SOURCE_steel-satin-machined-surface",
+      "resolution": 512,
+      "procedural": true,
+      "baseColorLinear": [
+        0.32314321398735046,
+        0.3915724754333496,
+        0.40724021196365356,
+        1
+      ],
+      "roughness": 0.25,
+      "metallic": 1,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_steel-satin-machined-surface",
+      "trianglesBefore": 7136,
+      "trianglesAfter": 4280,
+      "runtimeMaterial": "Workshop v2 PBR | steel-satin-machined-surface",
+      "textures": {
+        "basecolor": "textures-v2/steel-satin-machined-surface-basecolor.png",
+        "orm": "textures-v2/steel-satin-machined-surface-orm.png",
+        "normal": "textures-v2/steel-satin-machined-surface-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          256,
+          256
+        ],
+        "orm": [
+          128,
+          128
+        ],
+        "normal": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "stoneware-chalk-glaze": {
+      "sourceMaterial": "Stoneware | chalk glaze",
+      "sourceBakeMaterial": "WD_SOURCE_stoneware-chalk-glaze",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.6307571530342102,
+        0.47353148460388184,
+        0.27049779891967773,
+        1
+      ],
+      "roughness": 0.25,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_stoneware-chalk-glaze",
+      "trianglesBefore": 17996,
+      "trianglesAfter": 10797,
+      "runtimeMaterial": "Workshop v2 PBR | stoneware-chalk-glaze",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "technical-drawing-charcoal-ink": {
+      "sourceMaterial": "Technical drawing | charcoal ink",
+      "sourceBakeMaterial": "WD_SOURCE_technical-drawing-charcoal-ink",
+      "resolution": 512,
+      "procedural": false,
+      "baseColorLinear": [
+        0.03433980792760849,
+        0.04373503103852272,
+        0.03688944876194,
+        1
+      ],
+      "roughness": 0.8500000238418579,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.12,
+      "object": "Workshop_technical-drawing-charcoal-ink",
+      "trianglesBefore": 139892,
+      "trianglesAfter": 16787,
+      "runtimeMaterial": "Workshop v2 PBR | technical-drawing-charcoal-ink",
+      "textures": {},
+      "textureDimensions": {},
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    },
+    "wall-limewash-soot-and-age": {
+      "sourceMaterial": "Wall | limewash, soot and age",
+      "sourceBakeMaterial": "WD_SOURCE_V4_wall-limewash-soot-and-age",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.03433980792760849,
+        0.040915198624134064,
+        0.03433980792760849,
+        1
+      ],
+      "roughness": 0.8899999856948853,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_wall-limewash-soot-and-age",
+      "trianglesBefore": 564,
+      "trianglesAfter": 338,
+      "runtimeMaterial": "Workshop v2 PBR | wall-limewash-soot-and-age",
+      "textures": {
+        "basecolor": "textures-v2/wall-limewash-soot-and-age-basecolor.png",
+        "normal": "textures-v2/wall-limewash-soot-and-age-normal.png",
+        "orm": "textures-v2/wall-limewash-soot-and-age-orm.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "normal": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "walnut-smoke-and-worn-varnish": {
+      "sourceMaterial": "Walnut | smoke and worn varnish",
+      "sourceBakeMaterial": "WD_SOURCE_V4_walnut-smoke-and-worn-varnish",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.04817182570695877,
+        0.021219009533524513,
+        0.009721217676997185,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_walnut-smoke-and-worn-varnish",
+      "trianglesBefore": 23932,
+      "trianglesAfter": 14359,
+      "runtimeMaterial": "Workshop v2 PBR | walnut-smoke-and-worn-varnish",
+      "textures": {
+        "basecolor": "textures-v2/walnut-smoke-and-worn-varnish-basecolor.png",
+        "orm": "textures-v2/walnut-smoke-and-worn-varnish-orm.png",
+        "normal": "textures-v2/walnut-smoke-and-worn-varnish-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "walnut-smoke-and-worn-varnish-grain-y": {
+      "sourceMaterial": "Walnut | smoke and worn varnish / grain Y",
+      "sourceBakeMaterial": "WD_SOURCE_V4_walnut-smoke-and-worn-varnish-grain-y",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.04817182570695877,
+        0.021219009533524513,
+        0.009721217676997185,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_walnut-smoke-and-worn-varnish-grain-y",
+      "trianglesBefore": 1692,
+      "trianglesAfter": 1014,
+      "runtimeMaterial": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y",
+      "textures": {
+        "basecolor": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-basecolor.png",
+        "orm": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-orm.png",
+        "normal": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "walnut-smoke-and-worn-varnish-grain-y-floor": {
+      "sourceMaterial": "Walnut | smoke and worn varnish / grain Y / floor",
+      "sourceBakeMaterial": "WD_SOURCE_V4_walnut-smoke-and-worn-varnish-grain-y-floor",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        0.04817182570695877,
+        0.021219009533524513,
+        0.009721217676997185,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_walnut-smoke-and-worn-varnish-grain-y-floor",
+      "trianglesBefore": 188,
+      "trianglesAfter": 112,
+      "runtimeMaterial": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y-floor",
+      "textures": {
+        "basecolor": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-floor-basecolor.png",
+        "orm": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-floor-orm.png",
+        "normal": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-floor-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          512,
+          512
+        ],
+        "orm": [
+          256,
+          256
+        ],
+        "normal": [
+          256,
+          256
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "walnut-smoke-and-worn-varnish-grain-z": {
+      "sourceMaterial": "Walnut | smoke and worn varnish / grain Z",
+      "sourceBakeMaterial": "WD_SOURCE_V4_walnut-smoke-and-worn-varnish-grain-z",
+      "resolution": 2048,
+      "procedural": true,
+      "baseColorLinear": [
+        0.04817182570695877,
+        0.021219009533524513,
+        0.009721217676997185,
+        1
+      ],
+      "roughness": 0.38999998569488525,
+      "metallic": 0,
+      "hasBump": true,
+      "emissionOnly": false,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_walnut-smoke-and-worn-varnish-grain-z",
+      "trianglesBefore": 7692,
+      "trianglesAfter": 4614,
+      "runtimeMaterial": "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-z",
+      "textures": {
+        "basecolor": "textures-v2/walnut-smoke-and-worn-varnish-grain-z-basecolor.png",
+        "orm": "textures-v2/walnut-smoke-and-worn-varnish-grain-z-orm.png",
+        "normal": "textures-v2/walnut-smoke-and-worn-varnish-grain-z-normal.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ],
+        "orm": [
+          512,
+          512
+        ],
+        "normal": [
+          512,
+          512
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": "workshop-wear-v2.2"
+    },
+    "window-cold-diffuse-daylight": {
+      "sourceMaterial": "Window | cold diffuse daylight",
+      "sourceBakeMaterial": "WD_SOURCE_window-cold-diffuse-daylight",
+      "resolution": 1024,
+      "procedural": true,
+      "baseColorLinear": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "roughness": 0.6,
+      "metallic": 0,
+      "hasBump": false,
+      "emissionOnly": true,
+      "bulb": false,
+      "glass": false,
+      "decimationRatio": 0.6,
+      "object": "Workshop_window-cold-diffuse-daylight",
+      "trianglesBefore": 12032,
+      "trianglesAfter": 7218,
+      "runtimeMaterial": "Workshop v2 PBR | window-cold-diffuse-daylight",
+      "textures": {
+        "basecolor": "textures/window-cold-diffuse-daylight-basecolor.png"
+      },
+      "textureDimensions": {
+        "basecolor": [
+          1024,
+          1024
+        ]
+      },
+      "normalConvention": "+Y / OpenGL",
+      "colorSpace": {
+        "basecolor": "sRGB",
+        "normal": "linear",
+        "orm": "linear"
+      },
+      "wearRevision": null
+    }
+  },
+  "materialReport": {
+    "revision": "workshop-materials-v4.1",
+    "changed": {
+      "copper-oxidized-plumbing": {
+        "features": [
+          17
+        ],
+        "jointAnchors": 12,
+        "pipePiecesWithJoints": 6,
+        "unmatchedPiecesUnchanged": 16,
+        "anchorsTruncated": 0,
+        "jointDetection": "Small brass components near the centerline of elongated copper components; no fan/brass material edit.",
+        "depositDistanceRuntimeM": [
+          0.045,
+          0.13
+        ],
+        "depositColorMixMax": 0.48,
+        "depositRoughnessTarget": 0.72,
+        "metallicReductionMax": 0.82,
+        "ormBlueMustBakeMetallicInput": true,
+        "noUniformMetalOxidation": true,
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_copper-oxidized-plumbing",
+        "profile": "copper",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal",
+          "Metallic"
+        ],
+        "objects": [
+          "Workshop_copper-oxidized-plumbing"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_copper-oxidized-plumbing",
+            "connectedPieces": 22,
+            "endgrainFaces": 994,
+            "grainLocalAxis": "X",
+            "seedSha256": "216a9b914eb6822c4fc87526db43a07895e007eacd5efc7e29bf05d968e3d97f",
+            "uniqueSeeds": 22,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 56,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "oak-aged-endgrain-and-open-pores": {
+        "features": [
+          11,
+          12,
+          19
+        ],
+        "grainLocalAxis": "X",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_oak-aged-endgrain-and-open-pores",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_oak-aged-endgrain-and-open-pores"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_oak-aged-endgrain-and-open-pores",
+            "connectedPieces": 106,
+            "endgrainFaces": 1863,
+            "grainLocalAxis": "X",
+            "seedSha256": "647b68154967e20eaf298c8ea66109769ce582e72b66ea325639b3d28f3c513a",
+            "uniqueSeeds": 106,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 60,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "oak-aged-endgrain-and-open-pores-grain-y": {
+        "features": [
+          11,
+          12,
+          19
+        ],
+        "grainLocalAxis": "Y",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_oak-aged-endgrain-and-open-pores-grain-y",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_oak-aged-endgrain-and-open-pores-grain-y"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_oak-aged-endgrain-and-open-pores-grain-y",
+            "connectedPieces": 14,
+            "endgrainFaces": 196,
+            "grainLocalAxis": "Y",
+            "seedSha256": "c02c62b05ed50ef940f701297e21f88d10047b753bdceb1b0293ff202e28a59a",
+            "uniqueSeeds": 14,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 60,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "oak-aged-endgrain-and-open-pores-grain-z": {
+        "features": [
+          11,
+          12,
+          19
+        ],
+        "grainLocalAxis": "Z",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_oak-aged-endgrain-and-open-pores-grain-z",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_oak-aged-endgrain-and-open-pores-grain-z"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_oak-aged-endgrain-and-open-pores-grain-z",
+            "connectedPieces": 12,
+            "endgrainFaces": 398,
+            "grainLocalAxis": "Z",
+            "seedSha256": "bf68e5127ca01311564376e69d6171195a130f1a9772ef2d9711e0dc36bf821f",
+            "uniqueSeeds": 12,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 60,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "stage-wet-oak-1": {
+        "features": [
+          11,
+          12,
+          14,
+          19
+        ],
+        "grainLocalAxis": "X",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "wetnessMask": "Continuous sparse tabletop field \u00d7 actual upward-facing polygons",
+        "wetnessNoiseScaleRuntime": 1.9,
+        "wetnessThreshold": [
+          0.44,
+          0.69
+        ],
+        "wetColorLayerMax": 0.18,
+        "wetRoughnessTarget": [
+          0.125,
+          0.215
+        ],
+        "staticWaterGeometry": false,
+        "opacityChanged": false,
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_stage-wet-oak-1",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_stage-wet-oak-1"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_stage-wet-oak-1",
+            "connectedPieces": 8,
+            "endgrainFaces": 236,
+            "grainLocalAxis": "X",
+            "seedSha256": "fcb370a02f71774b46369a36e30aeb8b247f4b847ca0ad867d35eb274f435069",
+            "uniqueSeeds": 8,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 85,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "stage-wet-oak-2": {
+        "features": [
+          11,
+          12,
+          14,
+          19
+        ],
+        "grainLocalAxis": "X",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "wetnessMask": "Continuous sparse tabletop field \u00d7 actual upward-facing polygons",
+        "wetnessNoiseScaleRuntime": 1.9,
+        "wetnessThreshold": [
+          0.44,
+          0.69
+        ],
+        "wetColorLayerMax": 0.18,
+        "wetRoughnessTarget": [
+          0.125,
+          0.215
+        ],
+        "staticWaterGeometry": false,
+        "opacityChanged": false,
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_stage-wet-oak-2",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_stage-wet-oak-2"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_stage-wet-oak-2",
+            "connectedPieces": 8,
+            "endgrainFaces": 236,
+            "grainLocalAxis": "X",
+            "seedSha256": "c51b51f0f089c7577b694e3f64ef2f93faf70a0eb3cedeaca1aba73258a960df",
+            "uniqueSeeds": 8,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 85,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "stage-wet-oak-3": {
+        "features": [
+          11,
+          12,
+          14,
+          19
+        ],
+        "grainLocalAxis": "X",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "wetnessMask": "Continuous sparse tabletop field \u00d7 actual upward-facing polygons",
+        "wetnessNoiseScaleRuntime": 1.9,
+        "wetnessThreshold": [
+          0.44,
+          0.69
+        ],
+        "wetColorLayerMax": 0.18,
+        "wetRoughnessTarget": [
+          0.125,
+          0.215
+        ],
+        "staticWaterGeometry": false,
+        "opacityChanged": false,
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_stage-wet-oak-3",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_stage-wet-oak-3"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_stage-wet-oak-3",
+            "connectedPieces": 5,
+            "endgrainFaces": 144,
+            "grainLocalAxis": "X",
+            "seedSha256": "c4589e1813ba5c6cfca022d79f6cacdb34a49e8837f50097026abf00a6929c59",
+            "uniqueSeeds": 5,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 85,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "stage-wet-oak-4": {
+        "features": [
+          11,
+          12,
+          14,
+          19
+        ],
+        "grainLocalAxis": "X",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "wetnessMask": "Continuous sparse tabletop field \u00d7 actual upward-facing polygons",
+        "wetnessNoiseScaleRuntime": 1.9,
+        "wetnessThreshold": [
+          0.44,
+          0.69
+        ],
+        "wetColorLayerMax": 0.18,
+        "wetRoughnessTarget": [
+          0.125,
+          0.215
+        ],
+        "staticWaterGeometry": false,
+        "opacityChanged": false,
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_stage-wet-oak-4",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_stage-wet-oak-4"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_stage-wet-oak-4",
+            "connectedPieces": 7,
+            "endgrainFaces": 206,
+            "grainLocalAxis": "X",
+            "seedSha256": "7328774c0d145b615f4464cb396cdfc626263c04c14e6336e022cc33bfab1a5e",
+            "uniqueSeeds": 7,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 85,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "stage-wet-oak-5": {
+        "features": [
+          11,
+          12,
+          14,
+          19
+        ],
+        "grainLocalAxis": "X",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "wetnessMask": "Continuous sparse tabletop field \u00d7 actual upward-facing polygons",
+        "wetnessNoiseScaleRuntime": 1.9,
+        "wetnessThreshold": [
+          0.44,
+          0.69
+        ],
+        "wetColorLayerMax": 0.18,
+        "wetRoughnessTarget": [
+          0.125,
+          0.215
+        ],
+        "staticWaterGeometry": false,
+        "opacityChanged": false,
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_stage-wet-oak-5",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_stage-wet-oak-5"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_stage-wet-oak-5",
+            "connectedPieces": 6,
+            "endgrainFaces": 173,
+            "grainLocalAxis": "X",
+            "seedSha256": "f685c5d72c71886d2b53b51e7c115ee223ab14530b5cf8318d12125998456c42",
+            "uniqueSeeds": 6,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 85,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "wall-limewash-soot-and-age": {
+        "features": [
+          20
+        ],
+        "surfaceProjection": "Per-polygon original local face plane; no global triplanar smear",
+        "brickSizeSourceM": [
+          0.5,
+          0.22
+        ],
+        "mortarHalfWidthSourceM": [
+          0.005,
+          0.018
+        ],
+        "masonryExposureThreshold": [
+          0.64,
+          0.79
+        ],
+        "masonryExposureMax": 0.78,
+        "limewashRepairMixMax": 0.23,
+        "mortarReliefWorldM": 0.0015,
+        "scope": "Localized exposed joints and feathered limewash repairs; no new geometry or structural fractures.",
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_wall-limewash-soot-and-age",
+        "profile": "wall",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_wall-limewash-soot-and-age"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_wall-limewash-soot-and-age",
+            "connectedPieces": 3,
+            "endgrainFaces": 38,
+            "grainLocalAxis": "X",
+            "seedSha256": "061c9897695c95d27081c95c97091a918a95bd3f777d382374eb7648fdd2939e",
+            "uniqueSeeds": 3,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 48,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "walnut-smoke-and-worn-varnish": {
+        "features": [
+          11,
+          12,
+          19
+        ],
+        "grainLocalAxis": "X",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_walnut-smoke-and-worn-varnish",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_walnut-smoke-and-worn-varnish"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_walnut-smoke-and-worn-varnish",
+            "connectedPieces": 110,
+            "endgrainFaces": 2604,
+            "grainLocalAxis": "X",
+            "seedSha256": "2937578e6b151947f5ad2484578ba6d9d70f916e3a850fb42f967f365097c7ac",
+            "uniqueSeeds": 110,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 60,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "walnut-smoke-and-worn-varnish-grain-y": {
+        "features": [
+          11,
+          12,
+          19
+        ],
+        "grainLocalAxis": "Y",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_walnut-smoke-and-worn-varnish-grain-y",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_walnut-smoke-and-worn-varnish-grain-y"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_walnut-smoke-and-worn-varnish-grain-y",
+            "connectedPieces": 9,
+            "endgrainFaces": 163,
+            "grainLocalAxis": "Y",
+            "seedSha256": "c0d2f2807e2bfe0b47cef740f7e8e5c5d83bd2fddca268647649be875e76a1ea",
+            "uniqueSeeds": 9,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 60,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "walnut-smoke-and-worn-varnish-grain-y-floor": {
+        "features": [
+          11,
+          12,
+          19
+        ],
+        "grainLocalAxis": "Y",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_walnut-smoke-and-worn-varnish-grain-y-floor",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_walnut-smoke-and-worn-varnish-grain-y-floor"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_walnut-smoke-and-worn-varnish-grain-y-floor",
+            "connectedPieces": 1,
+            "endgrainFaces": 14,
+            "grainLocalAxis": "Y",
+            "seedSha256": "e5e3f91769ca6bb61dcd91d77689c1de96adf686e1c5b6f8beeb83a532177b6a",
+            "uniqueSeeds": 1,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 60,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      },
+      "walnut-smoke-and-worn-varnish-grain-z": {
+        "features": [
+          11,
+          12,
+          19
+        ],
+        "grainLocalAxis": "Z",
+        "originalTimberMappingsSeeded": 1,
+        "perPieceToneMultiplierRange": [
+          0.93,
+          1.055
+        ],
+        "endgrainMask": "CORNER-constant abs(actual polygon normal in original wd_object frame dot local grain axis)",
+        "growthRingPeriodSourceM": [
+          0.017453292519943295,
+          0.0241660973353061
+        ],
+        "endgrainReliefWorldM": 0.00048,
+        "varnish": "Correlated per-piece warm absorption, finish roughness and native coat; no lighting baked.",
+        "sourceOnlyChannels": [
+          "Coat Weight",
+          "Coat Roughness"
+        ],
+        "standardPBRApproximation": "Varnish appearance retained in Base Color/Roughness/Normal; separate clearcoat BRDF requires renderer support.",
+        "revision": "workshop-materials-v4.1",
+        "material": "WD_SOURCE_V4_walnut-smoke-and-worn-varnish-grain-z",
+        "profile": "wood",
+        "channels": [
+          "Base Color",
+          "Roughness",
+          "Normal"
+        ],
+        "objects": [
+          "Workshop_walnut-smoke-and-worn-varnish-grain-z"
+        ],
+        "pieces": [
+          {
+            "object": "Workshop_walnut-smoke-and-worn-varnish-grain-z",
+            "connectedPieces": 33,
+            "endgrainFaces": 1339,
+            "grainLocalAxis": "Z",
+            "seedSha256": "6759560ce9d67fdada37e3b1f09e0af521e6055592b34be88e6b6f987a4f5c01",
+            "uniqueSeeds": 33,
+            "topologyPositionsUVsUntouched": true
+          }
+        ],
+        "nodesAdded": 60,
+        "alphaTransmissionEmissionUntouched": true,
+        "lightingBaked": false
+      }
+    },
+    "skipped": {},
+    "geometryChanged": false,
+    "authoringAttributesAdded": true,
+    "lightingBaked": false,
+    "bakePolicy": {
+      "albedoMax": 1024,
+      "normalRoughnessMetallicMax": 512,
+      "newTextureChannels": false,
+      "ormBlue": "Bake Principled Metallic where listed."
+    }
+  },
+  "propsReport": {
+    "revision": "workshop-props-v4.1",
+    "categories": {
+      "15": {
+        "proposal": 15,
+        "objectCount": 14,
+        "objectNames": [
+          "V4P_P15 front apron butterfly 01",
+          "V4P_P15 front apron butterfly 02",
+          "V4P_P15 scarfed apron insert 01",
+          "V4P_P15 scarfed apron insert 02",
+          "V4P_P15 endgrain oak plug L 1",
+          "V4P_P15 endgrain oak plug L 2",
+          "V4P_P15 endgrain oak plug R 1",
+          "V4P_P15 endgrain oak plug R 2",
+          "V4P_P15 side bench repaired dowel 01",
+          "V4P_P15 side bench repaired dowel 02",
+          "V4P_P15 side bench repaired dowel 03",
+          "V4P_P15 side bench repaired dowel 04",
+          "V4P_P15 rear counter inset repair 01",
+          "V4P_P15 rear counter inset repair 02"
+        ],
+        "geometryBounds": {
+          "sourceZUp": {
+            "min": [
+              -8.07100002389205,
+              -2.730999913968538,
+              0.6150000081688165
+            ],
+            "max": [
+              8.224999613510935,
+              5.770000113938984,
+              1.8291224121896843
+            ]
+          },
+          "blenderZUp": {
+            "min": [
+              -5.215952396392822,
+              -1.7649319171905518,
+              -0.021248294040560722
+            ],
+            "max": [
+              5.315475940704346,
+              3.7289116382598877,
+              0.7633886337280273
+            ]
+          },
+          "runtimeYUp": {
+            "min": [
+              -5.215952396392822,
+              -0.021248294040560722,
+              -3.7289116382598877
+            ],
+            "max": [
+              5.315475940704346,
+              0.7633886337280273,
+              1.7649319171905518
+            ]
+          }
+        }
+      },
+      "16": {
+        "proposal": 16,
+        "objectCount": 24,
+        "objectNames": [
+          "V4P_P16 side drawer fixing 01 open washer",
+          "V4P_P16 side drawer fixing 01 replaced slotted head",
+          "V4P_P16 side drawer fixing 01 recessed driver mark",
+          "V4P_P16 side drawer fixing 02 open washer",
+          "V4P_P16 side drawer fixing 02 replaced hex head",
+          "V4P_P16 side drawer fixing 03 open washer",
+          "V4P_P16 side drawer fixing 03 replaced square head",
+          "V4P_P16 side drawer fixing 04 open washer",
+          "V4P_P16 side drawer fixing 04 replaced slotted head",
+          "V4P_P16 side drawer fixing 04 recessed driver mark",
+          "V4P_P16 side drawer fixing 05 open washer",
+          "V4P_P16 side drawer fixing 05 replaced hex head",
+          "V4P_P16 side drawer fixing 06 open washer",
+          "V4P_P16 side drawer fixing 06 replaced square head",
+          "V4P_P16 rear counter service screw 01 open washer",
+          "V4P_P16 rear counter service screw 01 replaced slotted head",
+          "V4P_P16 rear counter service screw 01 recessed driver mark",
+          "V4P_P16 rear counter service screw 02 open washer",
+          "V4P_P16 rear counter service screw 02 replaced slotted head",
+          "V4P_P16 rear counter service screw 02 recessed driver mark",
+          "V4P_P16 bench leg reinforcing bolt 01 open washer",
+          "V4P_P16 bench leg reinforcing bolt 01 replaced hex head",
+          "V4P_P16 bench leg reinforcing bolt 02 open washer",
+          "V4P_P16 bench leg reinforcing bolt 02 replaced hex head"
+        ],
+        "geometryBounds": {
+          "sourceZUp": {
+            "min": [
+              -8.504135859640021,
+              3.0600200489947667,
+              1.020419123596894
+            ],
+            "max": [
+              8.554136512154026,
+              5.7670000452744326,
+              1.6625577292793674
+            ]
+          },
+          "blenderZUp": {
+            "min": [
+              -5.495870113372803,
+              1.9775639772415161,
+              0.24075725674629211
+            ],
+            "max": [
+              5.528183460235596,
+              3.726972818374634,
+              0.6557447910308838
+            ]
+          },
+          "runtimeYUp": {
+            "min": [
+              -5.495870113372803,
+              0.24075725674629211,
+              -3.726972818374634
+            ],
+            "max": [
+              5.528183460235596,
+              0.6557447910308838,
+              -1.9775639772415161
+            ]
+          }
+        }
+      },
+      "21": {
+        "proposal": 21,
+        "objectCount": 13,
+        "objectNames": [
+          "V4P_P21 sample tray base",
+          "V4P_P21 sample tray end rail",
+          "V4P_P21 sample tray end rail.001",
+          "V4P_P21 finish sample 01 CERA",
+          "V4P_P21 finish sample label plate 01",
+          "V4P_P21 finish label 01",
+          "V4P_P21 finish sample 02 ACEITE",
+          "V4P_P21 finish sample label plate 02",
+          "V4P_P21 finish label 02",
+          "V4P_P21 finish sample 03 GOMA LACA",
+          "V4P_P21 finish sample label plate 03",
+          "V4P_P21 finish label 03",
+          "V4P_P21 sample collection title"
+        ],
+        "geometryBounds": {
+          "sourceZUp": {
+            "min": [
+              -5.310000161120765,
+              5.970000141545346,
+              1.6980000062842115
+            ],
+            "max": [
+              -4.369999920694451,
+              6.569999855443051,
+              2.1821378394026505
+            ]
+          },
+          "blenderZUp": {
+            "min": [
+              -3.4316327571868896,
+              3.858163356781006,
+              0.6786496639251709
+            ],
+            "max": [
+              -2.8241496086120605,
+              4.245918273925781,
+              0.9915278553962708
+            ]
+          },
+          "runtimeYUp": {
+            "min": [
+              -3.4316327571868896,
+              0.6786496639251709,
+              -4.245918273925781
+            ],
+            "max": [
+              -2.8241496086120605,
+              0.9915278553962708,
+              -3.858163356781006
+            ]
+          }
+        }
+      },
+      "22": {
+        "proposal": 22,
+        "objectCount": 22,
+        "objectNames": [
+          "V4P_P22 shadow board iron upright",
+          "V4P_P22 shadow board counter foot",
+          "V4P_P22 shadow board iron upright.001",
+          "V4P_P22 shadow board counter foot.001",
+          "V4P_P22 tool shadow board backing",
+          "V4P_P22 shadow board upright frame",
+          "V4P_P22 shadow board upright frame.001",
+          "V4P_P22 shadow board cross frame",
+          "V4P_P22 shadow board cross frame.001",
+          "V4P_P22 painted absent tool 01",
+          "V4P_P22 empty tool peg 01",
+          "V4P_P22 empty peg upturn 01",
+          "V4P_P22 missing tool name 01",
+          "V4P_P22 painted absent tool 02",
+          "V4P_P22 empty tool peg 02",
+          "V4P_P22 empty peg upturn 02",
+          "V4P_P22 missing tool name 02",
+          "V4P_P22 painted absent tool 03",
+          "V4P_P22 empty tool peg 03",
+          "V4P_P22 empty peg upturn 03",
+          "V4P_P22 missing tool name 03",
+          "V4P_P22 shadow board title"
+        ],
+        "geometryBounds": {
+          "sourceZUp": {
+            "min": [
+              1.9100000607339958,
+              6.758999754253186,
+              1.6950000298500059
+            ],
+            "max": [
+              2.890000048436616,
+              6.975000271044279,
+              3.9874998989707544
+            ]
+          },
+          "blenderZUp": {
+            "min": [
+              1.23435378074646,
+              4.368061065673828,
+              0.6767109036445618
+            ],
+            "max": [
+              1.8676871061325073,
+              4.50765323638916,
+              2.1582584381103516
+            ]
+          },
+          "runtimeYUp": {
+            "min": [
+              1.23435378074646,
+              0.6767109036445618,
+              -4.50765323638916
+            ],
+            "max": [
+              1.8676871061325073,
+              2.1582584381103516,
+              -4.368061065673828
+            ]
+          }
+        }
+      }
+    },
+    "geometryBounds": {
+      "sourceZUp": {
+        "min": [
+          -8.504135859640021,
+          -2.730999913968538,
+          0.6150000081688165
+        ],
+        "max": [
+          8.554136512154026,
+          6.975000271044279,
+          3.9874998989707544
+        ]
+      },
+      "blenderZUp": {
+        "min": [
+          -5.495870113372803,
+          -1.7649319171905518,
+          -0.021248294040560722
+        ],
+        "max": [
+          5.528183460235596,
+          4.50765323638916,
+          2.1582584381103516
+        ]
+      },
+      "runtimeYUp": {
+        "min": [
+          -5.495870113372803,
+          -0.021248294040560722,
+          -4.50765323638916
+        ],
+        "max": [
+          5.528183460235596,
+          2.1582584381103516,
+          1.7649319171905518
+        ]
+      }
+    },
+    "objectCount": 73,
+    "trianglesAfterFontConversion": 3625,
+    "materialNames": [
+      "WD_V4_DETAIL_wood_wax_pale",
+      "WD_V4_DETAIL_wood_oil_dark",
+      "WD_V4_DETAIL_wood_shellac_amber",
+      "WD_V4_DETAIL_repair_satin_steel",
+      "WD_V4_DETAIL_cream_workshop_paint",
+      "WD_V4_DETAIL_charcoal_workshop_paint"
+    ],
+    "newMaterialCount": 6,
+    "fontLabels": [
+      {
+        "name": "V4P_P21 finish label 01",
+        "text": "CERA",
+        "sourceLocation": [
+          -5.125,
+          5.975,
+          1.768
+        ],
+        "blenderLocation": [
+          -3.312074899673462,
+          3.8613946437835693,
+          0.7238877415657043
+        ],
+        "runtimeLocation": [
+          -3.312074899673462,
+          0.7238877415657043,
+          -3.8613946437835693
+        ]
+      },
+      {
+        "name": "V4P_P21 finish label 02",
+        "text": "ACEITE",
+        "sourceLocation": [
+          -4.84,
+          5.975,
+          1.768
+        ],
+        "blenderLocation": [
+          -3.1278910636901855,
+          3.8613946437835693,
+          0.7238877415657043
+        ],
+        "runtimeLocation": [
+          -3.1278910636901855,
+          0.7238877415657043,
+          -3.8613946437835693
+        ]
+      },
+      {
+        "name": "V4P_P21 finish label 03",
+        "text": "GOMA LACA",
+        "sourceLocation": [
+          -4.555,
+          5.975,
+          1.768
+        ],
+        "blenderLocation": [
+          -2.9437074661254883,
+          3.8613946437835693,
+          0.7238877415657043
+        ],
+        "runtimeLocation": [
+          -2.9437074661254883,
+          0.7238877415657043,
+          -3.8613946437835693
+        ]
+      },
+      {
+        "name": "V4P_P21 sample collection title",
+        "text": "ACABADOS",
+        "sourceLocation": [
+          -4.84,
+          6.53,
+          1.7488
+        ],
+        "blenderLocation": [
+          -3.1278910636901855,
+          4.220067977905273,
+          0.7114796042442322
+        ],
+        "runtimeLocation": [
+          -3.1278910636901855,
+          0.7114796042442322,
+          -4.220067977905273
+        ]
+      },
+      {
+        "name": "V4P_P22 missing tool name 01",
+        "text": "FORMON",
+        "sourceLocation": [
+          2.12,
+          6.857,
+          3.023
+        ],
+        "blenderLocation": [
+          1.370068073272705,
+          4.431394577026367,
+          1.5349421501159668
+        ],
+        "runtimeLocation": [
+          1.370068073272705,
+          1.5349421501159668,
+          -4.431394577026367
+        ]
+      },
+      {
+        "name": "V4P_P22 missing tool name 02",
+        "text": "LLAVE",
+        "sourceLocation": [
+          2.4,
+          6.857,
+          3.023
+        ],
+        "blenderLocation": [
+          1.5510203838348389,
+          4.431394577026367,
+          1.5349421501159668
+        ],
+        "runtimeLocation": [
+          1.5510203838348389,
+          1.5349421501159668,
+          -4.431394577026367
+        ]
+      },
+      {
+        "name": "V4P_P22 missing tool name 03",
+        "text": "MARTILLO",
+        "sourceLocation": [
+          2.68,
+          6.857,
+          3.023
+        ],
+        "blenderLocation": [
+          1.7319728136062622,
+          4.431394577026367,
+          1.5349421501159668
+        ],
+        "runtimeLocation": [
+          1.7319728136062622,
+          1.5349421501159668,
+          -4.431394577026367
+        ]
+      },
+      {
+        "name": "V4P_P22 shadow board title",
+        "text": "CADA PIEZA EN SU SITIO",
+        "sourceLocation": [
+          2.4,
+          6.857,
+          3.823
+        ],
+        "blenderLocation": [
+          1.5510203838348389,
+          4.431394577026367,
+          2.0519490242004395
+        ],
+        "runtimeLocation": [
+          1.5510203838348389,
+          2.0519490242004395,
+          -4.431394577026367
+        ]
+      }
+    ],
+    "objectReport": [
+      {
+        "name": "V4P_P15 front apron butterfly 01",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 28,
+        "runtimeBounds": {
+          "min": [
+            -1.1955782175064087,
+            -0.021248294040560722,
+            1.7610543966293335
+          ],
+          "max": [
+            -1.0275510549545288,
+            0.07569047063589096,
+            1.7649319171905518
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P15 front apron butterfly 02",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 28,
+        "runtimeBounds": {
+          "min": [
+            0.652721107006073,
+            -0.021248294040560722,
+            1.7610543966293335
+          ],
+          "max": [
+            0.8207482695579529,
+            0.07569047063589096,
+            1.7649319171905518
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P15 scarfed apron insert 01",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -2.0809524059295654,
+            0.04596257209777832,
+            1.7610543966293335
+          ],
+          "max": [
+            -1.8612244129180908,
+            0.09895578026771545,
+            1.7649319171905518
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_shellac_amber"
+      },
+      {
+        "name": "V4P_P15 scarfed apron insert 02",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.7158162593841553,
+            0.04596257209777832,
+            1.7610543966293335
+          ],
+          "max": [
+            1.8903061151504517,
+            0.09895578026771545,
+            1.7649319171905518
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_shellac_amber"
+      },
+      {
+        "name": "V4P_P15 endgrain oak plug L 1",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 52,
+        "runtimeBounds": {
+          "min": [
+            -3.9311904907226562,
+            -0.014686641283333302,
+            0.797482967376709
+          ],
+          "max": [
+            -3.926020383834839,
+            0.04327850043773651,
+            0.8569387793540955
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P15 endgrain oak plug L 2",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 52,
+        "runtimeBounds": {
+          "min": [
+            -3.9311904907226562,
+            0.007190143223851919,
+            -0.7787346839904785
+          ],
+          "max": [
+            -3.926020383834839,
+            0.06663976609706879,
+            -0.7205849885940552
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P15 endgrain oak plug R 1",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 52,
+        "runtimeBounds": {
+          "min": [
+            3.926020383834839,
+            -0.014686641283333302,
+            0.797482967376709
+          ],
+          "max": [
+            3.9311904907226562,
+            0.04327850043773651,
+            0.8569387793540955
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P15 endgrain oak plug R 2",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 52,
+        "runtimeBounds": {
+          "min": [
+            3.926020383834839,
+            0.007190143223851919,
+            -0.7787346839904785
+          ],
+          "max": [
+            3.9311904907226562,
+            0.06663976609706879,
+            -0.7205849885940552
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P15 side bench repaired dowel 01",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 52,
+        "runtimeBounds": {
+          "min": [
+            -5.215952396392822,
+            0.7218049764633179,
+            -2.0266666412353516
+          ],
+          "max": [
+            -5.175884246826172,
+            0.7608684301376343,
+            -2.021496534347534
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P15 side bench repaired dowel 02",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 52,
+        "runtimeBounds": {
+          "min": [
+            -3.3314623832702637,
+            0.7192847728729248,
+            -2.0266666412353516
+          ],
+          "max": [
+            -3.286224603652954,
+            0.7633886337280273,
+            -2.021496534347534
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_shellac_amber"
+      },
+      {
+        "name": "V4P_P15 side bench repaired dowel 03",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 52,
+        "runtimeBounds": {
+          "min": [
+            3.2371087074279785,
+            0.7218049764633179,
+            -2.0589795112609863
+          ],
+          "max": [
+            3.277176856994629,
+            0.7608684301376343,
+            -2.053809404373169
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P15 side bench repaired dowel 04",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 52,
+        "runtimeBounds": {
+          "min": [
+            5.270237922668457,
+            0.7192847728729248,
+            -2.0589795112609863
+          ],
+          "max": [
+            5.315475940704346,
+            0.7633886337280273,
+            -2.053809404373169
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_shellac_amber"
+      },
+      {
+        "name": "V4P_P15 rear counter inset repair 01",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -2.9792513847351074,
+            0.6017448902130127,
+            -3.7289116382598877
+          ],
+          "max": [
+            -2.7982993125915527,
+            0.6547381281852722,
+            -3.725034236907959
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_oil_dark"
+      },
+      {
+        "name": "V4P_P15 rear counter inset repair 02",
+        "proposal": 15,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            2.145578145980835,
+            0.6017448902130127,
+            -3.7289116382598877
+          ],
+          "max": [
+            2.326530694961548,
+            0.6547381281852722,
+            -3.725034236907959
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_oil_dark"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 01 open washer",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 144,
+        "runtimeBounds": {
+          "min": [
+            -4.723777770996094,
+            0.5670275688171387,
+            -1.9940305948257446
+          ],
+          "max": [
+            -4.672821044921875,
+            0.618367075920105,
+            -1.9875679016113281
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 01 replaced slotted head",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 68,
+        "runtimeBounds": {
+          "min": [
+            -4.716394424438477,
+            0.5748769640922546,
+            -1.9875680208206177
+          ],
+          "max": [
+            -4.680203914642334,
+            0.610517680644989,
+            -1.979786992073059
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 01 recessed driver mark",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -4.710694789886475,
+            0.591068685054779,
+            -1.9797871112823486
+          ],
+          "max": [
+            -4.685904026031494,
+            0.594325840473175,
+            -1.9790115356445312
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 02 open washer",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 144,
+        "runtimeBounds": {
+          "min": [
+            -4.003607749938965,
+            0.5633604526519775,
+            -1.9940305948257446
+          ],
+          "max": [
+            -3.9453718662261963,
+            0.6220341324806213,
+            -1.9875679016113281
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 02 replaced hex head",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 20,
+        "runtimeBounds": {
+          "min": [
+            -3.994715929031372,
+            0.5730255842208862,
+            -1.9875680208206177
+          ],
+          "max": [
+            -3.954263687133789,
+            0.6123690009117126,
+            -1.9786754846572876
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 03 open washer",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 144,
+        "runtimeBounds": {
+          "min": [
+            -3.2834384441375732,
+            0.5596933960914612,
+            -1.9940305948257446
+          ],
+          "max": [
+            -3.2179224491119385,
+            0.6257012486457825,
+            -1.9875679016113281
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 03 replaced square head",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -3.2671315670013428,
+            0.5762462615966797,
+            -1.9875680208206177
+          ],
+          "max": [
+            -3.234229326248169,
+            0.609148383140564,
+            -1.9775639772415161
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 04 open washer",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 144,
+        "runtimeBounds": {
+          "min": [
+            3.8068344593048096,
+            0.5670275688171387,
+            -2.026343584060669
+          ],
+          "max": [
+            3.8577911853790283,
+            0.618367075920105,
+            -2.019881010055542
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 04 replaced slotted head",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 68,
+        "runtimeBounds": {
+          "min": [
+            3.8142175674438477,
+            0.5748769640922546,
+            -2.019881010055542
+          ],
+          "max": [
+            3.8504080772399902,
+            0.610517680644989,
+            -2.0120999813079834
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 04 recessed driver mark",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            3.819917678833008,
+            0.591068685054779,
+            -2.0120999813079834
+          ],
+          "max": [
+            3.844708204269409,
+            0.594325840473175,
+            -2.011324405670166
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 05 open washer",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 144,
+        "runtimeBounds": {
+          "min": [
+            4.527004718780518,
+            0.5633604526519775,
+            -2.026343584060669
+          ],
+          "max": [
+            4.585240840911865,
+            0.6220341324806213,
+            -2.019881010055542
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 05 replaced hex head",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 20,
+        "runtimeBounds": {
+          "min": [
+            4.535896301269531,
+            0.5730255842208862,
+            -2.019881010055542
+          ],
+          "max": [
+            4.576348781585693,
+            0.6123690009117126,
+            -2.010988235473633
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 06 open washer",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 144,
+        "runtimeBounds": {
+          "min": [
+            5.24717378616333,
+            0.5596933960914612,
+            -2.026343584060669
+          ],
+          "max": [
+            5.312690258026123,
+            0.6257012486457825,
+            -2.019881010055542
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 side drawer fixing 06 replaced square head",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            5.263481140136719,
+            0.5762462615966797,
+            -2.019881010055542
+          ],
+          "max": [
+            5.296382904052734,
+            0.609148383140564,
+            -2.0098767280578613
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 rear counter service screw 01 open washer",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 144,
+        "runtimeBounds": {
+          "min": [
+            -3.206890344619751,
+            0.6007382273674011,
+            -3.726972818374634
+          ],
+          "max": [
+            -3.1522934436798096,
+            0.6557447910308838,
+            -3.720510244369507
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 rear counter service screw 01 replaced slotted head",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 68,
+        "runtimeBounds": {
+          "min": [
+            -3.1989798545837402,
+            0.6091482639312744,
+            -3.720510244369507
+          ],
+          "max": [
+            -3.1602039337158203,
+            0.6473346948623657,
+            -3.7121732234954834
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 rear counter service screw 01 recessed driver mark",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -3.1928725242614746,
+            0.6264966130256653,
+            -3.7121734619140625
+          ],
+          "max": [
+            -3.166311264038086,
+            0.6299864053726196,
+            -3.711397886276245
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P16 rear counter service screw 02 open washer",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 144,
+        "runtimeBounds": {
+          "min": [
+            3.1781437397003174,
+            0.6007382273674011,
+            -3.726972818374634
+          ],
+          "max": [
+            3.232740640640259,
+            0.6557447910308838,
+            -3.720510244369507
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 rear counter service screw 02 replaced slotted head",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 68,
+        "runtimeBounds": {
+          "min": [
+            3.186054229736328,
+            0.6091482639312744,
+            -3.720510244369507
+          ],
+          "max": [
+            3.224830150604248,
+            0.6473346948623657,
+            -3.7121732234954834
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 rear counter service screw 02 recessed driver mark",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            3.1921615600585938,
+            0.6264966130256653,
+            -3.7121734619140625
+          ],
+          "max": [
+            3.2187228202819824,
+            0.6299864053726196,
+            -3.711397886276245
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P16 bench leg reinforcing bolt 01 open washer",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 144,
+        "runtimeBounds": {
+          "min": [
+            -5.495870113372803,
+            0.24075725674629211,
+            -2.0770750045776367
+          ],
+          "max": [
+            -5.419435501098633,
+            0.31776660680770874,
+            -2.0706121921539307
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P16 bench leg reinforcing bolt 01 replaced hex head",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 20,
+        "runtimeBounds": {
+          "min": [
+            -5.484199523925781,
+            0.25344282388687134,
+            -2.0706121921539307
+          ],
+          "max": [
+            -5.431106090545654,
+            0.3050810396671295,
+            -2.0589406490325928
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P16 bench leg reinforcing bolt 02 open washer",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 144,
+        "runtimeBounds": {
+          "min": [
+            5.451748371124268,
+            0.24075725674629211,
+            -2.1093878746032715
+          ],
+          "max": [
+            5.528183460235596,
+            0.31776660680770874,
+            -2.1029250621795654
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P16 bench leg reinforcing bolt 02 replaced hex head",
+        "proposal": 16,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 20,
+        "runtimeBounds": {
+          "min": [
+            5.463418960571289,
+            0.25344282388687134,
+            -2.1029253005981445
+          ],
+          "max": [
+            5.516512870788574,
+            0.3050810396671295,
+            -2.0912537574768066
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P21 sample tray base",
+        "proposal": 21,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -3.4316327571868896,
+            0.6786496639251709,
+            -4.245918273925781
+          ],
+          "max": [
+            -2.8241496086120605,
+            0.7109625935554504,
+            -3.858163356781006
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_oil_dark"
+      },
+      {
+        "name": "V4P_P21 sample tray end rail",
+        "proposal": 21,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -3.430340051651001,
+            0.6996530890464783,
+            -4.245918273925781
+          ],
+          "max": [
+            -3.4070749282836914,
+            0.7416598796844482,
+            -3.858163356781006
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P21 sample tray end rail.001",
+        "proposal": 21,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -2.848707437515259,
+            0.6996530890464783,
+            -4.245918273925781
+          ],
+          "max": [
+            -2.82544207572937,
+            0.7416598796844482,
+            -3.858163356781006
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P21 finish sample 01 CERA",
+        "proposal": 21,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -3.388010263442993,
+            0.7108734846115112,
+            -4.157259464263916
+          ],
+          "max": [
+            -3.2361395359039307,
+            0.9915278553962708,
+            -4.076074123382568
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P21 finish sample label plate 01",
+        "proposal": 21,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -3.3951189517974854,
+            0.69642174243927,
+            -3.869795799255371
+          ],
+          "max": [
+            -3.2290306091308594,
+            0.7500612139701843,
+            -3.8620407581329346
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      },
+      {
+        "name": "V4P_P21 finish label 01",
+        "proposal": 21,
+        "type": "FONT",
+        "trianglesAfterFontConversion": 61,
+        "runtimeBounds": {
+          "min": [
+            -3.3536558151245117,
+            0.713104248046875,
+            -3.8613946437835693
+          ],
+          "max": [
+            -3.2688188552856445,
+            0.7375328540802002,
+            -3.8613946437835693
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P21 finish sample 02 ACEITE",
+        "proposal": 21,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -3.203826427459717,
+            0.7108734846115112,
+            -4.157259464263916
+          ],
+          "max": [
+            -3.0519556999206543,
+            0.9915278553962708,
+            -4.076074123382568
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_oil_dark"
+      },
+      {
+        "name": "V4P_P21 finish sample label plate 02",
+        "proposal": 21,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -3.210935354232788,
+            0.69642174243927,
+            -3.869795799255371
+          ],
+          "max": [
+            -3.044847011566162,
+            0.7500612139701843,
+            -3.8620407581329346
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      },
+      {
+        "name": "V4P_P21 finish label 02",
+        "proposal": 21,
+        "type": "FONT",
+        "trianglesAfterFontConversion": 55,
+        "runtimeBounds": {
+          "min": [
+            -3.1842339038848877,
+            0.713104248046875,
+            -3.8613946437835693
+          ],
+          "max": [
+            -3.0725603103637695,
+            0.7375328540802002,
+            -3.8613946437835693
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P21 finish sample 03 GOMA LACA",
+        "proposal": 21,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -3.0196428298950195,
+            0.7108734846115112,
+            -4.157259464263916
+          ],
+          "max": [
+            -2.867772102355957,
+            0.9915278553962708,
+            -4.076074123382568
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_shellac_amber"
+      },
+      {
+        "name": "V4P_P21 finish sample label plate 03",
+        "proposal": 21,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            -3.026751756668091,
+            0.69642174243927,
+            -3.869795799255371
+          ],
+          "max": [
+            -2.8606631755828857,
+            0.7500612139701843,
+            -3.8620407581329346
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      },
+      {
+        "name": "V4P_P21 finish label 03",
+        "proposal": 21,
+        "type": "FONT",
+        "trianglesAfterFontConversion": 102,
+        "runtimeBounds": {
+          "min": [
+            -3.0213496685028076,
+            0.7155005931854248,
+            -3.8613946437835693
+          ],
+          "max": [
+            -2.864708185195923,
+            0.7345005869865417,
+            -3.8613946437835693
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P21 sample collection title",
+        "proposal": 21,
+        "type": "FONT",
+        "trianglesAfterFontConversion": 127,
+        "runtimeBounds": {
+          "min": [
+            -3.239272117614746,
+            0.7114796042442322,
+            -4.23649263381958
+          ],
+          "max": [
+            -3.0178542137145996,
+            0.7114796042442322,
+            -4.207087993621826
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      },
+      {
+        "name": "V4P_P22 shadow board iron upright",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.3005952835083008,
+            0.6767109036445618,
+            -4.4898810386657715
+          ],
+          "max": [
+            1.3232142925262451,
+            1.5491598844528198,
+            -4.454336643218994
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P22 shadow board counter foot",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.2634353637695312,
+            0.6767109036445618,
+            -4.50765323638916
+          ],
+          "max": [
+            1.360374093055725,
+            0.70126873254776,
+            -4.38486385345459
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P22 shadow board iron upright.001",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.7788264751434326,
+            0.6767109036445618,
+            -4.4898810386657715
+          ],
+          "max": [
+            1.8014456033706665,
+            1.5491598844528198,
+            -4.454336643218994
+          ]
+        },
+        "material": "WD_V4_DETAIL_charcoal_workshop_paint"
+      },
+      {
+        "name": "V4P_P22 shadow board counter foot.001",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.7416666746139526,
+            0.6767109036445618,
+            -4.50765323638916
+          ],
+          "max": [
+            1.8386054039001465,
+            0.70126873254776,
+            -4.38486385345459
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P22 tool shadow board backing",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.23435378074646,
+            1.4780714511871338,
+            -4.47857141494751
+          ],
+          "max": [
+            1.8676871061325073,
+            2.1437177658081055,
+            -4.433333396911621
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_oil_dark"
+      },
+      {
+        "name": "V4P_P22 shadow board upright frame",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.23435378074646,
+            1.4635306596755981,
+            -4.434948921203613
+          ],
+          "max": [
+            1.2627891302108765,
+            2.1582584381103516,
+            -4.412330150604248
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P22 shadow board upright frame.001",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.8392517566680908,
+            1.4635306596755981,
+            -4.434948921203613
+          ],
+          "max": [
+            1.8676871061325073,
+            2.1582584381103516,
+            -4.412330150604248
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P22 shadow board cross frame",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.23435378074646,
+            1.4638537168502808,
+            -4.434948921203613
+          ],
+          "max": [
+            1.8676871061325073,
+            1.4922890663146973,
+            -4.412330150604248
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P22 shadow board cross frame.001",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.23435378074646,
+            2.129499912261963,
+            -4.434948921203613
+          ],
+          "max": [
+            1.8676871061325073,
+            2.157935380935669,
+            -4.412330150604248
+          ]
+        },
+        "material": "WD_V4_DETAIL_wood_wax_pale"
+      },
+      {
+        "name": "V4P_P22 painted absent tool 01",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 36,
+        "runtimeBounds": {
+          "min": [
+            1.341632604598999,
+            1.5879353284835815,
+            -4.432428359985352
+          ],
+          "max": [
+            1.398503303527832,
+            1.9239897727966309,
+            -4.431653022766113
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      },
+      {
+        "name": "V4P_P22 empty tool peg 01",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 36,
+        "runtimeBounds": {
+          "min": [
+            1.3636053800582886,
+            1.9566190242767334,
+            -4.433333396911621
+          ],
+          "max": [
+            1.3765305280685425,
+            1.9689115285873413,
+            -4.378401279449463
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P22 empty peg upturn 01",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.364251732826233,
+            1.9608265161514282,
+            -4.379693984985352
+          ],
+          "max": [
+            1.3758842945098877,
+            1.9827992916107178,
+            -4.368061065673828
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P22 missing tool name 01",
+        "proposal": 22,
+        "type": "FONT",
+        "trianglesAfterFontConversion": 85,
+        "runtimeBounds": {
+          "min": [
+            1.3073606491088867,
+            1.5255565643310547,
+            -4.431394577026367
+          ],
+          "max": [
+            1.4328058958053589,
+            1.546818494796753,
+            -4.431394577026367
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      },
+      {
+        "name": "V4P_P22 painted absent tool 02",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 68,
+        "runtimeBounds": {
+          "min": [
+            1.5038436651229858,
+            1.5879353284835815,
+            -4.432428359985352
+          ],
+          "max": [
+            1.598197340965271,
+            1.9433774948120117,
+            -4.431653022766113
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      },
+      {
+        "name": "V4P_P22 empty tool peg 02",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 36,
+        "runtimeBounds": {
+          "min": [
+            1.5445579290390015,
+            1.9566190242767334,
+            -4.433333396911621
+          ],
+          "max": [
+            1.5574830770492554,
+            1.9689115285873413,
+            -4.378401279449463
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P22 empty peg upturn 02",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.5452040433883667,
+            1.9608265161514282,
+            -4.379693984985352
+          ],
+          "max": [
+            1.556836724281311,
+            1.9827992916107178,
+            -4.368061065673828
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P22 missing tool name 02",
+        "proposal": 22,
+        "type": "FONT",
+        "trianglesAfterFontConversion": 34,
+        "runtimeBounds": {
+          "min": [
+            1.511488437652588,
+            1.5256476402282715,
+            -4.431394577026367
+          ],
+          "max": [
+            1.591919183731079,
+            1.5466666221618652,
+            -4.431394577026367
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      },
+      {
+        "name": "V4P_P22 painted absent tool 03",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 36,
+        "runtimeBounds": {
+          "min": [
+            1.6641156673431396,
+            1.5879353284835815,
+            -4.432428359985352
+          ],
+          "max": [
+            1.7998299598693848,
+            1.911064624786377,
+            -4.431653022766113
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      },
+      {
+        "name": "V4P_P22 empty tool peg 03",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 36,
+        "runtimeBounds": {
+          "min": [
+            1.7255102396011353,
+            1.9566190242767334,
+            -4.433333396911621
+          ],
+          "max": [
+            1.7384353876113892,
+            1.9689115285873413,
+            -4.378401279449463
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P22 empty peg upturn 03",
+        "proposal": 22,
+        "type": "MESH",
+        "trianglesAfterFontConversion": 12,
+        "runtimeBounds": {
+          "min": [
+            1.72615647315979,
+            1.9608265161514282,
+            -4.379693984985352
+          ],
+          "max": [
+            1.7377891540527344,
+            1.9827992916107178,
+            -4.368061065673828
+          ]
+        },
+        "material": "WD_V4_DETAIL_repair_satin_steel"
+      },
+      {
+        "name": "V4P_P22 missing tool name 03",
+        "proposal": 22,
+        "type": "FONT",
+        "trianglesAfterFontConversion": 80,
+        "runtimeBounds": {
+          "min": [
+            1.6744697093963623,
+            1.5271540880203247,
+            -4.431394577026367
+          ],
+          "max": [
+            1.7901816368103027,
+            1.5447969436645508,
+            -4.431394577026367
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      },
+      {
+        "name": "V4P_P22 shadow board title",
+        "proposal": 22,
+        "type": "FONT",
+        "trianglesAfterFontConversion": 197,
+        "runtimeBounds": {
+          "min": [
+            1.3952207565307617,
+            2.0433621406555176,
+            -4.431394577026367
+          ],
+          "max": [
+            1.7069034576416016,
+            2.062814474105835,
+            -4.431394577026367
+          ]
+        },
+        "material": "WD_V4_DETAIL_cream_workshop_paint"
+      }
+    ],
+    "activeFieldIntrusions": [],
+    "coordinateContract": {
+      "authoring": "source metres, right-handed Z-up",
+      "blender": "(s*x,s*y,s*z+translation_y), right-handed Z-up",
+      "runtime": "(s*x,s*z+translation_y,-s*y), right-handed Y-up",
+      "scale": 0.6462585034013606,
+      "translation_y": -0.4186972789115646,
+      "linearDeterminant": 0.26990989833852935
+    },
+    "hostContacts": "Thin carpentry repair caps and replacement hardware intentionally contact their existing host faces.",
+    "existingSceneModified": false,
+    "savedOrExportedFiles": false
+  },
+  "featureNodes": {
+    "15": [
+      "Workshop_V4_P15_wd-v4-detail-wood-wax-pale",
+      "Workshop_V4_P15_wd-v4-detail-wood-shellac-amber",
+      "Workshop_V4_P15_wd-v4-detail-wood-oil-dark"
+    ],
+    "16": [
+      "Workshop_V4_P16_wd-v4-detail-repair-satin-steel",
+      "Workshop_V4_P16_wd-v4-detail-charcoal-workshop-paint"
+    ],
+    "21": [
+      "Workshop_V4_P21_wd-v4-detail-wood-oil-dark",
+      "Workshop_V4_P21_wd-v4-detail-wood-wax-pale",
+      "Workshop_V4_P21_wd-v4-detail-cream-workshop-paint",
+      "Workshop_V4_P21_wd-v4-detail-charcoal-workshop-paint",
+      "Workshop_V4_P21_wd-v4-detail-wood-shellac-amber"
+    ],
+    "22": [
+      "Workshop_V4_P22_wd-v4-detail-charcoal-workshop-paint",
+      "Workshop_V4_P22_wd-v4-detail-repair-satin-steel",
+      "Workshop_V4_P22_wd-v4-detail-wood-oil-dark",
+      "Workshop_V4_P22_wd-v4-detail-wood-wax-pale",
+      "Workshop_V4_P22_wd-v4-detail-cream-workshop-paint"
+    ],
+    "7": [
+      "Workshop_V4_Exterior_wd-v4-ext-distant-foliage",
+      "Workshop_V4_Exterior_wd-v4-ext-distant-roofs",
+      "Workshop_V4_Exterior_wd-v4-ext-distant-slate",
+      "Workshop_V4_Exterior_wd-v4-ext-overcast-sky",
+      "Workshop_V4_Exterior_wd-v4-ext-recessed-window-reveal"
+    ],
+    "13": [
+      "Workshop_StaticBrass"
+    ],
+    "18": [
+      "Workshop_window-cold-diffuse-daylight"
+    ]
+  },
+  "roofLightNames": [
+    "Background amber pool.004",
+    "Background amber pool.005"
+  ],
+  "window": {
+    "removedOpaqueBackings": 2,
+    "wallTrianglesBefore": 338,
+    "wallTrianglesAfter": 394,
+    "glassTrianglesBefore": 7218,
+    "glassTrianglesAfter": 43308,
+    "maxWarpSourceM": 0.004199979826807976,
+    "alpha": 0.66
+  },
+  "dents": {
+    "vertices": 102,
+    "maxDepthSourceM": 0.0070889671333134174,
+    "object": "Workshop_StaticBrass"
+  },
+  "triangles": 398587,
+  "groups": 56,
+  "originalsPreserved": true
+}

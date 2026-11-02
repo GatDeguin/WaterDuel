@@ -11,6 +11,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import {normalizeMenuCommand,sanitizeMenuState} from './public/remote-menu.js';
+import {sanitizeItemImpact} from './public/item-haptics.js';
 import {loadLocalHTTPS,canonicalPublicURL,certificateCovers,needsHTTPS} from './scripts/local-https.mjs';
 import {lanAddresses} from './scripts/network-addresses.mjs';
 import {serveAudio} from './scripts/audio-response.mjs';
@@ -261,8 +262,13 @@ class Peer {
       for(const p of slots.values())p.send({type:'state',phase:String(msg.phase||'ready').slice(0,40),mode:String(msg.mode||'solo').slice(0,16),score:Array.isArray(msg.score)?msg.score.slice(0,2):[0,0],time:Number(msg.time)||0});
       return;
     }
-    if(msg.type==='event' && this.role==='host'){
-      if(['burst','clang','countdown','victory','joint-damage','joint-break'].includes(msg.name)) for(const p of slots.values())p.send({type:'event',name:msg.name,slot:msg.slot||0});
+    if(msg.type==='event' && this.role==='host'&&authority===this){
+      if(!['burst','clang','countdown','victory','joint-damage','joint-break'].includes(msg.name))return;
+      const slot=[0,1,2].includes(msg.slot)?msg.slot:0,payload={type:'event',name:msg.name,slot};
+      if(msg.name==='clang'&&Object.hasOwn(msg,'impact')){
+        const impact=sanitizeItemImpact(msg.impact);payload.impact=impact;
+        for(const [local,peer]of slots)if(impact?[impact.attacker,impact.defender,impact.slot].includes(local):slot===0||slot===local)peer.send(payload);
+      }else for(const [local,peer]of slots)if(msg.name!=='clang'||slot===0||slot===local)peer.send(payload);
     }
   }
 }

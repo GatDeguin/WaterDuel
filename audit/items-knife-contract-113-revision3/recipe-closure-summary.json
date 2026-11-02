@@ -1,0 +1,243 @@
+{
+  "schema": 1,
+  "verifiedAt": "2026-11-02T07:09:15.365Z",
+  "stableAcrossAllReceipts": true,
+  "sourceCount": 42,
+  "sourceHashes": {
+    "public/engine.js": "9f19e08250c7823a888ad2bef795f12bde89bac63a35933cb8a964db3c5468b5",
+    "public/physics/fluid.js": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+    "public/physics/dimensions.js": "668a137cff5e6b6ecec2c08d1cbe10394374450d700a63216fe4e4028820f8ec",
+    "public/physics/fluid-solids.js": "e94291e3cd91400817da69e4e8b3071125ac5a0d348fad1289c95a5fbdf443c5",
+    "public/physics/detached-fluid-colliders.js": "a9077f40ec92eba36bf8c733ee010b67c0d8b543afdb734a97c4658af61dbe2f",
+    "public/physics/capillary-contact.js": "27842cb93e5583a9a58e00dd302ae832953210c1e4e815d3d51d380808e7b9ce",
+    "public/physics/membrane.js": "48ced8cb70ce9f26b926e3f4e4795540a0300fd665c112f8fcff978ccac14ca2",
+    "public/rendering/optics.js": "22503c28096299aea677aa1df50b1587fd6d3afb6756cd3fc5f01a967cc9bb7f",
+    "public/physics/membrane-fracture.js": "37aff0168f9268af6967c56f5431ec1503d329719d23189c409409b1a40b5536",
+    "public/physics/articulated-rig.js": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b",
+    "public/equipment.js": "e3fd41678ef88bec868bf8b79d9bc52be884f712f11a3e1706305724e86cef67",
+    "public/physics/apron.js": "25b0c3f0ac5841601cbbab7b9ced15acf6fd3a2c270136fa26ea6756b3ce5efb",
+    "public/physics/apron-geometry.js": "cfdfbc6416bf27806d1b27552f1e394ae4c3fb19506e665559c922a4a53e174c",
+    "public/physics/apron-cloth.js": "cf3d7c3c3f85c716cdce6b6ab5b146d204bf1c10d77485e3be1e2f1cd15878ba",
+    "public/physics/detached-cluster.js": "f42d3d70899dab81ed36119e795326a8ed865b6461e2a6076bfbc8aff3665291",
+    "public/physics/contact-points.js": "7ad0ab98eca610156518afba045a44b77d6562e121c4dd8aaf428aeb4aea73e0",
+    "public/physics/weapon-flex.js": "0dd72feb2d5e794b594b23793b2e6136c8d4de277cd0d58d75ad85be1a0dd243",
+    "public/knife-technique.js": "b568d4f75647ec6f92d560995c38bff476782b93859a63a36d961bd8f676a0b8",
+    "public/physics/foot-geometry.js": "8f453198bfc732634f0031e3630ecc7770ce9ff21c6f1c6b335e52c3a8c6281c",
+    "public/physics/shin-geometry.js": "dd02583d48eaf11231bbbe7d6a8bad1014e93a96545ceeb2dddcc7ff6944f23b",
+    "public/physics/body-evasion.js": "065b1e68ff1a1d170adf59cce64f1175b03f82742fc8e8116fcbdb4b0637bfc1",
+    "public/physics/locomotion.js": "61d0e664723f033ba559d2ca894b3c9e0eae382c55227be7c66f2a0aa7ded5c0",
+    "public/physics/equipment-contact.js": "2494ee7fcbf92260a593d2b31d4b94b2e9931323d8eca5e9e349f106803f7ebe",
+    "public/physics/head-contact.js": "1f9d416552aab3b26d870ff320f07f42dfdddcacec675fe0cc8ee8ba91182178",
+    "public/auto-defense.js": "b3700da20275323db7311a0584cd5e0e2d7010c13592a8925b2abf1254e3e604",
+    "public/physics/limb-state.js": "34f450f643d527b2e6f56bc94b21be3807f391b572fc78d50f49b50b92f56d73",
+    "public/physics/standby.js": "1dcd5b2c569211494f78e9f7bed95de499c57d75e0a4a1f672fce58f3c407889",
+    "public/physics/character-intent.js": "ba5fdcb48dabeece52ee8e81d0ccafaa30bb13f24754a6ab5e6c33a99995b121",
+    "public/workshop-effects.js": "defab2e46a3f8b90603f49171209c445495445c308652050543ff666e4178f4c",
+    "public/workshop-air.js": "59bce70143bbf73ff42a180b97d705bb5d691af04cb6875345ecbacf61dea6b0",
+    "public/physics/weapon-bind.js": "96250b199cac641d405f98d0180441e1ffe889754325480557e9fd5c804b7e9a",
+    "public/physics/contact-materials.js": "ca25f240dd66e7081a4459033994a38471d5f90cad489cfbbc124b6e982b2eb9",
+    "public/opponent-loadouts.js": "3776f37b82cf9f9b079018642a9466af115f1e2398c521700c2b831e44b74eb3",
+    "public/physics/step-clock.js": "b4987d41f559dfa3ae6e1e38c973f4f02beb8e6e1d89ac77b52d8ab3e6b17209",
+    "public/simulation-presentation.js": "7c8e321e700edb232d6629abd1c1fc4385798ac934053fd60b4cae798cfc686e",
+    "public/physics/joint-impact.js": "2e06803f429b2818d205ec07db8db394ad3ef0b489f9538d60574055d52a80b7",
+    "public/physics/detached-contacts.js": "b135ab3e01366b58f94360c720d3552be95e16893060a645ccf8b1be6a1a41a2",
+    "public/physics/joint-play.js": "efee4e624c700c4c8b4bcb514babea9dda8f90eedc2612afeefc1c43b3fa380e",
+    "public/training-drills.js": "30526905f30b11c21c2768fc284c2c706d240d3fcecd50b2d3202dab87c61106",
+    "public/ai-perception.js": "10a0dc97a7a42dd1cfbddc58f8f5dad25bcb55da18ba5e2bb8091e74dec24dbf",
+    "public/physics/surface-state.js": "d92df9d6e7667691fdf351cb44800ea79b680ce1d6ae7966c23b0b985ce349c1",
+    "public/boss-choreography.js": "a949e3b5794fcaacb36729f3879778d3f5bf9926330064391b62b1833a296a4e"
+  },
+  "additionalSearchRecipes": 6,
+  "rows": [
+    {
+      "slot": 1,
+      "grip": "normal",
+      "recipe": {
+        "id": "final-J1-normal",
+        "slot": 1,
+        "grip": "normal",
+        "aim": 0.2,
+        "wrist": 0.35,
+        "offY": -0.25
+      },
+      "tick": 145,
+      "impulse": 0.12536759719744045,
+      "frictionImpulse": -0.017551463607641666,
+      "checks": {
+        "offWeapon": true,
+        "positiveImpulse": true,
+        "friction": true,
+        "finiteNonnegativeWork": true,
+        "velocityChanged": true,
+        "oppositeImpulses": true,
+        "bodies": true,
+        "zeroScore": true,
+        "beforeBurst": true,
+        "worldNormal": true
+      },
+      "detachmentQualified": null,
+      "afterDetachment": null,
+      "actualKineticEnergyChange": -0.04853625446544729,
+      "reportedDissipatedWork": 0.0485250881584754,
+      "normalGradientError": 4.475989973903898e-16,
+      "maximumDefaultVsSignedTensorError": 0.001379552726221478,
+      "minimumUnilateralSlack": -2.563765172380883e-13,
+      "observerPreservesRawResult": true
+    },
+    {
+      "slot": 1,
+      "grip": "reverse",
+      "recipe": {
+        "id": "final-J1-reverse",
+        "slot": 1,
+        "grip": "reverse",
+        "aim": 0,
+        "wrist": 0.35,
+        "defLean": 0.25,
+        "thrustTick": -1
+      },
+      "tick": 126,
+      "impulse": 0.12761265705188934,
+      "frictionImpulse": -0.01786577198726451,
+      "checks": {
+        "offWeapon": true,
+        "positiveImpulse": true,
+        "friction": true,
+        "finiteNonnegativeWork": true,
+        "velocityChanged": true,
+        "oppositeImpulses": true,
+        "bodies": true,
+        "zeroScore": true,
+        "beforeBurst": true,
+        "worldNormal": true
+      },
+      "detachmentQualified": true,
+      "afterDetachment": {
+        "guardBefore": true,
+        "damage": {
+          "applied": true,
+          "damage": 1,
+          "detached": true,
+          "fragmentId": "joint-1"
+        },
+        "forearmAttached": false,
+        "weaponAttached": false,
+        "weaponBodyPresent": false,
+        "additionalClangs": 0,
+        "guard": false,
+        "score": [
+          0,
+          0
+        ]
+      },
+      "actualKineticEnergyChange": -0.11918497696341301,
+      "reportedDissipatedWork": 0.11918492458023058,
+      "normalGradientError": 2.482534153247273e-16,
+      "maximumDefaultVsSignedTensorError": 0.000013876781725929987,
+      "minimumUnilateralSlack": -8.893059899595102e-15,
+      "observerPreservesRawResult": true
+    },
+    {
+      "slot": 2,
+      "grip": "normal",
+      "recipe": {
+        "id": "final-J2-normal",
+        "slot": 2,
+        "grip": "normal",
+        "aim": 0.2,
+        "wrist": 0.35,
+        "offY": -0.25
+      },
+      "tick": 145,
+      "impulse": 0.035258505187819734,
+      "frictionImpulse": 0.004936190726294763,
+      "checks": {
+        "offWeapon": true,
+        "positiveImpulse": true,
+        "friction": true,
+        "finiteNonnegativeWork": true,
+        "velocityChanged": true,
+        "oppositeImpulses": true,
+        "bodies": true,
+        "zeroScore": true,
+        "beforeBurst": true,
+        "worldNormal": true
+      },
+      "detachmentQualified": null,
+      "afterDetachment": null,
+      "actualKineticEnergyChange": -0.009744271984930108,
+      "reportedDissipatedWork": 0.00974357242473799,
+      "normalGradientError": 3.895680680159941e-16,
+      "maximumDefaultVsSignedTensorError": 0.0014285426709161886,
+      "minimumUnilateralSlack": -5.265276062371704e-14,
+      "observerPreservesRawResult": true
+    },
+    {
+      "slot": 2,
+      "grip": "reverse",
+      "recipe": {
+        "id": "final-J2-reverse",
+        "slot": 2,
+        "grip": "reverse",
+        "aim": -0.4,
+        "wrist": 0.35,
+        "defLean": 0.25,
+        "thrustTick": -1
+      },
+      "tick": 129,
+      "impulse": 0.13863339498506488,
+      "frictionImpulse": 0.02949931681232638,
+      "checks": {
+        "offWeapon": true,
+        "positiveImpulse": true,
+        "friction": true,
+        "finiteNonnegativeWork": true,
+        "velocityChanged": true,
+        "oppositeImpulses": true,
+        "bodies": true,
+        "zeroScore": true,
+        "beforeBurst": true,
+        "worldNormal": true
+      },
+      "detachmentQualified": true,
+      "afterDetachment": {
+        "guardBefore": true,
+        "damage": {
+          "applied": true,
+          "damage": 1,
+          "detached": true,
+          "fragmentId": "joint-1"
+        },
+        "forearmAttached": false,
+        "weaponAttached": false,
+        "weaponBodyPresent": false,
+        "additionalClangs": 0,
+        "guard": false,
+        "score": [
+          0,
+          0
+        ]
+      },
+      "actualKineticEnergyChange": -0.09450852345957417,
+      "reportedDissipatedWork": 0.0945085234595739,
+      "normalGradientError": 1.2009699976900343e-15,
+      "maximumDefaultVsSignedTensorError": 0,
+      "minimumUnilateralSlack": 0.00025176288163405764,
+      "observerPreservesRawResult": true
+    }
+  ],
+  "fileHashes": {
+    "probe.mjs": "89bd6a791fa36c545945d8a39cfb1c60df87fd0bda172eb34771361d4b3fec3b",
+    "consolidate.mjs": "0c2da35264b4ec63f5183cbb71371b260ccb37dba3b8daed052805d1374bc331",
+    "baseline.json": "aff67e2bbbfc55f7bada45a1a02900145c6f61e73035e1702eee2ac73750f476",
+    "candidates-a-results.json": "eeab4276caf12ceaf09e299b2525732696d5e676ebd5a41f1e09f5a508f7c128",
+    "final-recipes-results.json": "807d3aeff85f1a66814df7b3da62671b83184bed1d2b01c2a80a73cc95104d76",
+    "candidates-a.json": "447562838461db436224c053ad2e8d19e1fd49f27335d6e9ab6d36e4a9de2882",
+    "final-recipes.json": "5c4fd0e18c443ddd7c25d41a433409fcaa54257cf89fdd61015d4b1ffb6fb114"
+  },
+  "limits": [
+    "Public controls and ordinary damage API only; real countdown and 285 ticks.",
+    "No production, Items test, socket, tolerance, q, collider, score or forced pose edits.",
+    "The knife solver queries local default contactInertia before applying the opposite signed total impulse. Its tensor differs slightly from the actual signed active set in 3 of these 4 contacts. No energy injection or broken guard contract was observed in these four scenarios; this is not a general passivity proof."
+  ]
+}

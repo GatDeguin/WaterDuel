@@ -1,0 +1,1617 @@
+{
+  "date": "2026-11-02",
+  "variants": {
+    "A": "Archived rich signed-total rig45702 + weapon-bindf8db, private data modules with consistent class identity",
+    "B": "Current compact implementation, detailed public trial default preserved"
+  },
+  "hashes": {
+    "public/physics/articulated-rig.js": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b",
+    "public/physics/weapon-bind.js": "96250b199cac641d405f98d0180441e1ffe889754325480557e9fd5c804b7e9a",
+    "tests/rig-contact-compact-v4.test.mjs": "fbed853451f18bc871d4b8c4ea123bdbf731666c45926d303a8d3667f1e3463a",
+    "audit/articulated-rig-v4-rich-contact.js.txt": "45702bd92e9051034d9764feeb8097408df4796304a19a697ce5970a0812175f",
+    "audit/weapon-bind-v4-rich-contact.js.txt": "f8db18e6ced60e58ddfb172588b5b5b863b9929a7b68597777828827047b8a3f"
+  },
+  "protocol": {
+    "scenarios": 4,
+    "warmupsPerVariantPerScenario": 12,
+    "roundsPerScenario": 6,
+    "order": "ABBA every round",
+    "callsPerBlock": 20,
+    "project": false,
+    "observeVelocities": true,
+    "inputs": "Identical q/v/targets/contacts/time/lastImpulse before each call; exact result and mechanical snapshot equality asserted for every timed and warmup call across both variants.",
+    "timing": "performance.now around each synchronous resolve only; reset/deep-equality/ledger excluded. CPU values per block include harness and are coarse on Windows, not used as per-call CPU claims.",
+    "payload": "Exact counts of numbers/array containers/object containers in returned trial graphs, excluding internal allocations. Numeric bytes = numbers*8 logical binary64 payload lower bound, NOT measured heap/RSS/GC. Container counts are returned allocations avoided, NOT collector cycle counts."
+  },
+  "scenarios": [
+    {
+      "dir": -1,
+      "scale": 1,
+      "initialStateHash": "366fe4e9a654b43f932271f8a1af69bedfbceb2ed924f49ebc329865a4e3f707",
+      "exactPhysicalOutputHash": "d5db96eb2778b0cc8b457e3c4e62742763e25d1994d1702ac85552fdd4777596",
+      "actualSteelContact": {
+        "t": 0,
+        "keyA": "weapon",
+        "keyB": "weapon",
+        "pointA": {
+          "x": -0.18093529938312328,
+          "y": 2.063038858775734,
+          "z": 0.177
+        },
+        "pointB": {
+          "x": -0.18127934463968398,
+          "y": 2.0464976849361207,
+          "z": 0.177
+        },
+        "normal": {
+          "x": 0.02079482780309207,
+          "y": 0.999783764189357
+        }
+      },
+      "ledgers": {
+        "A": {
+          "numbers": 22888,
+          "arrays": 1185,
+          "objects": 1160,
+          "numericPayloadBytesLowerBound": 183104,
+          "trials": 8,
+          "applies": 2,
+          "iterations": 2,
+          "backtracks": 0,
+          "constraintRows": 1120,
+          "constraintRowNumbers": 17920
+        },
+        "B": {
+          "numbers": 512,
+          "arrays": 57,
+          "objects": 48,
+          "numericPayloadBytesLowerBound": 4096,
+          "trials": 8,
+          "applies": 2,
+          "iterations": 2,
+          "backtracks": 0,
+          "constraintRows": 0,
+          "constraintRowNumbers": 0
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 21.616199999999992,
+              "perCall": {
+                "min": 0.9630999999999972,
+                "median": 1.036200000000008,
+                "max": 1.343999999999994
+              },
+              "harnessInclusiveWallMs": 33.29229999999998,
+              "harnessInclusiveCpuMs": 78
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 16.116000000000014,
+              "perCall": {
+                "min": 0.7195999999999856,
+                "median": 0.7805000000000177,
+                "max": 1.134299999999996
+              },
+              "harnessInclusiveWallMs": 18.789000000000016,
+              "harnessInclusiveCpuMs": 16
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 14.914000000000016,
+              "perCall": {
+                "min": 0.6779000000000224,
+                "median": 0.7173999999999978,
+                "max": 0.919700000000006
+              },
+              "harnessInclusiveWallMs": 17.397200000000026,
+              "harnessInclusiveCpuMs": 16
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 19.753000000000043,
+              "perCall": {
+                "min": 0.912700000000001,
+                "median": 0.9824000000000126,
+                "max": 1.1023000000000138
+              },
+              "harnessInclusiveWallMs": 32.822,
+              "harnessInclusiveCpuMs": 47
+            }
+          ],
+          "perCallMs": {
+            "A": 1.0342300000000009,
+            "B": 0.7757500000000007
+          },
+          "compactOverRich": 0.7500749349757792
+        },
+        {
+          "round": 1,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 18.822200000000038,
+              "perCall": {
+                "min": 0.8893999999999949,
+                "median": 0.9171000000000049,
+                "max": 1.115099999999984
+              },
+              "harnessInclusiveWallMs": 31.95599999999999,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 15.011299999999949,
+              "perCall": {
+                "min": 0.6700999999999908,
+                "median": 0.7058000000000106,
+                "max": 1.2864999999999895
+              },
+              "harnessInclusiveWallMs": 17.435400000000016,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 17.480699999999956,
+              "perCall": {
+                "min": 0.763499999999965,
+                "median": 0.8079999999999927,
+                "max": 1.385499999999979
+              },
+              "harnessInclusiveWallMs": 20.372599999999977,
+              "harnessInclusiveCpuMs": 46
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 19.974399999999946,
+              "perCall": {
+                "min": 0.8845999999999776,
+                "median": 0.9720000000000368,
+                "max": 1.4776999999999703
+              },
+              "harnessInclusiveWallMs": 32.93920000000003,
+              "harnessInclusiveCpuMs": 78
+            }
+          ],
+          "perCallMs": {
+            "A": 0.9699149999999996,
+            "B": 0.8122999999999976
+          },
+          "compactOverRich": 0.8374960692431789
+        },
+        {
+          "round": 2,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 18.24279999999976,
+              "perCall": {
+                "min": 0.8782999999999674,
+                "median": 0.8879000000000019,
+                "max": 1.1815999999999462
+              },
+              "harnessInclusiveWallMs": 29.917899999999975,
+              "harnessInclusiveCpuMs": 16
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 14.48049999999995,
+              "perCall": {
+                "min": 0.6462999999999965,
+                "median": 0.6745999999999981,
+                "max": 1.0785999999999945
+              },
+              "harnessInclusiveWallMs": 16.926499999999976,
+              "harnessInclusiveCpuMs": 62
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 13.511899999999912,
+              "perCall": {
+                "min": 0.648399999999981,
+                "median": 0.6553000000000111,
+                "max": 0.8516999999999939
+              },
+              "harnessInclusiveWallMs": 15.880399999999952,
+              "harnessInclusiveCpuMs": 32
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 18.834999999999923,
+              "perCall": {
+                "min": 0.8867999999999938,
+                "median": 0.9216999999999871,
+                "max": 1.122199999999964
+              },
+              "harnessInclusiveWallMs": 30.9255,
+              "harnessInclusiveCpuMs": 16
+            }
+          ],
+          "perCallMs": {
+            "A": 0.9269449999999921,
+            "B": 0.6998099999999965
+          },
+          "compactOverRich": 0.7549638867462497
+        },
+        {
+          "round": 3,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 18.054500000000132,
+              "perCall": {
+                "min": 0.869700000000023,
+                "median": 0.8788999999999874,
+                "max": 1.095199999999977
+              },
+              "harnessInclusiveWallMs": 29.66239999999999,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 13.78149999999988,
+              "perCall": {
+                "min": 0.6399999999999864,
+                "median": 0.6567000000000007,
+                "max": 1.2022999999999797
+              },
+              "harnessInclusiveWallMs": 16.252099999999984,
+              "harnessInclusiveCpuMs": 16
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 14.254499999999894,
+              "perCall": {
+                "min": 0.6390999999999849,
+                "median": 0.6548999999999978,
+                "max": 1.0422000000000367
+              },
+              "harnessInclusiveWallMs": 16.716999999999985,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 18.070499999999697,
+              "perCall": {
+                "min": 0.8455999999999904,
+                "median": 0.8780999999999608,
+                "max": 1.1303000000000338
+              },
+              "harnessInclusiveWallMs": 29.514700000000005,
+              "harnessInclusiveCpuMs": 31
+            }
+          ],
+          "perCallMs": {
+            "A": 0.9031249999999957,
+            "B": 0.7008999999999943
+          },
+          "compactOverRich": 0.7760830449826963
+        },
+        {
+          "round": 4,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 17.643500000000017,
+              "perCall": {
+                "min": 0.8432000000000244,
+                "median": 0.8604000000000269,
+                "max": 1.125599999999963
+              },
+              "harnessInclusiveWallMs": 29.16179999999997,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 13.41550000000018,
+              "perCall": {
+                "min": 0.638300000000072,
+                "median": 0.650000000000091,
+                "max": 0.9314000000000533
+              },
+              "harnessInclusiveWallMs": 15.757900000000063,
+              "harnessInclusiveCpuMs": 32
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 13.543000000000234,
+              "perCall": {
+                "min": 0.6423000000000911,
+                "median": 0.6551999999999225,
+                "max": 1.0184000000000424
+              },
+              "harnessInclusiveWallMs": 15.901700000000005,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 17.96150000000023,
+              "perCall": {
+                "min": 0.8627999999999929,
+                "median": 0.8880000000000337,
+                "max": 1.1338000000000648
+              },
+              "harnessInclusiveWallMs": 29.86659999999995,
+              "harnessInclusiveCpuMs": 31
+            }
+          ],
+          "perCallMs": {
+            "A": 0.8901250000000062,
+            "B": 0.6739625000000103
+          },
+          "compactOverRich": 0.7571548939755716
+        },
+        {
+          "round": 5,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 17.42799999999977,
+              "perCall": {
+                "min": 0.8029999999999973,
+                "median": 0.8632000000000062,
+                "max": 1.0552999999999884
+              },
+              "harnessInclusiveWallMs": 28.94799999999998,
+              "harnessInclusiveCpuMs": 32
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 13.249399999999923,
+              "perCall": {
+                "min": 0.6007000000000744,
+                "median": 0.6296999999999571,
+                "max": 1.0641000000000531
+              },
+              "harnessInclusiveWallMs": 15.63779999999997,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 12.557599999999638,
+              "perCall": {
+                "min": 0.6000999999999976,
+                "median": 0.6245000000000118,
+                "max": 0.7024000000000115
+              },
+              "harnessInclusiveWallMs": 14.656299999999987,
+              "harnessInclusiveCpuMs": 32
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 17.124199999999973,
+              "perCall": {
+                "min": 0.8005999999999176,
+                "median": 0.8085999999999558,
+                "max": 1.3555000000000064
+              },
+              "harnessInclusiveWallMs": 28.947900000000004,
+              "harnessInclusiveCpuMs": 62
+            }
+          ],
+          "perCallMs": {
+            "A": 0.8638049999999936,
+            "B": 0.6451749999999891
+          },
+          "compactOverRich": 0.7468988950052313
+        }
+      ],
+      "summary": {
+        "richPerCallMs": {
+          "min": 0.8638049999999936,
+          "median": 0.9269449999999921,
+          "max": 1.0342300000000009
+        },
+        "compactPerCallMs": {
+          "min": 0.6451749999999891,
+          "median": 0.7008999999999943,
+          "max": 0.8122999999999976
+        },
+        "compactOverRich": {
+          "min": 0.7468988950052313,
+          "median": 0.7571548939755716,
+          "max": 0.8374960692431789
+        },
+        "numericPayloadReduction": 0.9776301992310381,
+        "avoidedReturnedArrays": 1128,
+        "avoidedReturnedObjects": 1112
+      }
+    },
+    {
+      "dir": 1,
+      "scale": 1,
+      "initialStateHash": "eec7c32fe23883fc3d5b99f37e2e7e62e89dba3999b2bf809879813d03928ae0",
+      "exactPhysicalOutputHash": "bf35c8bfa608c3167fb821972e15b872c265d24c0047f11805dbcb7e45602930",
+      "actualSteelContact": {
+        "t": 0,
+        "keyA": "weapon",
+        "keyB": "weapon",
+        "pointA": {
+          "x": 0.18093529938312328,
+          "y": 2.063038858775734,
+          "z": 0.177
+        },
+        "pointB": {
+          "x": 0.18127934463968398,
+          "y": 2.0464976849361207,
+          "z": 0.177
+        },
+        "normal": {
+          "x": -0.02079482780309207,
+          "y": 0.999783764189357
+        }
+      },
+      "ledgers": {
+        "A": {
+          "numbers": 28638,
+          "arrays": 1481,
+          "objects": 1458,
+          "numericPayloadBytesLowerBound": 229104,
+          "trials": 10,
+          "applies": 2,
+          "iterations": 3,
+          "backtracks": 0,
+          "constraintRows": 1400,
+          "constraintRowNumbers": 22400
+        },
+        "B": {
+          "numbers": 668,
+          "arrays": 71,
+          "objects": 68,
+          "numericPayloadBytesLowerBound": 5344,
+          "trials": 10,
+          "applies": 2,
+          "iterations": 3,
+          "backtracks": 0,
+          "constraintRows": 0,
+          "constraintRowNumbers": 0
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 28.598100000000045,
+              "perCall": {
+                "min": 1.3363000000000511,
+                "median": 1.390800000000013,
+                "max": 1.7495000000000118
+              },
+              "harnessInclusiveWallMs": 43.18589999999995,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 23.65010000000018,
+              "perCall": {
+                "min": 1.0573000000000548,
+                "median": 1.120800000000031,
+                "max": 2.086400000000026
+              },
+              "harnessInclusiveWallMs": 26.086900000000014,
+              "harnessInclusiveCpuMs": 63
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 23.425399999999627,
+              "perCall": {
+                "min": 1.0136999999999716,
+                "median": 1.1315999999999349,
+                "max": 1.5494000000001051
+              },
+              "harnessInclusiveWallMs": 25.8664,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 30.26630000000023,
+              "perCall": {
+                "min": 1.337099999999964,
+                "median": 1.4343999999999824,
+                "max": 2.3226000000000795
+              },
+              "harnessInclusiveWallMs": 46.416900000000055,
+              "harnessInclusiveCpuMs": 31
+            }
+          ],
+          "perCallMs": {
+            "A": 1.4716100000000067,
+            "B": 1.1768874999999952
+          },
+          "compactOverRich": 0.799727849090445
+        },
+        {
+          "round": 1,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 29.435999999999922,
+              "perCall": {
+                "min": 1.3016000000000076,
+                "median": 1.484899999999925,
+                "max": 1.8098999999999705
+              },
+              "harnessInclusiveWallMs": 47.39029999999991,
+              "harnessInclusiveCpuMs": 63
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 22.466299999999933,
+              "perCall": {
+                "min": 1.0182000000000926,
+                "median": 1.09050000000002,
+                "max": 1.3221999999999525
+              },
+              "harnessInclusiveWallMs": 24.96289999999999,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 20.906000000000063,
+              "perCall": {
+                "min": 0.994899999999916,
+                "median": 1.0097000000000662,
+                "max": 1.4303999999999633
+              },
+              "harnessInclusiveWallMs": 23.462299999999914,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 27.259500000000344,
+              "perCall": {
+                "min": 1.3114000000000487,
+                "median": 1.342899999999986,
+                "max": 1.5922999999999092
+              },
+              "harnessInclusiveWallMs": 41.868699999999876,
+              "harnessInclusiveCpuMs": 32
+            }
+          ],
+          "perCallMs": {
+            "A": 1.4173875000000067,
+            "B": 1.0843075
+          },
+          "compactOverRich": 0.7650042772354031
+        },
+        {
+          "round": 2,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 26.341199999999617,
+              "perCall": {
+                "min": 1.255200000000059,
+                "median": 1.2743000000000393,
+                "max": 1.6423999999999523
+              },
+              "harnessInclusiveWallMs": 40.61040000000003,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 20.623600000000124,
+              "perCall": {
+                "min": 0.9838999999999487,
+                "median": 1.0050000000001091,
+                "max": 1.427500000000009
+              },
+              "harnessInclusiveWallMs": 23.1561999999999,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 19.99029999999948,
+              "perCall": {
+                "min": 0.9764999999999873,
+                "median": 0.985300000000052,
+                "max": 1.0768000000000484
+              },
+              "harnessInclusiveWallMs": 22.48869999999988,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 25.46589999999901,
+              "perCall": {
+                "min": 1.2054000000000542,
+                "median": 1.2719999999999345,
+                "max": 1.4658999999999196
+              },
+              "harnessInclusiveWallMs": 40.27110000000016,
+              "harnessInclusiveCpuMs": 32
+            }
+          ],
+          "perCallMs": {
+            "A": 1.2951774999999657,
+            "B": 1.01534749999999
+          },
+          "compactOverRich": 0.7839446716762891
+        },
+        {
+          "round": 3,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 25.08060000000023,
+              "perCall": {
+                "min": 1.2054000000000542,
+                "median": 1.215900000000147,
+                "max": 1.5851999999999862
+              },
+              "harnessInclusiveWallMs": 39.173,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 19.270800000000236,
+              "perCall": {
+                "min": 0.935799999999972,
+                "median": 0.9470999999998639,
+                "max": 1.0980999999999312
+              },
+              "harnessInclusiveWallMs": 21.663500000000113,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 20.14089999999942,
+              "perCall": {
+                "min": 0.9410000000000309,
+                "median": 0.9839999999999236,
+                "max": 1.3592999999998483
+              },
+              "harnessInclusiveWallMs": 22.568500000000085,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 26.05659999999989,
+              "perCall": {
+                "min": 1.2516000000000531,
+                "median": 1.2729999999999109,
+                "max": 1.5896999999999935
+              },
+              "harnessInclusiveWallMs": 40.38190000000009,
+              "harnessInclusiveCpuMs": 47
+            }
+          ],
+          "perCallMs": {
+            "A": 1.278430000000003,
+            "B": 0.9852924999999914
+          },
+          "compactOverRich": 0.7707050835790689
+        },
+        {
+          "round": 4,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 25.722499999999854,
+              "perCall": {
+                "min": 1.2427000000000135,
+                "median": 1.2606000000000677,
+                "max": 1.5440000000000964
+              },
+              "harnessInclusiveWallMs": 40.06560000000013,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 23.85289999999918,
+              "perCall": {
+                "min": 0.9547000000000025,
+                "median": 1.215099999999893,
+                "max": 1.5395000000000891
+              },
+              "harnessInclusiveWallMs": 26.544999999999845,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 20.243599999999105,
+              "perCall": {
+                "min": 0.9588999999998578,
+                "median": 1.0226000000000113,
+                "max": 1.0848000000000866
+              },
+              "harnessInclusiveWallMs": 22.564399999999978,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 24.834100000000035,
+              "perCall": {
+                "min": 1.1994999999999436,
+                "median": 1.2138000000002194,
+                "max": 1.4274000000000342
+              },
+              "harnessInclusiveWallMs": 39.50150000000008,
+              "harnessInclusiveCpuMs": 62
+            }
+          ],
+          "perCallMs": {
+            "A": 1.2639149999999972,
+            "B": 1.1024124999999572
+          },
+          "compactOverRich": 0.8722204420391875
+        },
+        {
+          "round": 5,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 25.112799999999652,
+              "perCall": {
+                "min": 1.1983000000000175,
+                "median": 1.2457999999999174,
+                "max": 1.5901000000001204
+              },
+              "harnessInclusiveWallMs": 39.23720000000003,
+              "harnessInclusiveCpuMs": 32
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 19.83010000000013,
+              "perCall": {
+                "min": 0.9584999999999582,
+                "median": 0.9664999999999964,
+                "max": 1.251399999999876
+              },
+              "harnessInclusiveWallMs": 22.435399999999845,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 21.484399999999823,
+              "perCall": {
+                "min": 0.9592000000000098,
+                "median": 1.0731999999998152,
+                "max": 1.4087999999999283
+              },
+              "harnessInclusiveWallMs": 24.138500000000022,
+              "harnessInclusiveCpuMs": 16
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 25.540199999999913,
+              "perCall": {
+                "min": 1.2406000000000859,
+                "median": 1.2489000000000487,
+                "max": 1.5874999999998636
+              },
+              "harnessInclusiveWallMs": 39.69790000000012,
+              "harnessInclusiveCpuMs": 46
+            }
+          ],
+          "perCallMs": {
+            "A": 1.266324999999989,
+            "B": 1.032862499999999
+          },
+          "compactOverRich": 0.8156377707144752
+        }
+      ],
+      "summary": {
+        "richPerCallMs": {
+          "min": 1.2639149999999972,
+          "median": 1.2951774999999657,
+          "max": 1.4716100000000067
+        },
+        "compactPerCallMs": {
+          "min": 0.9852924999999914,
+          "median": 1.0843075,
+          "max": 1.1768874999999952
+        },
+        "compactOverRich": {
+          "min": 0.7650042772354031,
+          "median": 0.799727849090445,
+          "max": 0.8722204420391875
+        },
+        "numericPayloadReduction": 0.976674348767372,
+        "avoidedReturnedArrays": 1410,
+        "avoidedReturnedObjects": 1390
+      }
+    },
+    {
+      "dir": -1,
+      "scale": 1.18,
+      "initialStateHash": "8054e130014fb2caaf9c94af842b94ef02c599b4aed96443b893ce16dde02447",
+      "exactPhysicalOutputHash": "18f291362d06d35717d8d9dd80fae3939ea298359bd7bccff1ebf6b91ef1a14d",
+      "actualSteelContact": {
+        "t": 0,
+        "keyA": "weapon",
+        "keyB": "weapon",
+        "pointA": {
+          "x": -0.24057175400837655,
+          "y": 2.3734781897648216,
+          "z": 0.177
+        },
+        "pointB": {
+          "x": -0.2409674204810171,
+          "y": 2.3544551461923575,
+          "z": 0.177
+        },
+        "normal": {
+          "x": 0.02079482780309207,
+          "y": 0.999783764189357
+        }
+      },
+      "ledgers": {
+        "A": {
+          "numbers": 23208,
+          "arrays": 1201,
+          "objects": 1176,
+          "numericPayloadBytesLowerBound": 185664,
+          "trials": 8,
+          "applies": 2,
+          "iterations": 2,
+          "backtracks": 0,
+          "constraintRows": 1136,
+          "constraintRowNumbers": 18176
+        },
+        "B": {
+          "numbers": 512,
+          "arrays": 57,
+          "objects": 48,
+          "numericPayloadBytesLowerBound": 4096,
+          "trials": 8,
+          "applies": 2,
+          "iterations": 2,
+          "backtracks": 0,
+          "constraintRows": 0,
+          "constraintRowNumbers": 0
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 19.99499999999989,
+              "perCall": {
+                "min": 0.9294999999999618,
+                "median": 0.9611999999999625,
+                "max": 1.5296000000000731
+              },
+              "harnessInclusiveWallMs": 31.68619999999987,
+              "harnessInclusiveCpuMs": 32
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 14.785299999999324,
+              "perCall": {
+                "min": 0.6998999999998432,
+                "median": 0.7327999999999975,
+                "max": 0.7984000000001288
+              },
+              "harnessInclusiveWallMs": 17.107700000000023,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 14.113499999999704,
+              "perCall": {
+                "min": 0.628400000000056,
+                "median": 0.668100000000095,
+                "max": 1.0739000000000942
+              },
+              "harnessInclusiveWallMs": 16.43399999999997,
+              "harnessInclusiveCpuMs": 16
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 17.969599999999673,
+              "perCall": {
+                "min": 0.8356000000001131,
+                "median": 0.8847000000000662,
+                "max": 1.1067999999997937
+              },
+              "harnessInclusiveWallMs": 29.572000000000116,
+              "harnessInclusiveCpuMs": 62
+            }
+          ],
+          "perCallMs": {
+            "A": 0.949114999999989,
+            "B": 0.7224699999999757
+          },
+          "compactOverRich": 0.7612038583311654
+        },
+        {
+          "round": 1,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 17.149800000000596,
+              "perCall": {
+                "min": 0.8249000000000706,
+                "median": 0.8560999999999694,
+                "max": 0.9841000000001259
+              },
+              "harnessInclusiveWallMs": 28.877500000000055,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 14.826799999999594,
+              "perCall": {
+                "min": 0.6305999999999585,
+                "median": 0.7082000000000335,
+                "max": 1.179399999999987
+              },
+              "harnessInclusiveWallMs": 17.19699999999989,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 13.204200000000355,
+              "perCall": {
+                "min": 0.6260999999999513,
+                "median": 0.6485999999999876,
+                "max": 0.77800000000002
+              },
+              "harnessInclusiveWallMs": 15.403900000000021,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 17.129400000000487,
+              "perCall": {
+                "min": 0.8423999999999978,
+                "median": 0.8505000000000109,
+                "max": 0.9004999999999654
+              },
+              "harnessInclusiveWallMs": 29.066300000000183,
+              "harnessInclusiveCpuMs": 32
+            }
+          ],
+          "perCallMs": {
+            "A": 0.856980000000027,
+            "B": 0.7007749999999987
+          },
+          "compactOverRich": 0.8177262013115552
+        },
+        {
+          "round": 2,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 17.344799999999395,
+              "perCall": {
+                "min": 0.8432999999999993,
+                "median": 0.8528999999998632,
+                "max": 1.1643999999998869
+              },
+              "harnessInclusiveWallMs": 28.721199999999953,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 13.269599999999627,
+              "perCall": {
+                "min": 0.6404999999999745,
+                "median": 0.6451999999999316,
+                "max": 0.9499000000000706
+              },
+              "harnessInclusiveWallMs": 15.544900000000098,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 13.050699999999779,
+              "perCall": {
+                "min": 0.6440000000000055,
+                "median": 0.6466000000000349,
+                "max": 0.7063000000000557
+              },
+              "harnessInclusiveWallMs": 15.28729999999996,
+              "harnessInclusiveCpuMs": 16
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 18.32120000000009,
+              "perCall": {
+                "min": 0.8239000000000942,
+                "median": 0.880100000000084,
+                "max": 1.2853999999999814
+              },
+              "harnessInclusiveWallMs": 30.53060000000005,
+              "harnessInclusiveCpuMs": 63
+            }
+          ],
+          "perCallMs": {
+            "A": 0.8916499999999872,
+            "B": 0.6580074999999852
+          },
+          "compactOverRich": 0.7379661302080353
+        },
+        {
+          "round": 3,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 17.74680000000012,
+              "perCall": {
+                "min": 0.8181999999999334,
+                "median": 0.8468000000000302,
+                "max": 1.1514999999999418
+              },
+              "harnessInclusiveWallMs": 29.490299999999934,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 12.285000000000082,
+              "perCall": {
+                "min": 0.5933999999999742,
+                "median": 0.597400000000107,
+                "max": 0.6872000000000753
+              },
+              "harnessInclusiveWallMs": 14.696199999999862,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 12.093800000000329,
+              "perCall": {
+                "min": 0.587099999999964,
+                "median": 0.5959000000000287,
+                "max": 0.6863999999998214
+              },
+              "harnessInclusiveWallMs": 14.306499999999915,
+              "harnessInclusiveCpuMs": 0
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 17.312799999999925,
+              "perCall": {
+                "min": 0.8177999999998065,
+                "median": 0.8495000000000346,
+                "max": 1.250099999999975
+              },
+              "harnessInclusiveWallMs": 28.92600000000016,
+              "harnessInclusiveCpuMs": 32
+            }
+          ],
+          "perCallMs": {
+            "A": 0.8764900000000011,
+            "B": 0.6094700000000103
+          },
+          "compactOverRich": 0.6953530559390404
+        },
+        {
+          "round": 4,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 17.240799999999354,
+              "perCall": {
+                "min": 0.8419999999998709,
+                "median": 0.8458000000000538,
+                "max": 1.1419999999998254
+              },
+              "harnessInclusiveWallMs": 28.967999999999847,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 12.335700000000315,
+              "perCall": {
+                "min": 0.605199999999968,
+                "median": 0.6107999999999265,
+                "max": 0.6941999999999098
+              },
+              "harnessInclusiveWallMs": 14.562800000000152,
+              "harnessInclusiveCpuMs": 16
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 12.998799999999392,
+              "perCall": {
+                "min": 0.6068000000000211,
+                "median": 0.6224999999999454,
+                "max": 1.0516000000000076
+              },
+              "harnessInclusiveWallMs": 15.27579999999989,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 18.005600000000868,
+              "perCall": {
+                "min": 0.8427000000001499,
+                "median": 0.8523000000000138,
+                "max": 1.4517000000000735
+              },
+              "harnessInclusiveWallMs": 29.85050000000001,
+              "harnessInclusiveCpuMs": 31
+            }
+          ],
+          "perCallMs": {
+            "A": 0.8811600000000055,
+            "B": 0.6333624999999927
+          },
+          "compactOverRich": 0.718782627445627
+        },
+        {
+          "round": 5,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 17.260700000000497,
+              "perCall": {
+                "min": 0.8328999999998814,
+                "median": 0.8460999999997512,
+                "max": 1.123700000000099
+              },
+              "harnessInclusiveWallMs": 29.158699999999953,
+              "harnessInclusiveCpuMs": 32
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 12.418800000000374,
+              "perCall": {
+                "min": 0.6081999999996697,
+                "median": 0.6125000000001819,
+                "max": 0.6981000000000677
+              },
+              "harnessInclusiveWallMs": 14.657799999999952,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 12.56880000000001,
+              "perCall": {
+                "min": 0.5953999999996995,
+                "median": 0.6031000000002678,
+                "max": 0.9329999999999927
+              },
+              "harnessInclusiveWallMs": 14.67619999999988,
+              "harnessInclusiveCpuMs": 32
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 17.44489999999996,
+              "perCall": {
+                "min": 0.8285000000000764,
+                "median": 0.8490000000001601,
+                "max": 1.1231000000002496
+              },
+              "harnessInclusiveWallMs": 28.95010000000002,
+              "harnessInclusiveCpuMs": 31
+            }
+          ],
+          "perCallMs": {
+            "A": 0.8676400000000115,
+            "B": 0.6246900000000096
+          },
+          "compactOverRich": 0.7199875524411061
+        }
+      ],
+      "summary": {
+        "richPerCallMs": {
+          "min": 0.856980000000027,
+          "median": 0.8811600000000055,
+          "max": 0.949114999999989
+        },
+        "compactPerCallMs": {
+          "min": 0.6094700000000103,
+          "median": 0.6580074999999852,
+          "max": 0.7224699999999757
+        },
+        "compactOverRich": {
+          "min": 0.6953530559390404,
+          "median": 0.7379661302080353,
+          "max": 0.8177262013115552
+        },
+        "numericPayloadReduction": 0.9779386418476388,
+        "avoidedReturnedArrays": 1144,
+        "avoidedReturnedObjects": 1128
+      }
+    },
+    {
+      "dir": 1,
+      "scale": 1.18,
+      "initialStateHash": "07082884bfe0321603b8bc572481d675cb4d966df5f2a74cebba617697470225",
+      "exactPhysicalOutputHash": "65688e9769c125c6c154fa27aad3d5de0b38eb404d46f59d9ae025fc09f40d51",
+      "actualSteelContact": {
+        "t": 0,
+        "keyA": "weapon",
+        "keyB": "weapon",
+        "pointA": {
+          "x": 0.24057175400837655,
+          "y": 2.3734781897648216,
+          "z": 0.177
+        },
+        "pointB": {
+          "x": 0.2409674204810171,
+          "y": 2.3544551461923575,
+          "z": 0.177
+        },
+        "normal": {
+          "x": -0.02079482780309207,
+          "y": 0.999783764189357
+        }
+      },
+      "ledgers": {
+        "A": {
+          "numbers": 29038,
+          "arrays": 1501,
+          "objects": 1478,
+          "numericPayloadBytesLowerBound": 232304,
+          "trials": 10,
+          "applies": 2,
+          "iterations": 3,
+          "backtracks": 0,
+          "constraintRows": 1420,
+          "constraintRowNumbers": 22720
+        },
+        "B": {
+          "numbers": 668,
+          "arrays": 71,
+          "objects": 68,
+          "numericPayloadBytesLowerBound": 5344,
+          "trials": 10,
+          "applies": 2,
+          "iterations": 3,
+          "backtracks": 0,
+          "constraintRows": 0,
+          "constraintRowNumbers": 0
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 26.28959999999961,
+              "perCall": {
+                "min": 1.2149999999996908,
+                "median": 1.2775000000001455,
+                "max": 1.9187999999999192
+              },
+              "harnessInclusiveWallMs": 40.86670000000004,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 20.549899999999525,
+              "perCall": {
+                "min": 0.9546000000000276,
+                "median": 0.987699999999677,
+                "max": 1.45699999999988
+              },
+              "harnessInclusiveWallMs": 22.78740000000016,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 20.54840000000104,
+              "perCall": {
+                "min": 0.9576000000001841,
+                "median": 0.9988000000003012,
+                "max": 1.2748000000001412
+              },
+              "harnessInclusiveWallMs": 23.008299999999963,
+              "harnessInclusiveCpuMs": 62
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 25.710200000000896,
+              "perCall": {
+                "min": 1.2515000000003056,
+                "median": 1.2652000000002772,
+                "max": 1.5511000000001332
+              },
+              "harnessInclusiveWallMs": 40.483000000000175,
+              "harnessInclusiveCpuMs": 31
+            }
+          ],
+          "perCallMs": {
+            "A": 1.2999950000000127,
+            "B": 1.0274575000000141
+          },
+          "compactOverRich": 0.7903549629037067
+        },
+        {
+          "round": 1,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 25.33029999999917,
+              "perCall": {
+                "min": 1.2449999999998909,
+                "median": 1.2512000000001535,
+                "max": 1.534400000000005
+              },
+              "harnessInclusiveWallMs": 39.633200000000215,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 18.83199999999806,
+              "perCall": {
+                "min": 0.9207000000001244,
+                "median": 0.928599999999733,
+                "max": 1.0212999999998829
+              },
+              "harnessInclusiveWallMs": 21.159700000000157,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 19.563200000001416,
+              "perCall": {
+                "min": 0.9222999999997228,
+                "median": 0.9323000000003958,
+                "max": 1.4867000000003827
+              },
+              "harnessInclusiveWallMs": 21.870300000000043,
+              "harnessInclusiveCpuMs": 31
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 25.022599999999784,
+              "perCall": {
+                "min": 1.1975999999999658,
+                "median": 1.2103000000001884,
+                "max": 1.5232999999998356
+              },
+              "harnessInclusiveWallMs": 39.00420000000031,
+              "harnessInclusiveCpuMs": 47
+            }
+          ],
+          "perCallMs": {
+            "A": 1.2588224999999738,
+            "B": 0.959879999999987
+          },
+          "compactOverRich": 0.7625221188849158
+        },
+        {
+          "round": 2,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 24.071700000000874,
+              "perCall": {
+                "min": 1.1677999999997155,
+                "median": 1.1930999999999585,
+                "max": 1.359899999999925
+              },
+              "harnessInclusiveWallMs": 38.3442,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 19.53729999999905,
+              "perCall": {
+                "min": 0.9173999999998159,
+                "median": 0.9274999999997817,
+                "max": 1.335700000000088
+              },
+              "harnessInclusiveWallMs": 21.866500000000087,
+              "harnessInclusiveCpuMs": 16
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 20.736300000001847,
+              "perCall": {
+                "min": 0.9578000000001339,
+                "median": 0.9882000000002336,
+                "max": 1.4752000000003136
+              },
+              "harnessInclusiveWallMs": 23.152999999999793,
+              "harnessInclusiveCpuMs": 62
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 25.239900000000034,
+              "perCall": {
+                "min": 1.164299999999912,
+                "median": 1.1993000000002212,
+                "max": 1.7307999999998174
+              },
+              "harnessInclusiveWallMs": 39.46149999999989,
+              "harnessInclusiveCpuMs": 31
+            }
+          ],
+          "perCallMs": {
+            "A": 1.2327900000000227,
+            "B": 1.0068400000000224
+          },
+          "compactOverRich": 0.816716553508711
+        },
+        {
+          "round": 3,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 25.264300000000276,
+              "perCall": {
+                "min": 1.233299999999872,
+                "median": 1.2454999999999927,
+                "max": 1.4859000000001288
+              },
+              "harnessInclusiveWallMs": 39.941100000000006,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 23.247800000001007,
+              "perCall": {
+                "min": 0.9708000000000538,
+                "median": 1.149199999999837,
+                "max": 1.5437999999999192
+              },
+              "harnessInclusiveWallMs": 26.034700000000157,
+              "harnessInclusiveCpuMs": 32
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 20.13439999999946,
+              "perCall": {
+                "min": 0.9704000000001543,
+                "median": 0.9753999999998086,
+                "max": 1.472899999999754
+              },
+              "harnessInclusiveWallMs": 22.592599999999948,
+              "harnessInclusiveCpuMs": 46
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 25.22070000000167,
+              "perCall": {
+                "min": 1.2292999999999665,
+                "median": 1.2422999999998865,
+                "max": 1.5932999999999993
+              },
+              "harnessInclusiveWallMs": 39.880699999999706,
+              "harnessInclusiveCpuMs": 31
+            }
+          ],
+          "perCallMs": {
+            "A": 1.2621250000000486,
+            "B": 1.0845550000000117
+          },
+          "compactOverRich": 0.859308705556082
+        },
+        {
+          "round": 4,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 25.390100000000984,
+              "perCall": {
+                "min": 1.2328000000002248,
+                "median": 1.2536000000000058,
+                "max": 1.355199999999968
+              },
+              "harnessInclusiveWallMs": 42.02019999999993,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 20.50540000000001,
+              "perCall": {
+                "min": 0.9733000000001084,
+                "median": 1.0333000000000538,
+                "max": 1.1080000000001746
+              },
+              "harnessInclusiveWallMs": 22.951100000000224,
+              "harnessInclusiveCpuMs": 63
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 21.673199999999724,
+              "perCall": {
+                "min": 1.006199999999808,
+                "median": 1.074699999999666,
+                "max": 1.1911000000000058
+              },
+              "harnessInclusiveWallMs": 24.317999999999756,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 27.37360000000035,
+              "perCall": {
+                "min": 1.2299000000002707,
+                "median": 1.3807999999999083,
+                "max": 1.671100000000024
+              },
+              "harnessInclusiveWallMs": 44.5295000000001,
+              "harnessInclusiveCpuMs": 47
+            }
+          ],
+          "perCallMs": {
+            "A": 1.3190925000000333,
+            "B": 1.0544649999999933
+          },
+          "compactOverRich": 0.799386699568049
+        },
+        {
+          "round": 5,
+          "blocks": [
+            {
+              "variant": "A",
+              "resolveWallMs": 26.738000000000284,
+              "perCall": {
+                "min": 1.2394999999996799,
+                "median": 1.272099999999682,
+                "max": 1.8434000000002015
+              },
+              "harnessInclusiveWallMs": 42.37429999999995,
+              "harnessInclusiveCpuMs": 47
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 20.1534000000006,
+              "perCall": {
+                "min": 0.9639999999999418,
+                "median": 0.9701000000000022,
+                "max": 1.3949999999999818
+              },
+              "harnessInclusiveWallMs": 22.539200000000164,
+              "harnessInclusiveCpuMs": 16
+            },
+            {
+              "variant": "B",
+              "resolveWallMs": 19.442199999999048,
+              "perCall": {
+                "min": 0.9641999999998916,
+                "median": 0.968199999999797,
+                "max": 1.009099999999762
+              },
+              "harnessInclusiveWallMs": 21.804200000000037,
+              "harnessInclusiveCpuMs": 15
+            },
+            {
+              "variant": "A",
+              "resolveWallMs": 25.969100000000708,
+              "perCall": {
+                "min": 1.2388999999998305,
+                "median": 1.2504000000003543,
+                "max": 1.7389000000002852
+              },
+              "harnessInclusiveWallMs": 40.32459999999992,
+              "harnessInclusiveCpuMs": 79
+            }
+          ],
+          "perCallMs": {
+            "A": 1.3176775000000247,
+            "B": 0.9898899999999913
+          },
+          "compactOverRich": 0.7512384479510144
+        }
+      ],
+      "summary": {
+        "richPerCallMs": {
+          "min": 1.2327900000000227,
+          "median": 1.2999950000000127,
+          "max": 1.3190925000000333
+        },
+        "compactPerCallMs": {
+          "min": 0.959879999999987,
+          "median": 1.0274575000000141,
+          "max": 1.0845550000000117
+        },
+        "compactOverRich": {
+          "min": 0.7512384479510144,
+          "median": 0.799386699568049,
+          "max": 0.859308705556082
+        },
+        "numericPayloadReduction": 0.9769956608581858,
+        "avoidedReturnedArrays": 1430,
+        "avoidedReturnedObjects": 1410
+      }
+    }
+  ],
+  "elapsedMs": 2875.7115999999996
+}

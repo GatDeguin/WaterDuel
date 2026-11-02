@@ -6,7 +6,7 @@ const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
 const sources=new Set(['body','steel','guard']);
 const joints=Object.freeze({mainUpper:['mainShoulder','mainShoulder'],mainForearm:['mainElbow','mainElbow'],
   offUpper:['offShoulder','offShoulder'],offForearm:['offElbow','offElbow'],
-  frontThigh:['frontHip','frontHip'],frontShin:['frontKnee','kneeF'],backThigh:['backHip','backHip'],backShin:['backKnee','kneeB']});
+  frontThigh:['frontHip','frontHip'],frontShin:['frontKnee','kneeF'],frontFoot:['frontKnee','kneeF'],backThigh:['backHip','backHip'],backShin:['backKnee','kneeB'],backFoot:['backKnee','kneeB']});
 const bodies=new Set([...Object.keys(joints),'weapon','offWeapon','torso','neck','pelvis']);
 const point=value=>value&&[value.x,value.y,value.z??0].every(Number.isFinite)?{x:value.x,y:value.y,z:value.z??0}:null;
 

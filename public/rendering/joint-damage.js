@@ -11,7 +11,7 @@ const JOINTS=Object.freeze({
   backHip:['backThigh','backHip','kneeB',-.07],backKnee:['backShin','kneeB','footB',-.07]
 });
 const IDENTITY=Object.freeze([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
-export const bodyForBone=name=>BODIES[name]??null;
+export const bodyForBone=(name,pose)=>pose?.feet&&name==='foot.R'?'frontFoot':pose?.feet&&name==='foot.L'?'backFoot':BODIES[name]??null;
 // Shields are fixed to the forearm; only the parrying knife has a separate
 // physical offWeapon body in the rig.
 export const equipmentBody=key=>key==='knife'?'offWeapon':key==='short'||key==='long'?'offForearm':'weapon';
@@ -45,8 +45,29 @@ export function jointMarks(pose,only=null){
   for(const [joint,state]of Object.entries(pose.joints??{})){
     const descriptor=JOINTS[joint];if(!descriptor||state.detached||!Number.isFinite(state.damage)||state.damage<=0)continue;
     const [body,start,end,z]=descriptor;if(!bodyVisible(pose,body,only))continue;
-    const at=pose[start]??(start.endsWith('Hip')?pose.hip:null),to=pose[end];if(!at||!to)continue;
+    const at=pose[start]??(start.endsWith('Hip')?pose.hip:null),to=joint==='frontKnee'?(pose.ankleF??pose[end]):joint==='backKnee'?(pose.ankleB??pose[end]):pose[end];if(!at||!to)continue;
     marks.push({joint,body,at,to,z,damage:Math.min(1,state.damage)});
+  }
+  return marks;
+}
+
+/** Finite, owned trace requests. Their drawing must project onto real triangles;
+ * these points are probes, never floating boxes at a guessed presentation Z. */
+export function jointDamageTraces(pose,only=null){
+  const marks=[];
+  for(const {joint,body,at,to,damage}of jointMarks(pose,only)){
+    if(damage<.15||![at.x,at.y,at.z??0,to.x,to.y,to.z??0].every(Number.isFinite))continue;
+    const stage=damage<.45?1:damage<.8?2:3,dx=to.x-at.x,dy=to.y-at.y,length=Math.hypot(dx,dy);
+    if(length<1e-7)continue;
+    for(let i=0;i<(stage===1?1:2);i++){
+      // A wrist owns the palm around the grip, not the length of the blade.
+      const fraction=joint==='wrist'?(.012+i*.024)/length:.08+i*.055,angle=Math.atan2(dy,dx)+.55+i*.7;
+      marks.push({id:`joint:${joint}:${i}`,body,key:body==='weapon'?'main-palm':body,
+        position:{x:at.x+dx*fraction,y:at.y+dy*fraction,z:(at.z??0)+((to.z??0)-(at.z??0))*fraction},
+        normal:{x:0,y:0,z:1},tangent:{x:Math.cos(angle),y:Math.sin(angle),z:0},
+        length:.009+stage*.006,width:.0006+stage*.0004,projectDistance:.42,impulse:damage,
+        stage,anchor:{joint,trace:i,stage}});
+    }
   }
   return marks;
 }

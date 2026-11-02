@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QA · selección de equipamiento</title>
 <style>
-body{margin:0;background:#102327;color:#e1eee6;font:14px system-ui}main{max-width:1280px;margin:auto}canvas{display:block;width:100%;aspect-ratio:16/9}section{padding:18px}h1{font-size:22px;margin:0 0 8px}p{line-height:1.5}fieldset{border:1px solid #60867a;display:flex;gap:12px;flex-wrap:wrap;margin:12px 0;padding:14px}label{display:grid;gap:5px}button,select{min-height:44px;background:#28554b;color:#e7ffef;border:1px solid #82b5a0;padding:8px}button:disabled,select:disabled{opacity:.5}button:focus-visible,select:focus-visible{outline:3px solid #ffd177;outline-offset:3px}.actions{display:flex;gap:10px;flex-wrap:wrap}pre{white-space:pre-wrap;overflow-wrap:anywhere}.muted{color:#b8cdc5}
+body{margin:0;background:#102327;color:#e1eee6;font:14px system-ui}main{max-width:1280px;margin:auto}canvas{display:block;width:100%;aspect-ratio:16/9}section{padding:18px}h1{font-size:22px;margin:0 0 8px}p{line-height:1.5}fieldset{border:1px solid #60867a;display:flex;gap:12px;flex-wrap:wrap;margin:12px 0;padding:14px}label{display:grid;gap:5px}[hidden]{display:none!important}button,select{min-height:44px;background:#28554b;color:#e7ffef;border:1px solid #82b5a0;padding:8px}button:disabled,select:disabled{opacity:.5}button:focus-visible,select:focus-visible{outline:3px solid #ffd177;outline-offset:3px}.actions{display:flex;gap:10px;flex-wrap:wrap}pre{white-space:pre-wrap;overflow-wrap:anywhere}.muted{color:#b8cdc5}
 </style></head><body><main>
 <canvas id="scene" aria-label="Arena real para inspeccionar armas y escudos seleccionados"></canvas>
 <section><h1>Selección e intercambio · prueba pública</h1>
 <p class="muted">Sesión local de prueba con HostSession, DuelEngine y Renderer3D reales. No conecta mandos, no usa autenticación ni controla la partida LAN. Los impactos y resultados los calcula la simulación.</p>
 <p id="assetStatus" role="status">Cargando modelos…</p>
-<fieldset><legend>Jugador 1</legend><label>Arma J1<select id="weapon1"></select></label><label>Secundaria J1<select id="defense1"></select></label><p id="loadout1"></p></fieldset>
-<fieldset><legend>Jugador 2</legend><label>Arma J2<select id="weapon2"></select></label><label>Secundaria J2<select id="defense2"></select></label><p id="loadout2"></p></fieldset>
+<fieldset><legend>Jugador 1</legend><label>Arma J1<select id="weapon1"></select></label><label>Secundaria J1<select id="defense1"></select></label><label id="knifeGripField1" hidden>Agarre J1<select id="knifeGrip1"><option value="normal">Normal</option><option value="reverse">Invertido</option></select></label><p id="loadout1"></p></fieldset>
+<fieldset><legend>Jugador 2</legend><label>Arma J2<select id="weapon2"></select></label><label>Secundaria J2<select id="defense2"></select></label><label id="knifeGripField2" hidden>Agarre J2<select id="knifeGrip2"><option value="normal">Normal</option><option value="reverse">Invertido</option></select></label><p id="loadout2"></p></fieldset>
 <p>El mazo ocupa ambas manos y fija la secundaria en «Sin escudo». El cuchillo está disponible únicamente en la secundaria.</p>
 <div class="actions"><button id="swap">Intercambiar equipos</button><button id="fight">Comenzar combate físico</button><button id="reset">Volver a preparación</button></div>
 <p id="feedback" role="status" aria-live="polite"></p>
@@ -38,7 +38,8 @@ function snapshot(){
  return {scope:'Public local fixture; real host, engine and renderer; no LAN transport or authenticated controller.',
   phase:g.phase,mode:g.mode,loadouts:g.loadouts.map(item=>({...item})),
   fighters:g.fighters.map(f=>({slot:f.slot,equipment:{...f.equipment},twoHanded:WEAPONS[f.equipment.weapon].twoHanded,
-   secondaryGripError:WEAPONS[f.equipment.weapon].twoHanded?Math.hypot(f.pose.offHand.x-f.pose.offGrip.x,f.pose.offHand.y-f.pose.offGrip.y,f.pose.offHand.z-f.pose.offGrip.z):null})),
+   secondaryGripError:WEAPONS[f.equipment.weapon].twoHanded?Math.hypot(f.pose.offHand.x-f.pose.offGrip.x,f.pose.offHand.y-f.pose.offGrip.y,f.pose.offHand.z-f.pose.offGrip.z):null,
+   offHand:{...f.pose.offHand},defenseTip:f.pose.defenseTip?{...f.pose.defenseTip}:null})),
   assets:renderer.assetStatus,loadedEquipment:Object.keys(renderer.assetScene.equipment),rendering:renderer.stats,
   viewport:{width:$('scene').width,height:$('scene').height},commands:history};
 }
@@ -49,14 +50,17 @@ function refresh(){
   $('weapon'+n).value=equipment.weapon;$('defense'+n).value=equipment.defense;
   $('weapon'+n).disabled=!state.configurable;
   $('defense'+n).disabled=!state.configurable||WEAPONS[equipment.weapon].twoHanded;
-  $('loadout'+n).textContent=`${WEAPONS[equipment.weapon].label} · ${DEFENSES[equipment.defense].label}`;
+  $('knifeGrip'+n).value=equipment.knifeGrip==='reverse'?'reverse':'normal';
+  $('knifeGripField'+n).hidden=equipment.defense!=='knife';
+  $('knifeGrip'+n).disabled=!state.configurable||equipment.defense!=='knife';
+  $('loadout'+n).textContent=`${WEAPONS[equipment.weapon].label} · ${DEFENSES[equipment.defense].label}${equipment.defense==='knife'?' · '+(equipment.knifeGrip==='reverse'?'agarre invertido':'agarre normal'):''}`;
  }
  $('swap').disabled=!state.configurable;$('fight').disabled=!state.configurable;
  $('result').textContent=JSON.stringify(snapshot(),null,2);
 }
 for(const n of [1,2]){
  fill($('weapon'+n),WEAPONS);fill($('defense'+n),DEFENSES);
- for(const kind of ['weapon','defense'])$(kind+n).addEventListener('change',()=>command('setLoadout',{slot:n,weapon:$('weapon'+n).value,defense:$('defense'+n).value}));
+ for(const kind of ['weapon','defense','knifeGrip'])$(kind+n).addEventListener('change',()=>command('setLoadout',{slot:n,weapon:$('weapon'+n).value,defense:$('defense'+n).value,knifeGrip:$('knifeGrip'+n).value}));
 }
 $('swap').addEventListener('click',()=>{
  const [a,b]=host.game.loadouts.map(item=>({...item}));

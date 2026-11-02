@@ -12,6 +12,21 @@ function fixture(){
   const asset={primitives:[primitive],materials:[{pbrMetallicRoughness:{baseColorFactor:[.2,.3,.4,1],roughnessFactor:.3,metallicFactor:.7,baseColorTexture:{index:0}},normalTexture:{index:0,scale:.6}}],textures:[{source:0}],images:[{bytes:new Uint8Array([1]),mimeType:'image/png'}],samplers:[]};
   const U=new Proxy({},{get:(_o,key)=>key});return {gl,trace,asset,U};
 }
+
+test('cloth geometry uploads at draw time, preserves UV1 buffers, and restores bind geometry for old replay',async()=>{
+  const {gl,asset,U}=fixture(),updates=[];let bound=null;
+  gl.bindBuffer=(kind,buffer)=>{if(kind===gl.ARRAY_BUFFER)bound=buffer;};
+  gl.bufferSubData=(_kind,offset,data)=>updates.push({buffer:bound,offset,data:Array.from(data)});
+  asset.primitives[0].uv1=new Float32Array([.1,.2,.3,.4,.5,.6]);asset.primitives[0].apronPanel=0;
+  const gpu=new AssetGPU(gl,{decodeImage:async()=>({width:2,height:2,close(){}})}),model=await gpu.upload(asset),part=model.parts[0];
+  const geometry={positions:new Float32Array([0,0,.2,1,0,.3,0,1,.4]),normals:new Float32Array([0,0,1,0,0,1,0,0,1])};
+  gpu.draw(model,part,part.worldMatrix,U,{geometry});assert.equal(updates.length,2,'position and normal VBOs receive the frame geometry');
+  assert.deepEqual(updates[0].data,Array.from(geometry.positions));assert.deepEqual(updates[1].data,Array.from(geometry.normals));
+  gpu.draw(model,part,part.worldMatrix,U,{geometry});assert.equal(updates.length,2,'same geometry snapshot is not uploaded twice');
+  gpu.draw(model,part,part.worldMatrix,U);assert.equal(updates.length,4,'old replay must restore source geometry after a v4 draw');
+  assert.deepEqual(updates[2].data,Array.from(asset.primitives[0].positions));assert.deepEqual(Array.from(asset.primitives[0].uv1),[.1,.2,.3,.4,.5,.6].map(Math.fround));
+  assert.equal(new Set(updates.map(u=>u.buffer)).size,2,'UV1, UV0 and indices stay untouched');gpu.dispose();
+});
 test('recursos GPU separan color sRGB de datos lineales y conservan índices32/UV; dispose libera todo',async()=>{
   const {gl,trace,asset}=fixture();let closed=0;
   const gpu=new AssetGPU(gl,{decodeImage:async()=>({width:2,height:2,close(){closed++;}})});

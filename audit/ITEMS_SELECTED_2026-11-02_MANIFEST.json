@@ -1,0 +1,659 @@
+{
+  "manifestRevision": 3,
+  "date": "2026-11-02",
+  "createdAt": "2026-11-02T07:24:53.489Z",
+  "selection": [
+    26,
+    27,
+    34,
+    36,
+    37,
+    44
+  ],
+  "status": "Original Items and N16 cuts preserved; new focal 16/16 CPU contract archived with stable source pins.",
+  "historicalCut": {
+    "manifest": {
+      "path": "audit/items-n16-test-migration-113/ITEMS_SELECTED_2026-11-02_MANIFEST.before-n16.json",
+      "bytes": 14414,
+      "sha256": "1e2e8598d79deb39f5883dda117d5dead956d52e39774410ddec7b4930b7b4e4"
+    },
+    "originalFilesVerified": 51,
+    "directOriginalFiles": 48,
+    "redirectedOriginals": [
+      {
+        "originalPath": "tests/knife-defense-integration.test.mjs",
+        "backupPath": "audit/items-n16-test-migration-113/knife-defense-integration.before.mjs.txt",
+        "bytes": 11210,
+        "sha256": "aa7d821b6d2486f28f839e51150cbda82c739e3830c9aa9c39dd2d6b0b392fa3"
+      },
+      {
+        "originalPath": "docs/ENTREGA_ITEMS_SELECCIONADOS_2026-11-02.md",
+        "backupPath": "audit/items-n16-test-migration-113/ENTREGA_ITEMS_SELECCIONADOS.before-n16.md.txt",
+        "bytes": 7409,
+        "sha256": "80ad7e46da23d9f0f80cc2a3757b6ec2b3307103ab56aebdd235bc29148f5a4d"
+      },
+      {
+        "originalPath": "scripts/seal-selected-items.mjs",
+        "backupPath": "audit/items-n16-test-migration-113/seal-selected-items.before-n16.mjs.txt",
+        "bytes": 5580,
+        "sha256": "adf412ab5fd09d5068a0d6a1cd37ace25ffa0b357fcf2ecdf5561d5fed52d870"
+      }
+    ],
+    "integrationMigration": {
+      "path": "tests/knife-defense-integration.test.mjs",
+      "classification": "sharedReference",
+      "scope": "ARRANGE/control recipes migrated to real countdown and N16 by Principal; original assertions and thresholds retained.",
+      "originalTest": {
+        "originalPath": "tests/knife-defense-integration.test.mjs",
+        "backupPath": "audit/items-n16-test-migration-113/knife-defense-integration.before.mjs.txt",
+        "bytes": 11210,
+        "sha256": "aa7d821b6d2486f28f839e51150cbda82c739e3830c9aa9c39dd2d6b0b392fa3"
+      },
+      "testedSnapshot": {
+        "path": "audit/items-n16-test-migration-113/knife-defense-integration.n16-8of8.mjs.txt",
+        "bytes": 11810,
+        "sha256": "6d19e9164627345d8c89037a486e11e1bacff2e7f7c313397c9d74e1ac4942a8"
+      },
+      "evidence": {
+        "path": "audit/items-n16-test-migration-113/knife-n16-migration-8of8.log.txt",
+        "bytes": 1055,
+        "sha256": "86157b33633a4d3ccee095d8076036b49899da19b89db94cfdeabdfa62b5a5f7",
+        "producer": "Principal",
+        "command": "node --test tests/knife-defense-integration.test.mjs",
+        "tests": 8,
+        "passed": 8,
+        "failed": 0,
+        "skipped": 0
+      },
+      "assertionsPreserved": true,
+      "socketTolerance": 1e-7,
+      "fightTicks": 285
+    }
+  },
+  "previousRevision": {
+    "manifest": {
+      "path": "audit/items-knife-contract-113-revision3/MANIFEST.before-revision3.json",
+      "bytes": 18427,
+      "sha256": "dc0d9782204b314cc0a8c6f789799525d8f2c93e379b8c8cc15b43776cea934c"
+    },
+    "originalFilesVerified": 56,
+    "directOriginalFiles": 54,
+    "redirectedOriginals": [
+      {
+        "originalPath": "docs/ENTREGA_ITEMS_SELECCIONADOS_2026-11-02.md",
+        "backupPath": "audit/items-knife-contract-113-revision3/ENTREGA_ITEMS_SELECCIONADOS.before-revision3.md.txt",
+        "bytes": 9273,
+        "sha256": "0223d685aa59dd582fbe9c6959e33b9a7dd0c6282848887496db849940fb19c0"
+      },
+      {
+        "originalPath": "scripts/seal-selected-items.mjs",
+        "backupPath": "audit/items-knife-contract-113-revision3/seal-selected-items.before-revision3.mjs.txt",
+        "bytes": 9499,
+        "sha256": "b53ef3a78d60d799aff8412530398bce6a8ac60d8d82fb19416c152e45a897e9"
+      }
+    ]
+  },
+  "currentCpuContract": {
+    "receipt": {
+      "path": "audit/items-knife-contract-113-revision3/receipt.json",
+      "bytes": 14240,
+      "sha256": "04521d02c15980dec3455a6543016f767b94a09b3a5ca17b30417fd8fe5351f6"
+    },
+    "command": "node --test --test-concurrency=1 tests/knife-defense-integration.test.mjs tests/knife-socket-reference-113.test.mjs",
+    "result": {
+      "tests": 16,
+      "passed": 16,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "durationMs": 18815.1822,
+      "integration": 8,
+      "staticReference": 8,
+      "exitCode": 0
+    },
+    "precisionContract": {
+      "geometryF64PerComponentStrict": 1e-7,
+      "globalNearUnchanged": 1e-7,
+      "matrix": "Float32Array(16), each coefficient exactly fround(independent F64 reference)",
+      "virtualEndpoint": "JS binary64 evaluation of Float32 matrix/socket/deformation uniforms, componentwise analytically propagated data and JS evaluation bounds",
+      "assumptions": "Straight knife without flex; authored parents identity; canonical socket [0,fround(.42),0]. Unsupported premises fail rather than enlarge tolerance."
+    },
+    "migration": {
+      "scope": "Only the socket test block plus reverse J1 aim .2->0 and reverse J2 aim .2->-.4. All other test bytes and near helper retained.",
+      "fightTickLimit": 285,
+      "realCountdownRetained": true,
+      "recipesSourceEngine": "9f19e08250c7823a888ad2bef795f12bde89bac63a35933cb8a964db3c5468b5",
+      "recipesSourceRig": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b",
+      "recipes": [
+        {
+          "slot": 1,
+          "grip": "reverse",
+          "aim": 0
+        },
+        {
+          "slot": 2,
+          "grip": "reverse",
+          "aim": -0.4
+        }
+      ]
+    },
+    "snapshots": [
+      {
+        "path": "audit/items-knife-contract-113-revision3/knife-socket-reference.tested.mjs.txt",
+        "bytes": 8586,
+        "sha256": "f7c1e20c9226643cfca1f27b23cf9582ecad20228858e5eba4919aea71c858af",
+        "originalPath": "tests/helpers/knife-socket-reference.mjs"
+      },
+      {
+        "path": "audit/items-knife-contract-113-revision3/knife-socket-reference-113.tested.mjs.txt",
+        "bytes": 5686,
+        "sha256": "45cf8f4bf173e9be6eb8dda64facbc75bbc058a8ede1040c73f8a355deb1c322",
+        "originalPath": "tests/knife-socket-reference-113.test.mjs"
+      },
+      {
+        "path": "audit/items-knife-contract-113-revision3/knife-defense-integration.tested.mjs.txt",
+        "bytes": 12327,
+        "sha256": "24e59f5cc716346045b6de4f0cd8af98700e74be35f8d64af2000acdc810c802",
+        "originalPath": "tests/knife-defense-integration.test.mjs"
+      }
+    ],
+    "stdout": {
+      "path": "audit/items-knife-contract-113-revision3/functional-16of16.stdout.txt",
+      "bytes": 2488,
+      "sha256": "74f5a0284b28917c680cb6a145d77d7cd3c6380054613d8879688033aaea6988",
+      "provenance": "Verbatim tool-returned stdout text concatenated from exec chunk d22c6a and write_stdin chunk 32eac8, session 74909. UTF-8 LF archive; not claimed byte-identical to the original process pipe.",
+      "processByteStream": false
+    },
+    "recipeEvidence": [
+      {
+        "path": "audit/items-knife-contract-113-revision3/recipe-closure-summary.json",
+        "bytes": 10791,
+        "sha256": "4f8c71858ee7c7e98f172bc7a4195bce3d30c66ed6f551efe27888d1ef1b072b"
+      },
+      {
+        "path": "audit/items-knife-contract-113-revision3/recipe-final-results.json",
+        "bytes": 84040,
+        "sha256": "807d3aeff85f1a66814df7b3da62671b83184bed1d2b01c2a80a73cc95104d76"
+      }
+    ],
+    "sourceFiles": 51,
+    "sourceMapDigest": "2c0ce9b6c8c73fb042b18aa099a278285616ec8e7f193827349894484200cf94",
+    "testedEngine": "ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d",
+    "testedRig": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b",
+    "liveSourceDrift": [],
+    "integrationClassification": "sharedReference; tested snapshot protected independently",
+    "scope": "Focal CPU virtual endpoint/matrix representation and physical knife integration, not GPU/global/visual validation."
+  },
+  "localRuntime": "Equipment loader points to workshop/v3; optional reverse grip and measured contact haptics integrated.",
+  "publication": "Unchanged; controlled by Principal.",
+  "visualRuntimeQA": "Pending joint stable runtime window with Principal; GLB offline renders inspected.",
+  "physicalHandsetHaptics": "Not measured; policy and LAN/local transport verified.",
+  "evidence": [
+    {
+      "log": "audit/TESTS_ITEMS_SELECTED_REGRESSION.txt",
+      "tests": 206,
+      "passed": 206,
+      "failed": 0
+    },
+    {
+      "log": "audit/TESTS_ITEMS_SELECTED_FOCAL.txt",
+      "tests": 104,
+      "passed": 104,
+      "failed": 0
+    }
+  ],
+  "evidenceScope": "206/206 and104/104 describe the original Items cut. The earlier N16 strict-socket run is separately archived 8/8. CurrentCpuContract is a new 16/16 focal CPU virtual-endpoint/matrix and physical integration run; it does not claim GPU, global or visual validation. Shared hashes are observations; executed artifacts have protected snapshots.",
+  "sharedReferences": [
+    {
+      "path": "public/auto-defense.js",
+      "bytes": 7260,
+      "sha256": "b3700da20275323db7311a0584cd5e0e2d7010c13592a8925b2abf1254e3e604"
+    },
+    {
+      "path": "public/controller.html",
+      "bytes": 16783,
+      "sha256": "ae5d2386c5f2105eae5cd7ec63ec3957eb6cdff461581654088aaaa6534e7d4c"
+    },
+    {
+      "path": "public/controller.js",
+      "bytes": 44995,
+      "sha256": "c73882c4962da53f7840143aebf6578805f2defdeaba61dbfe336796985a5b86"
+    },
+    {
+      "path": "public/engine.js",
+      "bytes": 72487,
+      "sha256": "ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d"
+    },
+    {
+      "path": "public/equipment.js",
+      "bytes": 5486,
+      "sha256": "e3fd41678ef88bec868bf8b79d9bc52be884f712f11a3e1706305724e86cef67"
+    },
+    {
+      "path": "public/game.js",
+      "bytes": 13438,
+      "sha256": "562b4cb1aca810ab7b551f9483260722c6dfbb82378942629aa3cf237c08c746"
+    },
+    {
+      "path": "public/mobile-session.js",
+      "bytes": 6047,
+      "sha256": "374c741c48677e6e909c48bfdac2ae6e7e64823549edcae7b6f8521325e9397f"
+    },
+    {
+      "path": "public/mobile.html",
+      "bytes": 18362,
+      "sha256": "22ea26cb2c63f4228f4669d380a51ae3e943d76fb2ef7778655cfaa40004602c"
+    },
+    {
+      "path": "public/physics/articulated-rig.js",
+      "bytes": 96376,
+      "sha256": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b"
+    },
+    {
+      "path": "public/remote-menu.js",
+      "bytes": 8490,
+      "sha256": "312f5fb0a42f0cad30c85a6a72cdb54422cba547c626ecbe9d06ee434bb704e6"
+    },
+    {
+      "path": "public/render3d.js",
+      "bytes": 91557,
+      "sha256": "7c3559e4fbcb1660bf18b5648e455f05e665789b292d5d624b5972ca6b8398dd"
+    },
+    {
+      "path": "public/rendering/asset-rig.js",
+      "bytes": 18338,
+      "sha256": "97a6681d43ebaeaa20154197af34ba0f431644f2dbed6016813a13ff20d6e0b3"
+    },
+    {
+      "path": "server.mjs",
+      "bytes": 20603,
+      "sha256": "0c2b9f6b21aa7226c8c8154d919d84da6fcc4781c40b4f38e78a6178235aee4b"
+    },
+    {
+      "path": "tests/controller-menu.test.mjs",
+      "bytes": 59766,
+      "sha256": "e0fef47dc1270e9d17dd224ac04a66e837065027790d07804401c65df1632c86"
+    },
+    {
+      "path": "tests/controller.test.mjs",
+      "bytes": 24839,
+      "sha256": "8603a701fa80c7c63e0fc7ae3b1035fcdca9a1d8bba7591c5cfe6fd55900c223"
+    },
+    {
+      "path": "tests/host-runtime.test.mjs",
+      "bytes": 27037,
+      "sha256": "940616b2d75554886a7dffc624dc10e7fc732ae17a289bf19902936b0ce43d5e"
+    },
+    {
+      "path": "tests/knife-defense-integration.test.mjs",
+      "bytes": 12327,
+      "sha256": "24e59f5cc716346045b6de4f0cd8af98700e74be35f8d64af2000acdc810c802",
+      "migration": "Rev3 replaces only the socket block with 3 CPU precision gates and reverse aims 0/-.4; other bytes retained. Original/N16/current tested snapshots archived separately."
+    },
+    {
+      "path": "tests/mobile-runtime.test.mjs",
+      "bytes": 5793,
+      "sha256": "cb73f4a77406d8acbe1b6f3accb88b3439e8f801705ded1d2b4c67cd55d01a4b"
+    }
+  ],
+  "assetValidation": {
+    "passed": 7,
+    "baselinesPreserved": 14,
+    "textureAdditions": 0
+  },
+  "verificationCommands": [
+    "node --test tests/knife-technique.test.mjs tests/knife-defense-integration.test.mjs tests/item-knife-contract.test.mjs tests/item-haptics.test.mjs tests/item-haptics-transport.test.mjs tests/controller-menu.test.mjs tests/qa-equipment-selection.test.mjs",
+    "node --test tests/knife-technique.test.mjs tests/knife-defense-integration.test.mjs tests/item-knife-contract.test.mjs tests/item-haptics.test.mjs tests/item-haptics-transport.test.mjs tests/controller-menu.test.mjs tests/qa-equipment-selection.test.mjs tests/auto-defense.test.mjs tests/remote-menu.test.mjs tests/mobile-session.test.mjs tests/mobile-runtime.test.mjs tests/controller.test.mjs tests/guard-mount.test.mjs tests/guard-contact-episodes.test.mjs tests/equipment.test.mjs tests/equipment-render.test.mjs tests/asset-rig.test.mjs tests/replay.test.mjs",
+    "node --test --test-concurrency=1 tests/knife-defense-integration.test.mjs tests/knife-socket-reference-113.test.mjs",
+    "node scripts/validate-equipment-craft-v3.mjs",
+    "node scripts/seal-selected-items.mjs --verify"
+  ],
+  "files": [
+    {
+      "path": "audit/TESTS_ITEMS_SELECTED_FOCAL.txt",
+      "bytes": 11429,
+      "sha256": "ef615df9fbff59178828bc171d11cf4b4d83738e031796df30f9340cdbfff75f"
+    },
+    {
+      "path": "audit/TESTS_ITEMS_SELECTED_REGRESSION.txt",
+      "bytes": 22284,
+      "sha256": "eee68d0700798fdd7a5c43d7e94fdf00ee8a4283703004e2467a7b4a80c7f251"
+    },
+    {
+      "path": "audit/items-knife-contract-113-revision3/ENTREGA_ITEMS_SELECCIONADOS.before-revision3.md.txt",
+      "bytes": 9273,
+      "sha256": "0223d685aa59dd582fbe9c6959e33b9a7dd0c6282848887496db849940fb19c0"
+    },
+    {
+      "path": "audit/items-knife-contract-113-revision3/MANIFEST.before-revision3.json",
+      "bytes": 18427,
+      "sha256": "dc0d9782204b314cc0a8c6f789799525d8f2c93e379b8c8cc15b43776cea934c"
+    },
+    {
+      "path": "audit/items-knife-contract-113-revision3/functional-16of16.stdout.txt",
+      "bytes": 2488,
+      "sha256": "74f5a0284b28917c680cb6a145d77d7cd3c6380054613d8879688033aaea6988"
+    },
+    {
+      "path": "audit/items-knife-contract-113-revision3/knife-defense-integration.tested.mjs.txt",
+      "bytes": 12327,
+      "sha256": "24e59f5cc716346045b6de4f0cd8af98700e74be35f8d64af2000acdc810c802"
+    },
+    {
+      "path": "audit/items-knife-contract-113-revision3/knife-socket-reference-113.tested.mjs.txt",
+      "bytes": 5686,
+      "sha256": "45cf8f4bf173e9be6eb8dda64facbc75bbc058a8ede1040c73f8a355deb1c322"
+    },
+    {
+      "path": "audit/items-knife-contract-113-revision3/knife-socket-reference.tested.mjs.txt",
+      "bytes": 8586,
+      "sha256": "f7c1e20c9226643cfca1f27b23cf9582ecad20228858e5eba4919aea71c858af"
+    },
+    {
+      "path": "audit/items-knife-contract-113-revision3/receipt.json",
+      "bytes": 14240,
+      "sha256": "04521d02c15980dec3455a6543016f767b94a09b3a5ca17b30417fd8fe5351f6"
+    },
+    {
+      "path": "audit/items-knife-contract-113-revision3/recipe-closure-summary.json",
+      "bytes": 10791,
+      "sha256": "4f8c71858ee7c7e98f172bc7a4195bce3d30c66ed6f551efe27888d1ef1b072b"
+    },
+    {
+      "path": "audit/items-knife-contract-113-revision3/recipe-final-results.json",
+      "bytes": 84040,
+      "sha256": "807d3aeff85f1a66814df7b3da62671b83184bed1d2b01c2a80a73cc95104d76"
+    },
+    {
+      "path": "audit/items-knife-contract-113-revision3/seal-selected-items.before-revision3.mjs.txt",
+      "bytes": 9499,
+      "sha256": "b53ef3a78d60d799aff8412530398bce6a8ac60d8d82fb19416c152e45a897e9"
+    },
+    {
+      "path": "audit/items-n16-test-migration-113/ENTREGA_ITEMS_SELECCIONADOS.before-n16.md.txt",
+      "bytes": 7409,
+      "sha256": "80ad7e46da23d9f0f80cc2a3757b6ec2b3307103ab56aebdd235bc29148f5a4d"
+    },
+    {
+      "path": "audit/items-n16-test-migration-113/ITEMS_SELECTED_2026-11-02_MANIFEST.before-n16.json",
+      "bytes": 14414,
+      "sha256": "1e2e8598d79deb39f5883dda117d5dead956d52e39774410ddec7b4930b7b4e4"
+    },
+    {
+      "path": "audit/items-n16-test-migration-113/knife-defense-integration.before.mjs.txt",
+      "bytes": 11210,
+      "sha256": "aa7d821b6d2486f28f839e51150cbda82c739e3830c9aa9c39dd2d6b0b392fa3"
+    },
+    {
+      "path": "audit/items-n16-test-migration-113/knife-defense-integration.n16-8of8.mjs.txt",
+      "bytes": 11810,
+      "sha256": "6d19e9164627345d8c89037a486e11e1bacff2e7f7c313397c9d74e1ac4942a8"
+    },
+    {
+      "path": "audit/items-n16-test-migration-113/knife-n16-migration-8of8.log.txt",
+      "bytes": 1055,
+      "sha256": "86157b33633a4d3ccee095d8076036b49899da19b89db94cfdeabdfa62b5a5f7"
+    },
+    {
+      "path": "audit/items-n16-test-migration-113/seal-selected-items.before-n16.mjs.txt",
+      "bytes": 5580,
+      "sha256": "adf412ab5fd09d5068a0d6a1cd37ace25ffa0b357fcf2ecdf5561d5fed52d870"
+    },
+    {
+      "path": "docs/ENTREGA_ITEMS_CONTRATO_CPU_REV3_2026-11-02.md",
+      "bytes": 4814,
+      "sha256": "2326971b2c96fd6c74e978d060e766f5ba0fd507f663ceadb187cdad50be662e"
+    },
+    {
+      "path": "docs/ENTREGA_ITEMS_SELECCIONADOS_2026-11-02.md",
+      "bytes": 10492,
+      "sha256": "0c41f24ac78691e2e3942f8b31241e17fbc45391d734da7e7b730d70e3ec751f"
+    },
+    {
+      "path": "docs/assets/equipment/v3/README.md",
+      "bytes": 771,
+      "sha256": "05756003ad6c4bf94a8b42abf45f20635466cbf7bc021c2aea836c6487f1a73f"
+    },
+    {
+      "path": "docs/assets/equipment/v3/axe-craft-layer.glb",
+      "bytes": 60604,
+      "sha256": "32fa6bb33c3cef1140344b3d34963d47ab7d08e496efcf02233538906716e9ba"
+    },
+    {
+      "path": "docs/assets/equipment/v3/knife-craft-layer.glb",
+      "bytes": 52208,
+      "sha256": "14821fa241873ea6f955ec9f49f5946339d056891127fcf846f4c575630d73c5"
+    },
+    {
+      "path": "docs/assets/equipment/v3/long-craft-layer.glb",
+      "bytes": 77292,
+      "sha256": "d46783d248b13e185427b01e54842e63b80e952b9881cb39f8be1043a9c1a876"
+    },
+    {
+      "path": "docs/assets/equipment/v3/maul-craft-layer.glb",
+      "bytes": 139732,
+      "sha256": "260c3fcedf93cf7c7377cdb3f22ff8920124b0cd304e3a5e5fcd6d6466a29b6e"
+    },
+    {
+      "path": "docs/assets/equipment/v3/short-craft-layer.glb",
+      "bytes": 89060,
+      "sha256": "d764c653e8bbd9f4582a035d080d083a7b9e8db16c006fbbf336a5218ce31dc7"
+    },
+    {
+      "path": "docs/assets/equipment/v3/spear-craft-layer.glb",
+      "bytes": 44960,
+      "sha256": "22318a888e4ccc735717e31d78342de07417c37c58cf2473bbb33bfc210ab212"
+    },
+    {
+      "path": "docs/assets/equipment/v3/sword-craft-layer.glb",
+      "bytes": 88408,
+      "sha256": "b0dd2c8043e2531d3633add4e51777c5f94d443d08759973a135e8b09be7b44e"
+    },
+    {
+      "path": "docs/assets/equipment/v3/workshop-craft-v3.blend",
+      "bytes": 5364766,
+      "sha256": "c557222e907af77b6160bd5e3ae18f02bb96a868de85f06fb074e8eb379be7af"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-items-selected.md",
+      "bytes": 4447,
+      "sha256": "cd7b6f1a8412dfef4e3a98d3de0a7a4740358698b7654a81584b026692531201"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-11-02-items-selected-design.md",
+      "bytes": 3713,
+      "sha256": "3bd323465f3112e4bbb1ecb07e1e5d0c4e7bcf2067b34a112bba27c2a4d322e0"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/asset-contract.json",
+      "bytes": 23743,
+      "sha256": "43f4782171fd615bdc576aed1b9b011e8f8ccb4099b201ada8266dfc88eed494"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/axe.glb",
+      "bytes": 2362424,
+      "sha256": "13825c1246d80047b4474afab28c81b030e6f810eca6bf35dd4f84330c009d05"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/delivery-sha256.json",
+      "bytes": 6732,
+      "sha256": "d0a3a0fea2e6e195e653bc74d9e70b1a0b83c2ebe9b733edffaeb4377b46cc5f"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/growth-report.json",
+      "bytes": 5688,
+      "sha256": "4a8b255e45a2e886228040ffe7c49f5dac9b2221694014e9da2f39963d27c037"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/knife.glb",
+      "bytes": 2244564,
+      "sha256": "707547e565d65fe9f7e6c5bc915d644851fe5bd962840ca59d9d6b9bd9c50791"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/long.glb",
+      "bytes": 3042616,
+      "sha256": "e38069ad6a0436f61568770d7521c4c0f84ee3d375798bd83210c4a707154bcb"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/maul.glb",
+      "bytes": 2656352,
+      "sha256": "31bb9ed2d576f1be84f7b9823fb9bf915d89ec323d49a72228c3a1615134f074"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/axe-maker-detail.png",
+      "bytes": 1005361,
+      "sha256": "aa403d6d82f1613a71aa9fe3258ff5ab5bb25b7034cb632ce67eba781be9783b"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/knife-maker-detail.png",
+      "bytes": 1033323,
+      "sha256": "322ef085bb61b05e9306ec7d7b3c09dd0e71dee3538d36715a8baa4cde62ada6"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/knife-parry-arcs-detail.png",
+      "bytes": 1011309,
+      "sha256": "6ac414fab79f23ea9ba952d6650325197ea5b7534c5041b48968ef728dc970fa"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/long-joints-detail.png",
+      "bytes": 1252677,
+      "sha256": "39a31e66b4d184244af8d57494525410c5f9d20811ce77577d565d3d6e45e8a8"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/long-maker-detail.png",
+      "bytes": 1054225,
+      "sha256": "70a138aed0d57cb25cbb2d1220bf482f2634347d2bb71f910960ba0ca1efda48"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/maul-construction-detail.png",
+      "bytes": 1086478,
+      "sha256": "1d7121d076dd88037e01f9a59d910cb51826db4f4f7212e4fb0496e899d2c3de"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/maul-maker-detail.png",
+      "bytes": 1031343,
+      "sha256": "a3f7aaa6a3ae2fb78b98852fce2351897b6e8a4e83e7f1d47dc5686bdd0a3a45"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/short-maker-detail.png",
+      "bytes": 1359124,
+      "sha256": "99febd7ee04711ddf8de259cfc760ec8bb8bfdc58ca76b174a086ea1f31504fb"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/spear-maker-detail.png",
+      "bytes": 1079198,
+      "sha256": "be03329af5cc1fd515301a3555f9a3dfc2c1dc806153760f65fd47b08e2f5a8f"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/sword-channels-detail.png",
+      "bytes": 988734,
+      "sha256": "788b2cca5259f827e4d2d4d1c0722c71bc72c9e8e48089a677ed748f3170c63b"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/previews/sword-maker-detail.png",
+      "bytes": 1035618,
+      "sha256": "0c6a939f0f159ea5b749639698f574e2f77d7a395d22dfb349d43ec5d8ad9bf7"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/roundtrip-proof.json",
+      "bytes": 909,
+      "sha256": "ed7e76d69931a354febe053e99ae78bbc426c94f82dd380e1d7090c467105b10"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/short.glb",
+      "bytes": 2908644,
+      "sha256": "633cd9b79f06dda0e8985e78a8702266fa268938db72b6a2a2198a2e12c80706"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/source-baseline-sha256.json",
+      "bytes": 1717,
+      "sha256": "2fc21809e3ccc78744a150b3dd6bc6b45b3d47f8dc705dfa7ec08b3be547b8a0"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/spear.glb",
+      "bytes": 2349696,
+      "sha256": "35c85011c8d05963916a06ceb8d3d1e453576834b29e12827f697941b09d68fe"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/sword.glb",
+      "bytes": 1744332,
+      "sha256": "7c0c78b66d1e4041d5fb9f4f513bb29ecd478c8b59c6e7b2ff36a3fc3248c391"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/validation.json",
+      "bytes": 12114,
+      "sha256": "18ac500353c976f7c98b18fc6a2d24e5ff218b37add27cfcd90f5132be73b459"
+    },
+    {
+      "path": "public/assets/equipment/workshop/v3/workshop-craft-v3-preview.png",
+      "bytes": 2918368,
+      "sha256": "6e11b13288077ee2ca46a6d0b07c676537e94336071da4f56d859879acb44009"
+    },
+    {
+      "path": "public/item-haptics.js",
+      "bytes": 4273,
+      "sha256": "57aebaecb0e791b60f73f4c3f2ae0990e5760183b66d815062fa9ccf33c0b033"
+    },
+    {
+      "path": "public/knife-technique.js",
+      "bytes": 5252,
+      "sha256": "b568d4f75647ec6f92d560995c38bff476782b93859a63a36d961bd8f676a0b8"
+    },
+    {
+      "path": "public/qa/equipment-selection.html",
+      "bytes": 6807,
+      "sha256": "401eb39d221191d46b3d53ca7c8a5399c6bb4f411095e6dee8062d6c04862978"
+    },
+    {
+      "path": "scripts/create-equipment-craft-v3.py",
+      "bytes": 28921,
+      "sha256": "a92a4c220ea2e9531fe270abeaaf9eecb43fc88eb262ff6506185187f04e42d8"
+    },
+    {
+      "path": "scripts/seal-selected-items.mjs",
+      "bytes": 16560,
+      "sha256": "97ce31101a4df758f2de8a60e0ac9800fddfe8d66c8ecc33140198020e078b6e"
+    },
+    {
+      "path": "scripts/validate-equipment-craft-v3.mjs",
+      "bytes": 9677,
+      "sha256": "125ecb6e329a3d997445f5fd38dea4a8fffafa1ec8d6cbbfe119d84705bbdc49"
+    },
+    {
+      "path": "tests/helpers/knife-socket-reference.mjs",
+      "bytes": 8586,
+      "sha256": "f7c1e20c9226643cfca1f27b23cf9582ecad20228858e5eba4919aea71c858af"
+    },
+    {
+      "path": "tests/item-haptics-transport.test.mjs",
+      "bytes": 11564,
+      "sha256": "02361e56b092aeec00db8d31d99c0d5108a04b750964964557fbdf5c1f52075c"
+    },
+    {
+      "path": "tests/item-haptics.test.mjs",
+      "bytes": 8911,
+      "sha256": "99976305f2eb7e534104f79e13f341263fa430c1ae3e6b4f0c177b43aa30eef0"
+    },
+    {
+      "path": "tests/item-knife-contract.test.mjs",
+      "bytes": 5832,
+      "sha256": "5dd9e85d99f1e35746558d5111bbfcf615882e464ff2a6b27f0a916451c4e9cd"
+    },
+    {
+      "path": "tests/knife-socket-reference-113.test.mjs",
+      "bytes": 5686,
+      "sha256": "45cf8f4bf173e9be6eb8dda64facbc75bbc058a8ede1040c73f8a355deb1c322"
+    },
+    {
+      "path": "tests/knife-technique.test.mjs",
+      "bytes": 5902,
+      "sha256": "20582f6fc59cfe5bd6a0826b57842073cd4132214032321ee8d89d2b40dacaee"
+    },
+    {
+      "path": "tests/qa-equipment-selection.test.mjs",
+      "bytes": 5706,
+      "sha256": "4bdd57527e277b96de07e2a03dcc0020140e6c482365d1fdb7f7fd8efa02b71c"
+    }
+  ]
+}

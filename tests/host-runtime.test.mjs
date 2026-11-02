@@ -11,6 +11,7 @@ import {RemoteInputBuffer,isFreshRemoteInput} from '../public/remote-input.js';
 import {FrameMetrics} from '../public/performance.js';
 import {AdaptiveQuality} from '../public/adaptive-quality.js';
 import {captureReplayState} from '../public/replay.js';
+import {sanitizeItemImpact} from '../public/item-haptics.js';
 
 async function until(predicate,timeout=3500){
   const deadline=Date.now()+timeout;
@@ -93,7 +94,7 @@ async function runtime(t,{qrFails=false,initialLoading=false,allowRendererError=
   // Evaluate the current production entry point, injecting its imported objects.
   // This is not a copied implementation of the message handler or frame loop.
   vm.runInNewContext(source.replace(/^import[^\n]+;\s*$/gm,''),{
-    STEP,neutral,Renderer3D:RendererStub,HostSession:HostProbe,RemoteInputBuffer,isFreshRemoteInput,FrameMetrics,AdaptiveQuality,GameAudio:AudioStub,HostQRCodes:QRStub,
+    STEP,neutral,Renderer3D:RendererStub,HostSession:HostProbe,RemoteInputBuffer,isFreshRemoteInput,FrameMetrics,AdaptiveQuality,GameAudio:AudioStub,HostQRCodes:QRStub,sanitizeItemImpact,
     document,window,location:{protocol:'http:',host:`127.0.0.1:${port}`},WebSocket:ObservedWebSocket,Date:HostDate,AbortSignal,
     performance:{now:()=>state.now},console:{error:error=>{if(allowRendererError)state.rendererErrors.push(error);else throw error;},warn:()=>state.qrWarnings++},
     fetch:(url,options)=>{if(url==='/api/session')state.sessionFetches++;return fetch(new URL(url,base),options);},requestAnimationFrame:callback=>raf.push(callback),

@@ -13,17 +13,47 @@ test('Abajo agacha pelvis y cabeza mediante articulaciones con pies apoyados, y 
   for(const slot of [1,2]){
     const {g,f}=duel(slot);step(g,f,90,{});
     const before=structuredClone(f.pose),volume=f.fluid.initialVolume;
-    step(g,f,180,{bodyY:-1});
+    const local=(m,p)=>{
+      const d=[p.x-m[12],p.y-m[13],p.z-m[14]];
+      return [0,4,8].map(i=>(d[0]*m[i]+d[1]*m[i+1]+d[2]*m[i+2])/(m[i]**2+m[i+1]**2+m[i+2]**2));
+    };
+    const material=Object.fromEntries(['front','back'].map(side=>{
+      const foot=before.feet[side];return [side,[foot.center,...foot.hull].map(p=>local(foot.matrix,p))];
+    }));
+    let supportedFrames=0;
+    const supportedStep=(n,control)=>{
+      for(let frame=0;frame<n;frame++){
+        step(g,f,1,control);const d=f.rig.diagnostics();
+        assert.equal(d.motorTorque[0],0,'no motor externo de baseX');assert.equal(d.motorTorque[1],0,'no motor externo de baseY');
+        assert.ok(d.minimumGroundY>=TABLE_TOP-.0003);
+        for(const [side,suffix] of [['front','F'],['back','B']]){
+          const foot=f.pose.feet[side],m=foot.matrix,min=Math.min(...foot.hull.map(p=>p.y));
+          assert.ok(Math.abs(min-foot.support.y)<1e-9,'el apoyo es el mínimo del hull conseguido');
+          assert.ok(min>=TABLE_TOP-.0003&&min<=TABLE_TOP+.0003,'la suela permanece sobre la tarima durante todo el gesto');
+          assert.ok(foot.groundReaction>0,'cada pie transmite una reacción real, no un target aéreo');
+          assert.equal(foot.depth,before.feet[side].depth);assert.equal(foot.height,before.feet[side].height);
+          const knee=f.pose['knee'+suffix],ankle=f.pose['ankle'+suffix],oldKnee=before['knee'+suffix],oldAnkle=before['ankle'+suffix];
+          assert.deepEqual([m[12],m[13],m[14]],[ankle.x,ankle.y,ankle.z],'el frame nace en el tobillo físico');
+          for(const i of [0,4,8])for(const j of [0,4,8]){
+            const old=before.feet[side].matrix,product=a=>a[i]*a[j]+a[i+1]*a[j+1]+a[i+2]*a[j+2];
+            assert.ok(Math.abs(product(m)-product(old))<1e-9,'el frame conserva escala y ángulos entre ejes');
+          }
+          assert.ok(Math.abs(Math.hypot(knee.x-ankle.x,knee.y-ankle.y,knee.z-ankle.z)-Math.hypot(oldKnee.x-oldAnkle.x,oldKnee.y-oldAnkle.y,oldKnee.z-oldAnkle.z))<1e-9,'la espinilla no se estira para sostener el gesto');
+          for(const [i,p] of [foot.center,...foot.hull].entries()){
+            const v=material[side][i],expected=[0,1,2].map(k=>m[k]*v[0]+m[k+4]*v[1]+m[k+8]*v[2]+m[k+12]);
+            assert.ok([p.x,p.y,p.z].every((value,k)=>Math.abs(value-expected[k])<1e-9),'centro y hull sólo cambian por el mismo frame rígido');
+          }
+        }
+        supportedFrames++;
+      }
+    };
+    supportedStep(180,{bodyY:-1});
     assert.ok(f.pose.hip.y<before.hip.y-.20,`pelvis J${slot}`);
     assert.ok(f.pose.head.y<before.head.y-.20,`cabeza J${slot}`);
-    for(const key of ['footF','footB']){
-      assert.ok(Math.abs(f.pose[key].y-before[key].y)<.015,'no elevación de apoyos para fingir el gesto');
-      assert.ok(f.pose[key].y>=TABLE_TOP,'pie sobre la tarima');
-    }
     assert.ok(f.rig.diagnostics().minimumGroundY>=TABLE_TOP-.0003);
     assert.ok(Math.abs(f.fluid.retainedVolume+f.fluid.releasedVolume-volume)<1e-12);
     assert.deepEqual(f.membrane.support,f.pose.head,'el látex usa la misma cabeza');
-    step(g,f,240,{});
+    supportedStep(240,{});assert.equal(supportedFrames,420,'ambos pies tienen apoyo real en cada frame de agachado y retorno');
     assert.ok(Math.abs(f.pose.hip.y-before.hip.y)<.02,'retorno físico al soltar');
   }
 });

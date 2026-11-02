@@ -22,10 +22,10 @@ const assetText=(value,max)=>text(value,2048)
   .trim().slice(0,max);
 const assetLabels=(value,limit,length)=>Array.isArray(value)?value.filter(label=>typeof label==='string')
   .map(label=>assetText(label,length)).filter(Boolean).slice(0,limit):[];
-const actions=new Set(['start','reset','replayToggle','replayClose','replayClear','nextEncounter','resetCampaign']);
+const actions=new Set(['start','reset','replayToggle','replayClose','replayClear','nextEncounter','resetCampaign','beginAdvancedCampaign']);
 const experiences=['duel','training','practice','precision','campaign','parry','moving','depth'];
 const options={
-  setMode:['solo','versus'],setExperience:experiences,
+  setMode:['solo','versus'],setExperience:experiences,setCampaignTier:['normal','advanced'],
   setDifficulty:['rookie','normal','expert','boss'],setBestOf:[3,5],setArena:['atelier','dojo','midnight'],
   setQuality:['high','ultra','eco'],setPerformanceMode:['adaptive','fixed'],setCamera:['combat','detail'],setLighting:['cinematic','neutral'],
   setAudio:[true,false],replaySpeed:[.25,.5,1],
@@ -53,8 +53,11 @@ export function normalizeMenuCommand(message){
     if(typeof value!=='number'||!Number.isFinite(value)||value<0||value>1)return null;
   }else if(command==='setLoadout'){
     const loadout=record(value);
-    if(![1,2].includes(loadout.slot)||!Object.hasOwn(WEAPONS,loadout.weapon)||!Object.hasOwn(DEFENSES,loadout.defense))return null;
-    return {...clean,value:{slot:loadout.slot,weapon:loadout.weapon,defense:loadout.defense}};
+    if(![1,2].includes(loadout.slot)||typeof loadout.weapon!=='string'||typeof loadout.defense!=='string'||
+      !Object.hasOwn(WEAPONS,loadout.weapon)||!Object.hasOwn(DEFENSES,loadout.defense))return null;
+    if(Object.hasOwn(loadout,'knifeGrip')&&!['normal','reverse'].includes(loadout.knifeGrip))return null;
+    return {...clean,value:{slot:loadout.slot,weapon:loadout.weapon,defense:loadout.defense,
+      ...(loadout.defense==='knife'&&loadout.knifeGrip==='reverse'?{knifeGrip:'reverse'}:{})}};
   }else return null;
   return {...clean,value};
 }
@@ -88,6 +91,7 @@ export function sanitizeMenuState(value){
       kind:oneOf(objective.kind,experiences,'duel'),
       title:text(objective.title,96),instruction:text(objective.instruction,320),progress:integer(objective.progress,0,total),total,
       completed:objective.completed===true,nextAction:oneOf(objective.nextAction,['advance','retry','repeat'],null),
+      ...(objective.kind==='campaign'?{campaignTier:oneOf(objective.campaignTier,['normal','advanced'],'normal'),advancedUnlocked:objective.advancedUnlocked===true,trophy:oneOf(objective.trophy,['none','champion','master'],'none')}:{}),
     },
     replay:{clips:clips.map(clip=>({id:clip.id,duration:finite(clip.duration,0,30),complete:clip.complete===true})),
       active:replay.active===true,paused:replay.paused===true,speed:oneOf(replay.speed,[.25,.5,1],1),position:finite(replay.position,0,1)},

@@ -1,0 +1,509 @@
+{
+  "version": 3,
+  "date": "2026-11-02",
+  "passed": true,
+  "assets": [
+    {
+      "id": "sword",
+      "parseable": true,
+      "original_binary_prefix_preserved": true,
+      "original_nodes_accessors_materials_unchanged": true,
+      "new_primitives_explicit_original_pbr_materials": true,
+      "craft_materials": [
+        "WD_steel_dark",
+        "WD_leather_edge"
+      ],
+      "sockets": [
+        {
+          "name": "Socket_Grip_Main",
+          "position": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Strike",
+          "position": [
+            0,
+            1.0199999809265137,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Base",
+          "position": [
+            0,
+            0.17000000178813934,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Tip",
+          "position": [
+            0,
+            1.0199999809265137,
+            0
+          ]
+        }
+      ],
+      "triangles_v2": 12566,
+      "triangles": 13743,
+      "triangle_growth_pct": 9.366544644278218,
+      "bytes_v2": 1656348,
+      "bytes": 1744332,
+      "byte_growth_pct": 5.31192720370357,
+      "bounds_glb": {
+        "min": [
+          -0.14936821162700653,
+          -0.20800000429153442,
+          -0.1151999980211258
+        ],
+        "max": [
+          0.14500001072883606,
+          1.0199999809265137,
+          0.1151999980211258
+        ]
+      },
+      "bounds_expansion_m": [
+        0,
+        0,
+        0
+      ],
+      "new_textures": 0,
+      "new_colliders": false,
+      "sha256": "7c0c78b66d1e4041d5fb9f4f513bb29ecd478c8b59c6e7b2ff36a3fc3248c391"
+    },
+    {
+      "id": "spear",
+      "parseable": true,
+      "original_binary_prefix_preserved": true,
+      "original_nodes_accessors_materials_unchanged": true,
+      "new_primitives_explicit_original_pbr_materials": true,
+      "craft_materials": [
+        "WD_steel_dark",
+        "WD_brass",
+        "WD_leather_edge"
+      ],
+      "sockets": [
+        {
+          "name": "Socket_Grip_Main",
+          "position": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Strike",
+          "position": [
+            0,
+            1.350000023841858,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Base",
+          "position": [
+            0,
+            0.17000000178813934,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Tip",
+          "position": [
+            0,
+            1.350000023841858,
+            0
+          ]
+        }
+      ],
+      "triangles_v2": 10190,
+      "triangles": 10731,
+      "triangle_growth_pct": 5.309126594700686,
+      "bytes_v2": 2305372,
+      "bytes": 2349696,
+      "byte_growth_pct": 1.9226398169145842,
+      "bounds_glb": {
+        "min": [
+          -0.07100000232458115,
+          -0.284000039100647,
+          -0.03579999879002571
+        ],
+        "max": [
+          0.07100000232458115,
+          1.350000023841858,
+          0.03579999879002571
+        ]
+      },
+      "bounds_expansion_m": [
+        0,
+        0,
+        0
+      ],
+      "new_textures": 0,
+      "new_colliders": false,
+      "sha256": "35c85011c8d05963916a06ceb8d3d1e453576834b29e12827f697941b09d68fe"
+    },
+    {
+      "id": "axe",
+      "parseable": true,
+      "original_binary_prefix_preserved": true,
+      "original_nodes_accessors_materials_unchanged": true,
+      "new_primitives_explicit_original_pbr_materials": true,
+      "craft_materials": [
+        "WD_brass_dark",
+        "WD_brass",
+        "WD_leather_edge"
+      ],
+      "sockets": [
+        {
+          "name": "Socket_Grip_Main",
+          "position": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Strike",
+          "position": [
+            0,
+            0.9200000166893005,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Base",
+          "position": [
+            0,
+            0.17000000178813934,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Tip",
+          "position": [
+            0,
+            0.9200000166893005,
+            0
+          ]
+        }
+      ],
+      "triangles_v2": 9270,
+      "triangles": 10039,
+      "triangle_growth_pct": 8.295577130528597,
+      "bytes_v2": 2302456,
+      "bytes": 2362424,
+      "byte_growth_pct": 2.6045231700410287,
+      "bounds_glb": {
+        "min": [
+          -0.15112508833408356,
+          -0.29649999737739563,
+          -0.0649000033736229
+        ],
+        "max": [
+          0.30239999294281006,
+          0.9200000762939453,
+          0.0649000033736229
+        ]
+      },
+      "bounds_expansion_m": [
+        0,
+        0,
+        0
+      ],
+      "new_textures": 0,
+      "new_colliders": false,
+      "sha256": "13825c1246d80047b4474afab28c81b030e6f810eca6bf35dd4f84330c009d05"
+    },
+    {
+      "id": "maul",
+      "parseable": true,
+      "original_binary_prefix_preserved": true,
+      "original_nodes_accessors_materials_unchanged": true,
+      "new_primitives_explicit_original_pbr_materials": true,
+      "craft_materials": [
+        "WD_steel_dark",
+        "WD_wood_dark",
+        "WD_wood_light"
+      ],
+      "sockets": [
+        {
+          "name": "Socket_Grip_Main",
+          "position": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Grip_Secondary",
+          "position": [
+            0,
+            -0.2199999988079071,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Strike",
+          "position": [
+            0,
+            1.0800000429153442,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Base",
+          "position": [
+            0,
+            0.17000000178813934,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Trail_Tip",
+          "position": [
+            0,
+            1.0800000429153442,
+            0
+          ]
+        }
+      ],
+      "triangles_v2": 17308,
+      "triangles": 19207,
+      "triangle_growth_pct": 10.971804945689856,
+      "bytes_v2": 2517260,
+      "bytes": 2656352,
+      "byte_growth_pct": 5.525531728943367,
+      "bounds_glb": {
+        "min": [
+          -0.2824999988079071,
+          -0.42900002002716064,
+          -0.17500001192092896
+        ],
+        "max": [
+          0.2824999988079071,
+          1.0800000429153442,
+          0.17500001192092896
+        ]
+      },
+      "bounds_expansion_m": [
+        0,
+        0,
+        0
+      ],
+      "new_textures": 0,
+      "new_colliders": false,
+      "sha256": "31bb9ed2d576f1be84f7b9823fb9bf915d89ec323d49a72228c3a1615134f074"
+    },
+    {
+      "id": "short",
+      "parseable": true,
+      "original_binary_prefix_preserved": true,
+      "original_nodes_accessors_materials_unchanged": true,
+      "new_primitives_explicit_original_pbr_materials": true,
+      "craft_materials": [
+        "WD_brass_dark"
+      ],
+      "sockets": [
+        {
+          "name": "Socket_DefenseCenter",
+          "position": [
+            0,
+            0,
+            0.05999999865889549
+          ]
+        },
+        {
+          "name": "Socket_Grip_Secondary",
+          "position": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "triangles_v2": 19932,
+      "triangles": 21133,
+      "triangle_growth_pct": 6.025486654625722,
+      "bytes_v2": 2819808,
+      "bytes": 2908644,
+      "byte_growth_pct": 3.1504272631328156,
+      "bounds_glb": {
+        "min": [
+          -0.23000000417232513,
+          -0.23000000417232513,
+          -0.019999999552965164
+        ],
+        "max": [
+          0.23000000417232513,
+          0.23000000417232513,
+          0.1546926349401474
+        ]
+      },
+      "bounds_expansion_m": [
+        0,
+        0,
+        0
+      ],
+      "new_textures": 0,
+      "new_colliders": false,
+      "sha256": "633cd9b79f06dda0e8985e78a8702266fa268938db72b6a2a2198a2e12c80706"
+    },
+    {
+      "id": "long",
+      "parseable": true,
+      "original_binary_prefix_preserved": true,
+      "original_nodes_accessors_materials_unchanged": true,
+      "new_primitives_explicit_original_pbr_materials": true,
+      "craft_materials": [
+        "WD_steel_dark",
+        "WD_wood_dark",
+        "WD_wood_light"
+      ],
+      "sockets": [
+        {
+          "name": "Socket_DefenseCenter",
+          "position": [
+            0,
+            0,
+            0.07500000298023224
+          ]
+        },
+        {
+          "name": "Socket_Grip_Secondary",
+          "position": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "triangles_v2": 23380,
+      "triangles": 24343,
+      "triangle_growth_pct": 4.118905047048749,
+      "bytes_v2": 2965964,
+      "bytes": 3042616,
+      "byte_growth_pct": 2.5843874032186465,
+      "bounds_glb": {
+        "min": [
+          -0.22166071832180023,
+          -0.3615841269493103,
+          -0.04500000178813934
+        ],
+        "max": [
+          0.22166071832180023,
+          0.36155885457992554,
+          0.113873191177845
+        ]
+      },
+      "bounds_expansion_m": [
+        0,
+        0,
+        0
+      ],
+      "new_textures": 0,
+      "new_colliders": false,
+      "sha256": "e38069ad6a0436f61568770d7521c4c0f84ee3d375798bd83210c4a707154bcb"
+    },
+    {
+      "id": "knife",
+      "parseable": true,
+      "original_binary_prefix_preserved": true,
+      "original_nodes_accessors_materials_unchanged": true,
+      "new_primitives_explicit_original_pbr_materials": true,
+      "craft_materials": [
+        "WD_steel_dark",
+        "WD_leather_edge"
+      ],
+      "sockets": [
+        {
+          "name": "Socket_BladeGuard",
+          "position": [
+            0,
+            0.10000000149011612,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Grip_Secondary",
+          "position": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Socket_Strike",
+          "position": [
+            0,
+            0.41999998688697815,
+            0
+          ]
+        }
+      ],
+      "triangles_v2": 6790,
+      "triangles": 7447,
+      "triangle_growth_pct": 9.67599410898381,
+      "bytes_v2": 2192788,
+      "bytes": 2244564,
+      "byte_growth_pct": 2.3611949718805425,
+      "bounds_glb": {
+        "min": [
+          -0.09099999815225601,
+          -0.14976175129413605,
+          -0.022299999371170998
+        ],
+        "max": [
+          0.09099999815225601,
+          0.41999998688697815,
+          0.025649329647421837
+        ]
+      },
+      "bounds_expansion_m": [
+        0,
+        0,
+        0.00014933012425899506
+      ],
+      "new_textures": 0,
+      "new_colliders": false,
+      "sha256": "707547e565d65fe9f7e6c5bc915d644851fe5bd962840ca59d9d6b9bd9c50791"
+    }
+  ],
+  "baselines_preserved": 14,
+  "runtime_modified": false,
+  "new_colliders": false,
+  "roundtrip": {
+    "source": "Final v3 GLBs reimported into a clean Blender scene",
+    "assets": [
+      "sword",
+      "spear",
+      "axe",
+      "maul",
+      "short",
+      "long",
+      "knife"
+    ],
+    "board": "workshop-craft-v3-preview.png",
+    "detail_count": 11,
+    "texture_max_dimension": 512,
+    "new_colliders": false,
+    "asset_sha256": {
+      "sword": "7c0c78b66d1e4041d5fb9f4f513bb29ecd478c8b59c6e7b2ff36a3fc3248c391",
+      "spear": "35c85011c8d05963916a06ceb8d3d1e453576834b29e12827f697941b09d68fe",
+      "axe": "13825c1246d80047b4474afab28c81b030e6f810eca6bf35dd4f84330c009d05",
+      "maul": "31bb9ed2d576f1be84f7b9823fb9bf915d89ec323d49a72228c3a1615134f074",
+      "short": "633cd9b79f06dda0e8985e78a8702266fa268938db72b6a2a2198a2e12c80706",
+      "long": "e38069ad6a0436f61568770d7521c4c0f84ee3d375798bd83210c4a707154bcb",
+      "knife": "707547e565d65fe9f7e6c5bc915d644851fe5bd962840ca59d9d6b9bd9c50791"
+    }
+  },
+  "limits": {
+    "triangle_growth": 0.15,
+    "glb_growth": 0.25,
+    "decorative_bounds_m": 0.001,
+    "texture_max": 512
+  }
+}

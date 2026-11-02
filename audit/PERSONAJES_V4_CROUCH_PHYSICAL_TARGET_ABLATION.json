@@ -1,0 +1,535 @@
+{
+  "candidate": "Candidate2: separate fast semantic crouch intention from bounded physical hip target; memory-only.",
+  "sourcesBefore": {
+    "public/engine.js": "ff968c45a2e01b7a6b4da4b567b153b2103273c59f904d718d0187939c75a363",
+    "public/physics/articulated-rig.js": "45702bd92e9051034d9764feeb8097408df4796304a19a697ce5970a0812175f",
+    "public/physics/body-evasion.js": "db9cb198f83a67272097bfb86332821dbbef123a6c3b8ea2d96ed05291b471c3"
+  },
+  "provenance": {
+    "originalBodyEvasionPreservedVerbatim": true,
+    "onlyAppendedMotorRamp": true,
+    "enginePhysicalReadReplacements": 2,
+    "originalPhysical": "(f.evasion?.crouch??0)",
+    "newPhysical": "(f.evasion?.motorCrouch??f.evasion?.crouch??0)",
+    "ramp": "\n  const scale=f.boss?1.18:1,depth=CROUCH_DEPTH*scale;\n  e.motorCrouch=Number.isFinite(e.motorCrouch)?e.motorCrouch:0;\n  e.motorCrouchVelocity=Number.isFinite(e.motorCrouchVelocity)?e.motorCrouchVelocity:0;\n  const desiredV=clamp((crouchTarget-e.motorCrouch)*crouchRate,-.8/depth,.8/depth);\n  e.motorCrouchVelocity+=clamp(desiredV-e.motorCrouchVelocity,-5/depth*h,5/depth*h);\n  const nextMotorCrouch=e.motorCrouch+e.motorCrouchVelocity*h;\n  if((crouchTarget-e.motorCrouch)*(crouchTarget-nextMotorCrouch)<=0){e.motorCrouch=crouchTarget;e.motorCrouchVelocity=0;}\n  else{e.motorCrouch=clamp(nextMotorCrouch,0,1);if(e.motorCrouch===0||e.motorCrouch===1)e.motorCrouchVelocity=0;}",
+    "modifiedBodySHA256": "eaa6e1296994ff1da8f5dd90fc2c25d49c6f0a5c8face57f9114d2c67be2f723",
+    "modifiedEngineBeforeImportRelocationSHA256": "9f19e08250c7823a888ad2bef795f12bde89bac63a35933cb8a964db3c5468b5",
+    "otherEngineCodePreservedVerbatim": true,
+    "unchangedSolverClass": "public ArticulatedRig checked by instanceof"
+  },
+  "protocol": {
+    "scenarios": [
+      "normal",
+      "boss"
+    ],
+    "actorsPerScenario": 2,
+    "settleSteps": 90,
+    "crouchSteps": 180,
+    "neutralSteps": 240,
+    "dt": 0.008333333333333333,
+    "advance": "updateFighter for both actors; no q/pose injection; same fixed component path.",
+    "intent": "Original exponential rates12/8 and original feint remain intact.",
+    "motorTarget": "Same raw crouchTarget and crouchRate as the previously completed ramp; only state/mapping split changes.",
+    "maximumPhysicalHipTargetVelocity": 0.8,
+    "maximumPhysicalHipTargetAcceleration": 5,
+    "depth": 0.29,
+    "feintDuration": 0.85,
+    "expectedIntentAt100ms": 0.698805788087798
+  },
+  "scenarios": [
+    {
+      "difficulty": "normal",
+      "actors": [
+        {
+          "slot": 1,
+          "boss": false,
+          "scale": 1,
+          "sameSolverClass": true,
+          "initialHipY": 1.3063259373028169,
+          "initialTarget": 1.3045,
+          "maxPhysicalTargetV": 0.8000000000000185,
+          "maxPhysicalTargetA": 5.0000000000071765,
+          "maxBaseMotor": 0,
+          "minimumGroundGap": -7.450962069555089e-11,
+          "maxContactError": 9.953997626155342e-10,
+          "maxBothRawPositiveGapRun": 320,
+          "maxBothGapAboveToleranceRun": 0,
+          "maxBothNormalZeroRun": 0,
+          "maxNoGroundedSupportRun": 0,
+          "feet": {
+            "front": {
+              "minimumGap": -7.450962069555089e-11,
+              "maximumGap": 0.00003809303569901612,
+              "minimumNormal": 18.54911558122907,
+              "maximumNormal": 39.71036297709576,
+              "positiveCrouchFrames": 180,
+              "positiveNeutralFrames": 240,
+              "airNormalEvents": [],
+              "maximumGapFrame": 223
+            },
+            "back": {
+              "minimumGap": -6.493544590924216e-11,
+              "maximumGap": 0.00005545823390568083,
+              "minimumNormal": 19.16377649477301,
+              "maximumNormal": 65.20292011301936,
+              "positiveCrouchFrames": 180,
+              "positiveNeutralFrames": 240,
+              "airNormalEvents": [],
+              "maximumGapFrame": 41
+            }
+          },
+          "at100ms": {
+            "frame": 11,
+            "time": 0.1,
+            "intentCrouch": 0.698805788087798,
+            "motorCrouch": 0.09339080459770116,
+            "motorCrouchVelocity": 1.7241379310344833,
+            "physicalHipTarget": 1.2774166666666666,
+            "hipY": 1.299709713459174,
+            "feet": {
+              "front": {
+                "gap": 8.528653441808309e-7,
+                "normal": 27.765552921660664,
+                "stance": true,
+                "angle": 0.000015025443536598182
+              },
+              "back": {
+                "gap": 0.000008580761507448464,
+                "normal": 22.008812425020338,
+                "stance": true,
+                "angle": 0.006962306645410421
+              }
+            }
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "time": 1.5,
+            "intentCrouch": 0.9999999847700202,
+            "motorCrouch": 0.9999999764577104,
+            "motorCrouchVelocity": 3.1389719357122203e-7,
+            "physicalHipTarget": 1.014500006827264,
+            "hipY": 1.0306364139828972,
+            "feet": {
+              "front": {
+                "gap": 1.0782652548613214e-10,
+                "normal": 18.54911558122907,
+                "stance": true,
+                "angle": -0.004268046892395183
+              },
+              "back": {
+                "gap": 1.5728118807345481e-10,
+                "normal": 45.279163455709764,
+                "stance": true,
+                "angle": -0.2361818343802513
+              }
+            },
+            "bothContactsPositive": true
+          },
+          "hipDescent": 0.2756895233199197,
+          "descentPass": true,
+          "finalNeutral": {
+            "frame": 419,
+            "time": 3.5,
+            "intentCrouch": 1.1253517300535186e-7,
+            "motorCrouch": 2.924410923508338e-7,
+            "motorCrouchVelocity": -0.000002506637934435718,
+            "physicalHipTarget": 1.3044999151920833,
+            "hipY": 1.3063376025976363,
+            "feet": {
+              "front": {
+                "gap": 4.746536497179932e-12,
+                "normal": 34.06498092021589,
+                "stance": true,
+                "angle": 1.7544299346639036e-13
+              },
+              "back": {
+                "gap": 6.137590435884022e-12,
+                "normal": 29.862279265503375,
+                "stance": true,
+                "angle": 7.960299086562372e-14
+              }
+            },
+            "bothContactsPositive": true
+          },
+          "hipReturnError": 0.000011665294819440675,
+          "returnPass": true,
+          "maximumPenetration": 7.450962069555089e-11
+        },
+        {
+          "slot": 2,
+          "boss": false,
+          "scale": 1,
+          "sameSolverClass": true,
+          "initialHipY": 1.3063304076367674,
+          "initialTarget": 1.3045,
+          "maxPhysicalTargetV": 0.8000000000000185,
+          "maxPhysicalTargetA": 5.0000000000071765,
+          "maxBaseMotor": 0,
+          "minimumGroundGap": -1.0917144965816306e-10,
+          "maxContactError": 9.9893648908278e-10,
+          "maxBothRawPositiveGapRun": 319,
+          "maxBothGapAboveToleranceRun": 0,
+          "maxBothNormalZeroRun": 0,
+          "maxNoGroundedSupportRun": 0,
+          "feet": {
+            "front": {
+              "minimumGap": -1.0917144965816306e-10,
+              "maximumGap": 0.00003809124797354846,
+              "minimumNormal": 18.574483114284106,
+              "maximumNormal": 39.72812552494649,
+              "positiveCrouchFrames": 180,
+              "positiveNeutralFrames": 240,
+              "airNormalEvents": [],
+              "maximumGapFrame": 223
+            },
+            "back": {
+              "minimumGap": -6.451739142931956e-11,
+              "maximumGap": 0.000055458103042083096,
+              "minimumNormal": 19.15088691545963,
+              "maximumNormal": 65.09423837417178,
+              "positiveCrouchFrames": 180,
+              "positiveNeutralFrames": 240,
+              "airNormalEvents": [],
+              "maximumGapFrame": 41
+            }
+          },
+          "at100ms": {
+            "frame": 11,
+            "time": 0.1,
+            "intentCrouch": 0.698805788087798,
+            "motorCrouch": 0.09339080459770116,
+            "motorCrouchVelocity": 1.7241379310344833,
+            "physicalHipTarget": 1.2774166666666666,
+            "hipY": 1.299714795606333,
+            "feet": {
+              "front": {
+                "gap": 8.524493693706781e-7,
+                "normal": 27.784998605637448,
+                "stance": true,
+                "angle": 0.000015016869871167793
+              },
+              "back": {
+                "gap": 0.000008586050234460352,
+                "normal": 21.99609098115307,
+                "stance": true,
+                "angle": 0.007012591877904262
+              }
+            }
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "time": 1.5,
+            "intentCrouch": 0.9999999847700202,
+            "motorCrouch": 0.9999999764577104,
+            "motorCrouchVelocity": 3.1389719357122203e-7,
+            "physicalHipTarget": 1.014500006827264,
+            "hipY": 1.030642235602185,
+            "feet": {
+              "front": {
+                "gap": 9.817974211401292e-11,
+                "normal": 18.574483114284106,
+                "stance": true,
+                "angle": -0.004296889875138599
+              },
+              "back": {
+                "gap": 1.428167029082772e-10,
+                "normal": 45.25672968016045,
+                "stance": true,
+                "angle": -0.23613862678403574
+              }
+            },
+            "bothContactsPositive": true
+          },
+          "hipDescent": 0.2756881720345825,
+          "descentPass": true,
+          "finalNeutral": {
+            "frame": 419,
+            "time": 3.5,
+            "intentCrouch": 1.1253517300535186e-7,
+            "motorCrouch": 2.924410923508338e-7,
+            "motorCrouchVelocity": -0.000002506637934435718,
+            "physicalHipTarget": 1.3044999151920833,
+            "hipY": 1.3063429710272452,
+            "feet": {
+              "front": {
+                "gap": 3.8794523149476845e-12,
+                "normal": 34.08558797863939,
+                "stance": true,
+                "angle": 1.7573442701035447e-13
+              },
+              "back": {
+                "gap": 4.919231688660375e-12,
+                "normal": 29.841274095885538,
+                "stance": true,
+                "angle": 8.093525849517391e-14
+              }
+            },
+            "bothContactsPositive": true
+          },
+          "hipReturnError": 0.000012563390477726699,
+          "returnPass": true,
+          "maximumPenetration": 1.0917144965816306e-10
+        }
+      ]
+    },
+    {
+      "difficulty": "boss",
+      "actors": [
+        {
+          "slot": 1,
+          "boss": false,
+          "scale": 1,
+          "sameSolverClass": true,
+          "initialHipY": 1.3063259373028167,
+          "initialTarget": 1.3045,
+          "maxPhysicalTargetV": 0.8000000000000185,
+          "maxPhysicalTargetA": 5.0000000000071765,
+          "maxBaseMotor": 0,
+          "minimumGroundGap": -7.450939865094597e-11,
+          "maxContactError": 9.953988744371145e-10,
+          "maxBothRawPositiveGapRun": 320,
+          "maxBothGapAboveToleranceRun": 0,
+          "maxBothNormalZeroRun": 0,
+          "maxNoGroundedSupportRun": 0,
+          "feet": {
+            "front": {
+              "minimumGap": -7.450939865094597e-11,
+              "maximumGap": 0.00003809303569896061,
+              "minimumNormal": 18.549115581231,
+              "maximumNormal": 39.71036297709334,
+              "positiveCrouchFrames": 180,
+              "positiveNeutralFrames": 240,
+              "airNormalEvents": [],
+              "maximumGapFrame": 223
+            },
+            "back": {
+              "minimumGap": -6.493572346499832e-11,
+              "maximumGap": 0.00005545823390568083,
+              "minimumNormal": 19.163776494783438,
+              "maximumNormal": 65.20292011302345,
+              "positiveCrouchFrames": 180,
+              "positiveNeutralFrames": 240,
+              "airNormalEvents": [],
+              "maximumGapFrame": 41
+            }
+          },
+          "at100ms": {
+            "frame": 11,
+            "time": 0.1,
+            "intentCrouch": 0.698805788087798,
+            "motorCrouch": 0.09339080459770116,
+            "motorCrouchVelocity": 1.7241379310344833,
+            "physicalHipTarget": 1.2774166666666666,
+            "hipY": 1.299709713459174,
+            "feet": {
+              "front": {
+                "gap": 8.528653440142975e-7,
+                "normal": 27.765552921664078,
+                "stance": true,
+                "angle": 0.000015025443537000638
+              },
+              "back": {
+                "gap": 0.000008580761507781531,
+                "normal": 22.00881242501036,
+                "stance": true,
+                "angle": 0.006962306645403982
+              }
+            }
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "time": 1.5,
+            "intentCrouch": 0.9999999847700202,
+            "motorCrouch": 0.9999999764577104,
+            "motorCrouchVelocity": 3.1389719357122203e-7,
+            "physicalHipTarget": 1.014500006827264,
+            "hipY": 1.0306364139828967,
+            "feet": {
+              "front": {
+                "gap": 1.0782646997498091e-10,
+                "normal": 18.549115581231,
+                "stance": true,
+                "angle": -0.004268046892393351
+              },
+              "back": {
+                "gap": 1.5728102154000112e-10,
+                "normal": 45.27916345570489,
+                "stance": true,
+                "angle": -0.23618183438025175
+              }
+            },
+            "bothContactsPositive": true
+          },
+          "hipDescent": 0.2756895233199199,
+          "descentPass": true,
+          "finalNeutral": {
+            "frame": 419,
+            "time": 3.5,
+            "intentCrouch": 1.1253517300535186e-7,
+            "motorCrouch": 2.924410923508338e-7,
+            "motorCrouchVelocity": -0.000002506637934435718,
+            "physicalHipTarget": 1.3044999151920833,
+            "hipY": 1.3063376025976359,
+            "feet": {
+              "front": {
+                "gap": 4.746758541784857e-12,
+                "normal": 34.06498092021613,
+                "stance": true,
+                "angle": 1.7573442701035447e-13
+              },
+              "back": {
+                "gap": 6.137312880127865e-12,
+                "normal": 29.86227926550233,
+                "stance": true,
+                "angle": 7.982503547054876e-14
+              }
+            },
+            "bothContactsPositive": true
+          },
+          "hipReturnError": 0.00001166529481921863,
+          "returnPass": true,
+          "maximumPenetration": 7.450939865094597e-11
+        },
+        {
+          "slot": 2,
+          "boss": true,
+          "scale": 1.18,
+          "sameSolverClass": true,
+          "initialHipY": 1.4827203893214822,
+          "initialTarget": 1.4808999999999999,
+          "maxPhysicalTargetV": 0.8000000000000185,
+          "maxPhysicalTargetA": 5.000000000003979,
+          "maxBaseMotor": 0,
+          "minimumGroundGap": -1.4431073003251527e-10,
+          "maxContactError": 9.928953215165848e-10,
+          "maxBothRawPositiveGapRun": 316,
+          "maxBothGapAboveToleranceRun": 0,
+          "maxBothNormalZeroRun": 0,
+          "maxNoGroundedSupportRun": 0,
+          "feet": {
+            "front": {
+              "minimumGap": -1.2659062686992684e-10,
+              "maximumGap": 0.00003885561653305114,
+              "minimumNormal": 21.52616344018957,
+              "maximumNormal": 67.7144374093456,
+              "positiveCrouchFrames": 180,
+              "positiveNeutralFrames": 240,
+              "airNormalEvents": [],
+              "maximumGapFrame": 230
+            },
+            "back": {
+              "minimumGap": -1.4431073003251527e-10,
+              "maximumGap": 0.000051652007342417594,
+              "minimumNormal": 31.752570758359337,
+              "maximumNormal": 101.29441400271912,
+              "positiveCrouchFrames": 180,
+              "positiveNeutralFrames": 240,
+              "airNormalEvents": [],
+              "maximumGapFrame": 46
+            }
+          },
+          "at100ms": {
+            "frame": 11,
+            "time": 0.1,
+            "intentCrouch": 0.698805788087798,
+            "motorCrouch": 0.07914474965906877,
+            "motorCrouchVelocity": 1.4611338398597313,
+            "physicalHipTarget": 1.4538166666666665,
+            "hipY": 1.4760197916972344,
+            "feet": {
+              "front": {
+                "gap": 6.786580666329201e-7,
+                "normal": 45.50901685197355,
+                "stance": true,
+                "angle": 0.000010447053614179302
+              },
+              "back": {
+                "gap": 0.000007692924309354865,
+                "normal": 35.077903058526616,
+                "stance": true,
+                "angle": 0.004013091803911295
+              }
+            }
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "time": 1.5,
+            "intentCrouch": 0.9999999847700202,
+            "motorCrouch": 0.9999999447212649,
+            "motorCrouchVelocity": 7.370498025238703e-7,
+            "physicalHipTarget": 1.1387000189163832,
+            "hipY": 1.1594946384468272,
+            "feet": {
+              "front": {
+                "gap": 1.4371837053772651e-10,
+                "normal": 22.439608707751116,
+                "stance": true,
+                "angle": -0.012007434575598941
+              },
+              "back": {
+                "gap": 2.0709978176824961e-10,
+                "normal": 80.98069977279569,
+                "stance": true,
+                "angle": -0.23928815473450804
+              }
+            },
+            "bothContactsPositive": true
+          },
+          "hipDescent": 0.323225750874655,
+          "descentPass": true,
+          "finalNeutral": {
+            "frame": 419,
+            "time": 3.5,
+            "intentCrouch": 1.1253517300535186e-7,
+            "motorCrouch": 4.2655982300053196e-7,
+            "motorCrouchVelocity": -0.000003656227054290274,
+            "physicalHipTarget": 1.4808998540312284,
+            "hipY": 1.4827305084676716,
+            "feet": {
+              "front": {
+                "gap": 4.377387341492067e-12,
+                "normal": 55.1821810245498,
+                "stance": true,
+                "angle": 1.8597623441252153e-13
+              },
+              "back": {
+                "gap": 5.528799640330817e-12,
+                "normal": 48.41725886254429,
+                "stance": true,
+                "angle": 7.993605777301127e-14
+              }
+            },
+            "bothContactsPositive": true
+          },
+          "hipReturnError": 0.000010119146189424555,
+          "returnPass": true,
+          "maximumPenetration": 1.4431073003251527e-10
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "intent100msPass": true,
+    "maximumPhysicalTargetV": 0.8000000000000185,
+    "maximumPhysicalTargetA": 5.0000000000071765,
+    "maximumFootGap": 0.00005545823390568083,
+    "minimumNormal": 18.54911558122907,
+    "maximumPenetration": 1.4431073003251527e-10,
+    "maximumBothGapAboveToleranceRun": 0,
+    "maximumBothNormalZeroRun": 0,
+    "maximumNoGroundedSupportRun": 0,
+    "allFinalCrouchContacts": true,
+    "allFinalNeutralContacts": true,
+    "allDescentPass": true,
+    "allReturnPass": true,
+    "positiveAirNormalEvents": 0,
+    "maxBaseMotor": 0
+  },
+  "sourcesAfter": {
+    "public/engine.js": "ff968c45a2e01b7a6b4da4b567b153b2103273c59f904d718d0187939c75a363",
+    "public/physics/articulated-rig.js": "45702bd92e9051034d9764feeb8097408df4796304a19a697ce5970a0812175f",
+    "public/physics/body-evasion.js": "db9cb198f83a67272097bfb86332821dbbef123a6c3b8ea2d96ed05291b471c3"
+  },
+  "sourcesUnchanged": true,
+  "rawGapCaveat": "Raw >0 clearance runs remain reported; finite solver gaps inside .0003 with positive normals are distinguished from unsupported flight. No old guard is changed by this ablation."
+}

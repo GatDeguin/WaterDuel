@@ -1,0 +1,2306 @@
+{
+  "schemaVersion": 1,
+  "version": 4,
+  "stable": true,
+  "release": "v4 exterior compatibility",
+  "asset": "workshop-360-v4.glb",
+  "sha256": "5bc507ab91bf5e0a39a827d2eb35ad81ff8494f83e952f2499dd15c483c408a4",
+  "bytes": 10550632,
+  "triangles": 33440,
+  "batches": 14,
+  "protectedV3": {
+    "asset": "workshop-runtime-v3.glb",
+    "sha256": "1a947c7e2a5b2387e5a0db4cd55169445dad91d2a0fda59bac5c51c0751bb930",
+    "preserved": true
+  },
+  "source": {
+    "python": "scripts/create-workshop-360-v4.py",
+    "protectedInput": "public/assets/environment/workshop/workshop-360.glb",
+    "protectedInputSHA256": "18a1d202cee0b05b0b627880e775906350b877bf6e159099d607d0c70575e7d2",
+    "operation": "Exact constructive rear box minus facade aperture; all other faces retained",
+    "editable": "output/blender/WaterDuel_Workshop360_v4.blend"
+  },
+  "coordinates": {
+    "runtimeUp": "Y",
+    "runtimeFront": "+Z",
+    "units": "runtime metres",
+    "geometryTransformApplied": true,
+    "nodeMatrices": "identity"
+  },
+  "bounds": {
+    "min": [
+      -12.279999732971191,
+      -0.5786972641944885,
+      -6.480000019073486
+    ],
+    "max": [
+      12.279999732971191,
+      8.239999771118164,
+      16.280000686645508
+    ]
+  },
+  "cameraInterior": {
+    "min": [
+      -10.5,
+      0.7745,
+      2.4
+    ],
+    "max": [
+      10.5,
+      6.9,
+      14.3
+    ]
+  },
+  "room": {
+    "innerMin": [
+      -12,
+      -0.4186972789,
+      -6.2
+    ],
+    "innerMax": [
+      12,
+      8.06,
+      16
+    ],
+    "cameraClearance": "New props remain outside cameraInterior; portrait framing is adapted by Principal."
+  },
+  "historicalOpenings": [
+    {
+      "id": "left-forward-side",
+      "plane": "x=-6.78",
+      "z": [
+        -0.26,
+        6.139
+      ],
+      "closure": "left return at z=-.34 connects historic wall to outer nave at x=-12"
+    },
+    {
+      "id": "right-forward-side",
+      "plane": "x=6.78",
+      "z": [
+        -0.26,
+        6.139
+      ],
+      "closure": "right return at z=-.34 connects historic wall to outer nave at x=12"
+    },
+    {
+      "id": "front",
+      "plane": "open +Z",
+      "closure": "solid front wall z=16, reclaimed service door and storage"
+    },
+    {
+      "id": "ceiling",
+      "plane": "above historic joists y~6.88",
+      "closure": "closed plank roof underside8.06, new beams underside7.57"
+    }
+  ],
+  "elements": [
+    {
+      "id": "front-wall",
+      "bounds": {
+        "min": [
+          -12,
+          -0.425,
+          16
+        ],
+        "max": [
+          12,
+          8.125,
+          16.28
+        ]
+      }
+    },
+    {
+      "id": "left-wall",
+      "bounds": {
+        "min": [
+          -12.28,
+          -0.425,
+          -6.2
+        ],
+        "max": [
+          -12,
+          8.125,
+          16
+        ]
+      }
+    },
+    {
+      "id": "right-wall",
+      "bounds": {
+        "min": [
+          12,
+          -0.425,
+          -6.2
+        ],
+        "max": [
+          12.28,
+          8.125,
+          16
+        ]
+      }
+    },
+    {
+      "id": "ceiling",
+      "bounds": {
+        "min": [
+          -12,
+          7.3,
+          -6.2
+        ],
+        "max": [
+          12,
+          8.24,
+          16
+        ]
+      }
+    },
+    {
+      "id": "floor-extension",
+      "regions": [
+        {
+          "min": [
+            -12,
+            -0.58,
+            -6.2
+          ],
+          "max": [
+            -7.7542601,
+            -0.4077,
+            16
+          ]
+        },
+        {
+          "min": [
+            7.7542601,
+            -0.58,
+            -6.2
+          ],
+          "max": [
+            12,
+            -0.4077,
+            16
+          ]
+        },
+        {
+          "min": [
+            -7.7542601,
+            -0.58,
+            6.1385475
+          ],
+          "max": [
+            7.7542601,
+            -0.4077,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "left-return",
+      "bounds": {
+        "min": [
+          -12,
+          -0.45,
+          -0.46
+        ],
+        "max": [
+          -6.8,
+          6.55,
+          -0.22
+        ]
+      }
+    },
+    {
+      "id": "right-return",
+      "bounds": {
+        "min": [
+          6.8,
+          -0.45,
+          -0.46
+        ],
+        "max": [
+          12,
+          6.55,
+          -0.22
+        ]
+      }
+    },
+    {
+      "id": "storage-and-tools",
+      "detailCounts": {
+        "left outer limewash wall": 1,
+        "right outer limewash wall": 1,
+        "front limewash wall": 1,
+        "outer rear closure": 1,
+        "left old side return": 1,
+        "right old side return": 1,
+        "floor extension underlay": 3,
+        "aged aisle floorboard": 383,
+        "smoked ceiling plank": 61,
+        "full transverse roof timber": 6,
+        "wall oak upright": 12,
+        "wrought post strap": 48,
+        "strap rivet": 96,
+        "outer roof knee": 12,
+        "side timber belt": 8,
+        "side recessed window": 8,
+        "window oak jamb": 16,
+        "window iron transom": 32,
+        "window iron upright": 24,
+        "door shadow reveal": 1,
+        "door reclaimed board": 9,
+        "door mortised jamb": 2,
+        "door deep lintel": 1,
+        "door iron cross brace": 2,
+        "door latch plate": 1,
+        "door pull": 1,
+        "front forest textile": 1,
+        "banner weighted edge": 2,
+        "workshop badge upright": 4,
+        "workshop badge foot": 2,
+        "workshop badge crown": 2,
+        "side storage shelf": 18,
+        "shelf iron bracket": 36,
+        "dusty storage tin": 36,
+        "tin brass lip": 36,
+        "leather workshop ledger": 36,
+        "ledger page block": 36,
+        "lidded parts drawer": 36,
+        "drawer pull": 36,
+        "front storage shelf": 6,
+        "front shelf bracket": 12,
+        "ceramic oil pot": 24,
+        "oil pot rim": 24,
+        "front bound notebook": 18,
+        "front notebook pages": 18,
+        "front tool rack": 2,
+        "tool hanging pin": 12,
+        "worn tool handle": 12,
+        "hammer machined head": 4,
+        "open wrench head": 4,
+        "screwdriver steel blade": 4,
+        "scuffed front skirting repair": 14,
+        "front high copper main": 1,
+        "vertical copper feed": 2,
+        "plumbing union": 8,
+        "service valve wheel": 2,
+        "valve wheel spoke": 4,
+        "sconce wall base": 2,
+        "sconce curved support": 2,
+        "sconce tungsten glass": 2,
+        "sconce spun cap": 4,
+        "sconce iron safety cage": 16
+      }
+    }
+  ],
+  "materialReuse": {
+    "source": "protected v3",
+    "exactEmbeddedImageBytes": true,
+    "newTextures": 0,
+    "materialFactorsPreserved": true,
+    "atlasPatches": {
+      "Workshop v2 PBR | wall-limewash-soot-and-age": {
+        "source": "textures-v2/wall-limewash-soot-and-age-basecolor.png",
+        "sourceSHA256": "18bdd91e49ae103f5c98346c5bb383952e53e4982008fed3bcb8b03b4d128492",
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "validPixelRect": [
+          8,
+          8,
+          980,
+          671
+        ],
+        "blenderUVRect": [
+          0.0078125,
+          0.0078125,
+          0.95703125,
+          0.6552734375
+        ],
+        "gltfUVRect": [
+          0.0078125,
+          0.3447265625,
+          0.95703125,
+          0.9921875
+        ],
+        "marginPixels": 8,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y-floor": {
+        "source": "textures-v2/walnut-smoke-and-worn-varnish-grain-y-floor-basecolor.png",
+        "sourceSHA256": "a50a704fc50695877ae780ed7c5a1c94e1f2dec8bc4a796c3b234cb91a096d46",
+        "dimensions": [
+          512,
+          512
+        ],
+        "validPixelRect": [
+          8,
+          8,
+          504,
+          257
+        ],
+        "blenderUVRect": [
+          0.015625,
+          0.015625,
+          0.984375,
+          0.501953125
+        ],
+        "gltfUVRect": [
+          0.015625,
+          0.498046875,
+          0.984375,
+          0.984375
+        ],
+        "marginPixels": 8,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | walnut-smoke-and-worn-varnish": {
+        "source": "textures-v2/walnut-smoke-and-worn-varnish-basecolor.png",
+        "sourceSHA256": "794995147e58376220d9a176cfddbb095aa44007eaa2d3978b2a83d971a441f5",
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "validPixelRect": [
+          8,
+          15,
+          635,
+          343
+        ],
+        "blenderUVRect": [
+          0.0078125,
+          0.0146484375,
+          0.6201171875,
+          0.3349609375
+        ],
+        "gltfUVRect": [
+          0.0078125,
+          0.6650390625,
+          0.6201171875,
+          0.9853515625
+        ],
+        "marginPixels": 8,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | blackened-iron-worn-workshop-steel": {
+        "source": "textures-v2/blackened-iron-worn-workshop-steel-basecolor.png",
+        "sourceSHA256": "1d128ba8754de3d15c00c70ad733d9ea7cb3b6e18d55e31617c323e7f835dac0",
+        "dimensions": [
+          512,
+          512
+        ],
+        "validPixelRect": [
+          8,
+          8,
+          307,
+          138
+        ],
+        "blenderUVRect": [
+          0.015625,
+          0.015625,
+          0.599609375,
+          0.26953125
+        ],
+        "gltfUVRect": [
+          0.015625,
+          0.73046875,
+          0.599609375,
+          0.984375
+        ],
+        "marginPixels": 8,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | brass-tarnish-patina-polished-edges": {
+        "source": "textures-v2/brass-tarnish-patina-polished-edges-basecolor.png",
+        "sourceSHA256": "bab7a741349772876add35f9b1472f3385d0853acf0779282b42b9f14e301b36",
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "validPixelRect": [
+          313,
+          13,
+          348,
+          337
+        ],
+        "blenderUVRect": [
+          0.3056640625,
+          0.0126953125,
+          0.33984375,
+          0.3291015625
+        ],
+        "gltfUVRect": [
+          0.3056640625,
+          0.6708984375,
+          0.33984375,
+          0.9873046875
+        ],
+        "marginPixels": 5,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | window-cold-diffuse-daylight": {
+        "source": "textures/window-cold-diffuse-daylight-basecolor.png",
+        "sourceSHA256": "021a80648a1d702e3942f6fcf4d0c78ec89e1779255eb2faf12eac16b3d44979",
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "validPixelRect": [
+          7,
+          216,
+          870,
+          259
+        ],
+        "blenderUVRect": [
+          0.0068359375,
+          0.2109375,
+          0.849609375,
+          0.2529296875
+        ],
+        "gltfUVRect": [
+          0.0068359375,
+          0.7470703125,
+          0.849609375,
+          0.7890625
+        ],
+        "marginPixels": 7,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | oak-aged-endgrain-and-open-pores": {
+        "source": "textures-v2/oak-aged-endgrain-and-open-pores-basecolor.png",
+        "sourceSHA256": "c2c2ebbe532a6dd21963fd74989d3de6f4c529a08d91154ba41eb8a25df6f7c0",
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "validPixelRect": [
+          8,
+          15,
+          585,
+          388
+        ],
+        "blenderUVRect": [
+          0.0078125,
+          0.0146484375,
+          0.5712890625,
+          0.37890625
+        ],
+        "gltfUVRect": [
+          0.0078125,
+          0.62109375,
+          0.5712890625,
+          0.9853515625
+        ],
+        "marginPixels": 8,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | canvas-waterduel-deep-forest": {
+        "source": "textures-v2/canvas-waterduel-deep-forest-basecolor.png",
+        "sourceSHA256": "92912a6fdf98e3e7fac3552c3eac7b636204e87d0d0022d53aa8d7e85eb2d39d",
+        "dimensions": [
+          512,
+          512
+        ],
+        "validPixelRect": [
+          8,
+          8,
+          159,
+          375
+        ],
+        "blenderUVRect": [
+          0.015625,
+          0.015625,
+          0.310546875,
+          0.732421875
+        ],
+        "gltfUVRect": [
+          0.015625,
+          0.267578125,
+          0.310546875,
+          0.984375
+        ],
+        "marginPixels": 8,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | leather-oxblood-oil-and-tooling": {
+        "source": "textures-v2/leather-oxblood-oil-and-tooling-basecolor.png",
+        "sourceSHA256": "071fdb0e5cb50d7732584dbb9d8f0da2ef73d1ebc66d83965147d680a5b4a141",
+        "dimensions": [
+          512,
+          512
+        ],
+        "validPixelRect": [
+          48,
+          224,
+          379,
+          332
+        ],
+        "blenderUVRect": [
+          0.09375,
+          0.4375,
+          0.740234375,
+          0.6484375
+        ],
+        "gltfUVRect": [
+          0.09375,
+          0.3515625,
+          0.740234375,
+          0.5625
+        ],
+        "marginPixels": 8,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | paper-warm-vellum": {
+        "source": "textures-v2/paper-warm-vellum-basecolor.png",
+        "sourceSHA256": "4c3588936b5e7bdb4e2a6f5e3d0b839edd7c573855d54dbfbeef4dbe64f1b4ad",
+        "dimensions": [
+          512,
+          512
+        ],
+        "validPixelRect": [
+          8,
+          8,
+          498,
+          300
+        ],
+        "blenderUVRect": [
+          0.015625,
+          0.015625,
+          0.97265625,
+          0.5859375
+        ],
+        "gltfUVRect": [
+          0.015625,
+          0.4140625,
+          0.97265625,
+          0.984375
+        ],
+        "marginPixels": 8,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | steel-satin-machined-surface": {
+        "source": "textures-v2/steel-satin-machined-surface-basecolor.png",
+        "sourceSHA256": "0ef4b379c02642361bd9dd108497ee887415ad1574da4820f0cf71638eeb7b56",
+        "dimensions": [
+          256,
+          256
+        ],
+        "validPixelRect": [
+          8,
+          94,
+          244,
+          241
+        ],
+        "blenderUVRect": [
+          0.03125,
+          0.3671875,
+          0.953125,
+          0.94140625
+        ],
+        "gltfUVRect": [
+          0.03125,
+          0.05859375,
+          0.953125,
+          0.6328125
+        ],
+        "marginPixels": 8,
+        "emptyPixels": 0
+      },
+      "Workshop v2 PBR | copper-oxidized-plumbing": {
+        "source": "textures-v2/copper-oxidized-plumbing-basecolor.png",
+        "sourceSHA256": "2aa905c9a24b60ad142d93ebb530493dbfd5ecbee37b67a07d29ace3d392caf6",
+        "dimensions": [
+          512,
+          512
+        ],
+        "validPixelRect": [
+          8,
+          8,
+          133,
+          341
+        ],
+        "blenderUVRect": [
+          0.015625,
+          0.015625,
+          0.259765625,
+          0.666015625
+        ],
+        "gltfUVRect": [
+          0.015625,
+          0.333984375,
+          0.259765625,
+          0.984375
+        ],
+        "marginPixels": 8,
+        "emptyPixels": 0
+      }
+    },
+    "materials": [
+      "Workshop v2 PBR | brass-tarnish-patina-polished-edges",
+      "Workshop v2 PBR | lamp-warm-tungsten-filament",
+      "Workshop v2 PBR | canvas-waterduel-deep-forest",
+      "Workshop v2 PBR | stoneware-chalk-glaze",
+      "Workshop v2 PBR | copper-oxidized-plumbing",
+      "Workshop v2 PBR | walnut-smoke-and-worn-varnish-grain-y-floor",
+      "Workshop v2 PBR | window-cold-diffuse-daylight",
+      "Workshop v2 PBR | blackened-iron-worn-workshop-steel",
+      "Workshop v2 PBR | leather-oxblood-oil-and-tooling",
+      "Workshop v2 PBR | oak-aged-endgrain-and-open-pores",
+      "Workshop v2 PBR | paper-warm-vellum",
+      "Workshop v2 PBR | steel-satin-machined-surface",
+      "Workshop v2 PBR | wall-limewash-soot-and-age",
+      "Workshop v2 PBR | walnut-smoke-and-worn-varnish"
+    ]
+  },
+  "lighting": {
+    "hints": [
+      {
+        "name": "Workshop360 practical left",
+        "type": "POINT",
+        "position": [
+          -6.2,
+          5.25,
+          15.19
+        ],
+        "scaledWatts": 105,
+        "colorLinear": [
+          1,
+          0.58,
+          0.27
+        ]
+      },
+      {
+        "name": "Workshop360 practical right",
+        "type": "POINT",
+        "position": [
+          6.2,
+          5.25,
+          15.19
+        ],
+        "scaledWatts": 105,
+        "colorLinear": [
+          1,
+          0.58,
+          0.27
+        ]
+      }
+    ]
+  },
+  "lightDirections": {
+    "lights": [
+      {
+        "name": "Workshop360 practical left",
+        "type": "POINT",
+        "position": [
+          -6.2,
+          5.25,
+          15.19
+        ],
+        "direction": [
+          0,
+          0,
+          0
+        ],
+        "radiusRuntime": 0.23
+      },
+      {
+        "name": "Workshop360 practical right",
+        "type": "POINT",
+        "position": [
+          6.2,
+          5.25,
+          15.19
+        ],
+        "direction": [
+          0,
+          0,
+          0
+        ],
+        "radiusRuntime": 0.23
+      }
+    ]
+  },
+  "integration": {
+    "separateGPU": true,
+    "worldMatrix": "identity",
+    "staticBatching": true,
+    "includeIn": "arena color, shadow, transmission and environment-probe draws",
+    "physics": "visual architecture only; gameplay and collisions unchanged"
+  },
+  "protected360": {
+    "asset": "workshop-360.glb",
+    "sha256": "18a1d202cee0b05b0b627880e775906350b877bf6e159099d607d0c70575e7d2",
+    "preserved": true
+  },
+  "selectedV4": {
+    "asset": "workshop-runtime-v4.glb",
+    "sha256": "9dafb0641072e9ec5e281e43aa0ad1282468fb21b84bfd0955d9166813f1afbe",
+    "hashStatus": "verified final candidate"
+  },
+  "rearFacadeAperture": {
+    "id": "historic-facade-exterior-view",
+    "runtimeBounds": {
+      "min": [
+        -7.11,
+        -0.419,
+        -6.480000019073486
+      ],
+      "max": [
+        7.11,
+        6.885,
+        -6.199999809265137
+      ]
+    },
+    "removedOriginalTriangles": 12,
+    "newFrameTriangles": 32,
+    "retainedOriginalWallTriangles": 60,
+    "originalClosureBounds": {
+      "min": [
+        -12,
+        -0.42500001192092896,
+        -6.480000019073486
+      ],
+      "max": [
+        12,
+        8.125,
+        -6.199999809265137
+      ]
+    },
+    "closedFrameVolume": 28.37441494148261,
+    "preserved": "Both lateral returns, upper panel and lower seal; original historic facade provides its two true window openings"
+  },
+  "verification": {
+    "passed": true,
+    "windowProjectionRays": [
+      {
+        "window": 0,
+        "pane": [
+          0,
+          0
+        ],
+        "origin": [
+          -3.8840136054421777,
+          1.6493299319727892,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          0,
+          1
+        ],
+        "origin": [
+          -3.8840136054421777,
+          2.2180374149659867,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          0,
+          2
+        ],
+        "origin": [
+          -3.8840136054421777,
+          2.786744897959184,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          0,
+          3
+        ],
+        "origin": [
+          -3.8840136054421777,
+          3.3554523809523813,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          0,
+          4
+        ],
+        "origin": [
+          -3.8840136054421777,
+          3.9241598639455786,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          0,
+          5
+        ],
+        "origin": [
+          -3.8840136054421777,
+          4.492867346938776,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          0,
+          6
+        ],
+        "origin": [
+          -3.8840136054421777,
+          5.061574829931973,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          0,
+          7
+        ],
+        "origin": [
+          -3.8840136054421777,
+          5.63028231292517,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          1,
+          0
+        ],
+        "origin": [
+          -3.2978571428571435,
+          1.6493299319727892,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          1,
+          1
+        ],
+        "origin": [
+          -3.2978571428571435,
+          2.2180374149659867,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          1,
+          2
+        ],
+        "origin": [
+          -3.2978571428571435,
+          2.786744897959184,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          1,
+          3
+        ],
+        "origin": [
+          -3.2978571428571435,
+          3.3554523809523813,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          1,
+          4
+        ],
+        "origin": [
+          -3.2978571428571435,
+          3.9241598639455786,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          1,
+          5
+        ],
+        "origin": [
+          -3.2978571428571435,
+          4.492867346938776,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          1,
+          6
+        ],
+        "origin": [
+          -3.2978571428571435,
+          5.061574829931973,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          1,
+          7
+        ],
+        "origin": [
+          -3.2978571428571435,
+          5.63028231292517,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          2,
+          0
+        ],
+        "origin": [
+          -2.7117006802721093,
+          1.6493299319727892,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          2,
+          1
+        ],
+        "origin": [
+          -2.7117006802721093,
+          2.2180374149659867,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          2,
+          2
+        ],
+        "origin": [
+          -2.7117006802721093,
+          2.786744897959184,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          2,
+          3
+        ],
+        "origin": [
+          -2.7117006802721093,
+          3.3554523809523813,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          2,
+          4
+        ],
+        "origin": [
+          -2.7117006802721093,
+          3.9241598639455786,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          2,
+          5
+        ],
+        "origin": [
+          -2.7117006802721093,
+          4.492867346938776,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          2,
+          6
+        ],
+        "origin": [
+          -2.7117006802721093,
+          5.061574829931973,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          2,
+          7
+        ],
+        "origin": [
+          -2.7117006802721093,
+          5.63028231292517,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          3,
+          0
+        ],
+        "origin": [
+          -2.1255442176870756,
+          1.6493299319727892,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          3,
+          1
+        ],
+        "origin": [
+          -2.1255442176870756,
+          2.2180374149659867,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          3,
+          2
+        ],
+        "origin": [
+          -2.1255442176870756,
+          2.786744897959184,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          3,
+          3
+        ],
+        "origin": [
+          -2.1255442176870756,
+          3.3554523809523813,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          3,
+          4
+        ],
+        "origin": [
+          -2.1255442176870756,
+          3.9241598639455786,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          3,
+          5
+        ],
+        "origin": [
+          -2.1255442176870756,
+          4.492867346938776,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          3,
+          6
+        ],
+        "origin": [
+          -2.1255442176870756,
+          5.061574829931973,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 0,
+        "pane": [
+          3,
+          7
+        ],
+        "origin": [
+          -2.1255442176870756,
+          5.63028231292517,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          0,
+          0
+        ],
+        "origin": [
+          2.126190476190476,
+          1.6493299319727892,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          0,
+          1
+        ],
+        "origin": [
+          2.126190476190476,
+          2.2180374149659867,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          0,
+          2
+        ],
+        "origin": [
+          2.126190476190476,
+          2.786744897959184,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          0,
+          3
+        ],
+        "origin": [
+          2.126190476190476,
+          3.3554523809523813,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          0,
+          4
+        ],
+        "origin": [
+          2.126190476190476,
+          3.9241598639455786,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          0,
+          5
+        ],
+        "origin": [
+          2.126190476190476,
+          4.492867346938776,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          0,
+          6
+        ],
+        "origin": [
+          2.126190476190476,
+          5.061574829931973,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          0,
+          7
+        ],
+        "origin": [
+          2.126190476190476,
+          5.63028231292517,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          1,
+          0
+        ],
+        "origin": [
+          2.7123469387755104,
+          1.6493299319727892,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          1,
+          1
+        ],
+        "origin": [
+          2.7123469387755104,
+          2.2180374149659867,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          1,
+          2
+        ],
+        "origin": [
+          2.7123469387755104,
+          2.786744897959184,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          1,
+          3
+        ],
+        "origin": [
+          2.7123469387755104,
+          3.3554523809523813,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          1,
+          4
+        ],
+        "origin": [
+          2.7123469387755104,
+          3.9241598639455786,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          1,
+          5
+        ],
+        "origin": [
+          2.7123469387755104,
+          4.492867346938776,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          1,
+          6
+        ],
+        "origin": [
+          2.7123469387755104,
+          5.061574829931973,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          1,
+          7
+        ],
+        "origin": [
+          2.7123469387755104,
+          5.63028231292517,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          2,
+          0
+        ],
+        "origin": [
+          3.2985034013605445,
+          1.6493299319727892,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          2,
+          1
+        ],
+        "origin": [
+          3.2985034013605445,
+          2.2180374149659867,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          2,
+          2
+        ],
+        "origin": [
+          3.2985034013605445,
+          2.786744897959184,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          2,
+          3
+        ],
+        "origin": [
+          3.2985034013605445,
+          3.3554523809523813,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          2,
+          4
+        ],
+        "origin": [
+          3.2985034013605445,
+          3.9241598639455786,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          2,
+          5
+        ],
+        "origin": [
+          3.2985034013605445,
+          4.492867346938776,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          2,
+          6
+        ],
+        "origin": [
+          3.2985034013605445,
+          5.061574829931973,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          2,
+          7
+        ],
+        "origin": [
+          3.2985034013605445,
+          5.63028231292517,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          3,
+          0
+        ],
+        "origin": [
+          3.8846598639455787,
+          1.6493299319727892,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          3,
+          1
+        ],
+        "origin": [
+          3.8846598639455787,
+          2.2180374149659867,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          3,
+          2
+        ],
+        "origin": [
+          3.8846598639455787,
+          2.786744897959184,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          3,
+          3
+        ],
+        "origin": [
+          3.8846598639455787,
+          3.3554523809523813,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          3,
+          4
+        ],
+        "origin": [
+          3.8846598639455787,
+          3.9241598639455786,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          3,
+          5
+        ],
+        "origin": [
+          3.8846598639455787,
+          4.492867346938776,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          3,
+          6
+        ],
+        "origin": [
+          3.8846598639455787,
+          5.061574829931973,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      },
+      {
+        "window": 1,
+        "pane": [
+          3,
+          7
+        ],
+        "origin": [
+          3.8846598639455787,
+          5.63028231292517,
+          -4.8
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "distance": 3.2,
+        "oldHits": 2,
+        "v4Hits": 0,
+        "passed": true
+      }
+    ],
+    "closedRoomGuards": [
+      {
+        "id": "left rear return",
+        "origin": [
+          -9,
+          3,
+          -5
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "nearestHit": 1.1999998092651367,
+        "oldNearestHit": 1.1999998092651367,
+        "passed": true
+      },
+      {
+        "id": "right rear return",
+        "origin": [
+          9,
+          3,
+          -5
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "nearestHit": 1.1999998092651367,
+        "oldNearestHit": 1.1999998092651367,
+        "passed": true
+      },
+      {
+        "id": "upper rear panel",
+        "origin": [
+          0,
+          7.5,
+          -5
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "nearestHit": 1.1999998092651367,
+        "oldNearestHit": 1.1999998092651367,
+        "passed": true
+      },
+      {
+        "id": "bottom rear seal",
+        "origin": [
+          0,
+          -0.422,
+          -5
+        ],
+        "direction": [
+          0,
+          0,
+          -1
+        ],
+        "nearestHit": 1.1999998092651367,
+        "oldNearestHit": 1.1999998092651367,
+        "passed": true
+      },
+      {
+        "id": "left outer wall",
+        "origin": [
+          0,
+          3.5,
+          8
+        ],
+        "direction": [
+          -1,
+          0,
+          0
+        ],
+        "nearestHit": 12,
+        "oldNearestHit": 12,
+        "passed": true
+      },
+      {
+        "id": "right outer wall",
+        "origin": [
+          0,
+          3.5,
+          8
+        ],
+        "direction": [
+          1,
+          0,
+          0
+        ],
+        "nearestHit": 12,
+        "oldNearestHit": 12,
+        "passed": true
+      },
+      {
+        "id": "front outer wall",
+        "origin": [
+          0,
+          3.5,
+          8
+        ],
+        "direction": [
+          0,
+          0,
+          1
+        ],
+        "nearestHit": 7.725000381469727,
+        "oldNearestHit": 7.725000381469727,
+        "passed": true
+      },
+      {
+        "id": "roof",
+        "origin": [
+          0,
+          3.5,
+          8
+        ],
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "nearestHit": 4.560000419616699,
+        "oldNearestHit": 4.560000419616699,
+        "passed": true
+      },
+      {
+        "id": "floor extension",
+        "origin": [
+          0,
+          3.5,
+          8
+        ],
+        "direction": [
+          0,
+          -1,
+          0
+        ],
+        "nearestHit": 3.918697267770767,
+        "oldNearestHit": 3.918697267770767,
+        "passed": true
+      }
+    ],
+    "materialDefinitionsExact": true,
+    "embeddedImageBytesExact": true,
+    "embeddedImageCount": 33,
+    "newTextures": 0,
+    "originalBinaryPrefixExact": true,
+    "other13PrimitivesExact": true,
+    "unselectedWallTrianglesExact": true,
+    "cameraInteriorExact": true,
+    "twoLightingHintsExact": true,
+    "frameManifoldAfterWeldingPositions": true
+  },
+  "nativeEditable": {
+    "path": "output/blender/WaterDuel_Workshop360_v4.blend",
+    "sha256": "681d342a32a33ed8ebf8f4da37ead7222c5e54522d23c859b7c5f566a9271844",
+    "meshes": 14,
+    "materials": 14,
+    "lights": 2,
+    "embeddedImages": 33
+  },
+  "protectedInputs": {
+    "public/assets/environment/workshop/workshop-360.glb": "18a1d202cee0b05b0b627880e775906350b877bf6e159099d607d0c70575e7d2",
+    "public/assets/environment/workshop/workshop-360.json": "c6afded368af34c210c52ad51d729bfea7a64d3635bcacbc40d8bfbee5ba2f92",
+    "public/assets/environment/workshop/workshop-runtime-v3.glb": "1a947c7e2a5b2387e5a0db4cd55169445dad91d2a0fda59bac5c51c0751bb930",
+    "output/blender/WaterDuel_Workshop360.blend": "baa160c2399a37e0676f46ef4b9ec1665597dda0aa286e7f83c0ee7955bb2f1c",
+    "output/blender/WaterDuel_Atelier_v3.blend": "8a693a0c42e75f3f1316ca4f22d687ea3df6ce30c0fbb600991c5803b54544ff"
+  },
+  "runtimeIntegrationVerified": false,
+  "stableSemantics": "The immutable geometry, PBR resources, coordinates, openings, room guards and camera/light contract passed offline artifact validation. This does not certify game activation or GPU QA.",
+  "validation": {
+    "completedAt": "2026-11-02T05:26:44.145Z",
+    "scope": "offline artifact",
+    "glbSha256": "5bc507ab91bf5e0a39a827d2eb35ad81ff8494f83e952f2499dd15c483c408a4",
+    "verifier": "scripts/verify-workshop-360-v4.mjs",
+    "report": "verification-360-v4.json",
+    "windowRays": 64,
+    "closedRoomGuards": 9,
+    "runtimeIntegrationVerified": false
+  }
+}

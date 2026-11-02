@@ -1,0 +1,594 @@
+{
+  "schemaVersion": 1,
+  "delivery": "WaterDuel escenografía v4",
+  "releaseDateLocal": "2026-11-02",
+  "snapshotOfValidatedRelease": "2026-11-02T05:05:10.357Z",
+  "root": "D:/2026/WaterDuel",
+  "surroundingsStableAt": "2026-11-02T05:26:44.145Z",
+  "mainAssetSha256": "9dafb0641072e9ec5e281e43aa0ad1282468fb21b84bfd0955d9166813f1afbe",
+  "runtimeIntegrationVerified": false,
+  "contractStates": {
+    "main": {
+      "ready": true,
+      "stable": true
+    },
+    "surround": {
+      "stable": true,
+      "verificationPassed": true,
+      "runtimeIntegrationVerified": false
+    }
+  },
+  "instructions": {
+    "selection": "Explicit relative file paths for curated promotion; no recursive copy.",
+    "runtime": "GLBs embed their textures; external texture folders and bake caches are not required for loading.",
+    "reproduction": "These scripts run inside the existing WaterDuel project with its prior source, verifiers and immutable baselines retained.",
+    "freeze": "This inventory generator reads the current frozen sources, assets and sidecars without modifying them.",
+    "evidence": "Include evidence with the contracts for complete offline audit. Runtime GPU validation remains with Principal."
+  },
+  "excluded": [
+    "Screenshots with QR",
+    "output/qa-v4/**",
+    "output/blender/WaterDuel_v4_Working.blend",
+    "output/blender/runtime-bake-cache*",
+    "public/assets/environment/workshop/textures*/**",
+    "older source/GLB versions already retained in the project",
+    "unrelated workspace files"
+  ],
+  "sets": {
+    "runtime": [
+      "public/assets/environment/workshop/workshop-runtime-v4.glb",
+      "public/assets/environment/workshop/asset-contract-v4.json",
+      "public/assets/environment/workshop/features-v4.json",
+      "public/assets/environment/workshop/export-receipt-v4.json",
+      "public/assets/environment/workshop/light-directions-v4.json",
+      "public/assets/environment/workshop/lighting-day-v4.json",
+      "public/assets/environment/workshop/lighting-night-v4.json",
+      "public/assets/environment/workshop/reflection-v4.hdr",
+      "public/assets/environment/workshop/reflection-v4.json",
+      "public/assets/environment/workshop/workshop-360-v4.glb",
+      "public/assets/environment/workshop/workshop-360-v4.json"
+    ],
+    "authoring": [
+      "output/blender/WaterDuel_Atelier_v4.blend",
+      "output/blender/WaterDuel_Atelier_v4_noche.blend",
+      "output/blender/WaterDuel_Workshop360_v4.blend"
+    ],
+    "evidence": [
+      "public/assets/environment/workshop/verification-v4.json",
+      "public/assets/environment/workshop/verification-360-v4.json",
+      "public/assets/environment/workshop/reimport-verification-v4.json",
+      "public/assets/environment/workshop/geometry-verification-v4.json",
+      "public/assets/environment/workshop/geometric-reimport-v4.json",
+      "public/assets/environment/workshop/build-report-v4.json",
+      "public/assets/environment/workshop/preview-glb-v4-eevee.png",
+      "public/assets/environment/workshop/preview-glb-v4-oblique.png",
+      "public/assets/environment/workshop/preview-v4-materials.png",
+      "public/assets/environment/workshop/preview-v4-details.png",
+      "public/assets/environment/workshop/preview-v4-tools.png",
+      "public/assets/environment/workshop/preview-v4-copper.png",
+      "public/assets/environment/workshop/preview-v4-glass.png",
+      "public/assets/environment/workshop/preview-v4-exterior.png",
+      "public/assets/environment/workshop/preview-v4-ceiling.png",
+      "public/assets/environment/workshop/preview-native-day-v4.png",
+      "public/assets/environment/workshop/preview-native-night-v4.png",
+      "output/blender/verification-editable-v4.json",
+      "output/blender/preview-variants-v4.json",
+      "output/blender/WaterDuel_Atelier_v4_dia.png",
+      "output/blender/WaterDuel_Atelier_v4_noche.png"
+    ],
+    "documentation": [
+      "docs/ENTREGA_ESCENOGRAFIA_RUNTIME_V4.md",
+      "output/blender/LEEME_v4.txt",
+      "docs/superpowers/specs/2026-11-02-workshop-v4.md",
+      "docs/superpowers/plans/2026-11-02-workshop-v4.md"
+    ],
+    "reproduction": [
+      "scripts/create-workshop-v4.py",
+      "scripts/bake-export-workshop-v4.py",
+      "scripts/workshop-materials-v4.py",
+      "scripts/workshop-props-v4.py",
+      "scripts/workshop-detail-wood-v4.py",
+      "scripts/render-variants-workshop-v4.py",
+      "scripts/verify-native-workshop-v4.py",
+      "scripts/check-window-surface-v4.py",
+      "scripts/build-workshop-clearance-v4.mjs",
+      "scripts/prepare-workshop-features-v4.mjs",
+      "scripts/verify-workshop-runtime-v4.mjs",
+      "scripts/reimport-workshop-runtime-v4.py",
+      "scripts/workshop-clearance-v4.py",
+      "scripts/create-workshop-360-v4.py",
+      "scripts/verify-workshop-360-v4.mjs",
+      "scripts/mark-workshop-360-v4-ready.mjs",
+      "scripts/mark-workshop-v4-ready.mjs",
+      "scripts/inventory-workshop-delivery-v4.mjs"
+    ]
+  },
+  "files": [
+    "public/assets/environment/workshop/workshop-runtime-v4.glb",
+    "public/assets/environment/workshop/asset-contract-v4.json",
+    "public/assets/environment/workshop/features-v4.json",
+    "public/assets/environment/workshop/export-receipt-v4.json",
+    "public/assets/environment/workshop/light-directions-v4.json",
+    "public/assets/environment/workshop/lighting-day-v4.json",
+    "public/assets/environment/workshop/lighting-night-v4.json",
+    "public/assets/environment/workshop/reflection-v4.hdr",
+    "public/assets/environment/workshop/reflection-v4.json",
+    "public/assets/environment/workshop/workshop-360-v4.glb",
+    "public/assets/environment/workshop/workshop-360-v4.json",
+    "output/blender/WaterDuel_Atelier_v4.blend",
+    "output/blender/WaterDuel_Atelier_v4_noche.blend",
+    "output/blender/WaterDuel_Workshop360_v4.blend",
+    "public/assets/environment/workshop/verification-v4.json",
+    "public/assets/environment/workshop/verification-360-v4.json",
+    "public/assets/environment/workshop/reimport-verification-v4.json",
+    "public/assets/environment/workshop/geometry-verification-v4.json",
+    "public/assets/environment/workshop/geometric-reimport-v4.json",
+    "public/assets/environment/workshop/build-report-v4.json",
+    "public/assets/environment/workshop/preview-glb-v4-eevee.png",
+    "public/assets/environment/workshop/preview-glb-v4-oblique.png",
+    "public/assets/environment/workshop/preview-v4-materials.png",
+    "public/assets/environment/workshop/preview-v4-details.png",
+    "public/assets/environment/workshop/preview-v4-tools.png",
+    "public/assets/environment/workshop/preview-v4-copper.png",
+    "public/assets/environment/workshop/preview-v4-glass.png",
+    "public/assets/environment/workshop/preview-v4-exterior.png",
+    "public/assets/environment/workshop/preview-v4-ceiling.png",
+    "public/assets/environment/workshop/preview-native-day-v4.png",
+    "public/assets/environment/workshop/preview-native-night-v4.png",
+    "output/blender/verification-editable-v4.json",
+    "output/blender/preview-variants-v4.json",
+    "output/blender/WaterDuel_Atelier_v4_dia.png",
+    "output/blender/WaterDuel_Atelier_v4_noche.png",
+    "docs/ENTREGA_ESCENOGRAFIA_RUNTIME_V4.md",
+    "output/blender/LEEME_v4.txt",
+    "docs/superpowers/specs/2026-11-02-workshop-v4.md",
+    "docs/superpowers/plans/2026-11-02-workshop-v4.md",
+    "scripts/create-workshop-v4.py",
+    "scripts/bake-export-workshop-v4.py",
+    "scripts/workshop-materials-v4.py",
+    "scripts/workshop-props-v4.py",
+    "scripts/workshop-detail-wood-v4.py",
+    "scripts/render-variants-workshop-v4.py",
+    "scripts/verify-native-workshop-v4.py",
+    "scripts/check-window-surface-v4.py",
+    "scripts/build-workshop-clearance-v4.mjs",
+    "scripts/prepare-workshop-features-v4.mjs",
+    "scripts/verify-workshop-runtime-v4.mjs",
+    "scripts/reimport-workshop-runtime-v4.py",
+    "scripts/workshop-clearance-v4.py",
+    "scripts/create-workshop-360-v4.py",
+    "scripts/verify-workshop-360-v4.mjs",
+    "scripts/mark-workshop-360-v4-ready.mjs",
+    "scripts/mark-workshop-v4-ready.mjs",
+    "scripts/inventory-workshop-delivery-v4.mjs"
+  ],
+  "details": [
+    {
+      "path": "public/assets/environment/workshop/workshop-runtime-v4.glb",
+      "role": "runtime",
+      "bytes": 48890340,
+      "MiB": 46.625,
+      "sha256": "9dafb0641072e9ec5e281e43aa0ad1282468fb21b84bfd0955d9166813f1afbe"
+    },
+    {
+      "path": "public/assets/environment/workshop/asset-contract-v4.json",
+      "role": "runtime",
+      "bytes": 1758101,
+      "MiB": 1.677,
+      "sha256": "30104c9fbe4ae9f28d9a2bf9ea6fa4ecfd3bd1c5b093f31f41552bc8f74be4ca"
+    },
+    {
+      "path": "public/assets/environment/workshop/features-v4.json",
+      "role": "runtime",
+      "bytes": 12470,
+      "MiB": 0.012,
+      "sha256": "2343b025fb1eaeaabf453bb9ebeb44afc22822da3c64a8e51c1a0d6a83ce0f0f"
+    },
+    {
+      "path": "public/assets/environment/workshop/export-receipt-v4.json",
+      "role": "runtime",
+      "bytes": 406,
+      "MiB": 0,
+      "sha256": "9f2c6d54c356627c8c65a6d8e5a6268208298076a11d32a4e6eafba7ceb53dc5"
+    },
+    {
+      "path": "public/assets/environment/workshop/light-directions-v4.json",
+      "role": "runtime",
+      "bytes": 11703,
+      "MiB": 0.011,
+      "sha256": "5f4f6accac53b4c2ff2d9de5e0e6ad97e0721d268c772d399e022886aae81f63"
+    },
+    {
+      "path": "public/assets/environment/workshop/lighting-day-v4.json",
+      "role": "runtime",
+      "bytes": 8592,
+      "MiB": 0.008,
+      "sha256": "b81920ac43cf5e5b2c063997c0290b040a55168230af47e29d1bb9c1cb6d38cf"
+    },
+    {
+      "path": "public/assets/environment/workshop/lighting-night-v4.json",
+      "role": "runtime",
+      "bytes": 8234,
+      "MiB": 0.008,
+      "sha256": "482989e0b9bf7cf7b28099b9aabae50bccbf0ce7dd21e983970e6b5593cf153e"
+    },
+    {
+      "path": "public/assets/environment/workshop/reflection-v4.hdr",
+      "role": "runtime",
+      "bytes": 1227676,
+      "MiB": 1.171,
+      "sha256": "54c10bba24c5d3c19cee5f2d2bfa5ba05100c64a06d1a03563f51ed194c0c8ef"
+    },
+    {
+      "path": "public/assets/environment/workshop/reflection-v4.json",
+      "role": "runtime",
+      "bytes": 566,
+      "MiB": 0.001,
+      "sha256": "06ad1e39707d3adbd7331216a717659d57c254892979ff0953944bbb4e462a63"
+    },
+    {
+      "path": "public/assets/environment/workshop/workshop-360-v4.glb",
+      "role": "runtime",
+      "bytes": 10550632,
+      "MiB": 10.062,
+      "sha256": "5bc507ab91bf5e0a39a827d2eb35ad81ff8494f83e952f2499dd15c483c408a4"
+    },
+    {
+      "path": "public/assets/environment/workshop/workshop-360-v4.json",
+      "role": "runtime",
+      "bytes": 46222,
+      "MiB": 0.044,
+      "sha256": "bf78b5439197a61153f23bdd0bba5c8117d2cb4416d6a887e7b8fa567afbf172"
+    },
+    {
+      "path": "output/blender/WaterDuel_Atelier_v4.blend",
+      "role": "authoring",
+      "bytes": 63550045,
+      "MiB": 60.606,
+      "sha256": "0102459d4961b52620f24e9de99cef8e4f122733fab65bae582d6f07b4e18f86"
+    },
+    {
+      "path": "output/blender/WaterDuel_Atelier_v4_noche.blend",
+      "role": "authoring",
+      "bytes": 39855427,
+      "MiB": 38.009,
+      "sha256": "26e9b7471245ec3250fe2b416bd3d6c93af5aee1ce479a6048674d81611d44c9"
+    },
+    {
+      "path": "output/blender/WaterDuel_Workshop360_v4.blend",
+      "role": "authoring",
+      "bytes": 8696305,
+      "MiB": 8.293,
+      "sha256": "681d342a32a33ed8ebf8f4da37ead7222c5e54522d23c859b7c5f566a9271844"
+    },
+    {
+      "path": "public/assets/environment/workshop/verification-v4.json",
+      "role": "evidence",
+      "bytes": 1843159,
+      "MiB": 1.758,
+      "sha256": "086c2302645c5ebe50f2896715a899c63008f866b68d3c3fc440ded1a4c96574"
+    },
+    {
+      "path": "public/assets/environment/workshop/verification-360-v4.json",
+      "role": "evidence",
+      "bytes": 25106,
+      "MiB": 0.024,
+      "sha256": "7b2425fe7a2a189386808651d98797f466a9266cdf18be21c32169ce847705fc"
+    },
+    {
+      "path": "public/assets/environment/workshop/reimport-verification-v4.json",
+      "role": "evidence",
+      "bytes": 58775,
+      "MiB": 0.056,
+      "sha256": "497aed71ecdd40fcbfb34af75330c842037e5c14b083398af92175c7b4df7934"
+    },
+    {
+      "path": "public/assets/environment/workshop/geometry-verification-v4.json",
+      "role": "evidence",
+      "bytes": 1521860,
+      "MiB": 1.451,
+      "sha256": "8d3f94070191274c42b710b079f442f11887e4c68ba7b4f82b50b8078055b0d9"
+    },
+    {
+      "path": "public/assets/environment/workshop/geometric-reimport-v4.json",
+      "role": "evidence",
+      "bytes": 8718,
+      "MiB": 0.008,
+      "sha256": "3da101a7220c5b50f3473b7a7b157626339440f556c86836384c423e2872e763"
+    },
+    {
+      "path": "public/assets/environment/workshop/build-report-v4.json",
+      "role": "evidence",
+      "bytes": 128937,
+      "MiB": 0.123,
+      "sha256": "a2fe27dc1b3997e7fde28c5aeace08fb1ecefd732db6d76c8525143a281ec755"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-glb-v4-eevee.png",
+      "role": "evidence",
+      "bytes": 1160002,
+      "MiB": 1.106,
+      "sha256": "ebcedd6d0c1819f76856034b56e33ed4a1177185d3a06ffb1990ebf18c42a36a"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-glb-v4-oblique.png",
+      "role": "evidence",
+      "bytes": 1217275,
+      "MiB": 1.161,
+      "sha256": "0116cbdfbccca14664a8a7de2b2ad17db98d40ac7280dbb96cc52a0cb2891ca4"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-v4-materials.png",
+      "role": "evidence",
+      "bytes": 1196927,
+      "MiB": 1.141,
+      "sha256": "c42cf293d5923542ae3987d2af6ccce1511c3de6d7cf1699bac997417f664867"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-v4-details.png",
+      "role": "evidence",
+      "bytes": 953978,
+      "MiB": 0.91,
+      "sha256": "ac283dc1412c1db9f2e3abdac2504c144c0b3be8df0dc4f202943eaef7a1f52b"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-v4-tools.png",
+      "role": "evidence",
+      "bytes": 997894,
+      "MiB": 0.952,
+      "sha256": "883709d670ab077a8cbfe917e1903967253a54dbc5c33b05100cf7555919630b"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-v4-copper.png",
+      "role": "evidence",
+      "bytes": 822672,
+      "MiB": 0.785,
+      "sha256": "6e698511982e7f347e9bd40770cf050add5f7f7e5263c7ded7f2191ab1b67ebc"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-v4-glass.png",
+      "role": "evidence",
+      "bytes": 767257,
+      "MiB": 0.732,
+      "sha256": "75bfc6054f0a90ad549335169790cad5f18864eea86718efc3888a7c5bb69715"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-v4-exterior.png",
+      "role": "evidence",
+      "bytes": 865963,
+      "MiB": 0.826,
+      "sha256": "f950526a4db0410e1f77a0754a381bc1d81c89daac1ae03d0b7ae40e775d2b0f"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-v4-ceiling.png",
+      "role": "evidence",
+      "bytes": 849924,
+      "MiB": 0.811,
+      "sha256": "047b775493cae00f7e61803914fef0cff88241f5713409b5e90682168fa10be2"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-native-day-v4.png",
+      "role": "evidence",
+      "bytes": 1129378,
+      "MiB": 1.077,
+      "sha256": "48ca8ffe5549a40e49232be16c62b55729e8799e31e16b2cfab2bd2c35fc6b51"
+    },
+    {
+      "path": "public/assets/environment/workshop/preview-native-night-v4.png",
+      "role": "evidence",
+      "bytes": 992249,
+      "MiB": 0.946,
+      "sha256": "a985bcee61f28a3fd484f6f16ae786852cb9d875cf102bbe751b4e68c1959097"
+    },
+    {
+      "path": "output/blender/verification-editable-v4.json",
+      "role": "evidence",
+      "bytes": 2546,
+      "MiB": 0.002,
+      "sha256": "1806884a7d6709bffd62dd0f35187af251ac3dc7f758cdc121c4ac73d7ea88f0"
+    },
+    {
+      "path": "output/blender/preview-variants-v4.json",
+      "role": "evidence",
+      "bytes": 1000,
+      "MiB": 0.001,
+      "sha256": "c5e8cf6b6a9b6fd9e7c94ce00065e954ae452591e8ea6a139c4b63e55b79fd56"
+    },
+    {
+      "path": "output/blender/WaterDuel_Atelier_v4_dia.png",
+      "role": "evidence",
+      "bytes": 1129378,
+      "MiB": 1.077,
+      "sha256": "48ca8ffe5549a40e49232be16c62b55729e8799e31e16b2cfab2bd2c35fc6b51"
+    },
+    {
+      "path": "output/blender/WaterDuel_Atelier_v4_noche.png",
+      "role": "evidence",
+      "bytes": 992249,
+      "MiB": 0.946,
+      "sha256": "a985bcee61f28a3fd484f6f16ae786852cb9d875cf102bbe751b4e68c1959097"
+    },
+    {
+      "path": "docs/ENTREGA_ESCENOGRAFIA_RUNTIME_V4.md",
+      "role": "documentation",
+      "bytes": 10793,
+      "MiB": 0.01,
+      "sha256": "22c428e8f73070dd9d195aad90d213ad5f582a76f0315aef1da439a75fd61f3c"
+    },
+    {
+      "path": "output/blender/LEEME_v4.txt",
+      "role": "documentation",
+      "bytes": 1609,
+      "MiB": 0.002,
+      "sha256": "5ef73878294add8fe7fe72dc99d1ee045ede65b813c3f4da4e097eff6fd24738"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-11-02-workshop-v4.md",
+      "role": "documentation",
+      "bytes": 2412,
+      "MiB": 0.002,
+      "sha256": "7e6e0e5ce2713e726569ce91fd5ea9048f52df0f772898efd00818e8e895d7bc"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-02-workshop-v4.md",
+      "role": "documentation",
+      "bytes": 3100,
+      "MiB": 0.003,
+      "sha256": "87daa886c6ec16f6022a27c607077f6da49570e954d7e96a5990cde25dc76744"
+    },
+    {
+      "path": "scripts/create-workshop-v4.py",
+      "role": "reproduction",
+      "bytes": 15155,
+      "MiB": 0.014,
+      "sha256": "97d805fc7c06a1fa0acbf8da26e3e5aa3d3181f85ef1ab8f90849aa1c4ef2ee5"
+    },
+    {
+      "path": "scripts/bake-export-workshop-v4.py",
+      "role": "reproduction",
+      "bytes": 12385,
+      "MiB": 0.012,
+      "sha256": "84bbab6d411c230e832c8965ca8eea384bfb1a447c9620a7681d556b907cffc9"
+    },
+    {
+      "path": "scripts/workshop-materials-v4.py",
+      "role": "reproduction",
+      "bytes": 24218,
+      "MiB": 0.023,
+      "sha256": "f0a9f4c798d4ea2b879ee488350eeb8f9a53ef8a261f17a911a5a178c8f2c00a"
+    },
+    {
+      "path": "scripts/workshop-props-v4.py",
+      "role": "reproduction",
+      "bytes": 18293,
+      "MiB": 0.017,
+      "sha256": "b28ae6009b508c5f9c3cc49b6d8b5d7c99f39020da110a212fd862ecbe1dc7cc"
+    },
+    {
+      "path": "scripts/workshop-detail-wood-v4.py",
+      "role": "reproduction",
+      "bytes": 3206,
+      "MiB": 0.003,
+      "sha256": "3a47529d8e44f0601996a1c3470f41e13258e5409bdf30634569be3711696af3"
+    },
+    {
+      "path": "scripts/render-variants-workshop-v4.py",
+      "role": "reproduction",
+      "bytes": 6004,
+      "MiB": 0.006,
+      "sha256": "f3dc31706e989a02e90dcdce478c3a04961d73eaaaf0af3cffcc110b86b6c47a"
+    },
+    {
+      "path": "scripts/verify-native-workshop-v4.py",
+      "role": "reproduction",
+      "bytes": 3930,
+      "MiB": 0.004,
+      "sha256": "8129f0d8c6ae206e61761730b5a70db8efd068a18042df1d2e6cdecceb92b7d0"
+    },
+    {
+      "path": "scripts/check-window-surface-v4.py",
+      "role": "reproduction",
+      "bytes": 969,
+      "MiB": 0.001,
+      "sha256": "f7110c6a3658ad8d4c5fe9546f142905eb8599380f2e1f379f820f341004ecf3"
+    },
+    {
+      "path": "scripts/build-workshop-clearance-v4.mjs",
+      "role": "reproduction",
+      "bytes": 3979,
+      "MiB": 0.004,
+      "sha256": "5ad831adcefe313dbca032e9e4017765951838fa0992b47596116ef34f59ee4e"
+    },
+    {
+      "path": "scripts/prepare-workshop-features-v4.mjs",
+      "role": "reproduction",
+      "bytes": 7724,
+      "MiB": 0.007,
+      "sha256": "cbfbaa8c9459082bae27f8c6ebb21f46142eb37eaaf0c2404e556893087ac121"
+    },
+    {
+      "path": "scripts/verify-workshop-runtime-v4.mjs",
+      "role": "reproduction",
+      "bytes": 30443,
+      "MiB": 0.029,
+      "sha256": "a2d1b9aa57df547634533ca33e9e01ff696054b1339ea15c6a48bd1d75796ef2"
+    },
+    {
+      "path": "scripts/reimport-workshop-runtime-v4.py",
+      "role": "reproduction",
+      "bytes": 31863,
+      "MiB": 0.03,
+      "sha256": "a90906448d5a2c718ff7cd2d59c6cc64360a148e677ccf41a4057e1dda69679f"
+    },
+    {
+      "path": "scripts/workshop-clearance-v4.py",
+      "role": "reproduction",
+      "bytes": 15246,
+      "MiB": 0.015,
+      "sha256": "2e84f062627e570b4f1c9caaeb0561727d6b3afe745bacdf90116c547ab4895a"
+    },
+    {
+      "path": "scripts/create-workshop-360-v4.py",
+      "role": "reproduction",
+      "bytes": 20956,
+      "MiB": 0.02,
+      "sha256": "e6c695fd167e4a4704736e758e791339f3c0433222261141ef9595bf9a1644c4"
+    },
+    {
+      "path": "scripts/verify-workshop-360-v4.mjs",
+      "role": "reproduction",
+      "bytes": 22005,
+      "MiB": 0.021,
+      "sha256": "f158f01a1893bcc8f454a03edf7ee4f62b2e4d1ae7175ced7fb1abaca1fc0338"
+    },
+    {
+      "path": "scripts/mark-workshop-360-v4-ready.mjs",
+      "role": "reproduction",
+      "bytes": 3915,
+      "MiB": 0.004,
+      "sha256": "c532c0c75de70504176dd87f6393dc16f953717c8f937765f0e5b25bea0bec7f"
+    },
+    {
+      "path": "scripts/mark-workshop-v4-ready.mjs",
+      "role": "reproduction",
+      "bytes": 5733,
+      "MiB": 0.005,
+      "sha256": "2197da6e7d4095ceaa0b0d61f7a9446208bbf4bdbceefe9f7d094d83fac20b61"
+    },
+    {
+      "path": "scripts/inventory-workshop-delivery-v4.mjs",
+      "role": "reproduction",
+      "bytes": 6898,
+      "MiB": 0.007,
+      "sha256": "b3b1d36049f22561fbf9be763fabd24607f33b3e47efbf69b519493edf1df24e"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "output/blender/WaterDuel_Atelier_v4.blend",
+      "role": "authoring",
+      "bytes": 63550045,
+      "MiB": 60.606,
+      "sha256": "0102459d4961b52620f24e9de99cef8e4f122733fab65bae582d6f07b4e18f86"
+    },
+    {
+      "path": "output/blender/WaterDuel_Atelier_v4_noche.blend",
+      "role": "authoring",
+      "bytes": 39855427,
+      "MiB": 38.009,
+      "sha256": "26e9b7471245ec3250fe2b416bd3d6c93af5aee1ce479a6048674d81611d44c9"
+    },
+    {
+      "path": "output/blender/WaterDuel_Workshop360_v4.blend",
+      "role": "authoring",
+      "bytes": 8696305,
+      "MiB": 8.293,
+      "sha256": "681d342a32a33ed8ebf8f4da37ead7222c5e54522d23c859b7c5f566a9271844"
+    }
+  ],
+  "totals": {
+    "files": 57,
+    "bytes": 191532802
+  },
+  "supersedesInventorySha256": "0c35257437c597b796bedbaa5d2aea5c8c633cc484bd731715bb4a7e637b4a27"
+}

@@ -30,7 +30,13 @@ export function trainingOpponentControl(kind,game){
     return c;
   }
   // A slow, visible upper approach leaves a real Z escape around the balloon's curved edge.
-  const parry=kind==='parry',phase=parry?(t%6.5)-1:t%5.6,head=player.pose.head,hand=opponent.pose.mainHand,tip=opponent.pose.tip;
+  const parry=kind==='parry',phase=parry?(t%6.5)-1:(t%5.6)-1.2,head=player.pose.head,hand=opponent.pose.mainHand,tip=opponent.pose.tip;
+  if(!parry&&phase<0){
+    // Clear the low opposing blade, then raise the collected hand while
+    // recovering distance. A neutral wrist avoids rolling behind the hand.
+    const withdraw=phase<-.8;
+    c.mainX=-1;c.mainY=withdraw?-1:1;c.wrist=withdraw?-1:0;c.lean=withdraw?-1:1;return c;
+  }
   if(phase<0||phase>=.7){
     c.lean=clamp(((parry?1.55:1.65)-opponent.baseX)*(opponent.dir===1?1:-1)*3);
     // Withdraw above the head before lowering the blade, so recovery cannot cut back through the escape.
@@ -38,7 +44,7 @@ export function trainingOpponentControl(kind,game){
     else if(!parry)c.headZ=.75*Math.sin(t);
     return c;
   }
-  const weapon=getWeapon(opponent),dir=opponent.dir===1?1:-1,targetY=head.y+(parry?.03:.65);
+  const weapon=getWeapon(opponent),dir=opponent.dir===1?1:-1,targetY=head.y+(parry?.03:.7*BALLOON_RADII.y*(player.balloonSize??1));
   c.mainX=1;c.mainY=clamp((targetY-(opponent.pose.mainShoulder?.y??hand.y)-.13)/1.04);
   const desired=Math.atan2(targetY-hand.y,Math.max(.3,dir*(head.x-hand.x)));
   const actual=Math.atan2(tip.y-hand.y,dir*(tip.x-hand.x));
@@ -155,7 +161,7 @@ export class TrainingDrill{
       (this.progress===0?'Desviá un ataque real con la defensa o cruzando tu arma al retroceder. Un choque sin desvío no cuenta.':
         'Apertura real: contraatacá y perforá el globo antes de que se recupere la guardia.'):
       this.kind==='moving'?'Seguí el globo oscilante y perforá dentro del círculo. Cada contacto se comprueba en las tres dimensiones.':
-      this.progress===0?'Bajá el arma y esquivá el ataque alto inclinando la cabeza hacia atrás en profundidad. La punta debe pasar sin tocar tu globo.':
+      this.progress===0?'Recogé y bajá el arma; esquivá el ataque alto inclinando la cabeza hacia atrás en profundidad. La punta debe pasar sin tocar tu globo.':
         'Esperá la retirada del arma, volvé al plano de alcance y ajustá la distancia con el joystick izquierdo para perforar el globo rival.';
     return {title:titles[this.kind],instruction,completed,progress:this.progress,total:this.kind==='moving'?3:2,objectiveIndex:this.progress,
       status:completed?'completed':'idle',nextAction:completed?'repeat':null,target:this.kind==='moving'&&!completed?movingTarget(game,this.progress):null};

@@ -1,0 +1,197 @@
+[
+  {
+    "id": "sword",
+    "triangles_v2": 12566,
+    "triangles": 13743,
+    "added_triangles": 1177,
+    "triangle_growth_pct": 9.366544644278218,
+    "bytes_v2": 1656348,
+    "bytes": 1744332,
+    "byte_growth_pct": 5.31192720370357,
+    "sha256": "7c0c78b66d1e4041d5fb9f4f513bb29ecd478c8b59c6e7b2ff36a3fc3248c391",
+    "source_sha256": "6271017c842de1e969aed8a783aaf45975daac06bce38185443e0985cb72b462",
+    "new_textures": 0,
+    "construction": [
+      "canales finos de hoja",
+      "costura reforzada",
+      "testigos de ajuste de cazoleta"
+    ],
+    "new_named_details": 14,
+    "maker_mark": {
+      "name": "Taller del Cauce",
+      "center_source_xz": [
+        0,
+        0.14
+      ],
+      "radius_m": 0.009,
+      "technique": "surface-conforming microinlay"
+    }
+  },
+  {
+    "id": "spear",
+    "triangles_v2": 10190,
+    "triangles": 10731,
+    "added_triangles": 541,
+    "triangle_growth_pct": 5.309126594700686,
+    "bytes_v2": 2305372,
+    "bytes": 2349696,
+    "byte_growth_pct": 1.9226398169145842,
+    "sha256": "35c85011c8d05963916a06ceb8d3d1e453576834b29e12827f697941b09d68fe",
+    "source_sha256": "bd0fbc3d96dd58431774e9e6a9fb66aee63567f5190e32e56d7c17be14ba2265",
+    "new_textures": 0,
+    "construction": [
+      "escala de presión grabada",
+      "testigos de ferrula",
+      "costura de agarre"
+    ],
+    "new_named_details": 16,
+    "maker_mark": {
+      "name": "Taller del Cauce",
+      "center_source_xz": [
+        0,
+        1.035
+      ],
+      "radius_m": 0.01,
+      "technique": "surface-conforming microinlay"
+    }
+  },
+  {
+    "id": "axe",
+    "triangles_v2": 9270,
+    "triangles": 10039,
+    "added_triangles": 769,
+    "triangle_growth_pct": 8.295577130528597,
+    "bytes_v2": 2302456,
+    "bytes": 2362424,
+    "byte_growth_pct": 2.6045231700410287,
+    "sha256": "13825c1246d80047b4474afab28c81b030e6f810eca6bf35dd4f84330c009d05",
+    "source_sha256": "8501511d1f13567d84ab2109b9eca31d1fb9c6c2120a58a0c4e373e06ce9900e",
+    "new_textures": 0,
+    "construction": [
+      "testigos de unión del ojo",
+      "marcas de ensamblaje",
+      "costura de agarre"
+    ],
+    "new_named_details": 15,
+    "maker_mark": {
+      "name": "Taller del Cauce",
+      "center_source_xz": [
+        0.104,
+        0.748
+      ],
+      "radius_m": 0.018,
+      "technique": "surface-conforming microinlay"
+    }
+  },
+  {
+    "id": "maul",
+    "triangles_v2": 17308,
+    "triangles": 19207,
+    "added_triangles": 1899,
+    "triangle_growth_pct": 10.971804945689856,
+    "bytes_v2": 2517260,
+    "bytes": 2656352,
+    "byte_growth_pct": 5.525531728943367,
+    "sha256": "31bb9ed2d576f1be84f7b9823fb9bf915d89ec323d49a72228c3a1615134f074",
+    "source_sha256": "38f2d69a43fb1569225cc906fd1b86821670f579e33724eb28289d760f6bfcdb",
+    "new_textures": 0,
+    "construction": [
+      "referencias de bancada",
+      "tapones con testa visible",
+      "arandelas de unión"
+    ],
+    "new_named_details": 27,
+    "maker_mark": {
+      "name": "Taller del Cauce",
+      "center_source_xz": [
+        0.121,
+        0.875
+      ],
+      "radius_m": 0.019,
+      "technique": "surface-conforming microinlay"
+    }
+  },
+  {
+    "id": "short",
+    "triangles_v2": 19932,
+    "triangles": 21133,
+    "added_triangles": 1201,
+    "triangle_growth_pct": 6.025486654625722,
+    "bytes_v2": 2819808,
+    "bytes": 2908644,
+    "byte_growth_pct": 3.1504272631328156,
+    "sha256": "633cd9b79f06dda0e8985e78a8702266fa268938db72b6a2a2198a2e12c80706",
+    "source_sha256": "25edc6dbf26852b5e41dfaa7a0ca24e320caf55710877353f1513f26e2abc8ef",
+    "new_textures": 0,
+    "construction": [
+      "arcos de torneado concéntricos",
+      "testigos de remachado"
+    ],
+    "new_named_details": 16,
+    "maker_mark": {
+      "name": "Taller del Cauce",
+      "center_source_xz": [
+        -0.055,
+        0.115
+      ],
+      "radius_m": 0.018,
+      "technique": "surface-conforming microinlay"
+    }
+  },
+  {
+    "id": "long",
+    "triangles_v2": 23380,
+    "triangles": 24343,
+    "added_triangles": 963,
+    "triangle_growth_pct": 4.118905047048749,
+    "bytes_v2": 2965964,
+    "bytes": 3042616,
+    "byte_growth_pct": 2.5843874032186465,
+    "sha256": "e38069ad6a0436f61568770d7521c4c0f84ee3d375798bd83210c4a707154bcb",
+    "source_sha256": "6544db41098260eacac5c906a373f176c2269cb462a24be2fa79cbf601245e6b",
+    "new_textures": 0,
+    "construction": [
+      "numeración de duelas",
+      "tapones con testa visible",
+      "testigos de unión"
+    ],
+    "new_named_details": 25,
+    "maker_mark": {
+      "name": "Taller del Cauce",
+      "center_source_xz": [
+        0.12,
+        0.078
+      ],
+      "radius_m": 0.017,
+      "technique": "surface-conforming microinlay"
+    }
+  },
+  {
+    "id": "knife",
+    "triangles_v2": 6790,
+    "triangles": 7447,
+    "added_triangles": 657,
+    "triangle_growth_pct": 9.67599410898381,
+    "bytes_v2": 2192788,
+    "bytes": 2244564,
+    "byte_growth_pct": 2.3611949718805425,
+    "sha256": "707547e565d65fe9f7e6c5bc915d644851fe5bd962840ca59d9d6b9bd9c50791",
+    "source_sha256": "e7460d37d54c5ea2f1396095bf9257cfc79c62505b67be159bceafe810534b21",
+    "new_textures": 0,
+    "construction": [
+      "arcos de parada",
+      "costura reforzada",
+      "testigos de ajuste de guarda"
+    ],
+    "new_named_details": 14,
+    "maker_mark": {
+      "name": "Taller del Cauce",
+      "center_source_xz": [
+        0.0135,
+        0.17
+      ],
+      "radius_m": 0.009,
+      "technique": "surface-conforming microinlay"
+    }
+  }
+]

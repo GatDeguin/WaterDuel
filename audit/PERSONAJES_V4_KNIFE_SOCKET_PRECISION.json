@@ -1,0 +1,226 @@
+{
+  "purpose": "Read-only single failed fixture; no runtime or test edits. One 100-step guardPose simulation, then arithmetic analysis of its captured values; no other cases or global run.",
+  "hashes": {
+    "public/physics/articulated-rig.js": "45702bd92e9051034d9764feeb8097408df4796304a19a697ce5970a0812175f",
+    "public/engine.js": "ff968c45a2e01b7a6b4da4b567b153b2103273c59f904d718d0187939c75a363",
+    "public/rendering/asset-rig.js": "97a6681d43ebaeaa20154197af34ba0f431644f2dbed6016813a13ff20d6e0b3",
+    "public/rendering/glb.js": "af78439d195a3d0209c333552f53e8c25cdfbe9b793e1565345a526df83816b2",
+    "tests/knife-defense-integration.test.mjs": "6d19e9164627345d8c89037a486e11e1bacff2e7f7c313397c9d74e1ac4942a8",
+    "public/assets/equipment/workshop/v2/knife.glb": "e7460d37d54c5ea2f1396095bf9257cfc79c62505b67be159bceafe810534b21"
+  },
+  "fixture": {
+    "test": "Los sockets de daga GLB v2 y v3 coinciden con la punta física en ambos agarres y jugadores",
+    "file": "tests/knife-defense-integration.test.mjs",
+    "firstFailure": {
+      "asset": "public/assets/equipment/workshop/v2/knife.glb",
+      "version": "v2",
+      "node": "Socket_Strike",
+      "slot": 1,
+      "grip": "normal",
+      "scale": 1,
+      "tick": 100,
+      "step": 0.008333333333333333,
+      "clock": 0.8333333333333334,
+      "mode": "versus",
+      "phase": "fight",
+      "control": {
+        "guard": true,
+        "offX": 0.85,
+        "offY": 1,
+        "mainX": -1,
+        "mainY": -1
+      }
+    },
+    "originalTolerance": 1e-7
+  },
+  "input": {
+    "hand": [
+      -0.9691203726277041,
+      2.612294039123961,
+      0.09979211404812562
+    ],
+    "physicsTip": [
+      -0.7674337541269044,
+      2.9806993972795026,
+      0.17
+    ],
+    "authoredSocket": [
+      0,
+      0.41999998688697815,
+      0
+    ],
+    "parsedSocketType": "Float32Array subarray of node.worldMatrix",
+    "parsedSocket": [
+      0,
+      0.41999998688697815,
+      0
+    ],
+    "authoredEqualsFroundNominal": true,
+    "assetParent": "WD_knife_Asset with identity TRS; socket has only the translation above",
+    "nominalKnifeLength": 0.42,
+    "deformStart": 0.09,
+    "deformEnd": 0.42,
+    "extension": 0.005827602733584569,
+    "stretchAlong": 1.0176594022229835,
+    "flexOffset": 0,
+    "deformedPoint": [
+      0,
+      0.42582758938899457,
+      0
+    ]
+  },
+  "transforms": {
+    "submittedType": "Float32Array",
+    "submitted": [
+      0.877155601978302,
+      -0.4802062213420868,
+      0,
+      0,
+      0.4736344516277313,
+      0.8651514053344727,
+      0.16487397253513336,
+      0,
+      -0.0791735053062439,
+      -0.1446201205253601,
+      0.9863146543502808,
+      0,
+      -0.9691203832626343,
+      2.6122939586639404,
+      0.09979211539030075,
+      1
+    ],
+    "independentPreQuantizationType": "Float64Array-equivalent JS numbers",
+    "independentPreQuantization": [
+      0.8771556146560515,
+      -0.4802062345257135,
+      0,
+      0,
+      0.4736344408067489,
+      0.8651514269873,
+      0.16487396660333306,
+      0,
+      -0.07917350667390481,
+      -0.14462012551672793,
+      0.986314643071106,
+      0,
+      -0.9691203726277041,
+      2.612294039123961,
+      0.09979211404812562,
+      1
+    ],
+    "allEntriesRoundToSubmitted": true
+  },
+  "output": {
+    "renderedSocket": [
+      -0.7674337664744191,
+      2.98069929605402,
+      0.1700000016679239
+    ],
+    "physicsTip": [
+      -0.7674337541269044,
+      2.9806993972795026,
+      0.17
+    ],
+    "idealF64Socket": [
+      -0.7674337541269044,
+      2.9806993972795026,
+      0.17
+    ],
+    "error": [
+      -1.2347514677379934e-8,
+      -1.0122548266267017e-7,
+      1.6679238823424924e-9
+    ],
+    "errorNorm": 1.0198941822108773e-7
+  },
+  "bound": {
+    "derivation": "For each component of the affine point m*y+t: |yIdeal|*dm + (|mIdeal|+dm)*dy + dt, with dm/dt = 0.5 ULP32 of the corresponding prequantized coefficient, dy = max(1,|deformation slope|)*0.5 ULP32(nominal socket Y). Add gamma7 times the absolute sum of the two evaluated dot-products for binary64 multiplication/addition. Zero X/Z socket components are exact and contribute zero. The local socket authored endpoint equals fround(.42); parser/identity parents add no further rounding here. This is a forward error bound, derived without fitting the measured error.",
+    "assumptions": "Finite normal F32 entries; round-to-nearest binary32; exact zero X/Z; identity authored parent; no flex; endpoint nominal .42 established by defense length and deformation endpoint. Bound compares submitted F32 affine evaluation with independently reconstructed F64 endpoint; its separately reported F64-vs-physics residual is zero for this captured case. No claim about additional GPU shader arithmetic is made.",
+    "socketHalfULP": 1.4901161193847656e-8,
+    "localErrorBound": 1.5164306792959324e-8,
+    "localActualError": -1.3344589988584232e-8,
+    "rows": [
+      {
+        "component": "x",
+        "usedMatrixIndices": [
+          4,
+          12
+        ],
+        "basis64": 0.4736344408067489,
+        "basis32": 0.4736344516277313,
+        "basisHalfULP": 1.4901161193847656e-8,
+        "translation64": -0.9691203726277041,
+        "translation32": -0.9691203832626343,
+        "translationHalfULP": 2.9802322387695312e-8,
+        "exactMatrixRoundingEffect": -6.0270571456305e-9,
+        "exactSocketEffect": -6.320457561440006e-9,
+        "ideal64PhysicsResidual": 0,
+        "error": -1.2347514677379934e-8,
+        "absoluteError": 1.2347514677379934e-8,
+        "terms": {
+          "matrixTerm": 6.345325749122866e-9,
+          "socketTerm": 7.182338194071053e-9,
+          "translationBound": 2.9802322387695312e-8,
+          "evaluationBound": 1.81979963745421e-15
+        },
+        "bound": 4.332998815068887e-8,
+        "withinBound": true
+      },
+      {
+        "component": "y",
+        "usedMatrixIndices": [
+          5,
+          13
+        ],
+        "basis64": 0.8651514269873,
+        "basis32": 0.8651514053344727,
+        "basisHalfULP": 2.9802322387695312e-8,
+        "translation64": 2.612294039123961,
+        "translation32": 2.6122939586639404,
+        "translationHalfULP": 1.1920928955078125e-7,
+        "exactMatrixRoundingEffect": -8.968039196942031e-8,
+        "exactSocketEffect": -1.1545090782235983e-8,
+        "ideal64PhysicsResidual": 0,
+        "error": -1.0122548266267017e-7,
+        "absoluteError": 1.0122548266267017e-7,
+        "terms": {
+          "matrixTerm": 1.2690651498245733e-8,
+          "socketTerm": 1.3119422113133526e-8,
+          "translationBound": 1.1920928955078125e-7,
+          "evaluationBound": 4.632937461816443e-15
+        },
+        "bound": 1.4501936779509799e-7,
+        "withinBound": true
+      },
+      {
+        "component": "z",
+        "usedMatrixIndices": [
+          6,
+          14
+        ],
+        "basis64": 0.16487396660333306,
+        "basis32": 0.16487397253513336,
+        "basisHalfULP": 7.450580596923828e-9,
+        "translation64": 0.09979211404812562,
+        "translation32": 0.09979211539030075,
+        "translationHalfULP": 3.725290298461914e-9,
+        "exactMatrixRoundingEffect": 3.868099436970256e-9,
+        "exactSocketEffect": -2.2001755632704523e-9,
+        "ideal64PhysicsResidual": 0,
+        "error": 1.6679238823424924e-9,
+        "absoluteError": 1.6679238823424924e-9,
+        "terms": {
+          "matrixTerm": 3.172662874561433e-9,
+          "socketTerm": 2.500199524727962e-9,
+          "translationBound": 3.725290298461914e-9,
+          "evaluationBound": 2.642330811570247e-16
+        },
+        "bound": 9.39815296198439e-9,
+        "withinBound": true
+      }
+    ],
+    "normUpperBound": 1.51645739102441e-7,
+    "allWithinBound": true
+  },
+  "conclusion": "The failing Y difference is explained by F32 model-matrix rounding plus the already F32-authored socket endpoint. Dominant term is model translation Y rounding. No geometric discrepancy remains in the independent F64 endpoint. The fixed 1e-7 test threshold is below the analytically allowed precision for this fixture; no threshold or source was edited."
+}

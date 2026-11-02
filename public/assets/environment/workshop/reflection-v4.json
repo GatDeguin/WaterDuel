@@ -1,0 +1,18 @@
+{
+  "version": 4,
+  "file": "reflection-v4.hdr",
+  "sha256": "54c10bba24c5d3c19cee5f2d2bfa5ba05100c64a06d1a03563f51ed194c0c8ef",
+  "projection": "equirectangular",
+  "resolution": [
+    1024,
+    512
+  ],
+  "encoding": "Radiance RGBE",
+  "probePositionRuntime": [
+    0.0,
+    1.1969490051269531,
+    0.12925170361995697
+  ],
+  "basis": "Captured in native Blender Z-up; runtime geometry maps (x,z,-y).",
+  "scope": "Actual static v4 atelier radiance. The existing runtime uses its own dynamic cubemap capture; HDR is portable authored reference."
+}

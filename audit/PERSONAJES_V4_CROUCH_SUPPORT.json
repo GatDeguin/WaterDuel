@@ -1,0 +1,829 @@
+{
+  "protocol": {
+    "cases": "normal/boss × dir -1/+1",
+    "settleSteps": 90,
+    "crouchSteps": 180,
+    "returnNeutralSteps": 240,
+    "dt": 0.008333333333333333,
+    "controls": {
+      "crouch": {
+        "bodyY": -1
+      },
+      "return": {
+        "bodyY": 0
+      }
+    },
+    "ground": 0.3245,
+    "flightDefinition": "hull minimum > TABLE_TOP + .0003; a diagnostic classifier, not a changed test tolerance",
+    "airReactionDefinition": "positive normal while support gap > .002 (outside the solver contact proximity band)",
+    "frameIndex": "Zero-based index after each update: frame0 is the first crouch STEP; elapsed state time is (frame+1)*STEP. Return starts at frame180."
+  },
+  "sourcesBefore": {
+    "public/engine.js": "ff968c45a2e01b7a6b4da4b567b153b2103273c59f904d718d0187939c75a363",
+    "public/physics/articulated-rig.js": "4c4ba1394b18cb868145d85f227d9653ab900a930cbdec06e5547c37b4a6990f"
+  },
+  "cases": [
+    {
+      "boss": false,
+      "dir": -1,
+      "minimumGroundGap": -8.654710281774669e-11,
+      "maximumContactError": 9.957363822366005e-10,
+      "maxAbsoluteBaseMotor": 0,
+      "airReactionCount": 1,
+      "feet": {
+        "front": {
+          "maximumGap": 0.0015577739260587142,
+          "minimumGap": -2.0233814623793478e-13,
+          "maximumNormal": 96.72663285317296,
+          "positiveNormalFrames": 413,
+          "positiveNormalCrouchFrames": 173,
+          "positiveNormalReturnFrames": 240,
+          "flightIntervals": [
+            {
+              "from": 4,
+              "stage": "crouch",
+              "to": 10,
+              "frames": 7,
+              "duration": 0.058333333333333334,
+              "landingFrame": 11,
+              "landingTime": 0.1,
+              "landingNormal": 18.179591040693943,
+              "takeoffDetectedTime": 0.041666666666666664
+            }
+          ],
+          "positiveAirReactionFrames": [],
+          "firstPositiveNormalAfterReturn": {
+            "frame": 180,
+            "returnFrame": 0,
+            "timeAfterNeutral": 0.008333333333333333
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "stage": "crouch",
+            "time": 1.5,
+            "gap": -1.1068923555512811e-13,
+            "normal": 18.57009262164985,
+            "stance": true,
+            "angle": -0.004074436303558193,
+            "support": {
+              "x": 0.9764000150165215,
+              "y": 0.3244999999998893,
+              "z": 0.1350000210106373
+            },
+            "ankle": {
+              "x": 1.0595307472078734,
+              "y": 0.4398396693133131,
+              "z": 0.2
+            }
+          },
+          "finalReturn": {
+            "frame": 419,
+            "stage": "return",
+            "time": 3.5,
+            "gap": 1.651179193373764e-12,
+            "normal": 34.0563800655207,
+            "stance": true,
+            "angle": 1.779826286352204e-13,
+            "support": {
+              "x": 1.1435999400078398,
+              "y": 0.3245000000016512,
+              "z": 0.1350000210106373
+            },
+            "ankle": {
+              "x": 1.0600000000078602,
+              "y": 0.43950000200166606,
+              "z": 0.2
+            }
+          },
+          "maximumGapState": {
+            "frame": 8,
+            "stage": "crouch",
+            "time": 0.075,
+            "gap": 0.0015577739260587142,
+            "normal": 0,
+            "stance": true,
+            "angle": 0.10771236795583194,
+            "support": {
+              "x": 1.1435999399999999,
+              "y": 0.3260577739260587,
+              "z": 0.1350000210106373
+            },
+            "ankle": {
+              "x": 1.0728474769806908,
+              "y": 0.44937865376684194,
+              "z": 0.2
+            }
+          },
+          "positiveContactAtFinalCrouch": true,
+          "positiveContactAtFinalReturn": true,
+          "maximumPenetration": 2.0233814623793478e-13
+        },
+        "back": {
+          "maximumGap": 0.06467577414471343,
+          "minimumGap": -8.654710281774669e-11,
+          "maximumNormal": 70.981389894426,
+          "positiveNormalFrames": 387,
+          "positiveNormalCrouchFrames": 147,
+          "positiveNormalReturnFrames": 240,
+          "flightIntervals": [
+            {
+              "from": 2,
+              "stage": "crouch",
+              "to": 34,
+              "frames": 33,
+              "duration": 0.275,
+              "landingFrame": 35,
+              "landingTime": 0.3,
+              "landingNormal": 16.668132591778395,
+              "takeoffDetectedTime": 0.025
+            }
+          ],
+          "positiveAirReactionFrames": [
+            {
+              "frame": 34,
+              "gap": 0.003569036061188302,
+              "normal": 0.09794905763149679
+            }
+          ],
+          "firstPositiveNormalAfterReturn": {
+            "frame": 180,
+            "returnFrame": 0,
+            "timeAfterNeutral": 0.008333333333333333
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "stage": "crouch",
+            "time": 1.5,
+            "gap": 4.549693954913892e-13,
+            "normal": 45.29729021556402,
+            "stance": true,
+            "angle": -0.23624182717323938,
+            "support": {
+              "x": 2.0864000149711965,
+              "y": 0.324500000000455,
+              "z": -0.24499996781349181
+            },
+            "ankle": {
+              "x": 2.1407621556234973,
+              "y": 0.4558724309580182,
+              "z": -0.18
+            }
+          },
+          "finalReturn": {
+            "frame": 419,
+            "stage": "return",
+            "time": 3.5,
+            "gap": 2.5477953080610405e-12,
+            "normal": 29.85976203668682,
+            "stance": true,
+            "angle": 8.104628079763643e-14,
+            "support": {
+              "x": 2.2535999699893785,
+              "y": 0.3245000000025478,
+              "z": -0.24499996781349181
+            },
+            "ankle": {
+              "x": 2.169999999989388,
+              "y": 0.43950000200255457,
+              "z": -0.18
+            }
+          },
+          "maximumGapState": {
+            "frame": 15,
+            "stage": "crouch",
+            "time": 0.13333333333333333,
+            "gap": 0.06467577414471343,
+            "normal": 0,
+            "stance": false,
+            "angle": 0.0006466086715681829,
+            "support": {
+              "x": 2.2962570931588924,
+              "y": 0.38917577414471344,
+              "z": -0.24499996781349181
+            },
+            "ankle": {
+              "x": 2.2127315006289234,
+              "y": 0.5042298085655823,
+              "z": -0.18
+            }
+          },
+          "positiveContactAtFinalCrouch": true,
+          "positiveContactAtFinalReturn": true,
+          "maximumPenetration": 8.654710281774669e-11
+        }
+      },
+      "maximumPenetration": 8.654710281774669e-11
+    },
+    {
+      "boss": false,
+      "dir": 1,
+      "minimumGroundGap": -9.008027657131379e-11,
+      "maximumContactError": 9.81366987673482e-10,
+      "maxAbsoluteBaseMotor": 0,
+      "airReactionCount": 1,
+      "feet": {
+        "front": {
+          "maximumGap": 0.0015616147382546686,
+          "minimumGap": -1.438849039914203e-13,
+          "maximumNormal": 96.87786925954336,
+          "positiveNormalFrames": 413,
+          "positiveNormalCrouchFrames": 173,
+          "positiveNormalReturnFrames": 240,
+          "flightIntervals": [
+            {
+              "from": 4,
+              "stage": "crouch",
+              "to": 10,
+              "frames": 7,
+              "duration": 0.058333333333333334,
+              "landingFrame": 11,
+              "landingTime": 0.1,
+              "landingNormal": 18.115000169080773,
+              "takeoffDetectedTime": 0.041666666666666664
+            }
+          ],
+          "positiveAirReactionFrames": [],
+          "firstPositiveNormalAfterReturn": {
+            "frame": 180,
+            "returnFrame": 0,
+            "timeAfterNeutral": 0.008333333333333333
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "stage": "crouch",
+            "time": 1.5,
+            "gap": 4.6129766673175254e-14,
+            "normal": 18.5449916646664,
+            "stance": true,
+            "angle": -0.004046716065493061,
+            "support": {
+              "x": -0.97640001502482,
+              "y": 0.32450000000004614,
+              "z": 0.26499997898936273
+            },
+            "ankle": {
+              "x": -1.059533944427324,
+              "y": 0.4398373648654692,
+              "z": 0.2
+            }
+          },
+          "finalReturn": {
+            "frame": 419,
+            "stage": "return",
+            "time": 3.5,
+            "gap": 2.2717383529879953e-12,
+            "normal": 34.036007497907704,
+            "stance": true,
+            "angle": 1.7812140651329855e-13,
+            "support": {
+              "x": -1.14359994000908,
+              "y": 0.32450000000227175,
+              "z": 0.26499997898936273
+            },
+            "ankle": {
+              "x": -1.0600000000091003,
+              "y": 0.43950000200228667,
+              "z": 0.2
+            }
+          },
+          "maximumGapState": {
+            "frame": 8,
+            "stage": "crouch",
+            "time": 0.075,
+            "gap": 0.0015616147382546686,
+            "normal": 0,
+            "stance": true,
+            "angle": 0.10780572235858787,
+            "support": {
+              "x": -1.1435999399999999,
+              "y": 0.3260616147382547,
+              "z": 0.26499997898936273
+            },
+            "ankle": {
+              "x": -1.0728589898360643,
+              "y": 0.44938909909558356,
+              "z": 0.2
+            }
+          },
+          "positiveContactAtFinalCrouch": true,
+          "positiveContactAtFinalReturn": true,
+          "maximumPenetration": 1.438849039914203e-13
+        },
+        "back": {
+          "maximumGap": 0.06464854217133575,
+          "minimumGap": -9.008027657131379e-11,
+          "maximumNormal": 70.97891416339652,
+          "positiveNormalFrames": 387,
+          "positiveNormalCrouchFrames": 147,
+          "positiveNormalReturnFrames": 240,
+          "flightIntervals": [
+            {
+              "from": 2,
+              "stage": "crouch",
+              "to": 34,
+              "frames": 33,
+              "duration": 0.275,
+              "landingFrame": 35,
+              "landingTime": 0.3,
+              "landingNormal": 16.42539931948394,
+              "takeoffDetectedTime": 0.025
+            }
+          ],
+          "positiveAirReactionFrames": [
+            {
+              "frame": 34,
+              "gap": 0.003487212129740458,
+              "normal": 0.5187024623571788
+            }
+          ],
+          "firstPositiveNormalAfterReturn": {
+            "frame": 180,
+            "returnFrame": 0,
+            "timeAfterNeutral": 0.008333333333333333
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "stage": "crouch",
+            "time": 1.5,
+            "gap": 1.4473977572038166e-12,
+            "normal": 45.31948513787095,
+            "stance": true,
+            "angle": -0.23628480781209626,
+            "support": {
+              "x": -2.0864000149587993,
+              "y": 0.3245000000014474,
+              "z": -0.11500003218650817
+            },
+            "ankle": {
+              "x": -2.1407565090898784,
+              "y": 0.45587476735720034,
+              "z": -0.18
+            }
+          },
+          "finalReturn": {
+            "frame": 419,
+            "stage": "return",
+            "time": 3.5,
+            "gap": 3.4849900742983664e-12,
+            "normal": 29.88065106974616,
+            "stance": true,
+            "angle": 7.949196856316121e-14,
+            "support": {
+              "x": -2.2535999699863902,
+              "y": 0.324500000003485,
+              "z": -0.11500003218650817
+            },
+            "ankle": {
+              "x": -2.1699999999863993,
+              "y": 0.43950000200349165,
+              "z": -0.18
+            }
+          },
+          "maximumGapState": {
+            "frame": 15,
+            "stage": "crouch",
+            "time": 0.13333333333333333,
+            "gap": 0.06464854217133575,
+            "normal": 0,
+            "stance": false,
+            "angle": 0.0006896417560173784,
+            "support": {
+              "x": -2.2962467713355714,
+              "y": 0.38914854217133577,
+              "z": -0.11500003218650817
+            },
+            "ankle": {
+              "x": -2.2127261300129186,
+              "y": 0.5042061708495493,
+              "z": -0.18
+            }
+          },
+          "positiveContactAtFinalCrouch": true,
+          "positiveContactAtFinalReturn": true,
+          "maximumPenetration": 9.008027657131379e-11
+        }
+      },
+      "maximumPenetration": 9.008027657131379e-11
+    },
+    {
+      "boss": true,
+      "dir": -1,
+      "minimumGroundGap": -2.764389828158187e-10,
+      "maximumContactError": 9.936669265186993e-10,
+      "maxAbsoluteBaseMotor": 0,
+      "airReactionCount": 1,
+      "feet": {
+        "front": {
+          "maximumGap": 0.032611551366333424,
+          "minimumGap": -7.78295206060875e-11,
+          "maximumNormal": 415.9621662686558,
+          "positiveNormalFrames": 402,
+          "positiveNormalCrouchFrames": 162,
+          "positiveNormalReturnFrames": 240,
+          "flightIntervals": [
+            {
+              "from": 4,
+              "stage": "crouch",
+              "to": 24,
+              "frames": 21,
+              "duration": 0.175,
+              "landingFrame": 25,
+              "landingTime": 0.21666666666666667,
+              "landingNormal": 415.9621662686558,
+              "takeoffDetectedTime": 0.041666666666666664
+            },
+            {
+              "from": 29,
+              "stage": "crouch",
+              "to": 29,
+              "frames": 1,
+              "duration": 0.008333333333333333,
+              "landingFrame": 30,
+              "landingTime": 0.2583333333333333,
+              "landingNormal": 88.91343996163836,
+              "takeoffDetectedTime": 0.25
+            }
+          ],
+          "positiveAirReactionFrames": [],
+          "firstPositiveNormalAfterReturn": {
+            "frame": 180,
+            "returnFrame": 0,
+            "timeAfterNeutral": 0.008333333333333333
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "stage": "crouch",
+            "time": 1.5,
+            "gap": -3.186340080674199e-14,
+            "normal": 22.48264839253067,
+            "stance": true,
+            "angle": -0.011822781482691669,
+            "support": {
+              "x": 1.0819548174640026,
+              "y": 0.32449999999996815,
+              "z": 0.12330003950906837
+            },
+            "ankle": {
+              "x": 1.193787757509936,
+              "y": 0.4615317184159803,
+              "z": 0.2
+            }
+          },
+          "finalReturn": {
+            "frame": 419,
+            "stage": "return",
+            "time": 3.5,
+            "gap": 9.551248680850222e-13,
+            "normal": 55.12064725274311,
+            "stance": true,
+            "angle": 1.8922363675955012e-13,
+            "support": {
+              "x": 1.3088451374163441,
+              "y": 0.32450000000095514,
+              "z": 0.12330003950906837
+            },
+            "ankle": {
+              "x": 1.195400000007674,
+              "y": 0.46019999589662874,
+              "z": 0.2
+            }
+          },
+          "maximumGapState": {
+            "frame": 14,
+            "stage": "crouch",
+            "time": 0.125,
+            "gap": 0.032611551366333424,
+            "normal": 0,
+            "stance": false,
+            "angle": 0.0035111006546847956,
+            "support": {
+              "x": 1.3658225421433556,
+              "y": 0.35711155136633344,
+              "z": 0.12330003950906837
+            },
+            "ankle": {
+              "x": 1.2528545593654867,
+              "y": 0.49320902729758265,
+              "z": 0.2
+            }
+          },
+          "positiveContactAtFinalCrouch": true,
+          "positiveContactAtFinalReturn": true,
+          "maximumPenetration": 7.78295206060875e-11
+        },
+        "back": {
+          "maximumGap": 0.08306767995965691,
+          "minimumGap": -2.764389828158187e-10,
+          "maximumNormal": 164.60296018318226,
+          "positiveNormalFrames": 393,
+          "positiveNormalCrouchFrames": 153,
+          "positiveNormalReturnFrames": 240,
+          "flightIntervals": [
+            {
+              "from": 2,
+              "stage": "crouch",
+              "to": 29,
+              "frames": 28,
+              "duration": 0.23333333333333334,
+              "landingFrame": 30,
+              "landingTime": 0.2583333333333333,
+              "landingNormal": 164.60296018318226,
+              "takeoffDetectedTime": 0.025
+            }
+          ],
+          "positiveAirReactionFrames": [
+            {
+              "frame": 28,
+              "gap": 0.0030767491722422657,
+              "normal": 34.403860858137605
+            }
+          ],
+          "firstPositiveNormalAfterReturn": {
+            "frame": 180,
+            "returnFrame": 0,
+            "timeAfterNeutral": 0.008333333333333333
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "stage": "crouch",
+            "time": 1.5,
+            "gap": 7.035483307049617e-13,
+            "normal": 81.0366656599151,
+            "stance": true,
+            "angle": -0.23938165063268313,
+            "support": {
+              "x": 2.3917548174114094,
+              "y": 0.32450000000070356,
+              "z": -0.25669996049093163
+            },
+            "ankle": {
+              "x": 2.4697903504755017,
+              "y": 0.48322855417658445,
+              "z": -0.18
+            }
+          },
+          "finalReturn": {
+            "frame": 419,
+            "stage": "return",
+            "time": 3.5,
+            "gap": 1.6384116285905748e-12,
+            "normal": 48.45764871265377,
+            "stance": true,
+            "angle": 8.026912468039882e-14,
+            "support": {
+              "x": 2.618645152792185,
+              "y": 0.3245000000016384,
+              "z": -0.25669996049093163
+            },
+            "ankle": {
+              "x": 2.505199999992196,
+              "y": 0.4601999958972997,
+              "z": -0.18
+            }
+          },
+          "maximumGapState": {
+            "frame": 15,
+            "stage": "crouch",
+            "time": 0.13333333333333333,
+            "gap": 0.08306767995965691,
+            "normal": 0,
+            "stance": false,
+            "angle": 0.0029306949303933294,
+            "support": {
+              "x": 2.6751287523092935,
+              "y": 0.4075676799596569,
+              "z": -0.25669996049093163
+            },
+            "ankle": {
+              "x": 2.5620817814183363,
+              "y": 0.5435995657521961,
+              "z": -0.18
+            }
+          },
+          "positiveContactAtFinalCrouch": true,
+          "positiveContactAtFinalReturn": true,
+          "maximumPenetration": 2.764389828158187e-10
+        }
+      },
+      "maximumPenetration": 2.764389828158187e-10
+    },
+    {
+      "boss": true,
+      "dir": 1,
+      "minimumGroundGap": -1.8442158911113893e-10,
+      "maximumContactError": 9.999543415517564e-10,
+      "maxAbsoluteBaseMotor": 0,
+      "airReactionCount": 1,
+      "feet": {
+        "front": {
+          "maximumGap": 0.032620713453441474,
+          "minimumGap": -7.21137594084098e-11,
+          "maximumNormal": 416.27458746860486,
+          "positiveNormalFrames": 402,
+          "positiveNormalCrouchFrames": 162,
+          "positiveNormalReturnFrames": 240,
+          "flightIntervals": [
+            {
+              "from": 4,
+              "stage": "crouch",
+              "to": 24,
+              "frames": 21,
+              "duration": 0.175,
+              "landingFrame": 25,
+              "landingTime": 0.21666666666666667,
+              "landingNormal": 416.27458746860486,
+              "takeoffDetectedTime": 0.041666666666666664
+            },
+            {
+              "from": 29,
+              "stage": "crouch",
+              "to": 29,
+              "frames": 1,
+              "duration": 0.008333333333333333,
+              "landingFrame": 30,
+              "landingTime": 0.2583333333333333,
+              "landingNormal": 88.91438407407873,
+              "takeoffDetectedTime": 0.25
+            }
+          ],
+          "positiveAirReactionFrames": [],
+          "firstPositiveNormalAfterReturn": {
+            "frame": 180,
+            "returnFrame": 0,
+            "timeAfterNeutral": 0.008333333333333333
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "stage": "crouch",
+            "time": 1.5,
+            "gap": 2.544631172440859e-13,
+            "normal": 22.458249897514435,
+            "stance": true,
+            "angle": -0.011802105460309242,
+            "support": {
+              "x": -1.0819548174707248,
+              "y": 0.3245000000002545,
+              "z": 0.27669996049093165
+            },
+            "ankle": {
+              "x": -1.1937905907636308,
+              "y": 0.46152940612660487,
+              "z": 0.2
+            }
+          },
+          "finalReturn": {
+            "frame": 419,
+            "stage": "return",
+            "time": 3.5,
+            "gap": 1.4019341243454164e-12,
+            "normal": 55.11331920327932,
+            "stance": true,
+            "angle": 1.894873147278986e-13,
+            "support": {
+              "x": -1.3088451374176095,
+              "y": 0.32450000000140194,
+              "z": 0.27669996049093165
+            },
+            "ankle": {
+              "x": -1.1954000000089395,
+              "y": 0.4601999958970756,
+              "z": 0.2
+            }
+          },
+          "maximumGapState": {
+            "frame": 14,
+            "stage": "crouch",
+            "time": 0.125,
+            "gap": 0.032620713453441474,
+            "normal": 0,
+            "stance": false,
+            "angle": 0.0035245230797282256,
+            "support": {
+              "x": -1.365831161642032,
+              "y": 0.3571207134534415,
+              "z": 0.27669996049093165
+            },
+            "ankle": {
+              "x": -1.2528650056325086,
+              "y": 0.49321970567671203,
+              "z": 0.2
+            }
+          },
+          "positiveContactAtFinalCrouch": true,
+          "positiveContactAtFinalReturn": true,
+          "maximumPenetration": 7.21137594084098e-11
+        },
+        "back": {
+          "maximumGap": 0.08305679314063275,
+          "minimumGap": -1.8442158911113893e-10,
+          "maximumNormal": 164.6253910498587,
+          "positiveNormalFrames": 393,
+          "positiveNormalCrouchFrames": 153,
+          "positiveNormalReturnFrames": 240,
+          "flightIntervals": [
+            {
+              "from": 2,
+              "stage": "crouch",
+              "to": 29,
+              "frames": 28,
+              "duration": 0.23333333333333334,
+              "landingFrame": 30,
+              "landingTime": 0.2583333333333333,
+              "landingNormal": 164.6253910498587,
+              "takeoffDetectedTime": 0.025
+            }
+          ],
+          "positiveAirReactionFrames": [
+            {
+              "frame": 28,
+              "gap": 0.0030665770402963366,
+              "normal": 34.52321498708082
+            }
+          ],
+          "firstPositiveNormalAfterReturn": {
+            "frame": 180,
+            "returnFrame": 0,
+            "timeAfterNeutral": 0.008333333333333333
+          },
+          "finalCrouch": {
+            "frame": 179,
+            "stage": "crouch",
+            "time": 1.5,
+            "gap": 1.6601164887219966e-12,
+            "normal": 81.05538110570876,
+            "stance": true,
+            "angle": -0.23939222859720966,
+            "support": {
+              "x": -2.391754817401389,
+              "y": 0.3245000000016601,
+              "z": -0.10330003950906835
+            },
+            "ankle": {
+              "x": -2.4697886714361,
+              "y": 0.4832293796257612,
+              "z": -0.18
+            }
+          },
+          "finalReturn": {
+            "frame": 419,
+            "stage": "return",
+            "time": 3.5,
+            "gap": 2.326139281194628e-12,
+            "normal": 48.46515578714178,
+            "stance": true,
+            "angle": 7.993605777301127e-14,
+            "support": {
+              "x": -2.6186451527895067,
+              "y": 0.32450000000232615,
+              "z": -0.10330003950906835
+            },
+            "ankle": {
+              "x": -2.5051999999895176,
+              "y": 0.4601999958979874,
+              "z": -0.18
+            }
+          },
+          "maximumGapState": {
+            "frame": 15,
+            "stage": "crouch",
+            "time": 0.13333333333333333,
+            "gap": 0.08305679314063275,
+            "normal": 0,
+            "stance": false,
+            "angle": 0.0029485465859067084,
+            "support": {
+              "x": -2.6751324829727623,
+              "y": 0.40755679314063276,
+              "z": -0.10330003950906835
+            },
+            "ankle": {
+              "x": -2.562087940494182,
+              "y": 0.5435906969870776,
+              "z": -0.18
+            }
+          },
+          "positiveContactAtFinalCrouch": true,
+          "positiveContactAtFinalReturn": true,
+          "maximumPenetration": 1.8442158911113893e-10
+        }
+      },
+      "maximumPenetration": 1.8442158911113893e-10
+    }
+  ],
+  "sourcesAfter": {
+    "public/engine.js": "ff968c45a2e01b7a6b4da4b567b153b2103273c59f904d718d0187939c75a363",
+    "public/physics/articulated-rig.js": "4c4ba1394b18cb868145d85f227d9653ab900a930cbdec06e5547c37b4a6990f"
+  },
+  "sourcesUnchanged": true,
+  "loadedModuleCaveat": "ES modules are cached within this process. SourcesBefore/After fingerprint files around execution; a concurrent file change is reported, not silently attributed to the earlier freeze.",
+  "summary": {
+    "cases": 4,
+    "allFinalCrouchContactsPositive": true,
+    "allFinalReturnContactsPositive": true,
+    "allReturnFramesHavePositiveNormal": true,
+    "maximumPenetration": 2.764389828158187e-10,
+    "maximumAbsoluteBaseMotor": 0,
+    "positiveAirReactionEvents": 4,
+    "interpretation": "Transient lift is followed by positive final support and full neutral recovery. Four back-foot pre-landing states have positive recorded normal at >2mm gap; retained explicitly for solver interpretation, not certified as absent or dismissed."
+  }
+}

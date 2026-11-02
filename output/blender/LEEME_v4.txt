@@ -1,0 +1,31 @@
+WATERDUEL — ESCENOGRAFÍA V4
+
+Abrir WaterDuel_Atelier_v4.blend para la versión de día.
+Abrir WaterDuel_Atelier_v4_noche.blend para la versión nocturna.
+Blender 5.2, Cycles. F12 renderiza la cámara principal.
+Cada fuente conserva las tres cámaras y 22 luces del escenario, con
+dos pools de techo recolocados. El ventilador mantiene su bucle de
+7,2 rad/s y pivote fijo. Las imágenes usadas están empaquetadas.
+
+Se aplicaron las propuestas 4, 6, 7, 10, 11–22: reflejos del taller,
+profundidad de techo, exterior tras ventanas, noche, vetas por pieza,
+testa, abolladuras en latón, humedad irregular, reparaciones de madera,
+tornillería, depósitos en cobre, vidrio ondulado, restos de barniz,
+reparación de mampostería, muestrario y siluetas de herramientas.
+
+Los materiales de madera, cobre y pared conservan sus capas de autoría
+en estas fuentes. El GLB usa canales PBR horneados y autocontenidos.
+El barniz procedural completo se conserva en Blender; la versión PBR
+representa sus señales mediante color, rugosidad y normales.
+
+Los renders de día y noche están junto a estos archivos.
+El cerramiento 360 compatible tiene su propia fuente:
+WaterDuel_Workshop360_v4.blend. Su hueco trasero permite ver el patio
+a través de los dos huecos de la fachada histórica del atelier.
+
+Entrega y comprobaciones: docs/ENTREGA_ESCENOGRAFIA_RUNTIME_V4.md.
+Manifiesto de las 16 mejoras, recursos y evidencias:
+public/assets/environment/workshop/features-v4.json.
+
+Las fuentes y GLB originales/v2/v3 se conservan intactos. El cambio
+de rutas y la activación del preset nocturno corresponden a Principal.

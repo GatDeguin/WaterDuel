@@ -8,12 +8,14 @@ import {fluidSolidColliders,resolveLiquidSolid} from '../public/physics/fluid-so
 import {TABLE_TOP,waterDropRadius} from '../public/physics/dimensions.js';
 import {getDefense} from '../public/equipment.js';
 import {AXE_REFERENCE_PINS,applyAxeFacingReference} from './fixtures/axe-facing-reference-layer.mjs';
+import {publishedN14,nativeN16Fixtures,materialVelocityReference,assertMaterialVelocity} from './fixtures/rig-v4-geometry-reference-113.mjs';
 
 const frozenRig=await fs.readFile(new URL('./fixtures/articulated-rig-pre-goal-y-only-1.7.4.js.txt',import.meta.url),'utf8');
 assert.equal(createHash('sha256').update(frozenRig).digest('hex'),AXE_REFERENCE_PINS.goal);
 const importReference=source=>import('data:text/javascript;base64,'+Buffer.from(source.replace(/(from\s*)(['"])(\.[^'"\n]+)\2/g,(_match,prefix,quote,specifier)=>prefix+quote+new URL(specifier,new URL('../public/physics/articulated-rig.js',import.meta.url)).href+quote)).toString('base64'));
 const {ArticulatedRig:LegacyRig}=await importReference(frozenRig);
 const {ArticulatedRig:FacingReferenceRig}=await importReference(applyAxeFacingReference(frozenRig,'goal'));
+const PublishedN14=await publishedN14();
 
 function digest(value){
   const hash=createHash('sha256');
@@ -39,7 +41,7 @@ function separated(point,solid,radius){
   return solid.axes.some((axis,i)=>Math.abs((point.x-solid.center.x)*axis.x+(point.y-solid.center.y)*axis.y+(point.z-solid.center.z)*(axis.z??0))>solid.half[i]+radius);
 }
 
-test('intact liquid colliders retain the original IEEE values, ordering, CCD samples and surface velocities',()=>{
+test('historical N14 intact liquid colliders retain the original IEEE values, ordering, CCD samples and surface velocities',()=>{
   // Captured before the detached-water change from fluid-solids SHA256
   // 8f86d2f5ba787f4d0d4f47a96e21dba716a625f85f40e04357bc3e22c0822f33.
   function statesFor(Rig){const states=[];
@@ -52,10 +54,29 @@ test('intact liquid colliders retain the original IEEE values, ordering, CCD sam
   }
   return states;}
   // Retain the original checksum against its pinned implementation. The live
-  // product is compared in full IEEE detail to that same source with only the
+  // published N14 product is compared in full IEEE detail to that source with only the
   // reversible, user-authorized mirrored axe head correction applied.
   assert.equal(digest(statesFor(LegacyRig)),'72e3ee2b19323642f0d14abc76206378ed8bc922fa0ee4941ebeed3144e65179');
-  assert.deepEqual(statesFor(ArticulatedRig),statesFor(FacingReferenceRig));
+  assert.deepEqual(statesFor(PublishedN14),statesFor(FacingReferenceRig));
+});
+
+test('native N16 intact and severed-foot liquid colliders own each body once and retain material velocities and parcel inventory',()=>{
+  for(const rig of nativeN16Fixtures()){
+    const beforeMass=rig.diagnostics().bodies.reduce((sum,b)=>sum+b.mass,0);
+    rig.damageJoint('frontKnee',1);assert.equal(rig.isBodyAttached('frontFoot'),false);
+    const fragment=rig.fragments[0],colliders=fluidSolidColliders([{rig}]),parent=colliders.filter(c=>c.fragmentId===undefined),detached=colliders.filter(c=>c.fragmentId===fragment.id);
+    assert.ok(detached.some(c=>c.body==='frontFoot'),'the severed sole reaches the actual liquid stream');
+    assert.ok(parent.every(c=>!fragment.bodyNames.includes(c.body)),'a severed body cannot retain parent fluid coverage');
+    assert.equal(parent.length,rig.collisionPanels().length);assert.equal(detached.length,fragment.collisionPanels().length);
+    near(rig.diagnostics().bodies.reduce((sum,b)=>sum+b.mass,0)+fragment.mass,beforeMass,'severed foot mass accounted once');
+    for(const collider of parent)assertMaterialVelocity(collider.velocityAt(collider.center),materialVelocityReference(rig,collider.body,collider.center),'remaining parent '+collider.key);
+    const solid=detached.find(c=>c.body==='frontFoot'),radius=.002,from={...solid.center,y:solid.bounds.max.y+radius+.02};
+    const parcel={...solid.center,vx:0,vy:-3,vz:0,volume:1e-7},parcelBefore={...parcel},bodyBefore={x:fragment.x,y:fragment.y,vx:fragment.vx,vy:fragment.vy,omega:fragment.omega};
+    resolveLiquidSolid(parcel,from,radius,RIG_STEP,[solid]);
+    assert.notDeepEqual(parcel,parcelBefore,'the detached sole must actually deflect the parcel');
+    assert.equal(parcel.volume,1e-7);assert.ok(Object.values(parcel).every(Number.isFinite));
+    assert.deepEqual({x:fragment.x,y:fragment.y,vx:fragment.vx,vy:fragment.vy,omega:fragment.omega},bodyBefore,'one-way liquid response cannot add an impulse to the severed sole');
+  }
 });
 
 test('short and long severed shields retain their exact pose envelope, depth, floor corners and original mass',()=>{

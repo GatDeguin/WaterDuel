@@ -1,0 +1,26 @@
+Functional repeat pinned to engine ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d
+✔ Normal conserva la intención anterior; reverse invierte la hoja real y recoge la guardia fuera del globo (948.036ms)
+✔ La palma física sigue la mano invertida mientras la hoja conserva su punta y perfil de parada (758.8271ms)
+✔ Los sockets de daga GLB v2 y v3 coinciden con la punta física en ambos agarres y jugadores (1540.967ms)
+✔ Los mandos producen una parada real con desvío tangencial y reacción opuesta, sin asignar puntos (8891.7647ms)
+✔ La mano GLB conserva el agarre real en su socket y sus vértices de palma invierten respecto de la hoja (840.1194ms)
+✔ El desprendimiento real retira la parada inversa aun si queda una pose de guardia anterior (4268.8245ms)
+✔ Un brazo dañado conserva topología y números finitos; cambiar a otra defensa retira la hoja invertida (536.7733ms)
+✔ El filo real .125–.42 de la daga evita madera propia al estabilizar ambas guardias y lados (806.3829ms)
+✔ La captura que excede 1e-7 conserva geometría F64 y satisface el contrato CPU de datos Float32 (2.8205ms)
+✔ Un socket authored desplazado 1e-4 falla el contrato canónico aunque se conserve la matriz (1.2856ms)
+✔ Alterar una ULP un coeficiente F32 falla incluso si el extremo está sobre el eje Y local (0.8142ms)
+✔ Un extremo geométrico incorrecto falla el límite F64 original de 1e-7 (0.3082ms)
+✔ Un extremo cuantizado fuera de su cota falla por componente con geometría F64 válida (0.3128ms)
+✔ La referencia no toma la extensión ni los extremos de deformación del transform productivo (0.6605ms)
+✔ Flex, padres no identidad y datos no finitos se rechazan en este contrato de daga recta (1.0364ms)
+✔ La cota se propaga con orientación, extensión, coordenadas y traslación; no es un epsilon fijo (0.6836ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18815.1822
+{"sourceFiles":51,"beforeDigest":"2c0ce9b6c8c73fb042b18aa099a278285616ec8e7f193827349894484200cf94","afterDigest":"2c0ce9b6c8c73fb042b18aa099a278285616ec8e7f193827349894484200cf94","drift":[],"engineBefore":"ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d","engineAfter":"ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d","rigAfter":"e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b","testAfter":"24e59f5cc716346045b6de4f0cd8af98700e74be35f8d64af2000acdc810c802"}

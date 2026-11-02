@@ -42,8 +42,10 @@ test('Los pivotes v2 siguen al rig real de ambos jugadores sin reflexiones ni po
       if(p.targetEnd&&!/^(forearm|shin)\./.test(p.boneName))near(transform(m,p.anchorEnd),xyz(f.pose[p.targetEnd]));
       if(p.socket==='Socket_MainHand')near(transform(m,p.anchorSocket),xyz(f.pose.mainHand));
       if(p.socket==='Socket_SecondaryHand')near(transform(m,p.anchorSocket),xyz(f.pose.offHand));
-      if(p.socket==='Socket_Foot_R')near(transform(m,p.anchorSocket),[f.pose.footF.x,f.pose.footF.y-.075,f.pose.footF.z??0]);
-      if(p.socket==='Socket_Foot_L')near(transform(m,p.anchorSocket),[f.pose.footB.x,f.pose.footB.y-.075,f.pose.footB.z??0]);
+      if(p.socket==='Socket_Foot_R'||p.socket==='Socket_Foot_L'){
+        const side=p.socket.endsWith('R')?'front':'back',bone=c.bones.get(p.boneName),sourceSocket=transform(bone.worldMatrix,p.anchorSocket);
+        near(transform(m,p.anchorSocket),transform(f.pose.feet[side].matrix,sourceSocket.map((v,i)=>(v-bone.sourceOrigin[i])/c.source.authoredScale)));
+      }
     }
     for(const suffix of ['R','L']){
       const fi=c.parts.findIndex(p=>p.boneName===`forearm.${suffix}`),hi=c.parts.findIndex(p=>p.boneName===`hand.${suffix}`);
@@ -179,17 +181,27 @@ test('Las suelas v2 descansan sobre TABLE_TOP en ambos lados y variantes, sin hu
   }
 });
 
-test('El retarget de suela conserva la elevación real de un paso del rig y la unión espinilla-pie',async()=>{
-  const c=await character(),game=new DuelEngine();game.setMode('versus');game.start();for(let i=0;i<81;i++)game.update(.04);
+test('El retarget de suela v4 conserva rodadura física y la unión espinilla-pie',async()=>{
+  const c=prepareCharacter(await load('characters/water-mannequin/v4/water-mannequin.glb')),game=new DuelEngine();game.setMode('versus');game.start();for(let i=0;i<81;i++)game.update(.04);
   game.setControl(1,{lean:1});let highest=0;
   for(let step=0;step<90;step++){
     game.update(1/120);const f=game.fighters[0],matrices=characterTransforms(c,f);
     for(const [suffix,foot] of [['R','footF'],['L','footB']]){
-      const height=f.pose[foot].y-(TABLE_TOP+.075);highest=Math.max(highest,height);
-      near([minimumFootY(c,matrices,suffix)],[TABLE_TOP+height],3e-5);
+      const physical=f.pose.feet[suffix==='R'?'front':'back'],height=physical.support.y-TABLE_TOP;highest=Math.max(highest,height);
+      near([minimumFootY(c,matrices,suffix)],[physical.support.y],3e-5);
       const si=c.parts.findIndex(p=>p.boneName===`shin.${suffix}`),fi=c.parts.findIndex(p=>p.boneName===`foot.${suffix}`);
       near(transform(matrices[si],c.parts[si].anchorEnd),transform(matrices[fi],[0,0,0]));
     }
   }
   assert.ok(highest>.03,'the physical foot really rose during a commanded gait');
+});
+
+test('La pose antigua sin feet conserva exactamente la suela horizontal del retarget v3',async()=>{
+  const c=await character(),game=new DuelEngine();
+  for(const f of game.fighters){
+    f.pose=structuredClone(f.pose);delete f.pose.feet;delete f.pose.ankleF;delete f.pose.ankleB;
+    f.pose.footF.y=TABLE_TOP+.075;f.pose.footB.y=TABLE_TOP+.075;
+    const matrices=characterTransforms(c,f);
+    for(const suffix of ['R','L'])near([minimumFootY(c,matrices,suffix)],[TABLE_TOP],3e-5);
+  }
 });

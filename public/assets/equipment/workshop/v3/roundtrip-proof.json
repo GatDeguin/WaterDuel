@@ -1,0 +1,25 @@
+{
+  "source": "Final v3 GLBs reimported into a clean Blender scene",
+  "assets": [
+    "sword",
+    "spear",
+    "axe",
+    "maul",
+    "short",
+    "long",
+    "knife"
+  ],
+  "board": "workshop-craft-v3-preview.png",
+  "detail_count": 11,
+  "texture_max_dimension": 512,
+  "new_colliders": false,
+  "asset_sha256": {
+    "sword": "7c0c78b66d1e4041d5fb9f4f513bb29ecd478c8b59c6e7b2ff36a3fc3248c391",
+    "spear": "35c85011c8d05963916a06ceb8d3d1e453576834b29e12827f697941b09d68fe",
+    "axe": "13825c1246d80047b4474afab28c81b030e6f810eca6bf35dd4f84330c009d05",
+    "maul": "31bb9ed2d576f1be84f7b9823fb9bf915d89ec323d49a72228c3a1615134f074",
+    "short": "633cd9b79f06dda0e8985e78a8702266fa268938db72b6a2a2198a2e12c80706",
+    "long": "e38069ad6a0436f61568770d7521c4c0f84ee3d375798bd83210c4a707154bcb",
+    "knife": "707547e565d65fe9f7e6c5bc915d644851fe5bd962840ca59d9d6b9bd9c50791"
+  }
+}

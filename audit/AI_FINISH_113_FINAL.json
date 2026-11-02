@@ -1,0 +1,113 @@
+{
+  "frozen": true,
+  "engine": "ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d",
+  "before": {
+    "public/physics/foot-geometry.js": "8F453198BFC732634F0031E3630ECC7770CE9FF21C6F1C6B335E52C3A8C6281C",
+    "public/auto-defense.js": "B3700DA20275323DB7311A0584CD5E0E2D7010C13592A8925B2ABF1254E3E604",
+    "public/physics/joint-play.js": "EFEE4E624C700C4C8B4BCB514BABEA9DDA8F90EEDC2612AFEEFC1C43B3FA380E",
+    "tests/boss-choreography-113.test.mjs": "7688F575D73159BDB1EC96DBBA214371C3BE74DB7EDD77566AFFDC8240FDA2B0",
+    "tests/ai-mobile-parry-113.test.mjs": "56CD446978CAF19CAEC3B929980D39B5797517E993742D69D24F58B293D202BE",
+    "tests/compound-contact.test.mjs": "2236B8AAD30B734CB5DFA67A3F4ADB8D79D564B6874B8ACF5DFEBFAC4CB3696E",
+    "tests/ai-readiness-xyz.test.mjs": "E5C48810AE9DF57F7434EC42C9044659273DB6DF36D93224F2A2E842BBB65DA9",
+    "public/physics/limb-state.js": "34F450F643D527B2E6F56BC94B21BE3807F391B572FC78D50F49B50B92F56D73",
+    "public/physics/locomotion.js": "61D0E664723F033BA559D2CA894B3C9E0EAE382C55227BE7C66F2A0AA7DED5C0",
+    "public/physics/character-intent.js": "BA5FDCB48DABEECE52EE8E81D0CCAFAA30BB13F24754A6AB5E6C33A99995B121",
+    "public/physics/body-evasion.js": "065B1E68FF1A1D170ADF59CCE64F1175B03F82742FC8E8116FCBDB4B0637BFC1",
+    "public/physics/articulated-rig.js": "E02E42100D66B8D25B3D525D0D4A53F54EDCDEABAF04152091BC3ECCFA8E518B",
+    "public/engine.js": "AB55912DA7216CDB3E8A5C8C52D5FCF9F68026E6981F3E19C8471B33F7DD9D2D",
+    "tests/ai.test.mjs": "0C3566CAA07F623240A7D3E511B0ECA6AE2206E92760DD511F1055F761424D0E",
+    "public/physics/weapon-bind.js": "96250B199CAC641D405F98D0180441E1FFE889754325480557E9FD5C804B7E9A",
+    "tests/weapon-bind.test.mjs": "E801F96466B4803FE66F8C7230A9E23433B584FF7039FA759511874EEF2B571C",
+    "public/physics/standby.js": "1DCD5B2C569211494F78E9F7BED95DE499C57D75E0A4A1F672FCE58F3C407889",
+    "public/equipment.js": "E3FD41678EF88BEC868BF8B79D9BC52BE884F712F11A3E1706305724E86CEF67",
+    "tests/boss-opening.test.mjs": "CA8121E22C7428C1A3B9D6914E18EC05C388AC8EC0F6C0FA34669FCF861A30B6",
+    "public/physics/shin-geometry.js": "DD02583D48EAF11231BBBE7D6A8BAD1014E93A96545CEEB2DDDCC7FF6944F23B",
+    "tests/manual-weapon-parry.test.mjs": "87DA6D4F3489D66D0DB3EB22843D24267731BEE0C00056858D9F2C0B0BF325C9",
+    "public/knife-technique.js": "B568D4F75647EC6F92D560995C38BFF476782B93859A63A36D961BD8F676A0B8",
+    "public/boss-choreography.js": "A949E3B5794FCAACB36729F3879778D3F5BF9926330064391B62B1833A296A4E",
+    "tests/ai-styles.test.mjs": "CA27E643749CC1A006FA0549096508D68EC89559423C0B1ED34A3CC4DEA9277D",
+    "tests/ai-observed-commitment-113.test.mjs": "5CFBAC541205CA3765892AE1ED7E65761AC3B060B36C44FC68A39DE62645B0B8"
+  },
+  "after": {
+    "public/physics/foot-geometry.js": "8f453198bfc732634f0031e3630ecc7770ce9ff21c6f1c6b335e52c3a8c6281c",
+    "public/auto-defense.js": "b3700da20275323db7311a0584cd5e0e2d7010c13592a8925b2abf1254e3e604",
+    "public/physics/joint-play.js": "efee4e624c700c4c8b4bcb514babea9dda8f90eedc2612afeefc1c43b3fa380e",
+    "tests/boss-choreography-113.test.mjs": "7688f575d73159bdb1ec96dbba214371c3be74db7edd77566affdc8240fda2b0",
+    "tests/ai-mobile-parry-113.test.mjs": "56cd446978caf19caec3b929980d39b5797517e993742d69d24f58b293d202be",
+    "tests/compound-contact.test.mjs": "2236b8aad30b734cb5dfa67a3f4adb8d79d564b6874b8acf5dfebfac4cb3696e",
+    "tests/ai-readiness-xyz.test.mjs": "e5c48810ae9df57f7434ec42c9044659273db6df36d93224f2a2e842bbb65da9",
+    "public/physics/limb-state.js": "34f450f643d527b2e6f56bc94b21be3807f391b572fc78d50f49b50b92f56d73",
+    "public/physics/locomotion.js": "61d0e664723f033ba559d2ca894b3c9e0eae382c55227be7c66f2a0aa7ded5c0",
+    "public/physics/character-intent.js": "ba5fdcb48dabeece52ee8e81d0ccafaa30bb13f24754a6ab5e6c33a99995b121",
+    "public/physics/body-evasion.js": "065b1e68ff1a1d170adf59cce64f1175b03f82742fc8e8116fcbdb4b0637bfc1",
+    "public/physics/articulated-rig.js": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b",
+    "public/engine.js": "ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d",
+    "tests/ai.test.mjs": "0c3566caa07f623240a7d3e511b0eca6ae2206e92760dd511f1055f761424d0e",
+    "public/physics/weapon-bind.js": "96250b199cac641d405f98d0180441e1ffe889754325480557e9fd5c804b7e9a",
+    "tests/weapon-bind.test.mjs": "e801f96466b4803fe66f8c7230a9e23433b584ff7039fa759511874eef2b571c",
+    "public/physics/standby.js": "1dcd5b2c569211494f78e9f7bed95de499c57d75e0a4a1f672fce58f3c407889",
+    "public/equipment.js": "e3fd41678ef88bec868bf8b79d9bc52be884f712f11a3e1706305724e86cef67",
+    "tests/boss-opening.test.mjs": "ca8121e22c7428c1a3b9d6914e18ec05c388ac8ec0f6c0fa34669fcf861a30b6",
+    "public/physics/shin-geometry.js": "dd02583d48eaf11231bbbe7d6a8bad1014e93a96545ceeb2dddcc7ff6944f23b",
+    "tests/manual-weapon-parry.test.mjs": "87da6d4f3489d66d0db3eb22843d24267731bee0c00056858d9f2c0b0bf325c9",
+    "public/knife-technique.js": "b568d4f75647ec6f92d560995c38bff476782b93859a63a36d961bd8f676a0b8",
+    "public/boss-choreography.js": "a949e3b5794fcaacb36729f3879778d3f5bf9926330064391b62b1833a296a4e",
+    "tests/ai-styles.test.mjs": "ca27e643749cc1a006fa0549096508d68ec89559423c0b1ed34a3cc4dea9277d",
+    "tests/ai-observed-commitment-113.test.mjs": "5cfbac541205ca3765892ae1ed7e65761ac3b060b36c44fc68a39de62645b0b8"
+  },
+  "changed": [],
+  "groups": {
+    "ai": {
+      "tests": 35,
+      "passed": 35,
+      "failed": 0
+    },
+    "historical": {
+      "tests": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    "contact": {
+      "tests": 35,
+      "passed": 35,
+      "failed": 0
+    }
+  },
+  "total": 73,
+  "passed": 73,
+  "failed": 0,
+  "exits": {
+    "contactExit": 0,
+    "aiExit": 0,
+    "historicalExit": 0
+  },
+  "manifest": {
+    "public/single-player.js": "6d3b1c27e78e761600a70663476800cd5c77033572e10dde50d7dcf97f0952f1",
+    "public/campaign-progression.js": "f8bacd48e7d9d2ed900544ef4af871d4d14f7501a6442e2639e6a861debf858a",
+    "public/boss-choreography.js": "a949e3b5794fcaacb36729f3879778d3f5bf9926330064391b62b1833a296a4e",
+    "public/engine.js": "ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d",
+    "tests/campaign-progression-113.test.mjs": "042b7aecd1c3d0f29a6cc1686c10b6348f3fa4be44b6813600399c69d6be6947",
+    "tests/boss-choreography-113.test.mjs": "7688f575d73159bdb1ec96dbba214371c3be74db7edd77566affdc8240fda2b0",
+    "tests/ai-observed-commitment-113.test.mjs": "5cfbac541205ca3765892ae1ed7e65761ac3b060b36c44fc68a39de62645b0b8",
+    "tests/ai-mobile-parry-113.test.mjs": "56cd446978caf19caec3b929980d39b5797517e993742d69d24f58b293d202be",
+    "tests/ai.test.mjs": "0c3566caa07f623240a7d3e511b0eca6ae2206e92760dd511f1055f761424d0e",
+    "tests/compound-contact.test.mjs": "2236b8aad30b734cb5dfa67a3f4adb8d79d564b6874b8acf5dfebfac4cb3696e",
+    "tests/manual-weapon-parry.test.mjs": "87da6d4f3489d66d0db3eb22843d24267731bee0c00056858d9f2c0b0bf325c9",
+    "tests/weapon-bind.test.mjs": "e801f96466b4803fe66f8c7230a9e23433b584ff7039fa759511874eef2b571c"
+  },
+  "assertionPreservation": {
+    "compound-contact": {
+      "originalAssertionLines": 7,
+      "missingOriginalLines": []
+    },
+    "manual-weapon-parry": {
+      "originalAssertionLines": 36,
+      "missingOriginalLines": []
+    },
+    "weapon-bind": {
+      "originalAssertionLines": 66,
+      "missingOriginalLines": []
+    }
+  },
+  "review": "Independent read-only approval on AB55912D, no P1/P2 and no weakened tests."
+}

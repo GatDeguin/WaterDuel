@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {normalizeMenuCommand,sanitizeMenuState} from '../public/remote-menu.js';
 import {RadialJoystick,weaponGesture,movementGesture} from '../public/joysticks.js';
 import {AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled} from '../public/audio/effect-controls.js';
+import {contactHaptic} from '../public/item-haptics.js';
 const source=await readFile(new URL('../public/controller.js',import.meta.url),'utf8');
 const markup=await readFile(new URL('../public/controller.html',import.meta.url),'utf8');
 const mobileMarkup=await readFile(new URL('../public/mobile.html',import.meta.url),'utf8');
@@ -35,6 +36,7 @@ function fixture(slot=1,view='controller'){
   class Socket{static OPEN=1;static CONNECTING=0;static CLOSED=3;constructor(){this.readyState=0;this.messages=[];sockets.push(this);}send(raw){this.messages.push(JSON.parse(raw));}open(){this.readyState=1;this.onopen?.();}receive(data){this.onmessage?.({data:JSON.stringify(data)});}close(){this.readyState=3;this.onclose?.();}}
   const ctx=vm.createContext({document,window,navigator:{vibrate(){}},location:{search:`?slot=${slot}&key=private-fixture`,protocol:'http:',host:'fixture.local:8787'},WebSocket:Socket,URLSearchParams,Date,console,RadialJoystick,weaponGesture,movementGesture,
     AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled,connectMobileController:()=>new Socket(),
+    contactHaptic:(data,localSlot)=>contactHaptic(data==null?data:JSON.parse(JSON.stringify(data)),localSlot),
     setInterval:()=>++timer,setTimeout:fn=>{timers.set(++timer,fn);return timer;},clearTimeout:id=>timers.delete(id)});
   new vm.Script(source.replace(/^import[^\n]+;\s*$/gm,''),{filename:fileURLToPath(new URL('../public/controller.js',import.meta.url)),importModuleDynamically:vm.constants.USE_MAIN_CONTEXT_DEFAULT_LOADER}).runInContext(ctx);
   const socket=sockets[0];socket.open();socket.receive({type:'welcome',role:'controller',slot,hostOnline:true,serverTime:Date.now()+10000});
@@ -43,6 +45,42 @@ function fixture(slot=1,view='controller'){
 }
 const state=(extra={})=>({phase:'ready',mode:'solo',experience:'duel',difficulty:'normal',bestOf:3,arena:'atelier',quality:'high',camera:'combat',lighting:'cinematic',audioOn:true,volume:55,effectMask:ALL_EFFECTS_MASK,scores:[1,0],round:2,clock:'00:37',fighters:[{slot:1,name:'Mint',equipment:{weapon:'sword',defense:'short'},guardPercent:70,guardLabel:'GUARDIA',wins:[true,false]},{slot:2,name:'Amber',equipment:{weapon:'spear',defense:'long'},guardPercent:20,guardLabel:'ACTIVA',wins:[false,false]}],objective:{title:'Escuela',instruction:'Mové el brazo real',progress:2,total:7,completed:false,nextAction:null},replay:{clips:[{id:7,duration:2.8,complete:true}],active:false,paused:true,speed:.5,position:.25},configurable:true,trainingEquipmentLocked:false,message:'Preparados',...extra});
 const neutral={offX:0,offY:0,mainX:0,mainY:0,lean:0,bodyY:0,wrist:0,thrust:false,guard:false,attackHeld:false,headX:0,headZ:0};
+
+test('campaign tier picker retains its intent until ACK and newer campaign authority and restores a rejected change',()=>{
+ for(const view of ['controller','mobile']){
+  const f=fixture(1,view),objective={kind:'campaign',title:'Campeones',campaignTier:'normal',advancedUnlocked:true,trophy:'champion'};
+  f.receive(state({experience:'campaign',objective}));f.open();assert.equal(f.el('menuCampaignControls').hidden,false);
+  f.change('menuCampaignTier','advanced');const sent=f.commands().at(-1);assert.equal(sent.command,'setCampaignTier');assert.equal(sent.value,'advanced');
+  f.receive(state({experience:'campaign',objective}));assert.equal(f.el('menuCampaignTier').value,'advanced');assert.equal(f.el('menuCampaignTier').disabled,true);
+  f.socket.receive({type:'command-result',requestId:sent.requestId,ok:true});f.receive(state({experience:'campaign',objective:{...objective,campaignTier:'advanced'}}));
+  assert.equal(f.el('menuCampaignTier').disabled,false);f.change('menuCampaignTier','normal');const next=f.commands().at(-1);
+  f.socket.receive({type:'command-result',requestId:next.requestId,ok:false,message:'No disponible'});assert.equal(f.el('menuCampaignTier').value,'advanced');
+  assert.equal(f.el('mobileMenu').open,true,'switching prepares the encounter and leaves options open');
+ }
+});
+
+test('campaign finale offers one direct advanced action and a specific trophy result without a second menu step',()=>{
+ const f=fixture(),objective={kind:'campaign',title:'Campeones',campaignTier:'normal',advancedUnlocked:true,trophy:'champion',completed:true,nextAction:'repeat'};
+ f.receive(state({phase:'matchover',experience:'campaign',scores:[2,0],objective}));assert.match(f.el('resultTitle').textContent,/CAMPAÑA/);
+ assert.match(f.el('resultMessage').textContent,/trofeo|campeón/i);assert.match(f.el('resultActionBtn').textContent,/AVANZADA/);
+ f.el('resultActionBtn').fire('click');assert.equal(f.commands().at(-1).command,'beginAdvancedCampaign');assert.equal(f.commands().filter(c=>c.command==='start').length,0);
+ const sent=f.commands().at(-1);f.socket.receive({type:'command-result',requestId:sent.requestId,ok:true});
+ f.receive(state({phase:'countdown',experience:'campaign',scores:[0,0],objective:{...objective,campaignTier:'advanced',completed:false,trophy:'champion'}}));
+ assert.equal(f.el('matchResult').hidden,true);assert.equal(f.el('mobileMenu').open,false);
+});
+
+test('the final campaign activity button routes to an available action for either tier',()=>{
+ for(const tier of ['normal','advanced']){
+  const f=fixture(),objective={kind:'campaign',campaignTier:tier,advancedUnlocked:true,trophy:tier==='normal'?'champion':'master',completed:true,nextAction:'repeat'};
+  f.receive(state({phase:'matchover',experience:'campaign',scores:[2,0],objective}));f.open();f.el('menuNextBtn').fire('click');
+  assert.equal(f.commands().at(-1).command,tier==='normal'?'beginAdvancedCampaign':'start');
+ }
+});
+
+test('a completed campaign save does not offer a restart action during an active rematch',()=>{
+ const f=fixture();f.receive(state({phase:'fight',configurable:false,experience:'campaign',objective:{kind:'campaign',campaignTier:'advanced',advancedUnlocked:true,trophy:'master',completed:true,nextAction:'repeat'}}));f.open();
+ assert.equal(f.el('menuNextBtn').disabled,true);assert.equal(f.el('menuCampaignTier').disabled,true);
+});
 
 test('both handset surfaces offer every catalogued effect with accessible grouped controls and no master unmute',()=>{
  for(const view of ['controller','mobile']){
@@ -554,4 +592,27 @@ test('fluidez móvil: cambio visual durante combate no desbloquea opciones mecá
   const f=fixture();f.receive(state({phase:'fight',configurable:false,performanceMode:'adaptive'}));f.open();
   assert.equal(f.el('menuPerformanceMode').disabled,false);assert.equal(f.el('menuMode').disabled,true);assert.equal(f.el('menuStartBtn').disabled,true);
   f.change('menuPerformanceMode','fixed');assert.equal(f.commands().at(-1).command,'setPerformanceMode');assert.equal(f.el('menuMode').disabled,true);assert.equal(f.el('menuStartBtn').disabled,true);
+});
+
+test('agarre de cuchillo se ofrece solo en secundaria y queda bloqueado con combate o mazo',async()=>{
+ const f=fixture();const equipped=state({mode:'versus'});equipped.fighters[0].equipment={weapon:'axe',defense:'knife'};
+ f.receive(equipped);f.open();await vm.runInContext('equipmentPromise',f.ctx);
+ assert.equal(f.el('menuKnifeGripField1').hidden,false);assert.equal(f.el('menuKnifeGrip1').value,'normal');assert.equal(f.el('menuKnifeGrip1').disabled,false);
+ assert.equal(f.el('menuKnifeGripField2').hidden,true);
+ f.receive({...equipped,phase:'fight',configurable:false});assert.equal(f.el('menuKnifeGrip1').disabled,true);
+ const heavy=structuredClone(equipped);heavy.fighters[0].equipment={weapon:'maul',defense:'none'};f.receive(heavy);
+ assert.equal(f.el('menuKnifeGripField1').hidden,true);assert.equal(f.el('menuKnifeGrip1').disabled,true);
+});
+
+test('agarre invertido espera ACK y estado aplicado; volver a normal envía elección completa compatible',async()=>{
+ const f=fixture();const before=state({mode:'versus'});before.fighters[0].equipment={weapon:'sword',defense:'knife'};
+ f.receive(before);f.open();await vm.runInContext('equipmentPromise',f.ctx);
+ f.change('menuKnifeGrip1','reverse');const sent=f.commands().at(-1);
+ assert.deepEqual(sent.value,{slot:1,weapon:'sword',defense:'knife',knifeGrip:'reverse'});
+ assert.equal(f.el('menuWeapon1').disabled,true);assert.equal(f.el('menuKnifeGrip1').disabled,true);
+ f.socket.receive({type:'command-result',requestId:sent.requestId,ok:true});f.receive(before);
+ assert.equal(f.el('menuKnifeGrip1').disabled,true,'un estado normal viejo no confirma el agarre invertido');
+ const after=structuredClone(before);after.fighters[0].equipment.knifeGrip='reverse';f.receive(after);
+ assert.equal(f.el('menuKnifeGrip1').disabled,false);assert.equal(f.el('menuKnifeGrip1').value,'reverse');
+ f.change('menuKnifeGrip1','normal');assert.deepEqual(f.commands().at(-1).value,{slot:1,weapon:'sword',defense:'knife'});
 });

@@ -1,8 +1,11 @@
 import {getWeapon,getDefense,WEAPONS,DEFENSES,equipmentAcrossSign} from '../equipment.js';
 import {splitApronParts} from './apron-parts.js';
+import {prepareApronDeformation,deformApronPart} from './apron-deform.js';
 import {apronParentFrame,apronMatrix} from '../physics/apron.js';
 import {bodyForBone,assertFragmentTransform,fragmentMatrix} from './joint-damage.js';
 import {equipmentFlex,equipmentRootTip,bendEquipmentPoint,HANDLE_RADII} from './equipment-flex.js';
+import {knifeHandDirection} from '../knife-technique.js';
+import {physicalNeckMount} from './character-neck.js';
 
 // Column-major glTF matrices. Geometry is prepared once; per-frame work consists
 // only of rigid/affine model matrices. This module never writes to the solver.
@@ -145,7 +148,9 @@ export function prepareCharacter(asset){
     const canonical=basis(times(source.hip,-1/source.authoredScale),[1/source.authoredScale,0,0],[0,1/source.authoredScale,0],[0,0,1/source.authoredScale]);
     part.apronFromBone=multiply(canonical,bones.get(part.boneName).worldMatrix);
   }
-  return {parts:apron.parts,bones,source,nodesByName,triangleCount,excludedTriangles,asset,apron:apron.descriptor,
+  const clothRevision=asset.json?.materials?.some(material=>material.extras?.v4_atlas_uv===1)?4:1;
+  const preparedParts=clothRevision===4?prepareApronDeformation(apron.parts,apron.descriptor):apron.parts;
+  return {parts:preparedParts,bones,source,nodesByName,triangleCount:preparedParts.reduce((sum,p)=>sum+p.indices.length/3,0),excludedTriangles,asset,apron:apron.descriptor,
     apronVariant:apron.parts.some(p=>p.accessory==='apron'&&/Boss/i.test(p.nodeName))?'boss':'normal'};
 }
 
@@ -163,11 +168,17 @@ export function characterTransforms(prepared,fighter){
   // Resize across the grip axis around the authored socket. Physical hand/root motion already owns readjustment.
   const handMain=multiply(primary,multiply(basis([0,0,0],[scale*mainRadius,0,0],[0,scale,0],[0,0,scale*mainRadius]),inverse(source.mainFrame)));
   const defense=getDefense(fighter),offDirection=p.twoHanded?add(vector(p.offHand),subtract(vector(p.tip),vector(p.mainHand))):
-    defense.kind==='knife'&&p.defenseTip?vector(p.defenseTip):add(vector(p.offHand),subtract(vector(p.offHand),vector(p.offElbow)));
+    defense.kind==='knife'&&p.defenseTip?vector(knifeHandDirection(p.offHand,p.defenseTip,fighter.equipment?.knifeGrip??p.equipment?.knifeGrip)):add(vector(p.offHand),subtract(vector(p.offHand),vector(p.offElbow)));
   const offRadius=(p.twoHanded?HANDLE_RADII[weapon.id]:defense.kind==='knife'?HANDLE_RADII.knife:.045)/.045;
   const handOff=multiply(along(p.offHand,offDirection,scale*offRadius,scale,scale*offRadius),inverse(source.offFrame));
   const feetMaps=new Map();
   for(const suffix of ['R','L'])if(bones.has(`foot.${suffix}`)){
+    const physical=p.feet?.[suffix==='R'?'front':'back'];
+    if(physical?.matrix){
+      const ankle=bones.get(`foot.${suffix}`).sourceOrigin,authored=source.authoredScale;
+      const canonical=basis(times(ankle,-1/authored),[1/authored,0,0],[0,1/authored,0],[0,0,1/authored]);
+      feetMaps.set(suffix,multiply(physical.matrix,canonical));continue;
+    }
     const socket=`Socket_Foot_${suffix}`,sourceSocket=origin(world(prepared.asset,prepared.nodesByName.get(socket)));
     const target=vector(suffix==='R'?p.footF:p.footB);target[1]-=RIG_FOOT_PROXY_HALF_HEIGHT;
     // Rotate around world Y for an opposite fighter; do not reflect normals.
@@ -184,16 +195,16 @@ export function characterTransforms(prepared,fighter){
       const [start,end]=bone.link;let targetEnd=vector(p[end]);
       if(name==='forearm.R')targetEnd=point(handMain,origin(bones.get('hand.R').worldMatrix));
       if(name==='forearm.L')targetEnd=point(handOff,origin(bones.get('hand.L').worldMatrix));
-      if(name==='shin.R')targetEnd=point(feetMaps.get('R'),origin(bones.get('foot.R').worldMatrix));
-      if(name==='shin.L')targetEnd=point(feetMaps.get('L'),origin(bones.get('foot.L').worldMatrix));
+      if(name==='shin.R')targetEnd=p.ankleF?vector(p.ankleF):point(feetMaps.get('R'),origin(bones.get('foot.R').worldMatrix));
+      if(name==='shin.L')targetEnd=p.ankleB?vector(p.ankleB):point(feetMaps.get('L'),origin(bones.get('foot.L').worldMatrix));
       const length=Math.hypot(...subtract(targetEnd,vector(p[start]))),sourceLength=Math.hypot(...subtract(bone.sourceEnd,bone.sourceOrigin));
       map=multiply(along(p[start],targetEnd,scale,length/sourceLength,scale),inverse(bone.sourceFrame));
     }else if(name==='neck'){
-      const end=[p.head.x,p.head.y-.40*(fighter.balloonSize??1),p.head.z??.025],sourceEnd=source.head;
+      const end=p.feet?vector(physicalNeckMount(p,fighter.balloonSize??1)):[p.head.x,p.head.y-.40*(fighter.balloonSize??1),p.head.z??.025],start=p.feet?(p.neckPivot??p.shoulder):p.shoulder,sourceEnd=source.head;
       const sourceLength=Math.hypot(...subtract(sourceEnd,bone.sourceOrigin));
-      map=multiply(along(p.shoulder,end,scale,Math.hypot(...subtract(end,vector(p.shoulder)))/sourceLength,scale),inverse(along(bone.sourceOrigin,sourceEnd)));
+      map=multiply(along(start,end,scale,Math.hypot(...subtract(end,vector(start)))/sourceLength,scale),inverse(along(bone.sourceOrigin,sourceEnd)));
     }else if(name==='head'){
-      const target=[p.head.x,p.head.y-.40*(fighter.balloonSize??1),p.head.z??.025];
+      const target=p.feet?vector(physicalNeckMount(p,fighter.balloonSize??1)):[p.head.x,p.head.y-.40*(fighter.balloonSize??1),p.head.z??.025];
       map=basis(subtract(target,times(source.head,scale)),[scale,0,0],[0,scale,0],[0,0,scale]);
     }else if(['pelvis','spine','chest','root'].includes(name))map=torsoMap;
     else throw new Error(`Unsupported rigid character bone ${name}`);
@@ -204,7 +215,7 @@ export function characterTransforms(prepared,fighter){
     accessoryMatrix=p.apron?.variant===prepared.apronVariant&&p.apron.canonicalMatrix?p.apron.canonicalMatrix:
       apronMatrix(apronParentFrame(p,fighter.dir,fighter.boss?1.18:1,prepared.apron),prepared.apron.pivot,p.apron?.angle??0);
   }
-  return prepared.parts.map(part=>part.accessory==='apron'?new Float32Array(multiply(accessoryMatrix,part.apronFromBone)):matrices.get(part.boneName));
+  return prepared.parts.map(part=>part.accessory==='apron'?(deformApronPart(part,p.apron)??new Float32Array(multiply(accessoryMatrix,part.apronFromBone))):matrices.get(part.boneName));
 }
 
 const deformation={sword:[.18,1.02],spear:[.15,1],axe:[.18,.56],maul:[.18,.725],knife:[.09,.42]};
@@ -212,7 +223,7 @@ export function detachedCharacterTransforms(prepared,fighter,fragment,sourceMatr
   assertFragmentTransform(fragment.transform);
   const matrices=sourceMatrices??characterTransforms(prepared,{...fighter,pose:fragment.sourcePose,equipment:fragment.sourcePose.equipment??fighter.equipment});
   const bodies=new Set(fragment.bodies);
-  return prepared.parts.map((part,index)=>bodies.has(bodyForBone(part.boneName))?fragmentMatrix(fragment.transform,matrices[index]):null);
+  return prepared.parts.map((part,index)=>bodies.has(bodyForBone(part.boneName,fragment.sourcePose))?fragmentMatrix(fragment.transform,matrices[index]):null);
 }
 
 export function prepareEquipment(asset,id){

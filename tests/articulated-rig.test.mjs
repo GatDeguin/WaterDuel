@@ -7,7 +7,7 @@ test('El módulo ofrece un rig articulado con masas e inercias por segmento',()=
   assert.ok(implementation?.ArticulatedRig,'Falta el multibody dinámico ArticulatedRig');
   const rig=new implementation.ArticulatedRig({baseX:-1.53,gravity:0});
   const d=rig.diagnostics();
-  assert.equal(d.coordinates.length,14);
+  assert.equal(d.coordinates.length,16);
   assert.ok(d.bodies.length>=12);
   for(const b of d.bodies){assert.ok(b.mass>0);assert.ok(b.inertia>0);}
   assert.ok(d.massMatrix[4][5]!==0,'Hombro y codo deben compartir inercia acoplada');
@@ -21,7 +21,7 @@ test('La dinámica conserva longitudes rígidas de brazos y piernas en ambos tam
   const rig=create();assert.equal(typeof rig.step,'function','Falta integrar subpasos articulados');
   for(const scale of [1,1.18]){
     const r=create({scale});run(r,.5);const p=r.pose();
-    for(const [a,b,length] of [['mainShoulder','mainElbow',.52],['mainElbow','mainHand',.52],['offShoulder','offElbow',.48],['offElbow','offHand',.47],['frontHip','kneeF',.53],['kneeF','footF',.55],['backHip','kneeB',.53],['kneeB','footB',.55]])assert.ok(Math.abs(dist(p[a],p[b])-length*scale)<1e-10);
+    for(const [a,b,length] of [['mainShoulder','mainElbow',.52],['mainElbow','mainHand',.52],['offShoulder','offElbow',.48],['offElbow','offHand',.47],['frontHip','kneeF',.53],['kneeF','ankleF',.55],['backHip','kneeB',.53],['kneeB','ankleB',.55]])assert.ok(Math.abs(dist(p[a],p[b])-length*scale)<1e-10);
   }
 });
 
@@ -49,7 +49,7 @@ test('Los topes articulares y el solver permanecen finitos después de impactos 
     const diagnostic=rig.diagnostics();
     for(const q of diagnostic.coordinates){assert.ok(Number.isFinite(q.position)&&Number.isFinite(q.velocity));assert.ok(q.position>=q.min-1e-8&&q.position<=q.max+1e-8,`${q.name}: ${q.position}`);}
     assert.ok(Number.isFinite(diagnostic.kineticEnergy)&&diagnostic.kineticEnergy>=0);
-    for(const c of diagnostic.contacts)assert.ok(c.error<.0002,'El apoyo debe permanecer fijo después del impacto');
+    for(const c of diagnostic.contacts.filter(c=>c.grounded))assert.ok(c.error<.0002,'El apoyo debe permanecer fijo después del impacto');
   }
 });
 
@@ -61,14 +61,15 @@ test('El mismo tiempo a 30 y 120 Hz produce el mismo estado físico',()=>{
 });
 
 test('El pie de apoyo se ancla al mundo mientras el otro se eleva y recoloca',()=>{
-  const rig=create(),initial=rig.pose(),intent=structuredClone(initial);
+  // v4 unilateral floor: locomotion needs gravity, not an invisible bilateral support.
+  const rig=create({gravity:-9.81}),initial=rig.pose(),intent=structuredClone(initial);
   for(const p of Object.values(intent))if(p&&typeof p.x==='number')p.x+=.48;
   rig.setIntent(intent,{baseX:.48,baseVX:.3});
   let sawSwing=false,raised=false;
   for(let i=0;i<150;i++){
     rig.step(1/120);const p=rig.pose(),d=rig.diagnostics();
     for(const c of d.contacts){
-      if(c.stance)assert.ok(dist(c,p[c.key])<.0002,`El apoyo ${c.key} deslizó ${dist(c,p[c.key])}`);
+      if(c.stance&&c.grounded)assert.ok(c.error<.0002,`El apoyo ${c.key} deslizó ${c.error}`);
       else{sawSwing=true;if(p[c.key].y>initial[c.key].y+.04)raised=true;}
     }
   }
@@ -106,9 +107,9 @@ test('Las orientaciones de los mecanismos coinciden con sus segmentos en ambos j
   }
 });
 
-test('El contacto del pie coloca la suela de .075 sobre el tablero sin corregir el render',()=>{
+test('El contacto del pie coloca la suela v4 medida sobre el tablero sin corregir el render',()=>{
   const rig=create();run(rig,.5);
-  for(const key of ['footF','footB'])assert.ok(Math.abs(rig.pose()[key].y-.075-.3245)<1e-6);
+  for(const foot of Object.values(rig.pose().feet))assert.ok(Math.abs(foot.support.y-.3245)<1e-6);
 });
 
 test('Los impulsos inválidos se rechazan sin envenenar el estado',()=>{

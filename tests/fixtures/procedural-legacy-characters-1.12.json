@@ -1,0 +1,1516 @@
+{
+  "schema": "water-duel/procedural-legacy-characters/1.12",
+  "provenance": {
+    "source": "Immutable pre-v4 N14 baseline; never generated from the current N16 engine or rig.",
+    "capture": "new DuelEngine(); setMode(versus); setLoadout(1,{weapon,defense:weapon===maul?none:short}); fighters[0].boss=boss; no advance; depthOnly=true; drawPuppet(actor,.5,{quality:high}).",
+    "loading": "Baseline engine and rig loaded as data modules; engine rig import overrides to archived N14 rig. All remaining relative imports relocate to equivalent public file URLs. Archived renderer independently reproduces every pre-existing count and SHA-256 before serialization.",
+    "sources": {
+      ".superpowers/sdd/personajes-selected-v4/baseline/public/engine.js": "c15937c1b35da53d7836048aae4577e4079624f9f7acff6b5b8eb149195e84dc",
+      ".superpowers/sdd/personajes-selected-v4/baseline/public/physics/articulated-rig.js": "b18375efac5b262551ef2f8efe36ad37c2fb2769f83601aee175d20c8630f92e",
+      ".superpowers/sdd/personajes-selected-v4/baseline/public/render3d.js": "4acd7085e6d7364e7e980329c2fc62afea74b33d429c71e203730d4c54e722bb",
+      "public/adaptive-quality.js": "28fb9bac0af6a0f54f5ddfd75b7ac035530c6a98aeb9e44cc77bc76e6fa0bdf2",
+      "public/ai-perception.js": "10a0dc97a7a42dd1cfbddc58f8f5dad25bcb55da18ba5e2bb8091e74dec24dbf",
+      "public/auto-defense.js": "b3700da20275323db7311a0584cd5e0e2d7010c13592a8925b2abf1254e3e604",
+      "public/equipment.js": "e3fd41678ef88bec868bf8b79d9bc52be884f712f11a3e1706305724e86cef67",
+      "public/knife-technique.js": "b568d4f75647ec6f92d560995c38bff476782b93859a63a36d961bd8f676a0b8",
+      "public/opponent-loadouts.js": "3776f37b82cf9f9b079018642a9466af115f1e2398c521700c2b831e44b74eb3",
+      "public/physics/apron.js": "25b0c3f0ac5841601cbbab7b9ced15acf6fd3a2c270136fa26ea6756b3ce5efb",
+      "public/physics/body-evasion.js": "db9cb198f83a67272097bfb86332821dbbef123a6c3b8ea2d96ed05291b471c3",
+      "public/physics/contact-materials.js": "ca25f240dd66e7081a4459033994a38471d5f90cad489cfbbc124b6e982b2eb9",
+      "public/physics/detached-cluster.js": "f42d3d70899dab81ed36119e795326a8ed865b6461e2a6076bfbc8aff3665291",
+      "public/physics/detached-contacts.js": "b135ab3e01366b58f94360c720d3552be95e16893060a645ccf8b1be6a1a41a2",
+      "public/physics/dimensions.js": "668a137cff5e6b6ecec2c08d1cbe10394374450d700a63216fe4e4028820f8ec",
+      "public/physics/equipment-contact.js": "2494ee7fcbf92260a593d2b31d4b94b2e9931323d8eca5e9e349f106803f7ebe",
+      "public/physics/fluid-solids.js": "e94291e3cd91400817da69e4e8b3071125ac5a0d348fad1289c95a5fbdf443c5",
+      "public/physics/fluid.js": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+      "public/physics/head-contact.js": "1f9d416552aab3b26d870ff320f07f42dfdddcacec675fe0cc8ee8ba91182178",
+      "public/physics/joint-impact.js": "2e06803f429b2818d205ec07db8db394ad3ef0b489f9538d60574055d52a80b7",
+      "public/physics/joint-play.js": "efee4e624c700c4c8b4bcb514babea9dda8f90eedc2612afeefc1c43b3fa380e",
+      "public/physics/limb-state.js": "34f450f643d527b2e6f56bc94b21be3807f391b572fc78d50f49b50b92f56d73",
+      "public/physics/locomotion.js": "61d0e664723f033ba559d2ca894b3c9e0eae382c55227be7c66f2a0aa7ded5c0",
+      "public/physics/membrane.js": "48ced8cb70ce9f26b926e3f4e4795540a0300fd665c112f8fcff978ccac14ca2",
+      "public/physics/standby.js": "1dcd5b2c569211494f78e9f7bed95de499c57d75e0a4a1f672fce58f3c407889",
+      "public/physics/step-clock.js": "b4987d41f559dfa3ae6e1e38c973f4f02beb8e6e1d89ac77b52d8ab3e6b17209",
+      "public/physics/surface-state.js": "d92df9d6e7667691fdf351cb44800ea79b680ce1d6ae7966c23b0b985ce349c1",
+      "public/physics/surfaces.js": "49675ac6918871aae4e0720f201e04ec459046e0ebdf9fca280b8a757bbfedae",
+      "public/physics/weapon-bind.js": "52ae591e5bf5463e246cdccd52aa4d8fffd4f1500b4815ffc533923519f481ca",
+      "public/physics/weapon-flex.js": "0dd72feb2d5e794b594b23793b2e6136c8d4de277cd0d58d75ad85be1a0dd243",
+      "public/rendering/apron-color.js": "20863e0f954e3823ea5519fca92809e1e86956da4440fdb2b37663abe9650edb",
+      "public/rendering/asset-gpu.js": "96c62a80f65a62825249e3fa6af492ad9c0ad5af6270c678d7bddc39a1562d62",
+      "public/rendering/asset-rig.js": "97a6681d43ebaeaa20154197af34ba0f431644f2dbed6016813a13ff20d6e0b3",
+      "public/rendering/color.js": "df4bca988ef5cabe1db289ce1795483665ec751cd3ccac09c7a2a404b8b0414e",
+      "public/rendering/combat-wear.js": "7846d98f27cb13df69e977533d6feef5e396d343807999a9a0d2963809159f50",
+      "public/rendering/contact-shadows.js": "685ced7ba72e8d3ceb283b1a7f43f0832e79f30136b53c09a2c32758ff4d99d4",
+      "public/rendering/detached-pose-cache.js": "ef19001da80ebe6aad87e023d3d85b3e54729ed391789c3dba55f27427a03f60",
+      "public/rendering/emblems.js": "1ca49e450f6da3af6727d638abc1682d337b4e95caff0b33adef0b22af364f2a",
+      "public/rendering/environment.js": "69fed1ad14edda5715d13aaa3033c212fc202b76ca55110b6edd7a99b94c3c18",
+      "public/rendering/equipment-flex.js": "4969cea771a2955705515d819d3010b7f0ee6a27c8ff01b24ac5a95229d3d3ad",
+      "public/rendering/equipment.js": "aca27e5a7671ba0040a4ebb0065041f8b8f4b7fadc287fa82f4ba4058da0d5ad",
+      "public/rendering/float-stream.js": "3ee5dd0226536e65db75509ed87a893b363549002658ae8e5c00e818bed8a5d6",
+      "public/rendering/glb.js": "af78439d195a3d0209c333552f53e8c25cdfbe9b793e1565345a526df83816b2",
+      "public/rendering/joint-damage.js": "c60be4585ba1932948e5a64ef29dc0a5b13888912ed2f276734063684743661a",
+      "public/rendering/materials.js": "15ee86cc15a73f30c0d8def66698e076aa7d8b4110d4a0b778b919a6c2cc9cd6",
+      "public/rendering/optical-depth.js": "e02d2be11456944f65926d936bb8cd34601406cd2264b8466220a1118d41c341",
+      "public/rendering/optics.js": "22503c28096299aea677aa1df50b1587fd6d3afb6756cd3fc5f01a967cc9bb7f",
+      "public/rendering/postprocess.js": "d70aa80c2249bf2b47e8148ac4593e57980b2b85ebd3ef07d1901654237656ce",
+      "public/rendering/rigid-batches.js": "c3ce33cdfa8074e6ec42421933548e3a43b3c82beaac9e32a62b895d5dead23d",
+      "public/rendering/room-camera.js": "e22ca5bd00dc9113244ff4111edba509d6a6f215aa1abce3c098bfe027442187",
+      "public/rendering/shadows.js": "b8edc39b30a3319c3495bcb9c61b033f88c66f8a4051f1b7f22d3438284bd504",
+      "public/rendering/sheen.js": "c1a0cb8d9f704997525c99019210381cfda1cc9cb189f105ad13674d8994a1e6",
+      "public/rendering/static-batches.js": "20f0c6c5bf556e1d42866c4def91c90258740d726aa0afe1db71ca8f3e8f98dd",
+      "public/rendering/transmission.js": "f7ca3c58ed6796042af27e01bf3c3147c94016c0752cade9cd8437b245c98e80",
+      "public/rendering/workshop-lights.js": "ccaf3dbb7bad57c43373e8d836026d83dfe827eec36e4dd2f5a423a7bac76157",
+      "public/rendering/workshop-motion.js": "dd319ba471e7c0e29d58f066cd65cc19d63e0d5fc7e3e08c2e482b45b1c8de6b",
+      "public/rendering/workshop-surroundings.js": "41dab07364f482eb605db233eb5fb0ad365abeef818ca1f24868d363b64eca74",
+      "public/runtime-assets.js": "d6611c3b6700c90973a85d37b7ea32235022204fe70dd35f055705832c3ae19e",
+      "public/simulation-presentation.js": "7c8e321e700edb232d6629abd1c1fc4385798ac934053fd60b4cae798cfc686e",
+      "public/training-drills.js": "30526905f30b11c21c2768fc284c2c706d240d3fcecd50b2d3202dab87c61106",
+      "public/workshop-effects.js": "defab2e46a3f8b90603f49171209c445495445c308652050543ff666e4178f4c"
+    },
+    "hashContract": "Existing 1.7 F32 ordered payload hashes from tests/joint-damage-render.test.mjs, retained verbatim. Hash concatenates JSON([shape,color,material,opacity,wobble,wet]) and raw matrix F32 bytes per draw."
+  },
+  "cases": [
+    {
+      "weapon": "sword",
+      "boss": false,
+      "count": 218,
+      "digest": "87b8f359b7fc0cb5ab6591669f4e6582d9430c8f7ac8c09a9bc0f47332ccfbd1",
+      "actor": {
+        "slot": 1,
+        "dir": 1,
+        "equipment": {
+          "weapon": "sword",
+          "defense": "short"
+        },
+        "balloonColor": "mint",
+        "matchApronToBalloon": false,
+        "boss": false,
+        "lean": 0,
+        "balloonSize": 1,
+        "pose": {
+          "hip": {
+            "x": -1.53,
+            "y": 1.3045,
+            "z": 0
+          },
+          "shoulder": {
+            "x": -1.439617283496866,
+            "y": 2.054070520069669,
+            "z": 0
+          },
+          "head": {
+            "x": -1.372578447415071,
+            "y": 2.610043356147834,
+            "z": 0.025
+          },
+          "mainShoulder": {
+            "x": -1.1725805190014986,
+            "y": 1.9715092312725229,
+            "z": 0.11
+          },
+          "mainElbow": {
+            "x": -0.7547855848253214,
+            "y": 1.6619169300492467,
+            "z": 0.14
+          },
+          "mainHand": {
+            "x": -0.3525805190014987,
+            "y": 1.9915092312725224,
+            "z": 0.17
+          },
+          "tip": {
+            "x": 0.6674194809985012,
+            "y": 1.9915092312725218,
+            "z": 0.17
+          },
+          "offShoulder": {
+            "x": -1.7186252687211252,
+            "y": 2.0373509452814282,
+            "z": -0.11
+          },
+          "offElbow": {
+            "x": -2.1123630830349276,
+            "y": 1.7628140013569542,
+            "z": -0.1
+          },
+          "offHand": {
+            "x": -2.478625268721126,
+            "y": 2.0573509452814283,
+            "z": -0.08
+          },
+          "frontHip": {
+            "x": -1.42,
+            "y": 1.3045,
+            "z": 0.2
+          },
+          "backHip": {
+            "x": -1.6400000000000001,
+            "y": 1.3045,
+            "z": -0.18
+          },
+          "kneeF": {
+            "x": -1.0273362741702825,
+            "y": 0.9485292169046389,
+            "z": 0.2
+          },
+          "footF": {
+            "x": -1.0599999999999998,
+            "y": 0.39949999999999986,
+            "z": 0.29
+          },
+          "kneeB": {
+            "x": -1.7885748956151823,
+            "y": 0.7957510438409355,
+            "z": -0.18
+          },
+          "footB": {
+            "x": -2.17,
+            "y": 0.3995000000000002,
+            "z": -0.22
+          },
+          "neckPivot": {
+            "x": -1.439617283496866,
+            "y": 2.054070520069669,
+            "z": 0.025
+          },
+          "headBaseZ": 0.025,
+          "neckYawTarget": 0,
+          "neckLateral": {
+            "angle": 0,
+            "velocity": 0,
+            "target": 0,
+            "inertia": 0,
+            "motorTorque": 0
+          },
+          "defenseDepth": {
+            "position": -0.08,
+            "velocity": 0,
+            "target": -0.08
+          },
+          "defenseDepthTarget": -0.08,
+          "shieldDepth": {
+            "min": -0.045,
+            "max": 0.045
+          },
+          "shieldRadius": 0.23,
+          "shieldRadiusX": 0.23,
+          "shieldRadiusY": 0.23,
+          "equipment": {
+            "weapon": "sword",
+            "defense": "short"
+          },
+          "twoHanded": false,
+          "gripOffset": 0,
+          "angles": {
+            "pelvis": 0,
+            "torso": 1.4507963267948967,
+            "neck": 1.4507963267948967,
+            "mainUpper": -0.6377258468292133,
+            "mainForearm": 0.6864966651746491,
+            "weapon": -5.551115123125783e-16,
+            "offUpper": 3.7504761539444686,
+            "offForearm": 2.4643143911231338,
+            "frontThigh": -0.7364241951729975,
+            "frontShin": -1.6302198853805097,
+            "backThigh": -1.8549341946251587,
+            "backShin": -2.3371323861149453
+          },
+          "bodyFrames": {
+            "pelvis": {
+              "origin": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "center": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "angle": 0
+            },
+            "torso": {
+              "origin": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.439617283496866,
+                "y": 2.054070520069669
+              },
+              "center": {
+                "x": -1.484808641748433,
+                "y": 1.6792852600348345
+              },
+              "angle": 1.4507963267948967
+            },
+            "neck": {
+              "origin": {
+                "x": -1.439617283496866,
+                "y": 2.054070520069669
+              },
+              "end": {
+                "x": -1.372578447415071,
+                "y": 2.610043356147834
+              },
+              "center": {
+                "x": -1.4060978654559686,
+                "y": 2.3320569381087517
+              },
+              "angle": 1.4507963267948967
+            },
+            "mainUpper": {
+              "origin": {
+                "x": -1.1725805190014986,
+                "y": 1.9715092312725229
+              },
+              "end": {
+                "x": -0.7547855848253214,
+                "y": 1.6619169300492467
+              },
+              "center": {
+                "x": -0.9636830519134101,
+                "y": 1.8167130806608847
+              },
+              "angle": -0.6377258468292133
+            },
+            "mainForearm": {
+              "origin": {
+                "x": -0.7547855848253214,
+                "y": 1.6619169300492467
+              },
+              "end": {
+                "x": -0.3525805190014987,
+                "y": 1.9915092312725224
+              },
+              "center": {
+                "x": -0.55368305191341,
+                "y": 1.8267130806608844
+              },
+              "angle": 0.6864966651746491
+            },
+            "weapon": {
+              "origin": {
+                "x": -0.3525805190014987,
+                "y": 1.9915092312725224
+              },
+              "end": {
+                "x": 0.6674194809985012,
+                "y": 1.9915092312725218
+              },
+              "center": {
+                "x": 0.15741948099850128,
+                "y": 1.9915092312725222
+              },
+              "angle": -5.551115123125783e-16
+            },
+            "offUpper": {
+              "origin": {
+                "x": -1.7186252687211252,
+                "y": 2.0373509452814282
+              },
+              "end": {
+                "x": -2.1123630830349276,
+                "y": 1.7628140013569542
+              },
+              "center": {
+                "x": -1.9154941758780262,
+                "y": 1.9000824733191912
+              },
+              "angle": 3.7504761539444686
+            },
+            "offForearm": {
+              "origin": {
+                "x": -2.1123630830349276,
+                "y": 1.7628140013569542
+              },
+              "end": {
+                "x": -2.478625268721126,
+                "y": 2.0573509452814283
+              },
+              "center": {
+                "x": -2.2954941758780265,
+                "y": 1.9100824733191912
+              },
+              "angle": 2.4643143911231338
+            },
+            "frontThigh": {
+              "origin": {
+                "x": -1.42,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.0273362741702825,
+                "y": 0.9485292169046389
+              },
+              "center": {
+                "x": -1.2236681370851412,
+                "y": 1.1265146084523194
+              },
+              "angle": -0.7364241951729975
+            },
+            "frontShin": {
+              "origin": {
+                "x": -1.0273362741702825,
+                "y": 0.9485292169046389
+              },
+              "end": {
+                "x": -1.0599999999999998,
+                "y": 0.39949999999999986
+              },
+              "center": {
+                "x": -1.0436681370851413,
+                "y": 0.6740146084523193
+              },
+              "angle": -1.6302198853805097
+            },
+            "backThigh": {
+              "origin": {
+                "x": -1.6400000000000001,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.7885748956151823,
+                "y": 0.7957510438409355
+              },
+              "center": {
+                "x": -1.7142874478075913,
+                "y": 1.0501255219204677
+              },
+              "angle": -1.8549341946251587
+            },
+            "backShin": {
+              "origin": {
+                "x": -1.7885748956151823,
+                "y": 0.7957510438409355
+              },
+              "end": {
+                "x": -2.17,
+                "y": 0.3995000000000002
+              },
+              "center": {
+                "x": -1.9792874478075912,
+                "y": 0.5976255219204678
+              },
+              "angle": -2.3371323861149453
+            }
+          },
+          "wristAngle": -0.006496665174649641,
+          "dynamic": true,
+          "passive": false,
+          "apron": {
+            "variant": "normal",
+            "angle": 0,
+            "angularVelocity": 0,
+            "contact": false,
+            "canonicalMatrix": {
+              "0": 1.0150881184504907,
+              "1": 0.046602169514820664,
+              "2": 0.4008837774244934,
+              "3": 0,
+              "4": 0.04726832027743275,
+              "5": 0.9884243285968515,
+              "6": -0.028559221001813108,
+              "7": 0,
+              "8": -0.36871988674782896,
+              "9": 0.044459993589077755,
+              "10": 0.928476684729739,
+              "11": 0,
+              "12": -1.53,
+              "13": 1.3045,
+              "14": 0,
+              "15": 1
+            }
+          },
+          "surface": {
+            "marks": []
+          }
+        }
+      }
+    },
+    {
+      "weapon": "sword",
+      "boss": true,
+      "count": 248,
+      "digest": "6ff1a96c13fc9c46b339b98f3d9a01971cd9c64d48984fd3e0682dd6e6bb4adc",
+      "actor": {
+        "slot": 1,
+        "dir": 1,
+        "equipment": {
+          "weapon": "sword",
+          "defense": "short"
+        },
+        "balloonColor": "mint",
+        "matchApronToBalloon": false,
+        "boss": true,
+        "lean": 0,
+        "balloonSize": 1,
+        "pose": {
+          "hip": {
+            "x": -1.53,
+            "y": 1.3045,
+            "z": 0
+          },
+          "shoulder": {
+            "x": -1.439617283496866,
+            "y": 2.054070520069669,
+            "z": 0
+          },
+          "head": {
+            "x": -1.372578447415071,
+            "y": 2.610043356147834,
+            "z": 0.025
+          },
+          "mainShoulder": {
+            "x": -1.1725805190014986,
+            "y": 1.9715092312725229,
+            "z": 0.11
+          },
+          "mainElbow": {
+            "x": -0.7547855848253214,
+            "y": 1.6619169300492467,
+            "z": 0.14
+          },
+          "mainHand": {
+            "x": -0.3525805190014987,
+            "y": 1.9915092312725224,
+            "z": 0.17
+          },
+          "tip": {
+            "x": 0.6674194809985012,
+            "y": 1.9915092312725218,
+            "z": 0.17
+          },
+          "offShoulder": {
+            "x": -1.7186252687211252,
+            "y": 2.0373509452814282,
+            "z": -0.11
+          },
+          "offElbow": {
+            "x": -2.1123630830349276,
+            "y": 1.7628140013569542,
+            "z": -0.1
+          },
+          "offHand": {
+            "x": -2.478625268721126,
+            "y": 2.0573509452814283,
+            "z": -0.08
+          },
+          "frontHip": {
+            "x": -1.42,
+            "y": 1.3045,
+            "z": 0.2
+          },
+          "backHip": {
+            "x": -1.6400000000000001,
+            "y": 1.3045,
+            "z": -0.18
+          },
+          "kneeF": {
+            "x": -1.0273362741702825,
+            "y": 0.9485292169046389,
+            "z": 0.2
+          },
+          "footF": {
+            "x": -1.0599999999999998,
+            "y": 0.39949999999999986,
+            "z": 0.29
+          },
+          "kneeB": {
+            "x": -1.7885748956151823,
+            "y": 0.7957510438409355,
+            "z": -0.18
+          },
+          "footB": {
+            "x": -2.17,
+            "y": 0.3995000000000002,
+            "z": -0.22
+          },
+          "neckPivot": {
+            "x": -1.439617283496866,
+            "y": 2.054070520069669,
+            "z": 0.025
+          },
+          "headBaseZ": 0.025,
+          "neckYawTarget": 0,
+          "neckLateral": {
+            "angle": 0,
+            "velocity": 0,
+            "target": 0,
+            "inertia": 0,
+            "motorTorque": 0
+          },
+          "defenseDepth": {
+            "position": -0.08,
+            "velocity": 0,
+            "target": -0.08
+          },
+          "defenseDepthTarget": -0.08,
+          "shieldDepth": {
+            "min": -0.045,
+            "max": 0.045
+          },
+          "shieldRadius": 0.23,
+          "shieldRadiusX": 0.23,
+          "shieldRadiusY": 0.23,
+          "equipment": {
+            "weapon": "sword",
+            "defense": "short"
+          },
+          "twoHanded": false,
+          "gripOffset": 0,
+          "angles": {
+            "pelvis": 0,
+            "torso": 1.4507963267948967,
+            "neck": 1.4507963267948967,
+            "mainUpper": -0.6377258468292133,
+            "mainForearm": 0.6864966651746491,
+            "weapon": -5.551115123125783e-16,
+            "offUpper": 3.7504761539444686,
+            "offForearm": 2.4643143911231338,
+            "frontThigh": -0.7364241951729975,
+            "frontShin": -1.6302198853805097,
+            "backThigh": -1.8549341946251587,
+            "backShin": -2.3371323861149453
+          },
+          "bodyFrames": {
+            "pelvis": {
+              "origin": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "center": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "angle": 0
+            },
+            "torso": {
+              "origin": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.439617283496866,
+                "y": 2.054070520069669
+              },
+              "center": {
+                "x": -1.484808641748433,
+                "y": 1.6792852600348345
+              },
+              "angle": 1.4507963267948967
+            },
+            "neck": {
+              "origin": {
+                "x": -1.439617283496866,
+                "y": 2.054070520069669
+              },
+              "end": {
+                "x": -1.372578447415071,
+                "y": 2.610043356147834
+              },
+              "center": {
+                "x": -1.4060978654559686,
+                "y": 2.3320569381087517
+              },
+              "angle": 1.4507963267948967
+            },
+            "mainUpper": {
+              "origin": {
+                "x": -1.1725805190014986,
+                "y": 1.9715092312725229
+              },
+              "end": {
+                "x": -0.7547855848253214,
+                "y": 1.6619169300492467
+              },
+              "center": {
+                "x": -0.9636830519134101,
+                "y": 1.8167130806608847
+              },
+              "angle": -0.6377258468292133
+            },
+            "mainForearm": {
+              "origin": {
+                "x": -0.7547855848253214,
+                "y": 1.6619169300492467
+              },
+              "end": {
+                "x": -0.3525805190014987,
+                "y": 1.9915092312725224
+              },
+              "center": {
+                "x": -0.55368305191341,
+                "y": 1.8267130806608844
+              },
+              "angle": 0.6864966651746491
+            },
+            "weapon": {
+              "origin": {
+                "x": -0.3525805190014987,
+                "y": 1.9915092312725224
+              },
+              "end": {
+                "x": 0.6674194809985012,
+                "y": 1.9915092312725218
+              },
+              "center": {
+                "x": 0.15741948099850128,
+                "y": 1.9915092312725222
+              },
+              "angle": -5.551115123125783e-16
+            },
+            "offUpper": {
+              "origin": {
+                "x": -1.7186252687211252,
+                "y": 2.0373509452814282
+              },
+              "end": {
+                "x": -2.1123630830349276,
+                "y": 1.7628140013569542
+              },
+              "center": {
+                "x": -1.9154941758780262,
+                "y": 1.9000824733191912
+              },
+              "angle": 3.7504761539444686
+            },
+            "offForearm": {
+              "origin": {
+                "x": -2.1123630830349276,
+                "y": 1.7628140013569542
+              },
+              "end": {
+                "x": -2.478625268721126,
+                "y": 2.0573509452814283
+              },
+              "center": {
+                "x": -2.2954941758780265,
+                "y": 1.9100824733191912
+              },
+              "angle": 2.4643143911231338
+            },
+            "frontThigh": {
+              "origin": {
+                "x": -1.42,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.0273362741702825,
+                "y": 0.9485292169046389
+              },
+              "center": {
+                "x": -1.2236681370851412,
+                "y": 1.1265146084523194
+              },
+              "angle": -0.7364241951729975
+            },
+            "frontShin": {
+              "origin": {
+                "x": -1.0273362741702825,
+                "y": 0.9485292169046389
+              },
+              "end": {
+                "x": -1.0599999999999998,
+                "y": 0.39949999999999986
+              },
+              "center": {
+                "x": -1.0436681370851413,
+                "y": 0.6740146084523193
+              },
+              "angle": -1.6302198853805097
+            },
+            "backThigh": {
+              "origin": {
+                "x": -1.6400000000000001,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.7885748956151823,
+                "y": 0.7957510438409355
+              },
+              "center": {
+                "x": -1.7142874478075913,
+                "y": 1.0501255219204677
+              },
+              "angle": -1.8549341946251587
+            },
+            "backShin": {
+              "origin": {
+                "x": -1.7885748956151823,
+                "y": 0.7957510438409355
+              },
+              "end": {
+                "x": -2.17,
+                "y": 0.3995000000000002
+              },
+              "center": {
+                "x": -1.9792874478075912,
+                "y": 0.5976255219204678
+              },
+              "angle": -2.3371323861149453
+            }
+          },
+          "wristAngle": -0.006496665174649641,
+          "dynamic": true,
+          "passive": false,
+          "apron": {
+            "variant": "normal",
+            "angle": 0,
+            "angularVelocity": 0,
+            "contact": false,
+            "canonicalMatrix": {
+              "0": 1.0150881184504907,
+              "1": 0.046602169514820664,
+              "2": 0.4008837774244934,
+              "3": 0,
+              "4": 0.04726832027743275,
+              "5": 0.9884243285968515,
+              "6": -0.028559221001813108,
+              "7": 0,
+              "8": -0.36871988674782896,
+              "9": 0.044459993589077755,
+              "10": 0.928476684729739,
+              "11": 0,
+              "12": -1.53,
+              "13": 1.3045,
+              "14": 0,
+              "15": 1
+            }
+          },
+          "surface": {
+            "marks": []
+          }
+        }
+      }
+    },
+    {
+      "weapon": "maul",
+      "boss": false,
+      "count": 226,
+      "digest": "61bf9866981436b6ff1f7609ca24f5976a3b4247c8bed010ed44100d78c32ced",
+      "actor": {
+        "slot": 1,
+        "dir": 1,
+        "equipment": {
+          "weapon": "maul",
+          "defense": "none"
+        },
+        "balloonColor": "mint",
+        "matchApronToBalloon": false,
+        "boss": false,
+        "lean": 0,
+        "balloonSize": 1,
+        "pose": {
+          "hip": {
+            "x": -1.53,
+            "y": 1.3045,
+            "z": 0
+          },
+          "shoulder": {
+            "x": -1.439617283496866,
+            "y": 2.054070520069669,
+            "z": 0
+          },
+          "head": {
+            "x": -1.372578447415071,
+            "y": 2.610043356147834,
+            "z": 0.025
+          },
+          "mainShoulder": {
+            "x": -1.1725805190014986,
+            "y": 1.9715092312725229,
+            "z": 0.11
+          },
+          "mainElbow": {
+            "x": -0.876945347153191,
+            "y": 1.5437244195199062,
+            "z": 0.14
+          },
+          "mainHand": {
+            "x": -0.6125805190014988,
+            "y": 1.9915092312725229,
+            "z": 0.17
+          },
+          "tip": {
+            "x": 0.4674194809985013,
+            "y": 1.991509231272523,
+            "z": 0.17
+          },
+          "offGrip": {
+            "x": -0.8325805190014988,
+            "y": 1.9915092312725229,
+            "z": 0.17
+          },
+          "offShoulder": {
+            "x": -1.7186252687211252,
+            "y": 2.0373509452814282,
+            "z": -0.11
+          },
+          "offElbow": {
+            "x": -1.2614837585410914,
+            "y": 2.1837122778468228,
+            "z": -0.1
+          },
+          "offHand": {
+            "x": -0.8325805190014983,
+            "y": 1.9915092312725229,
+            "z": 0.17
+          },
+          "frontHip": {
+            "x": -1.42,
+            "y": 1.3045,
+            "z": 0.2
+          },
+          "backHip": {
+            "x": -1.6400000000000001,
+            "y": 1.3045,
+            "z": -0.18
+          },
+          "kneeF": {
+            "x": -1.0273362741702825,
+            "y": 0.9485292169046389,
+            "z": 0.2
+          },
+          "footF": {
+            "x": -1.0599999999999998,
+            "y": 0.39949999999999986,
+            "z": 0.29
+          },
+          "kneeB": {
+            "x": -1.7885748956151823,
+            "y": 0.7957510438409355,
+            "z": -0.18
+          },
+          "footB": {
+            "x": -2.17,
+            "y": 0.3995000000000002,
+            "z": -0.22
+          },
+          "neckPivot": {
+            "x": -1.439617283496866,
+            "y": 2.054070520069669,
+            "z": 0.025
+          },
+          "headBaseZ": 0.025,
+          "neckYawTarget": 0,
+          "neckLateral": {
+            "angle": 0,
+            "velocity": 0,
+            "target": 0,
+            "inertia": 0,
+            "motorTorque": 0
+          },
+          "defenseDepth": {
+            "position": -0.08,
+            "velocity": 0,
+            "target": -0.08
+          },
+          "defenseDepthTarget": -0.08,
+          "shieldRadius": 0,
+          "shieldRadiusX": 0,
+          "shieldRadiusY": 0,
+          "equipment": {
+            "weapon": "maul",
+            "defense": "none"
+          },
+          "twoHanded": true,
+          "gripOffset": 0.22,
+          "angles": {
+            "pelvis": 0,
+            "torso": 1.4507963267948967,
+            "neck": 1.4507963267948967,
+            "mainUpper": -0.966079459001177,
+            "mainForearm": 1.037477684359825,
+            "weapon": 2.220446049250313e-16,
+            "offUpper": 0.30985384287034345,
+            "offForearm": -0.4212951000385161,
+            "frontThigh": -0.7364241951729975,
+            "frontShin": -1.6302198853805097,
+            "backThigh": -1.8549341946251587,
+            "backShin": -2.3371323861149453
+          },
+          "bodyFrames": {
+            "pelvis": {
+              "origin": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "center": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "angle": 0
+            },
+            "torso": {
+              "origin": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.439617283496866,
+                "y": 2.054070520069669
+              },
+              "center": {
+                "x": -1.484808641748433,
+                "y": 1.6792852600348345
+              },
+              "angle": 1.4507963267948967
+            },
+            "neck": {
+              "origin": {
+                "x": -1.439617283496866,
+                "y": 2.054070520069669
+              },
+              "end": {
+                "x": -1.372578447415071,
+                "y": 2.610043356147834
+              },
+              "center": {
+                "x": -1.4060978654559686,
+                "y": 2.3320569381087517
+              },
+              "angle": 1.4507963267948967
+            },
+            "mainUpper": {
+              "origin": {
+                "x": -1.1725805190014986,
+                "y": 1.9715092312725229
+              },
+              "end": {
+                "x": -0.876945347153191,
+                "y": 1.5437244195199062
+              },
+              "center": {
+                "x": -1.0247629330773447,
+                "y": 1.7576168253962146
+              },
+              "angle": -0.966079459001177
+            },
+            "mainForearm": {
+              "origin": {
+                "x": -0.876945347153191,
+                "y": 1.5437244195199062
+              },
+              "end": {
+                "x": -0.6125805190014988,
+                "y": 1.9915092312725229
+              },
+              "center": {
+                "x": -0.7447629330773449,
+                "y": 1.7676168253962146
+              },
+              "angle": 1.037477684359825
+            },
+            "weapon": {
+              "origin": {
+                "x": -0.6125805190014988,
+                "y": 1.9915092312725229
+              },
+              "end": {
+                "x": 0.4674194809985013,
+                "y": 1.991509231272523
+              },
+              "center": {
+                "x": -0.07258051900149876,
+                "y": 1.991509231272523
+              },
+              "angle": 2.220446049250313e-16
+            },
+            "offUpper": {
+              "origin": {
+                "x": -1.7186252687211252,
+                "y": 2.0373509452814282
+              },
+              "end": {
+                "x": -1.2614837585410914,
+                "y": 2.1837122778468228
+              },
+              "center": {
+                "x": -1.4900545136311083,
+                "y": 2.1105316115641255
+              },
+              "angle": 0.30985384287034345
+            },
+            "offForearm": {
+              "origin": {
+                "x": -1.2614837585410914,
+                "y": 2.1837122778468228
+              },
+              "end": {
+                "x": -0.8325805190014983,
+                "y": 1.9915092312725229
+              },
+              "center": {
+                "x": -1.0470321387712949,
+                "y": 2.0876107545596727
+              },
+              "angle": -0.4212951000385161
+            },
+            "frontThigh": {
+              "origin": {
+                "x": -1.42,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.0273362741702825,
+                "y": 0.9485292169046389
+              },
+              "center": {
+                "x": -1.2236681370851412,
+                "y": 1.1265146084523194
+              },
+              "angle": -0.7364241951729975
+            },
+            "frontShin": {
+              "origin": {
+                "x": -1.0273362741702825,
+                "y": 0.9485292169046389
+              },
+              "end": {
+                "x": -1.0599999999999998,
+                "y": 0.39949999999999986
+              },
+              "center": {
+                "x": -1.0436681370851413,
+                "y": 0.6740146084523193
+              },
+              "angle": -1.6302198853805097
+            },
+            "backThigh": {
+              "origin": {
+                "x": -1.6400000000000001,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.7885748956151823,
+                "y": 0.7957510438409355
+              },
+              "center": {
+                "x": -1.7142874478075913,
+                "y": 1.0501255219204677
+              },
+              "angle": -1.8549341946251587
+            },
+            "backShin": {
+              "origin": {
+                "x": -1.7885748956151823,
+                "y": 0.7957510438409355
+              },
+              "end": {
+                "x": -2.17,
+                "y": 0.3995000000000002
+              },
+              "center": {
+                "x": -1.9792874478075912,
+                "y": 0.5976255219204678
+              },
+              "angle": -2.3371323861149453
+            }
+          },
+          "wristAngle": -0.35747768435982474,
+          "dynamic": true,
+          "passive": false,
+          "apron": {
+            "variant": "normal",
+            "angle": 0,
+            "angularVelocity": 0,
+            "contact": false,
+            "canonicalMatrix": {
+              "0": 1.0150881184504907,
+              "1": 0.046602169514820664,
+              "2": 0.4008837774244934,
+              "3": 0,
+              "4": 0.04726832027743275,
+              "5": 0.9884243285968515,
+              "6": -0.028559221001813108,
+              "7": 0,
+              "8": -0.36871988674782896,
+              "9": 0.044459993589077755,
+              "10": 0.928476684729739,
+              "11": 0,
+              "12": -1.53,
+              "13": 1.3045,
+              "14": 0,
+              "15": 1
+            }
+          },
+          "surface": {
+            "marks": []
+          }
+        }
+      }
+    },
+    {
+      "weapon": "maul",
+      "boss": true,
+      "count": 256,
+      "digest": "589391b22abc16cd1e788752942d1e39035ce534cd6ea1be5ee8d5f643afd5ba",
+      "actor": {
+        "slot": 1,
+        "dir": 1,
+        "equipment": {
+          "weapon": "maul",
+          "defense": "none"
+        },
+        "balloonColor": "mint",
+        "matchApronToBalloon": false,
+        "boss": true,
+        "lean": 0,
+        "balloonSize": 1,
+        "pose": {
+          "hip": {
+            "x": -1.53,
+            "y": 1.3045,
+            "z": 0
+          },
+          "shoulder": {
+            "x": -1.439617283496866,
+            "y": 2.054070520069669,
+            "z": 0
+          },
+          "head": {
+            "x": -1.372578447415071,
+            "y": 2.610043356147834,
+            "z": 0.025
+          },
+          "mainShoulder": {
+            "x": -1.1725805190014986,
+            "y": 1.9715092312725229,
+            "z": 0.11
+          },
+          "mainElbow": {
+            "x": -0.876945347153191,
+            "y": 1.5437244195199062,
+            "z": 0.14
+          },
+          "mainHand": {
+            "x": -0.6125805190014988,
+            "y": 1.9915092312725229,
+            "z": 0.17
+          },
+          "tip": {
+            "x": 0.4674194809985013,
+            "y": 1.991509231272523,
+            "z": 0.17
+          },
+          "offGrip": {
+            "x": -0.8325805190014988,
+            "y": 1.9915092312725229,
+            "z": 0.17
+          },
+          "offShoulder": {
+            "x": -1.7186252687211252,
+            "y": 2.0373509452814282,
+            "z": -0.11
+          },
+          "offElbow": {
+            "x": -1.2614837585410914,
+            "y": 2.1837122778468228,
+            "z": -0.1
+          },
+          "offHand": {
+            "x": -0.8325805190014983,
+            "y": 1.9915092312725229,
+            "z": 0.17
+          },
+          "frontHip": {
+            "x": -1.42,
+            "y": 1.3045,
+            "z": 0.2
+          },
+          "backHip": {
+            "x": -1.6400000000000001,
+            "y": 1.3045,
+            "z": -0.18
+          },
+          "kneeF": {
+            "x": -1.0273362741702825,
+            "y": 0.9485292169046389,
+            "z": 0.2
+          },
+          "footF": {
+            "x": -1.0599999999999998,
+            "y": 0.39949999999999986,
+            "z": 0.29
+          },
+          "kneeB": {
+            "x": -1.7885748956151823,
+            "y": 0.7957510438409355,
+            "z": -0.18
+          },
+          "footB": {
+            "x": -2.17,
+            "y": 0.3995000000000002,
+            "z": -0.22
+          },
+          "neckPivot": {
+            "x": -1.439617283496866,
+            "y": 2.054070520069669,
+            "z": 0.025
+          },
+          "headBaseZ": 0.025,
+          "neckYawTarget": 0,
+          "neckLateral": {
+            "angle": 0,
+            "velocity": 0,
+            "target": 0,
+            "inertia": 0,
+            "motorTorque": 0
+          },
+          "defenseDepth": {
+            "position": -0.08,
+            "velocity": 0,
+            "target": -0.08
+          },
+          "defenseDepthTarget": -0.08,
+          "shieldRadius": 0,
+          "shieldRadiusX": 0,
+          "shieldRadiusY": 0,
+          "equipment": {
+            "weapon": "maul",
+            "defense": "none"
+          },
+          "twoHanded": true,
+          "gripOffset": 0.22,
+          "angles": {
+            "pelvis": 0,
+            "torso": 1.4507963267948967,
+            "neck": 1.4507963267948967,
+            "mainUpper": -0.966079459001177,
+            "mainForearm": 1.037477684359825,
+            "weapon": 2.220446049250313e-16,
+            "offUpper": 0.30985384287034345,
+            "offForearm": -0.4212951000385161,
+            "frontThigh": -0.7364241951729975,
+            "frontShin": -1.6302198853805097,
+            "backThigh": -1.8549341946251587,
+            "backShin": -2.3371323861149453
+          },
+          "bodyFrames": {
+            "pelvis": {
+              "origin": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "center": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "angle": 0
+            },
+            "torso": {
+              "origin": {
+                "x": -1.53,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.439617283496866,
+                "y": 2.054070520069669
+              },
+              "center": {
+                "x": -1.484808641748433,
+                "y": 1.6792852600348345
+              },
+              "angle": 1.4507963267948967
+            },
+            "neck": {
+              "origin": {
+                "x": -1.439617283496866,
+                "y": 2.054070520069669
+              },
+              "end": {
+                "x": -1.372578447415071,
+                "y": 2.610043356147834
+              },
+              "center": {
+                "x": -1.4060978654559686,
+                "y": 2.3320569381087517
+              },
+              "angle": 1.4507963267948967
+            },
+            "mainUpper": {
+              "origin": {
+                "x": -1.1725805190014986,
+                "y": 1.9715092312725229
+              },
+              "end": {
+                "x": -0.876945347153191,
+                "y": 1.5437244195199062
+              },
+              "center": {
+                "x": -1.0247629330773447,
+                "y": 1.7576168253962146
+              },
+              "angle": -0.966079459001177
+            },
+            "mainForearm": {
+              "origin": {
+                "x": -0.876945347153191,
+                "y": 1.5437244195199062
+              },
+              "end": {
+                "x": -0.6125805190014988,
+                "y": 1.9915092312725229
+              },
+              "center": {
+                "x": -0.7447629330773449,
+                "y": 1.7676168253962146
+              },
+              "angle": 1.037477684359825
+            },
+            "weapon": {
+              "origin": {
+                "x": -0.6125805190014988,
+                "y": 1.9915092312725229
+              },
+              "end": {
+                "x": 0.4674194809985013,
+                "y": 1.991509231272523
+              },
+              "center": {
+                "x": -0.07258051900149876,
+                "y": 1.991509231272523
+              },
+              "angle": 2.220446049250313e-16
+            },
+            "offUpper": {
+              "origin": {
+                "x": -1.7186252687211252,
+                "y": 2.0373509452814282
+              },
+              "end": {
+                "x": -1.2614837585410914,
+                "y": 2.1837122778468228
+              },
+              "center": {
+                "x": -1.4900545136311083,
+                "y": 2.1105316115641255
+              },
+              "angle": 0.30985384287034345
+            },
+            "offForearm": {
+              "origin": {
+                "x": -1.2614837585410914,
+                "y": 2.1837122778468228
+              },
+              "end": {
+                "x": -0.8325805190014983,
+                "y": 1.9915092312725229
+              },
+              "center": {
+                "x": -1.0470321387712949,
+                "y": 2.0876107545596727
+              },
+              "angle": -0.4212951000385161
+            },
+            "frontThigh": {
+              "origin": {
+                "x": -1.42,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.0273362741702825,
+                "y": 0.9485292169046389
+              },
+              "center": {
+                "x": -1.2236681370851412,
+                "y": 1.1265146084523194
+              },
+              "angle": -0.7364241951729975
+            },
+            "frontShin": {
+              "origin": {
+                "x": -1.0273362741702825,
+                "y": 0.9485292169046389
+              },
+              "end": {
+                "x": -1.0599999999999998,
+                "y": 0.39949999999999986
+              },
+              "center": {
+                "x": -1.0436681370851413,
+                "y": 0.6740146084523193
+              },
+              "angle": -1.6302198853805097
+            },
+            "backThigh": {
+              "origin": {
+                "x": -1.6400000000000001,
+                "y": 1.3045
+              },
+              "end": {
+                "x": -1.7885748956151823,
+                "y": 0.7957510438409355
+              },
+              "center": {
+                "x": -1.7142874478075913,
+                "y": 1.0501255219204677
+              },
+              "angle": -1.8549341946251587
+            },
+            "backShin": {
+              "origin": {
+                "x": -1.7885748956151823,
+                "y": 0.7957510438409355
+              },
+              "end": {
+                "x": -2.17,
+                "y": 0.3995000000000002
+              },
+              "center": {
+                "x": -1.9792874478075912,
+                "y": 0.5976255219204678
+              },
+              "angle": -2.3371323861149453
+            }
+          },
+          "wristAngle": -0.35747768435982474,
+          "dynamic": true,
+          "passive": false,
+          "apron": {
+            "variant": "normal",
+            "angle": 0,
+            "angularVelocity": 0,
+            "contact": false,
+            "canonicalMatrix": {
+              "0": 1.0150881184504907,
+              "1": 0.046602169514820664,
+              "2": 0.4008837774244934,
+              "3": 0,
+              "4": 0.04726832027743275,
+              "5": 0.9884243285968515,
+              "6": -0.028559221001813108,
+              "7": 0,
+              "8": -0.36871988674782896,
+              "9": 0.044459993589077755,
+              "10": 0.928476684729739,
+              "11": 0,
+              "12": -1.53,
+              "13": 1.3045,
+              "14": 0,
+              "15": 1
+            }
+          },
+          "surface": {
+            "marks": []
+          }
+        }
+      }
+    }
+  ]
+}
