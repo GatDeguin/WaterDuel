@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-11-02T23:11:20.882Z",
+  "candidate": "D",
+  "frozen": true,
+  "productionPins": {
+    "public/physics/articulated-rig.js": "378248716a14da0a662929e2d04c26c416d334f8863c132eb2c7561e4fc76adb",
+    "public/physics/weapon-bind.js": "0f2b848742107375ed135658ad5d7eace1ae6beb45e65a487f90ee728759e351"
+  },
+  "files": [
+    {
+      "file": "tests/rig-collision-114.test.mjs",
+      "bytes": 4154,
+      "sha256": "31d99f575f089f4d8aff20115e758f2684263e5a0560d1a4f306e88005ef3ad2"
+    },
+    {
+      "file": "tests/rig-signed-query-114.test.mjs",
+      "bytes": 8027,
+      "sha256": "2249ee7bda38895b4d29d479ef4f117e201c312ae21bf8973f3e955264287a2c"
+    },
+    {
+      "file": "tests/fixtures/rig-collision-reference-114.mjs",
+      "bytes": 7766,
+      "sha256": "774a74bd32967922924661207d95165f4ca87caba4d02130c308db4fd9f93748"
+    },
+    {
+      "file": "tests/fixtures/articulated-rig-pre-collision-1.13.js.txt",
+      "bytes": 96376,
+      "sha256": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b"
+    },
+    {
+      "file": "tests/fixtures/weapon-bind-pre-query-1.13.js.txt",
+      "bytes": 20784,
+      "sha256": "96250b199cac641d405f98d0180441e1ffe889754325480557e9fd5c804b7e9a"
+    }
+  ],
+  "logs": [
+    {
+      "file": "red-D-api.log",
+      "scope": "baseline E02 missing reusable API: expected RED",
+      "passed": 0,
+      "failed": 1,
+      "bytes": 1056,
+      "sha256": "5a7468658e0d0e72293bef01e573439fec211311518546cc7f41834f34d4fdb4"
+    },
+    {
+      "file": "green-D-exact-runtime.log",
+      "scope": "final D candidate: six snapshot/default/native/trace tests plus three retained mechanical oracles",
+      "passed": 9,
+      "failed": 0,
+      "bytes": 1290,
+      "sha256": "0e507d297becd8bc7e39d5680fe903e1fb586f60c3cf5605b184795ecdae78bc"
+    },
+    {
+      "file": "green-D-ownership.log",
+      "scope": "additional final rich/compact output mutation checks",
+      "passed": 1,
+      "failed": 0,
+      "bytes": 242,
+      "sha256": "2b4c3ca6acebfa409ace71a489b4f83ac05cec8f1ac316abc44ea84d2ef73942"
+    },
+    {
+      "file": "green-D-production-focals.log",
+      "scope": "production D: compact/rich, signed contact response, independent M/J, weapons/friction/manifold legacy",
+      "passed": 41,
+      "failed": 0,
+      "bytes": 4996,
+      "sha256": "6b6868c037cc6b44bb0855fe38b806e8e35341e4646ffd04f891b0a4c39fd1d7"
+    }
+  ],
+  "baselineRig": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b",
+  "baselineBind": "96250b199cac641d405f98d0180441e1ffe889754325480557e9fd5c804b7e9a",
+  "priorCandidates": "AB-discarded.json",
+  "queryContract": "Frozen outer API owns private initial velocity/contacts/floor snapshots. Per-trial RHS, active set, unload decisions, multipliers, reactions, corrections, velocity and energy remain freshly solved. Cached responses/products/projected metrics depend only on immutable geometry and exact ordered released/active layout keys.",
+  "nativeContract": "Captured native methods live in the rig module. Optional ArticulatedRig.createNativeContactQuery keeps the original weapon-bind import and falls back for own/prototype overrides, duck-typed and aliased historical rigs. reactImpulse still independently validates/applies through the public default trial path.",
+  "tests": {
+    "richCompactComparisons": 320,
+    "realPairs": 32,
+    "stepsPerPair": 4,
+    "oldOraclesRealTicks": 686,
+    "oldOraclesRealSteelContacts": 264,
+    "mutationCoverage": [
+      "input point/normal",
+      "q",
+      "velocity",
+      "contacts/support bias",
+      "limits",
+      "depth",
+      "water load",
+      "topology/detachment",
+      "rich/compact output arrays and metadata"
+    ],
+    "traceEquality": "Complete bind/body/physics state including events, contacts, replay and mechanical fields where covered by legacy trajectory guards."
+  },
+  "review": "Independent read-only review approved ownership, geometry cache validity, ordered keys, defaults and legacy/override compatibility; no blockers.",
+  "dependencyPolicy": "New reference and candidate graphs use the same current absolute dependency URLs, including cloth. Reference rig and bind are portable byte-identical 1.13 fixtures; candidate bind imports its own matching private rig class.",
+  "timingScope": "No timing benchmark performed here. Retention depends on root whole-engine ABBA for D-only and cloth+D; test durations do not establish FPS or a speedup."
+}

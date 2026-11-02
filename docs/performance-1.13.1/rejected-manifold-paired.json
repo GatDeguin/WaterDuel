@@ -1,0 +1,3403 @@
+{
+  "label": "rig-a",
+  "mode": "paired",
+  "changes": [
+    {
+      "file": "public/physics/articulated-rig.js",
+      "source": ".runtime/weapon-lag-114/rig/rig-A.js",
+      "sha256": "b5b5fee4a6142c390c9c8590a6c1937fb7cde819b9599d815c2326afc41765bc",
+      "bytes": 96701
+    }
+  ],
+  "scope": "Deterministic real whole-engine Node CPU; no rendering/GPU/FPS claim",
+  "pass": true,
+  "warmups": 2,
+  "runs": [
+    {
+      "round": 0,
+      "branch": "A",
+      "wallMs": 5530.1186,
+      "cpuMs": 7594,
+      "physicsMs": 5525.007400000006,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.789646111111132,
+            "p95": 5.7457999999987805,
+            "max": 35.3096000000005
+          },
+          "touch": {
+            "n": 1,
+            "mean": 35.3096000000005,
+            "p95": 35.3096000000005,
+            "max": 35.3096000000005
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.796487037037002,
+            "p95": 8.31710000000021,
+            "max": 22.57929999999942
+          },
+          "touch": {
+            "n": 1,
+            "mean": 22.57929999999942,
+            "p95": 22.57929999999942,
+            "max": 22.57929999999942
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 12.433628571428667,
+            "p95": 23.86830000000009,
+            "max": 28.6234000000004
+          },
+          "touch": {
+            "n": 19,
+            "mean": 12.281531578947435,
+            "p95": 28.6234000000004,
+            "max": 28.6234000000004
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 16.21415714285727,
+            "p95": 25.1283999999996,
+            "max": 25.1283999999996
+          },
+          "touch": {
+            "n": 4,
+            "mean": 20.024349999999686,
+            "p95": 25.1283999999996,
+            "max": 25.1283999999996
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 5.095500000000054,
+            "p95": 6.897399999999834,
+            "max": 31.887000000000626
+          },
+          "touch": {
+            "n": 8,
+            "mean": 12.124150000000327,
+            "p95": 31.887000000000626,
+            "max": 31.887000000000626
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.022575555555573,
+            "p95": 9.706299999999828,
+            "max": 37.613900000000285
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.296947619047655,
+            "p95": 15.518500000000131,
+            "max": 37.613900000000285
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.414216111110989,
+            "p95": 9.02219999999943,
+            "max": 10.539800000000469
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.414216111110989,
+            "p95": 9.02219999999943,
+            "max": 10.539800000000469
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 7.17879687500016,
+            "p95": 10.867400000002817,
+            "max": 19.981400000000576
+          },
+          "touch": {
+            "n": 6,
+            "mean": 9.08691666666588,
+            "p95": 11.284799999997631,
+            "max": 11.284799999997631
+          }
+        }
+      ],
+      "digest": "701bba56d939d88251bbf377c81c58f9a53a636ec559c394deddb17dea098c96"
+    },
+    {
+      "round": 0,
+      "branch": "B",
+      "wallMs": 5442.924899999998,
+      "cpuMs": 6906,
+      "physicsMs": 5439.901900000023,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.862535000000106,
+            "p95": 6.099799999999959,
+            "max": 46.49859999999899
+          },
+          "touch": {
+            "n": 1,
+            "mean": 46.49859999999899,
+            "p95": 46.49859999999899,
+            "max": 46.49859999999899
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.773535185185176,
+            "p95": 7.729200000001583,
+            "max": 23.089999999996508
+          },
+          "touch": {
+            "n": 1,
+            "mean": 23.089999999996508,
+            "p95": 23.089999999996508,
+            "max": 23.089999999996508
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 12.687438095237926,
+            "p95": 23.51350000000093,
+            "max": 25.538700000000972
+          },
+          "touch": {
+            "n": 19,
+            "mean": 12.59279473684192,
+            "p95": 25.538700000000972,
+            "max": 25.538700000000972
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 17.013000000001608,
+            "p95": 25.185199999999895,
+            "max": 25.185199999999895
+          },
+          "touch": {
+            "n": 4,
+            "mean": 20.515150000001086,
+            "p95": 25.185199999999895,
+            "max": 25.185199999999895
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.855702222222135,
+            "p95": 6.086300000002666,
+            "max": 29.154899999997724
+          },
+          "touch": {
+            "n": 8,
+            "mean": 11.650337499999296,
+            "p95": 29.154899999997724,
+            "max": 29.154899999997724
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 6.831323888888963,
+            "p95": 9.687999999998283,
+            "max": 33.46849999999904
+          },
+          "touch": {
+            "n": 105,
+            "mean": 7.944308571428493,
+            "p95": 11.346699999998236,
+            "max": 33.46849999999904
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.3761666666666015,
+            "p95": 8.799999999999272,
+            "max": 17.7554999999993
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.3761666666666015,
+            "p95": 8.799999999999272,
+            "max": 17.7554999999993
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.8120750000001635,
+            "p95": 9.573700000000827,
+            "max": 16.687000000001717
+          },
+          "touch": {
+            "n": 6,
+            "mean": 9.211549999999988,
+            "p95": 12.94210000000021,
+            "max": 12.94210000000021
+          }
+        }
+      ],
+      "digest": "701bba56d939d88251bbf377c81c58f9a53a636ec559c394deddb17dea098c96"
+    },
+    {
+      "round": 0,
+      "branch": "B",
+      "wallMs": 5416.844000000001,
+      "cpuMs": 6672,
+      "physicsMs": 5413.57109999995,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.427396666666734,
+            "p95": 5.440899999997782,
+            "max": 25.93250000000262
+          },
+          "touch": {
+            "n": 1,
+            "mean": 25.93250000000262,
+            "p95": 25.93250000000262,
+            "max": 25.93250000000262
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.329807407407282,
+            "p95": 8.19260000000213,
+            "max": 21.934300000000803
+          },
+          "touch": {
+            "n": 1,
+            "mean": 21.934300000000803,
+            "p95": 21.934300000000803,
+            "max": 21.934300000000803
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 11.589661904761929,
+            "p95": 19.29569999999876,
+            "max": 22.107100000001083
+          },
+          "touch": {
+            "n": 19,
+            "mean": 11.447031578947453,
+            "p95": 22.107100000001083,
+            "max": 22.107100000001083
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 15.777785714286438,
+            "p95": 23.477900000001682,
+            "max": 23.477900000001682
+          },
+          "touch": {
+            "n": 4,
+            "mean": 18.072425000001203,
+            "p95": 23.477900000001682,
+            "max": 23.477900000001682
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.8616422222221445,
+            "p95": 6.191299999998591,
+            "max": 36.11330000000089
+          },
+          "touch": {
+            "n": 8,
+            "mean": 12.800074999999651,
+            "p95": 36.11330000000089,
+            "max": 36.11330000000089
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.31935611111114,
+            "p95": 11.187100000002829,
+            "max": 35.26849999999831
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.664704761904709,
+            "p95": 20.00720000000001,
+            "max": 35.26849999999831
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.418279444444185,
+            "p95": 8.891099999997095,
+            "max": 12.229400000000169
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.418279444444185,
+            "p95": 8.891099999997095,
+            "max": 12.229400000000169
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.9864484374999165,
+            "p95": 10.818100000000413,
+            "max": 18.030299999998533
+          },
+          "touch": {
+            "n": 6,
+            "mean": 8.937366666667003,
+            "p95": 12.863600000000588,
+            "max": 12.863600000000588
+          }
+        }
+      ],
+      "digest": "185b4d33c4f0a9ee1e8c08ba38ee038460d1c8ab423e58dbe0577d24d9ef58b4"
+    },
+    {
+      "round": 0,
+      "branch": "A",
+      "wallMs": 5393.2291000000005,
+      "cpuMs": 6968,
+      "physicsMs": 5390.181199999995,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.541609999999875,
+            "p95": 5.909599999999045,
+            "max": 33.600799999996525
+          },
+          "touch": {
+            "n": 1,
+            "mean": 33.600799999996525,
+            "p95": 33.600799999996525,
+            "max": 33.600799999996525
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.412137037036869,
+            "p95": 7.811999999998079,
+            "max": 21.228900000001886
+          },
+          "touch": {
+            "n": 1,
+            "mean": 21.228900000001886,
+            "p95": 21.228900000001886,
+            "max": 21.228900000001886
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 12.565271428571057,
+            "p95": 21.546399999999267,
+            "max": 24.399499999999534
+          },
+          "touch": {
+            "n": 19,
+            "mean": 12.581768421052402,
+            "p95": 24.399499999999534,
+            "max": 24.399499999999534
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 16.416185714286257,
+            "p95": 25.774600000000646,
+            "max": 25.774600000000646
+          },
+          "touch": {
+            "n": 4,
+            "mean": 20.96702500000083,
+            "p95": 25.774600000000646,
+            "max": 25.774600000000646
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.874211111111314,
+            "p95": 6.068499999997584,
+            "max": 29.961999999999534
+          },
+          "touch": {
+            "n": 8,
+            "mean": 11.64863749999995,
+            "p95": 29.961999999999534,
+            "max": 29.961999999999534
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 6.83747000000003,
+            "p95": 9.893299999999726,
+            "max": 34.507000000001426
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.058897142857175,
+            "p95": 15.856299999999464,
+            "max": 34.507000000001426
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.492868333333374,
+            "p95": 8.9149000000034,
+            "max": 17.034599999999045
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.492868333333374,
+            "p95": 8.9149000000034,
+            "max": 17.034599999999045
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.950517187499713,
+            "p95": 9.97439999999915,
+            "max": 16.530399999996007
+          },
+          "touch": {
+            "n": 6,
+            "mean": 9.131733333330581,
+            "p95": 12.730899999995017,
+            "max": 12.730899999995017
+          }
+        }
+      ],
+      "digest": "dad8e62e482e7cf292961ae1e26470b4a39b9d6e0e3ec4361edd726a5789250a"
+    },
+    {
+      "round": 1,
+      "branch": "A",
+      "wallMs": 5347.290000000001,
+      "cpuMs": 6188,
+      "physicsMs": 5344.22239999997,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.394428888889039,
+            "p95": 5.327799999999115,
+            "max": 24.959600000001956
+          },
+          "touch": {
+            "n": 1,
+            "mean": 24.959600000001956,
+            "p95": 24.959600000001956,
+            "max": 24.959600000001956
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.611659259259021,
+            "p95": 11.675400000000081,
+            "max": 22.402600000001257
+          },
+          "touch": {
+            "n": 1,
+            "mean": 22.402600000001257,
+            "p95": 22.402600000001257,
+            "max": 22.402600000001257
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 11.553242857142148,
+            "p95": 19.61250000000291,
+            "max": 23.380299999997078
+          },
+          "touch": {
+            "n": 19,
+            "mean": 11.402184210525057,
+            "p95": 23.380299999997078,
+            "max": 23.380299999997078
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 15.88837142857145,
+            "p95": 23.035400000000664,
+            "max": 23.035400000000664
+          },
+          "touch": {
+            "n": 4,
+            "mean": 19.49975000000086,
+            "p95": 23.035400000000664,
+            "max": 23.035400000000664
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.859759999999895,
+            "p95": 6.328600000000733,
+            "max": 32.457299999994575
+          },
+          "touch": {
+            "n": 8,
+            "mean": 12.193637499999568,
+            "p95": 32.457299999994575,
+            "max": 32.457299999994575
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 6.767131111110697,
+            "p95": 9.679799999998068,
+            "max": 45.8498000000036
+          },
+          "touch": {
+            "n": 105,
+            "mean": 7.924551428571119,
+            "p95": 13.002400000004855,
+            "max": 45.8498000000036
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.570183333333585,
+            "p95": 9.0596000000005,
+            "max": 18.864800000003015
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.570183333333585,
+            "p95": 9.0596000000005,
+            "max": 18.864800000003015
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.888835937500289,
+            "p95": 9.724000000001979,
+            "max": 16.256900000000314
+          },
+          "touch": {
+            "n": 6,
+            "mean": 9.288166666665347,
+            "p95": 13.439900000004855,
+            "max": 13.439900000004855
+          }
+        }
+      ],
+      "digest": "dad8e62e482e7cf292961ae1e26470b4a39b9d6e0e3ec4361edd726a5789250a"
+    },
+    {
+      "round": 1,
+      "branch": "B",
+      "wallMs": 5296.2399000000005,
+      "cpuMs": 6297,
+      "physicsMs": 5293.441799999746,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.432568888888515,
+            "p95": 5.268400000000838,
+            "max": 25.914700000001176
+          },
+          "touch": {
+            "n": 1,
+            "mean": 25.914700000001176,
+            "p95": 25.914700000001176,
+            "max": 25.914700000001176
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.373022222222062,
+            "p95": 8.027699999998731,
+            "max": 21.88449999999284
+          },
+          "touch": {
+            "n": 1,
+            "mean": 21.88449999999284,
+            "p95": 21.88449999999284,
+            "max": 21.88449999999284
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 11.610838095237947,
+            "p95": 18.945400000004156,
+            "max": 23.110000000000582
+          },
+          "touch": {
+            "n": 19,
+            "mean": 11.50342631578908,
+            "p95": 23.110000000000582,
+            "max": 23.110000000000582
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 15.73378571428475,
+            "p95": 23.82050000000163,
+            "max": 23.82050000000163
+          },
+          "touch": {
+            "n": 4,
+            "mean": 17.992999999998574,
+            "p95": 23.82050000000163,
+            "max": 23.82050000000163
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.8456699999996795,
+            "p95": 6.103699999999662,
+            "max": 28.50039999999717
+          },
+          "touch": {
+            "n": 8,
+            "mean": 12.58161249999921,
+            "p95": 28.50039999999717,
+            "max": 28.50039999999717
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 6.786643333333349,
+            "p95": 9.633900000000722,
+            "max": 32.830100000006496
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.071848571428564,
+            "p95": 17.306699999993725,
+            "max": 32.830100000006496
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.326425555554831,
+            "p95": 8.821600000002945,
+            "max": 10.357499999998254
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.326425555554831,
+            "p95": 8.821600000002945,
+            "max": 10.357499999998254
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.857798437500264,
+            "p95": 10.651900000004389,
+            "max": 16.62380000000121
+          },
+          "touch": {
+            "n": 6,
+            "mean": 8.920783333333626,
+            "p95": 12.585599999998522,
+            "max": 12.585599999998522
+          }
+        }
+      ],
+      "digest": "185b4d33c4f0a9ee1e8c08ba38ee038460d1c8ab423e58dbe0577d24d9ef58b4"
+    },
+    {
+      "round": 1,
+      "branch": "B",
+      "wallMs": 5228.036500000002,
+      "cpuMs": 6218,
+      "physicsMs": 5224.9532000000545,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.317642222221992,
+            "p95": 5.228399999999965,
+            "max": 25.053099999997357
+          },
+          "touch": {
+            "n": 1,
+            "mean": 25.053099999997357,
+            "p95": 25.053099999997357,
+            "max": 25.053099999997357
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.321262962963239,
+            "p95": 7.4407999999966705,
+            "max": 21.538899999999558
+          },
+          "touch": {
+            "n": 1,
+            "mean": 21.538899999999558,
+            "p95": 21.538899999999558,
+            "max": 21.538899999999558
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 11.073828571428923,
+            "p95": 20.669699999998556,
+            "max": 22.755799999999
+          },
+          "touch": {
+            "n": 19,
+            "mean": 11.0297210526321,
+            "p95": 22.755799999999,
+            "max": 22.755799999999
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 17.085685714288307,
+            "p95": 30.821300000003248,
+            "max": 30.821300000003248
+          },
+          "touch": {
+            "n": 4,
+            "mean": 22.130450000004203,
+            "p95": 30.821300000003248,
+            "max": 30.821300000003248
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.749958333333335,
+            "p95": 6.049800000000687,
+            "max": 28.71809999999823
+          },
+          "touch": {
+            "n": 8,
+            "mean": 11.299012499999662,
+            "p95": 28.71809999999823,
+            "max": 28.71809999999823
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 6.682238333333307,
+            "p95": 9.54149999999936,
+            "max": 35.418699999994715
+          },
+          "touch": {
+            "n": 105,
+            "mean": 7.890055238095201,
+            "p95": 18.249799999997776,
+            "max": 35.418699999994715
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.272605000000234,
+            "p95": 8.748399999996764,
+            "max": 11.776299999997718
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.272605000000234,
+            "p95": 8.748399999996764,
+            "max": 11.776299999997718
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.8971078125002805,
+            "p95": 10.833699999995588,
+            "max": 18.739400000005844
+          },
+          "touch": {
+            "n": 6,
+            "mean": 8.83205000000089,
+            "p95": 12.244600000005448,
+            "max": 12.244600000005448
+          }
+        }
+      ],
+      "digest": "0920662a79e003b83e943a0515cdac694cb221c2ba12956ddc77f30c0ddd58f8"
+    },
+    {
+      "round": 1,
+      "branch": "A",
+      "wallMs": 5470.518599999996,
+      "cpuMs": 6687,
+      "physicsMs": 5466.976900000103,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.464200555555928,
+            "p95": 5.404399999999441,
+            "max": 23.080900000000838
+          },
+          "touch": {
+            "n": 1,
+            "mean": 23.080900000000838,
+            "p95": 23.080900000000838,
+            "max": 23.080900000000838
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.555020370370551,
+            "p95": 7.443399999996473,
+            "max": 22.74489999999787
+          },
+          "touch": {
+            "n": 1,
+            "mean": 22.74489999999787,
+            "p95": 22.74489999999787,
+            "max": 22.74489999999787
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 11.818495238095196,
+            "p95": 20.384100000002945,
+            "max": 23.639400000000023
+          },
+          "touch": {
+            "n": 19,
+            "mean": 11.645394736841952,
+            "p95": 23.639400000000023,
+            "max": 23.639400000000023
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 17.790585714286344,
+            "p95": 26.566899999997986,
+            "max": 26.566899999997986
+          },
+          "touch": {
+            "n": 4,
+            "mean": 19.54070000000138,
+            "p95": 24.953699999998207,
+            "max": 24.953699999998207
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.960565555555594,
+            "p95": 6.340800000005402,
+            "max": 30.392900000006193
+          },
+          "touch": {
+            "n": 8,
+            "mean": 12.334050000002208,
+            "p95": 30.392900000006193,
+            "max": 30.392900000006193
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.022100000000137,
+            "p95": 9.895300000003772,
+            "max": 33.98189999999886
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.287729523809476,
+            "p95": 15.050799999997253,
+            "max": 33.98189999999886
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.55175555555559,
+            "p95": 8.971300000004703,
+            "max": 15.5766999999978
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.55175555555559,
+            "p95": 8.971300000004703,
+            "max": 15.5766999999978
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 7.41455312499977,
+            "p95": 11.268400000000838,
+            "max": 17.256000000001222
+          },
+          "touch": {
+            "n": 6,
+            "mean": 10.95158333333408,
+            "p95": 17.256000000001222,
+            "max": 17.256000000001222
+          }
+        }
+      ],
+      "digest": "3f1c0d947e8b926f80dc21cff1d5b1e45cc22c5bb90daabb9e0ef61687f05f6d"
+    },
+    {
+      "round": 2,
+      "branch": "A",
+      "wallMs": 5400.733200000002,
+      "cpuMs": 6734,
+      "physicsMs": 5397.687800000036,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.441765555555806,
+            "p95": 5.497100000000501,
+            "max": 25.70119999999588
+          },
+          "touch": {
+            "n": 1,
+            "mean": 25.70119999999588,
+            "p95": 25.70119999999588,
+            "max": 25.70119999999588
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.320579629629922,
+            "p95": 7.738199999999779,
+            "max": 23.413199999995413
+          },
+          "touch": {
+            "n": 1,
+            "mean": 23.413199999995413,
+            "p95": 23.413199999995413,
+            "max": 23.413199999995413
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 12.090095238094884,
+            "p95": 24.200799999998708,
+            "max": 32.731699999996636
+          },
+          "touch": {
+            "n": 19,
+            "mean": 12.09331578947374,
+            "p95": 32.731699999996636,
+            "max": 32.731699999996636
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 15.645785714286571,
+            "p95": 22.714599999999336,
+            "max": 22.714599999999336
+          },
+          "touch": {
+            "n": 4,
+            "mean": 19.24029999999948,
+            "p95": 22.714599999999336,
+            "max": 22.714599999999336
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.846728333333239,
+            "p95": 6.078200000003562,
+            "max": 28.43630000000121
+          },
+          "touch": {
+            "n": 8,
+            "mean": 11.475274999999783,
+            "p95": 28.43630000000121,
+            "max": 28.43630000000121
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.000815555554961,
+            "p95": 9.828999999997905,
+            "max": 33.15869999999995
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.230681904761322,
+            "p95": 11.620499999997264,
+            "max": 33.15869999999995
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.669730555556008,
+            "p95": 9.226799999996729,
+            "max": 15.038699999997334
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.669730555556008,
+            "p95": 9.226799999996729,
+            "max": 15.038699999997334
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.786512500000299,
+            "p95": 9.632799999999406,
+            "max": 17.295200000000477
+          },
+          "touch": {
+            "n": 6,
+            "mean": 8.9711166666663,
+            "p95": 11.061399999998685,
+            "max": 11.061399999998685
+          }
+        }
+      ],
+      "digest": "fe64cfbeb9dc3cab435630f4d4f209e3664f0dcd652d0d0fbc85ef25f4fb7245"
+    },
+    {
+      "round": 2,
+      "branch": "B",
+      "wallMs": 5414.8027,
+      "cpuMs": 6813,
+      "physicsMs": 5411.837399999873,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.491294444443944,
+            "p95": 5.3902000000016415,
+            "max": 25.38300000000163
+          },
+          "touch": {
+            "n": 1,
+            "mean": 25.38300000000163,
+            "p95": 25.38300000000163,
+            "max": 25.38300000000163
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.695509259259443,
+            "p95": 11.916000000004715,
+            "max": 23.259299999997893
+          },
+          "touch": {
+            "n": 1,
+            "mean": 23.259299999997893,
+            "p95": 23.259299999997893,
+            "max": 23.259299999997893
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 12.813385714285166,
+            "p95": 22.80519999999524,
+            "max": 24.5711999999985
+          },
+          "touch": {
+            "n": 19,
+            "mean": 12.580726315789338,
+            "p95": 24.5711999999985,
+            "max": 24.5711999999985
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 16.80722857142869,
+            "p95": 25.6024000000034,
+            "max": 25.6024000000034
+          },
+          "touch": {
+            "n": 4,
+            "mean": 19.291675000000396,
+            "p95": 25.6024000000034,
+            "max": 25.6024000000034
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 5.08963222222216,
+            "p95": 6.888299999998708,
+            "max": 30.740599999997357
+          },
+          "touch": {
+            "n": 8,
+            "mean": 12.03782499999852,
+            "p95": 30.740599999997357,
+            "max": 30.740599999997357
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 6.703658888888822,
+            "p95": 9.7274000000034,
+            "max": 32.364699999998265
+          },
+          "touch": {
+            "n": 105,
+            "mean": 7.750373333333326,
+            "p95": 13.965499999998428,
+            "max": 32.364699999998265
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.493378333333183,
+            "p95": 9.197000000000116,
+            "max": 17.248300000006566
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.493378333333183,
+            "p95": 9.197000000000116,
+            "max": 17.248300000006566
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.836167187500223,
+            "p95": 10.859700000000885,
+            "max": 16.149699999994482
+          },
+          "touch": {
+            "n": 6,
+            "mean": 8.709133333337377,
+            "p95": 13.129200000010314,
+            "max": 13.129200000010314
+          }
+        }
+      ],
+      "digest": "fe64cfbeb9dc3cab435630f4d4f209e3664f0dcd652d0d0fbc85ef25f4fb7245"
+    },
+    {
+      "round": 2,
+      "branch": "B",
+      "wallMs": 5430.359300000011,
+      "cpuMs": 6921,
+      "physicsMs": 5427.402999999758,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.426855000000716,
+            "p95": 5.284599999999045,
+            "max": 25.841700000004494
+          },
+          "touch": {
+            "n": 1,
+            "mean": 25.841700000004494,
+            "p95": 25.841700000004494,
+            "max": 25.841700000004494
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.561594444443472,
+            "p95": 8.055500000002212,
+            "max": 22.29780000000028
+          },
+          "touch": {
+            "n": 1,
+            "mean": 22.29780000000028,
+            "p95": 22.29780000000028,
+            "max": 22.29780000000028
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 11.731495238094968,
+            "p95": 20.226600000009057,
+            "max": 23.42960000000312
+          },
+          "touch": {
+            "n": 19,
+            "mean": 11.528578947367924,
+            "p95": 23.42960000000312,
+            "max": 23.42960000000312
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 16.259514285710924,
+            "p95": 25.479900000005728,
+            "max": 25.479900000005728
+          },
+          "touch": {
+            "n": 4,
+            "mean": 19.205975000000763,
+            "p95": 25.479900000005728,
+            "max": 25.479900000005728
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 5.012071666666937,
+            "p95": 6.4078000000008615,
+            "max": 29.23719999998866
+          },
+          "touch": {
+            "n": 8,
+            "mean": 12.530737499997485,
+            "p95": 29.23719999998866,
+            "max": 29.23719999998866
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.206422777776849,
+            "p95": 10.787099999986822,
+            "max": 35.06009999998787
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.507203809522963,
+            "p95": 15.706299999990733,
+            "max": 35.06009999998787
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.36324277777684,
+            "p95": 8.825899999996182,
+            "max": 10.128599999996368
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.36324277777684,
+            "p95": 8.825899999996182,
+            "max": 10.128599999996368
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.958629687499979,
+            "p95": 11.076700000005076,
+            "max": 15.8524000000034
+          },
+          "touch": {
+            "n": 6,
+            "mean": 8.69950000000002,
+            "p95": 12.843999999997322,
+            "max": 12.843999999997322
+          }
+        }
+      ],
+      "digest": "fe64cfbeb9dc3cab435630f4d4f209e3664f0dcd652d0d0fbc85ef25f4fb7245"
+    },
+    {
+      "round": 2,
+      "branch": "A",
+      "wallMs": 5344.449999999997,
+      "cpuMs": 6531,
+      "physicsMs": 5341.731100000368,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.462013888889487,
+            "p95": 5.579400000002352,
+            "max": 26.823100000008708
+          },
+          "touch": {
+            "n": 1,
+            "mean": 26.823100000008708,
+            "p95": 26.823100000008708,
+            "max": 26.823100000008708
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.392850000000045,
+            "p95": 7.67609999999695,
+            "max": 21.855600000009872
+          },
+          "touch": {
+            "n": 1,
+            "mean": 21.855600000009872,
+            "p95": 21.855600000009872,
+            "max": 21.855600000009872
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 11.628995238095827,
+            "p95": 21.68180000000575,
+            "max": 24.14990000000398
+          },
+          "touch": {
+            "n": 19,
+            "mean": 11.422021052631623,
+            "p95": 24.14990000000398,
+            "max": 24.14990000000398
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 17.568828571431887,
+            "p95": 27.46370000000752,
+            "max": 27.46370000000752
+          },
+          "touch": {
+            "n": 4,
+            "mean": 20.36607500000173,
+            "p95": 24.899400000009337,
+            "max": 24.899400000009337
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.77869611111164,
+            "p95": 6.350200000000768,
+            "max": 30.545899999997346
+          },
+          "touch": {
+            "n": 8,
+            "mean": 11.870312499997453,
+            "p95": 30.545899999997346,
+            "max": 30.545899999997346
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 6.803133333334214,
+            "p95": 10.042799999995623,
+            "max": 33.388200000001234
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.014992380952961,
+            "p95": 15.831200000000536,
+            "max": 33.388200000001234
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.428196666666756,
+            "p95": 9.068899999998393,
+            "max": 21.061799999995856
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.428196666666756,
+            "p95": 9.068899999998393,
+            "max": 21.061799999995856
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 7.161864062499262,
+            "p95": 10.864199999996345,
+            "max": 18.963099999993574
+          },
+          "touch": {
+            "n": 6,
+            "mean": 9.58091666666102,
+            "p95": 12.93630000000121,
+            "max": 12.93630000000121
+          }
+        }
+      ],
+      "digest": "fe64cfbeb9dc3cab435630f4d4f209e3664f0dcd652d0d0fbc85ef25f4fb7245"
+    },
+    {
+      "round": 3,
+      "branch": "A",
+      "wallMs": 5433.443299999999,
+      "cpuMs": 6735,
+      "physicsMs": 5430.560199999818,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.828863333333235,
+            "p95": 6.111300000004121,
+            "max": 25.553699999989476
+          },
+          "touch": {
+            "n": 1,
+            "mean": 25.553699999989476,
+            "p95": 25.553699999989476,
+            "max": 25.553699999989476
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.340670370369615,
+            "p95": 7.751799999998184,
+            "max": 22.579100000002654
+          },
+          "touch": {
+            "n": 1,
+            "mean": 22.579100000002654,
+            "p95": 22.579100000002654,
+            "max": 22.579100000002654
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 12.524052380954908,
+            "p95": 23.83629999999539,
+            "max": 33.33170000000973
+          },
+          "touch": {
+            "n": 19,
+            "mean": 12.54773157894976,
+            "p95": 33.33170000000973,
+            "max": 33.33170000000973
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 18.123371428573073,
+            "p95": 26.066200000001118,
+            "max": 26.066200000001118
+          },
+          "touch": {
+            "n": 4,
+            "mean": 22.64087500000096,
+            "p95": 26.066200000001118,
+            "max": 26.066200000001118
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 5.029848888889116,
+            "p95": 6.55449999999837,
+            "max": 32.72729999999865
+          },
+          "touch": {
+            "n": 8,
+            "mean": 12.599937500001033,
+            "p95": 32.72729999999865,
+            "max": 32.72729999999865
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 6.814522777777327,
+            "p95": 9.986099999994622,
+            "max": 34.213899999987916
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.081063809523142,
+            "p95": 14.502999999996973,
+            "max": 34.213899999987916
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.327193333332738,
+            "p95": 8.947200000009616,
+            "max": 19.667499999995925
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.327193333332738,
+            "p95": 8.947200000009616,
+            "max": 19.667499999995925
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.7534093749993644,
+            "p95": 9.71929999999702,
+            "max": 16.030500000008033
+          },
+          "touch": {
+            "n": 6,
+            "mean": 8.972316666671153,
+            "p95": 12.606100000004517,
+            "max": 12.606100000004517
+          }
+        }
+      ],
+      "digest": "fe64cfbeb9dc3cab435630f4d4f209e3664f0dcd652d0d0fbc85ef25f4fb7245"
+    },
+    {
+      "round": 3,
+      "branch": "B",
+      "wallMs": 5254.923999999999,
+      "cpuMs": 6704,
+      "physicsMs": 5252.5141000001895,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.328562222222374,
+            "p95": 5.238100000002305,
+            "max": 26.14539999999397
+          },
+          "touch": {
+            "n": 1,
+            "mean": 26.14539999999397,
+            "p95": 26.14539999999397,
+            "max": 26.14539999999397
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.47889259259224,
+            "p95": 10.941400000010617,
+            "max": 21.617899999997462
+          },
+          "touch": {
+            "n": 1,
+            "mean": 21.617899999997462,
+            "p95": 21.617899999997462,
+            "max": 21.617899999997462
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 11.262728571430282,
+            "p95": 19.696300000010524,
+            "max": 22.725500000000466
+          },
+          "touch": {
+            "n": 19,
+            "mean": 11.074084210527394,
+            "p95": 22.725500000000466,
+            "max": 22.725500000000466
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 15.427685714285222,
+            "p95": 23.43410000001313,
+            "max": 23.43410000001313
+          },
+          "touch": {
+            "n": 4,
+            "mean": 17.45194999999876,
+            "p95": 23.43410000001313,
+            "max": 23.43410000001313
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.7988666666671635,
+            "p95": 6.441300000005867,
+            "max": 28.670100000003004
+          },
+          "touch": {
+            "n": 8,
+            "mean": 11.483987500001604,
+            "p95": 28.670100000003004,
+            "max": 28.670100000003004
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 6.828609444444252,
+            "p95": 9.595800000010058,
+            "max": 33.22530000000552
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.041232380952264,
+            "p95": 16.916900000011083,
+            "max": 33.22530000000552
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.294188333333699,
+            "p95": 8.817300000009709,
+            "max": 18.103000000002794
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.294188333333699,
+            "p95": 8.817300000009709,
+            "max": 18.103000000002794
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.673468750000438,
+            "p95": 9.872500000012224,
+            "max": 15.66939999999886
+          },
+          "touch": {
+            "n": 6,
+            "mean": 9.029749999999089,
+            "p95": 12.914199999999255,
+            "max": 12.914199999999255
+          }
+        }
+      ],
+      "digest": "fe64cfbeb9dc3cab435630f4d4f209e3664f0dcd652d0d0fbc85ef25f4fb7245"
+    },
+    {
+      "round": 3,
+      "branch": "B",
+      "wallMs": 5404.032699999996,
+      "cpuMs": 6844,
+      "physicsMs": 5401.751000000309,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.397024444445156,
+            "p95": 5.186700000005658,
+            "max": 26.26350000000093
+          },
+          "touch": {
+            "n": 1,
+            "mean": 26.26350000000093,
+            "p95": 26.26350000000093,
+            "max": 26.26350000000093
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.498029629628474,
+            "p95": 8.106299999999464,
+            "max": 22.580900000000838
+          },
+          "touch": {
+            "n": 1,
+            "mean": 22.580900000000838,
+            "p95": 22.580900000000838,
+            "max": 22.580900000000838
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 11.659623809525371,
+            "p95": 20.40899999999965,
+            "max": 23.64639999999781
+          },
+          "touch": {
+            "n": 19,
+            "mean": 11.471357894738167,
+            "p95": 23.64639999999781,
+            "max": 23.64639999999781
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 16.222042857143347,
+            "p95": 25.014299999995274,
+            "max": 25.014299999995274
+          },
+          "touch": {
+            "n": 4,
+            "mean": 19.250599999999395,
+            "p95": 25.014299999995274,
+            "max": 25.014299999995274
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 5.079748333333797,
+            "p95": 6.619600000005448,
+            "max": 29.205900000000838
+          },
+          "touch": {
+            "n": 8,
+            "mean": 12.961762500002806,
+            "p95": 29.205900000000838,
+            "max": 29.205900000000838
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.220673333333656,
+            "p95": 10.29340000000957,
+            "max": 35.22820000001229
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.17989428571489,
+            "p95": 16.467400000008638,
+            "max": 35.22820000001229
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.247305000000375,
+            "p95": 8.751500000013039,
+            "max": 10.290300000007846
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.247305000000375,
+            "p95": 8.751500000013039,
+            "max": 10.290300000007846
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 6.818684374999975,
+            "p95": 10.59330000000773,
+            "max": 16.34969999999157
+          },
+          "touch": {
+            "n": 6,
+            "mean": 8.737200000000788,
+            "p95": 12.546300000001793,
+            "max": 12.546300000001793
+          }
+        }
+      ],
+      "digest": "fe64cfbeb9dc3cab435630f4d4f209e3664f0dcd652d0d0fbc85ef25f4fb7245"
+    },
+    {
+      "round": 3,
+      "branch": "A",
+      "wallMs": 5361.446599999996,
+      "cpuMs": 6609,
+      "physicsMs": 5359.378800000239,
+      "parts": [
+        {
+          "weapon": "sword",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 1,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 19,
+            "joint-damage": 2
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.419522777778103,
+            "p95": 5.432300000000396,
+            "max": 23.567399999999907
+          },
+          "touch": {
+            "n": 1,
+            "mean": 23.567399999999907,
+            "p95": 23.567399999999907,
+            "max": 23.567399999999907
+          }
+        },
+        {
+          "weapon": "sword",
+          "recipe": "bind",
+          "ticks": 54,
+          "steel": 1,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 8,
+            "joint-damage": 3,
+            "burst": 1
+          },
+          "all": {
+            "n": 54,
+            "mean": 5.4292481481493775,
+            "p95": 7.417300000000978,
+            "max": 21.373300000006566
+          },
+          "touch": {
+            "n": 1,
+            "mean": 21.373300000006566,
+            "p95": 21.373300000006566,
+            "max": 21.373300000006566
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "neutral",
+          "ticks": 21,
+          "steel": 19,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 6,
+            "clang": 2,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 21,
+            "mean": 11.6285619047627,
+            "p95": 21.70659999999043,
+            "max": 23.39639999999781
+          },
+          "touch": {
+            "n": 19,
+            "mean": 11.436221052632868,
+            "p95": 23.39639999999781,
+            "max": 23.39639999999781
+          }
+        },
+        {
+          "weapon": "spear",
+          "recipe": "bind",
+          "ticks": 7,
+          "steel": 4,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 5,
+            "clang": 1,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 7,
+            "mean": 17.83417142856758,
+            "p95": 29.026899999997113,
+            "max": 29.026899999997113
+          },
+          "touch": {
+            "n": 4,
+            "mean": 19.92714999999589,
+            "p95": 24.74059999999008,
+            "max": 24.74059999999008
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 8,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 37,
+            "clang": 1,
+            "joint-damage": 5
+          },
+          "all": {
+            "n": 180,
+            "mean": 4.767757777777944,
+            "p95": 6.2731000000057975,
+            "max": 30.26589999999851
+          },
+          "touch": {
+            "n": 8,
+            "mean": 11.845999999999549,
+            "p95": 30.26589999999851,
+            "max": 30.26589999999851
+          }
+        },
+        {
+          "weapon": "axe",
+          "recipe": "bind",
+          "ticks": 180,
+          "steel": 105,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "material-contact": 9,
+            "clang": 12,
+            "joint-damage": 6
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.0760411111106,
+            "p95": 10.544600000008359,
+            "max": 33.119900000005146
+          },
+          "touch": {
+            "n": 105,
+            "mean": 8.380481904761316,
+            "p95": 15.170599999997648,
+            "max": 33.119900000005146
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "neutral",
+          "ticks": 180,
+          "steel": 180,
+          "phase": "fight",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 18
+          },
+          "all": {
+            "n": 180,
+            "mean": 7.330490000000928,
+            "p95": 8.878499999991618,
+            "max": 10.31130000000121
+          },
+          "touch": {
+            "n": 180,
+            "mean": 7.330490000000928,
+            "p95": 8.878499999991618,
+            "max": 10.31130000000121
+          }
+        },
+        {
+          "weapon": "maul",
+          "recipe": "bind",
+          "ticks": 64,
+          "steel": 6,
+          "phase": "burst",
+          "eventCounts": {
+            "reset": 1,
+            "clang": 1,
+            "material-contact": 8,
+            "joint-damage": 2,
+            "burst": 1
+          },
+          "all": {
+            "n": 64,
+            "mean": 7.035535937500299,
+            "p95": 11.352500000008149,
+            "max": 16.198400000008405
+          },
+          "touch": {
+            "n": 6,
+            "mean": 9.09506666666372,
+            "p95": 12.59879999999248,
+            "max": 12.59879999999248
+          }
+        }
+      ],
+      "digest": "fe64cfbeb9dc3cab435630f4d4f209e3664f0dcd652d0d0fbc85ef25f4fb7245"
+    }
+  ],
+  "rounds": [
+    {
+      "round": 0,
+      "A": 5457.594300000001,
+      "B": 5426.736499999986,
+      "reduction": 0.005654102944224748
+    },
+    {
+      "round": 1,
+      "A": 5405.5996500000365,
+      "B": 5259.1974999999,
+      "reduction": 0.027083424500394804
+    },
+    {
+      "round": 2,
+      "A": 5369.709450000202,
+      "B": 5419.620199999816,
+      "reduction": -0.009294869762387581
+    },
+    {
+      "round": 3,
+      "A": 5394.969500000028,
+      "B": 5327.1325500002495,
+      "reduction": 0.01257411186472479
+    }
+  ]
+}

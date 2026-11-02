@@ -4,6 +4,10 @@
 
 En móvil, Pages abre la experiencia individual con los dos joysticks y el menú ☰. En PC conserva la escena sin mandos ni menús. Para jugar en PC con los QR y dos móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo: Pages no ejecuta el servidor de sesiones. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Contactos más eficientes 1.13.1
+
+Las colisiones de tela usan cálculos escalares y los choques de armas preparan una vez los datos compartidos entre sus consultas físicas. En ocho recetas de combate, cuatro rondas comparativas reducen el tiempo de física aproximadamente un 28 %, conservando exactamente estados, contactos y eventos. Se mantienen el detalle visual, las fuerzas, los desvíos, el daño y la precisión de la perforación. El porcentaje corresponde al motor CPU medido; no certifica FPS sostenidos. [Mediciones, reproducción y límites](docs/OPTIMIZACION_COLISIONES_1.13.1.md).
+
 ## Campaña, personajes y taller 1.13.0
 
 La campaña normal entrega el trofeo del Campeón y desbloquea una campaña avanzada de siete encuentros con progreso independiente. En el móvil, elegí **☰ → Partida → Campaña → Vuelta de campaña**; el botón verde del final normal también permite comenzar la avanzada. Completarla entrega el trofeo del Maestro. Las ceremonias se muestran en la escena; las opciones permanecen en el móvil.

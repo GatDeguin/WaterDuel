@@ -1,0 +1,71 @@
+{
+  "scope": "Scalarize cloth collision arithmetic and reuse immutable contact sample descriptors without reducing solver work",
+  "production": {
+    "path": "public/physics/apron-cloth.js",
+    "baselineSha256": "cf3d7c3c3f85c716cdce6b6ab5b146d204bf1c10d77485e3be1e2f1cd15878ba",
+    "candidateSha256": "283d1a3559a669fb25d5b61db66b229480a7e5ef480dedd4977058752b21fc3b",
+    "frozenForRootMeasurement": true
+  },
+  "newTests": [
+    {
+      "path": "tests/apron-cloth-scalar-exact.test.mjs",
+      "sha256": "c27fa9d76fd37623f6275b9509ca16ca24b626cd3652c762c387a438c9a494d4"
+    },
+    {
+      "path": "tests/fixtures/apron-cloth-pre-1.14.js.txt",
+      "sha256": "cf3d7c3c3f85c716cdce6b6ab5b146d204bf1c10d77485e3be1e2f1cd15878ba"
+    }
+  ],
+  "focusedVerification": {
+    "command": "node --test tests/apron-cloth-scalar-exact.test.mjs",
+    "tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "pairedStateChecks": 428,
+    "pairedContinuousSurfaceSamples": 480,
+    "directCapsuleProjections": 3300,
+    "stateOracle": "Immutable pre-change source dynamically imported with only relative dependency URLs resolved",
+    "comparison": "Strict deep equality of snapshots/live state plus raw Float64 buffers of positions, velocities, rest, normals, directors and continuous surface output",
+    "coverage": [
+      "normal and boss; both facing directions; scales 0.83 and 1.18; moving rotated/sheared frames",
+      "fixed-clock partial/multiple steps; gravity changes; wetness and drying",
+      "pose-built thigh/shin capsules, detached leg masks and ankle/foot fallback",
+      "multiple, moving, degenerate and live-node-aliased custom capsules",
+      "floor projection confirmed by exact floor height and contact-node flag",
+      "interior-only contacts; zero-weight free-node sample updates",
+      "signed-zero state, zero-time pin refresh, direct integrate, mutable rest and retained snapshots",
+      "2400 seeded finite capsule projections and 36 signed-zero/degenerate/extreme cases",
+      "864 projections with mixed ordinary Arrays, Float32Array, Float64Array, Int16Array and 2-/4-element endpoints"
+    ],
+    "greenLog": "green-exact.log"
+  },
+  "redProof": [
+    {
+      "mutation": "Temporarily reduce ten solver iterations to nine",
+      "result": "All five existing state tests fail; mutation reverted before optimization",
+      "log": "red-nine-iterations.log"
+    },
+    {
+      "mutation": "Run scalar capsule helper without typed/non-3D endpoint fallback",
+      "result": "Private helper comparison fails on the first Float32 endpoint case; exact legacy fallback restored and full focused suite passes",
+      "log": "red-typed-endpoints.log"
+    }
+  ],
+  "preserved": [
+    "all ten constraint and collision iterations",
+    "constraint, node, triangle, four-sample and collider ordering",
+    "leading-zero and left-associated sums; multiplication before division",
+    "target rest-length recomputation each original iteration, including target/pin aliases",
+    "live custom capsule axes recomputed for every projection",
+    "all free-node updates including zero-weight updates and contact flags",
+    "typed and non-3D endpoint map semantics through a compatibility fallback",
+    "pins, thickness, clearance, wetness, snapshots, directors and surface API"
+  ],
+  "review": "Independent read-only review found no production correctness issue; optional floor-coverage improvement applied",
+  "performanceClaim": null,
+  "remainingRootValidation": [
+    "controlled whole-engine ABBA timing",
+    "integrated browser verification",
+    "repository-wide tests"
+  ]
+}

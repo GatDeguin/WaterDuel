@@ -519,8 +519,8 @@ export class ArticulatedRig{
     sample.jy=row;return row;
   }
 
-  #unilateralDelta(L,rows,values,inequalities,reactions=null){
-    const baseResult=this.#constraintDelta(L,rows,values),base=baseResult.delta,delta=base.slice(),active=[],responses=[],constraintResponses=[],products=[],baseValues=[];
+  #unilateralDelta(L,rows,values,inequalities,reactions=null,geometry=null){
+    const baseResult=this.#constraintDelta(L,rows,values),base=baseResult.delta,delta=base.slice(),active=[],responses=geometry?.responses??[],constraintResponses=geometry?.constraintResponses??[],products=geometry?.products??[],baseValues=[];
     const response=index=>{
       if(!responses[index]){
         const free=solve(L,inequalities[index].row),reaction=this.#constraintDelta(L,rows,rows.map(r=>-dot(r,free)));
@@ -1220,53 +1220,80 @@ export class ArticulatedRig{
   // A signed TOTAL impulse chooses one unilateral active set. Trial and apply
   // share initial velocity, gap allowances and anchor stabilization. A query
   // never installs a trial velocity or changes public reaction telemetry.
-  trialContactImpulse({body='weapon',point:hit,normal={x:1,y:0},impulse,compact=false}={}){
+  // A query owns one immutable mechanical snapshot. Its caches contain only
+  // geometry responses; active sets, RHS and reactions belong to each trial.
+  #prepareContactImpulseQuery({body='weapon',point:hit,normal={x:1,y:0}}={},reusable=false){
     const state=this.#kinematics(),jacobian=this.#pointJacobian(state,body,hit);
-    if(!jacobian||!normal||!impulse||![normal.x,normal.y,impulse.x,impulse.y].every(Number.isFinite))return null;
+    if(!jacobian||!normal||![normal.x,normal.y].every(Number.isFinite))return null;
     const length=Math.hypot(normal.x,normal.y);if(length<1e-8||!Number.isFinite(length))return null;
+    const {jx,jy}=jacobian,nx=normal.x/length,ny=normal.y/length,L=this.#massFactor(state),initial=reusable?this.velocity.slice():this.velocity;
+    const live=this.#contactRows(state,true,RIG_STEP,false),contacts=reusable?{rows:live.rows.map(row=>row.slice()),values:live.values.slice(),footRows:live.footRows.map(r=>({...r}))}:live;
+    const floor=this.#floorInequalities(state,true,RIG_STEP),inequalities=reusable?floor.map(c=>({...c,row:c.row.slice()})):floor;
+    const footByRow=new Map(contacts.footRows.map(r=>[r.index,r.key]));
+    const normalRow=Float64Array.from(jx,(value,i)=>value*nx+jy[i]*ny),tangentRow=Float64Array.from(jx,(value,i)=>-value*ny+jy[i]*nx);
+    const M=this.#matrix(state),energy=v=>.5*v.reduce((sum,value,i)=>sum+value*dot(M[i],v),0);
+    return {jx,jy,L,initial,contacts,inequalities,footByRow,normalRow,tangentRow,energy,energyBefore:energy(initial),
+      pointVelocityBefore:{x:dot(jx,initial),y:dot(jy,initial)},layouts:reusable?new Map():null};
+  }
+
+  createContactImpulseQuery(options={}){
+    const prepared=this.#prepareContactImpulseQuery(options,true);if(!prepared)return null;
+    return Object.freeze({trial:options=>this.#trialPreparedContactImpulse(prepared,options)});
+  }
+
+  // Old aliased rig modules need no new named export to use weapon-bind.
+  // Captured functions also reject instance or later prototype overrides.
+  static createNativeContactQuery(rig,options={}){
+    if(!(rig instanceof ArticulatedRig)||!Object.entries(NATIVE_CONTACT_QUERY_METHODS).every(([name,method])=>rig[name]===method))return null;
+    return NATIVE_CONTACT_QUERY_METHODS.createContactImpulseQuery.call(rig,options);
+  }
+
+  trialContactImpulse({body='weapon',point,normal={x:1,y:0},impulse,compact=false}={}){
+    return this.#trialPreparedContactImpulse(this.#prepareContactImpulseQuery({body,point,normal}),{impulse,compact});
+  }
+
+  #trialPreparedContactImpulse(prepared,{impulse,compact=false}={}){
+    if(!prepared||!impulse||![impulse.x,impulse.y].every(Number.isFinite))return null;
     let px=clamp(impulse.x,-5,5),py=clamp(impulse.y,-5,5);
     const magnitude=Math.hypot(px,py);if(magnitude>5){px*=5/magnitude;py*=5/magnitude;}
-    const {jx,jy}=jacobian,nx=normal.x/length,ny=normal.y/length,L=this.#massFactor(state),initial=this.velocity;
+    const {jx,jy,L,initial,contacts,footByRow,normalRow,tangentRow}=prepared;
     const generalized=Float64Array.from(jx,(value,i)=>value*px+jy[i]*py),free=solve(L,generalized);
     const unconstrained=Float64Array.from(initial,(value,i)=>value+free[i]);
-    const contacts=this.#contactRows(state,true,RIG_STEP,false),footByRow=new Map(contacts.footRows.map(r=>[r.index,r.key]));
-    const inequalities=this.#floorInequalities(state,true,RIG_STEP).map(c=>({...c,value:c.value-dot(c.row,free)}));
-    const released=new Set();let rows,values,footRows,reactions,correction;
-    // Tangential anchors need compressive impulse support. An unloaded foot
-    // releases its anchor for this impulse, without re-sticking during that
-    // same impulse. The monotone policy terminates after at most two releases.
+    const inequalities=prepared.inequalities.map(c=>({...c,value:c.value-dot(c.row,free)}));
+    const released=new Set();let rows,values,footRows,reactions,correction,layout;
     for(let pass=0;pass<=contacts.footRows.length;pass++){
       rows=[];values=[];footRows=[];
       for(let i=0;i<contacts.rows.length;i++){
         const key=footByRow.get(i);if(key&&released.has(key))continue;
         if(key)footRows.push({key,index:rows.length});rows.push(contacts.rows[i]);values.push(contacts.values[i]-dot(contacts.rows[i],free));
       }
-      reactions={captureActive:true};correction=this.#unilateralDelta(L,rows,values,inequalities,reactions);
+      // Preserve insertion order rather than using an unordered set key.
+      const key=[...released].join(',');layout=prepared.layouts?.get(key);
+      if(prepared.layouts&&!layout){layout={responses:[],constraintResponses:[],products:[],metrics:new Map()};prepared.layouts.set(key,layout);}
+      reactions={captureActive:true};correction=this.#unilateralDelta(L,rows,values,inequalities,reactions,layout);
       const unloaded=footRows.filter(r=>!(reactions[r.key]>1e-10));if(!unloaded.length)break;
       for(const r of unloaded)released.add(r.key);
     }
     const velocity=Float64Array.from(unconstrained,(value,i)=>value+correction[i]);
-    const active=reactions.active??[],activeRows=active.map(a=>inequalities[a.index].row);
-    const equalityResponse=row=>{
-      const free=solve(L,row),reaction=this.#constraintDelta(L,rows,rows.map(r=>-dot(r,free)));
-      return Float64Array.from(free,(value,i)=>value+reaction.delta[i]);
-    };
-    // Both columns are projected through this SAME set, using the exact Schur
-    // regularization of the trial solve. No separate one-sided columns or PSD
-    // clamp can substitute for this common symmetric mass-metric projector.
-    const activeResponses=activeRows.map(equalityResponse),activeFactor=active.length?factor(activeRows.map((row,i)=>Float64Array.from(activeRows,(_,j)=>dot(row,activeResponses[j])+(i===j?1e-10:0)))):null;
-    const response=row=>{
-      const result=equalityResponse(row);if(!activeFactor)return result;
-      const lambda=solve(activeFactor,activeRows.map(r=>-dot(r,result)));
-      for(let j=0;j<active.length;j++)for(let i=0;i<N;i++)result[i]+=activeResponses[j][i]*lambda[j];return result;
-    };
-    const normalRow=Float64Array.from(jx,(value,i)=>value*nx+jy[i]*ny),tangentRow=Float64Array.from(jx,(value,i)=>-value*ny+jy[i]*nx);
-    const normalDelta=response(normalRow),tangentDelta=response(tangentRow),M=this.#matrix(state),energy=v=>.5*v.reduce((sum,value,i)=>sum+value*dot(M[i],v),0);
-    const multipliers=new Map(active.map(a=>[a.index,a.lambda]));
-    let diagnostics;
+    const active=reactions.active??[],metricKey=active.map(a=>a.index).join(',');let metric=layout?.metrics.get(metricKey);
+    if(!metric){
+      const activeRows=active.map(a=>inequalities[a.index].row);
+      const equalityResponse=row=>{
+        const free=solve(L,row),reaction=this.#constraintDelta(L,rows,rows.map(r=>-dot(r,free)));
+        return Float64Array.from(free,(value,i)=>value+reaction.delta[i]);
+      };
+      const activeResponses=activeRows.map(equalityResponse),activeFactor=active.length?factor(activeRows.map((row,i)=>Float64Array.from(activeRows,(_,j)=>dot(row,activeResponses[j])+(i===j?1e-10:0)))):null;
+      const response=row=>{
+        const result=equalityResponse(row);if(!activeFactor)return result;
+        const lambda=solve(activeFactor,activeRows.map(r=>-dot(r,result)));
+        for(let j=0;j<active.length;j++)for(let i=0;i<N;i++)result[i]+=activeResponses[j][i]*lambda[j];return result;
+      };
+      const normalDelta=response(normalRow),tangentDelta=response(tangentRow);
+      metric={normal:dot(normalRow,normalDelta),tangent:dot(tangentRow,tangentDelta),cross:dot(normalRow,tangentDelta)};
+      if(layout)layout.metrics.set(metricKey,metric);
+    }
+    const multipliers=new Map(active.map(a=>[a.index,a.lambda]));let diagnostics;
     if(compact){
-      // Runtime needs complementarity, not owned copies of every 16-entry
-      // row. Keep the rich default for inspection and independent oracles.
       let minMultiplier=Infinity,minSlack=Infinity,maxComplementarity=0;
       for(let index=0;index<inequalities.length;index++){
         const c=inequalities[index],multiplier=multipliers.get(index)??0,slack=dot(c.row,correction)-c.value;
@@ -1277,9 +1304,9 @@ export class ArticulatedRig{
     }else diagnostics={constraints:inequalities.map((c,index)=>({index,foot:c.floorKey??null,multiplier:multipliers.get(index)??0,
       slack:dot(c.row,correction)-c.value,row:Array.from(c.row),targetVelocity:c.value+dot(c.row,unconstrained)}))};
     return {velocity,deltaVelocity:Float64Array.from(velocity,(value,i)=>value-initial[i]),impulse:{x:px,y:py},generalized:Array.from(generalized),
-      pointVelocityBefore:{x:dot(jx,initial),y:dot(jy,initial)},pointVelocityAfter:{x:dot(jx,velocity),y:dot(jy,velocity)},
-      normal:dot(normalRow,normalDelta),tangent:dot(tangentRow,tangentDelta),cross:dot(normalRow,tangentDelta),
-      energyBefore:energy(initial),energyAfter:energy(velocity),releasedFeet:[...released],footRows:footRows.map(r=>({...r})),constraintImpulses:reactions.constraints.slice(),
+      pointVelocityBefore:{...prepared.pointVelocityBefore},pointVelocityAfter:{x:dot(jx,velocity),y:dot(jy,velocity)},
+      normal:metric.normal,tangent:metric.tangent,cross:metric.cross,
+      energyBefore:prepared.energyBefore,energyAfter:prepared.energy(velocity),releasedFeet:[...released],footRows:footRows.map(r=>({...r})),constraintImpulses:reactions.constraints.slice(),
       groundImpulses:{footF:reactions.footF??0,footB:reactions.footB??0},activeSet:active.map(a=>a.index),...diagnostics};
   }
 
@@ -1330,6 +1357,9 @@ export class ArticulatedRig{
       selfContacts,maxSelfPenetration:Math.max(0,...selfContacts.map(c=>c.penetration)),selfContactImpulse:this.lastSelfContactImpulse};
   }
 }
+
+const NATIVE_CONTACT_QUERY_METHODS=Object.freeze(Object.fromEntries(
+  ['createContactImpulseQuery','trialContactImpulse','reactImpulse','pointVelocity'].map(name=>[name,ArticulatedRig.prototype[name]])));
 
 // Contact normal points from A toward B. Only approaching contacts receive an
 // impulse. This rule has no player/AI branch and cannot award a puncture.

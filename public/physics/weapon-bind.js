@@ -225,10 +225,13 @@ function frictionResponse(vn,vt,kn,kt,kc,cap,restitution,staticFriction,dynamicF
 
 function signedFrictionResponse(a,b,pointA,pointB,n,t,vn,vt,cap,restitution,muStatic,muDynamic){
   if(typeof a.trialContactImpulse!=='function'||typeof b.trialContactImpulse!=='function')return null;
+  const queryA=ArticulatedRig.createNativeContactQuery?.(a,{body:'weapon',point:pointA,normal:n}),
+    queryB=queryA?ArticulatedRig.createNativeContactQuery?.(b,{body:'weapon',point:pointB,normal:n}):null;
+  const prepared=queryA&&queryB;
   const trial=response=>{
     const x=n.x*response.normal+t.x*response.tangent,y=n.y*response.normal+t.y*response.tangent;
-    const A=a.trialContactImpulse({body:'weapon',point:pointA,normal:n,impulse:{x:-x,y:-y},compact:true}),
-      B=b.trialContactImpulse({body:'weapon',point:pointB,normal:n,impulse:{x,y},compact:true});
+    const A=prepared?queryA.trial({impulse:{x:-x,y:-y},compact:true}):a.trialContactImpulse({body:'weapon',point:pointA,normal:n,impulse:{x:-x,y:-y},compact:true}),
+      B=prepared?queryB.trial({impulse:{x,y},compact:true}):b.trialContactImpulse({body:'weapon',point:pointB,normal:n,impulse:{x,y},compact:true});
     if(!A||!B)return null;
     const relative={x:A.pointVelocityAfter.x-B.pointVelocityAfter.x,y:A.pointVelocityAfter.y-B.pointVelocityAfter.y};
     return {A,B,kn:A.normal+B.normal,kt:A.tangent+B.tangent,kc:A.cross+B.cross,vn:dot(relative,n),vt:dot(relative,t)};

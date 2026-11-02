@@ -1,0 +1,266 @@
+[
+  {
+    "file": "public/engine.js",
+    "source": "public/engine.js",
+    "sha256": "ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d",
+    "baselineSHA": "ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d"
+  },
+  {
+    "file": "public/physics/fluid.js",
+    "source": "public/physics/fluid.js",
+    "sha256": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+    "baselineSHA": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a"
+  },
+  {
+    "file": "public/physics/dimensions.js",
+    "source": "public/physics/dimensions.js",
+    "sha256": "668a137cff5e6b6ecec2c08d1cbe10394374450d700a63216fe4e4028820f8ec",
+    "baselineSHA": "668a137cff5e6b6ecec2c08d1cbe10394374450d700a63216fe4e4028820f8ec"
+  },
+  {
+    "file": "public/physics/fluid-solids.js",
+    "source": "public/physics/fluid-solids.js",
+    "sha256": "e94291e3cd91400817da69e4e8b3071125ac5a0d348fad1289c95a5fbdf443c5",
+    "baselineSHA": "e94291e3cd91400817da69e4e8b3071125ac5a0d348fad1289c95a5fbdf443c5"
+  },
+  {
+    "file": "public/physics/detached-fluid-colliders.js",
+    "source": "public/physics/detached-fluid-colliders.js",
+    "sha256": "a9077f40ec92eba36bf8c733ee010b67c0d8b543afdb734a97c4658af61dbe2f",
+    "baselineSHA": "a9077f40ec92eba36bf8c733ee010b67c0d8b543afdb734a97c4658af61dbe2f"
+  },
+  {
+    "file": "public/physics/capillary-contact.js",
+    "source": "public/physics/capillary-contact.js",
+    "sha256": "27842cb93e5583a9a58e00dd302ae832953210c1e4e815d3d51d380808e7b9ce",
+    "baselineSHA": "27842cb93e5583a9a58e00dd302ae832953210c1e4e815d3d51d380808e7b9ce"
+  },
+  {
+    "file": "public/physics/membrane.js",
+    "source": "public/physics/membrane.js",
+    "sha256": "48ced8cb70ce9f26b926e3f4e4795540a0300fd665c112f8fcff978ccac14ca2",
+    "baselineSHA": "48ced8cb70ce9f26b926e3f4e4795540a0300fd665c112f8fcff978ccac14ca2"
+  },
+  {
+    "file": "public/rendering/optics.js",
+    "source": "public/rendering/optics.js",
+    "sha256": "22503c28096299aea677aa1df50b1587fd6d3afb6756cd3fc5f01a967cc9bb7f",
+    "baselineSHA": "22503c28096299aea677aa1df50b1587fd6d3afb6756cd3fc5f01a967cc9bb7f"
+  },
+  {
+    "file": "public/physics/membrane-fracture.js",
+    "source": "public/physics/membrane-fracture.js",
+    "sha256": "37aff0168f9268af6967c56f5431ec1503d329719d23189c409409b1a40b5536",
+    "baselineSHA": "37aff0168f9268af6967c56f5431ec1503d329719d23189c409409b1a40b5536"
+  },
+  {
+    "file": "public/physics/articulated-rig.js",
+    "source": "public/physics/articulated-rig.js",
+    "sha256": "378248716a14da0a662929e2d04c26c416d334f8863c132eb2c7561e4fc76adb",
+    "baselineSHA": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b"
+  },
+  {
+    "file": "public/equipment.js",
+    "source": "public/equipment.js",
+    "sha256": "e3fd41678ef88bec868bf8b79d9bc52be884f712f11a3e1706305724e86cef67",
+    "baselineSHA": "e3fd41678ef88bec868bf8b79d9bc52be884f712f11a3e1706305724e86cef67"
+  },
+  {
+    "file": "public/physics/apron.js",
+    "source": "public/physics/apron.js",
+    "sha256": "25b0c3f0ac5841601cbbab7b9ced15acf6fd3a2c270136fa26ea6756b3ce5efb",
+    "baselineSHA": "25b0c3f0ac5841601cbbab7b9ced15acf6fd3a2c270136fa26ea6756b3ce5efb"
+  },
+  {
+    "file": "public/physics/apron-geometry.js",
+    "source": "public/physics/apron-geometry.js",
+    "sha256": "cfdfbc6416bf27806d1b27552f1e394ae4c3fb19506e665559c922a4a53e174c",
+    "baselineSHA": "cfdfbc6416bf27806d1b27552f1e394ae4c3fb19506e665559c922a4a53e174c"
+  },
+  {
+    "file": "public/physics/apron-cloth.js",
+    "source": "public/physics/apron-cloth.js",
+    "sha256": "283d1a3559a669fb25d5b61db66b229480a7e5ef480dedd4977058752b21fc3b",
+    "baselineSHA": "cf3d7c3c3f85c716cdce6b6ab5b146d204bf1c10d77485e3be1e2f1cd15878ba"
+  },
+  {
+    "file": "public/physics/detached-cluster.js",
+    "source": "public/physics/detached-cluster.js",
+    "sha256": "f42d3d70899dab81ed36119e795326a8ed865b6461e2a6076bfbc8aff3665291",
+    "baselineSHA": "f42d3d70899dab81ed36119e795326a8ed865b6461e2a6076bfbc8aff3665291"
+  },
+  {
+    "file": "public/physics/contact-points.js",
+    "source": "public/physics/contact-points.js",
+    "sha256": "7ad0ab98eca610156518afba045a44b77d6562e121c4dd8aaf428aeb4aea73e0",
+    "baselineSHA": "7ad0ab98eca610156518afba045a44b77d6562e121c4dd8aaf428aeb4aea73e0"
+  },
+  {
+    "file": "public/physics/weapon-flex.js",
+    "source": "public/physics/weapon-flex.js",
+    "sha256": "0dd72feb2d5e794b594b23793b2e6136c8d4de277cd0d58d75ad85be1a0dd243",
+    "baselineSHA": "0dd72feb2d5e794b594b23793b2e6136c8d4de277cd0d58d75ad85be1a0dd243"
+  },
+  {
+    "file": "public/knife-technique.js",
+    "source": "public/knife-technique.js",
+    "sha256": "b568d4f75647ec6f92d560995c38bff476782b93859a63a36d961bd8f676a0b8",
+    "baselineSHA": "b568d4f75647ec6f92d560995c38bff476782b93859a63a36d961bd8f676a0b8"
+  },
+  {
+    "file": "public/physics/foot-geometry.js",
+    "source": "public/physics/foot-geometry.js",
+    "sha256": "8f453198bfc732634f0031e3630ecc7770ce9ff21c6f1c6b335e52c3a8c6281c",
+    "baselineSHA": "8f453198bfc732634f0031e3630ecc7770ce9ff21c6f1c6b335e52c3a8c6281c"
+  },
+  {
+    "file": "public/physics/shin-geometry.js",
+    "source": "public/physics/shin-geometry.js",
+    "sha256": "dd02583d48eaf11231bbbe7d6a8bad1014e93a96545ceeb2dddcc7ff6944f23b",
+    "baselineSHA": "dd02583d48eaf11231bbbe7d6a8bad1014e93a96545ceeb2dddcc7ff6944f23b"
+  },
+  {
+    "file": "public/physics/body-evasion.js",
+    "source": "public/physics/body-evasion.js",
+    "sha256": "065b1e68ff1a1d170adf59cce64f1175b03f82742fc8e8116fcbdb4b0637bfc1",
+    "baselineSHA": "065b1e68ff1a1d170adf59cce64f1175b03f82742fc8e8116fcbdb4b0637bfc1"
+  },
+  {
+    "file": "public/physics/locomotion.js",
+    "source": "public/physics/locomotion.js",
+    "sha256": "61d0e664723f033ba559d2ca894b3c9e0eae382c55227be7c66f2a0aa7ded5c0",
+    "baselineSHA": "61d0e664723f033ba559d2ca894b3c9e0eae382c55227be7c66f2a0aa7ded5c0"
+  },
+  {
+    "file": "public/physics/equipment-contact.js",
+    "source": "public/physics/equipment-contact.js",
+    "sha256": "2494ee7fcbf92260a593d2b31d4b94b2e9931323d8eca5e9e349f106803f7ebe",
+    "baselineSHA": "2494ee7fcbf92260a593d2b31d4b94b2e9931323d8eca5e9e349f106803f7ebe"
+  },
+  {
+    "file": "public/physics/head-contact.js",
+    "source": "public/physics/head-contact.js",
+    "sha256": "1f9d416552aab3b26d870ff320f07f42dfdddcacec675fe0cc8ee8ba91182178",
+    "baselineSHA": "1f9d416552aab3b26d870ff320f07f42dfdddcacec675fe0cc8ee8ba91182178"
+  },
+  {
+    "file": "public/auto-defense.js",
+    "source": "public/auto-defense.js",
+    "sha256": "b3700da20275323db7311a0584cd5e0e2d7010c13592a8925b2abf1254e3e604",
+    "baselineSHA": "b3700da20275323db7311a0584cd5e0e2d7010c13592a8925b2abf1254e3e604"
+  },
+  {
+    "file": "public/physics/limb-state.js",
+    "source": "public/physics/limb-state.js",
+    "sha256": "34f450f643d527b2e6f56bc94b21be3807f391b572fc78d50f49b50b92f56d73",
+    "baselineSHA": "34f450f643d527b2e6f56bc94b21be3807f391b572fc78d50f49b50b92f56d73"
+  },
+  {
+    "file": "public/physics/standby.js",
+    "source": "public/physics/standby.js",
+    "sha256": "1dcd5b2c569211494f78e9f7bed95de499c57d75e0a4a1f672fce58f3c407889",
+    "baselineSHA": "1dcd5b2c569211494f78e9f7bed95de499c57d75e0a4a1f672fce58f3c407889"
+  },
+  {
+    "file": "public/physics/character-intent.js",
+    "source": "public/physics/character-intent.js",
+    "sha256": "ba5fdcb48dabeece52ee8e81d0ccafaa30bb13f24754a6ab5e6c33a99995b121",
+    "baselineSHA": "ba5fdcb48dabeece52ee8e81d0ccafaa30bb13f24754a6ab5e6c33a99995b121"
+  },
+  {
+    "file": "public/workshop-effects.js",
+    "source": "public/workshop-effects.js",
+    "sha256": "defab2e46a3f8b90603f49171209c445495445c308652050543ff666e4178f4c",
+    "baselineSHA": "defab2e46a3f8b90603f49171209c445495445c308652050543ff666e4178f4c"
+  },
+  {
+    "file": "public/workshop-air.js",
+    "source": "public/workshop-air.js",
+    "sha256": "59bce70143bbf73ff42a180b97d705bb5d691af04cb6875345ecbacf61dea6b0",
+    "baselineSHA": "59bce70143bbf73ff42a180b97d705bb5d691af04cb6875345ecbacf61dea6b0"
+  },
+  {
+    "file": "public/physics/weapon-bind.js",
+    "source": "public/physics/weapon-bind.js",
+    "sha256": "0f2b848742107375ed135658ad5d7eace1ae6beb45e65a487f90ee728759e351",
+    "baselineSHA": "96250b199cac641d405f98d0180441e1ffe889754325480557e9fd5c804b7e9a"
+  },
+  {
+    "file": "public/physics/contact-materials.js",
+    "source": "public/physics/contact-materials.js",
+    "sha256": "ca25f240dd66e7081a4459033994a38471d5f90cad489cfbbc124b6e982b2eb9",
+    "baselineSHA": "ca25f240dd66e7081a4459033994a38471d5f90cad489cfbbc124b6e982b2eb9"
+  },
+  {
+    "file": "public/opponent-loadouts.js",
+    "source": "public/opponent-loadouts.js",
+    "sha256": "3776f37b82cf9f9b079018642a9466af115f1e2398c521700c2b831e44b74eb3",
+    "baselineSHA": "3776f37b82cf9f9b079018642a9466af115f1e2398c521700c2b831e44b74eb3"
+  },
+  {
+    "file": "public/physics/step-clock.js",
+    "source": "public/physics/step-clock.js",
+    "sha256": "b4987d41f559dfa3ae6e1e38c973f4f02beb8e6e1d89ac77b52d8ab3e6b17209",
+    "baselineSHA": "b4987d41f559dfa3ae6e1e38c973f4f02beb8e6e1d89ac77b52d8ab3e6b17209"
+  },
+  {
+    "file": "public/simulation-presentation.js",
+    "source": "public/simulation-presentation.js",
+    "sha256": "7c8e321e700edb232d6629abd1c1fc4385798ac934053fd60b4cae798cfc686e",
+    "baselineSHA": "7c8e321e700edb232d6629abd1c1fc4385798ac934053fd60b4cae798cfc686e"
+  },
+  {
+    "file": "public/physics/joint-impact.js",
+    "source": "public/physics/joint-impact.js",
+    "sha256": "2e06803f429b2818d205ec07db8db394ad3ef0b489f9538d60574055d52a80b7",
+    "baselineSHA": "2e06803f429b2818d205ec07db8db394ad3ef0b489f9538d60574055d52a80b7"
+  },
+  {
+    "file": "public/physics/detached-contacts.js",
+    "source": "public/physics/detached-contacts.js",
+    "sha256": "b135ab3e01366b58f94360c720d3552be95e16893060a645ccf8b1be6a1a41a2",
+    "baselineSHA": "b135ab3e01366b58f94360c720d3552be95e16893060a645ccf8b1be6a1a41a2"
+  },
+  {
+    "file": "public/physics/joint-play.js",
+    "source": "public/physics/joint-play.js",
+    "sha256": "efee4e624c700c4c8b4bcb514babea9dda8f90eedc2612afeefc1c43b3fa380e",
+    "baselineSHA": "efee4e624c700c4c8b4bcb514babea9dda8f90eedc2612afeefc1c43b3fa380e"
+  },
+  {
+    "file": "public/training-drills.js",
+    "source": "public/training-drills.js",
+    "sha256": "42af9ba302d19bcbfb0f695ed9625b18b7f041ee7d9558cd7d4e5dad253a64f4",
+    "baselineSHA": "42af9ba302d19bcbfb0f695ed9625b18b7f041ee7d9558cd7d4e5dad253a64f4"
+  },
+  {
+    "file": "public/ai-perception.js",
+    "source": "public/ai-perception.js",
+    "sha256": "10a0dc97a7a42dd1cfbddc58f8f5dad25bcb55da18ba5e2bb8091e74dec24dbf",
+    "baselineSHA": "10a0dc97a7a42dd1cfbddc58f8f5dad25bcb55da18ba5e2bb8091e74dec24dbf"
+  },
+  {
+    "file": "public/physics/surface-state.js",
+    "source": "public/physics/surface-state.js",
+    "sha256": "d92df9d6e7667691fdf351cb44800ea79b680ce1d6ae7966c23b0b985ce349c1",
+    "baselineSHA": "d92df9d6e7667691fdf351cb44800ea79b680ce1d6ae7966c23b0b985ce349c1"
+  },
+  {
+    "file": "public/boss-choreography.js",
+    "source": "public/boss-choreography.js",
+    "sha256": "a949e3b5794fcaacb36729f3879778d3f5bf9926330064391b62b1833a296a4e",
+    "baselineSHA": "a949e3b5794fcaacb36729f3879778d3f5bf9926330064391b62b1833a296a4e"
+  },
+  {
+    "file": "public/joysticks.js",
+    "source": "public/joysticks.js",
+    "sha256": "180cf2678e39d7f257c46fbb5c112bc43cc18c8aa29373c44985dddee6f0113e",
+    "baselineSHA": "180cf2678e39d7f257c46fbb5c112bc43cc18c8aa29373c44985dddee6f0113e"
+  },
+  {
+    "file": "public/replay.js",
+    "source": "public/replay.js",
+    "sha256": "970c0983c683705ec1c7921243c06818adf25684b6a04626ba904d6219bb28f4",
+    "baselineSHA": "970c0983c683705ec1c7921243c06818adf25684b6a04626ba904d6219bb28f4"
+  }
+]

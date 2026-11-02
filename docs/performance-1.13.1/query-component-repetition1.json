@@ -1,0 +1,130 @@
+{
+  "scope": "Isolated real resolveWeaponBind signed forcejeo, project:false, 4 mirror/scale cases, native methods unwrapped, resets and assertions outside timer. Not whole engine or FPS.",
+  "warmupCallsPerCasePerBranch": 64,
+  "calls": 4096,
+  "records": [
+    {
+      "round": 0,
+      "branch": "A",
+      "calls": 256,
+      "ms": 206.16530000000012
+    },
+    {
+      "round": 0,
+      "branch": "B",
+      "calls": 256,
+      "ms": 180.30840000000126
+    },
+    {
+      "round": 0,
+      "branch": "B",
+      "calls": 256,
+      "ms": 183.73569999999984
+    },
+    {
+      "round": 0,
+      "branch": "A",
+      "calls": 256,
+      "ms": 202.76970000000006
+    },
+    {
+      "round": 1,
+      "branch": "A",
+      "calls": 256,
+      "ms": 200.63630000000148
+    },
+    {
+      "round": 1,
+      "branch": "B",
+      "calls": 256,
+      "ms": 175.31050000000187
+    },
+    {
+      "round": 1,
+      "branch": "B",
+      "calls": 256,
+      "ms": 168.26619999999934
+    },
+    {
+      "round": 1,
+      "branch": "A",
+      "calls": 256,
+      "ms": 184.18930000000205
+    },
+    {
+      "round": 2,
+      "branch": "A",
+      "calls": 256,
+      "ms": 188.91020000000344
+    },
+    {
+      "round": 2,
+      "branch": "B",
+      "calls": 256,
+      "ms": 165.9605999999967
+    },
+    {
+      "round": 2,
+      "branch": "B",
+      "calls": 256,
+      "ms": 162.27299999999514
+    },
+    {
+      "round": 2,
+      "branch": "A",
+      "calls": 256,
+      "ms": 188.03289999999924
+    },
+    {
+      "round": 3,
+      "branch": "A",
+      "calls": 256,
+      "ms": 180.48090000000184
+    },
+    {
+      "round": 3,
+      "branch": "B",
+      "calls": 256,
+      "ms": 169.01339999999527
+    },
+    {
+      "round": 3,
+      "branch": "B",
+      "calls": 256,
+      "ms": 160.37690000000202
+    },
+    {
+      "round": 3,
+      "branch": "A",
+      "calls": 256,
+      "ms": 181.22950000000355
+    }
+  ],
+  "rounds": [
+    {
+      "round": 0,
+      "A": 204.4675000000001,
+      "B": 182.02205000000055,
+      "reduction": 0.10977514763959817
+    },
+    {
+      "round": 1,
+      "A": 192.41280000000177,
+      "B": 171.7883500000006,
+      "reduction": 0.10718855502337143
+    },
+    {
+      "round": 2,
+      "A": 188.47155000000134,
+      "B": 164.11679999999592,
+      "reduction": 0.12922242110284154
+    },
+    {
+      "round": 3,
+      "A": 180.8552000000027,
+      "B": 164.69514999999865,
+      "reduction": 0.08935352702053245
+    }
+  ],
+  "pass": true
+}

@@ -1,0 +1,57 @@
+{
+  "version": "1.13.1",
+  "node": "v24.20.0",
+  "platform": "win32",
+  "scope": "Measured CPU work only; no end-to-end FPS certification",
+  "whole": {
+    "recipes": 8,
+    "weapons": 4,
+    "rounds": 4,
+    "order": "ABBA",
+    "exactOracleUpdates": 866,
+    "steelOracleUpdates": 324,
+    "timedUpdates": 13856,
+    "reductionPercent": {
+      "min": 28.10391774912333,
+      "median": 28.485564213211163,
+      "max": 28.638705354087367
+    }
+  },
+  "contactComponent": {
+    "repetitions": 2,
+    "roundsPerRepetition": 4,
+    "timedCalls": 8192,
+    "reductionPercent": {
+      "min": 4.581458845763553,
+      "median": 9.827104102195195,
+      "max": 12.922242110284154
+    },
+    "scope": "Real native resolveWeaponBind, project:false as in engine contact-impulse stage; four mirror/scale forcejeo cases. Resets/assertions outside timers. The global gain attributable to query preparation alone stays within whole-engine noise."
+  },
+  "decisions": {
+    "cloth": "Keep; large consistent whole-engine CPU reduction and exact mechanics",
+    "preparedQueries": "Keep; consistent isolated native weapon-contact CPU reduction; do not attribute an extra global/FPS percentage",
+    "alternateManifolds": "Rejected; whole-engine neutral",
+    "selectedBodyCCD": "Rejected; whole-engine neutral"
+  },
+  "sourcePins": [
+    {
+      "file": "public/physics/articulated-rig.js",
+      "source": "public/physics/articulated-rig.js",
+      "sha256": "378248716a14da0a662929e2d04c26c416d334f8863c132eb2c7561e4fc76adb",
+      "baselineSHA": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b"
+    },
+    {
+      "file": "public/physics/apron-cloth.js",
+      "source": "public/physics/apron-cloth.js",
+      "sha256": "283d1a3559a669fb25d5b61db66b229480a7e5ef480dedd4977058752b21fc3b",
+      "baselineSHA": "cf3d7c3c3f85c716cdce6b6ab5b146d204bf1c10d77485e3be1e2f1cd15878ba"
+    },
+    {
+      "file": "public/physics/weapon-bind.js",
+      "source": "public/physics/weapon-bind.js",
+      "sha256": "0f2b848742107375ed135658ad5d7eace1ae6beb45e65a487f90ee728759e351",
+      "baselineSHA": "96250b199cac641d405f98d0180441e1ffe889754325480557e9fd5c804b7e9a"
+    }
+  ]
+}

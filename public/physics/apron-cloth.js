@@ -11,6 +11,12 @@ const copy=a=>a.map(p=>[...p]);
 export const APRON_TRIANGLES=Object.freeze(Array.from({length:6},(_,i)=>{
   const a=Math.floor(i/2)*3+i%2;return [[a,a+3,a+1],[a+1,a+3,a+4]];
 }).flat().map(Object.freeze));
+// The topology and four quadrature weights never change. Keep their original
+// order and reduction association, including zero-weight free-node updates.
+const contactSamples=APRON_TRIANGLES.flatMap(triangle=>[[1/3,1/3,1/3],[.5,.5,0],[0,.5,.5],[.5,0,.5]].map(weights=>({
+  a:triangle[0],b:triangle[1],c:triangle[2],wa:weights[0],wb:weights[1],wc:weights[2],
+  sum:triangle.reduce((s,i,j)=>s+(i<3?0:weights[j]**2),0)
+})));
 
 /** The 2 x 3 panels have 3 x 4 nodes. Coordinates are canonical metres;
  * thickness is a normal offset, shared by rendering and collision clearance. */
@@ -60,9 +66,26 @@ function legCapsules(pose,scale){
   }
   return result;
 }
-function capsulePush(p,c,radius){
-  const axis=sub(c.b,c.a),t=Math.max(0,Math.min(1,dot(sub(p,c.a),axis)/(dot(axis,axis)||1))),center=c.a.map((v,i)=>v+t*axis[i]),d=sub(p,center),length=Math.hypot(...d),penetration=c.radius+radius-length;
-  return penetration>0?(length>1e-10?d.map(v=>v*penetration/length):[0,0,penetration]):null;
+function capsulePushFallback(x,y,z,c,radius,push){
+  // Typed-array map operations can round intermediate axes and centers. Keep
+  // the original path for those inputs and non-three-dimensional endpoints.
+  const p=[x,y,z],axis=sub(c.b,c.a),t=Math.max(0,Math.min(1,dot(sub(p,c.a),axis)/(dot(axis,axis)||1))),center=c.a.map((v,i)=>v+t*axis[i]),d=sub(p,center),length=Math.hypot(...d),penetration=c.radius+radius-length;
+  if(!(penetration>0))return false;
+  const result=length>1e-10?d.map(v=>v*penetration/length):[0,0,penetration];
+  push[0]=result[0];push[1]=result[1];push[2]=result[2];return true;
+}
+function capsulePush(x,y,z,c,radius,push){
+  // Read the axis for each projection: caller-supplied capsules may alias live
+  // cloth nodes. The leading zero matches the original dot-product reduction.
+  const a=c.a,b=c.b;
+  if(!Array.isArray(a)||!Array.isArray(b)||a.length!==3||b.length!==3)return capsulePushFallback(x,y,z,c,radius,push);
+  const ax=b[0]-a[0],ay=b[1]-a[1],az=b[2]-a[2];
+  const t=Math.max(0,Math.min(1,((0+(x-a[0])*ax)+(y-a[1])*ay+(z-a[2])*az)/((0+ax*ax)+ay*ay+az*az||1)));
+  const dx=x-(a[0]+t*ax),dy=y-(a[1]+t*ay),dz=z-(a[2]+t*az),length=Math.hypot(dx,dy,dz),penetration=c.radius+radius-length;
+  if(!(penetration>0))return false;
+  if(length>1e-10){push[0]=dx*penetration/length;push[1]=dy*penetration/length;push[2]=dz*penetration/length;}
+  else{push[0]=0;push[1]=0;push[2]=penetration;}
+  return true;
 }
 
 /** Kinematic belt + second order reduced cloth. Reactions only modify these
@@ -102,26 +125,32 @@ export class ApronCloth{
       const wet=this.wetness[Math.floor(i/3)<2?'top':'bottom'],drag=Math.exp(-dt*(2.8+5*wet));
       for(let k=0;k<3;k++){this.velocities[i][k]*=drag;if(k===1)this.velocities[i][k]+=gravity*dt;this.positions[i][k]+=this.velocities[i][k]*dt;}
     }
-    const clearance=this.thickness*scale+8e-6,floor=TABLE_TOP+clearance;
+    const clearance=this.thickness*scale+8e-6,floor=TABLE_TOP+clearance,push=[0,0,0];
     for(let iteration=0;iteration<10;iteration++){
       for(const {a,b,stiffness} of this.constraints){
-        const delta=sub(this.positions[b],this.positions[a]),length=Math.hypot(...delta),restLength=Math.hypot(...sub(targets[b],targets[a])),wa=a<3?0:1,wb=b<3?0:1;
+        const pa=this.positions[a],pb=this.positions[b],dx=pb[0]-pa[0],dy=pb[1]-pa[1],dz=pb[2]-pa[2],length=Math.hypot(dx,dy,dz),
+          ta=targets[a],tb=targets[b],restLength=Math.hypot(tb[0]-ta[0],tb[1]-ta[1],tb[2]-ta[2]),wa=a<3?0:1,wb=b<3?0:1;
         if(length<1e-12||wa+wb===0)continue;
         const correction=stiffness*(length-restLength)/(length*(wa+wb));
-        for(let k=0;k<3;k++){this.positions[a][k]+=delta[k]*correction*wa;this.positions[b][k]-=delta[k]*correction*wb;}
+        pa[0]+=dx*correction*wa;pb[0]-=dx*correction*wb;
+        pa[1]+=dy*correction*wa;pb[1]-=dy*correction*wb;
+        pa[2]+=dz*correction*wa;pb[2]-=dz*correction*wb;
       }
       for(let i=3;i<12;i++){
-        for(const collider of colliders){const push=capsulePush(this.positions[i],collider,clearance);if(push){for(let k=0;k<3;k++)this.positions[i][k]+=push[k];this.contactNodes[i]=true;}}
+        const p=this.positions[i];
+        for(const collider of colliders){if(capsulePush(p[0],p[1],p[2],collider,clearance,push)){p[0]+=push[0];p[1]+=push[1];p[2]+=push[2];this.contactNodes[i]=true;}}
         if(this.positions[i][1]<floor){this.positions[i][1]=floor;this.contactNodes[i]=true;}
       }
       // Interior samples constrain the same piecewise planar surface as render
       // and water, including a leg crossing between nodes of a wide boss panel.
-      for(const triangle of APRON_TRIANGLES)for(const weights of [[1/3,1/3,1/3],[.5,.5,0],[0,.5,.5],[.5,0,.5]]){
-        const sample=[0,1,2].map(k=>triangle.reduce((s,i,j)=>s+this.positions[i][k]*weights[j],0));
+      for(const {a,b,c,wa,wb,wc,sum} of contactSamples){
+        const pa=this.positions[a],pb=this.positions[b],pc=this.positions[c],
+          x=((0+pa[0]*wa)+pb[0]*wb)+pc[0]*wc,y=((0+pa[1]*wa)+pb[1]*wb)+pc[1]*wc,z=((0+pa[2]*wa)+pb[2]*wb)+pc[2]*wc;
         for(const collider of colliders){
-          const push=capsulePush(sample,collider,clearance);if(!push)continue;
-          const sum=triangle.reduce((s,i,j)=>s+(i<3?0:weights[j]**2),0);if(sum<1e-10)continue;
-          triangle.forEach((i,j)=>{if(i<3)return;for(let k=0;k<3;k++)this.positions[i][k]+=push[k]*weights[j]/sum;this.contactNodes[i]=true;});
+          if(!capsulePush(x,y,z,collider,clearance,push)||sum<1e-10)continue;
+          if(a>=3){pa[0]+=push[0]*wa/sum;pa[1]+=push[1]*wa/sum;pa[2]+=push[2]*wa/sum;this.contactNodes[a]=true;}
+          if(b>=3){pb[0]+=push[0]*wb/sum;pb[1]+=push[1]*wb/sum;pb[2]+=push[2]*wb/sum;this.contactNodes[b]=true;}
+          if(c>=3){pc[0]+=push[0]*wc/sum;pc[1]+=push[1]*wc/sum;pc[2]+=push[2]*wc/sum;this.contactNodes[c]=true;}
         }
       }
     }
