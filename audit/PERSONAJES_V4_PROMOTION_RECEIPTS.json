@@ -553,13 +553,13 @@
     },
     {
       "file": "audit/COORDINACION_PERSONAJES_V4.md",
-      "sha256": "cf1d8fcf8f08f86c60330e76a58ed13bb3a43308fa81ee27beb4074fabb8b178",
-      "bytes": 5883
+      "sha256": "22093f721b976c3ff0e89f17c492803a9419b741ce640a7771445589ee7a8a00",
+      "bytes": 7197
     },
     {
       "file": "audit/PERSONAJES_V4_TRAZABILIDAD.md",
-      "sha256": "700b32610e385181a0cea6dccffe349cab93c3e79ec5c30941c0727651bf4430",
-      "bytes": 6049
+      "sha256": "24286ee72c539d47b26d0394d2cb372a0491c1f4ae3c26e7bee738abd41c8bfb",
+      "bytes": 7075
     },
     {
       "file": "audit/PERSONAJES_V4_ORACULOS.md",

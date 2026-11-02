@@ -2,7 +2,7 @@
 
 Usuario: selección exacta 2,3,4,5,6,7,8,9,11,14,15,16,17,18,19,31,32,34,36,37,40,42,43,46,49. Diseño y coordinación con Items y Principal aprobados expresamente el 2026-11-02.
 
-Estado: implementación y revisión por tareas completadas; cierre integrado en curso. No publicado por Personajes. Principal conserva versiones, empaquetado y publicación.
+Estado: implementación, revisión por tareas, integración y QA de Personajes completadas. No publicado por Personajes. Principal conserva versiones, empaquetado, promoción y CI.
 
 ## Alcance entregado
 
@@ -32,8 +32,16 @@ La receta de cercanía con armas bajas produjo 1,165963 en N16 frente a 1,024719
 
 La primera suite global (Principal) terminó con 1.507 pruebas: 1.493 PASS y 14 fallos. Se diagnosticaron y corrigieron dos defectos reales en la integración de apoyos/contactos; no se amplió el guard de altura de pelvis. Se añadieron motor físico de agachado separado de la intención rápida y salida compacta de diagnóstico con física bit a bit idéntica. `PERSONAJES_V4_FISICA.md` documenta causas, revisiones, 30/30 focos de postura y 63/63 de contacto, mediciones y límites.
 
-Pendiente de registrar: repetición global sobre el corte final y WebGL real con capturas. Principal está verificando las recetas de daga/parada sobre la postura nueva y el límite de cuantización de las matrices F32. No se modificaron desde Personajes los tests/tolerancias de Items para ocultar esos resultados. No existe medición de FPS ni hardware móvil en esta entrega.
+La suite global final ejecutada por Principal aprobó **1.552/1.552 pruebas**, cero fallos y omisiones, en 495.030,7504 ms. Registro: `.runtime/release-1.13.0/full-tests-third.log`. IA/contactos y compatibilidad de equipo fueron verificados sobre el corte integrado; Personajes no modificó tests/tolerancias de Items para ocultar resultados.
+
+Después de esa suite, la revisión de portabilidad detectó una dependencia de un archivo interno en `character-v4-contract`. Se copiaron sus bytes exactos a `tests/fixtures/water-mannequin-v3-baseline.json` (SHA-256 `8468ba8a0eb68dc21e09d4cc59e3e4c0dc36a4f4fd704f32ffdf77f3d9fee169`) y se cambió únicamente la ruta de lectura. Contenido y aserciones intactos. La prueba afectada pasó **5/5** por separado; ese cambio posterior no se atribuye a la corrida global anterior. CI volverá a comprobar el paquete promovido.
+
+No existe medición de FPS ni hardware móvil en esta entrega.
 
 ## QA pública
 
-`/qa/personajes-v4.html`: fixture sin Host/session/socket, con guardia, marcha, esquiva, paño, daño, ganador y jefe. Las llamadas de daño y resultado están identificadas como preparación explícita de QA; el movimiento usa mandos y reloj físico reales. La ventana de servidor/GPU se coordina con Principal después de la suite global.
+`/qa/personajes-v4.html`: fixture sin Host/session/socket, con guardia, marcha, esquiva, paño, daño, ganador y jefe. Las llamadas de daño y resultado están identificadas como preparación explícita de QA; el movimiento usa mandos y reloj físico reales.
+
+Principal operó la única ventana WebGL y el servidor. Personajes revisó los PNG guardados, sin abrir otro navegador. Carga **11/11** sin error, entorno y personajes revisión 4, matrices finitas. Vistas aprobadas: guardia, marcha, esquiva, paño, daño/desprendimiento, celebración y jefe. Sin P1/P2 de assets visibles. Se recapturaron guardia y celebración para mostrar actores y pies completos.
+
+Capturas y registros JSON: `.runtime/release-1.13.0/characters-{guard,walk,dodge,cloth,damage,detached,celebration,boss}-v4.{png,json}`. Son ocho estados de siete presets, sin QR ni sesiones. La celebración usa un burst de demostración y no acredita una victoria competitiva. Una imagen estática no certifica cada microtextura, toda trayectoria posible ni rendimiento; se complementa con los contratos y pruebas descritos arriba.

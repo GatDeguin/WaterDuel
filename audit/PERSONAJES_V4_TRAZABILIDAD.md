@@ -43,3 +43,15 @@ El GLB de autoría incluye nueve imágenes por el estoque opcional de presentaci
 Las referencias N14 conservan hashes y fixtures históricos. N16 usa masa/Jacobianas independientes por diferencias finitas y un oráculo dinámico de impulso; la invariancia de caché no se presenta como equivalencia entre solvers. El sistema es multibody plano con capas de profundidad y cuello lateral reducido, no un solver 3D completo. El paño es un accesorio de 12 nodos, sin capacidad para sostener el cuerpo.
 
 La comprobación global y la evidencia WebGL se registran en `COORDINACION_PERSONAJES_V4.md` al cerrar la ventana conjunta con Principal. Un render estático de Blender acredita apariencia del GLB, no el comportamiento dinámico del juego.
+
+## Entrega verificada
+
+QA WebGL aprobada en los siete presets y suite global final 1.552/1.552 PASS. La copia portable del baseline se validó después con 5/5 pruebas del contrato, sin cambiar sus bytes ni aserciones. Promoción y CI pertenecen a Principal.
+
+| Variante | Modelo | Fuente editable |
+|---|---|---|
+| Menta | [GLB](../public/assets/characters/water-mannequin/v4/water-mannequin.glb) | [Blender](../docs/assets/characters/v4/water-mannequin.blend) |
+| Ámbar | [GLB](../public/assets/characters/water-mannequin/v4/water-mannequin-amber.glb) | [Blender](../docs/assets/characters/v4/water-mannequin-amber.blend) |
+| Jefe | [GLB](../public/assets/characters/water-mannequin/v4/water-mannequin-boss.glb) | [Blender](../docs/assets/characters/v4/water-mannequin-boss.blend) |
+
+[Vista previa de los GLB reimportados](../public/assets/characters/water-mannequin/v4/waterduel-models-v4.png). La lista completa de entrega y sus hashes son `PERSONAJES_V4_PROMOTION_FILES.json` y `PERSONAJES_V4_PROMOTION_RECEIPTS.json`.
