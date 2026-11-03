@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "status": "complete",
+  "ciFailureRun": "41571294875",
+  "scope": [
+    "tests/network.test.mjs"
+  ],
+  "beforeTestSHA256": "0374fecb4387385c7509dd9881bf2a70d9fbd3d046ce6913ada5419deb1df92b",
+  "afterTestSHA256": "7ca42b429bd1d426894304441777eb1d1339971415b2ec88791752eaf6202316",
+  "productionPins": {
+    "public/engine.js": "b06cbb0b67d2bb90985a9d6a56b50a2a19ce1675ff6e070a97ce885690e26da6",
+    "server.mjs": "0c2b9f6b21aa7226c8c8154d919d84da6fcc4781c40b4f38e78a6178235aee4b"
+  },
+  "diagnosis": "Accepted messages from independent controller TCP sockets have no global arrival order. The old assertion used array position as identity; its failure skipped socket close and caused the reconnect timeout.",
+  "correction": "Await both accepted controls, validate welcome identity, compare the full tuple array sorted by slot before mapping payloads, wait J1 offline presence as a host-wire barrier, and close acquired peers in finally.",
+  "preserved": {
+    "messageTimeoutMs": 2500,
+    "sessionTtlMs": 2000,
+    "heartbeatMs": 200,
+    "peerIdleMs": 1500,
+    "discoveredCasesBefore": 6,
+    "discoveredCasesAfter": 6,
+    "testsRemovedOrSkipped": 0,
+    "exactAcceptedTuples": [
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    "axesMainY": 1,
+    "guard": true,
+    "productionEdited": false
+  },
+  "results": {
+    "red": {
+      "tests": 6,
+      "passed": 3,
+      "failed": 3,
+      "skipped": 0,
+      "durationMs": 4136.4297,
+      "exitCode": 1,
+      "failedSubtests": 2,
+      "enclosingTestAlsoFails": true,
+      "actualTupleOrder": [
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "derivedReconnectTimeout": true
+    },
+    "reversed": {
+      "tests": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 2118.5613,
+      "exitCode": 0
+    },
+    "original": {
+      "tests": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 2173.6073,
+      "exitCode": 0
+    }
+  },
+  "commands": {
+    "red": "node audit/sword-axe-recovery-1.13.2/validation/network/reorder-repro.mjs before",
+    "reversed": "node audit/sword-axe-recovery-1.13.2/validation/network/reorder-repro.mjs after",
+    "original": "node --test tests/network.test.mjs"
+  },
+  "rawBytesPreserved": true,
+  "receiptSelfExcludedFromArtifacts": true,
+  "artifacts": [
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/report.md",
+      "bytes": 2310,
+      "sha256": "862ff960374282228bd5e1d9185f18a45d88a63661efab2016bef2a66ed88ebe"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/reorder-repro.mjs",
+      "bytes": 2151,
+      "sha256": "881fe0aa087fdd6f1a5f57348527865cd01721b63f35cb1b68ed788de27af34b"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/raw/network-before.test.mjs.txt",
+      "bytes": 6434,
+      "sha256": "0374fecb4387385c7509dd9881bf2a70d9fbd3d046ce6913ada5419deb1df92b"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/raw/red.log",
+      "bytes": 2378,
+      "sha256": "18da7739653ac52618f81fb1a94506ff81ca4d8e7669d80bfb23d67033bc0cfd"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/raw/reversed-green.log",
+      "bytes": 785,
+      "sha256": "b39bd4fb66c23af100e930b4481b1ff76b9d97c1e71879f2bca06a2d2e44126a"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/raw/original-green.log",
+      "bytes": 785,
+      "sha256": "437b8aa825bff18ae8c6a1cd123d90eb6d066534188c0c5b40ba29ea73d1a772"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/raw/reordered-before-sources.json",
+      "bytes": 351,
+      "sha256": "2bf04c27171a84a3ab9da19243512ffb2ae210ef4cba8e5d17471f3c7a778b94"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/raw/reordered-after-sources.json",
+      "bytes": 350,
+      "sha256": "4e0068a410b5ff25f45346d5a540421a1c3d3feda0d90c6b0cb2bc99bc65de60"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "type": "knife-fixture-migration-overlay",
+  "parent": {
+    "file": "audit/sword-axe-recovery-1.13.2/versus-opening-overlay.json",
+    "sha256": "cfe6c3c05e8758e9afbf93b6d693882de35492c2717375730ea2947809e21719"
+  },
+  "change": {
+    "file": "tests/knife-defense-integration.test.mjs",
+    "parentSHA256": "24e59f5cc716346045b6de4f0cd8af98700e74be35f8d64af2000acdc810c802",
+    "sha256": "d41d4284507228e4b9fe0c9648c3f8570b03ae33a9d3f30f32a5ec767b4087c8",
+    "bytes": 14246,
+    "originalSnapshot": "audit/sword-axe-recovery-1.13.2/validation/knife/feature-cut-knife-defense-integration.test.mjs.txt"
+  },
+  "pins": {
+    "public/engine.js": "b06cbb0b67d2bb90985a9d6a56b50a2a19ce1675ff6e070a97ce885690e26da6",
+    "public/physics/articulated-rig.js": "378248716a14da0a662929e2d04c26c416d334f8863c132eb2c7561e4fc76adb",
+    "public/physics/weapon-bind.js": "a30c937900e00722f2bac6f9ab74e35ed7d92d9d29e64903486ce3261b30daad"
+  },
+  "artifacts": [
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/feature-cut-knife-defense-integration.test.mjs.txt",
+      "bytes": 12327,
+      "sha256": "24e59f5cc716346045b6de4f0cd8af98700e74be35f8d64af2000acdc810c802"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/probe.mjs",
+      "bytes": 7000,
+      "sha256": "dc234b8c7112a3cef8a81c5d8ecfdefeac1fd0893cb553db5c852061c0160b66"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/baseline-current.json",
+      "bytes": 60533,
+      "sha256": "bf684666b572d9bee70f2ee76865c111dd98d67b7b60b624dd51c7555cb19bce"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/feedback-rejected.json",
+      "bytes": 20950,
+      "sha256": "b6f93e0935e65b8c4e09ad857294de8150aaffd73508a5a7776d2072cff092d9"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/feedback-aim-first.json",
+      "bytes": 32259,
+      "sha256": "2330de01311644b9e9a451dc6495aa4d21dfe276956b0aa8635faa7b983a2315"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/feedback-robust.json",
+      "bytes": 24475,
+      "sha256": "ead5b70218fdd644af1cd180c53e0663e0675cbba78289bf4e86f44a13987e52"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/raw.log",
+      "bytes": 7181,
+      "sha256": "af34065105873fc2a80cb9fc356c921fdafd5d2d03459d7949afcfc1bd4ab215"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/fixture-migration.patch",
+      "bytes": 4707,
+      "sha256": "ed50d1ff4db0c394a9623e33cc1546bbddd79388cf12959fc5933af216ea6538"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/knife-evidence.zip",
+      "bytes": 34653,
+      "sha256": "2bd1e77d54e622a793a2b8d7249d9bc4eb248992e7362fa42e6aeec15da86ad0"
+    }
+  ],
+  "cause": "The old N16 fixed input sequence was measured against AB55 countdown wrists. The new clear versus opening changes initial wrists by±.1005859375 controller units and changes the subsequent material trajectory. AB55 with the same current rig/bind yields4/4 original contacts; B06C yields3/4, missingJ1/reverse. A nearest-segment distance alone does not certify entry into the finite tilted XYZ knife profile.",
+  "migration": "Only J1/reverse opts into an observed aiming gesture. It finds the centre of the real knife profile slice at the attacking blade depth, uses normalized wrist control, and advances only when observed angular error fits the physical profile width.75 preparation and285 maximum steps, original aim/defender controls/no-thrust and other3recipes remain. No pose/q/collider/radius/impulse/score/engine change.",
+  "evidence": {
+    "red": {
+      "tests": 2,
+      "failed": 2,
+      "source": "24e59f5cc716346045b6de4f0cd8af98700e74be35f8d64af2000acdc810c802"
+    },
+    "green": {
+      "tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "source": "d41d4284507228e4b9fe0c9648c3f8570b03ae33a9d3f30f32a5ec767b4087c8"
+    },
+    "originalAssertionBodiesByteIdentical": true,
+    "observedJ1": {
+      "impulse": 0.08969476401840658,
+      "frictionImpulse": 0.013311067808257472,
+      "dissipatedWork": 0.033261449879509505,
+      "score": [
+        0,
+        0
+      ],
+      "bodyA": "weapon",
+      "bodyB": "offWeapon"
+    },
+    "robustness": "Three independent actual countdown phases clock0/17/123 pass positive real impulse/friction/opposite reaction/zero score. Original8tests also verify real detachment after observed contact, missing ghost blade, geometry, sockets and damaged arm.",
+    "rejected": "Feedback that advanced before aim convergence missed the real profile and lost. It is archived asfeedback-rejected.json; no physical buffs or arbitrary recipe parameter sweep were used."
+  },
+  "reproduce": [
+    "node audit/sword-axe-recovery-1.13.2/validation/knife/probe.mjs",
+    "node audit/sword-axe-recovery-1.13.2/validation/knife/probe.mjs feedback-aim-first",
+    "node audit/sword-axe-recovery-1.13.2/validation/knife/probe.mjs feedback-robust",
+    "node --test tests/knife-defense-integration.test.mjs"
+  ]
+}

@@ -49,23 +49,33 @@ test('Sesiones LAN: autoridad única, secuencias, heartbeat y caducidad real',as
   });
 
   await t.test('Dos mandos independientes rechazan mensajes duplicados y responden a ping sin otro servicio',async()=>{
-    const host=await connect('host',session.hostToken);
-    const key=slot=>new URL(session.links[slot]).searchParams.get('key');
-    const p1=await connect('controller',key(1),1),p2=await connect('controller',key(2),2);
-    const seen=[];host.socket.addEventListener('message',event=>{const data=JSON.parse(event.data);if(data.type==='control')seen.push(data);});
-    const done=message(host.socket,data=>data.type==='control'&&data.slot===2&&data.seq===3);
-    p1.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:2,thrust:true,mainY:9}));
-    p1.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:1,thrust:true,mainY:-1}));
-    p1.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:2,thrust:true}));
-    p2.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:3,guard:true,lean:-.7,sentAt:Date.now()}));
-    await done;
-    assert.deepEqual(seen.map(data=>[data.slot,data.seq]),[[1,2],[2,3]]);
-    assert.equal(seen[0].axes.mainY,1);
-    assert.equal(seen[1].guard,true);
-    const pong=message(p1.socket,data=>data.type==='pong'&&data.at===123);
-    p1.socket.send(JSON.stringify({type:'ping',at:123}));
-    assert.equal((await pong).at,123);
-    await close(p1.socket);await close(p2.socket);await close(host.socket);
+    let host,p1,p2;
+    try{
+      host=await connect('host',session.hostToken);
+      assert.equal(host.welcome.role,'host');
+      const key=slot=>new URL(session.links[slot]).searchParams.get('key');
+      p1=await connect('controller',key(1),1);p2=await connect('controller',key(2),2);
+      assert.deepEqual([p1.welcome.role,p1.welcome.slot,p2.welcome.role,p2.welcome.slot],['controller',1,'controller',2]);
+      const seen=[];host.socket.addEventListener('message',event=>{const data=JSON.parse(event.data);if(data.type==='control')seen.push(data);});
+      const done=Promise.all([message(host.socket,data=>data.type==='control'&&data.slot===p1.welcome.slot&&data.seq===2),
+        message(host.socket,data=>data.type==='control'&&data.slot===p2.welcome.slot&&data.seq===3)]);
+      p1.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:2,thrust:true,mainY:9}));
+      p1.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:1,thrust:true,mainY:-1}));
+      p1.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:2,thrust:true}));
+      p2.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:3,guard:true,lean:-.7,sentAt:Date.now()}));
+      await done;
+      const pong=message(p1.socket,data=>data.type==='pong'&&data.at===123);
+      p1.socket.send(JSON.stringify({type:'ping',at:123}));
+      assert.equal((await pong).at,123);
+      // Closing J1 puts its offline presence after every earlier J1 relay on
+      // the host's single wire, including any wrongly accepted duplicates.
+      const offline=message(host.socket,data=>data.type==='presence'&&data.slot===p1.welcome.slot&&!data.online);
+      await close(p1.socket);await offline;
+      assert.deepEqual(seen.map(data=>[data.slot,data.seq]).sort((a,b)=>a[0]-b[0]),[[1,2],[2,3]]);
+      const bySlot=new Map(seen.map(data=>[data.slot,data]));
+      assert.equal(bySlot.get(p1.welcome.slot).axes.mainY,1);
+      assert.equal(bySlot.get(p2.welcome.slot).guard,true);
+    }finally{await Promise.all([p1?.socket,p2?.socket,host?.socket].filter(Boolean).map(close));}
   });
 
   await t.test('Un mando puede reconectar con secuencia nueva y neutraliza su cupo al salir',async()=>{

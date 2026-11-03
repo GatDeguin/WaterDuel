@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {DuelEngine,STEP,parryContact} from '../public/engine.js';
 import {DEFENSES} from '../public/equipment.js';
 import {BALLOON_RADII} from '../public/physics/dimensions.js';
-import {knifeTip,knifeWorldNormal} from '../public/knife-technique.js';
+import {knifeTip,knifeFrame,knifeWorldNormal} from '../public/knife-technique.js';
 import {parseGLB} from '../public/rendering/glb.js';
 import {prepareCharacter,characterTransforms,equipmentTransform,deformEquipmentPoint} from '../public/rendering/asset-rig.js';
 
@@ -12,13 +12,35 @@ const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y,(a.z??0)-(b.z??0));
 const near=(a,b,tol=1e-7)=>assert.ok(Math.abs(a-b)<tol,`${a} != ${b}`);
 const point=(m,p)=>({x:m[0]*p[0]+m[4]*p[1]+m[8]*p[2]+m[12],y:m[1]*p[0]+m[5]*p[1]+m[9]*p[2]+m[13],z:m[2]*p[0]+m[6]*p[1]+m[10]*p[2]+m[14]});
 // N16 scenarios retain every contact/impulse assertion below. These four
-// updated input sequences were measured with a real countdown (audit/knife-n16-root-results-113-ba5f.json).
+// input sequences were measured with a real countdown (audit/knife-n16-root-results-113-ba5f.json).
+// The new versus opening changes initial wrists. J1/reverse now aims from the
+// observed dagger before advancing; all physical assertions and 285 ticks stay.
+// The original inputs and RED/geometry evidence are preserved in
+// audit/sword-axe-recovery-1.13.2/validation/knife/.
 const settled={countdown:true,defPrepLean:1,atkPrepLean:0,offMainY:-1,offWrist:-1};
 const recipes=[{slot:1,grip:'normal',aim:.2,wrist:.35,offY:-.25,...settled},
-  {slot:1,grip:'reverse',aim:0,wrist:.35,defLean:.25,thrustTick:-1,...settled},
+  {slot:1,grip:'reverse',aim:0,wrist:.35,defLean:.25,thrustTick:-1,aimAtObservedKnife:true,...settled},
   {slot:2,grip:'normal',aim:.2,wrist:.35,offY:-.25,...settled},
   {slot:2,grip:'reverse',aim:-.4,wrist:.35,defLean:.25,thrustTick:-1,...settled}];
-function realParry({slot,grip,aim,wrist,attackerWeapon='sword',offMainY=slot===1?-1:1,offWrist=slot===1?-1:1,requireImpulse=true,offY=1,countdown=false,defPrepLean=0,defLean=0,atkPrepLean=-1,thrustTick=145}){
+function aimAtKnife(game,slot,mainY){
+  const attacker=game.fighters[2-slot],defender=game.fighters[slot-1],hand=attacker.pose.mainHand,tip=attacker.pose.tip;
+  const frame=knifeFrame(defender.pose.offHand,defender.pose.defenseTip);
+  assert.ok(frame&&Math.abs(frame.u.z)>1e-9&&Math.abs(frame.w.z)>1e-9,'observed finite tilted knife frame');
+  // Intersect the actual tilted knife profile with the attacking blade's z
+  // layer. Its .012 half-depth and .055 ellipse width match parryContact;
+  // aiming at the XY midpoint would miss this thin 3D slice.
+  const half=frame.length/2,z=(tip.z??.17)-frame.center.z,span=.012*Math.abs(frame.w.z);
+  const limits=[(z-span)/frame.u.z,(z+span)/frame.u.z].sort((a,b)=>a-b);
+  const low=Math.max(-half,limits[0]),high=Math.min(half,limits[1]);assert.ok(low<=high,'the observed blade plane intersects the real knife');
+  const u=(low+high)/2,w=(z-u*frame.u.z)/frame.w.z;
+  const target={x:frame.center.x+u*frame.u.x+w*frame.w.x,y:frame.center.y+u*frame.u.y+w*frame.w.y};
+  const desired=Math.atan2(target.y-hand.y,Math.max(.3,attacker.dir*(target.x-hand.x)));
+  const actual=Math.atan2(tip.y-hand.y,attacker.dir*(tip.x-hand.x)),error=Math.atan2(Math.sin(desired-actual),Math.cos(desired-actual));
+  const base=(desired-Math.atan2(.58*mainY,attacker.rig.swordLength))/(Math.PI/4);
+  const width=.055*Math.sqrt(Math.max(0,1-(u/half)**2)),range=Math.hypot(target.x-hand.x,target.y-hand.y);
+  return {wrist:Math.max(-1,Math.min(1,base+error)),lean:Math.abs(error)<=Math.atan2(width,range)?1:0};
+}
+function realParry({slot,grip,aim,wrist,attackerWeapon='sword',offMainY=slot===1?-1:1,offWrist=slot===1?-1:1,requireImpulse=true,offY=1,countdown=false,defPrepLean=0,defLean=0,atkPrepLean=-1,thrustTick=145,aimAtObservedKnife=false}){
   let game,observed=null;const contacts=[];
   game=new DuelEngine((name,data)=>{
     if(name!=='clang'||data.defender!==slot)return;contacts.push(data);
@@ -31,7 +53,7 @@ function realParry({slot,grip,aim,wrist,attackerWeapon='sword',offMainY=slot===1
   else game.phase='fight';
   for(let i=0;i<285&&game.phase==='fight'&&!observed;i++){
     game.setControl(slot,{guard:true,offX:.85,offY,mainX:-1,mainY:offMainY,wrist:offWrist,lean:i<75?defPrepLean:defLean});
-    game.setControl(3-slot,i<75?{mainX:-1,mainY:-1,wrist:-1,lean:atkPrepLean}:{mainX:1,mainY:aim,wrist,lean:1,thrust:i===thrustTick});
+    game.setControl(3-slot,i<75?{mainX:-1,mainY:-1,wrist:-1,lean:atkPrepLean}:{mainX:1,mainY:aim,wrist,lean:1,thrust:i===thrustTick,...(aimAtObservedKnife?aimAtKnife(game,slot,aim):{})});
     game.update(STEP);
   }
   return {game,observed,contacts};

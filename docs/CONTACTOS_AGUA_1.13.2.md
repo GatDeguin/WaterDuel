@@ -70,6 +70,8 @@ La prueba WebGL con `HostSession` y `Renderer3D` reales cargó los 11 recursos, 
 
 El corte final pasó 81 pruebas focales en el clon de publicación y las 16 pruebas originales de IA sin modificar sus casos, aserciones ni duraciones. El oráculo de apertura conserva las comprobaciones físicas de versus y compara 64 combinaciones de equipo/dificultad en solo, más campaña y observaciones de reinicio, contra el motor publicado de 1.13.1.
 
+La integración completa detectó dos dependencias de las pruebas: una secuencia de daga medida para la postura anterior y un orden global supuesto entre dos sockets independientes. La receta J1/reverse ahora apunta mediante controles normales a la sección observada de la daga antes de avanzar, conservando sus límites y todas las aserciones de contacto, impulso, fricción y desprendimiento. La prueba de red espera ambos mandos, comprueba su cardinalidad por jugador y cierra las conexiones ante fallos. Ambas pruebas suman 14/14 casos correctos; estos ajustes no modifican el motor ni el servidor. [Evidencia de daga](../audit/sword-axe-recovery-1.13.2/validation/knife/receipt.json) · [Evidencia de red y llegada invertida](../audit/sword-axe-recovery-1.13.2/validation/network/receipt.json).
+
 [Recibo de contactos](../audit/sword-axe-recovery-1.13.2/receipt.json) · [Mediciones de recuperación](../audit/sword-axe-recovery-1.13.2/measurement.json) · [Audit de agua y descartes](../audit/fluid-volume-1.13.2/README.md) · [Medición final del agua](../audit/fluid-volume-1.13.2/paired.json).
 
 Los logs y diffs originales referidos por ambos recibos se distribuyen comprimidos, conservando sus bytes y rutas: [archivo e índice de verificación](../audit/sword-axe-recovery-1.13.2/RAW_ARTIFACTS.md).

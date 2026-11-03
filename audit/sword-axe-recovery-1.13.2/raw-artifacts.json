@@ -1,6 +1,6 @@
 {
   "archive": "audit/sword-axe-recovery-1.13.2/raw-artifacts.zip",
-  "sha256": "6a375ecb3cca9f330520aa8bb3ce7e8f95219d2f5ef75726eab95c25228df530",
+  "sha256": "5f68f052ae72c1c3254991d347fcddae102253b9bc7c455828f91755cc449893",
   "rawFiles": [
     {
       "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-boss260-A.log",
@@ -146,6 +146,31 @@
       "file": "audit/sword-axe-recovery-1.13.2/snapshot-negative-control.log",
       "bytes": 5392,
       "sha256": "69d027674a17c00f913b0492b2ccf69f75339a8e453336ce8da1e602736d193c"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/fixture-migration.patch",
+      "bytes": 4707,
+      "sha256": "ed50d1ff4db0c394a9623e33cc1546bbddd79388cf12959fc5933af216ea6538"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/knife/raw.log",
+      "bytes": 7181,
+      "sha256": "af34065105873fc2a80cb9fc356c921fdafd5d2d03459d7949afcfc1bd4ab215"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/raw/original-green.log",
+      "bytes": 785,
+      "sha256": "437b8aa825bff18ae8c6a1cd123d90eb6d066534188c0c5b40ba29ea73d1a772"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/raw/red.log",
+      "bytes": 2378,
+      "sha256": "18da7739653ac52618f81fb1a94506ff81ca4d8e7669d80bfb23d67033bc0cfd"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/validation/network/raw/reversed-green.log",
+      "bytes": 785,
+      "sha256": "b39bd4fb66c23af100e930b4481b1ff76b9d97c1e71879f2bca06a2d2e44126a"
     },
     {
       "file": "audit/sword-axe-recovery-1.13.2/versus-opening-scope.patch",

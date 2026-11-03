@@ -1,0 +1,6 @@
+{
+  "variant": "after",
+  "sourceSHA": "7ca42b429bd1d426894304441777eb1d1339971415b2ec88791752eaf6202316",
+  "privateSHA": "614a8a65ae3104383b5f8719a8a42d24c805824023c981c64a05b3f26076226a",
+  "arrange": "Authenticated J2 is received before J1 is sent; J1 receipt is awaited. Original assertions, frame contents and all timeouts remain unchanged."
+}

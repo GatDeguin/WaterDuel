@@ -1,0 +1,25 @@
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const root=new URL('../../../../',import.meta.url),variant=process.argv[2]??'after';
+if(!['before','after'].includes(variant))throw Error('Use before or after');
+const original=new URL('raw/network-before.test.mjs.txt',import.meta.url),logical=new URL('tests/network.test.mjs',root);
+let source=await fs.readFile(variant==='before'?original:logical,'utf8');
+const sha=b=>createHash('sha256').update(b).digest('hex'),sourceSHA=sha(source);
+const expected=variant==='before'?'0374fecb4387385c7509dd9881bf2a70d9fbd3d046ce6913ada5419deb1df92b':'7ca42b429bd1d426894304441777eb1d1339971415b2ec88791752eaf6202316';
+if(sourceSHA!==expected)throw Error('Unexpected '+variant+' test source');
+const once=(a,b)=>{if(source.split(a).length!==2)throw Error('Repro marker not unique');source=source.replace(a,b);};
+once("cwd:new URL('..',import.meta.url)",`cwd:new URL(${JSON.stringify(root.href)})`);
+const p2="p2.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:3,guard:true,lean:-.7,sentAt:Date.now()}));";
+const p1first="p1.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:2,thrust:true,mainY:9}));";
+const p1last="p1.socket.send(JSON.stringify({type:'control',sentAt:Date.now(),seq:2,thrust:true}));";
+once(p2,'');
+once(p1first,`const firstArrival=message(host.socket,data=>data.type==='control'&&data.slot===2&&data.seq===3);
+    ${p2}
+    await firstArrival;
+    const secondArrival=message(host.socket,data=>data.type==='control'&&data.slot===1&&data.seq===2);
+    ${p1first}`);
+once(p1last,p1last+'\n    await secondArrival;');
+const output=new URL('.runtime/network-order-repro/',root);await fs.mkdir(output,{recursive:true});
+const target=new URL('reordered-'+variant+'.test.mjs',output);await fs.writeFile(target,source);
+await fs.writeFile(new URL('reordered-'+variant+'-sources.json',output),JSON.stringify({variant,sourceSHA,privateSHA:sha(source),arrange:'Authenticated J2 is received before J1 is sent; J1 receipt is awaited. Original assertions, frame contents and all timeouts remain unchanged.'},null,2)+'\n');
+await import(target.href);
