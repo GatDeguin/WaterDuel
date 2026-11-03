@@ -1,0 +1,105 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {DuelEngine,FOOTWORK,STEP} from '../public/engine.js';
+import {HostSession} from '../public/host-session.js';
+import {BALLOON_RADII} from '../public/physics/dimensions.js';
+import {firstWeaponContact} from '../public/physics/weapon-bind.js';
+
+// Independent SAT over the public physical panel vertices. This deliberately
+// does not use weapon-bind's selected first contact or its anchored manifold:
+// the reported failure hides an axe head behind a simultaneous shaft contact.
+function panelOverlaps(game,steelOnly=true){
+  const [a,b]=game.fighters.map(f=>f.rig.collisionPanels().filter(p=>!steelOnly||p.body==='weapon'&&p.material!=='wood'));
+  const contacts=[];
+  for(const x of a)for(const y of b){
+    if(Math.abs(x.z-y.z)>=(x.depth+y.depth)/2-1e-7)continue;
+    let penetration=Infinity;
+    for(const axis of [...x.axes,...y.axes]){
+      const A=x.vertices.map(v=>v.x*axis.x+v.y*axis.y),B=y.vertices.map(v=>v.x*axis.x+v.y*axis.y);
+      penetration=Math.min(penetration,Math.min(Math.max(...A),Math.max(...B))-Math.max(Math.min(...A),Math.min(...B)));
+    }
+    if(penetration>1e-6)contacts.push({keyA:x.key,keyB:y.key,penetration});
+  }
+  return contacts;
+}
+function duel(weapons=['sword','axe'],boss=false){
+  const game=new DuelEngine();game.setMode('versus');
+  for(const [index,weapon] of weapons.entries())game.setLoadout(index+1,{weapon,defense:'none'});
+  if(boss){game.mode='solo';game.setDifficulty('boss');game.aiEnabled=false;}
+  return game;
+}
+function clearOpening(game,label){
+  assert.equal(game.phase,'countdown');
+  assert.deepEqual(panelOverlaps(game),[],`${label}: opposing physical steel must start clear`);
+  for(const f of game.fighters){
+    assert.ok(Math.abs(f.baseX)<=FOOTWORK.arenaHalfWidth,`${label}: base stays inside the arena`);
+    const opponent=game.fighters.find(other=>other!==f),nearHead=opponent.pose.head.x-f.dir*BALLOON_RADII.x*opponent.balloonSize;
+    for(const p of f.rig.collisionPanels().filter(p=>p.body==='weapon'))
+      assert.ok(p.vertices.every(v=>f.dir*(nearHead-v.x)>0),`${label}: steel and grip stay outside the opposing balloon`);
+  }
+}
+
+test('duel countdown starts without sword/axe shaft or head penetration in either slot order',()=>{
+  for(const weapons of [['sword','axe'],['axe','sword']]){
+    const game=duel(weapons);game.start();clearOpening(game,weapons.join('/'));
+  }
+});
+
+test('every primary pairing fits a clear opening, including the larger boss rig',()=>{
+  for(const boss of [false,true])for(const left of ['sword','spear','axe','maul'])for(const right of ['sword','spear','axe','maul']){
+    const game=duel([left,right],boss);game.start();clearOpening(game,`${boss?'boss':'normal'}/${left}/${right}`);
+    assert.deepEqual(panelOverlaps(game,false),[],`${boss?'boss':'normal'}/${left}/${right}: opposing timber and equipment start clear`);
+    assert.equal(firstWeaponContact(...game.fighters.map(f=>f.rig)),null,'an immediate CCD query must not sweep through the old inspection pose');
+    for(const f of game.fighters){
+      assert.deepEqual(f.rig.collisionPanelsAt(0),f.rig.collisionPanelsAt(1),'initial history describes one stationary opening pose');
+      assert.ok(f.rig.velocity.every(v=>v===0));assert.equal(f.controller.wrist,0);
+    }
+  }
+});
+
+test('opposing steel remains clear for the entire breathing countdown, including long and heavy boss equipment',()=>{
+  for(const [weapons,boss] of [[['sword','axe'],false],[['axe','sword'],false],[['spear','spear'],true],[['maul','maul'],true],[['axe','maul'],true]]){
+    const game=duel(weapons,boss);game.clock=17;game.start();
+    let steps=0;
+    while(game.phase==='countdown'&&steps<386){
+      clearOpening(game,`${weapons.join('/')}/tick-${steps}`);
+      game.update(STEP);steps++;
+    }
+    assert.equal(game.phase,'fight');assert.ok(steps>380);
+    assert.ok(game.fighters.every(f=>f.openingWrist===undefined&&f.controller.wrist===0),'the opening offset is released without becoming player control');
+    assert.deepEqual(game.scores,[0,0]);assert.ok(game.fighters.every(f=>f.globIntact));
+  }
+});
+
+test('a fresh opening clears collision observations from the previous ready state',()=>{
+  const game=duel();game.lastWeaponContact={at:{x:0,y:2},impulse:1};game.lastBodyContacts=[{penetration:1}];
+  game.start();assert.equal(game.lastWeaponContact,null);assert.deepEqual(game.lastBodyContacts,[]);
+});
+
+test('next rounds and rematches rebuild the clear physical opening in either slot order',()=>{
+  for(const weapons of [['sword','axe'],['axe','sword']]){
+    const game=duel(weapons);game.start();
+    game.phase='burst';game.phaseClock=3.25;game.update(STEP);
+    clearOpening(game,`${weapons.join('/')}/next round`);
+    game.phase='matchover';game.start();clearOpening(game,`${weapons.join('/')}/rematch`);
+  }
+});
+
+test('campaign starts and the next encounter use the same clear opening placement',()=>{
+  const host=new HostSession({opponentSeed:83});let requestId=0;
+  const command=(command,value)=>host.handleCommand({type:'command',requestId:++requestId,sentAt:Date.now(),command,...(value===undefined?{}:{value})});
+  assert.equal(command('setExperience','campaign').ok,true);
+  assert.equal(command('start').ok,true);clearOpening(host.game,'campaign start');
+  host.game.phase='matchover';host.game.winner=1;host.game.onEvent('matchover',{winner:1});
+  assert.equal(command('nextEncounter').ok,true);clearOpening(host.game,'campaign next encounter');
+});
+
+test('ready inspection and practice retain their reference pose, and duel fighters can still approach',()=>{
+  const practice=duel();
+  const ready=practice.fighters.map(f=>({hand:{...f.pose.mainHand},tip:{...f.pose.tip}}));
+  practice.setScenario('practice');practice.start();
+  assert.deepEqual(practice.fighters.map(f=>({hand:f.pose.mainHand,tip:f.pose.tip})),ready);
+  const game=duel();game.start();const initial=game.fighters[1].baseX-game.fighters[0].baseX;
+  game.phase='fight';game.setControl(1,{lean:1});game.setControl(2,{lean:1});game.update(STEP);
+  assert.ok(game.fighters[1].baseX-game.fighters[0].baseX<initial,'the opening does not prevent ordinary forward footwork');
+});

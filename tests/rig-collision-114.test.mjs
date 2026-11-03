@@ -2,10 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {collisionModules,collisionPair,resolveCollisionPair,rigState,invalidateCollisionInputs} from './fixtures/rig-collision-reference-114.mjs';
 
-const {reference,candidate}=await collisionModules();
+// Compare the frozen rig's default response to the current cached response
+// under the SAME corrected contact algorithm, not the old trapped trajectory.
+const {reference,candidate}=await collisionModules({fixedContactReference:true});
 const label=spec=>JSON.stringify(spec);
 
-test('1.13 exact collision oracle: both mirrors/sizes, four weapons, both knife grips, flex and severed arms/legs',()=>{
+test('exact frozen-rig/cache oracle with corrected contacts: mirrors/sizes, four weapons, knife grips, flex and severed arms/legs',()=>{
   let cases=0,events=0;
   for(const dir of [-1,1])for(const scale of [1,1.18])for(const weapon of ['sword','spear','axe','maul'])for(const grip of ['normal','reverse']){
     const damage=['none','partial','arm','leg'][Math.floor(cases/3)%4],spec={dir,scale,weapon,grip,damage,flex:cases%3!==0,sweep:cases%5!==0,mixed:cases%7===0};

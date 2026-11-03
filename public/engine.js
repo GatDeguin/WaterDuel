@@ -269,6 +269,7 @@ export class DuelEngine{
     this.presentation.reset();
     this.guardContactEpisodes.clear();
     this.jointContacts=[];this.jointImpactDamage=new JointImpactDamage();
+    if(this.mode==='versus'){this.lastWeaponContact=null;this.lastBodyContacts=[];}
     this.fighters=this.loadouts.map((loadout,index)=>initialFighter(index+1,loadout,this.balloonColors[index]));
     this.fighters[1].matchApronToBalloon=this.mode==='solo'&&this.matchApronToBalloon===true;
     const enemy=this.fighters[1];enemy.boss=this.mode==='solo'&&this.difficulty==='boss';
@@ -286,6 +287,63 @@ export class DuelEngine{
     this.elapsed=0;this.suddenDeath=false;this.winner=0;
     this.count=3;this.lastMessage='Prepará tu arma';this.nextClang=0;
     this.fighters.forEach(f=>this.initializeRig(f));
+    if(opening&&this.mode==='versus')this.#placeOpeningWeapons();
+  }
+  #placeOpeningWeapons(){
+    // The reference hands reach far enough for even the 3.8-unit opening to
+    // cross the opposing steel. Spread the real wrists, within their normal
+    // stops, instead of enlarging the arena or spawning a blade inside a head.
+    // .08 also leaves room for both small countdown breathing intentions.
+    const clearance=.08;
+    const clear=()=>{
+      const [A,B]=this.fighters.map(f=>f.rig.collisionPanels().filter(p=>p.body==='weapon'));
+      for(const a of A)for(const b of B){
+        let gap=Math.abs(a.z-b.z)-(a.depth+b.depth)/2;
+        for(const axis of [...a.axes,...b.axes]){
+          let amin=Infinity,amax=-Infinity,bmin=Infinity,bmax=-Infinity;
+          for(const p of a.vertices){const v=p.x*axis.x+p.y*axis.y;amin=Math.min(amin,v);amax=Math.max(amax,v);}
+          for(const p of b.vertices){const v=p.x*axis.x+p.y*axis.y;bmin=Math.min(bmin,v);bmax=Math.max(bmax,v);}
+          gap=Math.max(gap,bmin-amax,amin-bmax);
+        }
+        if(gap<clearance)return false;
+      }
+      return true;
+    };
+    const place=wrist=>{
+      for(const f of this.fighters){
+        f.openingWrist=f.dir*wrist;
+        const intent=this.buildPose(f,{...f.controller,wrist:f.controller.wrist+f.openingWrist});
+        f.rig.setIntent(intent,{baseX:f.baseX});f.rig.q.set(f.rig.target);
+        f.pose=f.rig.pose();
+      }
+    };
+    if(!clear()){
+      // Locate a verified clear upper bracket first. Refinement retains that
+      // valid endpoint even if a broad head's clearance is not monotonic.
+      let low=0,high,direction=1;
+      for(const sign of [1,-1]){
+        low=0;direction=sign;
+        for(let i=1;i<=8;i++){
+          const wrist=i/8;place(direction*wrist);
+          if(clear()){high=wrist;break;}
+          low=wrist;
+        }
+        if(high!==undefined)break;
+      }
+      if(high===undefined)throw new RangeError('Selected equipment has no clear opening within the wrist stops.');
+      for(let i=0;i<10;i++){
+        const wrist=(low+high)/2;place(direction*wrist);
+        if(clear())high=wrist;else low=wrist;
+      }
+      place(direction*high);
+    }
+    for(const f of this.fighters){
+      const rig=f.rig,dx=f.pose.tip.x-f.pose.mainHand.x,dy=f.pose.tip.y-f.pose.mainHand.y,length=Math.hypot(dx,dy);
+      rig.previousQ=rig.q.slice();rig.previousSwordLength=rig.lastSwordLength=rig.swordLength;rig.velocity.fill(0);
+      if(rig.weaponFlex)rig.weaponFlex.previousOffset=rig.weaponFlex.offset;
+      f.previousTip={...f.pose.tip};f.previousWeaponDirection={x:dx/length,y:dy/length};
+      f.previousHead={...f.pose.head};f.headVelocity={vx:0,vy:0,vz:0};
+    }
   }
   start(){
     if(this.phase!=='ready'&&this.phase!=='matchover')return;
@@ -315,7 +373,11 @@ export class DuelEngine{
       const old=this.count;this.phaseClock+=dt;
       this.count=Math.max(0,3-Math.floor(this.phaseClock));
       if(old!==this.count)this.onEvent('countdown',{count:this.count});
-      if(this.phaseClock>=3.2){this.phase='fight';this.phaseClock=0;this.onEvent('fight',{round:this.round});}
+      if(this.phaseClock>=3.2){
+        this.phase='fight';this.phaseClock=0;
+        for(const f of this.fighters)delete f.openingWrist;
+        this.onEvent('fight',{round:this.round});
+      }
     }else if(this.phase==='fight'){
       this.phaseClock+=dt;this.elapsed+=dt;
       if(this.elapsed>=RULES.regulationSeconds&&!this.suddenDeath){this.suddenDeath=true;this.lastMessage='MUERTE SÚBITA';this.onEvent('overtime',{round:this.round});}
@@ -750,7 +812,10 @@ export class DuelEngine{
       f.previousWeaponDirection={x:dx/length,y:dy/length};
     }
     const oldHead=f.pose?.head ? {...f.pose.head}:null;
-    if(f.globIntact)this.buildPose(f,idle??f.controller);
+    if(f.globIntact){
+      const control=idle??f.controller;
+      this.buildPose(f,this.phase==='countdown'&&f.openingWrist?{...control,wrist:control.wrist+f.openingWrist}:control);
+    }
     const intent=f.pose;
     f.rig.setIntent(intent,{baseX:f.baseX,baseVX:f.baseVX,waterLoad:rigWaterLoad(f,oldHead||intent.head)});
     applyJointPlay(f.rig);

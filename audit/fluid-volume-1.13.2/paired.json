@@ -1,0 +1,5319 @@
+{
+  "scope": "Corrected native physical/query components, separate persistent Node process for each A/B/component/recipe; uninstrumented product bodies, native API-evolved parcels in BOTH branches, no trace or shared JIT. No full engine, solids, membrane, renderer/GPU/browser/FPS.",
+  "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+  "methodology": {
+    "warmupPairs": 4,
+    "rounds": 4,
+    "stepsPerPhysicalSample": 72,
+    "physicalSeconds": 0.6,
+    "readPairs": 4000,
+    "order": "ABBA/BAAB alternating; independent AA each round/recipe",
+    "median": "conventional",
+    "gate": "UNCHANGED: readings saving > max aggregate AA and every reading case wins; physical no aggregate regression beyond AA; original1.18 is separate diagnostic only"
+  },
+  "results": [
+    {
+      "kind": "readings",
+      "recipe": "normal",
+      "fraction": 0.15,
+      "ready": {
+        "A": {
+          "type": "ready",
+          "variant": "A",
+          "kind": "readings",
+          "recipeName": "normal",
+          "recipe": {
+            "count": 200,
+            "scale": 1,
+            "impactScale": 1,
+            "areaScale": 1,
+            "label": "normal native API"
+          },
+          "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+          "readPairs": 4000,
+          "setupSteps": 72,
+          "fixture": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        },
+        "B": {
+          "type": "ready",
+          "variant": "B",
+          "kind": "readings",
+          "recipeName": "normal",
+          "recipe": {
+            "count": 200,
+            "scale": 1,
+            "impactScale": 1,
+            "areaScale": 1,
+            "label": "normal native API"
+          },
+          "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+          "readPairs": 4000,
+          "setupSteps": 72,
+          "fixture": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 5,
+              "ms": 5.566599999999994,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 5,
+              "ms": 2.1464,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 6,
+              "ms": 2.2445999999999913,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 6,
+              "ms": 5.098700000000008,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 7,
+              "ms": 5.238599999999991,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "id": 8,
+              "ms": 5.104600000000005,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "A": 10.665300000000002,
+          "B": 4.390999999999991,
+          "ratio": 0.4117090002156517,
+          "noise": 0.025579353262319415
+        },
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 7,
+              "ms": 2.139800000000008,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 9,
+              "ms": 5.344400000000007,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 10,
+              "ms": 4.890699999999981,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 8,
+              "ms": 2.2092999999999847,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 11,
+              "ms": 4.901999999999987,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "id": 12,
+              "ms": 4.934100000000001,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "A": 10.235099999999989,
+          "B": 4.349099999999993,
+          "ratio": 0.42492012779552696,
+          "noise": 0.006548347613221983
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 13,
+              "ms": 4.93670000000003,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 9,
+              "ms": 2.100599999999986,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 10,
+              "ms": 2.1820000000000164,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 14,
+              "ms": 4.93059999999997,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 15,
+              "ms": 4.868799999999965,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "id": 16,
+              "ms": 4.9103999999999814,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "A": 9.8673,
+          "B": 4.282600000000002,
+          "ratio": 0.4340194379414837,
+          "noise": 0.008544199802829722
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 11,
+              "ms": 2.082400000000007,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 17,
+              "ms": 4.950400000000002,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 18,
+              "ms": 4.901299999999992,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 12,
+              "ms": 2.183400000000006,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 19,
+              "ms": 4.914600000000007,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "id": 20,
+              "ms": 4.882200000000012,
+              "sum": 710.568140724968,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "A": 9.851699999999994,
+          "B": 4.265800000000013,
+          "ratio": 0.4330014109240045,
+          "noise": 0.006592601635940998
+        }
+      ],
+      "medianRatio": 0.42896076935976574,
+      "ratioRange": [
+        0.4117090002156517,
+        0.4340194379414837
+      ],
+      "maxNoise": 0.025579353262319415
+    },
+    {
+      "kind": "readings",
+      "recipe": "normal",
+      "fraction": 0.7,
+      "ready": {
+        "A": {
+          "type": "ready",
+          "variant": "A",
+          "kind": "readings",
+          "recipeName": "normal",
+          "recipe": {
+            "count": 200,
+            "scale": 1,
+            "impactScale": 1,
+            "areaScale": 1,
+            "label": "normal native API"
+          },
+          "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+          "readPairs": 4000,
+          "setupSteps": 380,
+          "fixture": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 140,
+            "elapsed": 3.166666666666658,
+            "steps": 380,
+            "releasedVolume": 0.12434942462687328,
+            "retainedVolume": 0.05329261055437445
+          }
+        },
+        "B": {
+          "type": "ready",
+          "variant": "B",
+          "kind": "readings",
+          "recipeName": "normal",
+          "recipe": {
+            "count": 200,
+            "scale": 1,
+            "impactScale": 1,
+            "areaScale": 1,
+            "label": "normal native API"
+          },
+          "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+          "readPairs": 4000,
+          "setupSteps": 380,
+          "fixture": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 140,
+            "elapsed": 3.166666666666658,
+            "steps": 380,
+            "releasedVolume": 0.12434942462687328,
+            "retainedVolume": 0.05329261055437445
+          }
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 5,
+              "ms": 5.080399999999997,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "B",
+              "id": 5,
+              "ms": 2.323299999999989,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "B",
+              "id": 6,
+              "ms": 3.7805999999999926,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "A",
+              "id": 6,
+              "ms": 4.714400000000012,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 7,
+              "ms": 4.694600000000037,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "id": 8,
+              "ms": 4.545600000000036,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            }
+          ],
+          "A": 9.79480000000001,
+          "B": 6.103899999999982,
+          "ratio": 0.6231776044431715,
+          "noise": 0.03173859327738249
+        },
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 7,
+              "ms": 1.824799999999982,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "A",
+              "id": 9,
+              "ms": 4.560299999999984,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "A",
+              "id": 10,
+              "ms": 4.516900000000021,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "B",
+              "id": 8,
+              "ms": 2.099300000000028,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 11,
+              "ms": 4.955100000000016,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "id": 12,
+              "ms": 4.749699999999962,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            }
+          ],
+          "A": 9.077200000000005,
+          "B": 3.92410000000001,
+          "ratio": 0.43230291279249194,
+          "noise": 0.04145224112531609
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 13,
+              "ms": 4.79970000000003,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "B",
+              "id": 9,
+              "ms": 1.830699999999979,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "B",
+              "id": 10,
+              "ms": 1.967800000000011,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "A",
+              "id": 14,
+              "ms": 4.640800000000013,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 15,
+              "ms": 4.705499999999972,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "id": 16,
+              "ms": 4.517799999999966,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            }
+          ],
+          "A": 9.440500000000043,
+          "B": 3.79849999999999,
+          "ratio": 0.40236216302102357,
+          "noise": 0.03988949102114714
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 11,
+              "ms": 1.8274999999999864,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "A",
+              "id": 17,
+              "ms": 4.549199999999985,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "A",
+              "id": 18,
+              "ms": 4.513000000000034,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "variant": "B",
+              "id": 12,
+              "ms": 1.9114000000000146,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 19,
+              "ms": 4.525500000000022,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            },
+            {
+              "id": 20,
+              "ms": 4.510100000000023,
+              "sum": 710.5681407250172,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 140,
+                "elapsed": 3.166666666666658,
+                "steps": 380,
+                "releasedVolume": 0.12434942462687328,
+                "retainedVolume": 0.05329261055437445
+              },
+              "stateHash": "93b8620ab5ca62f349ae95eff5d8b17ea4fb7077d67f7860c4971bd4ef682d2b"
+            }
+          ],
+          "A": 9.062200000000018,
+          "B": 3.738900000000001,
+          "ratio": 0.4125819337467716,
+          "noise": 0.0034029389017786738
+        }
+      ],
+      "medianRatio": 0.4224424232696318,
+      "ratioRange": [
+        0.40236216302102357,
+        0.6231776044431715
+      ],
+      "maxNoise": 0.04145224112531609
+    },
+    {
+      "kind": "readings",
+      "recipe": "boss260",
+      "fraction": 0.15,
+      "ready": {
+        "A": {
+          "type": "ready",
+          "variant": "A",
+          "kind": "readings",
+          "recipeName": "boss260",
+          "recipe": {
+            "count": 260,
+            "scale": 1.16,
+            "impactScale": 1.16,
+            "areaScale": 1.3456,
+            "label": "boss dimensions1.16 native API; not full engine"
+          },
+          "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+          "readPairs": 4000,
+          "setupSteps": 78,
+          "fixture": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 39,
+            "elapsed": 0.6500000000000001,
+            "steps": 78,
+            "releasedVolume": 0.04159211132194041,
+            "retainedVolume": 0.2356886308243276
+          }
+        },
+        "B": {
+          "type": "ready",
+          "variant": "B",
+          "kind": "readings",
+          "recipeName": "boss260",
+          "recipe": {
+            "count": 260,
+            "scale": 1.16,
+            "impactScale": 1.16,
+            "areaScale": 1.3456,
+            "label": "boss dimensions1.16 native API; not full engine"
+          },
+          "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+          "readPairs": 4000,
+          "setupSteps": 78,
+          "fixture": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 39,
+            "elapsed": 0.6500000000000001,
+            "steps": 78,
+            "releasedVolume": 0.04159211132194041,
+            "retainedVolume": 0.2356886308243276
+          }
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 5,
+              "ms": 8.529299999999978,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "B",
+              "id": 5,
+              "ms": 2.671100000000024,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "B",
+              "id": 6,
+              "ms": 2.9846999999999753,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "A",
+              "id": 6,
+              "ms": 6.905399999999986,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            }
+          ],
+          "controls": [
+            {
+              "id": 7,
+              "ms": 7.005499999999984,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "id": 8,
+              "ms": 6.758899999999983,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            }
+          ],
+          "A": 15.434699999999964,
+          "B": 5.655799999999999,
+          "ratio": 0.36643407387250887,
+          "noise": 0.03520091356791111
+        },
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 7,
+              "ms": 2.8933000000000106,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "A",
+              "id": 9,
+              "ms": 6.759399999999971,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "A",
+              "id": 10,
+              "ms": 7.018799999999999,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "B",
+              "id": 8,
+              "ms": 3.0552000000000135,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            }
+          ],
+          "controls": [
+            {
+              "id": 11,
+              "ms": 6.7882999999999925,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "id": 12,
+              "ms": 6.919899999999984,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            }
+          ],
+          "A": 13.77819999999997,
+          "B": 5.948500000000024,
+          "ratio": 0.43173273722257166,
+          "noise": 0.01938629701103256
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 13,
+              "ms": 7.068399999999997,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "B",
+              "id": 9,
+              "ms": 2.960399999999993,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "B",
+              "id": 10,
+              "ms": 3.0189999999999486,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "A",
+              "id": 14,
+              "ms": 7.092199999999991,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            }
+          ],
+          "controls": [
+            {
+              "id": 15,
+              "ms": 6.912099999999953,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "id": 16,
+              "ms": 7.091600000000028,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            }
+          ],
+          "A": 14.160599999999988,
+          "B": 5.979399999999941,
+          "ratio": 0.4222561190909952,
+          "noise": 0.02596895299548274
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 11,
+              "ms": 2.862700000000018,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "A",
+              "id": 17,
+              "ms": 6.859099999999955,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "A",
+              "id": 18,
+              "ms": 6.826399999999978,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "variant": "B",
+              "id": 12,
+              "ms": 2.850400000000036,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            }
+          ],
+          "controls": [
+            {
+              "id": 19,
+              "ms": 6.727899999999977,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            },
+            {
+              "id": 20,
+              "ms": 6.661599999999964,
+              "sum": 1109.1229685852184,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 39,
+                "elapsed": 0.6500000000000001,
+                "steps": 78,
+                "releasedVolume": 0.04159211132194041,
+                "retainedVolume": 0.2356886308243276
+              },
+              "stateHash": "53e62c98b9f8724e083f0795233db3ceb5ac414959869af160aebd810cdd7dbb"
+            }
+          ],
+          "A": 13.685499999999934,
+          "B": 5.713100000000054,
+          "ratio": 0.41745643199006843,
+          "noise": 0.009854486541121754
+        }
+      ],
+      "medianRatio": 0.41985627554053184,
+      "ratioRange": [
+        0.36643407387250887,
+        0.43173273722257166
+      ],
+      "maxNoise": 0.03520091356791111
+    },
+    {
+      "kind": "readings",
+      "recipe": "boss260",
+      "fraction": 0.7,
+      "ready": {
+        "A": {
+          "type": "ready",
+          "variant": "A",
+          "kind": "readings",
+          "recipeName": "boss260",
+          "recipe": {
+            "count": 260,
+            "scale": 1.16,
+            "impactScale": 1.16,
+            "areaScale": 1.3456,
+            "label": "boss dimensions1.16 native API; not full engine"
+          },
+          "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+          "readPairs": 4000,
+          "setupSteps": 409,
+          "fixture": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 182,
+            "elapsed": 3.408333333333324,
+            "steps": 409,
+            "releasedVolume": 0.1940965195023877,
+            "retainedVolume": 0.08318422264388083
+          }
+        },
+        "B": {
+          "type": "ready",
+          "variant": "B",
+          "kind": "readings",
+          "recipeName": "boss260",
+          "recipe": {
+            "count": 260,
+            "scale": 1.16,
+            "impactScale": 1.16,
+            "areaScale": 1.3456,
+            "label": "boss dimensions1.16 native API; not full engine"
+          },
+          "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+          "readPairs": 4000,
+          "setupSteps": 409,
+          "fixture": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 182,
+            "elapsed": 3.408333333333324,
+            "steps": 409,
+            "releasedVolume": 0.1940965195023877,
+            "retainedVolume": 0.08318422264388083
+          }
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 5,
+              "ms": 6.949100000000044,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "B",
+              "id": 5,
+              "ms": 3.2813000000000443,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "B",
+              "id": 6,
+              "ms": 5.122000000000014,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "A",
+              "id": 6,
+              "ms": 6.473899999999958,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 7,
+              "ms": 6.6725999999999885,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "id": 8,
+              "ms": 6.129699999999957,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            }
+          ],
+          "A": 13.423000000000002,
+          "B": 8.403300000000058,
+          "ratio": 0.6260373984951246,
+          "noise": 0.08136258729731027
+        },
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 7,
+              "ms": 2.642600000000016,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "A",
+              "id": 9,
+              "ms": 6.201999999999998,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "A",
+              "id": 10,
+              "ms": 6.092100000000016,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "B",
+              "id": 8,
+              "ms": 2.6311999999999784,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 11,
+              "ms": 6.061800000000005,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "id": 12,
+              "ms": 6.2590999999999894,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            }
+          ],
+          "A": 12.294100000000014,
+          "B": 5.273799999999994,
+          "ratio": 0.42896999373683214,
+          "noise": 0.03254808802665621
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 13,
+              "ms": 6.3245000000000005,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "B",
+              "id": 9,
+              "ms": 2.7865999999999644,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "B",
+              "id": 10,
+              "ms": 2.6304000000000087,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "A",
+              "id": 14,
+              "ms": 6.153700000000015,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 15,
+              "ms": 6.1597999999999615,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "id": 16,
+              "ms": 6.370699999999999,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            }
+          ],
+          "A": 12.478200000000015,
+          "B": 5.416999999999973,
+          "ratio": 0.4341171002227859,
+          "noise": 0.03423812461444187
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 11,
+              "ms": 2.935099999999977,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "A",
+              "id": 17,
+              "ms": 6.572800000000029,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "A",
+              "id": 18,
+              "ms": 6.395600000000002,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "variant": "B",
+              "id": 12,
+              "ms": 2.6970000000000027,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 19,
+              "ms": 6.233100000000036,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            },
+            {
+              "id": 20,
+              "ms": 6.215399999999988,
+              "sum": 1109.1229685852152,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 182,
+                "elapsed": 3.408333333333324,
+                "steps": 409,
+                "releasedVolume": 0.1940965195023877,
+                "retainedVolume": 0.08318422264388083
+              },
+              "stateHash": "cad2a207f20d7c1ef5c348a8510485c22f9462bca8387393594c85b6482af37b"
+            }
+          ],
+          "A": 12.968400000000031,
+          "B": 5.63209999999998,
+          "ratio": 0.4342941303476116,
+          "noise": 0.002839678490646258
+        }
+      ],
+      "medianRatio": 0.43420561528519874,
+      "ratioRange": [
+        0.42896999373683214,
+        0.6260373984951246
+      ],
+      "maxNoise": 0.08136258729731027
+    },
+    {
+      "kind": "physical",
+      "recipe": "normal",
+      "ready": {
+        "A": {
+          "type": "ready",
+          "variant": "A",
+          "kind": "physical",
+          "recipeName": "normal",
+          "recipe": {
+            "count": 200,
+            "scale": 1,
+            "impactScale": 1,
+            "areaScale": 1,
+            "label": "normal native API"
+          },
+          "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+          "readPairs": null,
+          "setupSteps": 0,
+          "fixture": null
+        },
+        "B": {
+          "type": "ready",
+          "variant": "B",
+          "kind": "physical",
+          "recipeName": "normal",
+          "recipe": {
+            "count": 200,
+            "scale": 1,
+            "impactScale": 1,
+            "areaScale": 1,
+            "label": "normal native API"
+          },
+          "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+          "readPairs": null,
+          "setupSteps": 0,
+          "fixture": null
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 5,
+              "ms": 5.3466999999999985,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 5,
+              "ms": 4.668700000000001,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 6,
+              "ms": 3.9483999999999924,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 6,
+              "ms": 4.825400000000002,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 7,
+              "ms": 5.0271000000000186,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "id": 8,
+              "ms": 5.023300000000006,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "A": 10.1721,
+          "B": 8.617099999999994,
+          "ratio": 0.8471308775965625,
+          "noise": 0.000755903005711489
+        },
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 7,
+              "ms": 4.220100000000002,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 9,
+              "ms": 5.1358000000000175,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 10,
+              "ms": 4.695300000000003,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 8,
+              "ms": 4.182200000000023,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 11,
+              "ms": 4.7450000000000045,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "id": 12,
+              "ms": 4.600500000000011,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "A": 9.83110000000002,
+          "B": 8.402300000000025,
+          "ratio": 0.8546652968640343,
+          "noise": 0.030453108535298923
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 13,
+              "ms": 4.55019999999999,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 9,
+              "ms": 4.2490999999999985,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 10,
+              "ms": 3.96459999999999,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 14,
+              "ms": 4.5452000000000226,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 15,
+              "ms": 4.630499999999984,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "id": 16,
+              "ms": 4.6089000000000055,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "A": 9.095400000000012,
+          "B": 8.213699999999989,
+          "ratio": 0.9030608879213644,
+          "noise": 0.004664723032065221
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 11,
+              "ms": 4.002399999999994,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 17,
+              "ms": 4.628999999999991,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "A",
+              "id": 18,
+              "ms": 4.673599999999993,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "variant": "B",
+              "id": 12,
+              "ms": 3.7706000000000017,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "controls": [
+            {
+              "id": 19,
+              "ms": 4.65270000000001,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            },
+            {
+              "id": 20,
+              "ms": 4.582999999999998,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.17764203518124735
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 200,
+                "free": 30,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.026646305277187216,
+                "retainedVolume": 0.15099572990406032
+              },
+              "stateHash": "c69c3d56f2a3e3b336fb4c458fac95b00614c881faf21f509489d8a28da5cc0b"
+            }
+          ],
+          "A": 9.302599999999984,
+          "B": 7.772999999999996,
+          "ratio": 0.8355728506009082,
+          "noise": 0.014980548928581583
+        }
+      ],
+      "medianRatio": 0.8508980872302984,
+      "ratioRange": [
+        0.8355728506009082,
+        0.9030608879213644
+      ],
+      "maxNoise": 0.030453108535298923
+    },
+    {
+      "kind": "physical",
+      "recipe": "boss260",
+      "ready": {
+        "A": {
+          "type": "ready",
+          "variant": "A",
+          "kind": "physical",
+          "recipeName": "boss260",
+          "recipe": {
+            "count": 260,
+            "scale": 1.16,
+            "impactScale": 1.16,
+            "areaScale": 1.3456,
+            "label": "boss dimensions1.16 native API; not full engine"
+          },
+          "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+          "readPairs": null,
+          "setupSteps": 0,
+          "fixture": null
+        },
+        "B": {
+          "type": "ready",
+          "variant": "B",
+          "kind": "physical",
+          "recipeName": "boss260",
+          "recipe": {
+            "count": 260,
+            "scale": 1.16,
+            "impactScale": 1.16,
+            "areaScale": 1.3456,
+            "label": "boss dimensions1.16 native API; not full engine"
+          },
+          "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+          "readPairs": null,
+          "setupSteps": 0,
+          "fixture": null
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 5,
+              "ms": 6.814300000000003,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "B",
+              "id": 5,
+              "ms": 5.770399999999995,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "B",
+              "id": 6,
+              "ms": 5.3536,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "A",
+              "id": 6,
+              "ms": 6.5131000000000085,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            }
+          ],
+          "controls": [
+            {
+              "id": 7,
+              "ms": 6.930099999999982,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "id": 8,
+              "ms": 6.372100000000017,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            }
+          ],
+          "A": 13.327400000000011,
+          "B": 11.123999999999995,
+          "ratio": 0.8346714287858086,
+          "noise": 0.08051831863897574
+        },
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 7,
+              "ms": 5.5656999999999925,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "A",
+              "id": 9,
+              "ms": 6.2579000000000065,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "A",
+              "id": 10,
+              "ms": 6.1267,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "B",
+              "id": 8,
+              "ms": 5.539300000000026,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            }
+          ],
+          "controls": [
+            {
+              "id": 11,
+              "ms": 6.309999999999974,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "id": 12,
+              "ms": 6.294399999999996,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            }
+          ],
+          "A": 12.384600000000006,
+          "B": 11.105000000000018,
+          "ratio": 0.8966781325194203,
+          "noise": 0.0024722662440535004
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 13,
+              "ms": 6.311199999999985,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "B",
+              "id": 9,
+              "ms": 5.1436999999999955,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "B",
+              "id": 10,
+              "ms": 5.155599999999993,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "A",
+              "id": 14,
+              "ms": 6.408299999999997,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            }
+          ],
+          "controls": [
+            {
+              "id": 15,
+              "ms": 6.474699999999984,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "id": 16,
+              "ms": 6.332499999999982,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            }
+          ],
+          "A": 12.719499999999982,
+          "B": 10.299299999999988,
+          "ratio": 0.8097252250481546,
+          "noise": 0.021962407524673377
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 11,
+              "ms": 5.0563999999999965,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "A",
+              "id": 17,
+              "ms": 6.391599999999983,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "A",
+              "id": 18,
+              "ms": 6.171100000000024,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "variant": "B",
+              "id": 12,
+              "ms": 5.157800000000009,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            }
+          ],
+          "controls": [
+            {
+              "id": 19,
+              "ms": 6.155499999999961,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            },
+            {
+              "id": 20,
+              "ms": 6.173100000000034,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2772807421462682
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 36,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.03839271814332961,
+                "retainedVolume": 0.23888802400293835
+              },
+              "stateHash": "9a1ff814a97d59b3b2003120d49922a6c86d3375130bcaff177e65b1838b9ac6"
+            }
+          ],
+          "A": 12.562700000000007,
+          "B": 10.214200000000005,
+          "ratio": 0.8130577025639393,
+          "noise": 0.0028592315815243463
+        }
+      ],
+      "medianRatio": 0.823864565674874,
+      "ratioRange": [
+        0.8097252250481546,
+        0.8966781325194203
+      ],
+      "maxNoise": 0.08051831863897574
+    },
+    {
+      "kind": "physical",
+      "recipe": "original260",
+      "ready": {
+        "A": {
+          "type": "ready",
+          "variant": "A",
+          "kind": "physical",
+          "recipeName": "original260",
+          "recipe": {
+            "count": 260,
+            "scale": 1.18,
+            "impactScale": 1,
+            "areaScale": 1,
+            "label": "original1.18 diagnostic only"
+          },
+          "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+          "readPairs": null,
+          "setupSteps": 0,
+          "fixture": null
+        },
+        "B": {
+          "type": "ready",
+          "variant": "B",
+          "kind": "physical",
+          "recipeName": "original260",
+          "recipe": {
+            "count": 260,
+            "scale": 1.18,
+            "impactScale": 1,
+            "areaScale": 1,
+            "label": "original1.18 diagnostic only"
+          },
+          "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+          "readPairs": null,
+          "setupSteps": 0,
+          "fixture": null
+        }
+      },
+      "rounds": [
+        {
+          "round": 0,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 5,
+              "ms": 6.10560000000001,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "B",
+              "id": 5,
+              "ms": 5.26260000000002,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "B",
+              "id": 6,
+              "ms": 4.944299999999998,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "A",
+              "id": 6,
+              "ms": 5.898499999999984,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            }
+          ],
+          "controls": [
+            {
+              "id": 7,
+              "ms": 6.074900000000014,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "id": 8,
+              "ms": 5.914800000000014,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            }
+          ],
+          "A": 12.004099999999994,
+          "B": 10.206900000000019,
+          "ratio": 0.8502844861339063,
+          "noise": 0.026354343281370762
+        },
+        {
+          "round": 1,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 7,
+              "ms": 4.81389999999999,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "A",
+              "id": 9,
+              "ms": 5.538900000000012,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "A",
+              "id": 10,
+              "ms": 5.656899999999979,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "B",
+              "id": 8,
+              "ms": 4.86099999999999,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            }
+          ],
+          "controls": [
+            {
+              "id": 11,
+              "ms": 5.488900000000001,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "id": 12,
+              "ms": 5.450000000000017,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            }
+          ],
+          "A": 11.195799999999991,
+          "B": 9.67489999999998,
+          "ratio": 0.8641544150484992,
+          "noise": 0.00708703018819512
+        },
+        {
+          "round": 2,
+          "samples": [
+            {
+              "variant": "A",
+              "id": 13,
+              "ms": 5.689400000000006,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "B",
+              "id": 9,
+              "ms": 4.643900000000002,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "B",
+              "id": 10,
+              "ms": 4.4705000000000155,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "A",
+              "id": 14,
+              "ms": 5.482699999999994,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            }
+          ],
+          "controls": [
+            {
+              "id": 15,
+              "ms": 5.432300000000026,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "id": 16,
+              "ms": 5.60499999999999,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            }
+          ],
+          "A": 11.1721,
+          "B": 9.114400000000018,
+          "ratio": 0.8158179751344884,
+          "noise": 0.03179132227600889
+        },
+        {
+          "round": 3,
+          "samples": [
+            {
+              "variant": "B",
+              "id": 11,
+              "ms": 4.479099999999988,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "A",
+              "id": 17,
+              "ms": 5.543700000000001,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "A",
+              "id": 18,
+              "ms": 5.452200000000005,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "variant": "B",
+              "id": 12,
+              "ms": 4.468500000000006,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            }
+          ],
+          "controls": [
+            {
+              "id": 19,
+              "ms": 5.76419999999996,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            },
+            {
+              "id": 20,
+              "ms": 5.730600000000038,
+              "sum": null,
+              "initial": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 0,
+                "elapsed": 0,
+                "steps": 0,
+                "releasedVolume": 0,
+                "retainedVolume": 0.2918715483479172
+              },
+              "final": {
+                "released": true,
+                "leaking": true,
+                "count": 260,
+                "free": 26,
+                "elapsed": 0.6000000000000003,
+                "steps": 72,
+                "releasedVolume": 0.029187154834791642,
+                "retainedVolume": 0.26268439351312534
+              },
+              "stateHash": "cd272fe46f068cf6fb3f580053c4361eb53aac6e12070fdbf09e2bffedc74a3c"
+            }
+          ],
+          "A": 10.995900000000006,
+          "B": 8.947599999999994,
+          "ratio": 0.8137214780054374,
+          "noise": 0.005829082960327914
+        }
+      ],
+      "medianRatio": 0.8330512306341973,
+      "ratioRange": [
+        0.8137214780054374,
+        0.8641544150484992
+      ],
+      "maxNoise": 0.03179132227600889
+    }
+  ],
+  "readings": {
+    "rounds": [
+      {
+        "round": 0,
+        "A": 49.31779999999998,
+        "B": 24.55400000000003,
+        "ratio": 0.497872978924446,
+        "a0": 23.6113,
+        "a1": 22.53879999999998,
+        "noise": 0.04542316602643737
+      },
+      {
+        "round": 1,
+        "A": 45.38459999999998,
+        "B": 19.49550000000002,
+        "ratio": 0.429562010021021,
+        "a0": 22.7072,
+        "a1": 22.862799999999936,
+        "noise": 0.006852452085679195
+      },
+      {
+        "round": 2,
+        "A": 45.946600000000046,
+        "B": 19.477499999999907,
+        "ratio": 0.4239160242542405,
+        "a0": 22.64619999999985,
+        "a1": 22.890499999999975,
+        "noise": 0.010787681818588801
+      },
+      {
+        "round": 3,
+        "A": 45.56779999999998,
+        "B": 19.349900000000048,
+        "ratio": 0.4246397675551608,
+        "a0": 22.401100000000042,
+        "a1": 22.269299999999987,
+        "noise": 0.005883639642698557
+      }
+    ],
+    "medianRatio": 0.42710088878809094,
+    "ratioRange": [
+      0.4239160242542405,
+      0.497872978924446
+    ],
+    "maxNoise": 0.04542316602643737
+  },
+  "physical": {
+    "rounds": [
+      {
+        "round": 0,
+        "A": 23.499500000000012,
+        "B": 19.74109999999999,
+        "ratio": 0.8400646822272805,
+        "a0": 11.9572,
+        "a1": 11.395400000000024,
+        "noise": 0.04698424380289501
+      },
+      {
+        "round": 1,
+        "A": 22.215700000000027,
+        "B": 19.507300000000043,
+        "ratio": 0.8780862183050734,
+        "a0": 11.054999999999978,
+        "a1": 10.894900000000007,
+        "noise": 0.014482134780639644
+      },
+      {
+        "round": 2,
+        "A": 21.814899999999994,
+        "B": 18.512999999999977,
+        "ratio": 0.8486401496225049,
+        "a0": 11.105199999999968,
+        "a1": 10.941399999999987,
+        "noise": 0.014749846918558962
+      },
+      {
+        "round": 3,
+        "A": 21.86529999999999,
+        "B": 17.9872,
+        "ratio": 0.8226367806524497,
+        "a0": 10.808199999999971,
+        "a1": 10.756100000000032,
+        "noise": 0.004820414130006778
+      }
+    ],
+    "medianRatio": 0.8443524159248927,
+    "ratioRange": [
+      0.8226367806524497,
+      0.8780862183050734
+    ],
+    "maxNoise": 0.04698424380289501
+  },
+  "keep": true,
+  "physicalCaseFlags": [
+    {
+      "recipe": "normal",
+      "withinControl": true
+    },
+    {
+      "recipe": "boss260",
+      "withinControl": true
+    }
+  ]
+}

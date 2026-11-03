@@ -29,7 +29,7 @@ export function burstCameraFocus(game){
   return count?{x:x/count,y:y/count,z:z/count}:null;
 }
 
-/** Impact detail and a progressive orbit over the existing slow-motion clock.
+/** Impact detail and a progressive orbit over the real-time rupture clock.
  * Only framing changes: the solver, particles and round clock stay untouched. */
 export function matrixCamera(options={}){
   const phaseClock=Number.isFinite(options.phaseClock)?Math.max(0,options.phaseClock):0;
@@ -42,7 +42,7 @@ export function matrixCamera(options={}){
   const offset=base.eye.map((v,i)=>v-base.target[i]),radius=Math.hypot(...offset),side=Number.isFinite(options.round)&&Math.floor(options.round)%2===0?-1:1;
   const angle=side*(25+37*travel)*Math.PI/180*weight,c=Math.cos(angle),s=Math.sin(angle);
   // Rise over the impact, then descend around its flank rather than holding a
-  // static three-quarter shot during the slow part of the physical explosion.
+  // static three-quarter shot while the physical explosion unfolds.
   const lift=(.28*Math.cos(Math.PI*travel)-.025)*weight;
   const direction=[(offset[0]*c+offset[2]*s)/radius,offset[1]/radius+lift,(offset[2]*c-offset[0]*s)/radius],length=Math.hypot(...direction);
   for(let i=0;i<3;i++)direction[i]/=length;

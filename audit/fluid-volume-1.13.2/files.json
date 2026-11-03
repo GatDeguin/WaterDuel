@@ -1,0 +1,191 @@
+{
+  "decision": "Keep native partial-phase volume getter optimization. Product source frozen12df; four prior candidates rejected. This manifest excludes its own bytes.",
+  "scope": "One runtime file, new behavioral/oracle test+complete frozen fixture, portable benchmark+worker, audit sources/receipts/diagnostics. No historic manifests edited.",
+  "files": [
+    {
+      "path": "audit/fluid-volume-1.13.2/PLAN.md",
+      "bytes": 1585,
+      "sha256": "963da924bec8bc7e708e95fbbe6a1d4bcba3965cb50efb3ff115430a2e6e54bd"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/README.md",
+      "bytes": 6892,
+      "sha256": "0b443d2a15fcbd132cf07397e17af84a1536548bc379f0bbb583590fbd5c0de3"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/README.md",
+      "bytes": 3880,
+      "sha256": "2e73888def31888c92baf9094eabe6f27fe8e33e3d1a24003740726fd614bc47"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/summary.json",
+      "bytes": 27226,
+      "sha256": "ace05fa84a315ef69b3ce0f7a19bc6f9405a3f3e838978006e42a94ce8b2edf4"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-boss260-A.log",
+      "bytes": 822,
+      "sha256": "50a33171c534f5bd29d12dcab2d3caa73f4a9cc19c9d176c98458ea3ba707f08"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-boss260-B.log",
+      "bytes": 822,
+      "sha256": "29b62d4141c25fa561b7d89552407bd530ad5caa5ad59501353a688de18c5598"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-normal-A.log",
+      "bytes": 761,
+      "sha256": "e510b5e7b60cf5212b639f590daf90a04a0da2b7a423e69e434135cc4a5223db"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-normal-B.log",
+      "bytes": 761,
+      "sha256": "1b8571a0d4fd2f52bbf1cfdf93a3b6be4e11a097182c907658d1df4c2d73737c"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-original260-A.log",
+      "bytes": 804,
+      "sha256": "e316fbfbb2f50bbb1e3dc91e9d9c319be3b9218b730a9f207c900eb0975fe4cc"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-original260-B.log",
+      "bytes": 803,
+      "sha256": "7b395e5140699fe9f40d6e1196ccc856b34d2b0f8f6ce27aff9fed155d612fac"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-boss260-A.log",
+      "bytes": 43318,
+      "sha256": "918a136c6f714d21ff66add8612fa66e55a984a12c5989466df40cce3bbf9840"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-boss260-B.log",
+      "bytes": 43654,
+      "sha256": "7370705ea3e5cf4736b2dc8eedeb1421990639a9a1c3a76b83433e1bc920d98d"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-normal-A.log",
+      "bytes": 33057,
+      "sha256": "bea2893c8c75bf39b481fc1afcd8eb9b64b598e3c2630fb0c13386578a7a6193"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-normal-B.log",
+      "bytes": 34131,
+      "sha256": "121440d7b1eae6e162c14014986d5a7b658b42a3443fc562a6b46150bccfbf28"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-original260-A.log",
+      "bytes": 34205,
+      "sha256": "b6fdd902027a6fb3f88f4d1833ededdcb64224150468608b23eafabaf1da9fc1"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-original260-B.log",
+      "bytes": 35273,
+      "sha256": "ebc6e00aaef800b1bf7dd09e4789513d1e557456fc3d569eec51974536087ffc"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/discarded/README.md",
+      "bytes": 6204,
+      "sha256": "f3e8f92d847446ebc6f112e519435415899e3cf5fe5bc5a81577525bfd23405d"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/discarded/axial-candidate.js.txt",
+      "bytes": 26226,
+      "sha256": "0ffded17c055d59e5b139fb5f79c1cf0d7e6fea57f6174076086401e035a0cf8"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/discarded/axial-paired.json",
+      "bytes": 39197,
+      "sha256": "71b334327c7eeafdf87af2764c992979891f2a065e1a65a07167a7fc06e277d3"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/discarded/hoist-candidate.js.txt",
+      "bytes": 26148,
+      "sha256": "bb55403e70e996fa9012dc50e63ad4efaa277edd23fee679e903c4642cdc0590"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/discarded/hoist-paired.json",
+      "bytes": 39193,
+      "sha256": "10785d24ee65b9862e00bca5447f980abf13449a669e38ac12e6c64797261d6e"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/discarded/neighbor-candidate.js.txt",
+      "bytes": 25142,
+      "sha256": "bd552f1bf362104da79458b32d01c8a17a7d18d240bfab73093cabc512e20a94"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/discarded/neighbor-paired.json",
+      "bytes": 13993,
+      "sha256": "29f1ffdf98959ba81a67871aba964d09d85cf79243a5afb8422aac7a63e2d4e5"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/discarded/presentation-candidate.js.txt",
+      "bytes": 8902,
+      "sha256": "b37a023ae1fcd31f552302af74ab488f11cd57fec12e095a05113871b195e62c"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/discarded/presentation-paired.json",
+      "bytes": 16954,
+      "sha256": "ae77b4162ed0eadebdb36bef27309e20d6eee475fd1aa44b18f07bcc59a14d0c"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/fluid-candidate.js.txt",
+      "bytes": 25242,
+      "sha256": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/green-before-final-nonleaking-path.log",
+      "bytes": 2750,
+      "sha256": "55afef51771f8bdeac2bb2218ffc33f86b448eb6dd76af39f4919add06ebe19f"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/green.log",
+      "bytes": 2097,
+      "sha256": "105d619dc00fc96cf35477bd7691d8d9828f37538f60307c97f406b6ab96a95b"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/paired-original-mixed.json",
+      "bytes": 22283,
+      "sha256": "e7506464bf48f51eddcbb36c8480c2cc2471c3e1de92b45d344f7cba535b6b45"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/paired.json",
+      "bytes": 178605,
+      "sha256": "3768ca64c9a3f339fdd6f253f7ba5c6d33d4e922fbb3f31ed0aa9e39ea95fe87"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/paired.stdout.log",
+      "bytes": 9664,
+      "sha256": "84fa71c60aef71a51c9146a8bb30d63a32d020803ba6acd33a579ea6786858bd"
+    },
+    {
+      "path": "audit/fluid-volume-1.13.2/red.log",
+      "bytes": 1434,
+      "sha256": "620bb2cf943e9a956b6193cb757f221f31f1cc9f19729e4e97bfc18c76b43eea"
+    },
+    {
+      "path": "benchmarks/fluid-volume-paired-1.13.2.mjs",
+      "bytes": 6764,
+      "sha256": "808dc3dcabe7cee1bc61405932c5a8c74a15b7fa7a6abb7a967f80cd6b69929d"
+    },
+    {
+      "path": "benchmarks/fluid-volume-paired-worker-1.13.2.mjs",
+      "bytes": 3087,
+      "sha256": "9f1cefc7ba01e12651a44b892717bd8fc38c6e878b4f288c4d2d2f1b744777c7"
+    },
+    {
+      "path": "public/physics/fluid.js",
+      "bytes": 25242,
+      "sha256": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f"
+    },
+    {
+      "path": "tests/fixtures/fluid-pre-volume-query-1.15.js.txt",
+      "bytes": 24542,
+      "sha256": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a"
+    },
+    {
+      "path": "tests/fluid-volume-query-115.test.mjs",
+      "bytes": 4793,
+      "sha256": "3146f357aa08ebc8f691219b0e30092b2fa4dfcae18eaca0cf7f320fdc7c9d89"
+    }
+  ]
+}

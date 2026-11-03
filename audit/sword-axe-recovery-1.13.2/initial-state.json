@@ -1,0 +1,3809 @@
+{
+  "schema": 1,
+  "sourceHashes": {
+    "public/engine.js": "ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d",
+    "public/physics/fluid.js": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+    "public/physics/dimensions.js": "668a137cff5e6b6ecec2c08d1cbe10394374450d700a63216fe4e4028820f8ec",
+    "public/physics/fluid-solids.js": "e94291e3cd91400817da69e4e8b3071125ac5a0d348fad1289c95a5fbdf443c5",
+    "public/physics/detached-fluid-colliders.js": "a9077f40ec92eba36bf8c733ee010b67c0d8b543afdb734a97c4658af61dbe2f",
+    "public/physics/capillary-contact.js": "27842cb93e5583a9a58e00dd302ae832953210c1e4e815d3d51d380808e7b9ce",
+    "public/physics/membrane.js": "48ced8cb70ce9f26b926e3f4e4795540a0300fd665c112f8fcff978ccac14ca2",
+    "public/rendering/optics.js": "22503c28096299aea677aa1df50b1587fd6d3afb6756cd3fc5f01a967cc9bb7f",
+    "public/physics/membrane-fracture.js": "37aff0168f9268af6967c56f5431ec1503d329719d23189c409409b1a40b5536",
+    "public/physics/articulated-rig.js": "378248716a14da0a662929e2d04c26c416d334f8863c132eb2c7561e4fc76adb",
+    "public/equipment.js": "e3fd41678ef88bec868bf8b79d9bc52be884f712f11a3e1706305724e86cef67",
+    "public/physics/apron.js": "25b0c3f0ac5841601cbbab7b9ced15acf6fd3a2c270136fa26ea6756b3ce5efb",
+    "public/physics/apron-geometry.js": "cfdfbc6416bf27806d1b27552f1e394ae4c3fb19506e665559c922a4a53e174c",
+    "public/physics/apron-cloth.js": "283d1a3559a669fb25d5b61db66b229480a7e5ef480dedd4977058752b21fc3b",
+    "public/physics/detached-cluster.js": "f42d3d70899dab81ed36119e795326a8ed865b6461e2a6076bfbc8aff3665291",
+    "public/physics/contact-points.js": "7ad0ab98eca610156518afba045a44b77d6562e121c4dd8aaf428aeb4aea73e0",
+    "public/physics/weapon-flex.js": "0dd72feb2d5e794b594b23793b2e6136c8d4de277cd0d58d75ad85be1a0dd243",
+    "public/knife-technique.js": "b568d4f75647ec6f92d560995c38bff476782b93859a63a36d961bd8f676a0b8",
+    "public/physics/foot-geometry.js": "8f453198bfc732634f0031e3630ecc7770ce9ff21c6f1c6b335e52c3a8c6281c",
+    "public/physics/shin-geometry.js": "dd02583d48eaf11231bbbe7d6a8bad1014e93a96545ceeb2dddcc7ff6944f23b",
+    "public/physics/body-evasion.js": "065b1e68ff1a1d170adf59cce64f1175b03f82742fc8e8116fcbdb4b0637bfc1",
+    "public/physics/locomotion.js": "61d0e664723f033ba559d2ca894b3c9e0eae382c55227be7c66f2a0aa7ded5c0",
+    "public/physics/equipment-contact.js": "2494ee7fcbf92260a593d2b31d4b94b2e9931323d8eca5e9e349f106803f7ebe",
+    "public/physics/head-contact.js": "1f9d416552aab3b26d870ff320f07f42dfdddcacec675fe0cc8ee8ba91182178",
+    "public/auto-defense.js": "b3700da20275323db7311a0584cd5e0e2d7010c13592a8925b2abf1254e3e604",
+    "public/physics/limb-state.js": "34f450f643d527b2e6f56bc94b21be3807f391b572fc78d50f49b50b92f56d73",
+    "public/physics/standby.js": "1dcd5b2c569211494f78e9f7bed95de499c57d75e0a4a1f672fce58f3c407889",
+    "public/physics/character-intent.js": "ba5fdcb48dabeece52ee8e81d0ccafaa30bb13f24754a6ab5e6c33a99995b121",
+    "public/workshop-effects.js": "defab2e46a3f8b90603f49171209c445495445c308652050543ff666e4178f4c",
+    "public/workshop-air.js": "59bce70143bbf73ff42a180b97d705bb5d691af04cb6875345ecbacf61dea6b0",
+    "public/physics/weapon-bind.js": "0f2b848742107375ed135658ad5d7eace1ae6beb45e65a487f90ee728759e351",
+    "public/physics/contact-materials.js": "ca25f240dd66e7081a4459033994a38471d5f90cad489cfbbc124b6e982b2eb9",
+    "public/opponent-loadouts.js": "3776f37b82cf9f9b079018642a9466af115f1e2398c521700c2b831e44b74eb3",
+    "public/physics/step-clock.js": "dd53846564dee5ba33f9dc59ab49ef0b1e845806f0d2bd9b91dd4a4426a060dd",
+    "public/simulation-presentation.js": "7c8e321e700edb232d6629abd1c1fc4385798ac934053fd60b4cae798cfc686e",
+    "public/physics/joint-impact.js": "2e06803f429b2818d205ec07db8db394ad3ef0b489f9538d60574055d52a80b7",
+    "public/physics/detached-contacts.js": "b135ab3e01366b58f94360c720d3552be95e16893060a645ccf8b1be6a1a41a2",
+    "public/physics/joint-play.js": "efee4e624c700c4c8b4bcb514babea9dda8f90eedc2612afeefc1c43b3fa380e",
+    "public/training-drills.js": "42af9ba302d19bcbfb0f695ed9625b18b7f041ee7d9558cd7d4e5dad253a64f4",
+    "public/ai-perception.js": "10a0dc97a7a42dd1cfbddc58f8f5dad25bcb55da18ba5e2bb8091e74dec24dbf",
+    "public/physics/surface-state.js": "d92df9d6e7667691fdf351cb44800ea79b680ce1d6ae7966c23b0b985ce349c1",
+    "public/boss-choreography.js": "a949e3b5794fcaacb36729f3879778d3f5bf9926330064391b62b1833a296a4e"
+  },
+  "cases": [
+    {
+      "weapons": [
+        "sword",
+        "axe"
+      ],
+      "states": [
+        {
+          "label": "ready-after-loadout",
+          "phase": "ready",
+          "clock": 0,
+          "base": [
+            -1.53,
+            1.53
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.052000000000000046,
+              "zOverlap": 0.052000000000000005
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon",
+            "keyB": "weapon",
+            "normal": {
+              "x": -5.767392335715098e-16,
+              "y": 1
+            }
+          },
+          "manifold": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon",
+              "pointA": {
+                "x": -2.7755575615628914e-17,
+                "y": 2.0085092312725226,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 2.7755575615628914e-17,
+                "y": 1.9565092312725223,
+                "z": 0.177
+              },
+              "normal": {
+                "x": -5.767392335715098e-16,
+                "y": 1
+              },
+              "penetration": 0.05200000000000027,
+              "projectOnly": true
+            }
+          ],
+          "last": null,
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.53,
+              1.3045,
+              0,
+              -0.1199999999999999,
+              -2.08852217362411,
+              1.3242225120038624,
+              2.299679827149572,
+              -1.286161762821335,
+              -0.6450987225890261,
+              -1.0413944884875177,
+              -1.7635124028671127,
+              -0.7004737889714602,
+              0,
+              -0.006496665174649641,
+              0.11569688428164726,
+              0.8931898650436763
+            ],
+            [
+              1.53,
+              1.3045,
+              0,
+              -0.1199999999999999,
+              -2.08852217362411,
+              1.3242225120038624,
+              2.299679827149572,
+              -1.286161762821335,
+              -0.6450987225890261,
+              -1.0413944884875177,
+              -1.7635124028671127,
+              -0.7004737889714602,
+              0,
+              -0.006496665174649641,
+              0.11569688428164726,
+              0.8931898650436763
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.3525805190014987,
+                "y": 1.9915092312725224,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.6674194809985012,
+                "y": 1.9915092312725218,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.3525805190014987,
+                "y": 1.9915092312725224,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.5674194809985014,
+                "y": 1.991509231272522,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-spawn",
+          "phase": "countdown",
+          "clock": 0,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.05200000000000049,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.16820000000000013,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon",
+            "keyB": "weapon",
+            "normal": {
+              "x": 7.656710514656253e-16,
+              "y": 1
+            }
+          },
+          "manifold": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon",
+              "pointA": {
+                "x": 0.05000000000000002,
+                "y": 2.008509231272522,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.04999999999999999,
+                "y": 1.9565092312725214,
+                "z": 0.177
+              },
+              "normal": {
+                "x": 7.656710514656253e-16,
+                "y": 1
+              },
+              "penetration": 0.05200000000000071,
+              "projectOnly": true
+            }
+          ],
+          "last": null,
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9,
+              1.3045,
+              0,
+              -0.1199999999999999,
+              -2.08852217362411,
+              1.3242225120038622,
+              2.2996798271495735,
+              -1.2861617628213369,
+              -0.6450987225890261,
+              -1.0413944884875177,
+              -1.7635124028671136,
+              -0.7004737889714592,
+              0,
+              -0.00649666517464953,
+              0.11569688428164726,
+              0.8931898650436763
+            ],
+            [
+              1.9,
+              1.3045,
+              0,
+              -0.1199999999999999,
+              -2.08852217362411,
+              1.3242225120038622,
+              2.2996798271495735,
+              -1.2861617628213369,
+              -0.6450987225890261,
+              -1.0413944884875177,
+              -1.7635124028671136,
+              -0.7004737889714592,
+              0,
+              -0.00649666517464953,
+              0.11569688428164726,
+              0.8931898650436763
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7225805190014984,
+                "y": 1.9915092312725222,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.2974194809985016,
+                "y": 1.9915092312725216,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7225805190014984,
+                "y": 1.9915092312725222,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.1974194809985016,
+                "y": 1.9915092312725216,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-1",
+          "phase": "countdown",
+          "clock": 0.008333333333333333,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.004448716863945323,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.22216764822072976,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon",
+            "keyB": "weapon",
+            "normal": {
+              "x": 7.656710514655978e-16,
+              "y": 1
+            }
+          },
+          "manifold": [],
+          "last": {
+            "t": 0,
+            "normal": {
+              "x": 7.656710514655978e-16,
+              "y": 1
+            },
+            "pointA": {
+              "x": 0.049997536070323506,
+              "y": 2.008501076963998,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": 0.05000189559599377,
+              "y": 1.9565038458497217,
+              "z": 0.177
+            },
+            "keyA": "weapon",
+            "keyB": "weapon",
+            "anchorA": [
+              0.4312195839066,
+              1.0000000000000149
+            ],
+            "anchorB": [
+              0.3573519974044806,
+              0.9999999999999998
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0,
+            "frictionImpulse": 0,
+            "frictionState": "free",
+            "slidePower": 0,
+            "closingSpeed": -0.00033220723583614326,
+            "slideSpeed": 0.0005236273605589592,
+            "dissipatedWork": 0,
+            "flexWork": 0,
+            "contactIterations": 1,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0,
+            "iterations": 0,
+            "at": {
+              "x": 0.04999999999789479,
+              "y": 1.9825092312725219,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9000710730318089,
+              1.3045404819152704,
+              -0.0000903913045731565,
+              -0.12010956539298796,
+              -2.0867880686800877,
+              1.3262253301119726,
+              2.2998607304155843,
+              -1.2858181556106076,
+              -0.6450567063571434,
+              -1.0411878069958314,
+              -1.763357704486878,
+              -0.7004452202026652,
+              0.0002617404521192576,
+              -0.05660877292710373,
+              0.1155385938312383,
+              0.8931456395583981
+            ],
+            [
+              1.900025774969928,
+              1.304572142502928,
+              0.000060973345185957557,
+              -0.12005426428443798,
+              -2.0895608863438895,
+              1.3230366003965128,
+              2.2998118551954367,
+              -1.286276041273895,
+              -0.64532439189468,
+              -1.0410865031034529,
+              -1.7636300766330224,
+              -0.7002532542224804,
+              -0.00016777726501466842,
+              0.024389272838214238,
+              0.11555344501030038,
+              0.8930153506600456
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.723212027845815,
+                "y": 1.9935400760788957,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.2956818577924696,
+                "y": 1.9460506055724593,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7222004738537546,
+                "y": 1.9902599040672686,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.19742149849892332,
+                "y": 2.016630872460083,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-2",
+          "phase": "countdown",
+          "clock": 0.016666666666666666,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.22559955626425654,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon",
+            "keyB": "weapon",
+            "normal": {
+              "x": 0.04655830441807336,
+              "y": 0.9989155741551504
+            }
+          },
+          "manifold": [],
+          "last": {
+            "t": 0,
+            "normal": {
+              "x": 0.04655830441807336,
+              "y": 0.9989155741551504
+            },
+            "pointA": {
+              "x": -0.1979716476568468,
+              "y": 1.9863351987073812,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": -0.19829690846105097,
+              "y": 1.9811960260082553,
+              "z": 0.177
+            },
+            "keyA": "weapon",
+            "keyB": "weapon",
+            "anchorA": [
+              -0.1384551819816853,
+              0.9999999999999898
+            ],
+            "anchorB": [
+              0.9999999999999999,
+              1.0000000000000064
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0.005429846727950006,
+            "frictionImpulse": -0.0005421237027289644,
+            "frictionState": "sliding",
+            "slidePower": 0.0012029823743109058,
+            "closingSpeed": 0.08398115833113506,
+            "slideSpeed": 0.010144557199197556,
+            "dissipatedWork": 0.00021712224173513997,
+            "flexWork": 0.000007191356386950769,
+            "contactIterations": 3,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "velocities": {
+              "beforeA": {
+                "x": 0.02941477842190068,
+                "y": 0.029494555333618583
+              },
+              "beforeB": {
+                "x": 0.015371201907751082,
+                "y": -0.05392321827667501
+              },
+              "afterA": {
+                "x": 0.029376736223226174,
+                "y": 0.0015173343083364488
+              },
+              "afterB": {
+                "x": 0.012699881236072127,
+                "y": 0.00902040959481177
+              }
+            },
+            "penetration": 0,
+            "iterations": 0,
+            "at": {
+              "x": -0.1983211795046781,
+              "y": 1.9838672002270274,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9001274646805064,
+              1.3046440517073337,
+              -0.00007467965005774739,
+              -0.12017502533610327,
+              -2.0873634962700054,
+              1.3251582218813076,
+              2.3000529066085935,
+              -1.2858384054459455,
+              -0.6452868984784806,
+              -1.0407449871637446,
+              -1.7634265134776075,
+              -0.7001322818108064,
+              0.0001188099621434464,
+              -0.05585344581909802,
+              0.1153103023748772,
+              0.8928370239345331
+            ],
+            [
+              1.9000800511586944,
+              1.3046686010795507,
+              0.00006887578763480177,
+              -0.12014444518154264,
+              -2.0899300065232844,
+              1.3228917181621493,
+              2.3000005408996103,
+              -1.2862293508893219,
+              -0.6455300266245962,
+              -1.0406740891835249,
+              -1.7636943170283848,
+              -0.699958131386179,
+              -0.000263158979085456,
+              0.02877699906610814,
+              0.1153389540894806,
+              0.8927871515768838
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7228688781285442,
+                "y": 1.9926852840013214,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.2959800646873578,
+                "y": 1.9442411747201624,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7221439316484983,
+                "y": 1.9898982157812288,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.19737144709362142,
+                "y": 2.0197556827393623,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-3",
+          "phase": "countdown",
+          "clock": 0.025,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon-flex-1",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.01874075856043772,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon-flex-2",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.22447940133716893,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.0033387958304551546,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.08679715617514955,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon-flex-2",
+            "keyB": "weapon-head",
+            "normal": {
+              "x": -0.03245376843128854,
+              "y": -0.9994732377180534
+            }
+          },
+          "manifold": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-2",
+              "keyB": "steel:weapon-head",
+              "pointA": {
+                "x": 0.05971645284524471,
+                "y": 1.9388985873743465,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.035776824992147474,
+                "y": 2.1607833096680826,
+                "z": 0.177
+              },
+              "normal": {
+                "x": -0.03245376843128854,
+                "y": -0.9994732377180534
+              },
+              "penetration": 0.22099091065241597,
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-1",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": 0.9990872928350497,
+                "y": -0.042715117880342476
+              },
+              "penetration": 0.01874075856043772,
+              "pointA": {
+                "x": -0.19518421378992168,
+                "y": 1.945973395361922,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.2139078675257447,
+                "y": 1.946773909072998,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon",
+              "normal": {
+                "x": 0.04271511788034249,
+                "y": 0.9990872928350497
+              },
+              "penetration": 0.0033387958304551546,
+              "pointA": {
+                "x": 0.3155622847225543,
+                "y": 1.965793067613929,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.315419667665078,
+                "y": 1.9624573191263506,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.9990872928350497,
+                "y": 0.042715117880342476
+              },
+              "penetration": 0.08679715617514955,
+              "pointA": {
+                "x": 0.06066093546546315,
+                "y": 1.972885466478036,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.14737887125427435,
+                "y": 1.969177915720336,
+                "z": 0.177
+              },
+              "projectOnly": true
+            }
+          ],
+          "last": {
+            "t": 0,
+            "normal": {
+              "x": -0.03245376843128854,
+              "y": -0.9994732377180534
+            },
+            "pointA": {
+              "x": 0.04095340526431035,
+              "y": 1.9400404206458335,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": 0.04777647351334484,
+              "y": 2.1628888512070663,
+              "z": 0.177
+            },
+            "keyA": "weapon-flex-2",
+            "keyB": "weapon-head",
+            "anchorA": [
+              1,
+              -0.9999999999999868
+            ],
+            "anchorB": [
+              -0.3350853707562903,
+              -1.0000000000000013
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0,
+            "frictionImpulse": 0,
+            "frictionState": "free",
+            "slidePower": 0,
+            "closingSpeed": -0.11396614955266889,
+            "slideSpeed": 0.0496618642984335,
+            "dissipatedWork": 0,
+            "flexWork": 0,
+            "contactIterations": 1,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0.22099091065241597,
+            "iterations": 0,
+            "at": {
+              "x": 0.04409238376019152,
+              "y": 2.0512241416733303,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-2",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.22099091065241597,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-1",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.01874075856043772,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon",
+              "external": true,
+              "penetration": 0.0033387958304551546,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.08679715617514955,
+              "head": false
+            }
+          ],
+          "q": [
+            [
+              -1.9000529245301987,
+              1.304865042927993,
+              0.00038483781321827876,
+              -0.11927089115350983,
+              -2.0786047490607116,
+              1.264813605913169,
+              2.29997480404093,
+              -1.2896854868162013,
+              -0.6463551000604502,
+              -1.0399172809423647,
+              -1.7643063578855978,
+              -0.6992439960622945,
+              -0.0032287200907970717,
+              0.01430504464478924,
+              0.11509061830829136,
+              0.892217921236016
+            ],
+            [
+              1.9001101980902921,
+              1.3048036979147284,
+              0.0001791577292518971,
+              -0.11972329063155396,
+              -2.080043116354969,
+              1.2784595392127323,
+              2.300084225077226,
+              -1.2880115479553844,
+              -0.6459524464252301,
+              -1.0401245719404406,
+              -1.7639617000927443,
+              -0.699476867170535,
+              -0.0018562657653714684,
+              0.07305950134097675,
+              0.11510153384152184,
+              0.8924630827391309
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7045188617115941,
+                "y": 1.9770638890840768,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.315089458131522,
+                "y": 1.9487996443268214,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.708382579583817,
+                "y": 1.9806885017521472,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.21077773001042488,
+                "y": 2.0199864102100142,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-4",
+          "phase": "countdown",
+          "clock": 0.03333333333333333,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon-flex-1",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.019227232466213384,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon-flex-2",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.22320761592810645,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.002314634424396722,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.08614338121366161,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon-flex-1",
+            "keyB": "weapon-head",
+            "normal": {
+              "x": 0.9990872928350497,
+              "y": -0.042715117880342476
+            }
+          },
+          "manifold": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-1",
+              "keyB": "steel:weapon-head",
+              "pointA": {
+                "x": -0.19452922398763456,
+                "y": 1.941422520767671,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.2137896558193408,
+                "y": 1.9408397072857357,
+                "z": 0.177
+              },
+              "normal": {
+                "x": 0.9990872928350497,
+                "y": -0.042715117880342476
+              },
+              "penetration": 0.019217957750990305,
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-2",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.035790740655694535,
+                "y": -0.9993593061973841
+              },
+              "penetration": 0.22320761592810645,
+              "pointA": {
+                "x": -0.19453087203877945,
+                "y": 1.9414225624092742,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.18654210614472072,
+                "y": 2.1644871706011592,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon",
+              "normal": {
+                "x": 0.0357907406556946,
+                "y": 0.9993593061973841
+              },
+              "penetration": 0.002314634424396722,
+              "pointA": {
+                "x": 0.3161672597732274,
+                "y": 1.9624800397679885,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.3160844172928311,
+                "y": 1.9601668883155228,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.9993593061973841,
+                "y": 0.035790740655694535
+              },
+              "penetration": 0.08614338121366161,
+              "pointA": {
+                "x": 0.06124956041262121,
+                "y": 1.968958195639714,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.14733775009580286,
+                "y": 1.9658750602234911,
+                "z": 0.177
+              },
+              "projectOnly": true
+            }
+          ],
+          "last": {
+            "t": 0,
+            "normal": {
+              "x": 0.9990872928350497,
+              "y": -0.042715117880342476
+            },
+            "pointA": {
+              "x": -0.19547539808187706,
+              "y": 1.946014349196518,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": -0.21317349111275052,
+              "y": 1.9453557277337186,
+              "z": 0.177
+            },
+            "keyA": "weapon-flex-1",
+            "keyB": "weapon-head",
+            "anchorA": [
+              1,
+              -1.0000000000000129
+            ],
+            "anchorB": [
+              0.9999999999999997,
+              -0.010231994022869582
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0,
+            "frictionImpulse": 0,
+            "frictionState": "free",
+            "slidePower": 0,
+            "closingSpeed": -0.1309028334053443,
+            "slideSpeed": 0.17144112484769405,
+            "dissipatedWork": 0,
+            "flexWork": 0,
+            "contactIterations": 1,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0.22320761592810645,
+            "iterations": 0,
+            "at": {
+              "x": -0.2045460406578332,
+              "y": 1.94637365221746,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-1",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.019217957750990305,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-2",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.22320761592810645,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon",
+              "external": true,
+              "penetration": 0.002314634424396722,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.08614338121366161,
+              "head": false
+            }
+          ],
+          "q": [
+            [
+              -1.8999227400768879,
+              1.3051089987339997,
+              0.0009650455739321877,
+              -0.11896130677585387,
+              -2.085412311737594,
+              1.2614544340514378,
+              2.29987329660657,
+              -1.2918087291689744,
+              -0.64763714814138,
+              -1.0390438626934375,
+              -1.7655037194920462,
+              -0.6980648076522472,
+              -0.005421235653131726,
+              0.026089958760470332,
+              0.11492023655239823,
+              0.89162721643954
+            ],
+            [
+              1.9001105614096305,
+              1.3049512788102036,
+              0.00030400025728284533,
+              -0.1196606430385088,
+              -2.0795141378263002,
+              1.2775987738293961,
+              2.300159427964926,
+              -1.2886227049172483,
+              -0.6464279497389233,
+              -1.0395686068414791,
+              -1.764308666365045,
+              -0.6989003273591005,
+              -0.0026525237371713066,
+              0.0662740662336009,
+              0.11489682761461614,
+              0.8920526123246993
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7039391672663005,
+                "y": 1.9712498254764528,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.31573538271494894,
+                "y": 1.9454855264708522,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7082436298762171,
+                "y": 1.9811446599705012,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.21116693239993456,
+                "y": 2.0140721413943172,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-5",
+          "phase": "countdown",
+          "clock": 0.041666666666666664,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon-flex-1",
+              "keyB": "weapon",
+              "xyPenetration": 0.015378048948692102,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon-flex-1",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.015918867342814502,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon-flex-2",
+              "keyB": "weapon",
+              "xyPenetration": 0.015326435969092334,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon-flex-2",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.20572569196531942,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.014474112613731327,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.08919619953116416,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon-flex-1",
+            "keyB": "weapon-head",
+            "normal": {
+              "x": 0.9993593061973841,
+              "y": -0.035790740655694535
+            }
+          },
+          "manifold": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-1",
+              "keyB": "steel:weapon-head",
+              "pointA": {
+                "x": -0.1955085984513259,
+                "y": 1.942399207111635,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.21156613478552128,
+                "y": 1.9242827276234684,
+                "z": 0.177
+              },
+              "normal": {
+                "x": 0.9993593061973841,
+                "y": -0.035790740655694535
+              },
+              "penetration": 0.0153988461512256,
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-1",
+              "keyB": "steel:weapon",
+              "normal": {
+                "x": 0.01691192783604364,
+                "y": 0.9998569831215205
+              },
+              "penetration": 0.015378048948692102,
+              "pointA": {
+                "x": -0.2108003419686996,
+                "y": 1.9766627202351812,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.211060414422779,
+                "y": 1.9612868706070468,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-2",
+              "keyB": "steel:weapon",
+              "normal": {
+                "x": 0.013665311515656243,
+                "y": 0.99990662527117
+              },
+              "penetration": 0.015326435969092334,
+              "pointA": {
+                "x": -0.19493197079529614,
+                "y": 1.976394317023419,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.19514141131723856,
+                "y": 1.9610693121561293,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-2",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.013665311515656225,
+                "y": -0.99990662527117
+              },
+              "penetration": 0.20572569196531942,
+              "pointA": {
+                "x": 0.05945289733350414,
+                "y": 1.9380623613851953,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.06226420300098416,
+                "y": 2.1437688437698137,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon",
+              "normal": {
+                "x": 0.013665311515656243,
+                "y": 0.99990662527117
+              },
+              "penetration": 0.014474112613731327,
+              "pointA": {
+                "x": 0.060032769206126546,
+                "y": 1.972057416113484,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.05983497594834722,
+                "y": 1.9575846550160931,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.99990662527117,
+                "y": 0.013665311515656225
+              },
+              "penetration": 0.08919619953116416,
+              "pointA": {
+                "x": 0.059451275226515825,
+                "y": 1.9380623890543436,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.1486391460867361,
+                "y": 1.9368434952017377,
+                "z": 0.177
+              },
+              "projectOnly": true
+            }
+          ],
+          "last": {
+            "t": 0,
+            "normal": {
+              "x": 0.9993593061973841,
+              "y": -0.035790740655694535
+            },
+            "pointA": {
+              "x": -0.1951831391914361,
+              "y": 1.9414020602023985,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": -0.21283589665200622,
+              "y": 1.9403087107156687,
+              "z": 0.177
+            },
+            "keyA": "weapon-flex-1",
+            "keyB": "weapon-head",
+            "anchorA": [
+              1,
+              -0.9999999999999998
+            ],
+            "anchorB": [
+              1.0000000000000002,
+              -0.01583951253060687
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0,
+            "frictionImpulse": 0,
+            "frictionState": "free",
+            "slidePower": 0,
+            "closingSpeed": -0.19582154743945435,
+            "slideSpeed": 0.2068919976716713,
+            "dissipatedWork": 0,
+            "flexWork": 0,
+            "contactIterations": 1,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0.20572569196531942,
+            "iterations": 0,
+            "at": {
+              "x": -0.2041366808364,
+              "y": 1.9417665992130337,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-1",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.0153988461512256,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-1",
+              "keyB": "external:steel:weapon",
+              "external": true,
+              "penetration": 0.015378048948692102,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-2",
+              "keyB": "external:steel:weapon",
+              "external": true,
+              "penetration": 0.015326435969092334,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-2",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.20572569196531942,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon",
+              "external": true,
+              "penetration": 0.014474112613731327,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.08919619953116416,
+              "head": false
+            }
+          ],
+          "q": [
+            [
+              -1.899809872869919,
+              1.3053343426110682,
+              0.0014798250790219413,
+              -0.11873840437440833,
+              -2.0919355776995237,
+              1.264107103429685,
+              2.2997509146564874,
+              -1.2935176682173843,
+              -0.648793555805132,
+              -1.0382335079443288,
+              -1.7666034917252926,
+              -0.6969384196946057,
+              -0.007335861632471767,
+              0.03752114056310024,
+              0.1147515099619769,
+              0.8911225893508598
+            ],
+            [
+              1.9001281646322519,
+              1.305086685717959,
+              0.00036626177867268834,
+              -0.11964731688432337,
+              -2.078289873551194,
+              1.280791555171764,
+              2.3002246977043157,
+              -1.2889651415534726,
+              -0.646795096515486,
+              -1.039053389221826,
+              -1.7645820464761728,
+              -0.6983317900659459,
+              -0.0032612852885657976,
+              0.0396487835533128,
+              0.11468646015778523,
+              0.8917297543749462
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7051485672905848,
+                "y": 1.967997527335163,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.31470472507352887,
+                "y": 1.9506986977383105,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7093319681502331,
+                "y": 1.9837115158777208,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.21058212851973102,
+                "y": 1.9962836024915378,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-6",
+          "phase": "countdown",
+          "clock": 0.049999999999999996,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon-flex-1",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.018553470829571372,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon-flex-2",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.2226328935693842,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.0018598558995743808,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.08674321405247352,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon-flex-1",
+            "keyB": "weapon",
+            "normal": {
+              "x": 0.01691192783604364,
+              "y": 0.9998569831215205
+            }
+          },
+          "manifold": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-1",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": 0.9995819385028422,
+                "y": -0.028912769132342454
+              },
+              "penetration": 0.018553470829571372,
+              "pointA": {
+                "x": -0.1952551790557525,
+                "y": 1.9339974206544424,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.21380089339353134,
+                "y": 1.9345338528731413,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-2",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.028912769132342454,
+                "y": -0.9995819385028422
+              },
+              "penetration": 0.2226328935693842,
+              "pointA": {
+                "x": -0.1952564793083302,
+                "y": 1.9339974472101749,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.18881954585529323,
+                "y": 2.156537266538757,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon",
+              "normal": {
+                "x": 0.028912769132342305,
+                "y": 0.9995819385028422
+              },
+              "penetration": 0.0018598558995743808,
+              "pointA": {
+                "x": 0.3153332450635518,
+                "y": 1.9575374750362986,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.315279471479308,
+                "y": 1.9556783966708662,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.9995819385028422,
+                "y": 0.028912769132342454
+              },
+              "penetration": 0.08674321405247352,
+              "pointA": {
+                "x": 0.060387010462144564,
+                "y": 1.9627736419719881,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.14709396051668303,
+                "y": 1.9602656554502915,
+                "z": 0.177
+              },
+              "projectOnly": true
+            }
+          ],
+          "last": {
+            "t": 0,
+            "normal": {
+              "x": 0.01691192783604364,
+              "y": 0.9998569831215205
+            },
+            "pointA": {
+              "x": -0.21157481994406913,
+              "y": 1.9765961501113354,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": -0.21029744938568,
+              "y": 1.959693980023305,
+              "z": 0.177
+            },
+            "keyA": "weapon-flex-1",
+            "keyB": "weapon",
+            "anchorA": [
+              0.87553710896723,
+              1.000000000000021
+            ],
+            "anchorB": [
+              1,
+              1
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0.011621602617981099,
+            "frictionImpulse": 0.0007756661173287236,
+            "frictionState": "sliding",
+            "slidePower": 0.015425866896264972,
+            "closingSpeed": 0.17886644433014434,
+            "slideSpeed": 0.18827120480627893,
+            "dissipatedWork": 0.0010927126762922497,
+            "flexWork": 0.000031900044478787674,
+            "contactIterations": 3,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0.2226328935693842,
+            "iterations": 0,
+            "at": {
+              "x": -0.2109303781957393,
+              "y": 1.968974795421114,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-1",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.018553470829571372,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-2",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.2226328935693842,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon",
+              "external": true,
+              "penetration": 0.0018598558995743808,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.08674321405247352,
+              "head": false
+            }
+          ],
+          "q": [
+            [
+              -1.8996476139911893,
+              1.305583299255809,
+              0.0021529860317685326,
+              -0.11841240198972847,
+              -2.1000270662434604,
+              1.2610842681552408,
+              2.299515350927241,
+              -1.2958001942750894,
+              -0.650210306841031,
+              -1.0373514545974758,
+              -1.7679579708725144,
+              -0.6956914046012748,
+              -0.009831899691036518,
+              0.0441382108635664,
+              0.11461304669823738,
+              0.8905246484110242
+            ],
+            [
+              1.9000451968611882,
+              1.3052901074651153,
+              0.0007644555306172962,
+              -0.11944695381630838,
+              -2.0818820748530693,
+              1.2752548560676966,
+              2.3001336173766154,
+              -1.2904887319596852,
+              -0.6477517796536291,
+              -1.0383200279206184,
+              -1.7654452880928813,
+              -0.6973918519150857,
+              -0.004978059097399904,
+              0.06343018918757957,
+              0.11451042716231938,
+              0.8912095371142508
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7048031641377984,
+                "y": 1.9613687044687722,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.3149841672677899,
+                "y": 1.9405410593938022,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7078798154910957,
+                "y": 1.9793371243662967,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.21173557095276963,
+                "y": 2.005936872055441,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-7",
+          "phase": "countdown",
+          "clock": 0.05833333333333333,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon-flex-1",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.019134351754943213,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon-flex-2",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.22313379104188136,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.0022558604092799417,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.0862287538394479,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon-flex-1",
+            "keyB": "weapon-head",
+            "normal": {
+              "x": 0.9995819385028422,
+              "y": -0.028912769132342454
+            }
+          },
+          "manifold": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-1",
+              "keyB": "steel:weapon-head",
+              "pointA": {
+                "x": -0.1947847022221549,
+                "y": 1.9304131047845425,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.21389898573521132,
+                "y": 1.9314222903435267,
+                "z": 0.177
+              },
+              "normal": {
+                "x": 0.9995819385028422,
+                "y": -0.028912769132342454
+              },
+              "penetration": 0.019135470916152447,
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-2",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.026574748442089367,
+                "y": -0.999646829007745
+              },
+              "penetration": 0.22313379104188136,
+              "pointA": {
+                "x": -0.1947882306441732,
+                "y": 1.930413161917788,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.18885850627830547,
+                "y": 2.1534681485772817,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon",
+              "normal": {
+                "x": 0.026574748442089523,
+                "y": 0.999646829007745
+              },
+              "penetration": 0.0022558604092799417,
+              "pointA": {
+                "x": 0.3157007180740186,
+                "y": 1.9560457506610973,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.3156407691511215,
+                "y": 1.9537906869562764,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.999646829007745,
+                "y": 0.026574748442089367
+              },
+              "penetration": 0.0862287538394479,
+              "pointA": {
+                "x": 0.06073543903177043,
+                "y": 1.9602536335939402,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.14693373937666396,
+                "y": 1.957962126152182,
+                "z": 0.177
+              },
+              "projectOnly": true
+            }
+          ],
+          "last": {
+            "t": 0,
+            "normal": {
+              "x": 0.9995819385028422,
+              "y": -0.028912769132342454
+            },
+            "pointA": {
+              "x": -0.196122725623397,
+              "y": 1.9333261578902217,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": -0.21289044902846488,
+              "y": 1.9334851297499758,
+              "z": 0.177
+            },
+            "keyA": "weapon-flex-1",
+            "keyB": "weapon-head",
+            "anchorA": [
+              1.0000000000000002,
+              -1.0000000000000129
+            ],
+            "anchorB": [
+              0.9999999999999996,
+              -0.0183735338619383
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0,
+            "frictionImpulse": 0,
+            "frictionState": "free",
+            "slidePower": 0,
+            "closingSpeed": -0.21511466982877206,
+            "slideSpeed": 0.04713574516769628,
+            "dissipatedWork": 0,
+            "flexWork": 0,
+            "contactIterations": 1,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0.22313379104188136,
+            "iterations": 0,
+            "at": {
+              "x": -0.2045280362246419,
+              "y": 1.9342656367637918,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-1",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.019135470916152447,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-2",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.22313379104188136,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon",
+              "external": true,
+              "penetration": 0.0022558604092799417,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.0862287538394479,
+              "head": false
+            }
+          ],
+          "q": [
+            [
+              -1.899519609302678,
+              1.305803774648563,
+              0.0027362620689782386,
+              -0.11815477906546769,
+              -2.106890463088772,
+              1.2581151339098853,
+              2.299273772058813,
+              -1.2976617249182543,
+              -0.651445372800682,
+              -1.0365518451502098,
+              -1.7691324705066376,
+              -0.6945885669641957,
+              -0.012029781764712292,
+              0.057621803727195685,
+              0.11446522717343635,
+              0.8900323201555117
+            ],
+            [
+              1.9000295505829783,
+              1.3054445798061043,
+              0.0009406555502265372,
+              -0.11937542490176176,
+              -2.0830070081251617,
+              1.2741349020771593,
+              2.3000894749162515,
+              -1.2911846691748787,
+              -0.6483102371506025,
+              -1.0377430689378813,
+              -1.7659047716877638,
+              -0.696725988126422,
+              -0.0059954609987063175,
+              0.0630884259655112,
+              0.11431692182975384,
+              0.8908217173712069
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7044460875892599,
+                "y": 1.9555620394761575,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.3154201925447221,
+                "y": 1.9390480653649333,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7076744136073863,
+                "y": 1.9783811761214736,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.212000674851746,
+                "y": 2.00282994484164,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-8",
+          "phase": "countdown",
+          "clock": 0.06666666666666667,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon-flex-1",
+              "keyB": "weapon",
+              "xyPenetration": 0.011115082245207297,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon-flex-1",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.01602404687745035,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon-flex-2",
+              "keyB": "weapon",
+              "xyPenetration": 0.011093762175179434,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon-flex-2",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.20950841678072774,
+              "zOverlap": 0.047
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.010691533793863117,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon",
+              "keyB": "weapon-head",
+              "xyPenetration": 0.08902990037213984,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon-flex-1",
+            "keyB": "weapon-head",
+            "normal": {
+              "x": 0.999646829007745,
+              "y": -0.026574748442089367
+            }
+          },
+          "manifold": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-1",
+              "keyB": "steel:weapon-head",
+              "pointA": {
+                "x": -0.19561222975596043,
+                "y": 1.930202492511341,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.21170855482586629,
+                "y": 1.9163099526781169,
+                "z": 0.177
+              },
+              "normal": {
+                "x": 0.999646829007745,
+                "y": -0.026574748442089367
+              },
+              "penetration": 0.01572144956351962,
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-1",
+              "keyB": "steel:weapon",
+              "normal": {
+                "x": 0.009749077352949618,
+                "y": 0.9999524766161473
+              },
+              "penetration": 0.011115082245207297,
+              "pointA": {
+                "x": -0.21128927010911894,
+                "y": 1.9643569523259137,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.21139763190571187,
+                "y": 1.9532423983070266,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-2",
+              "keyB": "steel:weapon",
+              "normal": {
+                "x": 0.0084183946448557,
+                "y": 0.999964564687971
+              },
+              "penetration": 0.011093762175179434,
+              "pointA": {
+                "x": -0.1952765691100386,
+                "y": 1.9642008353291318,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.19536996077812543,
+                "y": 1.9531074662648766,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon-flex-2",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.008418394644855843,
+                "y": -0.9999645646879709
+              },
+              "penetration": 0.20950841678072774,
+              "pointA": {
+                "x": 0.05937083842671138,
+                "y": 1.9276536389399823,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.06113456296059048,
+                "y": 2.137154631724589,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon",
+              "normal": {
+                "x": 0.0084183946448557,
+                "y": 0.999964564687971
+              },
+              "penetration": 0.010691533793863117,
+              "pointA": {
+                "x": 0.05971488309413703,
+                "y": 1.9616518979497044,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.05962487754330148,
+                "y": 1.9509607430136775,
+                "z": 0.177
+              },
+              "projectOnly": true
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon-head",
+              "normal": {
+                "x": -0.9999645646879709,
+                "y": 0.008418394644855843
+              },
+              "penetration": 0.08902990037213984,
+              "pointA": {
+                "x": 0.05936664642112901,
+                "y": 1.927653681360895,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 0.14839339199096926,
+                "y": 1.9269041925243702,
+                "z": 0.177
+              },
+              "projectOnly": true
+            }
+          ],
+          "last": {
+            "t": 0,
+            "normal": {
+              "x": 0.999646829007745,
+              "y": -0.026574748442089367
+            },
+            "pointA": {
+              "x": -0.19572387069701092,
+              "y": 1.929735678481258,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": -0.21291647334447267,
+              "y": 1.9295517350492446,
+              "z": 0.177
+            },
+            "keyA": "weapon-flex-1",
+            "keyB": "weapon-head",
+            "anchorA": [
+              0.9999999999999993,
+              -0.9999999999999739
+            ],
+            "anchorB": [
+              1,
+              -0.016165104109257075
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0,
+            "frictionImpulse": 0,
+            "frictionState": "free",
+            "slidePower": 0,
+            "closingSpeed": -0.2355470832382769,
+            "slideSpeed": 0.07924776606614209,
+            "dissipatedWork": 0,
+            "flexWork": 0,
+            "contactIterations": 1,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0.20950841678072774,
+            "iterations": 0,
+            "at": {
+              "x": -0.20434849925062887,
+              "y": 1.9306673500767881,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-1",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.01572144956351962,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-1",
+              "keyB": "external:steel:weapon",
+              "external": true,
+              "penetration": 0.011115082245207297,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-2",
+              "keyB": "external:steel:weapon",
+              "external": true,
+              "penetration": 0.011093762175179434,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon-flex-2",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.20950841678072774,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon",
+              "external": true,
+              "penetration": 0.010691533793863117,
+              "head": false
+            },
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "external:steel:weapon",
+              "keyB": "external:steel:weapon-head",
+              "external": true,
+              "penetration": 0.08902990037213984,
+              "head": false
+            }
+          ],
+          "q": [
+            [
+              -1.8994161369251499,
+              1.3059975625636424,
+              0.003245992532802982,
+              -0.1179653120286597,
+              -2.1130794581910397,
+              1.2598007224893644,
+              2.2990221308407537,
+              -1.299120437048624,
+              -0.6525252524153401,
+              -1.035836514618811,
+              -1.7701418128472983,
+              -0.6936431537960193,
+              -0.013943739719837008,
+              0.06782239839517888,
+              0.11432004579289574,
+              0.8896018171699464
+            ],
+            [
+              1.9000525797041696,
+              1.3055648915209646,
+              0.000997513046834153,
+              -0.11938622232485016,
+              -2.082484833216421,
+              1.2777550438994394,
+              2.300058671901578,
+              -1.2914051858438889,
+              -0.6486368469165757,
+              -1.0372733344114766,
+              -1.7661393767769138,
+              -0.6962299797905772,
+              -0.006613094516819318,
+              0.04074066588251314,
+              0.11411693957271664,
+              0.8905502630619477
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7054228627538732,
+                "y": 1.9521108336637016,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.3145273886425419,
+                "y": 1.9420410146131806,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7088644215875572,
+                "y": 1.9804962349122386,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.21110298809314187,
+                "y": 1.988241158071105,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "weapons": [
+        "axe",
+        "sword"
+      ],
+      "states": [
+        {
+          "label": "ready-after-loadout",
+          "phase": "ready",
+          "clock": 0,
+          "base": [
+            -1.53,
+            1.53
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.052000000000000046,
+              "zOverlap": 0.052000000000000005
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon",
+            "keyB": "weapon",
+            "normal": {
+              "x": -7.656710514656253e-16,
+              "y": 1
+            }
+          },
+          "manifold": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon",
+              "pointA": {
+                "x": 0,
+                "y": 2.0265092312725224,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": 2.7755575615628914e-17,
+                "y": 1.9745092312725223,
+                "z": 0.177
+              },
+              "normal": {
+                "x": -7.656710514656253e-16,
+                "y": 1
+              },
+              "penetration": 0.052000000000000046,
+              "projectOnly": true
+            }
+          ],
+          "last": null,
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.53,
+              1.3045,
+              0,
+              -0.1199999999999999,
+              -2.08852217362411,
+              1.3242225120038624,
+              2.299679827149572,
+              -1.286161762821335,
+              -0.6450987225890261,
+              -1.0413944884875177,
+              -1.7635124028671127,
+              -0.7004737889714602,
+              0,
+              -0.006496665174649641,
+              0.11569688428164726,
+              0.8931898650436763
+            ],
+            [
+              1.53,
+              1.3045,
+              0,
+              -0.1199999999999999,
+              -2.08852217362411,
+              1.3242225120038624,
+              2.299679827149572,
+              -1.286161762821335,
+              -0.6450987225890261,
+              -1.0413944884875177,
+              -1.7635124028671127,
+              -0.7004737889714602,
+              0,
+              -0.006496665174649641,
+              0.11569688428164726,
+              0.8931898650436763
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.3525805190014987,
+                "y": 1.9915092312725224,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.5674194809985014,
+                "y": 1.991509231272522,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.3525805190014987,
+                "y": 1.9915092312725224,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.6674194809985012,
+                "y": 1.9915092312725218,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-spawn",
+          "phase": "countdown",
+          "clock": 0,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.05200000000000049,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon-head",
+              "keyB": "weapon",
+              "xyPenetration": 0.16820000000000013,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon",
+            "keyB": "weapon",
+            "normal": {
+              "x": 8.651088503572648e-16,
+              "y": 1
+            }
+          },
+          "manifold": [
+            {
+              "bodyA": "weapon",
+              "bodyB": "weapon",
+              "keyA": "steel:weapon",
+              "keyB": "steel:weapon",
+              "pointA": {
+                "x": -0.04999999999999996,
+                "y": 2.026509231272522,
+                "z": 0.177
+              },
+              "pointB": {
+                "x": -0.04999999999999999,
+                "y": 1.9745092312725214,
+                "z": 0.177
+              },
+              "normal": {
+                "x": 8.651088503572648e-16,
+                "y": 1
+              },
+              "penetration": 0.05200000000000049,
+              "projectOnly": true
+            }
+          ],
+          "last": null,
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9,
+              1.3045,
+              0,
+              -0.1199999999999999,
+              -2.08852217362411,
+              1.3242225120038622,
+              2.2996798271495735,
+              -1.2861617628213369,
+              -0.6450987225890261,
+              -1.0413944884875177,
+              -1.7635124028671136,
+              -0.7004737889714592,
+              0,
+              -0.00649666517464953,
+              0.11569688428164726,
+              0.8931898650436763
+            ],
+            [
+              1.9,
+              1.3045,
+              0,
+              -0.1199999999999999,
+              -2.08852217362411,
+              1.3242225120038622,
+              2.2996798271495735,
+              -1.2861617628213369,
+              -0.6450987225890261,
+              -1.0413944884875177,
+              -1.7635124028671136,
+              -0.7004737889714592,
+              0,
+              -0.00649666517464953,
+              0.11569688428164726,
+              0.8931898650436763
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7225805190014984,
+                "y": 1.9915092312725222,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.1974194809985016,
+                "y": 1.9915092312725216,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7225805190014984,
+                "y": 1.9915092312725222,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.2974194809985016,
+                "y": 1.9915092312725216,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-1",
+          "phase": "countdown",
+          "clock": 0.008333333333333333,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [
+            {
+              "keyA": "weapon",
+              "keyB": "weapon",
+              "xyPenetration": 0.004564453192558382,
+              "zOverlap": 0.052000000000000005
+            },
+            {
+              "keyA": "weapon-head",
+              "keyB": "weapon",
+              "xyPenetration": 0.1207451701557396,
+              "zOverlap": 0.047
+            }
+          ],
+          "first": {
+            "t": 0,
+            "keyA": "weapon",
+            "keyB": "weapon",
+            "normal": {
+              "x": 8.651088503572299e-16,
+              "y": 1
+            }
+          },
+          "manifold": [],
+          "last": {
+            "t": 0,
+            "normal": {
+              "x": 8.651088503572299e-16,
+              "y": 1
+            },
+            "pointA": {
+              "x": -0.050001140942569494,
+              "y": 2.0265040879621323,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": -0.04999661221959659,
+              "y": 1.9745007445016618,
+              "z": 0.177
+            },
+            "keyA": "weapon",
+            "keyB": "weapon",
+            "anchorA": [
+              0.3573519974009665,
+              1.0000000000000002
+            ],
+            "anchorB": [
+              0.43121958390935256,
+              0.9999999999999981
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0.000026056933448168532,
+            "frictionImpulse": 0.000002605681447744338,
+            "frictionState": "sliding",
+            "slidePower": 1.6219873510531762e-7,
+            "closingSpeed": 0.0004011496651187612,
+            "slideSpeed": 0.0005439348648381175,
+            "dissipatedWork": 6.183788625544036e-9,
+            "flexWork": 4.43672018064708e-10,
+            "contactIterations": 2,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "velocities": {
+              "beforeA": {
+                "x": -0.00013717487995704663,
+                "y": -0.0006173890950558546
+              },
+              "beforeB": {
+                "x": 0.0004067599848810705,
+                "y": -0.0010185387601746162
+              },
+              "afterA": {
+                "x": -0.00012613891966582738,
+                "y": -0.000767555522312289
+              },
+              "afterB": {
+                "x": 0.00038572125017128435,
+                "y": -0.0007354635491027915
+              }
+            },
+            "penetration": 0,
+            "iterations": 0,
+            "at": {
+              "x": -0.05000000000210518,
+              "y": 2.0005092312725217,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9000634818611433,
+              1.3045483732618763,
+              -0.00005984921511590747,
+              -0.12009913153736679,
+              -2.087363321304602,
+              1.3251503298635658,
+              2.2998559898965008,
+              -1.2859213588701237,
+              -0.6451135954585969,
+              -1.0411599844341077,
+              -1.763411881408803,
+              -0.7004018301043239,
+              0.0001712846251106657,
+              -0.03698794492822392,
+              0.11553711723286293,
+              0.8931075417873984
+            ],
+            [
+              1.9000099418388747,
+              1.3045787731969347,
+              0.00010414655506650519,
+              -0.12002613476222498,
+              -2.0900616138496217,
+              1.3215087904152487,
+              2.2997877740899257,
+              -1.2864241116270414,
+              -0.6453962588536245,
+              -1.0410700353219304,
+              -1.7637099605953106,
+              -0.7002047914276357,
+              -0.0003058356635056216,
+              0.044460283126492056,
+              0.11556560930640677,
+              0.8929967257495883
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7228647186012434,
+                "y": 1.992693382842107,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.19676000271649974,
+                "y": 1.9664184529407642,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7217228017860755,
+                "y": 1.9893235044926698,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.2971612480735988,
+                "y": 2.0370235354172044,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-2",
+          "phase": "countdown",
+          "clock": 0.016666666666666666,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [],
+          "first": {
+            "t": 0,
+            "keyA": "weapon",
+            "keyB": "weapon-flex-2",
+            "normal": {
+              "x": 0.046764736200329844,
+              "y": 0.9989059312308209
+            }
+          },
+          "manifold": [],
+          "last": {
+            "t": 0,
+            "normal": {
+              "x": 0.046764736200329844,
+              "y": 0.9989059312308209
+            },
+            "pointA": {
+              "x": 0.19788946935615853,
+              "y": 2.0018861587206835,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": 0.19787251175609846,
+              "y": 1.9965379582357596,
+              "z": 0.177
+            },
+            "keyA": "weapon",
+            "keyB": "weapon-flex-2",
+            "anchorA": [
+              0.9999999999999999,
+              0.9999999999999937
+            ],
+            "anchorB": [
+              -0.8905497491990845,
+              1.0000000000000024
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0.005984601697105929,
+            "frictionImpulse": 0.0005912151335934618,
+            "frictionState": "sliding",
+            "slidePower": 0.001949111657040108,
+            "closingSpeed": 0.09348899613874068,
+            "slideSpeed": 0.02818031735907489,
+            "dissipatedWork": 0.0002733642662812598,
+            "flexWork": 0.000009026018231653247,
+            "contactIterations": 2,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0,
+            "iterations": 0,
+            "at": {
+              "x": 0.1976528647162829,
+              "y": 1.9991244463509368,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9002817473962266,
+              1.3045557799788279,
+              -0.0005750088264284958,
+              -0.12031495087459454,
+              -2.0785468474055286,
+              1.3316345341236915,
+              2.300239747328065,
+              -1.2845172875152597,
+              -0.6444364561848969,
+              -1.0410169422624858,
+              -1.762513373250261,
+              -0.7007204193229809,
+              0.0013696689325722725,
+              -0.14256465066499172,
+              0.11523225661968989,
+              0.8930122696017145
+            ],
+            [
+              1.9001061301665014,
+              1.304641314565745,
+              -0.00004235986542312416,
+              -0.12017336899249023,
+              -2.087932194467094,
+              1.325816283614856,
+              2.300020809550871,
+              -1.2858975149116822,
+              -0.6453263698681431,
+              -1.040772716359163,
+              -1.7634959303395399,
+              -0.7001010907889622,
+              0.00003746585064441886,
+              0.11984007824342577,
+              0.11534520192926093,
+              0.892842934205177
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7249652161799074,
+                "y": 2.0016453852570204,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.18846593701131975,
+                "y": 1.8919023746332881,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7230763519401578,
+                "y": 1.9925207157756502,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.2885393405726472,
+                "y": 2.123033898045328,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-3",
+          "phase": "countdown",
+          "clock": 0.025,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [],
+          "first": null,
+          "manifold": [],
+          "last": {
+            "t": 0.0008644954102153663,
+            "normal": {
+              "x": 0.12795012656874336,
+              "y": 0.9917806033145852
+            },
+            "pointA": {
+              "x": 0.20698473260861208,
+              "y": 2.0440261143965084,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": 0.20723775577732756,
+              "y": 2.0413644329488223,
+              "z": 0.177
+            },
+            "keyA": "weapon-head",
+            "keyB": "weapon-flex-2",
+            "anchorA": [
+              0.9999999999999997,
+              0.9999999999999989
+            ],
+            "anchorB": [
+              -0.9320574092878121,
+              0.9999999999999645
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0.020401901744377463,
+            "frictionImpulse": 0.001882588962938537,
+            "frictionState": "sliding",
+            "slidePower": 0.008643003822576024,
+            "closingSpeed": 0.31794761056857274,
+            "slideSpeed": 0.07373919241287469,
+            "dissipatedWork": 0.003084647370799224,
+            "flexWork": 0.00009980556610450726,
+            "contactIterations": 3,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0,
+            "iterations": 0,
+            "at": {
+              "x": 0.20650239391758926,
+              "y": 2.042024581901788,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9003696959011256,
+              1.3046917507941425,
+              -0.0005741560585524391,
+              -0.12036933494377723,
+              -2.079335524279716,
+              1.3297855301329555,
+              2.3004691727354847,
+              -1.284603310837517,
+              -0.644710791077888,
+              -1.0404229523568473,
+              -1.7625631853783121,
+              -0.700342669797382,
+              0.0011288267937062898,
+              -0.13827843010273172,
+              0.1149116899143581,
+              0.8926834778220969
+            ],
+            [
+              1.90016629527104,
+              1.3047311123336616,
+              -0.0000885151781490687,
+              -0.1202958086724105,
+              -2.086795577519392,
+              1.329150789659522,
+              2.3001981063171977,
+              -1.2856745719032814,
+              -0.6454491489604302,
+              -1.0403950688656827,
+              -1.763486865581752,
+              -0.6998336978158112,
+              0.000056255483900491775,
+              0.11154099930665685,
+              0.11513644986709316,
+              0.8926126505871801
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7243718584065917,
+                "y": 2.000339218587041,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.18923317382884985,
+                "y": 1.892053277299669,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7241499311727599,
+                "y": 1.994679553474892,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.28795977370087855,
+                "y": 2.121304737876101,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-4",
+          "phase": "countdown",
+          "clock": 0.03333333333333333,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [],
+          "first": null,
+          "manifold": [],
+          "last": {
+            "t": 0.0012117091210469765,
+            "normal": {
+              "x": 0.12417480134808682,
+              "y": 0.9922603583284798
+            },
+            "pointA": {
+              "x": 0.20775458719984188,
+              "y": 2.0437673607242037,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": 0.20795374719928775,
+              "y": 2.0420245549141103,
+              "z": 0.177
+            },
+            "keyA": "weapon-head",
+            "keyB": "weapon-flex-2",
+            "anchorA": [
+              1,
+              0.999999999999998
+            ],
+            "anchorB": [
+              -0.929259835631078,
+              1.0000000000000229
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0.01412320111985106,
+            "frictionImpulse": 0.0013515355930689183,
+            "frictionState": "sliding",
+            "slidePower": 0.004792565585304028,
+            "closingSpeed": 0.22033287893923378,
+            "slideSpeed": 0.05400287145951328,
+            "dissipatedWork": 0.0014854804618533966,
+            "flexWork": 0.000048130786951634515,
+            "contactIterations": 3,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0,
+            "iterations": 0,
+            "at": {
+              "x": 0.207030631474054,
+              "y": 2.042204227893178,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9004743947530296,
+              1.3048406222851887,
+              -0.0005862920660903499,
+              -0.12044326156440677,
+              -2.080564299464533,
+              1.3271599628356778,
+              2.300689548200958,
+              -1.284625905660686,
+              -0.6449930576119169,
+              -1.0397651434819883,
+              -1.7625883018004302,
+              -0.6999458699358034,
+              0.0008991217264051446,
+              -0.13178697957529364,
+              0.114548292859279,
+              0.8923238950450368
+            ],
+            [
+              1.9002185762130737,
+              1.3048308531400015,
+              -0.0001179372499953884,
+              -0.12038769050673996,
+              -2.0851977661509946,
+              1.3328453873240464,
+              2.300339505939295,
+              -1.2855787935678522,
+              -0.6456163125580241,
+              -1.039988053456427,
+              -1.7635274829903351,
+              -0.6995065941457514,
+              -0.00007679453993839847,
+              0.1014794529659203,
+              0.11492603621452332,
+              0.8923555623183792
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7235046747512117,
+                "y": 1.9983355008910317,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.1903736267563848,
+                "y": 1.8923805573583579,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7253881964659619,
+                "y": 1.997418395947787,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.28726858983762904,
+                "y": 2.119590770086783,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-5",
+          "phase": "countdown",
+          "clock": 0.041666666666666664,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [],
+          "first": null,
+          "manifold": [],
+          "last": {
+            "t": 0.0015091607435433981,
+            "normal": {
+              "x": 0.11992977216680203,
+              "y": 0.9927823778391813
+            },
+            "pointA": {
+              "x": 0.2086092011518243,
+              "y": 2.0439092737643025,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": 0.20870995407166265,
+              "y": 2.042585293216554,
+              "z": 0.177
+            },
+            "keyA": "weapon-head",
+            "keyB": "weapon-flex-2",
+            "anchorA": [
+              1.0000000000000002,
+              1.000000000000001
+            ],
+            "anchorB": [
+              -0.9272070671494347,
+              0.9999999999999779
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0.01070140980967906,
+            "frictionImpulse": 0.001050053956635523,
+            "frictionState": "sliding",
+            "slidePower": 0.002110492264581657,
+            "closingSpeed": 0.16709859584050626,
+            "slideSpeed": 0.035210004872304794,
+            "dissipatedWork": 0.0008483889861026373,
+            "flexWork": 0.00002751664853118962,
+            "contactIterations": 3,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0,
+            "iterations": 0,
+            "at": {
+              "x": 0.20778835815575092,
+              "y": 2.0425765390768165,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.900584932315556,
+              1.3049878266487855,
+              -0.0006179822985148572,
+              -0.120547298950511,
+              -2.08206710367505,
+              1.324254028178967,
+              2.3008793609981484,
+              -1.2845562042360625,
+              -0.6452462404410088,
+              -1.0391116830748774,
+              -1.7625816677226809,
+              -0.699562909206476,
+              0.0007315944437738725,
+              -0.12420498615820916,
+              0.11417969281691127,
+              0.8919659942605666
+            ],
+            [
+              1.9002675555026445,
+              1.3049392249761016,
+              -0.0001324504982492525,
+              -0.12045053270803269,
+              -2.083341310548473,
+              1.3363156502476619,
+              2.3004466032956605,
+              -1.285576863918186,
+              -0.6458216158007796,
+              -1.039550260766999,
+              -1.763603524156753,
+              -0.6991377159556135,
+              -0.00033178477738358915,
+              0.0912138474696017,
+              0.11470807545545417,
+              0.8920772170272966
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7225161632226418,
+                "y": 1.9959300582997395,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.19167976283441324,
+                "y": 1.8927515292479833,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7265972325918524,
+                "y": 2.0003312007981497,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.28661974380363886,
+                "y": 2.117766390838428,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-6",
+          "phase": "countdown",
+          "clock": 0.049999999999999996,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [],
+          "first": null,
+          "manifold": [],
+          "last": {
+            "t": 0.0018712554311823355,
+            "normal": {
+              "x": 0.11536818374736653,
+              "y": 0.9933227985800154
+            },
+            "pointA": {
+              "x": 0.20947644899977882,
+              "y": 2.0441454963186305,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": 0.20949255266236128,
+              "y": 2.0431037863778516,
+              "z": 0.177
+            },
+            "keyA": "weapon-head",
+            "keyB": "weapon-flex-2",
+            "anchorA": [
+              0.9999999999999996,
+              0.999999999999998
+            ],
+            "anchorB": [
+              -0.9260836988632656,
+              1.00000000000002
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0.008234400110304808,
+            "frictionImpulse": 0.0008184393279444291,
+            "frictionState": "sliding",
+            "slidePower": 0.0005672685047253767,
+            "closingSpeed": 0.1286668112532955,
+            "slideSpeed": 0.019898107678856216,
+            "dissipatedWork": 0.0004969862370973969,
+            "flexWork": 0.000016128251782904468,
+            "contactIterations": 3,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0,
+            "iterations": 0,
+            "at": {
+              "x": 0.20863853226408308,
+              "y": 2.0429998470569224,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9006923924764059,
+              1.305125745734265,
+              -0.0006669426028962282,
+              -0.12067919828499318,
+              -2.0837309438720313,
+              1.321330662485158,
+              2.301029243389291,
+              -1.2844292719531059,
+              -0.6454588080657226,
+              -1.038500781582943,
+              -1.7625514019349833,
+              -0.6992049664005094,
+              0.0006211029683358351,
+              -0.11617418163636013,
+              0.11383029934876504,
+              0.8916267703443229
+            ],
+            [
+              1.9003159591411762,
+              1.3050529170028675,
+              -0.00013758978358786533,
+              -0.12049402116021204,
+              -2.08137092696505,
+              1.339381334550675,
+              2.3005220624615244,
+              -1.2856171651771728,
+              -0.6460503355425418,
+              -1.0390912443734293,
+              -1.76369829276368,
+              -0.6987471662272442,
+              -0.000656974368933361,
+              0.08140595564081117,
+              0.11448292798413387,
+              0.891786562078512
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7214936606074334,
+                "y": 1.9933168760944089,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.19303404350836573,
+                "y": 1.8931216736293333,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7277047225663098,
+                "y": 2.0032077553314416,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.2860495245871417,
+                "y": 2.1159103887749606,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-7",
+          "phase": "countdown",
+          "clock": 0.05833333333333333,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [],
+          "first": null,
+          "manifold": [],
+          "last": {
+            "t": 0.00227227587380593,
+            "normal": {
+              "x": 0.11076454349020932,
+              "y": 0.9938466762561545
+            },
+            "pointA": {
+              "x": 0.21031372337543291,
+              "y": 2.0444141655508288,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": 0.2102689080038984,
+              "y": 2.0435713007588525,
+              "z": 0.177
+            },
+            "keyA": "weapon-head",
+            "keyB": "weapon-flex-2",
+            "anchorA": [
+              1,
+              1.000000000000002
+            ],
+            "anchorB": [
+              -0.9257289187193832,
+              0.999999999999991
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0.00654629382766195,
+            "frictionImpulse": -0.00012035928085914249,
+            "frictionState": "sticking",
+            "slidePower": 0.000004610787733662876,
+            "closingSpeed": 0.10131333212815294,
+            "slideSpeed": 0.008775672965069481,
+            "dissipatedWork": 0.00030455623282937307,
+            "flexWork": 0.000009885216688370837,
+            "contactIterations": 3,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0,
+            "iterations": 0,
+            "at": {
+              "x": 0.2095027900715339,
+              "y": 2.043424625581671,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9007915895823821,
+              1.305250960313977,
+              -0.0007296254015853054,
+              -0.12083400707929288,
+              -2.0854719467000633,
+              1.3185306451497638,
+              2.301138482835985,
+              -1.284286129458787,
+              -0.6456289595168372,
+              -1.037950414762766,
+              -1.7625058250302235,
+              -0.6988750601769859,
+              0.0005490859113401835,
+              -0.10809532387843199,
+              0.1135127468496568,
+              0.8913140015853817
+            ],
+            [
+              1.9003644601593483,
+              1.305168351808795,
+              -0.00013774169172432518,
+              -0.12052623348849967,
+              -2.0793907583388602,
+              1.3420207434457616,
+              2.3005683776223806,
+              -1.2856665075216682,
+              -0.6462890983357134,
+              -1.0386240026101932,
+              -1.763800180889645,
+              -0.6983511035458837,
+              -0.0010118632423495517,
+              0.07232550134181083,
+              0.11425460437968327,
+              0.8914925359767639
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7204873473054216,
+                "y": 1.9906276460115215,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.19436799787297954,
+                "y": 1.8934695386696918,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7286904323314091,
+                "y": 2.0059381157261704,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.2855588571223059,
+                "y": 2.114095100903167,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "countdown-tick-8",
+          "phase": "countdown",
+          "clock": 0.06666666666666667,
+          "base": [
+            -1.9,
+            1.9
+          ],
+          "independentSteel": [],
+          "first": null,
+          "manifold": [],
+          "last": {
+            "t": 0.00272802290429673,
+            "normal": {
+              "x": 0.10630949216800348,
+              "y": 0.9943330889973346
+            },
+            "pointA": {
+              "x": 0.21109125525288638,
+              "y": 2.04468761492316,
+              "z": 0.177
+            },
+            "pointB": {
+              "x": 0.21102472589983212,
+              "y": 2.0439928873157758,
+              "z": 0.177
+            },
+            "keyA": "weapon-head",
+            "keyB": "weapon-flex-2",
+            "anchorA": [
+              1,
+              0.999999999999999
+            ],
+            "anchorB": [
+              -0.9259228582851542,
+              0.9999999999999878
+            ],
+            "bodyA": "weapon",
+            "bodyB": "weapon",
+            "impulse": 0.005323592087172818,
+            "frictionImpulse": -0.0005322678236968564,
+            "frictionState": "sliding",
+            "slidePower": 0.00018140189489006839,
+            "closingSpeed": 0.08185857728010583,
+            "slideSpeed": 0.0033354969224295254,
+            "dissipatedWork": 0.0001999516262767686,
+            "flexWork": 0.0000060808487499022044,
+            "contactIterations": 2,
+            "contactConverged": true,
+            "contactBacktracks": 0,
+            "penetration": 0,
+            "iterations": 0,
+            "at": {
+              "x": 0.21033782191825684,
+              "y": 2.043826440653548,
+              "z": 0.177
+            }
+          },
+          "bodyContacts": [],
+          "q": [
+            [
+              -1.9008804273962328,
+              1.305362519948085,
+              -0.0008027839070432871,
+              -0.12100678418160479,
+              -2.0872368929969896,
+              1.3159490043737359,
+              2.3012108141672716,
+              -1.2841587500939264,
+              -0.6457591155108359,
+              -1.037465739860675,
+              -1.762450511890762,
+              -0.6985733893303508,
+              0.0004958154457466075,
+              -0.10025283005655135,
+              0.11323136924345117,
+              0.8910302074995116
+            ],
+            [
+              1.900413096829573,
+              1.3052824143363795,
+              -0.00013545554101582842,
+              -0.12055243469237131,
+              -2.0774843450257925,
+              1.344295494257123,
+              2.3005886211569977,
+              -1.28571136574676,
+              -0.6465279615440466,
+              -1.0381601770531241,
+              -1.763901326614881,
+              -0.6979627275867378,
+              -0.0013714625306826232,
+              0.06408900780186985,
+              0.11402735368195208,
+              0.8912030249889757
+            ]
+          ],
+          "hands": [
+            {
+              "hand": {
+                "x": -0.7195328237567052,
+                "y": 1.9879536550844064,
+                "z": 0.17
+              },
+              "tip": {
+                "x": 0.1956334506493621,
+                "y": 1.893769309061868,
+                "z": 0.17
+              }
+            },
+            {
+              "hand": {
+                "x": 0.7295647750455223,
+                "y": 2.0084681282042536,
+                "z": 0.17
+              },
+              "tip": {
+                "x": -0.28512302239982246,
+                "y": 2.1124310064938534,
+                "z": 0.17
+              }
+            }
+          ],
+          "score": [
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "stable": true
+}

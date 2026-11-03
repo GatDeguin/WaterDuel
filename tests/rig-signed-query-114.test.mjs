@@ -1,7 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {collisionModules,collisionPair,resolveCollisionPair,rigState} from './fixtures/rig-collision-reference-114.mjs';
-const {reference,candidate}=await collisionModules();
+// Keep the default-trial rig frozen, but share the corrected contact algorithm
+// so cache equivalence never requires reproducing an embedded compound bug.
+const {reference,candidate}=await collisionModules({fixedContactReference:true});
 const inputs=[{x:0,y:0},{x:0,y:.006},{x:0,y:-.006},{x:.004,y:0},{x:-.004,y:0},{x:.003,y:-.006},{x:-.003,y:.006},{x:.2,y:-.3},{x:-.2,y:.3},{x:9,y:-9}];
 
 test('immutable contact-query API exists without replacing default trial or react semantics',()=>{
@@ -88,7 +90,8 @@ test('native optimization eligibility rejects own/prototype method overrides and
   assert.equal(candidate.ArticulatedRig.createNativeContactQuery({trialContactImpulse:prior},{}),null,'duck typed legacy is never presumed native');
 });
 
-test('32 real native weapon pairs retain their full four-step bind/body/physics trace against 1.13',()=>{
+test('32 real native weapon pairs retain their full four-step trace against the frozen default rig with the same corrected contact algorithm',()=>{
+  assert.equal(reference.ArticulatedRig.createNativeContactQuery,undefined,'the independent frozen reference cannot use the new snapshot cache');
   let pairs=0,contacts=0,friction=0;
   for(const dir of [-1,1])for(const scale of [1,1.18])for(const weapon of ['sword','spear','axe','maul'])for(const grip of ['normal','reverse']){
     const spec={dir,scale,weapon,grip,flex:true,sweep:true},a=collisionPair(reference,spec),b=collisionPair(candidate,spec);

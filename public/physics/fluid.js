@@ -14,6 +14,7 @@ const FIXED_STEP=1/120,DISCHARGE=.62;
 const finite=(value,fallback=0)=>Number.isFinite(value)?value:fallback;
 const lerp=(a,b,t)=>a+(b-a)*t;
 const fract=x=>x-Math.floor(x);
+const nativeVolumeList=(fluid,key)=>!Object.hasOwn(fluid,key)&&Object.getOwnPropertyDescriptor(Object.getPrototypeOf(fluid),key)?.get===VOLUME_LIST_GETTERS[key];
 // Three signed 16-bit coordinates fit exactly in a 48-bit integer (IEEE-754
 // integers are exact through 53 bits). Remote/out-of-domain cells retain an
 // unambiguous string key rather than wrapping onto a physical neighbour.
@@ -120,8 +121,14 @@ export class FluidVolume {
   get volume(){return this.particles.reduce((sum,p)=>sum+p.volume,0);}
   get releasedParticles(){return this.leaking?this.particles.filter(p=>p.free):this.released?this.particles:[];}
   get retainedParticles(){return this.leaking?this.particles.filter(p=>!p.free):this.released?[]:this.particles;}
-  get releasedVolume(){return this.releasedParticles.reduce((sum,p)=>sum+p.volume,0);}
-  get retainedVolume(){return this.retainedParticles.reduce((sum,p)=>sum+p.volume,0);}
+  get releasedVolume(){
+    if(this.leaking&&nativeVolumeList(this,'releasedParticles'))return this.particles.reduce((sum,p)=>p.free?sum+p.volume:sum,0);
+    return this.releasedParticles.reduce((sum,p)=>sum+p.volume,0);
+  }
+  get retainedVolume(){
+    if(this.leaking&&nativeVolumeList(this,'retainedParticles'))return this.particles.reduce((sum,p)=>!p.free?sum+p.volume:sum,0);
+    return this.retainedParticles.reduce((sum,p)=>sum+p.volume,0);
+  }
   get retainedCOM(){return this.retainedMassProperties().center;}
   retainedMassProperties(){
     const particles=this.retainedParticles,volume=particles.reduce((sum,p)=>sum+p.volume,0),center={x:0,y:0,z:0};
@@ -376,3 +383,5 @@ export class FluidVolume {
       momentum:this.particles.reduce((m,p)=>({x:m.x+p.vx*p.volume*WATER_DENSITY,y:m.y+p.vy*p.volume*WATER_DENSITY,z:m.z+p.vz*p.volume*WATER_DENSITY}),{x:0,y:0,z:0})};
   }
 }
+// Preserve public list overrides instead of silently bypassing their values.
+const VOLUME_LIST_GETTERS=Object.freeze(Object.fromEntries(['releasedParticles','retainedParticles'].map(key=>[key,Object.getOwnPropertyDescriptor(FluidVolume.prototype,key).get])));

@@ -4,6 +4,10 @@
 
 En móvil, Pages abre la experiencia individual con los dos joysticks y el menú ☰. En PC conserva la escena sin mandos ni menús. Para jugar en PC con los QR y dos móviles en la misma Wi-Fi, usá el servidor LAN descrito abajo: Pages no ejecuta el servidor de sesiones. Los cambios en `main` se prueban y despliegan automáticamente; [configuración del despliegue](docs/GITHUB_PAGES.md).
 
+## Apertura y ruptura 1.13.2
+
+En versus con dos mandos, las armas se colocan con separación física durante la cuenta atrás, incluidas las combinaciones de espada y hacha. Si una hoja queda dentro de un cabezal, la recuperación considera sus piezas completas y evita correcciones que se empujen en sentidos opuestos, también contra IA. La explosión del globo vuelve a velocidad normal, con su órbita de cámara y el paso físico de 1/120 s. El agua evita listas temporales al consultar sus volúmenes; el ensayo de fuga normal/jefe consume un 15,6 % menos de CPU con los mismos estados físicos. Es una medición del componente, no de los FPS del juego completo. [Cambios y verificación](docs/CONTACTOS_AGUA_1.13.2.md).
+
 ## Contactos más eficientes 1.13.1
 
 Las colisiones de tela usan cálculos escalares y los choques de armas preparan una vez los datos compartidos entre sus consultas físicas. En ocho recetas de combate, cuatro rondas comparativas reducen el tiempo de física aproximadamente un 28 %, conservando exactamente estados, contactos y eventos. Se mantienen el detalle visual, las fuerzas, los desvíos, el daño y la precisión de la perforación. El porcentaje corresponde al motor CPU medido; no certifica FPS sostenidos. [Mediciones, reproducción y límites](docs/OPTIMIZACION_COLISIONES_1.13.1.md).

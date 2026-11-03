@@ -4,12 +4,27 @@ import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {ArticulatedRig} from '../public/physics/articulated-rig.js';
 import {DuelEngine} from '../public/engine.js';
-import {firstWeaponContact,firstWeaponPointContact} from '../public/physics/weapon-bind.js';
+import * as currentContact from '../public/physics/weapon-bind.js';
 
 const bytes=await readFile(new URL('./fixtures/weapon-bind-pre-selected-sampler-1.7.2.js.txt',import.meta.url));
 assert.equal(createHash('sha256').update(bytes).digest('hex'),'f828849fda02f47c0131c76b41be45f08ae0bb2241c1001dc47555176be56cd1','The original CCD source oracle is pinned without edits.');
 const source=bytes.toString('utf8').replace("'./articulated-rig.js'",JSON.stringify(new URL('../public/physics/articulated-rig.js',import.meta.url).href));
 const before=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+let contact=currentContact;
+// Negative control instruments only a private test module's selected sampler.
+// The production source, legacy path and pinned raw CCD fixture stay untouched.
+if(process.env.WATER_DUEL_TEST_SELECTED_SAMPLER_MUTATION==='geometry-x'){
+  const url=new URL('../public/physics/weapon-bind.js',import.meta.url),raw=await readFile(url,'utf8'),marker='sample.set(key,panel);';
+  assert.equal(raw.split(marker).length,2,'unique selected-sampler mutation site');
+  const mutated=raw.replace(marker,'if(panel)panel={...panel,center:{...panel.center,x:panel.center.x+1e-6},vertices:panel.vertices.map(p=>({...p,x:p.x+1e-6}))};'+marker)
+    .replace("'./articulated-rig.js'",JSON.stringify(new URL('../public/physics/articulated-rig.js',import.meta.url).href));
+  contact=await import('data:text/javascript;base64,'+Buffer.from(mutated).toString('base64'));
+}
+const {firstWeaponContact,firstWeaponPointContact}=contact;
+// Compare sampling strategies under the SAME corrected contact algorithm.
+// Binding to the actual rig preserves its private fields and geometry cache;
+// only the optional selected API is hidden, forcing the original full sampler.
+const legacySampler=r=>({...r,collisionGeometryAt:undefined,collisionPanels:r.collisionPanels.bind(r),collisionPanelsAt:r.collisionPanelsAt.bind(r)});
 const state=r=>({q:[...r.q],previousQ:[...r.previousQ],velocity:[...r.velocity],target:[...r.target],depth:{...r.depth},equipment:{...r.equipment},length:r.swordLength,previousLength:r.previousSwordLength,flex:r.weaponFlex?{offset:r.weaponFlex.offset,previous:r.weaponFlex.previousOffset}:null});
 
 function* fixtures(){
@@ -25,11 +40,18 @@ function* fixtures(){
   }
 }
 
-test('selected weapon CCD retains exact entry, manifold and anchors for rigid/flexible weapons, both roles and boss scale',()=>{
+test('selected and legacy samplers retain exact corrected entry, manifold and anchors for rigid/flexible weapons, both roles and boss scale',()=>{
   let pairs=0,flexed=0,twoHanded=0;
   for(const pair of fixtures()){
     const saved=pair.map(state);
-    assert.deepEqual(firstWeaponContact(...pair),before.firstWeaponContact(...pair));
+    const legacy=pair.map(legacySampler),selectedHit=firstWeaponContact(...pair),frozenHit=before.firstWeaponContact(...pair);
+    assert.ok(legacy.every(r=>typeof r.collisionGeometryAt==='undefined'),'reference must take the full-frame sampler');
+    assert.deepEqual(selectedHit,firstWeaponContact(...legacy));
+    // The 1.7.2 raw still owns positive-time entry and every unheaded case.
+    // Headed t0 recovery intentionally no longer repeats the trapped normal;
+    // its geometry/escape contract has a captured native regression separately.
+    if(selectedHit?.t!==0||frozenHit?.t>0||!pair.some(r=>r.collisionPanels().some(p=>p.key==='weapon-head')))
+      assert.deepEqual(selectedHit,frozenHit);
     for(const r of pair){
       const p=r.pose().tip,from={x:p.x-.2,y:p.y+.1,z:.177},to={x:p.x+.2,y:p.y-.1,z:.177};
       assert.deepEqual(firstWeaponPointContact(r,from,to),before.firstWeaponPointContact(r,from,to));

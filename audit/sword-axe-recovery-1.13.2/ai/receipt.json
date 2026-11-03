@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "status": "complete",
+  "decision": "All six experimental AI candidates rejected. Production retains the published AI policy; geometric weapon opening and contact reset are limited to versus.",
+  "finalEngineSHA256": "b06cbb0b67d2bb90985a9d6a56b50a2a19ce1675ff6e070a97ce885690e26da6",
+  "geometricParentEngineSHA256": "3362eeb0af93573e8e8a40562f61814d10f1bfd34332f84734c716d72a5e7b95",
+  "publishedBaselineEngineSHA256": "ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d",
+  "unchangedUpdateAISHA256": "4882c9396be21d67b242859144bab5b59be6ac4743de6c564cf37b2e5773d980",
+  "historicalTest": {
+    "path": "tests/ai.test.mjs",
+    "sha256": "0c3566caa07f623240a7d3e511b0eca6ae2206e92760dd511f1055f761424d0e",
+    "assertionsArrangeAndDurationsChanged": false
+  },
+  "experimentalTest": {
+    "path": "audit/sword-axe-recovery-1.13.2/ai/ai-reach-spacing-115.experimental.test.mjs.txt",
+    "sha256": "d94c10b0c6385a74fcd9b5e79dab0f949cba28be513aaf7f1028ed5200b9b762",
+    "activeDiscovery": false,
+    "bytePreserved": true
+  },
+  "dependencies": {
+    "public/physics/weapon-bind.js": "a30c937900e00722f2bac6f9ab74e35ed7d92d9d29e64903486ce3261b30daad",
+    "public/physics/articulated-rig.js": "378248716a14da0a662929e2d04c26c416d334f8863c132eb2c7561e4fc76adb",
+    "public/physics/fluid.js": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+    "public/physics/step-clock.js": "dd53846564dee5ba33f9dc59ab49ef0b1e845806f0d2bd9b91dd4a4426a060dd"
+  },
+  "rejectedCandidates": [
+    {
+      "id": 1,
+      "privateLogicalSHA256": "3cc8d666f502bc322ec3da98cb13daac5dbbedfdf7293d700efe26d3781e31f9",
+      "result": "CPU guard at1783ticks; zero thrust/burst; not promoted"
+    },
+    {
+      "id": 2,
+      "privateLogicalSHA256": "d031df8ee4f698b72a1ec62164465b712ac4dad9aa6bd6afc748e852324df43b",
+      "result": "CPU guard at2249ticks; escape occurs but zero thrust/burst; not promoted"
+    },
+    {
+      "id": 3,
+      "privateLogicalSHA256": "683a0a1ab22ed4b28b68a4a80d6be7b847ddbea50139bca7ed3549049f9854e5",
+      "result": "3600ticks: score0/2 but phaseburst, historical matchover fails; not promoted"
+    },
+    {
+      "id": 4,
+      "privateLogicalSHA256": "ca406867ca83750d457bd3974440a4c4eedb71038a0c7cf426ee4d3585fb76f0",
+      "result": "3600replay green; historical15/16, boss physical counter fails; not promoted"
+    },
+    {
+      "id": 5,
+      "privateLogicalSHA256": "4195d81905734332b9b0297cd32891c8d0dcc2a84854055f823d0e44af4ce528",
+      "result": "3600replay and boss counter green; historical15/16, rookie125s remainsfight; not promoted"
+    },
+    {
+      "id": 6,
+      "privateLogicalSHA256": "e8fe623eb6bbdf0a1e09ae74a1dc5be33e0beb79ae970ab0b48632c4607511b6",
+      "result": "10units, rookie and boss counter green; 3600replay remainsfight0/1; not promoted"
+    }
+  ],
+  "finalGate": {
+    "command": "C:/Program Files/nodejs/node.exe --test tests/ai.test.mjs",
+    "source": "production final engine, unmodified historical test",
+    "log": "audit/sword-axe-recovery-1.13.2/ai/raw/final-original-ai.log",
+    "status": "passed",
+    "tests": 16,
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "durationMs": 180160.8243
+  },
+  "rawArtifacts": {
+    "preserveBytes": true,
+    "delivery": "Root packages the listed raw artifacts into raw-artifacts.zip with an index; copied source bytes have not been normalized."
+  },
+  "fpsClaims": false,
+  "oldFeatureCutReceiptRegenerated": false,
+  "receiptSelfExcludedFromArtifacts": true,
+  "artifacts": [
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/report.md",
+      "bytes": 5030,
+      "sha256": "5ebc32004332238efa45c28700300d0d2f6d3bc95be729d1c90c6884e15cfe5e"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/ai-reach-spacing-115.experimental.test.mjs.txt",
+      "bytes": 10347,
+      "sha256": "d94c10b0c6385a74fcd9b5e79dab0f949cba28be513aaf7f1028ed5200b9b762"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/final-original-ai.log",
+      "bytes": 1715,
+      "sha256": "b5884b5aafaec65bc7a363c698180a8e508042564f426293ef2590ee2e1e69db"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/hunk4-original-red.log",
+      "bytes": 2727,
+      "sha256": "0acb762f8d842f5aefe29651003f305df20b27d67e29ea3db74e43e214da1449"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/hunk5-original-red.log",
+      "bytes": 2739,
+      "sha256": "e1c2f8c092a615649ca29eb1608c81a70c63c328e347b9613a0b110d19c882d1"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/hunk4-rejected.patch",
+      "bytes": 1520,
+      "sha256": "1c549b86f97f716180620c4a68762c119ce872110550e4ec84ecb3ca0d3d5d9f"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/hunk5-rejected.patch",
+      "bytes": 2277,
+      "sha256": "9c177f5c236faf077ff6fd5351878fd0a7bb0438d2aae968a33187561ae6cf93"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/hunk1-rejected-test.mjs.txt",
+      "bytes": 2010,
+      "sha256": "032b48fd513b708598cf690066c824b3bacbac98f642532e9c20fc335c6ba570"
+    }
+  ]
+}

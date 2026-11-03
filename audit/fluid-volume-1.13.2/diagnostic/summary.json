@@ -1,0 +1,1031 @@
+{
+  "scope": "Root-cause diagnostic, not a replacement paired epoch or promotion gate. Uninstrumented trace processes separated A/B; original and boss-dimension recipes labelled. Counter copies run outside timing in separate children. No isolated microread warmup in physical process.",
+  "results": [
+    {
+      "variant": "A",
+      "recipeName": "normal",
+      "recipe": {
+        "count": 200,
+        "scale": 1,
+        "impactScale": 1,
+        "areaScale": 1,
+        "label": "normal API"
+      },
+      "mode": "trace",
+      "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+      "warmupBatches": 4,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.17764203518124735
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.17764203518124735
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.17764203518124735
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.17764203518124735
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        }
+      ],
+      "samples": [
+        {
+          "ms": 6.066600000000008
+        },
+        {
+          "ms": 4.903899999999993
+        },
+        {
+          "ms": 4.767300000000006
+        },
+        {
+          "ms": 5.171399999999991
+        }
+      ]
+    },
+    {
+      "variant": "B",
+      "recipeName": "normal",
+      "recipe": {
+        "count": 200,
+        "scale": 1,
+        "impactScale": 1,
+        "areaScale": 1,
+        "label": "normal API"
+      },
+      "mode": "trace",
+      "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+      "warmupBatches": 4,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.17764203518124735
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.17764203518124735
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.17764203518124735
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.17764203518124735
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        }
+      ],
+      "samples": [
+        {
+          "ms": 5.224399999999989
+        },
+        {
+          "ms": 4.565000000000012
+        },
+        {
+          "ms": 4.0837999999999965
+        },
+        {
+          "ms": 4.100099999999998
+        }
+      ]
+    },
+    {
+      "variant": "A",
+      "recipeName": "original260",
+      "recipe": {
+        "count": 260,
+        "scale": 1.18,
+        "impactScale": 1,
+        "areaScale": 1,
+        "label": "original diagnostic 1.18, unscaled impact/area"
+      },
+      "mode": "trace",
+      "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+      "warmupBatches": 4,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2918715483479172
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 26,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.029187154834791642,
+            "retainedVolume": 0.26268439351312534
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2918715483479172
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 26,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.029187154834791642,
+            "retainedVolume": 0.26268439351312534
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2918715483479172
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 26,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.029187154834791642,
+            "retainedVolume": 0.26268439351312534
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2918715483479172
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 26,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.029187154834791642,
+            "retainedVolume": 0.26268439351312534
+          }
+        }
+      ],
+      "samples": [
+        {
+          "ms": 7.158999999999992
+        },
+        {
+          "ms": 6.178700000000006
+        },
+        {
+          "ms": 6.174900000000008
+        },
+        {
+          "ms": 5.788799999999995
+        }
+      ]
+    },
+    {
+      "variant": "B",
+      "recipeName": "original260",
+      "recipe": {
+        "count": 260,
+        "scale": 1.18,
+        "impactScale": 1,
+        "areaScale": 1,
+        "label": "original diagnostic 1.18, unscaled impact/area"
+      },
+      "mode": "trace",
+      "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+      "warmupBatches": 4,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2918715483479172
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 26,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.029187154834791642,
+            "retainedVolume": 0.26268439351312534
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2918715483479172
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 26,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.029187154834791642,
+            "retainedVolume": 0.26268439351312534
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2918715483479172
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 26,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.029187154834791642,
+            "retainedVolume": 0.26268439351312534
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2918715483479172
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 26,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.029187154834791642,
+            "retainedVolume": 0.26268439351312534
+          }
+        }
+      ],
+      "samples": [
+        {
+          "ms": 5.605100000000007
+        },
+        {
+          "ms": 5.083300000000008
+        },
+        {
+          "ms": 4.764099999999999
+        },
+        {
+          "ms": 4.711799999999997
+        }
+      ]
+    },
+    {
+      "variant": "A",
+      "recipeName": "boss260",
+      "recipe": {
+        "count": 260,
+        "scale": 1.16,
+        "impactScale": 1.16,
+        "areaScale": 1.3456,
+        "label": "boss dimensions 1.16, scaled impact/area API; not full engine"
+      },
+      "mode": "trace",
+      "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+      "warmupBatches": 4,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2772807421462682
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 36,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.03839271814332961,
+            "retainedVolume": 0.23888802400293835
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2772807421462682
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 36,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.03839271814332961,
+            "retainedVolume": 0.23888802400293835
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2772807421462682
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 36,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.03839271814332961,
+            "retainedVolume": 0.23888802400293835
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2772807421462682
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 36,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.03839271814332961,
+            "retainedVolume": 0.23888802400293835
+          }
+        }
+      ],
+      "samples": [
+        {
+          "ms": 7.198300000000003
+        },
+        {
+          "ms": 6.669900000000013
+        },
+        {
+          "ms": 6.346199999999996
+        },
+        {
+          "ms": 6.429999999999993
+        }
+      ]
+    },
+    {
+      "variant": "B",
+      "recipeName": "boss260",
+      "recipe": {
+        "count": 260,
+        "scale": 1.16,
+        "impactScale": 1.16,
+        "areaScale": 1.3456,
+        "label": "boss dimensions 1.16, scaled impact/area API; not full engine"
+      },
+      "mode": "trace",
+      "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+      "warmupBatches": 4,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2772807421462682
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 36,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.03839271814332961,
+            "retainedVolume": 0.23888802400293835
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2772807421462682
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 36,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.03839271814332961,
+            "retainedVolume": 0.23888802400293835
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2772807421462682
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 36,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.03839271814332961,
+            "retainedVolume": 0.23888802400293835
+          }
+        },
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2772807421462682
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 36,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.03839271814332961,
+            "retainedVolume": 0.23888802400293835
+          }
+        }
+      ],
+      "samples": [
+        {
+          "ms": 6.074799999999996
+        },
+        {
+          "ms": 5.4482
+        },
+        {
+          "ms": 5.449399999999997
+        },
+        {
+          "ms": 5.308400000000006
+        }
+      ]
+    },
+    {
+      "variant": "A",
+      "recipeName": "normal",
+      "recipe": {
+        "count": 200,
+        "scale": 1,
+        "impactScale": 1,
+        "areaScale": 1,
+        "label": "normal API"
+      },
+      "mode": "count",
+      "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+      "warmupBatches": 0,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.17764203518124735
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        }
+      ],
+      "samples": [
+        {
+          "counts": {
+            "releasedVolume": 0,
+            "retainedVolume": 390,
+            "releasedParticles": 72,
+            "retainedParticles": 492,
+            "filteredArrays": 564
+          }
+        }
+      ]
+    },
+    {
+      "variant": "B",
+      "recipeName": "normal",
+      "recipe": {
+        "count": 200,
+        "scale": 1,
+        "impactScale": 1,
+        "areaScale": 1,
+        "label": "normal API"
+      },
+      "mode": "count",
+      "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+      "warmupBatches": 0,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.17764203518124735
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 200,
+            "free": 30,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.026646305277187216,
+            "retainedVolume": 0.15099572990406032
+          }
+        }
+      ],
+      "samples": [
+        {
+          "counts": {
+            "releasedVolume": 0,
+            "retainedVolume": 390,
+            "releasedParticles": 72,
+            "retainedParticles": 102,
+            "filteredArrays": 174
+          }
+        }
+      ]
+    },
+    {
+      "variant": "A",
+      "recipeName": "original260",
+      "recipe": {
+        "count": 260,
+        "scale": 1.18,
+        "impactScale": 1,
+        "areaScale": 1,
+        "label": "original diagnostic 1.18, unscaled impact/area"
+      },
+      "mode": "count",
+      "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+      "warmupBatches": 0,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2918715483479172
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 26,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.029187154834791642,
+            "retainedVolume": 0.26268439351312534
+          }
+        }
+      ],
+      "samples": [
+        {
+          "counts": {
+            "releasedVolume": 0,
+            "retainedVolume": 386,
+            "releasedParticles": 72,
+            "retainedParticles": 484,
+            "filteredArrays": 556
+          }
+        }
+      ]
+    },
+    {
+      "variant": "B",
+      "recipeName": "original260",
+      "recipe": {
+        "count": 260,
+        "scale": 1.18,
+        "impactScale": 1,
+        "areaScale": 1,
+        "label": "original diagnostic 1.18, unscaled impact/area"
+      },
+      "mode": "count",
+      "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+      "warmupBatches": 0,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2918715483479172
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 26,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.029187154834791642,
+            "retainedVolume": 0.26268439351312534
+          }
+        }
+      ],
+      "samples": [
+        {
+          "counts": {
+            "releasedVolume": 0,
+            "retainedVolume": 386,
+            "releasedParticles": 72,
+            "retainedParticles": 98,
+            "filteredArrays": 170
+          }
+        }
+      ]
+    },
+    {
+      "variant": "A",
+      "recipeName": "boss260",
+      "recipe": {
+        "count": 260,
+        "scale": 1.16,
+        "impactScale": 1.16,
+        "areaScale": 1.3456,
+        "label": "boss dimensions 1.16, scaled impact/area API; not full engine"
+      },
+      "mode": "count",
+      "sourceHash": "cc52b342969598de6d4757894b54e4e8ff26af0bbe1afe0f8447f0a40af7673a",
+      "warmupBatches": 0,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2772807421462682
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 36,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.03839271814332961,
+            "retainedVolume": 0.23888802400293835
+          }
+        }
+      ],
+      "samples": [
+        {
+          "counts": {
+            "releasedVolume": 0,
+            "retainedVolume": 396,
+            "releasedParticles": 72,
+            "retainedParticles": 504,
+            "filteredArrays": 576
+          }
+        }
+      ]
+    },
+    {
+      "variant": "B",
+      "recipeName": "boss260",
+      "recipe": {
+        "count": 260,
+        "scale": 1.16,
+        "impactScale": 1.16,
+        "areaScale": 1.3456,
+        "label": "boss dimensions 1.16, scaled impact/area API; not full engine"
+      },
+      "mode": "count",
+      "sourceHash": "12df4bee2cda985fb64b38e4108370d8ed157b0e041897a36e596415815bb31f",
+      "warmupBatches": 0,
+      "stepsPerBatch": 72,
+      "physicalSeconds": 0.6,
+      "phases": [
+        {
+          "initial": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 0,
+            "elapsed": 0,
+            "steps": 0,
+            "releasedVolume": 0,
+            "retainedVolume": 0.2772807421462682
+          },
+          "final": {
+            "released": true,
+            "leaking": true,
+            "count": 260,
+            "free": 36,
+            "elapsed": 0.6000000000000003,
+            "steps": 72,
+            "releasedVolume": 0.03839271814332961,
+            "retainedVolume": 0.23888802400293835
+          }
+        }
+      ],
+      "samples": [
+        {
+          "counts": {
+            "releasedVolume": 0,
+            "retainedVolume": 396,
+            "releasedParticles": 72,
+            "retainedParticles": 108,
+            "filteredArrays": 180
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -9,7 +9,7 @@ function project(c,p,aspect){
  const forward=unit(c.target.map((v,i)=>v-c.eye[i])),right=unit(cross(forward,[0,1,0])),up=cross(right,forward),offset=p.map((v,i)=>v-c.eye[i]),depth=dot(offset,forward),half=depth*Math.tan(c.fov/2);
  return {depth,x:dot(offset,right)/(half*aspect),y:dot(offset,up)/half};
 }
-test('matrix orbit is visibly wider during the existing slow-motion interval, then returns to the original camera',()=>{
+test('matrix orbit is visibly wider during the rupture, then returns to the original camera',()=>{
  const options={phase:'burst',clock:50,round:1,aspect:16/9,burstFocus:{x:1.8,y:2.7,z:.2}},base=duelCamera({...options,phase:'fight'});
  const peak=matrixCamera({...options,phaseClock:1.2}),classic=duelCamera({...options,phaseClock:1.2});
  const yaw=c=>Math.atan2(c.eye[0]-c.target[0],c.eye[2]-c.target[2]),orbit=Math.abs(yaw(peak)-yaw(base))*180/Math.PI;

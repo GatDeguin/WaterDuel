@@ -1,0 +1,168 @@
+{
+  "archive": "audit/sword-axe-recovery-1.13.2/raw-artifacts.zip",
+  "sha256": "6a375ecb3cca9f330520aa8bb3ce7e8f95219d2f5ef75726eab95c25228df530",
+  "rawFiles": [
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-boss260-A.log",
+      "bytes": 822,
+      "sha256": "50a33171c534f5bd29d12dcab2d3caa73f4a9cc19c9d176c98458ea3ba707f08"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-boss260-B.log",
+      "bytes": 822,
+      "sha256": "29b62d4141c25fa561b7d89552407bd530ad5caa5ad59501353a688de18c5598"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-normal-A.log",
+      "bytes": 761,
+      "sha256": "e510b5e7b60cf5212b639f590daf90a04a0da2b7a423e69e434135cc4a5223db"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-normal-B.log",
+      "bytes": 761,
+      "sha256": "1b8571a0d4fd2f52bbf1cfdf93a3b6be4e11a097182c907658d1df4c2d73737c"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-original260-A.log",
+      "bytes": 804,
+      "sha256": "e316fbfbb2f50bbb1e3dc91e9d9c319be3b9218b730a9f207c900eb0975fe4cc"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-count-original260-B.log",
+      "bytes": 803,
+      "sha256": "7b395e5140699fe9f40d6e1196ccc856b34d2b0f8f6ce27aff9fed155d612fac"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-boss260-A.log",
+      "bytes": 43318,
+      "sha256": "918a136c6f714d21ff66add8612fa66e55a984a12c5989466df40cce3bbf9840"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-boss260-B.log",
+      "bytes": 43654,
+      "sha256": "7370705ea3e5cf4736b2dc8eedeb1421990639a9a1c3a76b83433e1bc920d98d"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-normal-A.log",
+      "bytes": 33057,
+      "sha256": "bea2893c8c75bf39b481fc1afcd8eb9b64b598e3c2630fb0c13386578a7a6193"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-normal-B.log",
+      "bytes": 34131,
+      "sha256": "121440d7b1eae6e162c14014986d5a7b658b42a3443fc562a6b46150bccfbf28"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-original260-A.log",
+      "bytes": 34205,
+      "sha256": "b6fdd902027a6fb3f88f4d1833ededdcb64224150468608b23eafabaf1da9fc1"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/diagnostic/volume-diagnostic-trace-original260-B.log",
+      "bytes": 35273,
+      "sha256": "ebc6e00aaef800b1bf7dd09e4789513d1e557456fc3d569eec51974536087ffc"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/green-before-final-nonleaking-path.log",
+      "bytes": 2750,
+      "sha256": "55afef51771f8bdeac2bb2218ffc33f86b448eb6dd76af39f4919add06ebe19f"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/green.log",
+      "bytes": 2097,
+      "sha256": "105d619dc00fc96cf35477bd7691d8d9828f37538f60307c97f406b6ab96a95b"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/paired.stdout.log",
+      "bytes": 9664,
+      "sha256": "84fa71c60aef71a51c9146a8bb30d63a32d020803ba6acd33a579ea6786858bd"
+    },
+    {
+      "file": "audit/fluid-volume-1.13.2/red.log",
+      "bytes": 1434,
+      "sha256": "620bb2cf943e9a956b6193cb757f221f31f1cc9f19729e4e97bfc18c76b43eea"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/final-original-ai.log",
+      "bytes": 1715,
+      "sha256": "b5884b5aafaec65bc7a363c698180a8e508042564f426293ef2590ee2e1e69db"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/hunk4-original-red.log",
+      "bytes": 2727,
+      "sha256": "0acb762f8d842f5aefe29651003f305df20b27d67e29ea3db74e43e214da1449"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/hunk4-rejected.patch",
+      "bytes": 1520,
+      "sha256": "1c549b86f97f716180620c4a68762c119ce872110550e4ec84ecb3ca0d3d5d9f"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/hunk5-original-red.log",
+      "bytes": 2739,
+      "sha256": "e1c2f8c092a615649ca29eb1608c81a70c63c328e347b9613a0b110d19c882d1"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/ai/raw/hunk5-rejected.patch",
+      "bytes": 2277,
+      "sha256": "9c177f5c236faf077ff6fd5351878fd0a7bb0438d2aae968a33187561ae6cf93"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/corrected-contact-oracles-green.log",
+      "bytes": 1923,
+      "sha256": "fed0e2faf67550058d5cfe5676c0c9f4d2c3ea1636dfa03d5cacc4d0faba968a"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/multimanifold-only-red.log",
+      "bytes": 2462,
+      "sha256": "b97c2fd46cfaaecccb89dfa8b715ced2a740e84241683080207f0de87d136cb6"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/oracle-responsibility.patch",
+      "bytes": 9754,
+      "sha256": "285aebb93323aa4c20ed013fa32c805160d6b81969445950c4767868678662f9"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/physics-normal-red.log",
+      "bytes": 1072,
+      "sha256": "9494d5df22752b2fb1345d4d58f25b850545ab1c48ab2e3e7c7ba5f1aa94f0d2"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/physics-red.log",
+      "bytes": 3270,
+      "sha256": "6b7f2307a73c312c5c5b394653fe5ecb4cdb06514b2b8fdfa29f230c20fd6f58"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/selected-sampler-green.log",
+      "bytes": 612,
+      "sha256": "5bd3d19f4adae5b5d12218cce6417f73b0b0c606342c0370869c8de30d174950"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/selected-sampler-negative-control.log",
+      "bytes": 2429,
+      "sha256": "fdc705908caf387ef1a97b13552648eb2bfe3b0bfd374ca2406bb38d0e6a343c"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/snapshot-negative-control.log",
+      "bytes": 5392,
+      "sha256": "69d027674a17c00f913b0492b2ccf69f75339a8e453336ce8da1e602736d193c"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/versus-opening-scope.patch",
+      "bytes": 8337,
+      "sha256": "601dd3eec3b3dcc546841882f2fe6e3886c6774ad10144d2a836c6bbb4efa760"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/versus-scope-green.log",
+      "bytes": 999,
+      "sha256": "efa413986a7d0d2d4ab250e062e2e66a094ade33d2871d4af95da352554251a3"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/versus-scope-red.log",
+      "bytes": 23722,
+      "sha256": "520f8806e0cb43d1b1d757b19fac9bed4ec529dcdcd7a917b21ffb02c598b64f"
+    }
+  ],
+  "verifiedOriginalBytes": true,
+  "reason": "Preserve original CRLF and diff context bytes without rewriting audit evidence or weakening whitespace checks."
+}

@@ -29,14 +29,19 @@ export async function loadCollisionRig(source,tag,{bindSource=null}={}){
   const bind=await import(data(relocate(bindSource,new URL('../../public/physics/weapon-bind.js',import.meta.url),{'./articulated-rig.js':url})+'\n// '+tag));
   return {...module,bind,sourceHash:hash(source),reset(){for(const key of Object.keys(module.__collisionAudit))module.__collisionAudit[key]=0;}};
 }
-export async function collisionModules(){
+export async function collisionModules({fixedContactReference=false}={}){
   const bytes=await fs.readFile(new URL('./articulated-rig-pre-collision-1.13.js.txt',import.meta.url));
   assert.equal(hash(bytes),BASELINE_SHA,'immutable published 1.13 rig, not regenerated from candidate');
-  const current=await fs.readFile(process.env.RIG_COLLISION_114_SOURCE?new URL(process.env.RIG_COLLISION_114_SOURCE,new URL('../../',import.meta.url)):logical,'utf8');
+  let current=await fs.readFile(process.env.RIG_COLLISION_114_SOURCE?new URL(process.env.RIG_COLLISION_114_SOURCE,new URL('../../',import.meta.url)):logical,'utf8');
   const bindBytes=await fs.readFile(new URL('./weapon-bind-pre-query-1.13.js.txt',import.meta.url));
   assert.equal(hash(bindBytes),'96250b199cac641d405f98d0180441e1ffe889754325480557e9fd5c804b7e9a','immutable 1.13 bind counterpart');
   const bindSource=process.env.WEAPON_BIND_114_SOURCE?await fs.readFile(new URL(process.env.WEAPON_BIND_114_SOURCE,new URL('../../',import.meta.url)),'utf8'):null;
-  return {reference:await loadCollisionRig(bytes.toString('utf8'),'reference-114',{bindSource:bindBytes.toString('utf8')}),candidate:await loadCollisionRig(current,'candidate-114',{bindSource})};
+  // A cache oracle must use the SAME corrected contact algorithm on both
+  // sides. The frozen 1.13 rig has no query factory, so its bind takes the
+  // original default-trial path. Raw rig/bind fixtures remain hash-protected.
+  const referenceBind=fixedContactReference?(bindSource??await fs.readFile(new URL('../../public/physics/weapon-bind.js',import.meta.url),'utf8')):bindBytes.toString('utf8');
+  if(process.env.WATER_DUEL_TEST_QUERY_MUTATION==='snapshot-normal')current=replaceOnce(current,'normal:metric.normal,tangent:metric.tangent,cross:metric.cross,','normal:metric.normal+(prepared.layouts?1e-6:0),tangent:metric.tangent,cross:metric.cross,');
+  return {reference:await loadCollisionRig(bytes.toString('utf8'),'reference-114',{bindSource:referenceBind}),candidate:await loadCollisionRig(current,'candidate-114',{bindSource})};
 }
 
 export function collisionPair(module,{dir=1,scale=1,weapon='sword',grip='normal',damage='none',flex=true,sweep=true,mixed=false,deep=false}={}){

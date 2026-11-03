@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "type": "explicit-feature-cut-scope-overlay",
+  "recordedAt": "2026-11-03T03:08:36.725Z",
+  "parent": {
+    "file": "audit/sword-axe-recovery-1.13.2/receipt.json",
+    "sha256": "496a3faf98b6f04fa2457df375a74a0659d5b028496a1bdceca2bcbbb853e285"
+  },
+  "changes": [
+    {
+      "file": "public/engine.js",
+      "parentSHA256": "3362eeb0af93573e8e8a40562f61814d10f1bfd34332f84734c716d72a5e7b95",
+      "sha256": "b06cbb0b67d2bb90985a9d6a56b50a2a19ce1675ff6e070a97ce885690e26da6",
+      "bytes": 75491,
+      "historicalSnapshot": {
+        "file": "audit/sword-axe-recovery-1.13.2/feature-cut-engine-3362.js.txt",
+        "sha256": "3362eeb0af93573e8e8a40562f61814d10f1bfd34332f84734c716d72a5e7b95",
+        "bytes": 75443
+      }
+    },
+    {
+      "file": "tests/duel-opening-clearance-115.test.mjs",
+      "parentSHA256": "b3d8e3ffdfb2199c31a7942ac68fdab4d8223c8883435f17a9f9764ef60f31bb",
+      "sha256": "9d69309b5d8474d559ff1f57379e62f10d340bd7166ca365c0be6268a6d1796c",
+      "bytes": 8510,
+      "historicalSnapshot": {
+        "file": "audit/sword-axe-recovery-1.13.2/feature-cut-duel-opening-clearance.test.mjs.txt",
+        "sha256": "b3d8e3ffdfb2199c31a7942ac68fdab4d8223c8883435f17a9f9764ef60f31bb",
+        "bytes": 6193
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "tests/fixtures/engine-pre-opening-1.13.1.js.txt",
+      "sha256": "ab55912da7216cdb3e8a5c8c52d5fcf9f68026e6981f3e19c8471b33f7dd9d2d",
+      "bytes": 72487,
+      "role": "Exact portable published 1.13.1 engine raw. Test relocates imports to the same current dependency graph for literal solo/AI input comparison."
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/versus-opening-scope.patch",
+      "sha256": "601dd3eec3b3dcc546841882f2fe6e3886c6774ad10144d2a836c6bbb4efa760",
+      "bytes": 8337
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/versus-scope-red.log",
+      "bytes": 23722,
+      "sha256": "520f8806e0cb43d1b1d757b19fac9bed4ec529dcdcd7a917b21ffb02c598b64f"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/versus-scope-green.log",
+      "bytes": 999,
+      "sha256": "efa413986a7d0d2d4ab250e062e2e66a094ade33d2871d4af95da352554251a3"
+    }
+  ],
+  "scope": {
+    "newGeometry": "Versus/PC+QR only, including every catalog pair, both sword/axe slot orders, full breathing countdown, subsequent rounds and rematches. SAT/CCD/history/velocity/arena/approach assertions remain exact.",
+    "soloAndCampaign": "Literal original 1.13.1 opening inputs and reset observation behavior. Same opening distances3.8/4.0. No AI experimental candidate, forced thrust, score change or increased test duration.",
+    "compoundRecovery": "A30 weapon-bind recovery remains active in every mode, unchanged.",
+    "historicalCut": "3362 engine and B3D8 test are preserved byte-for-byte as TXT snapshots. The parent receipt is not rewritten or presented as the final current source cut."
+  },
+  "evidence": {
+    "red": {
+      "failed": 3,
+      "passed": 0,
+      "description": "Before two guards, solo/boss complete-input equality, campaign input equality and solo reset observation equality fail against immutable AB55."
+    },
+    "green": {
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "description": "16 versus catalog pairs;5 full countdown recipes; mirrored sword/axe rounds/rematches;64 solo/boss catalog/difficulty complete-state comparisons;campaign start+next encounter;exact old reset;ready/practice/approach."
+    },
+    "originalAI16": "Owned and running separately by campaign_finish_113 against the final engine hash; this overlay does not claim its result before completion."
+  },
+  "rationale": "Universal opening wrist placement exposed a stalled AI windup and regressed the unchanged30sec replay. Rejected AI and4.4 experiments are not promoted. Scope the geometric opening to the reported human versus case while restoring literal solo inputs.",
+  "rejectedSelector": {
+    "candidateSHA": "dd0dc419f82a9690606695c497b5f93685730522e7332c6a6aeba8630447a81a",
+    "decision": "Not promoted:4ABBA real-contact result neutral against A/A noise. Production rig remains378248716a14da0a662929e2d04c26c416d334f8863c132eb2c7561e4fc76adb."
+  }
+}

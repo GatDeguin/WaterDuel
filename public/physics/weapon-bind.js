@@ -68,6 +68,24 @@ function accelerationBound(rig){
   return lever*angular*angular+2*Math.abs((rig.swordLength??1)-(rig.previousSwordLength??rig.swordLength??1))*angular+4*bend*angular+4*bend*bend/Math.max(.45,rig.swordLength??1);
 }
 
+// A loaded compound can begin embedded (spawn, reset or a changed loadout).
+// Its shaft and head may choose opposite minimum SAT normals independently.
+// Choose the shortest common separating side along the real pieces' SAT axes;
+// otherwise unilateral rows keep driving the blade into the same solid head.
+function compoundOverlapRecovery(A,B,dir=1){
+  if(!A.some(p=>p.key==='weapon-head')&&!B.some(p=>p.key==='weapon-head'))return null;
+  const overlaps=[];
+  for(const a of A)for(const b of B){const s=separation(a,b,dir);if(s.gap< -1e-6&&s.xyGap< -1e-6)overlaps.push({a,b,normal:s.normal});}
+  if(overlaps.length<2||!overlaps.some((p,i)=>overlaps.some((q,j)=>j>i&&dot(p.normal,q.normal)<0)))return null;
+  let best=null;
+  for(const pair of overlaps)for(const axis of [...pair.a.axes,...pair.b.axes])for(const sign of [1,-1]){
+    const normal={x:axis.x*sign,y:axis.y*sign};let depth=-Infinity,blocking=null;
+    for(const p of overlaps){const amount=project(p.a,normal).max-project(p.b,normal).min;if(amount>depth){depth=amount;blocking=p;}}
+    if(depth>0&&(!best||depth<best.depth))best={...blocking,normal,depth};
+  }
+  return best;
+}
+
 function advance(query,rate,accelerationA=0,accelerationB=0){
   const cache=new Map(),sample=t=>{if(!cache.has(t))cache.set(t,query(t));return cache.get(t);},bound=rate();let t=0;
   // A grazing angular contact can converge too slowly for advancement alone.
@@ -136,6 +154,13 @@ export function firstWeaponContact(a,b){
         anchorA:anchor(hit.a,points.pointA),anchorB:anchor(hit.b,points.pointB)};
     }
   }
+  if(best?.t===0&&(A.some(p=>p.key==='weapon-head')||B.some(p=>p.key==='weapon-head'))){
+    const recovery=compoundOverlapRecovery(A.map(p=>atA(0,p.key)).filter(Boolean),B.map(p=>atB(0,p.key)).filter(Boolean),a.dir??1);
+    if(recovery){
+      const {a:pa,b:pb,normal}=recovery,points=manifold(pa,pb,normal);
+      best={t:0,normal,...points,keyA:pa.key,keyB:pb.key,anchorA:anchor(pa,points.pointA),anchorB:anchor(pb,points.pointB)};
+    }
+  }
   return best;
 }
 
@@ -155,9 +180,9 @@ export function firstWeaponPointContact(rig,from,to){
   return best;
 }
 
-function anchoredManifold(a,b,c){
+function anchoredManifold(a,b,c,panelsA,panelsB){
   if(!c?.anchorA||!c?.anchorB)return [];
-  const pa=panels(a).find(p=>p.key===c.keyA),pb=panels(b).find(p=>p.key===c.keyB);if(!pa||!pb)return [];
+  const pa=panelsA.find(p=>p.key===c.keyA),pb=panelsB.find(p=>p.key===c.keyB);if(!pa||!pb)return [];
   const tangent={x:-c.normal.y,y:c.normal.x},A=project(pa,tangent),B=project(pb,tangent);
   if(Math.max(A.min,B.min)>Math.min(A.max,B.max)+WEAPON_BIND.tolerance||Math.abs(pa.z-pb.z)>(pa.depth+pb.depth)/2+WEAPON_BIND.tolerance)return [];
   let pointA=located(pa,c.anchorA),pointB=located(pb,c.anchorB),normal=c.normal;
@@ -173,16 +198,23 @@ function anchoredManifold(a,b,c){
   return [{bodyA:'weapon',bodyB:'weapon',keyA:`steel:${c.keyA}`,keyB:`steel:${c.keyB}`,pointA,pointB,normal,penetration,projectOnly:true}];
 }
 export function weaponBindManifold(a,b,c){
-  const contacts=anchoredManifold(a,b,c);
-  if(!a.weaponFlex?.offset&&!a.weaponFlex?.previousOffset&&!b.weaponFlex?.offset&&!b.weaponFlex?.previousOffset)return contacts;
-  // A bent beam may touch another part of the opposing weapon at the same
-  // time. Solving only the first swept anchor lets a later segment reopen the
-  // head/shaft constraint. Add real current SAT contacts, with shared supports.
-  for(const pa of panels(a))for(const pb of panels(b)){
+  const A=panels(a),B=panels(b);
+  let contacts=anchoredManifold(a,b,c,A,B);
+  if(A.length===1&&B.length===1)return contacts;
+  const coherent=c?.t===0&&compoundOverlapRecovery(A,B,a.dir??1)?c.normal:null;
+  if(coherent)contacts=contacts.flatMap(contact=>{
+    const pa=A.find(p=>'steel:'+p.key===contact.keyA),pb=B.find(p=>'steel:'+p.key===contact.keyB);if(!pa||!pb)return [];
+    const points=manifold(pa,pb,coherent),penetration=-(points.pointB.x-points.pointA.x)*coherent.x-(points.pointB.y-points.pointA.y)*coherent.y;
+    return penetration>1e-6?[{...contact,...points,normal:coherent,penetration}]:[];
+  });
+  // A rigid head/shaft compound needs the same complete set as a bent beam.
+  // Solving only its first swept shaft anchor can leave a solid head buried.
+  for(const pa of A)for(const pb of B){
     if(contacts.some(q=>q.keyA===`steel:${pa.key}`&&q.keyB===`steel:${pb.key}`))continue;
     const s=separation(pa,pb,a.dir??1);if(s.gap>=-1e-6||s.xyGap>0)continue;
-    const points=manifold(pa,pb,s.normal);
-    contacts.push({bodyA:'weapon',bodyB:'weapon',keyA:`steel:${pa.key}`,keyB:`steel:${pb.key}`,normal:s.normal,penetration:-s.xyGap,...points,projectOnly:true});
+    const normal=coherent??s.normal,points=manifold(pa,pb,normal);
+    const penetration=coherent?-(points.pointB.x-points.pointA.x)*normal.x-(points.pointB.y-points.pointA.y)*normal.y:-s.xyGap;
+    contacts.push({bodyA:'weapon',bodyB:'weapon',keyA:`steel:${pa.key}`,keyB:`steel:${pb.key}`,normal,penetration,...points,projectOnly:true});
   }
   return contacts;
 }

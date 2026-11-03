@@ -1,0 +1,30 @@
+// ARCHIVED, REJECTED HYPOTHESIS. This is not an active release test.
+// The private full-torso policy satisfied this isolated intention case but
+// failed the physical replay. Do not require this discarded policy in AI.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {DuelEngine,STEP} from '../public/engine.js';
+const observed={
+  head:{x:-2.6267664433621376,y:2.5689432482979497,z:.024837423018161144},
+  ownHead:{x:.27450925770620993,y:2.5771676096147016,z:.024709742605043574},
+  shoulder:{x:.08130026286121034,y:1.9002966257184934,z:.11},
+  hand:{x:-.9225548262974891,y:2.1267840334588843,z:.17},
+  tip:{x:-1.9227373232368365,y:2.6307282944708565,z:.17}
+};
+test('an aligned but short normal preparation retains available torso reach without forcing a thrust',()=>{
+  const g=new DuelEngine(),f=g.fighters[1];g.phase='fight';
+  f.pose={...f.pose,head:{...observed.ownHead},mainShoulder:{...observed.shoulder},mainHand:{...observed.hand},tip:{...observed.tip}};
+  const pose=structuredClone(f.pose),q=[...f.rig.q];
+  let sensed={head:{...observed.head},headVisible:true,headVelocity:{vx:0,vy:0,vz:0},balloonSize:1,
+    tip:null,tipVisible:false,armed:false,velocity:{vx:0,vy:0,vz:0},equipment:{weapon:'sword',defense:'short'}};
+  f.perception.observe=()=>sensed;
+  Object.assign(f.ai,{initialized:true,state:'windup',time:.3,duration:1,cycle:0,pattern:'direct',aimY:.7481908702210118,attackIssued:false});
+  g.clock+=STEP;g.updateAI(f,STEP);
+  assert.equal(f.ai.readyToThrust,false);assert.ok(f.ai.projectedReach>1);
+  assert.equal(f.ai.blockedAimTime,0);
+  assert.equal(f.controller.lean,1);
+  assert.equal(f.controller.thrust,false);assert.equal(f.ai.state,'windup');
+  assert.deepEqual(f.pose,pose);assert.deepEqual([...f.rig.q],q);assert.deepEqual(g.scores,[0,0]);
+  sensed={...sensed,tip:{...f.pose.head},tipVisible:true};g.clock+=STEP;g.updateAI(f,STEP);
+  assert.ok(f.controller.lean<=-.5);assert.equal(f.controller.thrust,false);assert.deepEqual(g.scores,[0,0]);
+});

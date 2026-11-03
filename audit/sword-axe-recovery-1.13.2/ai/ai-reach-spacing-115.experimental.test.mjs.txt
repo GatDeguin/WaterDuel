@@ -1,0 +1,134 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {DuelEngine,STEP} from '../public/engine.js';
+
+// These positions were captured at clock 8 in the real countdown -> fight
+// regression. The blade is reasonably aligned but its projected pulse cannot
+// yet reach the observed balloon. This unit case isolates the torso intention;
+// the separate physical replay still has to earn its punctures through contact.
+const observed={
+  head:{x:-2.6267664433621376,y:2.5689432482979497,z:.024837423018161144},
+  ownHead:{x:.27450925770620993,y:2.5771676096147016,z:.024709742605043574},
+  shoulder:{x:.08130026286121034,y:1.9002966257184934,z:.11},
+  hand:{x:-.9225548262974891,y:2.1267840334588843,z:.17},
+  tip:{x:-1.9227373232368365,y:2.6307282944708565,z:.17}
+};
+const freeObserved={...observed,
+  head:{x:-2.5467856536948212,y:2.591944974311829,z:.024877627585968887},
+  hand:{x:-.7839722992245224,y:2.1942330359223337,z:.17},
+  tip:{x:-1.8638336201531494,y:2.4913910263945516,z:.17}
+};
+
+for(const loaded of [true,false])for(const dir of [-1,1])for(const low of loaded?[true,false]:[true])test(`a ${loaded?'loaded':'free nearly ready'} short preparation ${loaded?'withdraws':'keeps approaching'} ${low?'below':'above'} its observed blade for direction ${dir}`,()=>{
+  const g=new DuelEngine(),f=g.fighters[dir<0?1:0];g.phase='fight';
+  const scene=loaded?observed:freeObserved;
+  const mirror=p=>({...p,x:p.x*-dir});
+  f.pose={...f.pose,head:mirror(scene.ownHead),mainShoulder:mirror(scene.shoulder),mainHand:mirror(scene.hand),tip:mirror(scene.tip)};
+  const pose=structuredClone(f.pose),q=[...f.rig.q];
+  // Isolate the own tactile signal used by the human grip too. This unit stub
+  // carries no impulse or hit; the physical replay must still earn real contact.
+  g.lastWeaponContact=loaded?{at:true,bodyA:'weapon',bodyB:'weapon'}:null;
+  const head=mirror(scene.head);
+  if(!low){
+    // Reflect the observed target about the achieved blade direction without
+    // changing its distance. This exercises the opposite observed angle error.
+    const hand=f.pose.mainHand,tip=f.pose.tip,angle=Math.atan2(tip.y-hand.y,dir*(tip.x-hand.x)),
+      desired=Math.atan2(head.y-hand.y,dir*(head.x-hand.x)),range=Math.hypot(head.x-hand.x,head.y-hand.y);
+    head.x=hand.x+dir*range*Math.cos(2*angle-desired);head.y=hand.y+range*Math.sin(2*angle-desired);
+  }
+  let sensed={head,headVisible:true,headVelocity:{vx:0,vy:0,vz:0},balloonSize:1,
+    tip:null,tipVisible:false,armed:false,velocity:{vx:0,vy:0,vz:0},equipment:{weapon:'sword',defense:'short'}};
+  f.perception.observe=()=>sensed;
+  Object.assign(f.ai,{initialized:true,state:'windup',time:.44,duration:.44,cycle:0,pattern:'direct',aimY:.7481908702210118,attackIssued:false});
+  sensed={...sensed,tip:{...f.pose.head},tipVisible:true};
+  g.clock+=STEP;g.updateAI(f,STEP);
+  assert.ok(f.controller.lean<=-.5,'observed point danger overrides approach before any withdrawal is active');
+  assert.equal(f.ai.disengage,undefined);assert.equal(f.controller.thrust,false);
+  sensed={...sensed,tip:null,tipVisible:false};f.ai.time=.44;
+  for(let i=0;i<90&&!f.ai.disengage;i++){
+    g.clock+=STEP;g.updateAI(f,STEP);
+    assert.equal(f.ai.readyToThrust,false);assert.ok(f.ai.projectedReach>1);
+    assert.equal(f.controller.thrust,false,'an unfinished physical reach cannot bypass the attack gate');
+  }
+  assert.equal(f.ai.disengage,undefined,'the normal recovery interval remains available for settling');
+  assert.equal(f.ai.blockedAimTime<.05,true,'the reach stall only starts counting after the existing recovery allowance');
+  for(let i=0;i<50&&!f.ai.disengage;i++){g.clock+=STEP;g.updateAI(f,STEP);}
+  if(!loaded){
+    assert.equal(f.ai.disengage,undefined,'a free nearly ready blade must finish its approach rather than retreat again');
+    assert.equal(f.controller.lean,1,'the free unfinished preparation keeps its available torso reach');
+    assert.ok(f.ai.projectedReach<1.02,'the free fixture reproduces the measured almost-ready second trigger');
+    assert.equal(f.controller.thrust,false);assert.equal(f.ai.attackIssued,false);
+    assert.deepEqual(f.pose,pose);assert.deepEqual([...f.rig.q],q);assert.deepEqual(g.scores,[0,0]);return;
+  }
+  assert.equal(f.ai.disengage,'withdraw','an unreachable completed windup must request the existing physical escape');
+  assert.equal(f.controller.mainX,-1);assert.equal(f.controller.mainY,low?-1:1);assert.equal(f.controller.wrist,low?-1:1);
+  assert.equal(!!f.ai.disengageLow,low,'only an observed reach stall above the target selects the low withdrawal');
+  assert.equal(f.controller.lean,-1);assert.equal(f.ai.attackIssued,false);
+  assert.equal(f.controller.thrust,false);assert.equal(f.ai.state,'windup');
+  assert.deepEqual(f.pose,pose);assert.deepEqual([...f.rig.q],q);assert.deepEqual(g.scores,[0,0]);
+  sensed={...sensed,tip:{...f.pose.head},tipVisible:true};
+  g.clock+=STEP;g.updateAI(f,STEP);
+  assert.ok(f.controller.lean<=-.5,'an observed dangerous point must still preserve the withdrawal');
+  assert.equal(f.controller.thrust,false);assert.deepEqual(g.scores,[0,0]);
+  f.ai.disengage='raise';f.ai.disengageTime=1.2;g.clock+=STEP;g.updateAI(f,STEP);
+  assert.equal(f.ai.disengage,null);assert.equal(f.ai.disengageLow,undefined,'the temporary gesture choice must clear with the escape');
+});
+
+for(const dir of [-1,1])test(`a free stationary rookie reach deficit retains torso authority for direction ${dir}`,()=>{
+  const g=new DuelEngine();g.setDifficulty('rookie');g.phase='fight';const f=g.fighters[dir<0?1:0],mirror=p=>({...p,x:p.x*-dir});
+  const head=mirror({x:-2.698456071977106,y:2.55067625851597,z:.02484191732705828});
+  f.pose={...f.pose,head:mirror({x:.05711888466621537,y:2.505792491697549,z:.02481219025647225}),
+    mainHand:mirror({x:-.8660776014535898,y:2.3658820819773925,z:.17}),tip:mirror({x:-1.9698317218408974,y:2.5559527049785324,z:.17})};
+  const pose=structuredClone(f.pose),q=[...f.rig.q];
+  let tip=null;
+  f.perception.observe=()=>({head,headVisible:true,headVelocity:{vx:0,vy:0,vz:0},balloonSize:1,tip,tipVisible:!!tip,armed:false,
+    velocity:{vx:0,vy:0,vz:0},equipment:{weapon:'sword',defense:'short'}});
+  Object.assign(f.ai,{initialized:true,state:'windup',time:10,duration:.62,cycle:0,pattern:'direct',aimY:.8485386752725133,attackIssued:false});
+  g.clock+=STEP;g.updateAI(f,STEP);
+  assert.ok(f.ai.projectedReach>1.09&&f.ai.projectedReach<1.10);assert.equal(f.ai.readyToThrust,false);
+  assert.equal(f.controller.lean,1,'a free blade must finish the measured last reach gap rather than stop at partial torso lean');
+  assert.equal(f.ai.disengage,undefined);assert.equal(f.controller.thrust,false);
+  tip={...f.pose.head};g.clock+=STEP;g.updateAI(f,STEP);assert.ok(f.controller.lean<=-.5,'observed point danger still wins');
+  assert.deepEqual(f.pose,pose);assert.deepEqual([...f.rig.q],q);assert.deepEqual(g.scores,[0,0]);
+});
+
+for(const dir of [-1,1])test(`a loaded blade that keeps improving observed reach does not withdraw for direction ${dir}`,()=>{
+  const g=new DuelEngine(),f=g.fighters[dir<0?1:0],mirror=p=>({...p,x:p.x*-dir});g.phase='fight';
+  f.pose={...f.pose,head:mirror(freeObserved.ownHead),mainShoulder:mirror(freeObserved.shoulder),mainHand:mirror(freeObserved.hand),tip:mirror(freeObserved.tip)};
+  const pose=structuredClone(f.pose),q=[...f.rig.q];
+  let head=mirror(observed.head),visible=true,headVisible=true;
+  f.perception.observe=()=>visible?{head,headVisible,headVelocity:{vx:0,vy:0,vz:0},balloonSize:1,
+    tip:null,tipVisible:false,armed:false,velocity:{vx:0,vy:0,vz:0},equipment:{weapon:'sword',defense:'short'}}:null;
+  g.lastWeaponContact={at:true,bodyA:'weapon',bodyB:'weapon'};
+  Object.assign(f.ai,{initialized:true,state:'windup',time:2,duration:.44,cycle:0,pattern:'direct',aimY:.7481908702210118,attackIssued:false});
+  let previous;
+  for(let i=0;i<140;i++){
+    const t=(i+1)/140;
+    head=mirror({x:observed.head.x+(freeObserved.head.x-observed.head.x)*t,y:observed.head.y+(freeObserved.head.y-observed.head.y)*t,z:freeObserved.head.z});
+    g.clock+=STEP;g.updateAI(f,STEP);
+    assert.ok(f.ai.projectedReach>1,'the observed approach remains short of physical readiness');
+    if(previous!==undefined)assert.ok(f.ai.projectedReach<previous,'this fixture must make strict geometric progress');
+    previous=f.ai.projectedReach;
+    assert.equal(f.ai.disengage,undefined,'sliding contact with ongoing progress must not start another withdrawal');
+    assert.equal(f.controller.thrust,false);assert.equal(f.ai.attackIssued,false);
+  }
+  assert.equal(f.ai.bestProjectedReach,f.ai.projectedReach);assert.ok(Number.isFinite(f.ai.bestProjectedReach));
+  g.lastWeaponContact=null;g.clock+=STEP;g.updateAI(f,STEP);
+  assert.equal(Object.hasOwn(f.ai,'bestProjectedReach'),false,'a freed blade starts a new tactile episode');
+  g.lastWeaponContact={at:true,bodyA:'weapon',bodyB:'weapon'};g.clock+=STEP;g.updateAI(f,STEP);
+  assert.ok(Number.isFinite(f.ai.bestProjectedReach));headVisible=false;g.clock+=STEP;g.updateAI(f,STEP);
+  assert.equal(Object.hasOwn(f.ai,'bestProjectedReach'),false,'a remembered but hidden head cannot retain a reach minimum');
+  headVisible=true;g.clock+=STEP;g.updateAI(f,STEP);assert.ok(Number.isFinite(f.ai.bestProjectedReach));
+  head=null;g.clock+=STEP;g.updateAI(f,STEP);
+  assert.equal(Object.hasOwn(f.ai,'bestProjectedReach'),false,'an unavailable head cannot retain a reach minimum');
+  head=mirror(freeObserved.head);g.clock+=STEP;g.updateAI(f,STEP);assert.ok(Number.isFinite(f.ai.bestProjectedReach));
+  visible=false;g.clock+=STEP;g.updateAI(f,STEP);
+  assert.equal(Object.hasOwn(f.ai,'bestProjectedReach'),false,'lost observations cannot retain an old reach minimum');
+  head=mirror(observed.head);visible=true;g.clock+=STEP;g.updateAI(f,STEP);
+  assert.equal(f.ai.bestProjectedReach,f.ai.projectedReach,'reappearance starts from the current, worse observed reach');
+  assert.ok(f.ai.bestProjectedReach>previous);assert.ok(Number.isFinite(f.ai.bestProjectedReach));
+  assert.deepEqual(f.pose,pose);assert.deepEqual([...f.rig.q],q);assert.deepEqual(g.scores,[0,0]);
+  g.resetMatch();
+  assert.equal(Object.hasOwn(g.fighters[dir<0?1:0].ai,'bestProjectedReach'),false,'a new match cannot inherit an old contact episode');
+  assert.equal(Object.hasOwn(g.fighters[dir<0?1:0].ai,'disengageLow'),false);
+});

@@ -1,0 +1,276 @@
+{
+  "schema": 1,
+  "recordedAt": "2026-11-03T01:18:37.057Z",
+  "frozen": true,
+  "files": [
+    {
+      "file": "public/engine.js",
+      "changedFor115": true,
+      "bytes": 75443,
+      "sha256": "3362eeb0af93573e8e8a40562f61814d10f1bfd34332f84734c716d72a5e7b95"
+    },
+    {
+      "file": "public/physics/weapon-bind.js",
+      "changedFor115": true,
+      "bytes": 23220,
+      "sha256": "a30c937900e00722f2bac6f9ab74e35ed7d92d9d29e64903486ce3261b30daad"
+    },
+    {
+      "file": "tests/duel-opening-clearance-115.test.mjs",
+      "changedFor115": true,
+      "bytes": 6193,
+      "sha256": "b3d8e3ffdfb2199c31a7942ac68fdab4d8223c8883435f17a9f9764ef60f31bb"
+    },
+    {
+      "file": "tests/compound-weapon-recovery-115.test.mjs",
+      "changedFor115": true,
+      "bytes": 6655,
+      "sha256": "e267de1d4ec5bdb361a343c9691ca16179b23caf4284a6427896f777f728baf8"
+    },
+    {
+      "file": "tests/fixtures/sword-axe-countdown-1.13.1.json",
+      "changedFor115": true,
+      "bytes": 148427,
+      "sha256": "97e45a719cf9e14eb37d3028ed997bae851cca5d85915d86dff4ab4ff4023ff4"
+    },
+    {
+      "file": "tests/rig-collision-114.test.mjs",
+      "changedFor115": true,
+      "bytes": 4353,
+      "sha256": "35f8d8dcc8510f26114042c9599ec11d3943a684bfb35fd13948f255f95b10f0"
+    },
+    {
+      "file": "tests/rig-signed-query-114.test.mjs",
+      "changedFor115": true,
+      "bytes": 8400,
+      "sha256": "b0df97dc1223ed9282687d86edcea90ec0d378b1ccbe016477299b03b127f672"
+    },
+    {
+      "file": "tests/fixtures/rig-collision-reference-114.mjs",
+      "changedFor115": true,
+      "bytes": 8443,
+      "sha256": "7a7b6f33330a548c7e83be4b74a44adf28854ba3fb511e2c542b36957d79414c"
+    },
+    {
+      "file": "tests/weapon-selected-sampler-exact.test.mjs",
+      "changedFor115": true,
+      "bytes": 8072,
+      "sha256": "5fb5652fb1cf9b17343a25856dfd100aed33acd1e9e072089ef10bf970f6da54"
+    },
+    {
+      "file": "benchmarks/compound-recovery-115.mjs",
+      "changedFor115": true,
+      "bytes": 6643,
+      "sha256": "d2127ee35934571ed439fc0e51d94752ac830932fe15c2aa1bec6dfdaaa2dea6"
+    },
+    {
+      "file": "benchmarks/fixtures/weapon-bind-pre-compound-1.13.1.js.txt",
+      "changedFor115": true,
+      "bytes": 21133,
+      "sha256": "0f2b848742107375ed135658ad5d7eace1ae6beb45e65a487f90ee728759e351"
+    },
+    {
+      "file": "benchmarks/fixtures/compound-recovery-inputs-1.13.1.json",
+      "changedFor115": true,
+      "bytes": 222160,
+      "sha256": "c7ee47cbf87e3980dfedb069aa2144322ec93f1ead6f2dd4bbf3199527ccab17"
+    },
+    {
+      "file": "public/physics/articulated-rig.js",
+      "changedFor115": false,
+      "bytes": 98386,
+      "sha256": "378248716a14da0a662929e2d04c26c416d334f8863c132eb2c7561e4fc76adb"
+    },
+    {
+      "file": "tests/fixtures/articulated-rig-pre-collision-1.13.js.txt",
+      "changedFor115": false,
+      "bytes": 96376,
+      "sha256": "e02e42100d66b8d25b3d525d0d4a53f54edcdeabaf04152091bc3eccfa8e518b"
+    },
+    {
+      "file": "tests/fixtures/weapon-bind-pre-query-1.13.js.txt",
+      "changedFor115": false,
+      "bytes": 20784,
+      "sha256": "96250b199cac641d405f98d0180441e1ffe889754325480557e9fd5c804b7e9a"
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/oracle-responsibility.patch",
+      "bytes": 9754,
+      "sha256": "285aebb93323aa4c20ed013fa32c805160d6b81969445950c4767868678662f9"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/measurement.json",
+      "bytes": 108243,
+      "sha256": "3fb9686d48dd0958507514cd9573492b77eed400dd456eb06cb7f1c2b2c49846"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/initial-state.json",
+      "bytes": 115125,
+      "sha256": "f2035952d86f46dcdc7adcf2b355b134462d23db74f8da6d2d1eea387222a84c"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/t0-axe-axe.json",
+      "bytes": 7278,
+      "sha256": "30edbf2d0dcd6eb8117fd986e65a52d98d94481ebfa4fa29e7bf845766d52dfe"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/physics-red.log",
+      "bytes": 3270,
+      "sha256": "6b7f2307a73c312c5c5b394653fe5ecb4cdb06514b2b8fdfa29f230c20fd6f58"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/physics-normal-red.log",
+      "bytes": 1072,
+      "sha256": "9494d5df22752b2fb1345d4d58f25b850545ab1c48ab2e3e7c7ba5f1aa94f0d2"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/multimanifold-only-red.log",
+      "bytes": 2462,
+      "sha256": "b97c2fd46cfaaecccb89dfa8b715ced2a740e84241683080207f0de87d136cb6"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/snapshot-negative-control.log",
+      "bytes": 5392,
+      "sha256": "69d027674a17c00f913b0492b2ccf69f75339a8e453336ce8da1e602736d193c"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/corrected-contact-oracles-green.log",
+      "bytes": 1923,
+      "sha256": "fed0e2faf67550058d5cfe5676c0c9f4d2c3ea1636dfa03d5cacc4d0faba968a"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/selected-sampler-negative-control.log",
+      "bytes": 2429,
+      "sha256": "fdc705908caf387ef1a97b13552648eb2bfe3b0bfd374ca2406bb38d0e6a343c"
+    },
+    {
+      "file": "audit/sword-axe-recovery-1.13.2/selected-sampler-green.log",
+      "bytes": 612,
+      "sha256": "5bd3d19f4adae5b5d12218cce6417f73b0b0c606342c0370869c8de30d174950"
+    }
+  ],
+  "measurement": [
+    {
+      "weapons": [
+        "sword",
+        "axe"
+      ],
+      "ticks": 8,
+      "samplesPerVariant": 2,
+      "initialStateIdentical": true,
+      "baselineMedianMs": 289.9461,
+      "fixedMedianMs": 52.893099999999976,
+      "changePercent": -81.75760943154609,
+      "baselineRemainingSteel": 0.2095086996198623,
+      "fixedRemainingSteel": 0,
+      "simpleFinalStateBitExact": null
+    },
+    {
+      "weapons": [
+        "sword",
+        "axe"
+      ],
+      "ticks": 32,
+      "samplesPerVariant": 2,
+      "initialStateIdentical": true,
+      "baselineMedianMs": 1216.6928,
+      "fixedMedianMs": 140.63694999999984,
+      "changePercent": -88.44104691011569,
+      "baselineRemainingSteel": 0.22347481234809763,
+      "fixedRemainingSteel": 0,
+      "simpleFinalStateBitExact": null
+    },
+    {
+      "weapons": [
+        "axe",
+        "sword"
+      ],
+      "ticks": 8,
+      "samplesPerVariant": 2,
+      "initialStateIdentical": true,
+      "baselineMedianMs": 33.239250000000084,
+      "fixedMedianMs": 38.57185000000004,
+      "changePercent": 16.04308159780965,
+      "baselineRemainingSteel": 0,
+      "fixedRemainingSteel": 0,
+      "simpleFinalStateBitExact": null
+    },
+    {
+      "weapons": [
+        "axe",
+        "sword"
+      ],
+      "ticks": 32,
+      "samplesPerVariant": 2,
+      "initialStateIdentical": true,
+      "baselineMedianMs": 126.81830000000036,
+      "fixedMedianMs": 122.16805,
+      "changePercent": -3.66686038213756,
+      "baselineRemainingSteel": 0,
+      "fixedRemainingSteel": 0,
+      "simpleFinalStateBitExact": null
+    },
+    {
+      "weapons": [
+        "sword",
+        "sword"
+      ],
+      "ticks": 8,
+      "samplesPerVariant": 2,
+      "initialStateIdentical": true,
+      "baselineMedianMs": 50.57855000000018,
+      "fixedMedianMs": 42.34009999999944,
+      "changePercent": -16.288426615631945,
+      "baselineRemainingSteel": 0,
+      "fixedRemainingSteel": 0,
+      "simpleFinalStateBitExact": true
+    },
+    {
+      "weapons": [
+        "sword",
+        "sword"
+      ],
+      "ticks": 32,
+      "samplesPerVariant": 2,
+      "initialStateIdentical": true,
+      "baselineMedianMs": 213.92549999999983,
+      "fixedMedianMs": 216.81614999999965,
+      "changePercent": 1.3512414368552772,
+      "baselineRemainingSteel": 0,
+      "fixedRemainingSteel": 0,
+      "simpleFinalStateBitExact": true
+    }
+  ],
+  "reproduction": "node benchmarks/compound-recovery-115.mjs --out audit/sword-axe-recovery-1.13.2/reproduced-measurement.json",
+  "measurementScope": "One short ABBA block per case/window, two samples per variant. Captured native zero-input initial states are restored identically. Component rig/contact recovery only; no full-game FPS, controller latency or GPU claim.",
+  "bug": "Initial shaft contact selected a side opposite to the axe head. The zero-flex manifold omitted head contacts; later opposing constraints kept the real blade embedded. Recovery now selects a common separating side only for already-overlapping headed compounds, rebuilding supports/points/anchors consistently.",
+  "contracts": {
+    "forceCapsUnchanged": true,
+    "iterationsUnchanged": true,
+    "tolerancesUnchanged": true,
+    "physicalColliderDimensionsUnchanged": true,
+    "positiveTimeCCD": "explicit exact comparison against protected 9625 raw for both slot orders and mirrors",
+    "defaultTrial": "320 rich/compact exact comparisons against frozen E02",
+    "cacheTrace": "32 native pairs × 4 steps with frozen default rig and the SAME corrected contact algorithm",
+    "negativeControl": "snapshot-only +1e-6 response metric mutation rejected; production never mutated"
+  },
+  "tests": {
+    "currentCompoundAndCacheFocus": {
+      "passed": 14,
+      "failed": 0
+    },
+    "spawnOwnerFocus": {
+      "passed": 11,
+      "failed": 0
+    },
+    "selectedSamplerFocus": {
+      "passed": 4,
+      "failed": 0,
+      "negativeControl": "Private selected-only geometry shifted by +1e-6: exact legacy/full-frame assertion rejects it. No production/fixture mutation."
+    },
+    "oracleMigration": "Raw rig/bind hashes and every existing case/assertion/tolerance retained. Only responsibility split: corrected contact algorithm shared on both sides; frozen E02 has no native query helper and therefore remains independent uncached/default response. Exact diff attached."
+  },
+  "scope": "No historical 1.13 manifests/docs changed. No publishing, browser use, benchmark beyond the exclusive short window, solver-iteration/cap changes or collision precision reductions."
+}
