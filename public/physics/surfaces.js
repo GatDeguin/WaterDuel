@@ -136,6 +136,8 @@ export function latexMesh(head,{membrane=null,burstAge=-1,tearAngle=0,impact=nul
   return sample.mesh();
 }
 const corners=[[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,1],[1,0,1],[1,1,1],[0,1,1]];
+// Tetrahedron edges advance along a nonempty subset of the grid axes.
+const cornerBits=corners.map(([x,y,z])=>x|y<<1|z<<2);
 const tets=[[0,5,1,6],[0,1,2,6],[0,2,3,6],[0,3,7,6],[0,7,4,6],[0,4,5,6]];
 // Compile the original six-tetrahedron traversal for each eight-corner mask.
 // The bytecode retains interpolation order, outward references and quad
@@ -273,29 +275,42 @@ function fluidSurfaceComponent(particles,{quality,maxTriangles,domain},kernelSca
   const normalCells=denseGrid?new Array(nodeCount):new Map();
   const sampleAt=index=>denseGrid?denseGrid[index]:(grid.get(index)||0);
   const at=(x,y,z)=>(z*sy+y)*sx+x;
+  const cornerOffsets=corners.map(([x,y,z])=>at(x,y,z));
   for(const part of particles){
     const h=part.h*kernelScale,rr=h*h;
     // Poly6 integrates to one in 3D; p.volume*W is volume-density, rather
     // than an unweighted count of Gaussian neighbours.
     part.kernel=part.volume*315/(64*PI*h**3);
     part.h2=(part.h*kernelScale)**2;
-    const starts=axes.map((axis,d)=>Math.max(0,lowerIndex(axis,[part.x,part.y,part.z][d]-h)-1));
-    const ends=axes.map((axis,d)=>Math.min(axis.length-1,lowerIndex(axis,[part.x,part.y,part.z][d]+h)+1));
-    for(let z=starts[2];z<=ends[2];z++)for(let y=starts[1];y<=ends[1];y++)for(let x=starts[0];x<=ends[0];x++){
-          // Reuse the particle-to-cell neighborhood for every isovertex of this
-          // cell, instead of repeating 125 spatial lookups for each edge.
-          if(x<sx-1&&y<sy-1&&z<sz-1){
-            const key=at(x,y,z);let candidates=denseGrid?normalCells[key]:normalCells.get(key);
-            if(!candidates){candidates=[];if(denseGrid)normalCells[key]=candidates;else normalCells.set(key,candidates);}
+    const [xs,ys,zs]=axes;
+    const {x:cx,y:cy,z:cz}=part;
+    const xStart=Math.max(0,lowerIndex(xs,cx-h)-1),xEnd=Math.min(sx-1,lowerIndex(xs,cx+h)+1);
+    const yStart=Math.max(0,lowerIndex(ys,cy-h)-1),yEnd=Math.min(sy-1,lowerIndex(ys,cy+h)+1);
+    const zStart=Math.max(0,lowerIndex(zs,cz-h)-1),zEnd=Math.min(sz-1,lowerIndex(zs,cz+h)+1);
+    for(let z=zStart;z<=zEnd;z++){
+      const pz=zs[z],dz=cz-pz,dz2=dz*dz;
+      const zInBounds=pz>=lower[2]&&pz<=upper[2];
+      for(let y=yStart;y<=yEnd;y++){
+        const row=(z*sy+y)*sx,py=ys[y],dy=cy-py,dy2=dy*dy;
+        const rowInBounds=zInBounds&&py>=lower[1];
+        // Each cell's vertices share the same candidates, in particle order.
+        const hasCells=y<sy-1&&z<sz-1;
+        for(let x=xStart;x<=xEnd;x++){
+          const index=row+x;
+          if(hasCells&&x<sx-1){
+            let candidates=denseGrid?normalCells[index]:normalCells.get(index);
+            if(!candidates){candidates=[];if(denseGrid)normalCells[index]=candidates;else normalCells.set(index,candidates);}
             candidates.push(part);
           }
-          const px=axes[0][x],py=axes[1][y],pz=axes[2][z],dx=part.x-px,dy=part.y-py,dz=part.z-pz,r2=dx*dx+dy*dy+dz*dz;
-          if(r2<rr&&px>=lower[0]&&px<=upper[0]&&py>=lower[1]&&pz>=lower[2]&&pz<=upper[2]){
-            const index=at(x,y,z),weight=part.kernel*(1-r2/rr)**3;
+          const px=xs[x],dx=cx-px,r2=dx*dx+dy2+dz2;
+          if(r2<rr&&rowInBounds&&px>=lower[0]&&px<=upper[0]){
+            const weight=part.kernel*(1-r2/rr)**3;
             const previous=sampleAt(index);if(previous===0)occupied.push(index);
             if(denseGrid)denseGrid[index]=previous+weight;else grid.set(index,previous+weight);
           }
         }
+      }
+    }
   }
   const active=new Set();
   for(const index of occupied){
@@ -308,7 +323,7 @@ function fluidSurfaceComponent(particles,{quality,maxTriangles,domain},kernelSca
   const tetraValues=new Float64Array(active.size*30),samples=new Float64Array(8);let peak=0,tetraOffset=0;
   for(const base of active){
     const z=Math.floor(base/(sx*sy)),y=Math.floor((base-z*sx*sy)/sx),x=base-z*sx*sy-y*sx;
-    for(let i=0;i<8;i++){const c=corners[i],v=sampleAt(at(x+c[0],y+c[1],z+c[2]));samples[i]=v;peak=Math.max(peak,v);}
+    for(let i=0;i<8;i++){const v=sampleAt(base+cornerOffsets[i]);samples[i]=v;peak=Math.max(peak,v);}
     const tetraVolume=(axes[0][x+1]-axes[0][x])*(axes[1][y+1]-axes[1][y])*(axes[2][z+1]-axes[2][z])/6;
     for(const tet of tets){
       let a=samples[tet[0]],b=samples[tet[1]],c=samples[tet[2]],d=samples[tet[3]],swap;
@@ -341,7 +356,8 @@ function fluidSurfaceComponent(particles,{quality,maxTriangles,domain},kernelSca
     if(Math.abs(reconstructedVolume-targetVolume)<=targetVolume*.0005)break;
     if(reconstructedVolume>targetVolume)lo=iso;else hi=iso;
   }
-  const verts=corners.map(_=>[0,0,0]),indices=new Array(8),values=new Array(8),edgeCache=new Map();
+  const verts=corners.map(_=>[0,0,0]),indices=new Array(8),values=new Array(8);
+  const denseEdges=nodeCount<=8192?new Array(nodeCount*7):null,edgeCache=denseEdges?null:new Map();
   let normalCandidates=[];
   const surfaceNormal=p=>{
     let nx=0,ny=0,nz=0;
@@ -350,19 +366,22 @@ function fluidSurfaceComponent(particles,{quality,maxTriangles,domain},kernelSca
     for(const part of normalCandidates){const dx=p[0]-part.x,dy=p[1]-part.y,dz=p[2]-part.z,r2=dx*dx+dy*dy+dz*dz,h2=part.h2;
         if(r2<h2){const weight=part.kernel*(1-r2/h2)**2/h2;nx+=dx*weight;ny+=dy*weight;nz+=dz*weight;}
     }
-    if(Math.hypot(nx,ny,nz)<1e-12){let nearest=Infinity;for(const part of particles){const dx=p[0]-part.x,dy=p[1]-part.y,dz=p[2]-part.z,d=dx*dx+dy*dy+dz*dz;if(d<nearest){nearest=d;nx=dx;ny=dy;nz=dz;}}}
-    return norm(nx,ny,nz);
+    let length=Math.hypot(nx,ny,nz);
+    if(length<1e-12){let nearest=Infinity;for(const part of particles){const dx=p[0]-part.x,dy=p[1]-part.y,dz=p[2]-part.z,d=dx*dx+dy*dy+dz*dz;if(d<nearest){nearest=d;nx=dx;ny=dy;nz=dz;}}length=Math.hypot(nx,ny,nz);}
+    const divisor=length||1;
+    return [nx/divisor,ny/divisor,nz/divisor];
   };
   const interpolate=(a,b)=>{
-    const ia=indices[a],ib=indices[b],key=ia<ib?ia*nodeCount+ib:ib*nodeCount+ia;
-    const cached=edgeCache.get(key);if(cached)return cached;
+    const ia=indices[a],ib=indices[b],first=Math.min(ia,ib);
+    const key=denseEdges?first*7+(cornerBits[a]^cornerBits[b])-1:first*nodeCount+Math.max(ia,ib);
+    const cached=denseEdges?denseEdges[key]:edgeCache.get(key);if(cached)return cached;
     const t=clamp((iso-values[a])/(values[b]-values[a]),0,1);
     const va=verts[a],vb=verts[b],p=[clamp(va[0]+(vb[0]-va[0])*t,lower[0],upper[0]),clamp(va[1]+(vb[1]-va[1])*t,lower[1],upper[1]),clamp(va[2]+(vb[2]-va[2])*t,lower[2],upper[2])];
     // Weld the vanishing outer layer onto the exact contact plane. Matching
     // adjacent intersections avoids microscopic holes or doubled corner seams.
     if(domain&&(p[0]===lower[0]||p[0]===upper[0]||p[1]===lower[1]||p[1]===upper[1]||p[2]===lower[2]||p[2]===upper[2]))for(let d=0;d<3;d++)p[d]=clamp(Math.round(p[d]*1e8)/1e8,lower[d],upper[d]);
     const vertex={p,n:surfaceNormal(p)};
-    edgeCache.set(key,vertex);return vertex;
+    if(denseEdges)denseEdges[key]=vertex;else edgeCache.set(key,vertex);return vertex;
   };
   let count=0;const tetraOutward=[0,0,0];
   const emit=(a,b,c)=>{
@@ -388,7 +407,7 @@ function fluidSurfaceComponent(particles,{quality,maxTriangles,domain},kernelSca
     const z=Math.floor(base/(sx*sy)),y=Math.floor((base-z*sx*sy)/sx),x=base-z*sx*sy-y*sx;
     let mask=0;
     for(let c=0;c<8;c++){
-      const cc=corners[c],index=at(x+cc[0],y+cc[1],z+cc[2]);values[c]=sampleAt(index);
+      const index=base+cornerOffsets[c];values[c]=sampleAt(index);
       indices[c]=index;
       if(values[c]>=iso)mask|=1<<c;
     }
