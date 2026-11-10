@@ -15,7 +15,7 @@ import {AutoDefense} from './auto-defense.js';
 import {standbyTargets} from './physics/standby.js';
 import {characterIntent,resultIntent} from './physics/character-intent.js';
 import {WorkshopEffects} from './workshop-effects.js';
-import {resolveWeaponBind,firstWeaponPointContact,weaponBindManifold} from './physics/weapon-bind.js';
+import {resolveWeaponBind,firstWeaponPointContact,weaponBindManifold,projectWeaponDepthContact} from './physics/weapon-bind.js';
 import {classifyEquipmentContact,contactMaterialPair} from './physics/contact-materials.js';
 import {normalizeBalloonColor} from './opponent-loadouts.js';
 import {BurstStepClock,burstPhysicalTime} from './physics/step-clock.js';
@@ -425,6 +425,8 @@ export class DuelEngine{
   }
   updateAI(f,dt){
     const target=this.fighters.find(other=>other!==f),ai=f.ai,profile=AI_PROFILES[this.difficulty],weapon=getWeapon(f),defense=getDefense(f);
+    const wasPursuingDepth=!!ai.bodyDepthTarget;
+    ai.bodyDepthTarget=0;
     const sensed=f.perception.observe(f,target,dt,{difficulty:this.difficulty,occluders:()=>[...f.rig.collisionPanels(),...target.rig.collisionPanels()].filter(p=>p.body!=='weapon')});
     ai.attentionLost=!sensed?.head;ai.targetVisible=!!sensed?.headVisible;
     if(!sensed){this.setControl(f.slot,{...neutral(),mainX:-.3,mainY:-.2,offX:.6,offY:.8});return;}
@@ -471,6 +473,9 @@ export class DuelEngine{
     const lead=clamp((sensed.headVelocity.vy||0)*(style==='precision'?.18:.10),style==='precision'?-.15:-.10,style==='precision'?.15:.10)+tactics.aimBias;
     const aim=clamp((head.y+lead-f.pose.mainShoulder.y-REFERENCE_STANCE.mainRise*scale)/(.46*scale+.58),-1,1);
     const hand=f.pose.mainHand,blade=f.pose.tip;
+    const neutralBladeDepth=(hand.z??.17)-f.rig.weaponDepthOffset;
+    const depthGap=(head.z??.025)-neutralBladeDepth,depthRadius=BALLOON_RADII.z*sensed.balloonSize;
+    const lateralDodge=Math.abs(depthGap)>depthRadius;
     // Aim into the observed volume. Treating its near silhouette as the arm's
     // destination left the dynamic point skimming outside the XYZ section.
     const aimX=head.x;
@@ -483,7 +488,7 @@ export class DuelEngine{
       const rx=BALLOON_RADII.x*sensed.balloonSize,ry=BALLOON_RADII.y*sensed.balloonSize;
       // Reach is a decision from the observed head and our own blade, not a
       // physical hit oracle. Depth reduces the reachable balloon cross-section.
-      const rz=BALLOON_RADII.z*sensed.balloonSize,handZ=hand.z??.17;
+      const rz=depthRadius,handZ=hand.z??.17;
       const z=handZ+((blade.z??.17)-handZ)/length*pulseLength;
       const ax=(hand.x-head.x)/rx,ay=(hand.y-head.y)/ry,az=(handZ-(head.z??.025))/rz;
       const bx=(x-head.x)/rx,by=(y-head.y)/ry,bz=(z-(head.z??.025))/rz;
@@ -515,12 +520,23 @@ export class DuelEngine{
     }else if(ai.state==='windup'&&sensed.headVisible&&ai.time>=ai.duration&&f.lungeCool<=0&&!ai.disengage&&ai.readyToThrust){
       this.#setAIState(f,'attack',.23);
       if(cautious){ai.patience=0;ai.counterWindow=0;ai.sawThreat=false;ai.committed=false;}
+    }else if(ai.state==='windup'&&lateralDodge&&ai.time>=ai.duration+profile.reaction+1.35){
+      // Give up this line if realigning still leaves no reachable point.
+      ai.cycle++;ai.committed=false;
+      this.#setAIState(f,'observe',observationDuration(style,profile,ai.cycle)*tactics.observeScale);
     }else if(ai.state==='attack'&&ai.time>=ai.duration){
       this.#setAIState(f,'recover',recovery);
     }else if(ai.state==='defend'&&(ai.time>=ai.duration||f.guardBroken)){
       this.#setAIState(f,'recover',f.boss?recovery:style==='defender'?.55:.4);
     }else if(ai.state==='recover'&&ai.time>=ai.duration){
       ai.cycle++;this.#setAIState(f,'observe',observationDuration(style,profile,ai.cycle)*tactics.observeScale);
+    }
+    // A sustained lateral dodge can put the entire balloon outside the neutral
+    // blade plane. After the visible windup, follow with the same bounded body
+    // motor as the player. Only measured reach can commit the actual thrust.
+    if(lateralDodge&&(sensed.headVisible||wasPursuingDepth&&sensed.age<.20)&&
+      (ai.state==='windup'&&ai.time>=ai.duration+profile.reaction||ai.state==='attack'&&Math.abs(f.rig.bodyDepth)>.02)){
+      ai.bodyDepthTarget=depthGap;
     }
     const c={...neutral(),mainX:this.difficulty==='expert'?.7:.35,mainY:aim,offX:1,offY:.85,lean:1};
     if(style==='aggressive'&&ai.state==='observe'){c.mainX=.75;c.offX=.7;c.offY=.7;}
@@ -586,7 +602,8 @@ export class DuelEngine{
       const error=Math.atan2(Math.sin(desired-actual),Math.cos(desired-actual));
       c.mainY=clamp(c.mainY+.9*error,-1,1);c.wrist=clamp(c.wrist+error,-1,1);
       if(!cautious||ai.committed||ai.patience>=maxWait){
-        const standOff=BALLOON_RADII.x*sensed.balloonSize+weapon.lungeReach*.16+tactics.spacing;
+        const zFraction=ai.bodyDepthTarget?((point.z??.17)-(head.z??.025))/depthRadius:0;
+        const standOff=BALLOON_RADII.x*sensed.balloonSize*Math.sqrt(Math.max(0,1-zFraction*zFraction))+weapon.lungeReach*.16+tactics.spacing;
         const gap=Math.hypot(head.x-hand.x,head.y-hand.y)-Math.hypot(point.x-hand.x,point.y-hand.y)-standOff;
         // At the translation stop this also drives torso reach. Do not trim a
         // authored preparation short; observed point avoidance still wins below.
@@ -654,7 +671,7 @@ export class DuelEngine{
       return {x:f.dir*f.lean*.18+f.dir*Math.sin(theta)*REFERENCE_STANCE.torso*scale+f.torsoTwist*.04+
         f.dir*Math.sin(theta+pitch)*REFERENCE_STANCE.neck*scale*Math.cos(yaw)+f.waterShift*.15,
         y:TABLE_TOP+(REFERENCE_STANCE.hipHeight-CROUCH_DEPTH*(f.evasion?.motorCrouch??f.evasion?.crouch??0))*scale+Math.cos(theta)*REFERENCE_STANCE.torso*scale+Math.cos(theta+pitch)*REFERENCE_STANCE.neck*scale*Math.cos(yaw),
-        z:.025+Math.sin(yaw)*REFERENCE_STANCE.neck*scale};
+        z:.025+Math.sin(yaw)*REFERENCE_STANCE.neck*scale+(f.rig.bodyDepth??0)};
     });
     const size=ordered[0].balloonSize+ordered[1].balloonSize;
     const yz=((heads[0].y-heads[1].y)/(BALLOON_RADII.y*size))**2+((heads[0].z-heads[1].z)/(BALLOON_RADII.z*size))**2;
@@ -729,9 +746,12 @@ export class DuelEngine{
     // manifold share the same position iterations. A later steel projection
     // cannot silently reopen a timber constraint already reported as solved.
     this.resolveWeaponContacts(dt,{project:false});
-    const [a,b]=this.fighters,extraContacts=this.lastWeaponContact?()=>weaponBindManifold(a.rig,b.rig,this.lastWeaponContact):undefined;
+    const [a,b]=this.fighters,contact=this.lastWeaponContact;
+    const depthContact=contact?.normal?.z;
+    if(depthContact)contact.penetration=projectWeaponDepthContact(a.rig,b.rig,contact);
+    const extraContacts=contact&&!depthContact?()=>weaponBindManifold(a.rig,b.rig,contact):undefined;
     this.resolveBodyContacts(dt,{extraContacts});
-    if(this.lastWeaponContact)this.lastWeaponContact.penetration=Math.max(0,...extraContacts().map(c=>c.penetration));
+    if(extraContacts)contact.penetration=Math.max(0,...extraContacts().map(c=>c.penetration));
     if(this.fighters.some(f=>f.rig.fragments.length)){
       this.lastDetachedContacts=resolveDetachedContacts(this.fighters.map(f=>f.rig),dt).contacts;
       for(const f of this.fighters)this.refreshRigPose(f,dt);
@@ -817,7 +837,9 @@ export class DuelEngine{
       this.buildPose(f,this.phase==='countdown'&&f.openingWrist?{...control,wrist:control.wrist+f.openingWrist}:control);
     }
     const intent=f.pose;
-    f.rig.setIntent(intent,{baseX:f.baseX,baseVX:f.baseVX,waterLoad:rigWaterLoad(f,oldHead||intent.head)});
+    const bodyDepthTarget=active&&f.globIntact&&!f.rig.passive?
+      (human?(f.controller.headZ??0)*.28:this.aiEnabled&&!this.trainingDrill?f.ai.bodyDepthTarget??0:0):0;
+    f.rig.setIntent(intent,{baseX:f.baseX,baseVX:f.baseVX,bodyDepthTarget,waterLoad:rigWaterLoad(f,oldHead||intent.head)});
     applyJointPlay(f.rig);
     f.rig.step(dt);f.pose=f.rig.pose();
     f.balloonMass=f.rig.waterLoad.mass;
@@ -1099,7 +1121,8 @@ export class DuelEngine{
   }
   updateWater(dt){
     const gravity=-9.81;
-    const solidColliders=this.fighters.some(f=>f.fluid.released)?fluidSolidColliders(this.fighters):null;
+    const solidColliders=this.fighters.some(f=>f.fluid.released)?fluidSolidColliders(this.fighters,dt,
+      {nativeChestSampler:ArticulatedRig.createNativeFluidChestSampler,prepareSweepIndex:true}):null;
     const water=[];
     for(let p of this.particles){
       p.age+=dt;

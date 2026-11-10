@@ -45,6 +45,16 @@ const poseAt=(tick,scale)=>{
     clothLegs:{frontThigh:tick%17<12,frontShin:tick%13<9,backThigh:tick%11<8,backShin:tick%19<14}};
 };
 
+test('Surface sampling retains the tie rule and typed director when interpolated directions cancel',()=>{
+  const rest=[[0,0,0],[1,0,0],[0,1,0]],canonical=[.5,0,.125];
+  const cloth={rest,positions:rest,triangles:[[0,1,2]],
+    directors:[new Float32Array([1,-0,0]),new Float32Array([-1,0,0]),new Float32Array([0,0,1])]};
+  const expected=before.apronSurfaceSample(cloth,canonical,0,1.17);
+  const actual=current.apronSurfaceSample(cloth,canonical,0,1.17);
+  assert.equal(actual.director,cloth.directors[0]);
+  assert.deepEqual(actual,expected);
+});
+
 test('Scalar cloth retains every Float64 bit of moving wet normal/boss cloth and leg attachment changes',()=>{
   let contacts=0;
   for(const variant of ['normal','boss'])for(const dir of [-1,1])for(const scale of [.83,1.18]){

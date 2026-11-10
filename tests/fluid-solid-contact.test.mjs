@@ -6,6 +6,26 @@ import {ArticulatedRig} from '../public/physics/articulated-rig.js';
 import {fluidSolidColliders,resolveLiquidSolid} from '../public/physics/fluid-solids.js';
 const axes=[{x:1,y:0,z:0},{x:0,y:1,z:0},{x:0,y:0,z:1}];
 const board=(extra={})=>({center:{x:0,y:1,z:0},axes,half:[.3,.003,.3],...extra});
+test('El índice de barrido conserva el orden de los impactos y los sólidos del segundo bloque',()=>{
+  const panel=(x,key)=>({key,body:'pelvis',center:{x,y:1},z:-.25,depth:.25,axes:axes.slice(0,2),
+    vertices:[[-.125,-.125],[.125,-.125],[.125,.125],[-.125,.125]].map(([dx,dy])=>({x:x+dx,y:1+dy}))});
+  const rig=(panels,x)=>({q:new Float64Array(16),swordLength:1,collisionPanels:()=>panels,
+    collisionPanelsAt:()=>panels,pose:()=>({bodyFrames:{}}),pointVelocity:()=>({x,y:0})});
+  for(const close of [[31,32],[63],[64]]){
+    const panels=Array.from({length:Math.max(...close)+1},(_,i)=>panel(close.includes(i)?-.25:2+i/10,`solid-${i}`));
+    const fighters=[{rig:rig(panels.slice(0,32),1.5)},{rig:rig(panels.slice(32),-1.5)}];
+    const from={x:-.7,y:1,z:-.25},initial={x:.1,y:1,z:-.25,vx:6,vy:0,vz:0};
+    const simulate=prepareSweepIndex=>{
+      const parcel={...initial};
+      const solids=fluidSolidColliders(fighters,1/120,{prepareSweepIndex});
+      const hit=resolveLiquidSolid(parcel,from,.015625,1/120,solids);
+      return {parcel,hit};
+    };
+    const original=simulate(false);
+    assert.notDeepEqual(original.parcel,initial);
+    assert.deepEqual(simulate(true),original);
+  }
+});
 test('La consulta geométrica de CCD conserva cada prisma bit a bit sin calcular Jacobianos',()=>{
   for(const dir of [-1,1])for(const scale of [1,1.18])for(const weapon of ['sword','spear','axe','maul']){
     const r=new ArticulatedRig({dir,scale});r.equipment={weapon,defense:'none'};r.twoHanded=weapon==='maul';r.gripOffset=r.twoHanded?.22:0;

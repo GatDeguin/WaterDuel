@@ -116,10 +116,13 @@ test('a real parry and counterattack can puncture the second-phase boss during i
     if(parried){
       const head=player.pose.head,tip=boss.pose.tip;
       const danger=Math.hypot((tip.x-head.x)/BALLOON_RADII.x,(tip.y-head.y)/BALLOON_RADII.y,((tip.z??.17)-(head.z??.025))/BALLOON_RADII.z)<1.5;
+      // Stay close enough in depth for the boss's committed stroke. Guard in
+      // a crouch, then stand and close the gap when the point moves away.
       g.setControl(1,!recovered||danger?{...player.controller,mainX:1,mainY:.85,wrist:.55,thrust:false,attackHeld:false,
-        guard:danger||player.controller.guard,offX:.3,offY:1,lean:-1,headZ:-1,bodyY:-1}:{...weaponGesture({x:1,y:.85}),lean:0,headZ:-1,bodyY:-1});
+        guard:true,offX:.3,offY:1,lean:-1,headX:1,headZ:-.2,bodyY:-1}:
+        {...weaponGesture({x:1,y:.55}),lean:1,headX:1,headZ:-.25,bodyY:0});
     }
-    for(const key of ['offX','offY','mainX','mainY','lean','wrist','headZ','bodyY'])assert.ok(Math.abs(player.controller[key]??0)<=1);
+    for(const key of ['offX','offY','mainX','mainY','lean','wrist','headX','headZ','bodyY'])assert.ok(Math.abs(player.controller[key]??0)<=1);
     g.update(STEP);if(g.scores[0]===2){window={state:boss.ai.state,time:boss.ai.time,duration:boss.ai.duration};break;}
   }
   assert.equal(parried,true);assert.equal(recovered,true);assert.deepEqual(g.scores,[2,0]);

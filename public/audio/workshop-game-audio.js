@@ -4,10 +4,12 @@ import {EffectsRack} from './effects-rack.js';
 import {WorkshopAcoustics} from './spatial-audio.js';
 import {AudioScene} from './scene-audio.js';
 import {ALL_EFFECTS_MASK,validEffectMask,effectEnabled} from './effect-controls.js';
+import {sampleWeather} from '../weather.js';
 export const WORKSHOP_AUDIO_DEFAULTS=Object.freeze({music:.24,effects:1,distortion:.03,reverb:.08,reverbDecay:1.1});
 const clamp=(value,min,max,fallback)=>Number.isFinite(value)?Math.max(min,Math.min(max,value)):fallback;
 const PHASES=new Set(['ready','countdown','fight','burst','matchover']);
 const ACTIVE_PHASES=new Set(['fight','burst']),JOINT_EVENTS=new Set(['joint-damage','joint-break']);
+const THUNDER_URL=new URL('../assets/audio/weather/thunder.wav',import.meta.url);
 // HRTF/listener behavior stays inherited; this mix has one adjustable room.
 // Suppressing the old send makes the reverb control's zero genuinely dry.
 class DirectSpatialAcoustics extends WorkshopAcoustics{ensureRoom(){}}
@@ -22,6 +24,10 @@ class WorkshopMotionScene extends AudioScene{
 /** Recorded physical effects and the supplied music share the existing mixer.
  * The protected historical soundtrack remains available only in its old class. */
 export class WorkshopGameAudio extends RecordedGameAudio{
+  #thunderLoad=null;
+  #thunderBuffer=null;
+  #stormOrigin=null;
+  #lastThunder=null;
   constructor({mediaFactory,...options}={}){
     super(options);this.mediaFactory=mediaFactory;this.stream=null;this.fxRack=null;this.distortion=.03;this.reverb=.08;this.reverbDecay=1.1;this.effectMask=ALL_EFFECTS_MASK;this.lastMusicGain=null;this.musicPhase='ready';this.scene=new WorkshopMotionScene();
   }
@@ -31,7 +37,7 @@ export class WorkshopGameAudio extends RecordedGameAudio{
       this.effectMask=effectMask;
       // Stop active and scheduled sources individually. Shared room tails from
       // earlier cues decay naturally without cutting other effects or music.
-      for(const voice of this.voices)if(!effectEnabled(effectMask,voice.name))this.retire(voice);
+      for(const voice of this.voices)if(!this.effectSelected(voice.name))this.retire(voice);
     }
     this.distortion=clamp(distortion,0,1,.03);this.reverb=clamp(reverb,0,1,.08);this.reverbDecay=clamp(reverbDecay,.2,2.4,1.1);
     super.configure(enabled,volume,{music,effects});
@@ -81,16 +87,62 @@ export class WorkshopGameAudio extends RecordedGameAudio{
     if(name==='material-contact'&&game&&!ACTIVE_PHASES.has(game.phase)&&!JOINT_EVENTS.has(data?.jointEvent))return false;
     return super.handleEvent(name,data,game);
   }
+  effectSelected(name){return effectEnabled(this.effectMask,name);}
+  #playThunder(storm){
+    const context=this.context,buffer=this.#thunderBuffer;
+    if(!buffer||!this.acoustics)return false;
+    this.prune();this.reserve(1);
+    if(this.voices.size+this.musicVoices.length>=this.maxVoices)return false;
+    const source=context.createBufferSource(),gain=context.createGain();
+    const {pan,send,spatial,at}=this.acoustics.source({x:storm.thunderX,y:5,z:-13},'thunder');
+    source.buffer=buffer;
+    gain.gain.value=.6*storm.thunderStrength;
+    source.connect(gain).connect(pan);
+    const start=context.currentTime,ends=start+buffer.duration+.01;
+    const voice={name:'thunder',source,gain,pan,send,spatial,at,start,ends,priority:3};
+    this.voices.add(voice);
+    source.onended=()=>this.retire(voice);
+    source.start(start);source.stop(ends);
+    this.fxRack?.markActive();
+    return true;
+  }
+  update(game,options){
+    const cues=super.update(game,options);
+    const origin=game?.weather==='storm'?(Number.isFinite(game.weatherStart)?game.weatherStart:0):null;
+    if(origin!==this.#stormOrigin){
+      for(const voice of this.voices)if(voice.name==='thunder')this.retire(voice);
+      this.#stormOrigin=origin;this.#lastThunder=null;
+    }
+    if(origin===null)return cues;
+    const context=this.context;
+    if(!this.audible||!this.effectsWanted||!this.effectSelected('thunder')||context?.state!=='running')return cues;
+    if(!this.#thunderLoad&&this.recordedFetch){
+      const load=Promise.resolve().then(async()=>{
+        const response=await this.recordedFetch(THUNDER_URL,{signal:AbortSignal.timeout(8000)});
+        if(!response.ok)return;
+        const buffer=await this.recordedDecode(context,await response.arrayBuffer());
+        if(this.context===context&&this.#thunderLoad===load)this.#thunderBuffer=buffer;
+      }).catch(()=>{});
+      this.#thunderLoad=load;
+    }
+    const elapsed=game.clock-origin,storm=sampleWeather('storm',elapsed);
+    if(storm.thunderAt===null||storm.thunderAt===this.#lastThunder)return cues;
+    if(elapsed-storm.thunderAt>.35){this.#lastThunder=storm.thunderAt;return cues;}
+    if(!this.#playThunder(storm))return cues;
+    this.#lastThunder=storm.thunderAt;
+    return cues+1;
+  }
   play(name,options){
     // Reject before inherited option parsing, buffer lookup or context creation.
     // The catalogue permanently excludes the removed wood-contact cue.
-    if(!effectEnabled(this.effectMask,name))return false;
+    if(!this.effectSelected(name))return false;
     const played=super.play(name,options);if(played)this.fxRack?.markActive();return played;
   }
   stopEffects(){super.stopEffects();this.fxRack?.reset();}
   stopMusic(){this.stream?.pause();this.musicVoices=[];this.musicOrigin=null;this.musicMode=null;}
   retireMusic(voice){if(voice===this.stream?.voice)this.stopMusic();else super.retireMusic(voice);}
   releaseGraph(){
+    this.#thunderLoad=null;this.#thunderBuffer=null;this.#stormOrigin=null;this.#lastThunder=null;
     this.stream?.dispose();this.stream=null;this.musicVoices=[];this.fxRack?.dispose();this.fxRack=null;this.lastMusicGain=null;super.releaseGraph();
   }
 }

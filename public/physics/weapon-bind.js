@@ -52,13 +52,12 @@ function manifold(a,b,normal){
 // Bound on travel of any material point over this step. Every active weapon
 // hinge is included, and the lever exceeds the whole torso/arm/blade chain.
 // Conservative advancement therefore cannot jump across a thin rotating blade.
-function travelBound(rig,axis){
-  if(axis?.z)return 0; // Weapon layers have constant depth during rig interpolation.
+function travelBound(rig,axis,depthTravel){
   const dx=(rig.q?.[0]??0)-(rig.previousQ?.[0]??rig.q?.[0]??0),dy=(rig.q?.[1]??0)-(rig.previousQ?.[1]??rig.q?.[1]??0);
   let travel=axis?Math.abs(dx*axis.x+dy*axis.y):Math.hypot(dx,dy);
   const lever=5*(rig.scale??1)+Math.max(rig.swordLength??1,rig.previousSwordLength??1);
   for(let i=2;i<(rig.q?.length??0);i++)travel+=Math.abs(rig.q[i]-(rig.previousQ?.[i]??rig.q[i]))*lever;
-  return travel+Math.abs((rig.swordLength??1)-(rig.previousSwordLength??rig.swordLength??1))+2*Math.abs((rig.weaponFlex?.offset??0)-(rig.weaponFlex?.previousOffset??0));
+  return travel+Math.abs((rig.swordLength??1)-(rig.previousSwordLength??rig.swordLength??1))+2*Math.abs((rig.weaponFlex?.offset??0)-(rig.weaponFlex?.previousOffset??0))+(axis?0:depthTravel);
 }
 
 function accelerationBound(rig){
@@ -86,7 +85,69 @@ function compoundOverlapRecovery(A,B,dir=1){
   return best;
 }
 
-function advance(query,rate,accelerationA=0,accelerationB=0){
+
+// Bound the planar acceleration of native rectangle corners in step time.
+// Along a bent blade the tangent is angle + fraction * (2 * bend / length).
+// Integrating it gives the tip and segment endpoints; the chord normal turns
+// at the segment's midpoint angle. The root trim covers just .15 units of
+// that first chord. The extra unit bounds the rigid head and corner offsets.
+function weaponCornerMotion(rig){
+  const q=rig.q,prior=rig.previousQ??q,scale=rig.scale;
+  if((rig.dir!==1&&rig.dir!==-1)||!(Math.abs(rig.wristRestAngle)<=64))return null;
+  const length=rig.swordLength,previousLength=rig.previousSwordLength??length;
+  const lo=Math.min(length,previousLength),hi=Math.max(length,previousLength);
+  const bend=rig.weaponFlex?.offset??0,previousBend=rig.weaponFlex?.previousOffset??0;
+  // Keep a positive span after trimming .15 units from the first segment.
+  if(!(lo>=.65&&hi<=2&&scale>0&&scale<=2&&Math.max(Math.abs(bend),Math.abs(previousBend))<=.04))return null;
+  for(const i of [0,1,2,3,4,5,13])if(!(Math.abs(q[i])<=64&&Math.abs(prior[i])<=64))return null;
+  const torso=(q[2]-prior[2])+(q[3]-prior[3]);
+  const upper=torso+(q[4]-prior[4]),fore=upper+(q[5]-prior[5]),wrist=fore+(q[13]-prior[13]);
+  const dl=length-previousLength,db=bend-previousBend;
+  // A linear bend divided by a linear length has a constant derivative
+  // numerator. Bound both derivatives at the shortest length of the step.
+  const turnRate=2*Math.abs(db*previousLength-previousBend*dl)/(lo*lo);
+  const turnAcceleration=2*turnRate*Math.abs(dl)/lo;
+  const speed=Math.abs(wrist)+turnRate;
+  const acceleration=scale*(1.1*torso**2+.6*upper**2+.6*fore**2)+
+    (hi+1)*(speed**2+turnAcceleration)+2*Math.abs(dl)*speed;
+  const linearSpeed=Math.hypot(q[0]-prior[0],q[1]-prior[1])+scale*(1.1*Math.abs(torso)+.6*Math.abs(upper)+.6*Math.abs(fore))+
+    Math.abs(dl)+(hi+1)*speed;
+  return {acceleration,linearSpeed,speed,turnAcceleration};
+}
+
+
+function weaponSweepMotion(a,b){
+  const left=weaponCornerMotion(a),right=weaponCornerMotion(b);
+  return left&&right?{a:left,b:right,linearSpeed:left.linearSpeed+right.linearSpeed,acceleration:left.acceleration+right.acceleration}:null;
+}
+
+function turningAxisSeparated(left,right,width,motion){
+  if(!motion||!(left.xyGap>WEAPON_BIND.tolerance+1e-8))return false;
+  const normal=left.normal;
+  for(const part of ['a','b'])for(let i=0;i<left[part].axes.length;i++){
+    const axis=left[part].axes[i];
+    const sign=axis.x===normal.x&&axis.y===normal.y?1:axis.x===-normal.x&&axis.y===-normal.y?-1:0;
+    if(!sign)continue;
+    const endAxis=right[part].axes[i];
+    const {speed,turnAcceleration}=motion[part];
+    const radius=p=>(p.maxX-p.minX+p.maxY-p.minY)/2;
+    const reach=Math.hypot(left.b.center.x-left.a.center.x,left.b.center.y-left.a.center.y)+
+      radius(left.a)+radius(left.b)+motion.linearSpeed*width;
+    // d is a relative corner vector and n is this panel's rotating axis.
+    // Bound (d·n)'' by the acceleration, speed and reach terms.
+    const bound=motion.acceleration+2*motion.linearSpeed*speed+reach*(speed**2+turnAcceleration);
+    const margin=WEAPON_BIND.tolerance+1e-8+bound*width*width/8;
+    if(!(left.xyGap>margin))return false;
+    const end={x:sign*endAxis.x,y:sign*endAxis.y};
+    let maxA=-Infinity,minB=Infinity;
+    for(const vertex of right.a.vertices)maxA=Math.max(maxA,dot(vertex,end));
+    for(const vertex of right.b.vertices)minB=Math.min(minB,dot(vertex,end));
+    return minB-maxA>margin;
+  }
+  return false;
+}
+
+function advance(query,rate,accelerationA=0,accelerationB=0,before=Infinity,motionForSweep=null){
   const cache=new Map(),sample=t=>{if(!cache.has(t))cache.set(t,query(t));return cache.get(t);},bound=rate();let t=0;
   // A grazing angular contact can converge too slowly for advancement alone.
   // Subdivide the unresolved interval in temporal order. A midpoint separation
@@ -94,8 +155,10 @@ function advance(query,rate,accelerationA=0,accelerationB=0){
   // a genuinely touching sample can be returned. No fixed sample grid or
   // end-frame-only fallback may skip an earlier entry.
   const search=(lo,hi,left=sample(lo),right=sample(hi))=>{
-    if(!left||!right)return null;
+    if(lo>=before||!left||!right)return null;
     if(left.gap<=WEAPON_BIND.tolerance)return {...left,t:lo};
+    const motion=motionForSweep?.();
+    if(motion&&(turningAxisSeparated(left,right,hi-lo,motion)||turningAxisSeparated(right,left,hi-lo,motion)))return null;
     const mid=(lo+hi)/2,center=sample(mid);if(!center)return null;
     const width=hi-lo,axis=center.axis;
     // Every panel vertex is a sum of fixed links sin/cos(linear q), plus the
@@ -113,6 +176,7 @@ function advance(query,rate,accelerationA=0,accelerationB=0){
     return search(lo,mid,left,center)||search(mid,hi,center,right);
   };
   for(let iteration=0;iteration<64;iteration++){
+    if(t>=before)return null;
     const s=sample(t);if(!s)return null;
     if(s.gap<=WEAPON_BIND.tolerance)return {...s,t};
     const speed=rate(s.axis);if(speed<1e-12)return null;
@@ -121,8 +185,13 @@ function advance(query,rate,accelerationA=0,accelerationB=0){
     if(next<=t+1e-14)return search(t,1);
     t=Math.min(1,next);
   }
-  return search(t,1);
+  return t>=before?null:search(t,1);
 }
+
+const rigPrototype=ArticulatedRig.prototype;
+const nativePanels=rigPrototype.collisionPanels,nativePanelsAt=rigPrototype.collisionPanelsAt,nativeGeometryAt=rigPrototype.collisionGeometryAt;
+const nativeSweep=rig=>Object.getPrototypeOf(rig)===rigPrototype&&rig.collisionPanels===nativePanels&&
+  rig.collisionPanelsAt===nativePanelsAt&&rig.collisionGeometryAt===nativeGeometryAt;
 
 // Owned by one CCD query only. Selected geometry preserves the full API's
 // last-key lookup; legacy colliders still sample and cache the complete frame.
@@ -142,19 +211,39 @@ function panelSampler(rig){
 
 export function firstWeaponContact(a,b){
   if(!a?.collisionPanelsAt||!b?.collisionPanelsAt)return null;
-  const A=panels(a),B=panels(b),rate=axis=>travelBound(a,axis)+travelBound(b,axis),atA=panelSampler(a),atB=panelSampler(b);let best=null;
-  for(const pa of A)for(const pb of B){
+  const zA=a.weaponDepthOffset??0,zB=b.weaponDepthOffset??0,previousA=a.previousWeaponDepthOffset??zA,previousB=b.previousWeaponDepthOffset??zB;
+  const dzA=zA-previousA,dzB=zB-previousB;
+  const travelA=Math.abs(dzA),travelB=Math.abs(dzB),relativeDepth=Math.abs(dzA-dzB);
+  const rate=axis=>axis?.z?relativeDepth:travelBound(a,axis,travelA)+travelBound(b,axis,travelB);
+  const A=panels(a),B=panels(b),atA=panelSampler(a),atB=panelSampler(b);let best=null;
+  const depthActive=zA!==0||zB!==0||previousA!==0||previousB!==0;
+  const prune=nativeSweep(a)&&nativeSweep(b);
+  let motion;
+  const motionForSweep=prune?()=>{
+    if(motion===undefined)motion=weaponSweepMotion(a,b);
+    return motion;
+  }:null;
+  // Later pairs can only win strictly before the current hit. Keep the same
+  // subdivisions and pair order, including equal-time and overlap recovery.
+  pairs: for(const pa of A)for(const pb of B){
+    if(prune&&best?.t===0)break pairs;
     const hit=advance(t=>{
       const p=atA(t,pa.key),q=atB(t,pb.key);if(!p||!q)return null;
       return {...separation(p,q,a.dir??1),a:p,b:q};
-    },rate,accelerationBound(a),accelerationBound(b));
+    },rate,accelerationBound(a),accelerationBound(b),prune?best?.t:Infinity,motionForSweep);
     if(hit&&(!best||hit.t<best.t)){
       const points=manifold(hit.a,hit.b,hit.normal);
-      best={t:hit.t,normal:hit.normal,...points,keyA:pa.key,keyB:pb.key,
+      const side=depthActive&&hit.axis.z?Math.sign(hit.b.z-hit.a.z)||Math.sign(dzA-dzB):0;
+      const normal=side?{x:0,y:0,z:side}:hit.normal;
+      if(side){
+        points.pointA.z=hit.a.z+side*hit.a.depth/2;
+        points.pointB.z=hit.b.z-side*hit.b.depth/2;
+      }
+      best={t:hit.t,normal,...points,keyA:pa.key,keyB:pb.key,
         anchorA:anchor(hit.a,points.pointA),anchorB:anchor(hit.b,points.pointB)};
     }
   }
-  if(best?.t===0&&(A.some(p=>p.key==='weapon-head')||B.some(p=>p.key==='weapon-head'))){
+  if(best?.t===0&&!best.normal.z&&(A.some(p=>p.key==='weapon-head')||B.some(p=>p.key==='weapon-head'))){
     const recovery=compoundOverlapRecovery(A.map(p=>atA(0,p.key)).filter(Boolean),B.map(p=>atB(0,p.key)).filter(Boolean),a.dir??1);
     if(recovery){
       const {a:pa,b:pb,normal}=recovery,points=manifold(pa,pb,normal);
@@ -167,7 +256,10 @@ export function firstWeaponContact(a,b){
 export function firstWeaponPointContact(rig,from,to){
   if(!rig?.collisionPanelsAt||!from||!to||![from.x,from.y,to.x,to.y,from.z??0,to.z??0].every(Number.isFinite))return null;
   const dx=to.x-from.x,dy=to.y-from.y,dz=(to.z??0)-(from.z??0);
-  const rate=axis=>travelBound(rig,axis)+(axis?Math.abs(dx*axis.x+dy*axis.y+dz*(axis.z??0)):Math.hypot(dx,dy,dz)),at=panelSampler(rig);let best=null;
+  const depth=rig.weaponDepthOffset??0,depthDelta=depth-(rig.previousWeaponDepthOffset??depth);
+  const rate=axis=>axis?.z?Math.abs(depthDelta-dz):travelBound(rig,axis,Math.abs(depthDelta))+
+    (axis?Math.abs(dx*axis.x+dy*axis.y):Math.hypot(dx,dy,dz));
+  const at=panelSampler(rig);let best=null;
   for(const panel of panels(rig)){
     const hit=advance(t=>{
       const p=at(t,panel.key);if(!p)return null;
@@ -198,6 +290,7 @@ function anchoredManifold(a,b,c,panelsA,panelsB){
   return [{bodyA:'weapon',bodyB:'weapon',keyA:`steel:${c.keyA}`,keyB:`steel:${c.keyB}`,pointA,pointB,normal,penetration,projectOnly:true}];
 }
 export function weaponBindManifold(a,b,c){
+  if(c?.normal?.z)return [];
   const A=panels(a),B=panels(b);
   let contacts=anchoredManifold(a,b,c,A,B);
   if(A.length===1&&B.length===1)return contacts;
@@ -299,9 +392,49 @@ function signedFrictionResponse(a,b,pointA,pointB,n,t,vn,vt,cap,restitution,muSt
     contactIterations:Math.min(iterations+1,8),contactConverged:converged&&backtracks===0,contactBacktracks:backtracks};
 }
 
+function depthPenetration(a,b,c){
+  const pa=panels(a).find(p=>p.key===c.keyA),pb=panels(b).find(p=>p.key===c.keyB);
+  if(!pa||!pb||separation(pa,pb,a.dir??1).xyGap>WEAPON_BIND.tolerance)return 0;
+  return Math.max(0,(pa.depth+pb.depth)/2-(pb.z-pa.z)*c.normal.z);
+}
+
+export function projectWeaponDepthContact(a,b,c){
+  const penetration=depthPenetration(a,b,c);
+  if(penetration<=1e-7||!a.projectWeaponDepth||!b.projectWeaponDepth)return penetration;
+  const massA=a.weaponDepthInverseMass,massB=b.weaponDepthInverseMass,inverseMass=massA+massB;
+  if(!(inverseMass>0))return penetration;
+  const side=c.normal.z,amount=Math.min(.035,penetration+1e-7);
+  let movedA=-side*a.projectWeaponDepth(-side*amount*massA/inverseMass);
+  const movedB=side*b.projectWeaponDepth(side*(amount-movedA));
+  const remaining=amount-movedA-movedB;
+  if(remaining>1e-7)movedA-=side*a.projectWeaponDepth(-side*remaining);
+  return Math.max(0,penetration-movedA-movedB);
+}
+
+function resolveDepthBind(a,b,c,{cap,bounce,project,observeVelocities}){
+  const inverseMass=a.weaponDepthInverseMass+b.weaponDepthInverseMass;
+  const speedA=a.weaponDepthVelocity,speedB=b.weaponDepthVelocity;
+  if(!(inverseMass>0)||![speedA,speedB,inverseMass].every(Number.isFinite)||!a.applyWeaponDepthImpulse||!b.applyWeaponDepthImpulse)
+    return {...c,impulse:0,reason:'invalid-depth-contact'};
+  const side=c.normal.z,closingSpeed=(speedA-speedB)*side;
+  const impulse=clamp((1+bounce)*closingSpeed/inverseMass,0,cap);
+  const va=a.pointVelocity({body:'weapon',point:c.pointA}),vb=b.pointVelocity({body:'weapon',point:c.pointB});
+  const slideSpeed=va&&vb?Math.hypot(va.x-vb.x,va.y-vb.y):0;
+  if(impulse>0){a.applyWeaponDepthImpulse(-side*impulse);b.applyWeaponDepthImpulse(side*impulse);}
+  const penetration=project?projectWeaponDepthContact(a,b,c):depthPenetration(a,b,c);
+  const velocities=observeVelocities&&va&&vb?{beforeA:{...va,z:speedA},beforeB:{...vb,z:speedB},
+    afterA:{...va,z:a.weaponDepthVelocity},afterB:{...vb,z:b.weaponDepthVelocity}}:null;
+  const dissipatedWork=Math.max(0,closingSpeed*impulse-.5*inverseMass*impulse**2);
+  return {...c,bodyA:'weapon',bodyB:'weapon',impulse,closingSpeed,slideSpeed,penetration,dissipatedWork,
+    frictionImpulse:0,frictionState:'free',slidePower:0,flexWork:0,iterations:Number(project),...(velocities?{velocities}:{}),
+    at:{x:(c.pointA.x+c.pointB.x)/2,y:(c.pointA.y+c.pointB.y)/2,z:(c.pointA.z+c.pointB.z)/2}};
+}
+
 export function resolveWeaponBind(a,b,{dt=1/120,maxForce=WEAPON_BIND.maxForce,restitution=WEAPON_BIND.restitution,project=true,
   staticFriction=WEAPON_BIND.staticFriction,dynamicFriction=WEAPON_BIND.dynamicFriction,observeVelocities=false}={}){
   const c=firstWeaponContact(a,b);if(!c)return {impulse:0,reason:'no-contact'};
+  const cap=Math.min(.45,Math.max(0,finite(maxForce))*clamp(finite(dt),0,1/30)),bounce=clamp(finite(restitution),0,.3);
+  if(c.normal.z)return resolveDepthBind(a,b,c,{cap,bounce,project,observeVelocities});
   const current=()=>({a:panels(a).find(p=>p.key===c.keyA),b:panels(b).find(p=>p.key===c.keyB)});
   let p=current(),pointA=located(p.a,c.anchorA),pointB=located(p.b,c.anchorB),n=c.normal;
   const va=a.pointVelocity({body:'weapon',point:pointA}),vb=b.pointVelocity({body:'weapon',point:pointB});
@@ -309,7 +442,6 @@ export function resolveWeaponBind(a,b,{dt=1/120,maxForce=WEAPON_BIND.maxForce,re
   const closingSpeed=(va.x-vb.x)*n.x+(va.y-vb.y)*n.y;
   const tangent={x:-n.y,y:n.x},slide=(va.x-vb.x)*tangent.x+(va.y-vb.y)*tangent.y,slideSpeed=Math.abs(slide);
   const muStatic=clamp(finite(staticFriction),0,1),muDynamic=Math.min(muStatic,clamp(finite(dynamicFriction),0,1));
-  const cap=Math.min(.45,Math.max(0,finite(maxForce))*clamp(finite(dt),0,1/30)),bounce=clamp(finite(restitution),0,.3);
   const signed=signedFrictionResponse(a,b,pointA,pointB,n,tangent,closingSpeed,slide,cap,bounce,muStatic,muDynamic);
   const A=signed?null:contactInertia(a,pointA,n,muStatic>0),B=signed?null:contactInertia(b,pointB,n,muStatic>0);
   // A duck-typed legacy collider exposes only normal inverse mass. Without

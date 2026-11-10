@@ -66,6 +66,9 @@ body {position:fixed;inset:0;background-image:none}
 }
 .mobile-menu::backdrop {background:#07191a70}
 .mobile-menu[open] {inset:0 0 0 auto}
+.mobile-menu.armory-preview::backdrop {background:#07191a40}
+@media (orientation:landscape){.mobile-menu.armory-preview {width:min(420px,48vw)}}
+@media (orientation:portrait){.mobile-menu.armory-preview[open] {inset:auto 0 0 auto;height:58dvh}}
 .mobile-menu .menu-top {padding:max(10px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) 10px 14px;gap:10px}
 .mobile-menu .menu-top h2 {font-size:20px}.mobile-menu .menu-top small {font-size:8px}
 .mobile-menu .menu-back {min-width:72px;min-height:44px;padding:8px;font-size:11px}

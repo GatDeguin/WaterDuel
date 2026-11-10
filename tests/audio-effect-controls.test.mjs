@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 import {AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled} from '../public/audio/effect-controls.js';
 import {WorkshopGameAudio} from '../public/audio/workshop-game-audio.js';
 
@@ -32,10 +33,51 @@ function fixture(){
   return {audio,context,media,lookups,get contexts(){return contexts;}};
 }
 const turn=()=>new Promise(resolve=>setImmediate(resolve));
+const combatEffects=AUDIO_EFFECTS.filter(({id})=>id!=='thunder');
 
-test('the immutable 27-effect catalogue has stable individual bits and rejects removed or malformed IDs and masks',()=>{
-  const ids=['wood','joint','shield-wood','footstep-dry','footstep-wet','metal','ring','blade-beat','blade-slide','shield-metal','tension','puncture','tear','latex-rub','slosh','jet','drip','splash','water-burst','whoosh','blade-swish','countdown','go','victory','defeat','draw','ui'];
-  assert.deepEqual(AUDIO_EFFECTS.map(e=>e.id),ids);assert.ok(Object.isFrozen(AUDIO_EFFECTS));assert.ok(AUDIO_EFFECTS.every(e=>Object.isFrozen(e)&&e.label&&e.group));assert.equal(ALL_EFFECTS_MASK,134217727);
+test('El trueno respeta su propio interruptor, la pausa y el reloj de cada tormenta',async()=>{
+  const wav=await readFile(new URL('../public/assets/audio/weather/thunder.wav',import.meta.url));
+  const {audio}=fixture();let requests=0;
+  audio.effectBuffer=WorkshopGameAudio.prototype.effectBuffer;
+  audio.recordedFetch=async url=>{
+    assert.match(url.pathname,/\/weather\/thunder\.wav$/);
+    requests++;
+    return {ok:true,arrayBuffer:async()=>wav.buffer.slice(wav.byteOffset,wav.byteOffset+wav.byteLength)};
+  };
+  audio.recordedDecode=async (_context,bytes)=>{
+    const data=Buffer.from(bytes);
+    assert.equal(data.toString('ascii',0,4),'RIFF');assert.equal(data.toString('ascii',8,12),'WAVE');
+    assert.ok(data.subarray(44).some(sample=>sample!==0));
+    return {duration:data.readUInt32LE(40)/data.readUInt32LE(28)};
+  };
+  const onlyThunder=setEffectEnabled(0,'thunder',true),onlyWood=setEffectEnabled(0,'wood',true);
+  audio.configure(true,55,{music:0,effectMask:onlyWood});
+  const game={phase:'ready',clock:102.9,weatherStart:100,weather:'storm',fighters:[]};
+  audio.update(game);await turn();assert.equal(requests,0,'other effects cannot enable a thunder load');
+  audio.configure(true,55,{effectMask:onlyThunder});
+  audio.update(game);await turn();
+  assert.equal(requests,1);assert.equal(audio.voices.size,0);
+  game.clock=103.66;
+  assert.equal(audio.update(game,{paused:true}),0);
+  assert.equal(audio.update(game),1);
+  const [voice]=audio.voices;
+  assert.equal(voice.name,'thunder');assert.ok(voice.spatial&&voice.at.z<0);
+  assert.equal(audio.update(game),0);assert.equal(audio.voices.size,1);
+  game.weatherStart=103.66;
+  assert.equal(audio.update(game),0);assert.equal(voice.source.stopped,true);assert.equal(audio.voices.size,0);
+  game.clock=107.32;assert.equal(audio.update(game),1);
+  const newStrike=[...audio.voices][0];game.weather='rain';
+  assert.equal(audio.update(game),0);assert.equal(newStrike.source.stopped,true);assert.equal(audio.voices.size,0);
+  game.weather='storm';game.weatherStart=107.32;game.clock=110.98;assert.equal(audio.update(game),1);
+  audio.configure(true,55,{music:0,effectMask:onlyWood});assert.equal(audio.voices.size,0);
+  game.clock=117.43;assert.equal(audio.update(game),0);assert.equal(requests,1);
+  assert.equal(audio.effectSelected('wood'),true);
+  audio.dispose();
+});
+
+test('the immutable effect catalogue has stable individual bits and rejects removed or malformed IDs and masks',()=>{
+  const ids=['wood','joint','shield-wood','footstep-dry','footstep-wet','metal','ring','blade-beat','blade-slide','shield-metal','tension','puncture','tear','latex-rub','slosh','jet','drip','splash','water-burst','whoosh','blade-swish','countdown','go','victory','defeat','draw','ui','thunder'];
+  assert.deepEqual(AUDIO_EFFECTS.map(e=>e.id),ids);assert.ok(Object.isFrozen(AUDIO_EFFECTS));assert.ok(AUDIO_EFFECTS.every(e=>Object.isFrozen(e)&&e.label&&e.group));assert.equal(ALL_EFFECTS_MASK,268435455);
   for(const [i,id]of ids.entries()){const only=setEffectEnabled(0,id,true);assert.equal(only,2**i);assert.equal(effectEnabled(only,id),true);for(const other of ids)if(other!==id)assert.equal(effectEnabled(only,other),false);assert.equal(setEffectEnabled(only,id,false),0);assert.equal(effectEnabled(ALL_EFFECTS_MASK,id),true);}
   for(const mask of [0,1,ALL_EFFECTS_MASK])assert.equal(validEffectMask(mask),true);
   for(const mask of [-1,1.5,ALL_EFFECTS_MASK+1,NaN,Infinity,'0',null,{},true]){assert.equal(validEffectMask(mask),false);assert.equal(effectEnabled(mask,'wood'),false);assert.throws(()=>setEffectEnabled(mask,'wood',true),RangeError);}
@@ -51,10 +93,10 @@ test('disabled effects stop before inherited playback, options, buffers or conte
   assert.equal(f.contexts,0);assert.deepEqual(f.lookups,[]);assert.equal(audio.voices.size,0);audio.dispose();
 });
 
-test('each of the 27 effects can be played alone and its switch remains independent of all other IDs',()=>{
+test('each combat effect can be played alone and its switch remains independent of all other IDs',()=>{
   const {audio,context,lookups}=fixture();audio.configure(true,55,{music:0,effects:1});audio.unlock();
-  for(const {id}of AUDIO_EFFECTS){context.currentTime+=1;audio.configure(true,55,{effectMask:setEffectEnabled(0,id,true)});for(const other of AUDIO_EFFECTS)if(other.id!==id)assert.equal(audio.play(other.id),false);assert.equal(audio.play(id,{intensity:.2}),true,id);assert.deepEqual([...audio.voices].map(v=>v.name),[id]);}
-  assert.deepEqual(lookups,AUDIO_EFFECTS.map(e=>e.id));assert.equal(audio.play('wood-contact'),false);audio.dispose();
+  for(const {id}of combatEffects){context.currentTime+=1;audio.configure(true,55,{effectMask:setEffectEnabled(0,id,true)});for(const other of AUDIO_EFFECTS)if(other.id!==id)assert.equal(audio.play(other.id),false);assert.equal(audio.play(id,{intensity:.2}),true,id);assert.deepEqual([...audio.voices].map(v=>v.name),[id]);}
+  assert.deepEqual(lookups,combatEffects.map(e=>e.id));assert.equal(audio.play('wood-contact'),false);audio.dispose();
 });
 
 test('disabling a cue retires only its active and delayed voices and leaves music, other cues and the shared room intact',async()=>{
@@ -90,7 +132,7 @@ test('contact composites, joint damage and game notices obey their own switches 
 test('switches leave prepared recording and fallback banks and their variation counters untouched until an enabled cue plays',()=>{
   const {audio,context}=fixture();audio.configure(true,55,{music:0});audio.unlock();audio.effectBuffer=WorkshopGameAudio.prototype.effectBuffer;
   audio.prepareRecordings=()=>Promise.resolve(audio.recordedState==='ready');
-  for(const {id}of AUDIO_EFFECTS)for(let variant=0;variant<3;variant++){
+  for(const {id}of combatEffects)for(let variant=0;variant<3;variant++){
     audio.buffers.set(id+':'+variant,{duration:.5,bank:'fallback'});audio.recordedBuffers.set(id+':'+variant,{duration:.5,bank:'recorded'});
   }
   const fallback=audio.buffers,recorded=audio.recordedBuffers;

@@ -2,7 +2,7 @@
 import {BALLOON_RADII} from './physics/dimensions.js';
 import {newOpponentSeed,seededOpponentRandom,randomOpponent} from './opponent-loadouts.js';
 import {TRAINING_DRILL_KINDS,TrainingDrill} from './training-drills.js';
-import {ADVANCED_CAMPAIGN,ADVANCED_CAMPAIGN_STORAGE_KEY} from './campaign-progression.js';
+import {ADVANCED_CAMPAIGN,ADVANCED_CAMPAIGN_STORAGE_KEY,campaignArmory} from './campaign-progression.js';
 
 export const SINGLE_PLAYER_STORAGE_KEY='water-duel.single-player.v1';
 export const CAMPAIGN=Object.freeze([
@@ -64,6 +64,7 @@ function validPuncture(data){
 }
 
 export class SinglePlayerSession{
+  #armoryCache=null;
   constructor({storage=null,seed=newOpponentSeed(),random=null}={}){
     this.storage=storage;this.saved=loadProgress(storage);this.kind='duel';this.stage=this.saved.stage;
     this.advancedSaved=this.saved.completed?loadProgress(storage,ADVANCED_CAMPAIGN_STORAGE_KEY):emptyProgress();this.campaignTier='normal';this.resolvedCampaignMatches=new WeakSet();
@@ -78,6 +79,12 @@ export class SinglePlayerSession{
   }
   get campaignProgress(){return this.campaignTier==='advanced'?this.advancedSaved:this.saved;}
   get campaignEncounters(){return this.campaignTier==='advanced'?ADVANCED_CAMPAIGN:CAMPAIGN;}
+  get campaignArmory(){
+    if(this.#armoryCache?.normal!==this.saved||this.#armoryCache.advanced!==this.advancedSaved){
+      this.#armoryCache={normal:this.saved,advanced:this.advancedSaved,value:campaignArmory(CAMPAIGN,this.saved,this.advancedSaved)};
+    }
+    return this.#armoryCache.value;
+  }
   setCampaignTier(value){
     if(!['normal','advanced'].includes(value)||(value==='advanced'&&!this.saved.completed))return false;
     this.campaignTier=value;this.stage=this.campaignProgress.stage;this.objectiveIndex=0;this.reference=null;this.hold=0;

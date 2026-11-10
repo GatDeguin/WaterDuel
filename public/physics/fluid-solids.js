@@ -6,6 +6,41 @@ import {createDetachedFluidColliders} from './detached-fluid-colliders.js';
 const dot=(a,b)=>a.x*b.x+a.y*b.y+(a.z??0)*(b.z??0);
 const length=v=>Math.hypot(v.x,v.y,v.z??0);
 const depthIndexes=new WeakMap(),DEPTH_CELL=.125;
+const sweepIndexes=new WeakMap();
+const sweepAxes=[['x',4],['y',4],['z',8]];
+function createSweepIndex(colliders){
+  if(colliders.length>64)return null;
+  const axes=[];
+  for(const [axis,scale] of sweepAxes){
+    let first=Infinity,last=-Infinity;
+    const ranges=[];
+    for(const solid of colliders){
+      const min=Math.floor(solid.bounds.min[axis]*scale),max=Math.floor(solid.bounds.max[axis]*scale);
+      if(!Number.isSafeInteger(min)||!Number.isSafeInteger(max)||max<min)return null;
+      ranges.push([min,max]);first=Math.min(first,min);last=Math.max(last,max);
+    }
+    if(!ranges.length||last-first>128)return null;
+    const bits=new Uint32Array((last-first+1)*2);
+    for(const [i,[min,max]] of ranges.entries()){
+      const word=i>>>5,mask=1<<(i&31);
+      for(let cell=min;cell<=max;cell++)bits[(cell-first)*2+word]|=mask;
+    }
+    axes.push({first,last,scale,bits});
+  }
+  return {count:colliders.length,axes};
+}
+function intersectSweep(axis,lower,upper,mask){
+  const low=Math.floor(lower*axis.scale),high=Math.floor(upper*axis.scale);
+  if(!Number.isSafeInteger(low)||!Number.isSafeInteger(high)||high<low)return false;
+  const start=Math.max(low,axis.first),end=Math.min(high,axis.last);
+  let lo=0,hi=0;
+  for(let cell=start;cell<=end;cell++){
+    const i=(cell-axis.first)*2;lo|=axis.bits[i];hi|=axis.bits[i+1];
+  }
+  mask.lo&=lo;mask.hi&=hi;
+  return true;
+}
+
 function depthCandidates(solids,from,to,radius){
   const index=depthIndexes.get(solids);if(!index||index.count!==solids.length)return null;
   const low=Math.floor((Math.min(from.z,to.z)-radius)/DEPTH_CELL),high=Math.floor((Math.max(from.z,to.z)+radius)/DEPTH_CELL);
@@ -26,8 +61,8 @@ function panelSolid(panel){
 const parentBody={torso:'pelvis',neck:'torso',mainUpper:'torso',mainForearm:'mainUpper',weapon:'mainForearm',
   offUpper:'torso',offForearm:'offUpper',offWeapon:'offForearm',frontThigh:'pelvis',frontShin:'frontThigh',frontFoot:'frontShin',backThigh:'pelvis',backShin:'backThigh',backFoot:'backShin'};
 const bodyJoint={pelvis:2,torso:3,neck:12,mainUpper:4,mainForearm:5,weapon:13,offUpper:6,offForearm:7,offWeapon:7,frontThigh:8,frontShin:9,backThigh:10,backShin:11,frontFoot:14,backFoot:15};
-function panelMotion(r,panel,solid,pose,before,extension){
-  const translation={x:r.q[0]-before[0],y:r.q[1]-before[1],z:0},frames=pose.bodyFrames;
+function panelMotion(r,panel,solid,pose,before,extension,depthTravel){
+  const translation={x:r.q[0]-before[0],y:r.q[1]-before[1],z:depthTravel},frames=pose.bodyFrames;
   const extending=panel.key==='weapon'?.5:panel.key==='weapon-head'?1:0;
   const centerExtension=extension*extending,halfBound=panel.key==='weapon'?extension/2:0;
   let body=panel.body,frame=frames?.[body];
@@ -60,13 +95,16 @@ function sweptBounds(a,b,motion){
   }
   return {min,max};
 }
-export function fluidSolidColliders(fighters){
+export function fluidSolidColliders(fighters,stepSeconds=1/120,{nativeChestSampler=null,prepareSweepIndex=false}={}){
   const colliders=fighters.flatMap(f=>{
     const r=f.rig,current=r.collisionPanels(),currentSolids=current.map(panelSolid),cache=new Map([[1,{panels:current,solids:currentSolids}]]),before=r.previousQ??r.q;
     const extension=Math.abs(r.swordLength-(r.previousSwordLength??r.swordLength));
+    const bodyDepth=r.bodyDepth??0,weaponDepth=r.weaponDepthOffset??0;
+    const movingDepth=bodyDepth!==(r.previousBodyDepth??bodyDepth)||weaponDepth!==(r.previousWeaponDepthOffset??weaponDepth);
     const pose=r.pose();
     const direct=typeof r.collisionSolidsAt==='function',componentCaches=direct?current.map(()=>new Map()):null;
     const previousSolids=direct?r.collisionSolidsAt(0):null;
+    const chestSampler=direct?nativeChestSampler?.(r):null;
     const at=(t,index)=>{
       if(direct){
         if(t===0)return previousSolids[index];
@@ -75,7 +113,8 @@ export function fluidSolidColliders(fighters){
         if(samples.has(t)){
           const solid=samples.get(t);samples.delete(t);samples.set(t,solid);return solid;
         }
-        const solid=r.collisionSolidsAt(t,current[index].key)[0];
+        const key=current[index].key;
+        const solid=chestSampler&&(key==='chest-front'||key==='chest-back')?chestSampler(t,key):r.collisionSolidsAt(t,key)[0];
         if(samples.size>=32)samples.delete(samples.keys().next().value);
         samples.set(t,solid);return solid;
       }
@@ -101,12 +140,20 @@ export function fluidSolidColliders(fighters){
     // every liquid parcel which contacts that same piece of wood.
     const v=f.rig.pointVelocity({body:panel.body,point:center})??{x:0,y:0};
     const beside=f.rig.pointVelocity({body:panel.body,point:{x:center.x+1,y:center.y}})??v,omega=beside.y-v.y;
-    const motion=panelMotion(r,panel,solid,pose,before,extension),bounds=sweptBounds(at(0,index),solid,motion);
+    const previous=at(0,index);
+    // An arm or weapon may move in depth independently of the torso.
+    const depthTravel=movingDepth&&center.z!==previous.center.z?center.z-previous.center.z:0;
+    const depthVelocity=depthTravel===0?0:depthTravel/stepSeconds;
+    const motion=panelMotion(r,panel,solid,pose,before,extension,depthTravel),bounds=sweptBounds(previous,solid,motion);
     return {...solid,body:panel.body,key:panel.key,bounds,motionAt:t=>at(t,index),motion,velocityAt:point=>{
-      return {vx:v.x-omega*(point.y-center.y),vy:v.y+omega*(point.x-center.x),vz:0};
+      return {vx:v.x-omega*(point.y-center.y),vy:v.y+omega*(point.x-center.x),vz:depthVelocity};
     }};
   });});
   for(const f of fighters)for(const fragment of f.rig.fragments??[])colliders.push(...createDetachedFluidColliders(fragment,{panelSolid,sweptBounds}));
+  if(prepareSweepIndex){
+    const index=createSweepIndex(colliders);
+    if(index){sweepIndexes.set(colliders,index);return colliders;}
+  }
   if(colliders.length<=32){
     const bins=new Map();let valid=true;
     for(let i=0;i<colliders.length;i++){
@@ -131,12 +178,7 @@ function signedGap(point,solid,radius,result=null){
   return {gap,normal,axis:normal};
 }
 function movingEntry(from,to,solid,radius,t0,t1){
-  if(solid.bounds){
-    const {min,max}=solid.bounds;
-    if(Math.max(from.z,to.z)+radius<min.z||Math.min(from.z,to.z)-radius>max.z||
-      Math.max(from.x,to.x)+radius<min.x||Math.min(from.x,to.x)-radius>max.x||
-      Math.max(from.y,to.y)+radius<min.y||Math.min(from.y,to.y)-radius>max.y)return null;
-  }
+
   if(!solid.motionAt||!solid.motion||solid.motion.centerBound<1e-12&&solid.motion.angleRate<1e-12&&solid.motion.halfBound<1e-12)return entry(from,to,solid,radius);
   const delta={x:to.x-from.x,y:to.y-from.y,z:to.z-from.z},path=length(delta),span=Math.max(0,t1-t0);
   const shape0=solid.motionAt(t0),shape1=solid.motionAt(t1),motion=solid.motion;
@@ -145,9 +187,9 @@ function movingEntry(from,to,solid,radius,t0,t1){
     const hit=entry(from,relativeTo,shape0,radius);return hit?{...hit,solid}:null;
   }
   let first=0,lastTime=1;
-  // The rig is planar: these extrusions have an invariant world Z slab even
-  // while their XY axes rotate. Clip that exact separation before spending a
-  // conservative-advancement budget on an unrelated projected blade crossing.
+  // Clip the invariant depth slab of stationary layers before spending the
+  // advancement budget on an unrelated XY crossing. Moving layers use their
+  // relative depth speed below.
   if(shape0.center.z===shape1.center.z&&shape0.half[2]===shape1.half[2]){
     const low=shape0.center.z-shape0.half[2]-radius,high=shape0.center.z+shape0.half[2]+radius;
     if(Math.abs(delta.z)<1e-14){if(from.z<low||from.z>high)return null;}
@@ -160,7 +202,10 @@ function movingEntry(from,to,solid,radius,t0,t1){
   if(relative0>path+(motion.centerBound+motion.halfBound)*span+Math.hypot(...shape0.half)+radius)return null;
   const relative1=length({x:to.x-shape1.center.x,y:to.y-shape1.center.y,z:to.z-shape1.center.z});
   const distanceBound=Math.max(relative0,relative1)+path+motion.centerBound*span;
-  const relativeDelta={x:delta.x-(motion.translation?.x??0)*span,y:delta.y-(motion.translation?.y??0)*span,z:delta.z};
+  // Depth is affine over the solid's step, including a shorter fluid substep.
+  const relativeZ=motion.translation?.z?delta.z-(shape1.center.z-shape0.center.z):delta.z;
+  const relativeDelta={x:delta.x-(motion.translation?.x??0)*span,y:delta.y-(motion.translation?.y??0)*span,
+    z:relativeZ};
   // The active face itself rotates during the remaining interval. Include the
   // possible change of the path's projection, not just its current dot product.
   const rotationBound=((motion.angularBound??motion.centerBound)+motion.angleRate*(distanceBound+length(relativeDelta))+(motion.centerExtension??0)+motion.halfBound)*span;
@@ -192,7 +237,7 @@ function movingEntry(from,to,solid,radius,t0,t1){
     // retain their own records while they certify unresolved intervals.
     last=t===first?firstSample:(probe=sample(t,probe));
     if(last.gap<=1e-7)return {t,normal:last.normal,penetration:Math.max(0,-last.gap),solid};
-    const bound=last.axis.z?Math.abs(delta.z):Math.abs(dot(relativeDelta,last.axis))+rotationBound;
+    const bound=last.axis.z?Math.abs(relativeDelta.z):Math.abs(dot(relativeDelta,last.axis))+rotationBound;
     if(t>=lastTime||bound<1e-14)return null;
     t=Math.min(lastTime,t+Math.max(1e-10,.8*last.gap/bound));
   }
@@ -227,15 +272,30 @@ function entry(from,to,solid,radius){
 }
 export function resolveLiquidSolid(parcel,from,radius,dt,solids,{timeFrom=0,timeTo=1}={}){
   let start=from,remaining=dt,timeStart=timeFrom;
+  const index=sweepIndexes.get(solids),maskPair=index?.count===solids.length?{lo:0,hi:0}:null;
   // Up to three corner contacts; capped work and no repeated infinite bounce.
   for(let iteration=0;iteration<3;iteration++){
     let hit=null;
-    let mask=depthCandidates(solids,start,parcel,radius);
-    if(mask===null){
-      for(const solid of solids){const next=movingEntry(start,parcel,solid,radius,timeStart,timeTo);if(next&&(!hit||next.t<hit.t))hit=next;}
-    }else while(mask!==0){
-      const index=31-Math.clz32(mask&-mask);mask&=mask-1;
-      const next=movingEntry(start,parcel,solids[index],radius,timeStart,timeTo);if(next&&(!hit||next.t<hit.t))hit=next;
+    const minX=Math.min(start.x,parcel.x)-radius,maxX=Math.max(start.x,parcel.x)+radius;
+    const minY=Math.min(start.y,parcel.y)-radius,maxY=Math.max(start.y,parcel.y)+radius;
+    const minZ=Math.min(start.z,parcel.z)-radius,maxZ=Math.max(start.z,parcel.z)+radius;
+    const visit=solid=>{
+      const bounds=solid.bounds;
+      if(bounds&&(maxZ<bounds.min.z||minZ>bounds.max.z||maxX<bounds.min.x||minX>bounds.max.x||maxY<bounds.min.y||minY>bounds.max.y))return;
+      const next=movingEntry(start,parcel,solid,radius,timeStart,timeTo);
+      if(next&&(!hit||next.t<hit.t))hit=next;
+    };
+    if(maskPair){maskPair.lo=-1;maskPair.hi=-1;}
+    if(maskPair&&intersectSweep(index.axes[0],minX,maxX,maskPair)&&intersectSweep(index.axes[1],minY,maxY,maskPair)&&
+        intersectSweep(index.axes[2],minZ,maxZ,maskPair)){
+      // Visit each word in collider order. Equal times keep their original tie break.
+      let low=maskPair.lo,high=maskPair.hi;
+      while(low!==0){const i=31-Math.clz32(low&-low);low&=low-1;visit(solids[i]);}
+      while(high!==0){const i=31-Math.clz32(high&-high);high&=high-1;visit(solids[32+i]);}
+    }else{
+      let mask=depthCandidates(solids,start,parcel,radius);
+      if(mask===null){for(const solid of solids)visit(solid);}
+      else while(mask!==0){const i=31-Math.clz32(mask&-mask);mask&=mask-1;visit(solids[i]);}
     }
     if(!hit||!hit.normal)return;
     const n=hit.normal,t=hit.t,point={x:start.x+(parcel.x-start.x)*t,y:start.y+(parcel.y-start.y)*t,z:start.z+(parcel.z-start.z)*t};

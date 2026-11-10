@@ -12,6 +12,7 @@ const shell=$('controllerShell'),state={offX:0,offY:0,mainX:0,mainY:0,lean:0,bod
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 let ws=null,seq=0,reconnect=null,motionEnabled=false,baseGamma=null,baseBeta=null,headSensorTimer=null,damageTimer=null,inputFocused=true,hostOnline=false,invitationInvalid=false,serverOffset=0;
 let welcomed=false,menuOpen=false,menuVisit=0,menuState=null,menuStateSerial=0,requestId=0,equipmentPromise=null,equipmentCatalog=null,seekDragging=false,volumeDragging=false;
+let equipmentOpen=false,armoryOptionsKey=null;
 let resultState=null,resultVisit=0,resultAccepted=false,resultOffline=false,resultNeedsControlFocus=false;
 let rumbleUntil=0,rumblePriority=0;
 const pendingCommands=new Map();
@@ -99,7 +100,8 @@ function damageFeedback(){
 }
 function send(clear=false){
   if(ws?.readyState!==WebSocket.OPEN)return;
-  try{ws.send(JSON.stringify({type:'control',seq:++seq,sentAt:Date.now()+serverOffset,...state,...(clear===true?{neutralize:true}:{})}));}catch{}
+  try{ws.send(JSON.stringify({type:'control',seq:++seq,sentAt:Date.now()+serverOffset,...state,
+    ...(clear===true?{neutralize:true}:armoryPreviewRequested()?{armoryView:true}:{})}));}catch{}
 }
 
 function installPad(id,knobId,prefix,label,axis='radial'){
@@ -161,6 +163,7 @@ function neutralize(){
   stopRumble();
   soundDragging.clear();volumeDragging=false;
   for(const reset of resetControls)reset();
+  setEquipmentOpen(false);
   Object.assign(state,{offX:0,offY:0,mainX:0,mainY:0,lean:0,bodyY:0,wrist:0,thrust:false,guard:false,attackHeld:false,headX:0,headZ:0});
   clearHeadSensor();$('headPadValue').textContent='CABEZA CENTRADA';send(true);
 }
@@ -283,8 +286,49 @@ function renderResult({preparing,changingArena}){
   if(entered&&!menuOpen&&online&&!document.hidden&&inputFocused)(button.hidden||button.disabled?$('menuBtn'):button).focus?.();
 }
 function options(element,items,selected){
-  const nodes=items.map(item=>{const option=document.createElement('option');option.value=String(item.id);option.textContent=item.label;return option;});
+  const nodes=items.map(item=>{const option=document.createElement('option');option.value=String(item.id);option.textContent=item.label;option.disabled=item.disabled===true;return option;});
   element.replaceChildren(...nodes);element.value=String(selected??items[0]?.id??'');
+}
+function armoryPreviewRequested(){
+  return equipmentOpen&&menuOpen&&inputFocused&&!document.hidden&&connected()&&menuState?.configurable===true&&
+    ['ready','matchover'].includes(menuState.phase)&&!menuState.replay?.active&&!presentationBlocked();
+}
+function setEquipmentOpen(open){
+  equipmentOpen=open;
+  $('menuEquipmentPanel').hidden=!open;
+  $('menuEquipmentToggle').setAttribute('aria-expanded',String(open));
+  $('mobileMenu').classList.toggle('armory-preview',armoryPreviewRequested());
+}
+function gearAvailable(armory,group,id){
+  return id===(group==='weapons'?'sword':'none')||armory?.[group]?.[id]?.unlocked===true;
+}
+function renderArmory(s,campaign){
+  $('menuCampaignArmory').hidden=!campaign;
+  if(!equipmentCatalog)return;
+  const armory=campaign?s?.campaignArmory??{}:null;
+  const key=armory?JSON.stringify(armory):'free';
+  if(key===armoryOptionsKey)return;
+  armoryOptionsKey=key;
+  const selection=s?.fighters?.find(f=>f.slot===1)?.equipment;
+  const wall=[];
+  for(const [group,catalog,selectId,selected] of [
+    ['weapons',equipmentCatalog.WEAPONS,'menuWeapon1',selection?.weapon],
+    ['defenses',equipmentCatalog.DEFENSES,'menuDefense1',selection?.defense],
+  ]){
+    const items=Object.values(catalog).map(item=>{
+      if(!armory)return item;
+      const unlocked=gearAvailable(armory,group,item.id);
+      if(item.id!=='none'){
+        const row=document.createElement('li');
+        const rival=safeText(armory[group]?.[item.id]?.rival,64);
+        row.textContent=`${item.label} · ${unlocked?'Desbloqueado':rival?`Vencé a ${rival}`:'Bloqueado'}`;
+        row.classList.toggle('armory-unlocked',unlocked);wall.push(row);
+      }
+      return {...item,disabled:!unlocked,label:unlocked?item.label:`${item.label} · Bloqueado`};
+    });
+    options($(selectId),items,selected??(group==='weapons'?'sword':armory?'none':'short'));
+  }
+  $('menuArmoryItems').replaceChildren(...wall);
 }
 function loadEquipment(){
   if(equipmentPromise)return equipmentPromise;
@@ -355,6 +399,8 @@ function renderMenu(){
   const changingArena=[...pendingCommands.values()].some(item=>arenaActionCommands.has(item.command));
   const configurable=usable&&!!s.configurable&&!changingArena;
   const campaign=s?.mode==='solo'&&s?.experience==='campaign',campaignObjective=s?.objective;
+  $('mobileMenu').classList.toggle('armory-preview',armoryPreviewRequested());
+  renderArmory(s,campaign);
   $('menuCampaignControls').hidden=!campaign;
   const tierPending=[...pendingCommands.values()].find(item=>item.command==='setCampaignTier');
   $('menuCampaignTier').value=tierPending?.value??campaignObjective?.campaignTier??'normal';
@@ -422,7 +468,7 @@ function renderMenu(){
     grip.disabled=defense.disabled||defense.value!=='knife';
     if(n===slot&&fighter?.name)$('seatName').textContent=safeText(fighter.name,60);
   }
-  $('menuEquipmentNotice').textContent=s?.trainingEquipmentLocked?s.trainingEquipmentReason||'Equipo de escuela fijado para aprender los mismos movimientos.':s?.mode==='solo'&&['duel','campaign'].includes(s?.experience)?'El encuentro establece el equipo del rival. Elegí tu arma y defensa antes de combatir; el mazo ocupa ambas manos.':'El mazo ocupa ambas manos. Elegí arma y defensa antes de combatir.';
+  $('menuEquipmentNotice').textContent=campaign?'Elegí las piezas que ganaste en la historia. El mazo ocupa ambas manos.':s?.trainingEquipmentLocked?s.trainingEquipmentReason||'Equipo de escuela fijado para aprender los mismos movimientos.':s?.mode==='solo'&&s?.experience==='duel'?'El encuentro establece el equipo del rival. Elegí tu arma y defensa antes de combatir.':'El mazo ocupa ambas manos. Elegí arma y defensa antes de combatir.';
   for(const id of menuButtons){$(id).disabled=!usable||awaiting(id);$(id).setAttribute('aria-busy',String(awaiting(id)));}
   $('menuStartBtn').disabled=!usable||!!sceneIssue||!!s?.replay?.active||!['ready','matchover'].includes(s?.phase)||preparing||changingArena;$('menuStartBtn').textContent=awaiting('menuStartBtn')?'INICIANDO…':s?.phase==='matchover'?'REVANCHA':'COMENZAR';
   $('menuNextBtn').hidden=!objective.nextAction;$('menuNextBtn').disabled=!usable||!!sceneIssue||!!s?.replay?.active||!objective.nextAction||preparing||changingArena||campaign&&objective.completed&&!configurable;$('menuNextBtn').textContent=awaiting('menuNextBtn')?'PREPARANDO…':objective.nextAction==='retry'?'REINTENTAR ENCUENTRO':objective.nextAction==='repeat'?'REPETIR ACTIVIDAD':'SIGUIENTE ENCUENTRO';
@@ -443,6 +489,10 @@ function renderMenu(){
 }
 $('resultActionBtn').addEventListener('click',()=>{if(resultState&&!menuOpen&&!resultAccepted)command(resultState.command,undefined,'resultActionBtn');});
 $('menuBtn').addEventListener('click',openMenu);for(const id of ['menuCloseBtn','menuBackBtn'])$(id).addEventListener('click',closeMenu);
+$('menuEquipmentToggle').addEventListener('click',()=>{setEquipmentOpen(!equipmentOpen);send();});
+for(const event of ['pointerdown','focusin'])$('mobileMenu').addEventListener(event,({target})=>{
+  if(equipmentOpen&&target&&!$('menuEquipmentSection').contains?.(target)){setEquipmentOpen(false);send();}
+});
 $('mobileMenu').addEventListener('cancel',event=>{event.preventDefault();closeMenu();});$('mobileMenu').addEventListener('close',()=>{if(menuOpen)closeMenu();});
 $('mobileMenu').addEventListener('keydown',event=>{
   if(event.key==='Escape'){event.preventDefault();closeMenu();return;}if(event.key!=='Tab')return;
@@ -474,6 +524,8 @@ for(const n of [1,2])for(const type of ['Weapon','Defense','KnifeGrip'])$(`menu$
   const knifeGrip=$(`menuKnifeGrip${n}`).value;
   if(!['normal','reverse'].includes(knifeGrip)){renderMenu();return;}
   const loadout=equipmentCatalog.normalizeLoadout({weapon:$(`menuWeapon${n}`).value,defense:$(`menuDefense${n}`).value,knifeGrip});
+  if(n===1&&menuState?.mode==='solo'&&menuState.experience==='campaign'&&
+    (!gearAvailable(menuState.campaignArmory,'weapons',loadout.weapon)||!gearAvailable(menuState.campaignArmory,'defenses',loadout.defense))){renderMenu();return;}
   command('setLoadout',{slot:n,...loadout},`menu${type}${n}`);
 });
 renderMenu();

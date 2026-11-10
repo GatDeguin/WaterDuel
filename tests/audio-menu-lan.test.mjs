@@ -4,6 +4,7 @@ import net from 'node:net';
 import {spawn} from 'node:child_process';
 import {setTimeout as delay} from 'node:timers/promises';
 import {HostSession} from '../public/host-session.js';
+import {ALL_EFFECTS_MASK,setEffectEnabled} from '../public/audio/effect-controls.js';
 function inbox(socket,observe=()=>{}){
  const queue=[],waiting=[];socket.addEventListener('message',event=>{const m=JSON.parse(event.data);observe(m);const index=waiting.findIndex(w=>w.match(m));if(index>=0){const [w]=waiting.splice(index,1);clearTimeout(w.timer);w.resolve(m);}else queue.push(m);});
  return match=>{const index=queue.findIndex(match);if(index>=0)return Promise.resolve(queue.splice(index,1)[0]);return new Promise((resolve,reject)=>{const item={match,resolve,timer:setTimeout(()=>{const i=waiting.indexOf(item);if(i>=0)waiting.splice(i,1);reject(Error('No applied sound state received'));},4000)};waiting.push(item);});};
@@ -18,12 +19,13 @@ test('all sound controls cross the authenticated LAN relay and return their appl
  let requestId=0;for(const [command,field,value]of [['setMusicVolume','musicVolume',31],['setEffectsVolume','effectsVolume',72],['setDistortion','distortion',2],['setReverb','reverb',6],['setReverbDecay','reverbDecay',900]]){
   controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command,value}));const result=await receive(m=>m.type==='command-result'&&m.requestId===requestId);assert.equal(result.ok,true,command);const state=await receive(m=>m.type==='menu-state'&&m.state[field]===value);assert.equal(state.state[field],value);assert.equal(host[field],value);assert.ok(!JSON.stringify(state).includes(session.hostToken));
  }
- for(const [command,value,mask]of [['setEffectEnabled',{id:'wood',enabled:false,hostToken:'do-not-forward'},134217726],['setEffectEnabled',{id:'joint',enabled:false},134217724],['setEffectEnabled',{id:'wood',enabled:true},134217725],['setEffectMask',0,0],['setEffectMask',134217727,134217727]]){
+ const mutedThunder=setEffectEnabled(ALL_EFFECTS_MASK,'thunder',false);
+ for(const [command,value,mask]of [['setEffectEnabled',{id:'wood',enabled:false,hostToken:'do-not-forward'},ALL_EFFECTS_MASK-1],['setEffectEnabled',{id:'thunder',enabled:false},mutedThunder-1],['setEffectEnabled',{id:'wood',enabled:true},mutedThunder],['setEffectMask',0,0],['setEffectMask',ALL_EFFECTS_MASK,ALL_EFFECTS_MASK]]){
   controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command,value}));const result=await receive(m=>m.type==='command-result'&&m.requestId===requestId);assert.equal(result.ok,true,command);
   const state=await receive(m=>m.type==='menu-state'&&m.state.effectMask===mask);assert.equal(host.effectMask,mask);assert.ok(wireMessages.indexOf(state)>wireMessages.indexOf(result),'the applied FX DTO follows its ACK');
   if(command==='setEffectEnabled')assert.deepEqual(receivedCommands.at(-1).value,{id:value.id,enabled:value.enabled});
  }
- controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command:'setEffectEnabled',value:{id:'wood-contact',enabled:true}}));assert.equal((await receive(m=>m.type==='command-result'&&m.requestId===requestId)).ok,false);assert.equal(host.effectMask,134217727);
+ controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command:'setEffectEnabled',value:{id:'wood-contact',enabled:true}}));assert.equal((await receive(m=>m.type==='command-result'&&m.requestId===requestId)).ok,false);assert.equal(host.effectMask,ALL_EFFECTS_MASK);
  controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command:'setReverb',value:101}));assert.equal((await receive(m=>m.type==='command-result'&&m.requestId===requestId)).ok,false);assert.equal(host.reverb,6);
  // Campaign settings use the same authenticated relay and strict applied-state ordering.
  // The preceding twelve requests fill the relay's one-second options window.

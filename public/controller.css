@@ -146,6 +146,10 @@ button:focus-visible,select:focus-visible,input:focus-visible,.pad-frame:focus-v
 .menu-section {display:grid;gap:12px;padding:16px;border:1px solid #5b6148;border-radius:4px;background:#1a2d23}
 .menu-section h3 {margin:0;font-size:17px;letter-spacing:-.02em}
 .menu-grid {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.menu-equipment-panel:not([hidden]) {display:grid;gap:12px}
+.menu-armory-items {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:6px;margin:0;padding:0;list-style:none}
+.menu-armory-items li {padding:7px 9px;border:1px solid var(--border);border-radius:4px;color:var(--muted);font-size:12px}
+.menu-armory-items .armory-unlocked {border-color:var(--brass);color:var(--brass-light)}
 .menu-content label {display:grid;gap:7px;color:#e2e4ce;font-size:12px;font-weight:650}
 .mobile-menu select,.mobile-menu input[type="range"],.mobile-menu button {width:100%;min-height:48px}
 .mobile-menu select {min-width:0;max-width:100%;padding:10px 11px;border:1px solid #91906b;border-radius:4px;background:#243d2e;color:var(--white);font-size:16px}

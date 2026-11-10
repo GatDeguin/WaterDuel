@@ -106,6 +106,35 @@ test('frustum de lámpara contiene tablero y cabezas móviles sin singularidades
   assert.equal(typeof SHADOW_GLSL,'string');
 });
 
+test('la sombra principal reutiliza profundidad del taller y actualiza las piezas móviles cada cuadro',()=>{
+  const gl=context(),renderer=new Renderer3D({getContext:()=>gl}),game=new DuelEngine();
+  game.phase='burst';renderer.prepared=true;
+  renderer.width=960;renderer.height=540;
+  renderer.assetScene.environment={revision:4,motion:{dynamicNames:new Set(['fan'])},gpu:{}};
+  const layers=[];
+  renderer.drawArena=(_game,_time,_weather,_reducedMotion,_view,layer)=>layers.push(layer);
+  renderer.drawPuppet=()=>{};
+  renderer.captureShadows(game,0);
+  renderer.captureShadows(game,.1);
+  assert.deepEqual(layers,['static','moving','moving']);
+  const copies=()=>gl.calls.filter(call=>call[0]==='blitFramebuffer');
+  assert.equal(copies().length,2);
+  assert.deepEqual(copies()[0].slice(-2),[gl.DEPTH_BUFFER_BIT,gl.NEAREST]);
+  game.quality='eco';
+  renderer.captureShadows(game,.2);
+  assert.deepEqual(layers.slice(-2),['static','moving']);
+  assert.deepEqual(copies().at(-1).slice(1,9),[0,0,512,512,0,0,512,512]);
+  renderer.shadows.matrix=shadowViewProjection([0,5,4]);
+  renderer.captureShadows(game,.3);
+  assert.deepEqual(layers.slice(-2),['static','moving']);
+  assert.equal(copies().length,4);
+  game.phase='fight';
+  renderer.captureShadows(game,.4);
+  assert.equal(layers.at(-1),null);
+  assert.equal(copies().length,4);
+  renderer.dispose();assert.equal(gl.resources.size,0);
+});
+
 test('renderer proyecta geometría opaca real sin agua/látex/colas y vuelve a iluminación sombreada',()=>{
   const gl=context();globalThis.window={devicePixelRatio:1};const canvas={clientWidth:960,clientHeight:540,width:960,height:540,getContext:()=>gl};
   const renderer=new Renderer3D(canvas),game=new DuelEngine();game.quality='high';renderer.render(game,0);

@@ -40,6 +40,20 @@ import {proceduralFootMesh} from './rendering/physical-feet.js';
 import {physicalNeckMatrices} from './rendering/character-neck.js';
 import {batchRigidCharacter} from './rendering/rigid-batches.js';
 import {drawCampaignCeremony} from './rendering/campaign-ceremony.js';
+import {armoryInFrame,drawArmory} from './rendering/armory-display.js';
+import {sampleWeather} from './weather.js';
+import {createWorkshopWeather} from './rendering/workshop-weather.js';
+import {workshopClipPlanes,workshopPartInView} from './rendering/workshop-visibility.js';
+import {createWorkshopOpaqueProgram,uploadWorkshopLights,uploadWorkshopOpaqueFrame} from './rendering/workshop-opaque.js';
+// The procedural trims are built around fixed rest layers. Follow the
+// achieved arm depth while preserving their offset from each joint.
+const armRestDepth={mainShoulder:.11,mainElbow:.14,mainHand:.17};
+function proceduralDepth(pose,part){
+  const bodyDepth=pose.bodyDepth??0,rest=armRestDepth[part];
+  if(rest===undefined)return bodyDepth;
+  const neutral=bodyDepth+rest;
+  return bodyDepth+((pose[part]?.z??neutral)-neutral);
+}
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const rgb=h=>[(h>>16&255)/255,(h>>8&255)/255,(h&255)/255];
 const I=()=>new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);
@@ -553,6 +567,7 @@ export class Renderer3D {
   // The extractor's existing, unchanged ceiling is 24,000 triangles.
   this.floatStream.reserve(this.dynamic.pb,24000*9);this.floatStream.reserve(this.dynamic.nb,24000*9);this.floatStream.reserve(this.dynamic.ob,24000*3);
   for(const mesh of Object.values(this.mesh))if(mesh.instance)this.floatStream.reserve(mesh.instance,2048);
+  this.prepareWorkshopOpaque(game);
   this.render(game,game.clock);
   // Reserve the multi-volume target before a burst first needs float storage.
   this.opticalPathDepth.ensure(this.width,this.height);
@@ -564,6 +579,13 @@ export class Renderer3D {
   }finally{gl.colorMask(...(mask?.length===4?mask:[true,true,true,true]));gl.depthMask(true);gl.flush();}
   this.prepared=true;this.preparation={cpuMs:performance.now()-started,gpuAllocations:this.floatStream.stats.allocations,capacityBytes:this.floatStream.stats.capacityBytes,opticalPathBytes:this.opticalPathDepth.bytes,allocationCounterScope:'streamed buffers',
     exercised:['opaque','latex','contained-water','environment','shadows','transmission','dynamic-water','instanced-droplets'],scope:'CPU submission and allocated buffers; no GPU fence or scanout certification'};
+ }
+ prepareWorkshopOpaque(game){
+  const room=this.assetScene.environment;
+  if(this.workshopOpaque!==undefined||room?.revision!==4||!room.lightingPresets?.[game.arena]?.count)return;
+  this.workshopOpaque=null;
+  try{this.workshopOpaque=createWorkshopOpaqueProgram(this.gl,this.program,this.U,buildProgram,vert,frag);}
+  catch(error){this.stats.workshopOpaqueError=String(error.message??error);}
  }
  async loadAssets(onStatus=()=>{}){
   if(this.assetPromise)return this.assetPromise;
@@ -622,7 +644,7 @@ export class Renderer3D {
   if(this.assetGPU.transparent(model,part)){
     if(!this.depthOnly)this.pending.push({kind:'asset',model,part,matrix,deform,order:0,depth:matrix[14]});return;
   }
-  this.assetGPU.draw(model,part,matrix,this.U,deform);this.stats.draws++;this.stats.triangles+=part.count/3;
+  this.assetGPU.draw(model,part,matrix,this.U,deform,this.depthOnly);this.stats.draws++;this.stats.triangles+=part.count/3;
  }
  detailedPuppet(f){
   const entry=this.assetScene.characters[f.boss?'boss':f.slot===1?'mint':'amber'];if(!entry)return false;
@@ -647,14 +669,11 @@ export class Renderer3D {
   }
   return {prepared:entry.prepared,matrices,materials:entry.gpu.materials,equipment,pose:f.pose};
  }
- workshopLighting(game){
+ workshopLighting(game,weather=null,reducedMotion=false){
   const gl=this.gl,U=this.U,lighting=this.assetScene.environment?.lightingPresets?.[game.arena];
-  gl.uniform1i(U.uWorkshopLightCount,lighting?.count??0);
+  const light=lighting&&weather?this.workshopWeather.lighting(lighting,weather,reducedMotion):lighting;
+  uploadWorkshopLights(gl,U,light);
   if(lighting){
-    gl.uniform4fv(U.uWorkshopPositions,lighting.positions);gl.uniform4fv(U.uWorkshopColors,lighting.colors);gl.uniform4fv(U.uWorkshopDirections,lighting.directions);
-    gl.uniform3fv(U.uLamp1,new Float32Array(lighting.keyPosition));
-    const fill=Math.max(0,lighting.names.findIndex(name=>/window/i.test(name)));
-    gl.uniform3fv(U.uLamp2,lighting.positions.subarray(fill*4,fill*4+3));
     if(this.lightingKey!==lighting){this.shadows.matrix=shadowViewProjection(lighting.keyPosition);this.lightingKey=lighting;}
   }else{
     gl.uniform3fv(U.uLamp1,new Float32Array([-2.45,4.1,3]));gl.uniform3fv(U.uLamp2,new Float32Array([3.25,3.7,-.25]));
@@ -662,6 +681,7 @@ export class Renderer3D {
   }
   const legacyGain=lighting&&this.assetScene.environment?.revision!==4;
   this.stats.lighting={sources:lighting?.count??3,preset:game.arena,areaModel:'Directional softened emitter approximation',keyGain:legacyGain?1.8:1,frontReturnGain:legacyGain?1.6:1,diffuseProbe:'Broad mip approximation',keyShadow:this.shadows.available};
+  return light;
  }
  resize(){const dpr=Math.min(window.devicePixelRatio||1,this.quality)*(this.renderScale??1);let w=Math.max(1,Math.min(2240,Math.round(this.canvas.clientWidth*dpr))),h=Math.max(1,Math.min(1440,Math.round(this.canvas.clientHeight*dpr)));
   if(w!==this.canvas.width||h!==this.canvas.height){this.canvas.width=w;this.canvas.height=h;}this.width=w;this.height=h;this.gl.viewport(0,0,w,h);}
@@ -674,10 +694,19 @@ export class Renderer3D {
  sphere(x,y,z,sx,sy,sz,color,material=2,opacity=1,wobble=0){this.draw('sphere',C(T(x,y,z),S(sx,sy,sz)),color,material,opacity,wobble);}
  cylinder(x,y,z,sx,sy,sz,color,material=1,rotX=0,opacity=1){this.draw('cylinder',C(T(x,y,z),RX(rotX),S(sx,sy,sz)),color,material,opacity);}
  torus(x,y,z,sx,sy,sz,color,material=1){this.draw('torus',C(T(x,y,z),S(sx,sy,sz)),color,material);}
- beam(a,b,r,color,material=0,z=0){const az=a.z??z,bz=b.z??z,dx=b.x-a.x,dy=b.y-a.y,dz=bz-az,len=Math.hypot(dx,dy,dz);
-  this.draw('cylinder',C(T((a.x+b.x)/2,(a.y+b.y)/2,(az+bz)/2),RZ(-Math.atan2(dx,dy)),S(r,len,r)),color,material);}
- panelBetween(a,b,w,d,color,material=0,offset=0){const ax=a.x,ay=a.y,bx=b.x,by=b.y,len=Math.hypot(bx-ax,by-ay),z=((a.z||0)+(b.z||0))/2+offset;
-  this.draw('box',C(T((ax+bx)/2,(ay+by)/2,z),RZ(-Math.atan2(bx-ax,by-ay)),S(w,len,d)),color,material);}
+ beam(a,b,r,color,material=0,z=0,spatial=false){
+  const az=a.z??z,bz=b.z??z,dx=b.x-a.x,dy=b.y-a.y,dz=bz-az,len=Math.hypot(dx,dy,dz);
+  const center=T((a.x+b.x)/2,(a.y+b.y)/2,(az+bz)/2),yaw=RZ(-Math.atan2(dx,dy)),scale=S(r,len,r);
+  const model=spatial&&dz?C(center,yaw,RX(Math.atan2(dz,Math.hypot(dx,dy))),scale):C(center,yaw,scale);
+  this.draw('cylinder',model,color,material);
+ }
+ panelBetween(a,b,w,d,color,material=0,offset=0,spatial=false){
+  const ax=a.x,ay=a.y,bx=b.x,by=b.y,dx=bx-ax,dy=by-ay;
+  const z=((a.z||0)+(b.z||0))/2+offset,dz=spatial?(b.z??0)-(a.z??0):0,planarLength=Math.hypot(dx,dy);
+  const center=T((ax+bx)/2,(ay+by)/2,z),yaw=RZ(-Math.atan2(dx,dy));
+  const model=dz?C(center,yaw,RX(Math.atan2(dz,planarLength)),S(w,Math.hypot(dx,dy,dz),d)):C(center,yaw,S(w,planarLength,d));
+  this.draw('box',model,color,material);
+ }
  pin(pos,z,r=.11,accent=0xd7ad60){
   const x=pos.x,y=pos.y;this.cylinder(x,y,z-.025,r*1.17,.075,r*1.17,0x302a24,17,Math.PI/2);
   this.cylinder(x,y,z+.023,r,.064,r,accent,1,Math.PI/2);
@@ -687,38 +716,72 @@ export class Renderer3D {
   this.box(x,y,z+.128,r*.43,r*.064,.013,0x3a3630,17,1,.65);
  }
  joint(pos,z,r=.11,col=0xd7ad60){this.pin(pos,z,r,col);this.sphere(pos.x-.018,pos.y+.023,z+.128,r*.16,r*.16,.015,0xffefce,1);}
- limb(a,b,thick,depth,front,back,z=0){
-  const aa={...a,z},bb={...b,z};
-  this.panelBetween(aa,bb,thick,depth,front,0);
+ limb(a,b,thick,depth,front,back,z=0,endZ=z){
+  const aa={...a,z},bb={...b,z:endZ},spatial=z!==endZ;
+  this.panelBetween(aa,bb,thick,depth,front,0,0,spatial);
   const v={x:bb.x-aa.x,y:bb.y-aa.y},length=Math.hypot(v.x,v.y)||1;
   const perp={x:-v.y/length,y:v.x/length};
   const leftA={x:aa.x+perp.x*thick*.4,y:aa.y+perp.y*thick*.4,z:z+depth*.32};
-  const leftB={x:bb.x+perp.x*thick*.4,y:bb.y+perp.y*thick*.4,z:z+depth*.32};
-  this.beam(leftA,leftB,.012,back,1,z+depth*.32);
+  const leftB={x:bb.x+perp.x*thick*.4,y:bb.y+perp.y*thick*.4,z:endZ+depth*.32};
+  this.beam(leftA,leftB,.012,back,1,z+depth*.32,spatial);
   for(const t of [.17,.83]){
     const point={x:aa.x+v.x*t,y:aa.y+v.y*t};
-    this.cylinder(point.x,point.y,z+depth*.59,.018,.018,.018,0xe7c78a,1,Math.PI/2);
+    this.cylinder(point.x,point.y,z+(endZ-z)*t+depth*.59,.018,.018,.018,0xe7c78a,1,Math.PI/2);
   }
  }
- actuator(a,b,z,r=.028){
+ actuator(a,b,z,r=.028,endZ=z){
   // Telescopic barrel and piston share the actual two moving anchors.
   const dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy)||1,ux=dx/length,uy=dy/length;
-  const start={x:a.x+ux*.045,y:a.y+uy*.045,z},end={x:b.x-ux*.04,y:b.y-uy*.04,z};
-  const split={x:start.x+(end.x-start.x)*.56,y:start.y+(end.y-start.y)*.56,z};
-  this.beam(start,split,r*1.65,0xa98246,18);this.beam(split,end,r*.67,0xc6d1d0,16);
-  for(const p of [a,b]){this.torus(p.x,p.y,z,r*1.8,r*1.8,r*.8,0xb8a16b,1);this.cylinder(p.x,p.y,z,r*.60,.055,r*.60,0xbac5c1,16,Math.PI/2);}
+  const spatial=z!==endZ;
+  const start={x:a.x+ux*.045,y:a.y+uy*.045,z},end={x:b.x-ux*.04,y:b.y-uy*.04,z:endZ};
+  const split={x:start.x+(end.x-start.x)*.56,y:start.y+(end.y-start.y)*.56,z:z+(endZ-z)*.56};
+  this.beam(start,split,r*1.65,0xa98246,18,z,spatial);this.beam(split,end,r*.67,0xc6d1d0,16,z,spatial);
+  for(const [p,depth] of [[a,z],[b,endZ]]){this.torus(p.x,p.y,depth,r*1.8,r*1.8,r*.8,0xb8a16b,1);this.cylinder(p.x,p.y,depth,r*.60,.055,r*.60,0xbac5c1,16,Math.PI/2);}
  }
  clevis(pos,z,r,axisAngle=0){
   // Two fork ears straddle the bearing; the axle spans them along the z axis.
   for(const side of [-1,1])this.draw('box',C(T(pos.x,pos.y,z+side*.095),RZ(axisAngle),S(r*1.5,r*2.0,.045)),0x4e4a3b,18);
   this.cylinder(pos.x,pos.y,z,r*.36,.28,r*.36,0xabb7b6,16,Math.PI/2);
  }
- drawArena(game,t){
+ drawArena(game,t,weather=null,reducedMotion=false,viewProjection=null,keyLayer=null,view=null){
   if(this.assetScene.environment){
     const {gpu,transform,motion,surroundings}=this.assetScene.environment;
+    const model=weather?this.workshopWeather.environment(gpu,weather,reducedMotion):gpu;
     const tint=this.assetScene.environment.revision===4?[1,1,1]:game.arena==='midnight'?[.33,.54,.68]:game.arena==='dojo'?[1.24,1.14,.94]:[1,1,1];
-    for(const part of gpu.parts){const matrix=environmentPartMatrix(part,motion,game.clock??t,{staticCapture:!!this.staticShadowPass});if(matrix)this.assetPart(gpu,part,mul(transform,matrix),{tint});}
-    if(surroundings)for(const part of surroundings.gpu.parts)this.assetPart(surroundings.gpu,part,part.worldMatrix,{tint});
+    const planes=viewProjection&&game.phase==='burst'?workshopClipPlanes(viewProjection):null;
+    const opaque=viewProjection&&view?.lighting?.count&&!keyLayer&&!this.depthOnly?this.workshopOpaque:null;
+    const baseUniforms=this.U,gl=this.gl;
+    let selected=false,uploaded=false;
+    const draw=(asset,part,matrix)=>{
+      const transparent=(opaque||planes)&&this.assetGPU.transparent(asset,part);
+      if(planes&&!transparent&&!workshopPartInView(part,matrix,planes))return;
+      if(opaque&&!transparent){
+        const material=asset.materials[part.material]??this.assetGPU.defaultMaterial;
+        const useOpaque=(material.alphaMode??'OPAQUE')==='OPAQUE'&&(material.transmission??0)===0;
+        if(useOpaque&&!selected){
+          selected=true;
+          gl.useProgram(opaque.program);this.U=opaque.U;
+          if(!uploaded){
+            uploadWorkshopOpaqueFrame(this,viewProjection,view.eye,view.lighting,t,game.lightingMode==='neutral');
+            uploaded=true;
+          }
+        }else if(!useOpaque&&selected){
+          this.U=baseUniforms;gl.useProgram(this.program);selected=false;
+        }
+        if(useOpaque)this.stats.workshopOpaqueDraws++;
+      }
+      this.assetPart(asset,part,matrix,{tint});
+    };
+    try{
+      for(const part of gpu.parts){
+        if(keyLayer&&motion.dynamicNames.has(part.nodeName)!==(keyLayer==='moving'))continue;
+        const matrix=environmentPartMatrix(part,motion,game.clock??t,{staticCapture:!!this.staticShadowPass});
+        if(matrix)draw(model,part,mul(transform,matrix));
+      }
+      if(surroundings&&keyLayer!=='moving')for(const part of surroundings.gpu.parts)draw(surroundings.gpu,part,part.worldMatrix);
+    }finally{
+      if(selected){this.U=baseUniforms;gl.useProgram(this.program);}
+    }
     for(let i=0;i<2;i++){const wet=game.puddleStrength?.[i]||0;if(wet>.001)this.sphere(i===0?-1.55:1.55,.341,.32,.5+wet*.8,.006,.3+wet*.45,0x62a5a8,19,.09*wet);}
     return;
   }
@@ -789,16 +852,16 @@ export class Renderer3D {
   }
  }
  drawProceduralPuppet(f,time,pal,only=null){
-  const p=f.pose,dir=f.dir,h=p.head,show=part=>bodyVisible(p,part,only);
+  const p=f.pose,dir=f.dir,h=p.head,bodyDepth=p.bodyDepth??0,show=part=>bodyVisible(p,part,only);
   // V4 shins stop at their ankles; legacy poses retain the original proxy.
-  const knee={...p.kneeF,z:p.feet?(p.kneeF.z??.19):.19},heel={...p.kneeB,z:p.feet?(p.kneeB.z??-.17):-.17};
+  const knee={...p.kneeF,z:p.feet?(p.kneeF.z??bodyDepth+.19):bodyDepth+.19},heel={...p.kneeB,z:p.feet?(p.kneeB.z??bodyDepth-.17):bodyDepth-.17};
   const front=p.ankleF??{...p.footF,y:Math.max(p.footF.y,STAGE_TOP+.075)};
   const rear=p.ankleB??{...p.footB,y:Math.max(p.footB.y,STAGE_TOP+.075)};
-  for(const [part,a,b,z,width] of [['frontThigh',p.frontHip??p.hip,knee,.19,.19],['frontShin',knee,front,.19,.18],['backThigh',p.backHip??p.hip,heel,-.17,.20],['backShin',heel,rear,-.17,.17]])if(show(part))this.limb(a,b,width,.18,pal.wood,pal.metal,z);
+  for(const [part,a,b,z,width] of [['frontThigh',p.frontHip??p.hip,knee,.19,.19],['frontShin',knee,front,.19,.18],['backThigh',p.backHip??p.hip,heel,-.17,.20],['backShin',heel,rear,-.17,.17]])if(show(part))this.limb(a,b,width,.18,pal.wood,pal.metal,z+bodyDepth);
   for(const [j,part]of [[knee,'frontShin'],[heel,'backShin']])if(show(part))this.joint(j,(j.z||0)+.105,.092,pal.metal);
-  if(show('frontShin'))this.clevis(knee,.19,.070);if(show('backShin'))this.clevis(heel,-.17,.070);
-  if(show('frontThigh'))this.actuator({x:p.hip.x-dir*.08,y:p.hip.y-.10},{x:knee.x-dir*.09,y:knee.y+.08},.32,.024);
-  if(show('backShin'))this.actuator({x:heel.x+dir*.08,y:heel.y+.04},{x:rear.x+dir*.08,y:rear.y+.14},-.29,.020);
+  if(show('frontShin'))this.clevis(knee,bodyDepth+.19,.070);if(show('backShin'))this.clevis(heel,bodyDepth-.17,.070);
+  if(show('frontThigh'))this.actuator({x:p.hip.x-dir*.08,y:p.hip.y-.10},{x:knee.x-dir*.09,y:knee.y+.08},bodyDepth+.32,.024);
+  if(show('backShin'))this.actuator({x:heel.x+dir*.08,y:heel.y+.04},{x:rear.x+dir*.08,y:rear.y+.14},bodyDepth-.29,.020);
   if(p.feet){
     for(const side of ['front','back'])if(show(side+'Foot'))this.dynamicDraw(proceduralFootMesh(p.feet[side]),pal.wood,0);
   }else for(const [foot,part]of [[front,'frontShin'],[rear,'backShin']])if(show(part)){
@@ -807,74 +870,75 @@ export class Renderer3D {
     this.cylinder(foot.x-dir*.08,foot.y+.11,foot.z+.14,.027,.026,.027,pal.metal,1,Math.PI/2);
   }
   // Separate pelvic chassis, spine and rib panels leave a working waist gap.
-  if(show('pelvis'))this.pin(p.hip,.205,.147,pal.metal);
-  const waist={x:p.hip.x+(p.shoulder.x-p.hip.x)*.28,y:p.hip.y+(p.shoulder.y-p.hip.y)*.28,z:0};
-  if(show('pelvis'))this.box(p.hip.x,p.hip.y+.075,0,f.boss?.52:.43,.17,.34,pal.wood,0,1,-f.lean*.33);
+  if(show('pelvis'))this.pin(p.hip,bodyDepth+.205,.147,pal.metal);
+  const waist={x:p.hip.x+(p.shoulder.x-p.hip.x)*.28,y:p.hip.y+(p.shoulder.y-p.hip.y)*.28,z:bodyDepth};
+  if(show('pelvis'))this.box(p.hip.x,p.hip.y+.075,bodyDepth,f.boss?.52:.43,.17,.34,pal.wood,0,1,-f.lean*.33);
   if(show('torso')){
-  this.beam({...p.hip,z:0},{...p.shoulder,z:0},.065,0x615b4d,17);
-  this.cylinder(waist.x,waist.y,0,.12,.11,.12,pal.metal,1);
-  this.panelBetween({...waist,z:.155},{...p.shoulder,z:.155},f.boss?.43:.35,.14,pal.ivory,0);
-  this.panelBetween({...waist,z:.244},{...p.shoulder,z:.244},.19,.035,pal.wood,0);
-  this.panelBetween({...waist,z:-.16},{...p.shoulder,z:-.16},.32,.07,pal.edge,0);
-  for(const side of [-1,1])this.actuator({x:p.hip.x+side*.17,y:p.hip.y+.1},{x:p.shoulder.x+side*.17,y:p.shoulder.y-.12},-.045,.019);
+  this.beam({...p.hip,z:bodyDepth},{...p.shoulder,z:bodyDepth},.065,0x615b4d,17);
+  this.cylinder(waist.x,waist.y,bodyDepth,.12,.11,.12,pal.metal,1);
+  this.panelBetween({...waist,z:bodyDepth+.155},{...p.shoulder,z:bodyDepth+.155},f.boss?.43:.35,.14,pal.ivory,0);
+  this.panelBetween({...waist,z:bodyDepth+.244},{...p.shoulder,z:bodyDepth+.244},.19,.035,pal.wood,0);
+  this.panelBetween({...waist,z:bodyDepth-.16},{...p.shoulder,z:bodyDepth-.16},.32,.07,pal.edge,0);
+  for(const side of [-1,1])this.actuator({x:p.hip.x+side*.17,y:p.hip.y+.1},{x:p.shoulder.x+side*.17,y:p.shoulder.y-.12},bodyDepth-.045,.019);
   for(const u of [.24,.74]){
     const xx=p.hip.x+(p.shoulder.x-p.hip.x)*u,yy=p.hip.y+(p.shoulder.y-p.hip.y)*u;
-    this.box(xx,yy,.276,.25,.054,.045,pal.metal,1,1,-f.lean*.33);
-    this.sphere(xx-.084,yy,.305,.021,.021,.017,0xffdba1,1);
-    this.sphere(xx+.084,yy,.305,.021,.021,.017,0xffdba1,1);
+    this.box(xx,yy,bodyDepth+.276,.25,.054,.045,pal.metal,1,1,-f.lean*.33);
+    this.sphere(xx-.084,yy,bodyDepth+.305,.021,.021,.017,0xffdba1,1);
+    this.sphere(xx+.084,yy,bodyDepth+.305,.021,.021,.017,0xffdba1,1);
   }
-  this.pin(p.shoulder,.22,.175,pal.metal);
+  this.pin(p.shoulder,bodyDepth+.22,.175,pal.metal);
   }
   // Brass chest clasp, belt, suspended fabric strip move along with body.
-  if(show('pelvis'))this.box(p.hip.x,p.hip.y+.20,.31,.29,.10,.08,pal.leather,7);
+  if(show('pelvis'))this.box(p.hip.x,p.hip.y+.20,bodyDepth+.31,.29,.10,.08,pal.leather,7);
   if(show('torso')){
-  this.box(p.shoulder.x,p.shoulder.y-.08,.33,.26,.23,.09,pal.metal,1);
-  this.cylinder(p.shoulder.x,p.shoulder.y-.08,.40,.055,.032,.055,0x3e3527,1,Math.PI/2);
+  this.box(p.shoulder.x,p.shoulder.y-.08,bodyDepth+.33,.26,.23,.09,pal.metal,1);
+  this.cylinder(p.shoulder.x,p.shoulder.y-.08,bodyDepth+.40,.055,.032,.055,0x3e3527,1,Math.PI/2);
   }
-  if(show('pelvis'))this.panelBetween({x:p.hip.x-dir*.10,y:p.hip.y-.01,z:.29},{x:p.hip.x-dir*.14,y:p.hip.y-.38+Math.sin(time*2+f.slot)*.03,z:.29},.14,.036,pal.cloth,4);
+  if(show('pelvis'))this.panelBetween({x:p.hip.x-dir*.10,y:p.hip.y-.01,z:bodyDepth+.29},{x:p.hip.x-dir*.14,y:p.hip.y-.38+Math.sin(time*2+f.slot)*.03,z:bodyDepth+.29},.14,.036,pal.cloth,4);
   // Independent left-hand defense arm with true elbow and wrist pivots.
   const twoHanded=p.twoHanded??(f.equipment?.weapon==='maul');
   if(twoHanded){if(show('offUpper')&&show('offForearm'))drawMaulSupportArm(this,f,pal);else drawPartialMaulSupport(this,f,pal,show);}
   else{
-    if(show('offUpper'))this.limb(p.offShoulder,p.offElbow,.20,.16,pal.wood,pal.metal,-.14);
-    if(show('offForearm'))this.limb(p.offElbow,p.offHand,.17,.15,pal.ivory,pal.metal,-.10);
+    if(show('offUpper'))this.limb(p.offShoulder,p.offElbow,.20,.16,pal.wood,pal.metal,bodyDepth-.14);
+    if(show('offForearm'))this.limb(p.offElbow,p.offHand,.17,.15,pal.ivory,pal.metal,bodyDepth-.10);
   }
-  if(show('offUpper'))this.joint(p.offShoulder,-.025,.13,pal.metal);if(show('offForearm'))this.joint(p.offElbow,-.005,.105,pal.metal);
-  if(show('offForearm'))this.clevis(p.offElbow,-.11,.070,-f.lean*.2);
-  if(show('offForearm'))this.joint(p.offHand,twoHanded?(p.offHand.z??.17)+.099:.035,.078,pal.metal);
-  if(!twoHanded&&show('offForearm'))this.panelBetween({...p.offHand,z:-.10},{x:p.offHand.x+dir*.15,y:p.offHand.y,z:-.10},.10,.16,pal.leather,7);
+  if(show('offUpper'))this.joint(p.offShoulder,bodyDepth-.025,.13,pal.metal);if(show('offForearm'))this.joint(p.offElbow,bodyDepth-.005,.105,pal.metal);
+  if(show('offForearm'))this.clevis(p.offElbow,bodyDepth-.11,.070,-f.lean*.2);
+  if(show('offForearm'))this.joint(p.offHand,twoHanded?(p.offHand.z??bodyDepth+.17)+.099:bodyDepth+.035,.078,pal.metal);
+  if(!twoHanded&&show('offForearm'))this.panelBetween({...p.offHand,z:bodyDepth-.10},{x:p.offHand.x+dir*.15,y:p.offHand.y,z:bodyDepth-.10},.10,.16,pal.leather,7);
   if(show(equipmentBody(f.equipment?.defense??'short')))drawDefense(this,f,pal);
   // Main weapon arm: timber links, hinge plates, small external brass rods and handle.
-  if(show('mainUpper'))this.limb(p.mainShoulder,p.mainElbow,.21,.19,pal.wood,pal.metal,.145);
-  if(show('mainForearm'))this.limb(p.mainElbow,p.mainHand,.17,.16,pal.ivory,pal.metal,.172);
-  if(show('mainUpper'))this.joint(p.mainShoulder,.253,.145,pal.metal);if(show('mainForearm'))this.joint(p.mainElbow,.260,.105,pal.metal);
-  if(show('mainForearm'))this.clevis(p.mainElbow,.16,.072,-f.lean*.2);
-  if(show('weapon'))this.joint(p.mainHand,.269,.077,pal.metal);
+  const shoulderDepth=proceduralDepth(p,'mainShoulder'),elbowDepth=proceduralDepth(p,'mainElbow'),handDepth=proceduralDepth(p,'mainHand');
+  if(show('mainUpper'))this.limb(p.mainShoulder,p.mainElbow,.21,.19,pal.wood,pal.metal,shoulderDepth+.145,elbowDepth+.145);
+  if(show('mainForearm'))this.limb(p.mainElbow,p.mainHand,.17,.16,pal.ivory,pal.metal,elbowDepth+.172,handDepth+.172);
+  if(show('mainUpper'))this.joint(p.mainShoulder,shoulderDepth+.253,.145,pal.metal);if(show('mainForearm'))this.joint(p.mainElbow,elbowDepth+.260,.105,pal.metal);
+  if(show('mainForearm'))this.clevis(p.mainElbow,elbowDepth+.16,.072,-f.lean*.2);
+  if(show('weapon'))this.joint(p.mainHand,handDepth+.269,.077,pal.metal);
   const hand=p.mainHand;let ux,uy;if(show('weapon'))({ux,uy}=drawWeapon(this,f,pal));
   // Hinged hydraulic barrels and chrome rods change length between real anchors.
-  if(show('mainUpper'))this.actuator({x:p.mainShoulder.x-dir*.08,y:p.mainShoulder.y+.075},{x:p.mainElbow.x-dir*.025,y:p.mainElbow.y+.065},.315,.025);
-  if(show('mainForearm'))this.actuator({x:p.mainElbow.x-dir*.055,y:p.mainElbow.y+.07},{x:p.mainHand.x-dir*.055,y:p.mainHand.y-.015},.29,.019);
-  if(show('offUpper'))this.actuator({x:p.offShoulder.x+dir*.055,y:p.offShoulder.y+.045},{x:p.offElbow.x,y:p.offElbow.y+.08},-.29,.022);
+  if(show('mainUpper'))this.actuator({x:p.mainShoulder.x-dir*.08,y:p.mainShoulder.y+.075},{x:p.mainElbow.x-dir*.025,y:p.mainElbow.y+.065},shoulderDepth+.315,.025,elbowDepth+.315);
+  if(show('mainForearm'))this.actuator({x:p.mainElbow.x-dir*.055,y:p.mainElbow.y+.07},{x:p.mainHand.x-dir*.055,y:p.mainHand.y-.015},elbowDepth+.29,.019,handDepth+.29);
+  if(show('offUpper'))this.actuator({x:p.offShoulder.x+dir*.055,y:p.offShoulder.y+.045},{x:p.offElbow.x,y:p.offElbow.y+.08},bodyDepth-.29,.022);
   // Four wooden digits wrap the handle; knuckles are fixed to the moving wrist.
   if(show('weapon'))for(let i=0;i<4;i++){
     const gripScale=(HANDLE_RADII[f.equipment?.weapon??'sword']??.045)/.045;
     const u=(i-1.5)*.037,xx=hand.x+ux*u,yy=hand.y+uy*u;
-    this.box(xx-uy*.035*gripScale,yy+ux*.035*gripScale,.17+.074*gripScale,.035,.09*gripScale,.052*gripScale,pal.wood,0,1,Math.atan2(uy,ux));
-    this.sphere(xx-uy*.075*gripScale,yy+ux*.075*gripScale,.17+.084*gripScale,.025,.025,.027,pal.metal,1);
+    this.box(xx-uy*.035*gripScale,yy+ux*.035*gripScale,handDepth+(.17+.074*gripScale),.035,.09*gripScale,.052*gripScale,pal.wood,0,1,Math.atan2(uy,ux));
+    this.sphere(xx-uy*.075*gripScale,yy+ux*.075*gripScale,handDepth+(.17+.084*gripScale),.025,.025,.027,pal.metal,1);
   }
   if(f.boss){
     // Single-player hydraulics champion: armored brass shoulder housings,
     // secondary linkages and cloth pennant; still actuated by the same IK joints.
     for(const [shoulder,part]of [[p.mainShoulder,'mainUpper'],[p.offShoulder,'offUpper']])if(show(part)){
-      this.sphere(shoulder.x,shoulder.y,shoulder===p.mainShoulder?.26:-.22,.22,.20,.155,pal.metal,18);
-      this.joint(shoulder,.34,.12,0xf7d798);
+      this.sphere(shoulder.x,shoulder.y,shoulder===p.mainShoulder?shoulderDepth+.26:bodyDepth-.22,.22,.20,.155,pal.metal,18);
+      this.joint(shoulder,(shoulder===p.mainShoulder?shoulderDepth:bodyDepth)+.34,.12,0xf7d798);
     }
-    if(show('mainUpper'))this.actuator({x:p.shoulder.x-dir*.13,y:p.shoulder.y-.10},{x:p.mainElbow.x,y:p.mainElbow.y+.12},.39,.038);
-    if(show('mainForearm'))this.panelBetween({...p.mainElbow,z:.30},{...p.mainHand,z:.30},.14,.08,0x7e693f,18);
-    if(show('torso'))this.panelBetween({x:p.shoulder.x+.04,y:p.shoulder.y+.05,z:.36},{x:p.hip.x+.09,y:p.hip.y+.03,z:.36},.22,.10,0x50412f,1);
-    if(show('pelvis'))this.box(p.hip.x,p.hip.y-.19,.34,.24,.55,.055,apronProceduralColor(f,0x902e28),4);
-    if(show('pelvis'))this.torus(p.hip.x,p.hip.y+.38,.34,.13,.13,.045,0xf0c370,1);
-    if(show('torso'))for(let i=0;i<4;i++){let u=.12+i*.19;this.cylinder(p.hip.x+(p.shoulder.x-p.hip.x)*u,p.hip.y+(p.shoulder.y-p.hip.y)*u,.39,.021,.03,.021,0xe3c68c,1,Math.PI/2);}
+    if(show('mainUpper'))this.actuator({x:p.shoulder.x-dir*.13,y:p.shoulder.y-.10},{x:p.mainElbow.x,y:p.mainElbow.y+.12},bodyDepth+.39,.038,elbowDepth+.39);
+    if(show('mainForearm'))this.panelBetween({...p.mainElbow,z:elbowDepth+.30},{...p.mainHand,z:handDepth+.30},.14,.08,0x7e693f,18,0,elbowDepth!==handDepth);
+    if(show('torso'))this.panelBetween({x:p.shoulder.x+.04,y:p.shoulder.y+.05,z:bodyDepth+.36},{x:p.hip.x+.09,y:p.hip.y+.03,z:bodyDepth+.36},.22,.10,0x50412f,1);
+    if(show('pelvis'))this.box(p.hip.x,p.hip.y-.19,bodyDepth+.34,.24,.55,.055,apronProceduralColor(f,0x902e28),4);
+    if(show('pelvis'))this.torus(p.hip.x,p.hip.y+.38,bodyDepth+.34,.13,.13,.045,0xf0c370,1);
+    if(show('torso'))for(let i=0;i<4;i++){let u=.12+i*.19;this.cylinder(p.hip.x+(p.shoulder.x-p.hip.x)*u,p.hip.y+(p.shoulder.y-p.hip.y)*u,bodyDepth+.39,.021,.03,.021,0xe3c68c,1,Math.PI/2);}
   }
   // Highly detailed head mount and tensile ring below water mass.
   if(show('neck')){
@@ -882,15 +946,16 @@ export class Renderer3D {
     const [bar,outer,inner]=physicalNeckMatrices(p,f.balloonSize??1);
     this.draw('cylinder',bar,pal.edge,0);this.draw('cylinder',outer,pal.metal,1);this.draw('cylinder',inner,0x392e25,1);
   }else{
-  this.beam({...p.shoulder,z:0},{x:h.x,y:h.y-.40,z:.025},.075,pal.edge,0);
-  this.cylinder(h.x,h.y-.47,.018,.183,.050,.183,pal.metal,1);
-  this.cylinder(h.x,h.y-.435,.018,.116,.051,.116,0x392e25,1);
+  this.beam({...p.shoulder,z:bodyDepth},{x:h.x,y:h.y-.40,z:bodyDepth+.025},.075,pal.edge,0);
+  this.cylinder(h.x,h.y-.47,bodyDepth+.018,.183,.050,.183,pal.metal,1);
+  this.cylinder(h.x,h.y-.435,bodyDepth+.018,.116,.051,.116,0x392e25,1);
   }
   }
  }
  drawJointMarks(pose,only=null){
   if(this.depthOnly)return;
-  for(const {at,to,z,damage}of jointMarks(pose,only)){
+  for(const {joint,at,to,z:localDepth,damage}of jointMarks(pose,only)){
+    const z=localDepth+proceduralDepth(pose,joint==='wrist'?'mainHand':joint);
     const angle=Math.atan2(to.y-at.y,to.x-at.x),dx=Math.cos(angle),dy=Math.sin(angle);
     for(let i=0;i<3;i++){
       const along=.035+i*.018,across=(i-1)*.012;
@@ -972,7 +1037,7 @@ export class Renderer3D {
     this.dynamicDraw(surfaceEmblem(f,{positions:m.p,center:[h.x,h.y+.08*f.balloonSize],scale:[.065*f.balloonSize,.065*f.balloonSize],owner:emblemOwner}),0xe9e3c3,8,1,3);
     // Higher specular top knot and small latex tie.
     const top=f.membrane?.nodes.reduce((a,b)=>b.ref.y>a.ref.y?b:a);
-    const knot=top?{x:top.x,y:top.y,z:top.z}:{x:h.x,y:h.y+.503*f.balloonSize,z:.025};
+    const knot=top?{x:top.x,y:top.y,z:top.z}:{x:h.x,y:h.y+.503*f.balloonSize,z:(p.bodyDepth??0)+.025};
     this.sphere(knot.x,knot.y+.018,knot.z,.032,.035,.029,pal.dark,10,.95);
     for(const side of [-1,1])this.draw('sphere',C(T(knot.x+side*.032,knot.y+.057,knot.z),RZ(side*.52),S(.037,.061,.018)),pal.balloon,10,.91);
     // Decorative air pockets follow submerged fluid samples. Their radius fits
@@ -1072,9 +1137,22 @@ export class Renderer3D {
   this.pending.sort((a,b)=>a.order-b.order || a.depth-b.depth);
   gl.depthMask(false);
   let layer=null,lastOpticalMesh=null,lastOpticalTarget=null,pathMeshes=0,pathFallbacks=0;
-  for(const item of this.pending){
+  for(let index=0;index<this.pending.length;index++){
+    const item=this.pending[index];
     let geometryUploaded=false;
-    if(layer!==null&&layer!==item.order)onLayer?.();layer=item.order;
+    if(onLayer&&layer!==null&&layer!==item.order){
+      // Refraction reads one snapshot for the entire layer. Check all its
+      // draws before the first one, so earlier particles stay out of that image.
+      for(let next=index;next<this.pending.length&&this.pending[next].order===item.order;next++){
+        const draw=this.pending[next];
+        const material=draw.kind==='asset'?(draw.model.materials[draw.part.material]??this.assetGPU.defaultMaterial):null;
+        if(material?material.transmission>0:glass(draw.material)){
+          onLayer();
+          break;
+        }
+      }
+    }
+    layer=item.order;
     gl.uniform1i(this.U.uHasOpticalDepth,0);
     gl.uniform1i(this.U.uOpticalPath,0);gl.uniform1i(this.U.uOpticalSum,0);
     if(item.opticalMesh&&this.transmission.available){
@@ -1118,19 +1196,35 @@ export class Renderer3D {
   this.stats.opticalPath={available:this.opticalPathDepth.available,error:this.opticalPathDepth.error,bytes:this.opticalPathDepth.bytes,
     meshes:pathMeshes,passes:pathMeshes*2,fallbacks:pathFallbacks,accuracy:pathFallbacks?'envelope approximation':pathMeshes?'signed interfaces; straight visible ray':'legacy single-volume envelope'};
  }
- captureWorkshop(game,time){
+ captureWorkshop(game,time,weather=null,reducedMotion=false){
   const gl=this.gl,U=this.U,eye=[0,2,0],directions=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]],ups=[[0,-1,0],[0,-1,0],[0,0,1],[0,0,-1],[0,-1,0],[0,-1,0]];
   gl.uniform1i(U.uHasScene,0);gl.uniform1i(U.uHasEnvironment,0);gl.uniform1i(U.uHasShadow,0);
   gl.uniform3iv(U.uStaticShadowIndices,this.staticShadowIndices??[-1,-1,-1]);
-  this.environment.capture(`${game.arena}:${game.lightingMode}`,face=>{
+  const steadyWeather=weather?.flash?{...weather,flash:0}:weather;
+  let restoreWeather=false;
+  this.environment.capture(`${game.arena}:${game.lightingMode}${weather?':'+weather.kind:''}`,face=>{
+    if(face===0&&steadyWeather!==weather){this.workshopLighting(game,steadyWeather,reducedMotion);restoreWeather=true;}
     gl.uniform1i(U.uLinearTarget,1);
     const target=eye.map((v,i)=>v+directions[face][i]);
     gl.uniformMatrix4fv(U.uVP,false,mul(perspective(Math.PI/2,1,.1,40),lookAt(eye,target,ups[face])));
     gl.uniform3fv(U.uEye,new Float32Array(eye));
-    this.drawArena({...game,puddleStrength:[0,0]},time);this.pending.length=0;
+    this.drawArena({...game,puddleStrength:[0,0]},time,steadyWeather,reducedMotion);this.pending.length=0;
   });
+  if(restoreWeather)this.workshopLighting(game,weather,reducedMotion);
   this.environment.bind();gl.uniform1i(U.uHasEnvironment,this.environment.available?1:0);
   gl.viewport(0,0,this.width,this.height);
+ }
+ captureWorkshopKeyDepth(game,time,shadowReturn){
+  const room=this.assetScene.environment,key=this.shadows,gl=this.gl;
+  if(room?.revision!==4||!room.motion?.dynamicNames||typeof gl.blitFramebuffer!=='function')return null;
+  const cache=this.workshopKeyShadow??={map:new ShadowMap(gl,{resolutionScale:key.resolutionScale})};
+  if(!cache.map.ensure(game.quality)||cache.map.size!==key.size)return null;
+  const enclosure=room.surroundings?.gpu;
+  if(cache.gpu!==room.gpu||cache.enclosure!==enclosure||cache.matrix!==key.matrix||cache.target!==key.framebuffer||cache.arena!==game.arena){
+    cache.map.capture(()=>this.drawArena(game,time,null,false,null,'static'),shadowReturn(cache.map));
+    Object.assign(cache,{gpu:room.gpu,enclosure,matrix:key.matrix,target:key.framebuffer,arena:game.arena});
+  }
+  return cache.map;
  }
  captureShadows(game,time){
   const gl=this.gl,U=this.U,start=performance.now(),draws=this.stats.draws,triangles=this.stats.triangles;
@@ -1144,7 +1238,16 @@ export class Renderer3D {
   gl.uniform1i(U.uHasShadow,0);this.shadows.ensure(game.quality);
   if(this.shadows.available){
     this.pending.length=0;this.depthOnly=true;gl.uniform1i(U.uDepthPass,1);gl.uniform1f(U.uTime,time);gl.uniformMatrix4fv(U.uVP,false,this.shadows.matrix);
-    try{this.shadows.capture(()=>{this.drawArena(game,time);for(const f of game.fighters)this.drawPuppet(f,time,game);if(game.phase==='matchover'&&!game.replay)drawCampaignCeremony(this,game.ceremony,game.reducedMotion??this.cameraMotionPreference?.matches??false);},shadowReturn(this.shadows));}
+    try{
+      // Copying the seed pays off during the rupture's wider depth workload.
+      // Warm it during renderer preparation, outside the interactive duel.
+      const staticDepth=game.phase==='burst'||!this.prepared?this.captureWorkshopKeyDepth(game,time,shadowReturn):null;
+      this.shadows.capture(()=>{
+        this.drawArena(game,time,null,false,null,staticDepth?'moving':null);
+        for(const f of game.fighters)this.drawPuppet(f,time,game);
+        if(game.phase==='matchover'&&!game.replay)drawCampaignCeremony(this,game.ceremony,game.reducedMotion??this.cameraMotionPreference?.matches??false);
+      },shadowReturn(this.shadows),staticDepth);
+    }
     finally{this.depthOnly=false;this.pending.length=0;gl.uniform1i(U.uDepthPass,0);}
     this.shadows.bind(gl.TEXTURE0);gl.uniformMatrix4fv(U.uShadowVP,false,this.shadows.matrix);gl.uniform1f(U.uShadowSize,this.shadows.size);gl.uniform1i(U.uHasShadow,1);
   }
@@ -1172,7 +1275,7 @@ export class Renderer3D {
     this.staticShadowKey=key;
   }
   gl.uniform3iv(U.uStaticShadowIndices,indices);gl.uniform3fv(U.uStaticShadowSizes,sizes);
-  this.staticShadowIndices=indices;
+  this.staticShadowIndices=indices;this.staticShadowSizes=sizes;
   this.stats.staticShadows=this.staticShadows.map((map,index)=>({lightIndex:indices[index],available:map.available,size:map.size,bytes:map.bytes,error:map.error}));
  }
  presentScene(color,width,height){
@@ -1185,18 +1288,37 @@ export class Renderer3D {
   this.disposed=true;this.assetAbort?.abort();
   const gl=this.gl;gl.useProgram(null);gl.bindVertexArray(null);gl.bindFramebuffer(gl.FRAMEBUFFER,null);
   this.transmission.dispose();this.environment.dispose();this.opticalDepth.dispose();this.opticalPathDepth.dispose();this.shadows.dispose();
+  this.workshopKeyShadow?.map.dispose();
   for(const map of this.staticShadows)map.dispose();
   this.assetGPU.dispose();
   this.floatStream.clear();this.emblemOwners?.clear();this.wearOwners?.clear();
   for(const mesh of Object.values(this.mesh)){for(const key of ['pb','nb','ib','instance'])if(mesh[key])gl.deleteBuffer(mesh[key]);if(mesh.vao)gl.deleteVertexArray(mesh.vao);}
   for(const key of ['pb','nb','ob'])if(this.dynamic[key])gl.deleteBuffer(this.dynamic[key]);if(this.dynamic.vao)gl.deleteVertexArray(this.dynamic.vao);
-  if(this.post.vao)gl.deleteVertexArray(this.post.vao);gl.deleteProgram(this.post.program);gl.deleteProgram(this.program);this.waterSurfaces.clear();this.detachedPoseCache?.clear();this.pending.length=0;
+  if(this.post.vao)gl.deleteVertexArray(this.post.vao);gl.deleteProgram(this.post.program);gl.deleteProgram(this.program);
+  if(this.workshopOpaque)gl.deleteProgram(this.workshopOpaque.program);
+  this.waterSurfaces.clear();this.detachedPoseCache?.clear();this.pending.length=0;
+ }
+ armoryCameraProgress(game,reducedMotion){
+  const allowed=!game.replay&&(game.phase==='ready'||game.phase==='matchover');
+  if(!allowed){if(this.armoryTransition)this.armoryTransition=null;return 0;}
+  const open=game.armoryView===true;
+  if(!open&&!this.armoryTransition)return 0;
+  if(reducedMotion){this.armoryTransition=open?{open,from:1,at:0,catalogue:game.campaignArmory??null}:null;return Number(open);}
+  const now=performance.now(),transition=this.armoryTransition;
+  if(!transition){this.armoryTransition={open,from:0,at:now,catalogue:game.campaignArmory??null};return 0;}
+  if(open)transition.catalogue=game.campaignArmory??null;
+  const elapsed=clamp((now-transition.at)/760,0,1),ease=elapsed*elapsed*(3-2*elapsed);
+  const weight=transition.from+(Number(transition.open)-transition.from)*ease;
+  if(open!==transition.open)this.armoryTransition={open,from:weight,at:now,catalogue:transition.catalogue};
+  else if(!open&&weight===0)this.armoryTransition=null;
+  return weight;
  }
  render(game,time,profile=null){
   this.renderScale=profile?.renderScale??1;
   game=renderQualityView(game,profile);
   this.stats.performance={mode:profile?.mode??'fixed',level:profile?.level??0,quality:game.quality,renderScale:this.renderScale};
   const gl=this.gl,U=this.U;this.resize();this.stats.draws=0;this.stats.triangles=0;this.renderTime=time;
+  this.stats.workshopOpaqueDraws=0;
   this.stats.assets={...this.assetStatus,gpuBytesApprox:this.assetGPU.bytes};this.stats.streaming={...this.floatStream.stats};
   if(this.prepared)this.stats.preparation={...this.preparation,lateGpuAllocations:this.floatStream.stats.allocations-this.preparation.gpuAllocations};
   this.stats.batches=this.assetScene.environment?.batchStats??null;
@@ -1209,12 +1331,16 @@ export class Renderer3D {
   }
   gl.clearColor(.024,.035,.043,1);gl.useProgram(this.program);
   this.cameraMotionPreference??=globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')??{matches:false};
+  const reducedMotion=game.reducedMotion??this.cameraMotionPreference.matches;
+  const weather=game.weather?sampleWeather(game.weather,game.clock-(game.weatherStart??0)):null;
+  if(weather)this.workshopWeather??=createWorkshopWeather();
+  this.stats.weather=weather;
   this.assetScene.environment?.variants?.apply(game.arena);
-  this.workshopLighting(game);
+  const light=this.workshopLighting(game,weather,reducedMotion);
   gl.uniform1i(U.uNeutral,game.lightingMode==='neutral'?1:0);
   this.captureShadows(game,time);
   const shadowDraws=this.stats.draws,shadowTriangles=this.stats.triangles;
-  this.captureWorkshop(game,time);this.stats.draws=shadowDraws;this.stats.triangles=shadowTriangles;
+  this.captureWorkshop(game,time,weather,reducedMotion);this.stats.draws=shadowDraws;this.stats.triangles=shadowTriangles;
   gl.uniform1i(U.uHasShadow,this.shadows.available?1:0);
   this.transmission.ensure(this.width,this.height);this.opticalDepth.ensure(this.width,this.height);this.transmission.begin();
   gl.uniform1i(U.uDepthPass,0);gl.uniform1i(U.uHasOpticalDepth,0);gl.uniform1i(U.uOpticalSum,0);gl.uniform1i(U.uOpticalPath,0);
@@ -1226,14 +1352,25 @@ export class Renderer3D {
   // Simulated phase time drives presentation only. Combat stays authored and
   // stable; round transitions return to it before control resumes.
   const aspect=this.width/this.height;
+  const armoryProgress=this.armoryCameraProgress(game,reducedMotion);
+  // Match the right-side and bottom equipment drawers in mobile.css.
+  const armoryInset=armoryProgress&&this.canvas.ownerDocument?.documentElement?.dataset?.mobileGame==='true'?
+    (aspect>1?{right:Math.min(.48,420/this.canvas.clientWidth)}:{bottom:.58}):null;
   const camera=duelCamera({phase:game.phase,phaseClock:game.phaseClock,clock:game.clock,round:game.round,replay:game.replay,
-    cameraMode:game.cameraMode,aspect,reducedMotion:game.reducedMotion??this.cameraMotionPreference.matches,burstFocus:burstCameraFocus(game),ceremony:game.ceremony,roomInterior:this.assetScene.environment?.surroundings?.contract.cameraInterior});
+    cameraMode:game.cameraMode,aspect,reducedMotion,burstFocus:burstCameraFocus(game),ceremony:game.ceremony,roomInterior:this.assetScene.environment?.surroundings?.contract.cameraInterior,
+    armoryProgress,armoryInset});
   const {eye,target,fov}=camera;this.stats.camera={...camera,aspect};
   gl.uniform2f(U.uOpticalPlanes,camera.near,camera.far);
-  const vp=mul(perspective(fov,aspect,camera.near,camera.far),lookAt(eye,target,[0,1,0]));
-  gl.uniformMatrix4fv(U.uVP,false,vp);gl.uniform3fv(U.uEye,new Float32Array(eye));gl.uniform3fv(U.uViewAxis,new Float32Array(norm(eye.map((v,i)=>v-target[i]))));gl.uniform1f(U.uTime,time);
+  const projection=perspective(fov,aspect,camera.near,camera.far);
+  if(camera.shiftX)projection[8]=-camera.shiftX;
+  if(camera.shiftY)projection[9]=-camera.shiftY;
+  const vp=mul(projection,lookAt(eye,target,[0,1,0]));
+  const eyePosition=new Float32Array(eye);
+  gl.uniformMatrix4fv(U.uVP,false,vp);gl.uniform3fv(U.uEye,eyePosition);gl.uniform3fv(U.uViewAxis,new Float32Array(norm(eye.map((v,i)=>v-target[i]))));gl.uniform1f(U.uTime,time);
   gl.uniform1i(U.uNeutral,game.lightingMode==='neutral'?1:0);
-  this.drawArena(game,time);
+  this.drawArena(game,time,weather,reducedMotion,vp,null,this.workshopOpaque?{eye:eyePosition,lighting:light}:null);
+  if(weather&&this.assetScene.environment?.revision===4)this.workshopWeather.draw(this,weather,reducedMotion);
+  if(game.phase!=='fight'&&armoryInFrame(vp))drawArmory(this,this.armoryTransition?.catalogue);
   for(const f of game.fighters)this.drawPuppet(f,time,game);
   if(game.phase==='matchover'&&!game.replay)drawCampaignCeremony(this,game.ceremony,game.reducedMotion??this.cameraMotionPreference.matches);
   this.renderLiquid(game,time);

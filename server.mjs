@@ -117,15 +117,19 @@ const requestHandler=(req,res)=>{
   if(relative.includes('\\') || relative.split('/').includes('..')) return respond(res,403,'text/plain','Forbidden');
   const full=path.resolve(ROOT,relative);
   if(full!==ROOT && !full.startsWith(ROOT+path.sep)) return respond(res,403,'text/plain','Forbidden');
+  return serveStatic(req,res,full);
+};
+async function serveStatic(req,res,full){
+  // Let authenticated inputs pass through the relay while large GLBs load.
   try {
-    const stat=fs.statSync(full);
+    const stat=await fs.promises.stat(full);
     if(!stat.isFile()) throw new Error('not file');
     const ext=path.extname(full);
     if(ext==='.mp3'||ext==='.wav')return serveAudio(req,res,{file:full,size:stat.size,headers:responseHeaders(mime[ext])});
-    const data=fs.readFileSync(full);
+    const data=await fs.promises.readFile(full);
     return respond(res,200,mime[ext]||'application/octet-stream',data);
   } catch {return respond(res,404,'text/plain','Not found');}
-};
+}
 const server=http.createServer(requestHandler),secureServer=localTLS?https.createServer(localTLS.options,requestHandler):null;
 
 class Peer {
@@ -255,6 +259,7 @@ class Peer {
       if(!neutralize)for(const key of ['headX','headZ','bodyY'])if(Object.hasOwn(msg,key))axes[key]=clamp(msg[key]);
       authority?.send({type:'control',slot:this.slot,axes,thrust:neutralize?false:!!msg.thrust,guard:neutralize?false:!!msg.guard,
         ...(!neutralize&&msg.attackHeld===true?{attackHeld:true}:{}),
+        ...(!neutralize&&msg.armoryView===true?{armoryView:true}:{}),
         seq,t:Date.now(),sentAt:msg.sentAt,...(neutralize?{neutralize:true}:{})});
       return;
     }

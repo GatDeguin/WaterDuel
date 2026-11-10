@@ -41,6 +41,19 @@ function scene(floatBlend=true){
 }
 const mesh=components=>({p:[0,1,0,1,1,0,0,2,0],n:[0,0,1,0,0,1,0,0,1],stats:{components},offset:{x:.2,y:-.1,z:.05}});
 
+test('Copia entre capas sólo cuando algún dibujo de la capa entrante refracta',()=>{
+ const {r}=scene(),events=[];
+ r.flushDynamic=item=>events.push(item.material);
+ r.assetGPU.draw=model=>events.push(model.label);
+ const dynamic=(order,material,depth=0)=>({kind:'dynamic',order,material,depth});
+ const asset=(order,label,transmission)=>({kind:'asset',order,depth:0,
+  model:{label,materials:[{transmission}]},part:{material:0,count:3}});
+ r.pending.push(dynamic(2,11,1),dynamic(0,8),dynamic(2,5),asset(2.5,'alpha',0),
+  dynamic(1,6),asset(3,'glass',.5),dynamic(4,8));
+ r.flush(()=>events.push('snapshot'));
+ assert.deepEqual(events,[8,6,'snapshot',5,11,'alpha','snapshot','glass',8]);
+});
+
 test('Dos componentes usan front+sum+color con idéntica malla/offset y una sola subida',()=>{
  const {r,gl}=scene(),m=mesh(2);r.dynamicDraw(m,0xffffff,9);r.flush();
  assert.equal(gl.draws.length,3);assert.equal(gl.uploads.length,2);

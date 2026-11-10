@@ -65,6 +65,20 @@ test('ui menu pause clears every input and refuses holds until an explicit fresh
   f.link.close();
 });
 
+test('La vista de equipo del teléfono requiere menú abierto y un paquete fresco sin activar controles',async()=>{
+  const f=await fixture(),visible=()=>f.host.renderState().scene.armoryView===true;
+  f.control({armoryView:true});assert.equal(visible(),false);
+  f.send({type:'ui-state',menuOpen:true});
+  f.send({type:'control',seq:2,sentAt:f.clock.now-451,armoryView:true});assert.equal(visible(),false);
+  f.control({armoryView:true,mainX:1,attackHeld:true},3);
+  assert.equal(visible(),true);assert.deepEqual(f.session.sample(),neutral());
+  f.control({},3);assert.equal(visible(),true,'una secuencia repetida no pisa la vista vigente');
+  f.control({},4);assert.equal(visible(),false,'omitir la vista al salir de equipo la apaga');
+  f.control({armoryView:true},5);assert.equal(visible(),true);
+  f.send({type:'ui-state',menuOpen:false});assert.equal(visible(),false);
+  f.link.close();
+});
+
 test('commands preserve ACK-before-final-state even when HostSession settings publish an intermediate state',async()=>{
   let session;const f=await fixture({onSettings:()=>session?.publish()});session=f.session;f.messages.length=0;
   f.command('setQuality','eco');assert.equal(f.host.game.quality,'eco','delegates to the real HostSession');

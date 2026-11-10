@@ -1,5 +1,6 @@
 // Scalar preferences shared by the host and its validated mobile protocol.
-import {ALL_EFFECTS_MASK,validEffectMask} from './effect-controls.js';
+import {ALL_EFFECTS_MASK,setEffectEnabled,validEffectMask} from './effect-controls.js';
+const EFFECT_MASK_VERSION=2,LEGACY_EFFECTS_MASK=setEffectEnabled(0,'thunder',true)-1;
 export const SOUND_DEFAULTS=Object.freeze({audioOn:false,volume:55,musicVolume:24,effectsVolume:100,distortion:3,reverb:8,reverbDecay:1100,effectMask:ALL_EFFECTS_MASK});
 export const SOUND_COMMANDS=Object.freeze({setVolume:'volume',setMusicVolume:'musicVolume',setEffectsVolume:'effectsVolume',setDistortion:'distortion',setReverb:'reverb',setReverbDecay:'reverbDecay',setEffectMask:'effectMask'});
 const limits=field=>field==='reverbDecay'?[200,2400]:[0,100];
@@ -13,5 +14,16 @@ export function soundPreferences(value={}){
   }
   return out;
 }
-export function loadSoundPreferences(storage){try{return soundPreferences(JSON.parse(storage?.getItem('waterduel.audio.v1')??'null'));}catch{return soundPreferences();}}
-export function saveSoundPreferences(storage,value){try{storage?.setItem('waterduel.audio.v1',JSON.stringify(soundPreferences(value)));}catch{}}
+export function loadSoundPreferences(storage){
+  try{
+    const saved=JSON.parse(storage?.getItem('waterduel.audio.v1')??'null'),prefs=soundPreferences(saved);
+    // Older masks let thunder play whenever any effect was selected.
+    if((saved?.effectMaskVersion??1)===1&&prefs.effectMask>0&&prefs.effectMask<=LEGACY_EFFECTS_MASK){
+      prefs.effectMask=setEffectEnabled(prefs.effectMask,'thunder',true);
+    }
+    return prefs;
+  }catch{return soundPreferences();}
+}
+export function saveSoundPreferences(storage,value){
+  try{storage?.setItem('waterduel.audio.v1',JSON.stringify({...soundPreferences(value),effectMaskVersion:EFFECT_MASK_VERSION}));}catch{}
+}

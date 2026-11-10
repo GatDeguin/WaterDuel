@@ -17,6 +17,7 @@ export class MobileSession{
   }
   get paused(){return this.menuOpen;}
   bindHost(host,{onInteraction=noop,onPause=noop}={}){
+    this.host?.clearArmoryView?.(1);
     this.host=host??null;this.onInteraction=onInteraction;this.onPause=onPause;this.neutralize();
     this.onPause(this.paused);
     if(this.hello){this.deliver({type:'host',online:!!this.host});this.publish();}
@@ -32,7 +33,7 @@ export class MobileSession{
         if(link.readyState===3)return;
         link.readyState=3;
         if(this.link===link){
-          this.link=null;this.hello=false;this.neutralize();
+          this.link=null;this.hello=false;this.neutralize();this.host?.clearArmoryView?.(1);
           if(this.menuOpen){this.menuOpen=false;this.onPause(false);}
         }
         queueMicrotask(()=>link.onclose?.());
@@ -54,7 +55,7 @@ export class MobileSession{
     if(!record(message))return;
     if(message.type==='hello'){
       if(message.role!=='controller'||message.slot!==1)return;
-      this.hello=true;this.neutralize();
+      this.hello=true;this.neutralize();this.host?.clearArmoryView?.(1);
       this.deliver({type:'welcome',role:'controller',slot:1,hostOnline:!!this.host,serverTime:this.now()});
       this.publish();return;
     }
@@ -62,6 +63,7 @@ export class MobileSession{
     if(message.type==='ui-state'){
       if(typeof message.menuOpen!=='boolean')return;
       const changed=this.menuOpen!==message.menuOpen;this.menuOpen=message.menuOpen;this.neutralize();
+      if(!this.menuOpen)this.host?.clearArmoryView?.(1);
       if(changed)this.onPause(this.paused);return;
     }
     if(message.type==='ping'){
@@ -72,6 +74,7 @@ export class MobileSession{
       const now=this.now();
       if(!positive(message.seq)||message.seq<=this.lastSeq||!finite(message.sentAt)||now-message.sentAt>450||message.sentAt-now>1000)return;
       this.lastSeq=message.seq;
+      this.host.setArmoryView?.(1,this.paused&&!message.neutralize&&message.armoryView===true,now-message.sentAt);
       if(this.paused||message.neutralize===true){this.neutralize();return;}
       const control=neutral();
       for(const key of axes)control[key]=finite(message[key])?Math.max(-1,Math.min(1,message[key])):0;

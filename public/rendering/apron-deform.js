@@ -89,9 +89,15 @@ export function deformApronGeometry(part,snapshot){
   const positions=new Float32Array(part.positions.length),normals=new Float32Array(part.normals.length),scale=Math.hypot(snapshot.canonicalMatrix[8],snapshot.canonicalMatrix[9],snapshot.canonicalMatrix[10]);
   for(let i=0;i<canonical.positions.length;i++){
     const sample=apronSurfaceSample(cloth,canonical.positions[i],part.apronPanel,scale),n=canonical.normals[i],cx=cross(sample.dy,sample.dz),cy=cross(sample.dz,sample.dx),cz=cross(sample.dx,sample.dy);
-    const determinant=sample.dx.reduce((sum,v,k)=>sum+v*cx[k],0),sign=determinant<0?-1:1;
-    let normal=[0,1,2].map(k=>sign*(cx[k]*n[0]+cy[k]*n[1]+cz[k]*n[2]));if(Math.hypot(...normal)<1e-10)normal=sample.director;
-    positions.set(sample.position,i*3);normals.set(unit(normal),i*3);
+    const d=sample.dx,determinant=((0+d[0]*cx[0])+d[1]*cx[1])+d[2]*cx[2],sign=determinant<0?-1:1;
+    let nx=sign*(cx[0]*n[0]+cy[0]*n[1]+cz[0]*n[2]);
+    let ny=sign*(cx[1]*n[0]+cy[1]*n[1]+cz[1]*n[2]);
+    let nz=sign*(cx[2]*n[0]+cy[2]*n[1]+cz[2]*n[2]);
+    let length=Math.hypot(nx,ny,nz);
+    if(length<1e-10){[nx,ny,nz]=sample.director;length=Math.hypot(nx,ny,nz);}
+    const divisor=length||1,offset=i*3;
+    positions.set(sample.position,offset);
+    normals[offset]=nx/divisor;normals[offset+1]=ny/divisor;normals[offset+2]=nz/divisor;
   }
   const geometry={...part,positions,normals};cache.set(part,geometry);return geometry;
 }

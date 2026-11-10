@@ -34,7 +34,7 @@ function frame(hand,tip,dir=1,defaultZ=.17){
   const z=[x[1]*y[2]-x[2]*y[1],x[2]*y[0]-x[0]*y[2],x[0]*y[1]-x[1]*y[0]];
   return {origin,x,y,z,length:Math.max(.001,length),ux:y[0],uy:y[1]};
 }
-const frontFrame=hand=>({origin:[hand.x,hand.y,0],x:[1,0,0],y:[0,1,0],z:[0,0,1]});
+const frontFrame=(hand,depth)=>({origin:[hand.x,hand.y,depth],x:[1,0,0],y:[0,1,0],z:[0,0,1]});
 
 function part(renderer,f,shape,x,y,z,sx,sy,sz,color,material=0,axis='along'){
   let fx=f.x,fy=f.y,local=[x,y,z];
@@ -148,7 +148,7 @@ export function drawDefense(renderer,fighter,pal){
     part(renderer,f,'rapierBlade',0,(f.length+.09)/2,0,.073,Math.max(.01,f.length-.09),.032,pal.steel,16);
     return;
   }
-  const f=frontFrame(p.offHand),rx=p.shieldRadiusX??p.shieldRadius??defense.radiusX,ry=p.shieldRadiusY??p.shieldRadius??defense.radiusY;
+  const f=frontFrame(p.offHand,p.bodyDepth??0),rx=p.shieldRadiusX??p.shieldRadius??defense.radiusX,ry=p.shieldRadiusY??p.shieldRadius??defense.radiusY;
   if(defense.id==='short'){
     // Keep the visible outer rim on the same radius and center as the parry disk.
     part(renderer,f,'cylinder',0,0,.03,rx,.055,ry,pal.steel,1,'face');

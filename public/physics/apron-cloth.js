@@ -34,6 +34,14 @@ export function apronDirectors(normals){
 }
 
 const surfaceFields=new WeakMap();
+function apronBlend(a,b,c,wa,wb,wc){
+  return [((0+a[0]*wa)+b[0]*wb)+c[0]*wc,((0+a[1]*wa)+b[1]*wb)+c[1]*wc,((0+a[2]*wa)+b[2]*wb)+c[2]*wc];
+}
+function apronDerivative(base,delta,director,depth,length){
+  const along=((0+director[0]*delta[0])+director[1]*delta[1])+director[2]*delta[2];
+  return [base[0]+depth*(delta[0]-director[0]*along)/length,base[1]+depth*(delta[1]-director[1]*along)/length,
+    base[2]+depth*(delta[2]-director[2]*along)/length];
+}
 /** Evaluate the continuous thick surface and its local derivatives. The middle
  * surface is the solver's triangles; interpolated unit directors carry the
  * authored nonzero thickness across their shared edges without opening seams. */
@@ -48,12 +56,24 @@ export function apronSurfaceSample(cloth,canonical,panel,scale=1){
       return {ra,ax,ay,bx,by,det,indices,directors,px:derivative(cloth.positions,wx),py:derivative(cloth.positions,wy),dx:derivative(directors,wx),dy:derivative(directors,wy)};
     });surfaceFields.set(cloth,fields);
   }
-  const f=fields[panel],x=canonical[0]-f.ra[0],y=canonical[1]-f.ra[1],u=(x*f.by-y*f.bx)/f.det,v=(f.ax*y-f.ay*x)/f.det,w=[1-u-v,u,v];
-  const interpolate=values=>[0,1,2].map(k=>f.indices.reduce((sum,i,j)=>sum+values[i][k]*w[j],0));
-  const middle=interpolate(cloth.positions),raw=interpolate(f.directors),length=Math.hypot(...raw),director=length>1e-9?raw.map(v=>v/length):f.directors[f.indices[w.indexOf(Math.max(...w))]];
-  const depth=(canonical[2]-f.ra[2])*scale;
-  const derivative=(base,delta)=>{const along=dot(director,delta);return base.map((p,k)=>p+depth*(delta[k]-director[k]*along)/Math.max(length,1e-9));};
-  return {position:middle.map((p,k)=>p+depth*director[k]),dx:derivative(f.px,f.dx),dy:derivative(f.py,f.dy),dz:director.map(v=>v*scale),director};
+  const f=fields[panel],x=canonical[0]-f.ra[0],y=canonical[1]-f.ra[1];
+  const u=(x*f.by-y*f.bx)/f.det,v=(f.ax*y-f.ay*x)/f.det,w=1-u-v;
+  const [a,b,c]=f.indices,points=cloth.positions,directions=f.directors;
+  const middle=apronBlend(points[a],points[b],points[c],w,u,v);
+  const raw=apronBlend(directions[a],directions[b],directions[c],w,u,v);
+  const length=Math.hypot(raw[0],raw[1],raw[2]),depth=(canonical[2]-f.ra[2])*scale;
+  let director,dz;
+  if(length>1e-9){
+    director=[raw[0]/length,raw[1]/length,raw[2]/length];
+    dz=[director[0]*scale,director[1]*scale,director[2]*scale];
+  }else{
+    const weights=[w,u,v];
+    director=directions[f.indices[weights.indexOf(Math.max(w,u,v))]];
+    dz=director.map(component=>component*scale);
+  }
+  const safeLength=Math.max(length,1e-9);
+  return {position:[middle[0]+depth*director[0],middle[1]+depth*director[1],middle[2]+depth*director[2]],
+    dx:apronDerivative(f.px,f.dx,director,depth,safeLength),dy:apronDerivative(f.py,f.dy,director,depth,safeLength),dz,director};
 }
 
 function legCapsules(pose,scale){

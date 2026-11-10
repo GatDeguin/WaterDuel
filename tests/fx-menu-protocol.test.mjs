@@ -4,7 +4,7 @@ import {HostSession} from '../public/host-session.js';
 import {normalizeMenuCommand,sanitizeMenuState} from '../public/remote-menu.js';
 import {loadSoundPreferences} from '../public/audio/sound-settings.js';
 import {MobileSession} from '../public/mobile-session.js';
-const ALL=134217727;
+import {ALL_EFFECTS_MASK as ALL,effectEnabled} from '../public/audio/effect-controls.js';
 let serial=0;
 const command=(name,value)=>({type:'command',command:name,value,requestId:++serial,sentAt:1});
 
@@ -33,6 +33,12 @@ test('FX switches persist without changing previously saved master mute, volume 
   assert.equal(host.effectMask,ALL,'older sound preferences enable the current catalog by default');
   host.handleCommand(command('setEffectEnabled',{id:'joint',enabled:false}));
   const next=new HostSession({storage});assert.equal(next.effectMask,ALL-2);assert.equal(next.audioOn,false);assert.equal(next.volume,37);assert.equal(next.musicVolume,19);assert.equal(next.effectsVolume,0);assert.equal(next.reverbDecay,900);
+  data.set('waterduel.audio.v1',JSON.stringify({effectMask:5}));
+  const legacy=new HostSession({storage});assert.equal(legacy.effectMask,2**27+5);
+  assert.equal(legacy.handleCommand(command('setEffectEnabled',{id:'thunder',enabled:false})).ok,true);
+  assert.equal(new HostSession({storage}).effectMask,5,'a modern disabled thunder stays disabled on reload');
+  data.set('waterduel.audio.v1',JSON.stringify({effectMask:0}));
+  assert.equal(loadSoundPreferences(storage).effectMask,0,'legacy mute all stays muted');
   for(const effectMask of [-1,ALL+1,1.2,'0',null,{},NaN]){data.set('waterduel.audio.v1',JSON.stringify({effectMask}));assert.equal(loadSoundPreferences(storage).effectMask,ALL,'invalid persisted mask falls back to the catalog defaults');}
   assert.doesNotThrow(()=>new HostSession({storage:{getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}}}).handleCommand(command('setEffectMask',0)));
 });
@@ -47,7 +53,7 @@ test('bulk and individual FX settings apply in a live round without resetting ga
 });
 
 test('the relay state carries only one bounded scalar FX mask, with no scene, arbitrary FX keys or secrets',()=>{
-  for(const effectMask of [0,7,ALL]){const state=sanitizeMenuState({effectMask,effectsEnabled:{hostToken:'secret'},fx:[{id:'anything'}]});assert.equal(state.effectMask,effectMask);assert.equal(JSON.stringify(state).includes('secret'),false);assert.equal('effectsEnabled'in state,false);}
+  for(const effectMask of [0,7,2**27,ALL]){const state=sanitizeMenuState({effectMask,effectsEnabled:{hostToken:'secret'},fx:[{id:'anything'}]});assert.equal(state.effectMask,effectMask);assert.equal(effectEnabled(state.effectMask,'thunder'),effectMask>=2**27);assert.equal(JSON.stringify(state).includes('secret'),false);assert.equal('effectsEnabled'in state,false);}
   for(const effectMask of [undefined,-1,ALL+1,NaN,'0',{},[]])assert.equal(sanitizeMenuState({effectMask}).effectMask,ALL);
 });
 

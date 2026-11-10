@@ -1,5 +1,4 @@
-// Reduced-coordinate planar multibody plus a reduced lateral neck hinge.
-// Other limb depth remains a layer; this is not a full 3D/Coulomb-contact solver.
+// Reduced-coordinate planar multibody with lateral neck, body and weapon-arm motion.
 import {TABLE_TOP} from './dimensions.js';
 import {normalizeLoadout,getWeapon,getDefense,equipmentAcrossSign} from '../equipment.js';
 import {ApronCloth,apronParentFrame} from './apron.js';
@@ -24,6 +23,26 @@ const limits=[[-20,20],[.40,1.95],[-.32,.32],[-.92,.92],[-3.12,1.48],[.035,2.96]
 const STOP_ROWS=Array.from({length:N},(_,i)=>[-1,1].map(sign=>{const row=new Float64Array(N);row[i]=sign;return row;}));
 const masses={pelvis:.55,torso:1.35,neck:.13,mainUpper:.34,mainForearm:.25,offUpper:.31,offForearm:.23,frontThigh:.34,frontShin:.25,backThigh:.34,backShin:.25,weapon:.16,offWeapon:.055,frontFoot:.12,backFoot:.12};
 const PASSIVE_DRAG=Object.freeze([3,3,4,2,4,4,4,4,10,10,10,10,2,4,4,4]);
+const BODY_DEPTH_LIMIT=.28,ARM_DEPTH_LIMIT=.14,DEPTH_SPEED=.85,DEPTH_ACCELERATION=6;
+const ELBOW_DEPTH_SHARE=.55;
+const weaponPoints={mainElbow:ELBOW_DEPTH_SHARE,mainHand:1,tip:1,offGrip:1};
+const supportPoints={offElbow:ELBOW_DEPTH_SHARE,offHand:1};
+const weaponPanels={mainUpper:ELBOW_DEPTH_SHARE/2,mainForearm:(1+ELBOW_DEPTH_SHARE)/2};
+const supportPanels={offUpper:ELBOW_DEPTH_SHARE/2,offForearm:(1+ELBOW_DEPTH_SHARE)/2,'off-palm':1};
+const weaponMassBodies=new Set(['mainUpper','mainForearm','weapon']),supportMassBodies=new Set(['offUpper','offForearm']);
+const depthMotion=()=>({position:0,previous:0,velocity:0});
+const translatedDepth=(z,offset)=>offset===0?z:z+offset;
+const sampledDepth=(motion,t)=>t===0?motion.previous:t===1||motion.previous===motion.position?motion.position:
+  motion.previous+(motion.position-motion.previous)*t;
+function advanceDepth(motion,target,limit,h,passive){
+  if(motion.velocity===0&&(passive||motion.position===target))return;
+  const desired=passive?0:clamp((target-motion.position)*12,-DEPTH_SPEED,DEPTH_SPEED);
+  motion.velocity+=clamp(desired-motion.velocity,-DEPTH_ACCELERATION*h,DEPTH_ACCELERATION*h);
+  const next=motion.position+motion.velocity*h;
+  motion.position=clamp(next,-limit,limit);
+  if(next!==motion.position)motion.velocity=0;
+  if(!passive&&Math.abs(target-motion.position)<1e-9&&Math.abs(motion.velocity)<1e-8){motion.position=target;motion.velocity=0;}
+}
 // Exact v4 wood/hardware hulls are measured in shin-geometry.js. Their distal
 // endpoint is the achieved ankle, never the legacy proxy centre of the foot.
 const SHIN_FLOOR=[
@@ -75,6 +94,19 @@ const collisionSolid=(body,a,b,width,z,depth,key=body)=>{
   const extent=(vx,vy)=>Math.max(Math.abs((x0-x)*vx+(y0-y)*vy),Math.abs((x1-x)*vx+(y1-y)*vy),
     Math.abs((x2-x)*vx+(y2-y)*vy),Math.abs((x3-x)*vx+(y3-y)*vy));
   return {body,key,center:{x,y,z},axes:[{x:ux,y:uy,z:0},{x:-uy,y:ux,z:0},{x:0,y:0,z:1}],half:[extent(ux,uy),extent(-uy,ux),depth/2]};
+};
+// Shared timber endpoints for polygon contacts and selected fluid solids.
+const chestTimber=(x,y,sx,sy,key,create,panels)=>{
+  const dx=sx-x,dy=sy-y,length=Math.hypot(dx,dy);
+  const waist={x:x+dx*.28,y:y+dy*.28},chest={x:sx-dx/length*.12,y:sy-dy/length*.12};
+  if(!key||key==='chest-front'){
+    const front=create('torso',waist,chest,.35,.155,.14,'chest-front');
+    if(key)return front;
+    panels.push(front);
+  }
+  const back=create('torso',waist,chest,.32,-.16,.07,'chest-back');
+  if(key)return back;
+  panels.push(back);
 };
 const projection=(panel,n)=>{
   let min=Infinity,max=-Infinity;
@@ -132,6 +164,9 @@ export class ArticulatedRig{
   #flexibleWeapons=false;
   #weaponFlex=null;
   #surfaceSnapshot=null;
+  #bodyDepthMotion=depthMotion();
+  #armDepthMotion=depthMotion();
+  #bodyDepthTarget=0;
   constructor({dir=1,scale=1,baseX=0,pose=null,gravity=-9.81,massScale=1,groundHeight=TABLE_TOP+.075,apronVariant='normal',flexibleWeapons=false,surfaceSnapshot=null}={}){
     this.limits=limits.map(value=>value.slice());this.passive=false;
     this.dir=dir<0?-1:1;this.scale=clamp(finite(scale,1),.75,1.6);
@@ -153,7 +188,10 @@ export class ArticulatedRig{
     this.contacts=[];this.gait={swing:null,next:0,stanceBase:finite(baseX)};
     this.jointDamage={};this.jointDamageVersion=0;this.detachedBodies=new Set();this.detachedCoordinates=new Set();this.fragments=[];this.jointEvents=[];this.topologyVersion=0;this.gripReleased=false;
     this.lastReaction=[0,0,0,0];this.lastMotor=new Float64Array(N);this.lastGravity=new Float64Array(N);this.lastImpulse=null;this.lastSelfContactImpulse=0;
-    this.setIntent(pose,{baseX});
+    this.#bodyDepthMotion.position=this.#bodyDepthMotion.previous=clamp(finite(pose?.bodyDepth),-BODY_DEPTH_LIMIT,BODY_DEPTH_LIMIT);
+    const weaponDepth=finite(pose?.weaponDepthOffset,this.bodyDepth);
+    this.#armDepthMotion.position=this.#armDepthMotion.previous=clamp(weaponDepth-this.bodyDepth,-ARM_DEPTH_LIMIT,ARM_DEPTH_LIMIT);
+    this.setIntent(pose,{baseX,bodyDepthTarget:this.bodyDepth});
     this.q.set(this.target);
     const state=this.#kinematics();
     this.contacts=[{key:'footF',x:state.points.footF.x,y:state.points.footF.y,stance:true,vx:0,vy:0},
@@ -164,6 +202,49 @@ export class ArticulatedRig{
 
   get flexibleWeapons(){return this.#flexibleWeapons;}
   get weaponFlex(){return this.#weaponFlex;}
+  get bodyDepth(){return this.#bodyDepthMotion.position;}
+  get previousBodyDepth(){return this.#bodyDepthMotion.previous;}
+  get bodyDepthVelocity(){return this.#bodyDepthMotion.velocity;}
+  get weaponDepthOffset(){return this.bodyDepth+this.#armDepthMotion.position;}
+  get previousWeaponDepthOffset(){return this.previousBodyDepth+this.#armDepthMotion.previous;}
+  get weaponDepthVelocity(){return this.bodyDepthVelocity+this.#armDepthMotion.velocity;}
+
+  #depthMass(arm=false){
+    let mass=0;
+    for(const body of this.#kinematics().bodies){
+      if(!arm||weaponMassBodies.has(body.name)||this.twoHanded&&supportMassBodies.has(body.name))mass+=body.mass;
+    }
+    return Math.max(.05,mass);
+  }
+  get bodyDepthInverseMass(){return 1/this.#depthMass();}
+  get weaponDepthInverseMass(){return this.isBodyAttached('weapon')?this.bodyDepthInverseMass+1/this.#depthMass(true):0;}
+
+  applyBodyDepthImpulse(impulse){
+    if(!Number.isFinite(impulse)||impulse===0)return false;
+    const motion=this.#bodyDepthMotion;
+    motion.velocity=clamp(motion.velocity+impulse*this.bodyDepthInverseMass,-DEPTH_SPEED,DEPTH_SPEED);
+    return true;
+  }
+  applyWeaponDepthImpulse(impulse){
+    if(!Number.isFinite(impulse)||impulse===0||!this.isBodyAttached('weapon'))return false;
+    const motion=this.#armDepthMotion;
+    motion.velocity=clamp(motion.velocity+impulse/this.#depthMass(true),-DEPTH_SPEED,DEPTH_SPEED);
+    return this.applyBodyDepthImpulse(impulse);
+  }
+  projectBodyDepth(delta){
+    if(!Number.isFinite(delta)||delta===0)return 0;
+    const motion=this.#bodyDepthMotion,before=motion.position;
+    motion.position=clamp(before+delta,-BODY_DEPTH_LIMIT,BODY_DEPTH_LIMIT);
+    if(motion.position!==before)this.#advanceApron(0,this.#kinematics());
+    return motion.position-before;
+  }
+  projectWeaponDepth(delta){
+    if(!Number.isFinite(delta)||delta===0||!this.isBodyAttached('weapon'))return 0;
+    const motion=this.#armDepthMotion,before=motion.position;
+    motion.position=clamp(before+delta,-ARM_DEPTH_LIMIT,ARM_DEPTH_LIMIT);
+    const arm=motion.position-before;
+    return arm+this.projectBodyDepth(delta-arm);
+  }
 
   isBodyAttached(body){return !this.detachedBodies.has(body);}
   drainJointEvents(){const events=this.jointEvents;this.jointEvents=[];return events;}
@@ -188,7 +269,10 @@ export class ArticulatedRig{
           const h=sourcePose.offHand,rx=sourcePose.shieldRadiusX,ry=sourcePose.shieldRadiusY,{min,max}=sourcePose.shieldDepth;
           if(rx>0&&ry>0&&max>min)panels.push(collisionPanel('offForearm',{x:h.x-rx,y:h.y},{x:h.x+rx,y:h.y},2*ry,(min+max)/2,max-min,'detached-shield'));
         }
-        const vertices=[...panels.flatMap(p=>p.key==='detached-shield'?p.vertices.flatMap(v=>[p.z-p.depth/2,p.z+p.depth/2].map(z=>({...v,z}))):p.vertices.map(v=>({...v,z:p.z}))),...this.#floorSamples(state).filter(p=>removed.includes(p.body))];
+        let floorVertices=this.#floorSamples(state).filter(p=>removed.includes(p.body));
+        if(this.bodyDepth!==0||this.#armDepthMotion.position!==0)floorVertices=floorVertices.map(p=>
+          ({...p,z:translatedDepth(p.z??0,this.#panelDepthOffset(p.body,p.body,this.bodyDepth,this.#armDepthMotion.position))}));
+        const vertices=[...panels.flatMap(p=>p.key==='detached-shield'?p.vertices.flatMap(v=>[p.z-p.depth/2,p.z+p.depth/2].map(z=>({...v,z}))):p.vertices.map(v=>({...v,z:p.z}))),...floorVertices];
         const fragment=new DetachedCluster({id:`joint-${++this.topologyVersion}`,joint:name,bodies,panels,vertices,velocity:this.velocity,dir:this.dir,sourcePose,gravity:this.gravity});
         this.fragments.push(fragment);record.detached=true;record.fragmentId=fragment.id;
         for(const body of removed)this.detachedBodies.add(body);
@@ -203,7 +287,33 @@ export class ArticulatedRig{
     this.jointEvents.push(event);return {applied:true,...record};
   }
 
-  #attachedPanels(panels){return this.detachedBodies.size?panels.filter(p=>this.isBodyAttached(p.body)):panels;}
+  #pointDepthOffset(key,bodyDepth,armDepth){
+    if(armDepth===0)return bodyDepth;
+    return bodyDepth+armDepth*(weaponPoints[key]??(this.twoHanded?supportPoints[key]:0)??0);
+  }
+
+  #panelDepthOffset(body,key,bodyDepth,armDepth){
+    if(armDepth===0)return bodyDepth;
+    return bodyDepth+armDepth*(body==='weapon'?1:weaponPanels[key]??(this.twoHanded?supportPanels[key]:0)??0);
+  }
+
+  #localDepth(key,value,bodyDepth,armDepth){
+    const before=this.depth[key];
+    if(!Number.isFinite(value))return before;
+    const offset=this.#pointDepthOffset(key,bodyDepth,armDepth);
+    if(offset===0)return value;
+    return value===before+offset?before:value-offset;
+  }
+
+  #attachedPanels(panels,bodyDepth,armDepth,asSolids){
+    const attached=this.detachedBodies.size?panels.filter(p=>this.isBodyAttached(p.body)):panels;
+    if(bodyDepth!==0||armDepth!==0)for(const panel of attached){
+      const offset=this.#panelDepthOffset(panel.body,panel.key,bodyDepth,armDepth);
+      if(asSolids)panel.center.z=translatedDepth(panel.center.z,offset);
+      else panel.z=translatedDepth(panel.z,offset);
+    }
+    return attached;
+  }
 
   projectContact({body='weapon',point,normal,penetration=0}={}){
     if(!point||!normal||![point.x,point.y,normal.x,normal.y,penetration].every(Number.isFinite)||penetration<=0)return false;
@@ -216,6 +326,7 @@ export class ArticulatedRig{
 
   #advanceApron(dt,state){
     const p={};for(const name of ['hip','mainShoulder','offShoulder','frontHip','backHip','kneeF','kneeB','ankleF','ankleB'])p[name]={x:state.points[name].x,y:state.points[name].y,z:this.depth[name]??0};
+    if(this.bodyDepth!==0)for(const point of Object.values(p))point.z+=this.bodyDepth;
     p.clothLegs=Object.fromEntries(['frontThigh','frontShin','backThigh','backShin'].map(body=>[body,this.isBodyAttached(body)]));
     this.apron.advance(dt,{frame:apronParentFrame(p,this.dir,this.scale,this.apron.geometry),pose:p,passive:this.passive,gravity:this.gravity});
   }
@@ -407,8 +518,9 @@ export class ArticulatedRig{
     return cached.factor??(cached.factor=factor(matrix));
   }
 
-  setIntent(pose,{baseX=this.intentBase,baseVX=0,waterLoad=null}={}){
+  setIntent(pose,{baseX=this.intentBase,baseVX=0,waterLoad=null,bodyDepthTarget=0}={}){
     this.intentBase=finite(baseX,this.intentBase);this.intentVX=clamp(finite(baseVX),-2,2);
+    if(!this.passive)this.#bodyDepthTarget=clamp(finite(bodyDepthTarget),-BODY_DEPTH_LIMIT,BODY_DEPTH_LIMIT);
     const angle=(a,b,fallback)=>a&&b?Math.atan2(b.y-a.y,this.dir*(b.x-a.x)):fallback;
     const t=this.target,s=this.scale,p=pose||{};
     if(p.equipment)this.equipment=normalizeLoadout(p.equipment);
@@ -440,15 +552,19 @@ export class ArticulatedRig{
       t[13]=clamp(wrap(angle(p.mainHand,p.tip,0)-fore-this.wristRestAngle),this.limits[13][0],this.limits[13][1]);
     }
     this.defenseDepth.target=clamp(finite(p.defenseDepthTarget,-.08),-.08,.10);
+    // Poses returned by this rig may be fed back as intents. Strip their world
+    // translation before copying local layer depths to avoid applying it twice.
+    const poseBodyDepth=finite(p.bodyDepth),poseArmDepth=finite(p.weaponDepthOffset,poseBodyDepth)-poseBodyDepth;
+    const translatedPose=poseBodyDepth!==0||poseArmDepth!==0;
     for(const key of Object.keys(this.depth)){
       if(key==='head'&&Number.isFinite(p.neckYawTarget))continue;
       if(!this.twoHanded&&Number.isFinite(p.defenseDepthTarget)&&['offHand','offElbow'].includes(key))continue;
-      this.depth[key]=finite(p[key]?.z,this.depth[key]);
+      this.depth[key]=translatedPose?this.#localDepth(key,p[key]?.z,poseBodyDepth,poseArmDepth):finite(p[key]?.z,this.depth[key]);
     }
     // Default lower legs remain planar, preserving the rigid knee/ankle
     // distance in 3D as well as XY. Explicit ankle-depth intentions still win.
     for(const suffix of ['F','B'])if(!Number.isFinite(p['ankle'+suffix]?.z))this.depth['ankle'+suffix]=this.depth['knee'+suffix];
-    if(Number.isFinite(p.headBaseZ))this.depth.head=p.headBaseZ;
+    if(Number.isFinite(p.headBaseZ))this.depth.head=translatedPose?this.#localDepth('head',p.headBaseZ,poseBodyDepth,poseArmDepth):p.headBaseZ;
     this.shieldRadius=clamp(finite(p.shieldRadius,.23),0,.5);
     this.shieldRadiusX=clamp(finite(p.shieldRadiusX,this.shieldRadius),0,.5);
     this.shieldRadiusY=clamp(finite(p.shieldRadiusY,this.shieldRadius),0,.6);
@@ -523,9 +639,17 @@ export class ArticulatedRig{
     const baseResult=this.#constraintDelta(L,rows,values),base=baseResult.delta,delta=base.slice(),active=[],responses=geometry?.responses??[],constraintResponses=geometry?.constraintResponses??[],products=geometry?.products??[],baseValues=[];
     const response=index=>{
       if(!responses[index]){
-        const free=solve(L,inequalities[index].row),reaction=this.#constraintDelta(L,rows,rows.map(r=>-dot(r,free)));
-        constraintResponses[index]=reaction.lambda;
-        responses[index]=Float64Array.from(free,(v,i)=>v+reaction.delta[i]);
+        const free=solve(L,inequalities[index].row);
+        if(rows.length){
+          const reaction=this.#constraintDelta(L,rows,rows.map(r=>-dot(r,free)));
+          constraintResponses[index]=reaction.lambda;
+          for(let i=0;i<N;i++)free[i]+=reaction.delta[i];
+        }else{
+          // An unanchored solve adds zero to each coordinate in the reference
+          // arithmetic, including its treatment of negative zero.
+          for(let i=0;i<N;i++)free[i]+=0;
+        }
+        responses[index]=free;
       }
       return responses[index];
     };
@@ -535,20 +659,82 @@ export class ArticulatedRig{
     };
     const baseValue=i=>{if(baseValues[i]===undefined)baseValues[i]=inequalities[i].value-dot(inequalities[i].row,base);return baseValues[i];};
     let finalLambda=[];
+    const activeFactor=[];
+    const selected=this.passive?new Uint8Array(inequalities.length):null;
+    const envelope=this.passive&&!geometry?new Float64Array(N):null;
+    if(envelope)for(const {row,rotations,stop} of inequalities){
+      if(rotations){
+        envelope[1]=Math.max(envelope[1],Math.abs(row[1]));
+        for(const i of rotations)envelope[i]=Math.max(envelope[i],Math.abs(row[i]));
+      }else if(stop)envelope[stop]=Math.max(envelope[stop],Math.abs(row[stop]));
+      else for(let i=0;i<N;i++)envelope[i]=Math.max(envelope[i],Math.abs(row[i]));
+    }
+    const nearby=[];
+    let covered=-1;
+    const selectPassive=checkMass=>{
+      let worst=-1,violation=1e-9,limit=Infinity;
+      if(envelope){limit=0;for(let i=0;i<N;i++)limit+=envelope[i]*Math.abs(delta[i]);}
+      // Keep the same index order. A wider bound refreshes this list only
+      // when the current correction outgrows the previous coverage.
+      const bounded=Number.isFinite(limit);
+      if(bounded&&limit>covered){
+        covered=limit*2+1e-9;
+        nearby.length=0;
+        for(let i=0;i<inequalities.length;i++)if(!(inequalities[i].value+covered<=1e-9))nearby.push(i);
+      }
+      const count=bounded?nearby.length:inequalities.length;
+      for(let index=0;index<count;index++){
+        const i=bounded?nearby[index]:index;
+        if(selected[i])continue;
+        const constraint=inequalities[i],value=constraint.value;
+          // Sum the maximum absolute row coefficients in coordinate order.
+          // No row can exceed this projection bound for the current delta.
+          if(value+limit<=violation)continue;
+          const {row,rotations,stop}=constraint;
+          let projected=0;
+          if(rotations){
+            projected+=row[1]*delta[1];
+            for(let j=0;j<rotations.length;j++){
+              const k=rotations[j];projected+=row[k]*delta[k];
+            }
+          }else if(stop){projected+=row[stop]*delta[stop];}
+          else projected=dot(row,delta);
+          const error=value-projected;
+          if(error>violation&&(!checkMass||product(i,i)>1e-9)){violation=error;worst=i;}
+        }
+      return {worst,violation};
+    };
     for(let pass=0;pass<N*8;pass++){
       let worst=-1,violation=1e-9;
-      for(let i=0;i<inequalities.length;i++)if(!active.includes(i)){
-        const error=inequalities[i].value-dot(inequalities[i].row,delta);
-        if(error>violation&&product(i,i)>1e-9){violation=error;worst=i;}
+      if(this.passive&&delta.every(Number.isFinite)){
+        // A maximum admissible raw error wins in the original row order.
+        // Check its mass first, then use the original scan if it is singular.
+        const first=selectPassive(!!geometry);
+        ({worst,violation}=!geometry&&first.worst>=0&&!(product(first.worst,first.worst)>1e-9)?selectPassive(true):first);
+      }else{
+        for(let i=0;i<inequalities.length;i++)if(!active.includes(i)){
+          const error=inequalities[i].value-dot(inequalities[i].row,delta);
+          if(error>violation&&product(i,i)>1e-9){violation=error;worst=i;}
+        }
       }
       if(worst<0)break;
-      active.push(worst);
+      active.push(worst);if(selected)selected[worst]=1;
       while(active.length){
-        const matrix=active.map((index,i)=>Float64Array.from(active,(other,j)=>product(index,other)+(i===j?1e-10:0)));
-        const rhs=active.map(i=>baseValue(i)),lambda=solve(factor(matrix),rhs);
+        // The factor only reads the lower triangle. Reuse its row storage
+        // within this solve and preserve the original subtraction order.
+        activeFactor.length=active.length;
+        for(let i=0;i<active.length;i++){
+          const row=activeFactor[i]??(activeFactor[i]=new Float64Array(i+1));
+          for(let j=0;j<=i;j++){
+            let value=product(active[i],active[j])+(i===j?1e-10:0);
+            for(let k=0;k<j;k++)value-=row[k]*activeFactor[j][k];
+            row[j]=i===j?Math.sqrt(Math.max(value,1e-10)):value/activeFactor[j][j];
+          }
+        }
+        const lambda=solve(activeFactor,active.map(baseValue));
         let remove=-1,lowest=-1e-9;
         for(let i=0;i<lambda.length;i++)if(lambda[i]<lowest){lowest=lambda[i];remove=i;}
-        if(remove>=0){active.splice(remove,1);continue;}
+        if(remove>=0){if(selected)selected[active[remove]]=0;active.splice(remove,1);continue;}
         finalLambda=Array.from(lambda);delta.set(base);
         for(let j=0;j<active.length;j++)for(let i=0;i<N;i++)delta[i]+=response(active[j])[i]*Math.max(0,lambda[j]);
         break;
@@ -570,12 +756,18 @@ export class ArticulatedRig{
   #floorInequalities(state,velocity=false,h=RIG_STEP){
     const result=this.#floorSamples(state).map(sample=>{
       const row=this.#floorRow(state,sample),depth=TABLE_TOP-sample.y;
-      return {row,floorKey:sample.floorKey,value:velocity?Math.min(0,depth/h)-dot(row,this.velocity):depth+(depth>1e-9?1e-7:0)};
+      const value=velocity?Math.min(0,depth/h)-dot(row,this.velocity):depth+(depth>1e-9?1e-7:0);
+      if(!this.passive)return {row,floorKey:sample.floorKey,value};
+      // World Y depends on hip Y and the body's ordered ancestor rotations.
+      // A shin's affine support uses the knee and ankle of the same chain.
+      const rotations=!sample.knee||Number.isFinite(sample.gx)&&Number.isFinite(sample.gy)?this.#body(state,sample.body)?.rotations:null;
+      return {row,floorKey:sample.floorKey,value,rotations,stop:0};
     });
     for(let i=1;i<N;i++)for(const sign of [-1,1]){
       const row=STOP_ROWS[i][sign===-1?0:1];
       const gap=sign===1?this.limits[i][0]-this.q[i]:this.q[i]-this.limits[i][1];
-      result.push({row,value:velocity?gap/h-sign*this.velocity[i]:gap});
+      const value=velocity?gap/h-sign*this.velocity[i]:gap;
+      result.push(this.passive?{row,floorKey:undefined,value,rotations:null,stop:i}:{row,value});
     }
     return result;
   }
@@ -655,22 +847,25 @@ export class ArticulatedRig{
   collapse(){
     if(this.passive)return false;
     this.passive=true;this.contacts=[];this.gait.swing=null;this.intentVX=0;
+    this.#bodyDepthTarget=this.bodyDepth;
+    this.#bodyDepthMotion.velocity=0;this.#armDepthMotion.velocity=0;
     // Passive joints retain physical stops, but release the upright balance
     // stops that deliberately held an intact puppet in its fencing stance.
     this.limits[1]=[TABLE_TOP-.25,1.95];this.limits[2]=[-Math.PI,Math.PI];this.limits[3]=[-2.8,2.8];this.limits[12]=[-1.3,1.3];
     return true;
   }
 
-  #collisionPanels(state,external=false,onlyKey=null,asSolids=false){
+  #collisionPanels(state,external=false,onlyKey=null,asSolids=false,t=1){
     const p=state.points,weapon=!onlyKey||onlyKey==='weapon'||onlyKey.startsWith('weapon-flex-')||onlyKey==='weapon-head'?getWeapon(this.equipment):null;
     const panels=[],wants=key=>!onlyKey||onlyKey===key,createPanel=asSolids?collisionSolid:collisionPanel;
+    // Self contacts share the body frame. Only the relative arm deflection
+    // changes their layers. External samples also include body translation.
+    const bodyDepth=external?sampledDepth(this.#bodyDepthMotion,t):0,armDepth=sampledDepth(this.#armDepthMotion,t);
     // The shoulder mount is an excluded .12-unit attachment band. These are
     // interior timber proxies, not bounding spheres around decorative hardware.
     if(wants('chest-front')||wants('chest-back')){
-      const torso={x:p.shoulder.x-p.hip.x,y:p.shoulder.y-p.hip.y},length=Math.hypot(torso.x,torso.y);
-      const waist={x:p.hip.x+torso.x*.28,y:p.hip.y+torso.y*.28},chest={x:p.shoulder.x-torso.x/length*.12,y:p.shoulder.y-torso.y/length*.12};
-      if(wants('chest-front'))panels.push(createPanel('torso',waist,chest,.35,.155,.14,'chest-front'));
-      if(wants('chest-back'))panels.push(createPanel('torso',waist,chest,.32,-.16,.07,'chest-back'));
+      const selected=chestTimber(p.hip.x,p.hip.y,p.shoulder.x,p.shoulder.y,onlyKey,createPanel,panels);
+      if(selected)panels.push(selected);
     }
     if(wants('pelvis')){
       const a=this.#offset(p.hip,-.16,.075,state.pelvisAngle,[2]),b=this.#offset(p.hip,.16,.075,state.pelvisAngle,[2]);
@@ -716,7 +911,7 @@ export class ArticulatedRig{
       panels.push(createPanel('weapon',{x:center.x-ux*weapon.headLength,y:center.y-uy*weapon.headLength},center,
         weapon.headWidth,.177,weapon.id==='maul'?.35:.06,'weapon-head'));
     }
-    if(!external||onlyKey&&onlyKey!=='main-palm'&&onlyKey!=='off-palm')return this.#attachedPanels(panels);
+    if(!external||onlyKey&&onlyKey!=='main-palm'&&onlyKey!=='off-palm')return this.#attachedPanels(panels,bodyDepth,armDepth,asSolids);
     // Measured rigid palm AABB in the delivered hand/grip frame (both variants
     // share these normalized dimensions). The palm follows the wrist/weapon
     // frame; it is timber, not another length of blade.
@@ -726,7 +921,7 @@ export class ArticulatedRig{
       const palm=along=>({x:p.mainHand.x+ux*along*s-uy*.002743*s,y:p.mainHand.y+uy*along*s+ux*.002743*s});
       const hand=createPanel('weapon',palm(-.073147),palm(.072433),.127148*s,this.depth.mainHand+.007362*s,.14271*s,'main-palm');hand.material='wood';panels.push(hand);
     }
-    if(!wants('off-palm'))return this.#attachedPanels(panels);
+    if(!wants('off-palm'))return this.#attachedPanels(panels,bodyDepth,armDepth,asSolids);
     const handDirection=this.defenseLength>0?knifeHandDirection({...p.offHand,z:this.depth.offHand},{...p.defenseTip,z:this.depth.defenseTip},this.equipment.knifeGrip):null;
     const offVector=this.twoHanded?{x:p.tip.x-p.mainHand.x,y:p.tip.y-p.mainHand.y,z:this.depth.tip-this.depth.mainHand}:handDirection?{x:handDirection.x-p.offHand.x,y:handDirection.y-p.offHand.y,z:handDirection.z-this.depth.offHand}:{x:p.offHand.x-p.offElbow.x,y:p.offHand.y-p.offElbow.y,z:this.depth.offHand-this.depth.offElbow};
     const offLength=Math.hypot(offVector.x,offVector.y)||1,ox=offVector.x/offLength,oy=offVector.y/offLength;
@@ -735,7 +930,7 @@ export class ArticulatedRig{
     const depthMin=Math.min(-.075001*uz,.099982*uz)-.042*c,depthMax=Math.max(-.075001*uz,.099982*uz)+.057617*c;
     const offPalm=along=>({x:p.offHand.x+ox*along*s+oy*.001353*s,y:p.offHand.y+oy*along*s-ox*.001353*s});
     const other=createPanel('offForearm',offPalm(alongMin),offPalm(alongMax),.106707*s,this.depth.offHand+(depthMin+depthMax)/2*s,(depthMax-depthMin)*s,'off-palm');other.material='wood';panels.push(other);
-    return this.#attachedPanels(panels);
+    return this.#attachedPanels(panels,bodyDepth,armDepth,asSolids);
   }
 
   #selfContacts(state){
@@ -812,9 +1007,16 @@ export class ArticulatedRig{
         for(let i=0;i<N;i++)this.q[i]+=clamp(delta[i],-.18,.18);
       }
       for(const previousContact of contacts){
-        const current=this.#kinematics(),panels=this.#collisionPanels(current);
-        const panelA=panels.find(p=>p.key===previousContact.keyA),panelB=panels.find(p=>p.key===previousContact.keyB);
-        const c=panelA&&panelB&&panelContact(panelA,panelB,this.dir);if(!c||c.penetration<=1e-6)continue;
+        const current=this.#kinematics();
+        // Earlier constraints can move the pose. In the unchanged state the
+        // initial narrow-phase result already describes this same pair.
+        let c=previousContact;
+        if(current!==state){
+          const panels=this.#collisionPanels(current);
+          const panelA=panels.find(p=>p.key===previousContact.keyA),panelB=panels.find(p=>p.key===previousContact.keyB);
+          c=panelA&&panelB&&panelContact(panelA,panelB,this.dir);
+        }
+        if(!c||c.penetration<=1e-6)continue;
         let row=this.#selfContactRow(current,c),response=this.#supportedResponse(L,current,row),inverseMass=dot(row,response),depth=c.penetration;
         // An initially interpenetrating long blade can be wedged between two
         // panels. Choose a feasible separating axis in the same mass metric
@@ -850,6 +1052,9 @@ export class ArticulatedRig{
     this.lastSelfContactImpulse=0;
     if(this.weaponFlex&&this.isBodyAttached('weapon'))this.weaponFlex.advance(h,{preservePrevious:true});
     this.#gaitStep(h);
+    const bodyDepth=this.#bodyDepthMotion,armDepth=this.#armDepthMotion;
+    if(bodyDepth.position!==this.#bodyDepthTarget||bodyDepth.velocity!==0)advanceDepth(bodyDepth,this.#bodyDepthTarget,BODY_DEPTH_LIMIT,h,this.passive);
+    if(armDepth.position!==0||armDepth.velocity!==0)advanceDepth(armDepth,0,ARM_DEPTH_LIMIT,h,this.passive);
     this.#advanceNeck(h);
     this.#advanceDefenseDepth(h);
     // Pelvis/torso are serial joints of an inverted pendulum. Their combined
@@ -957,6 +1162,7 @@ export class ArticulatedRig{
     // Up to .25 s is retained; excess is reported for the host's pause policy.
     const supplied=Math.max(0,finite(dt)),accepted=Math.min(.25,supplied);
     this.previousQ=this.q.slice();this.previousSwordLength=this.lastSwordLength??this.swordLength;this.lastSwordLength=this.swordLength;
+    this.#bodyDepthMotion.previous=this.bodyDepth;this.#armDepthMotion.previous=this.#armDepthMotion.position;
     if(this.weaponFlex)this.weaponFlex.previousOffset=this.weaponFlex.offset;
     for(const fragment of this.fragments)fragment.beginStep();
     this.droppedTime=(this.droppedTime||0)+supplied-accepted;this.accumulator+=accepted;
@@ -971,15 +1177,43 @@ export class ArticulatedRig{
     t=clamp(finite(t,1),0,1);
     const q=Float64Array.from(this.q,(value,i)=>(this.previousQ?.[i]??value)*(1-t)+value*t);
     const bend=(this.weaponFlex?.previousOffset??0)*(1-t)+(this.weaponFlex?.offset??0)*t;
-    return this.#collisionPanels(this.#kinematics(q,(this.previousSwordLength??this.swordLength)*(1-t)+this.swordLength*t,true,bend),true);
+    return this.#collisionPanels(this.#kinematics(q,(this.previousSwordLength??this.swordLength)*(1-t)+this.swordLength*t,true,bend),true,null,false,t);
   }
 
   collisionGeometryAt(t,onlyKey=null){
     t=clamp(finite(t,1),0,1);
+    return this.#sampleCollisionPanels(t,onlyKey);
+  }
+
+  #sampleCollisionPanels(t,onlyKey=null){
     const q=new Array(N);for(let i=0;i<N;i++)q[i]=(this.previousQ?.[i]??this.q[i])*(1-t)+this.q[i]*t;
     const length=(this.previousSwordLength??this.swordLength)*(1-t)+this.swordLength*t;
     const bend=(this.weaponFlex?.previousOffset??0)*(1-t)+(this.weaponFlex?.offset??0)*t;
-    return this.#collisionPanels(onlyKey?this.#geometryState(q,length,onlyKey,bend):this.#kinematics(q,length,false,bend),true,onlyKey);
+    return this.#collisionPanels(onlyKey?this.#geometryState(q,length,onlyKey,bend):this.#kinematics(q,length,false,bend),true,onlyKey,false,t);
+  }
+
+  // Native fluid queries only, with the same mechanical state throughout this step.
+  static createNativeFluidChestSampler(rig){
+    if(Object.getPrototypeOf(rig)!==ArticulatedRig.prototype||Object.hasOwn(rig,'collisionSolidsAt')||
+      ArticulatedRig.prototype.collisionSolidsAt!==NATIVE_FLUID_COLLISION_SOLIDS_AT)return null;
+    const data=name=>Object.getOwnPropertyDescriptor(rig,name)?.value;
+    const q=data('q'),previousSlot=Object.getOwnPropertyDescriptor(rig,'previousQ'),before=previousSlot?.value??q;
+    const dir=data('dir'),scale=data('scale'),detached=data('detachedBodies');
+    if(!(q instanceof Float64Array)||!(before instanceof Float64Array)||q.length<N||before.length<N||
+      previousSlot&&!Object.hasOwn(previousSlot,'value')||dir!==-1&&dir!==1||!Number.isFinite(scale)||!(detached instanceof Set)||detached.size)return null;
+    const torsoLength=REFERENCE_STANCE.torso*scale;
+    return (t,key)=>{
+      t=clamp(finite(t,1),0,1);
+      const rest=1-t;
+      const x=before[0]*rest+q[0]*t,y=before[1]*rest+q[1]*t;
+      const pelvis=before[2]*rest+q[2]*t,torso=before[3]*rest+q[3]*t;
+      const angle=PI/2+pelvis+torso,c=Math.cos(angle),sn=Math.sin(angle);
+      const sx=x+dir*(torsoLength*c-0*sn),sy=y+(torsoLength*sn+0*c);
+      const solid=chestTimber(x,y,sx,sy,key,collisionSolid);
+      const bodyDepth=sampledDepth(rig.#bodyDepthMotion,t),armDepth=sampledDepth(rig.#armDepthMotion,t);
+      solid.center.z=translatedDepth(solid.center.z,rig.#panelDepthOffset('torso',key,bodyDepth,armDepth));
+      return solid;
+    };
   }
 
   collisionSolidsAt(t,onlyKey=null){
@@ -987,7 +1221,16 @@ export class ArticulatedRig{
     const q=new Array(N);for(let i=0;i<N;i++)q[i]=(this.previousQ?.[i]??this.q[i])*(1-t)+this.q[i]*t;
     const length=(this.previousSwordLength??this.swordLength)*(1-t)+this.swordLength*t;
     const bend=(this.weaponFlex?.previousOffset??0)*(1-t)+(this.weaponFlex?.offset??0)*t;
-    return this.#collisionPanels(onlyKey?this.#geometryState(q,length,onlyKey,bend):this.#kinematics(q,length,false,bend),true,onlyKey,true);
+    return this.#collisionPanels(onlyKey?this.#geometryState(q,length,onlyKey,bend):this.#kinematics(q,length,false,bend),true,onlyKey,true,t);
+  }
+
+  #depthTravel(){
+    return Math.abs(this.bodyDepth-this.previousBodyDepth)+Math.abs(this.#armDepthMotion.position-this.#armDepthMotion.previous);
+  }
+
+  #headDepth(){
+    const local=this.depth.head+REFERENCE_STANCE.neck*this.scale*Math.sin(this.neckLateral.angle);
+    return translatedDepth(local,this.bodyDepth);
   }
 
   static #contactResponse(r,body,p,n){
@@ -1045,11 +1288,11 @@ export class ArticulatedRig{
     const states=new Map(),at=t=>{
       if(!states.has(t)){
         const q=Float64Array.from(this.q,(value,i)=>(this.previousQ?.[i]??value)*(1-t)+value*t),length=(this.previousSwordLength??this.swordLength)*(1-t)+this.swordLength*t;
-        states.set(t,this.#collisionPanels(this.#kinematics(q,length),true));
+        states.set(t,this.#collisionPanels(this.#kinematics(q,length),true,null,false,t));
       }return states.get(t);
     };
     let rotation=0;for(let i=2;i<N;i++)rotation+=Math.abs(this.q[i]-(this.previousQ?.[i]??this.q[i]));
-    const steps=Math.max(1,Math.min(128,Math.ceil(rotation/.01+Math.hypot(to.x-from.x,to.y-from.y,(to.z??0)-(from.z??0))/.025)));
+    const steps=Math.max(1,Math.min(128,Math.ceil(rotation/.01+(Math.hypot(to.x-from.x,to.y-from.y,(to.z??0)-(from.z??0))+this.#depthTravel())/.025)));
     const position=t=>({x:from.x+(to.x-from.x)*t,y:from.y+(to.y-from.y)*t,z:(from.z??0)+((to.z??0)-(from.z??0))*t});
     const local=(p,panel)=>[...panel.axes.map(axis=>(p.x-panel.center.x)*axis.x+(p.y-panel.center.y)*axis.y),(p.z??0)-panel.z];
     const bounds=panel=>[...panel.axes.map(axis=>{const projected=panel.vertices.map(p=>(p.x-panel.center.x)*axis.x+(p.y-panel.center.y)*axis.y);return [Math.min(...projected),Math.max(...projected)];}),[-panel.depth/2,panel.depth/2]];
@@ -1083,35 +1326,44 @@ export class ArticulatedRig{
     const interpolate=(r,t)=>r.#kinematics(Float64Array.from(r.q,(q,i)=>(r.previousQ?.[i]??q)*(1-t)+q*t),
       (r.previousSwordLength??r.swordLength)*(1-t)+r.swordLength*t,true,(r.weaponFlex?.previousOffset??0)*(1-t)+(r.weaponFlex?.offset??0)*t);
     const allowed=(pa,pb)=>!(pa.body==='weapon'&&pb.body==='weapon'&&pa.material!=='wood'&&pb.material!=='wood');
-    const anchor=(state,body,p)=>{
+    const anchor=(rig,state,body,key,p,t)=>{
+      const offset=rig.#panelDepthOffset(body,key,sampledDepth(rig.#bodyDepthMotion,t),sampledDepth(rig.#armDepthMotion,t));
       const f=state.frames[body],dx=p.x-f.origin.x,dy=p.y-f.origin.y,c=Math.cos(f.angle),s=Math.sin(f.angle);
       if(body==='weapon'&&state.weaponCurve){
         let best=null;
         for(let i=0;i<4;i++){const a=state.weaponCurve[i],b=state.weaponCurve[i+1],x=b.x-a.x,y=b.y-a.y,length=Math.hypot(x,y),t=clamp(((p.x-a.x)*x+(p.y-a.y)*y)/(length*length),0,1),px=a.x+x*t,py=a.y+y*t,d=(p.x-px)**2+(p.y-py)**2;
           if(!best||d<best.distance)best={distance:d,arcFraction:(i+t)/4,across:(-(p.x-px)*y+(p.y-py)*x)/length,z:p.z};
         }
+        if(offset!==0)best.depthOffset=offset;
         return best;
       }
-      return {x:dx*c+dy*s,y:-dx*s+dy*c,z:p.z,length:distance(f.origin,f.end)};
+      const local={x:dx*c+dy*s,y:-dx*s+dy*c,z:p.z,length:distance(f.origin,f.end)};
+      if(offset!==0)local.depthOffset=offset;
+      return local;
     };
-    const located=(state,body,p)=>{
+    const located=(rig,state,body,key,p)=>{
+      const offset=rig.#panelDepthOffset(body,key,rig.bodyDepth,rig.#armDepthMotion.position);
+      const z=translatedDepth(p.z,offset-(p.depthOffset??0));
       if(body==='weapon'&&state.weaponCurve&&p.arcFraction!==undefined){
         const i=Math.min(3,Math.floor(p.arcFraction*4)),t=p.arcFraction*4-i,a=state.weaponCurve[i],b=state.weaponCurve[i+1],x=b.x-a.x,y=b.y-a.y,length=Math.hypot(x,y);
-        return {x:a.x+x*t-y/length*p.across,y:a.y+y*t+x/length*p.across,z:p.z};
+        return {x:a.x+x*t-y/length*p.across,y:a.y+y*t+x/length*p.across,z};
       }
       const f=state.frames[body],c=Math.cos(f.angle),s=Math.sin(f.angle),x=p.x*(body==='weapon'?distance(f.origin,f.end)/Math.max(p.length,1e-8):1);
-      return {x:f.origin.x+x*c-p.y*s,y:f.origin.y+x*s+p.y*c,z:p.z};
+      return {x:f.origin.x+x*c-p.y*s,y:f.origin.y+x*s+p.y*c,z};
     };
     const swept=[];
     if(a.previousQ&&b.previousQ){
-      const A0=interpolate(a,0),B0=interpolate(b,0),A1=interpolate(a,1),B1=interpolate(b,1);
-      const p0=a.#collisionPanels(A0,true),q0=b.#collisionPanels(B0,true),p1=a.#collisionPanels(A1,true),q1=b.#collisionPanels(B1,true);
+      const p0=a.#sampleCollisionPanels(0),q0=b.#sampleCollisionPanels(0),p1=a.#sampleCollisionPanels(1),q1=b.#sampleCollisionPanels(1);
       let travel=Math.abs(a.swordLength-a.previousSwordLength)+Math.abs(b.swordLength-b.previousSwordLength);
       for(const r of [a,b])travel+=2*Math.abs((r.weaponFlex?.offset??0)-(r.weaponFlex?.previousOffset??0));
       for(const r of [a,b])for(let i=0;i<N;i++)travel+=Math.abs(r.q[i]-r.previousQ[i])*(i<2?1:3);
-      const steps=Math.max(1,Math.min(64,Math.ceil(travel/.035))),samples=new Map([[0,{A:A0,B:B0,ap:p0,bp:q0}],[steps,{A:A1,B:B1,ap:p1,bp:q1}]]);
+      travel+=a.#depthTravel()+b.#depthTravel();
+      const steps=Math.max(1,Math.min(64,Math.ceil(travel/.035))),samples=new Map([[0,{ap:p0,bp:q0}],[steps,{ap:p1,bp:q1}]]),anchors=new Map();
       const sample=index=>{
-        if(!samples.has(index)){const A=interpolate(a,index/steps),B=interpolate(b,index/steps);samples.set(index,{A,B,ap:a.#collisionPanels(A,true),bp:b.#collisionPanels(B,true)});}
+        if(!samples.has(index)){
+          const t=index/steps;
+          samples.set(index,{ap:a.#sampleCollisionPanels(t),bp:b.#sampleCollisionPanels(t)});
+        }
         return samples.get(index);
       };
       const broad=(p,old,q,prior)=>Math.min(p.minX,old.minX)<=Math.max(q.maxX,prior.maxX)+.035&&Math.max(p.maxX,old.maxX)>=Math.min(q.minX,prior.minX)-.035&&
@@ -1119,12 +1371,20 @@ export class ArticulatedRig{
       for(let i=0;i<p1.length;i++)for(let j=0;j<q1.length;j++){
         if(!allowed(p1[i],q1[j])||!broad(p1[i],p0[i],q1[j],q0[j]))continue;
         for(let k=0;k<=steps;k++){
-          let s=sample(k),c=panelContact(s.ap[i],s.bp[j],a.dir,true);if(!c)continue;
+          const s=sample(k);
+          let c=panelContact(s.ap[i],s.bp[j],a.dir,true),contactT=k/steps;if(!c)continue;
           if(k>0){
             let low=(k-1)/steps,high=k/steps;
-            for(let n=0;n<14;n++){const t=(low+high)/2,A=interpolate(a,t),B=interpolate(b,t),contact=panelContact(a.#collisionPanels(A,true)[i],b.#collisionPanels(B,true)[j],a.dir,true);if(contact){high=t;s={A,B};c=contact;}else low=t;}
+            for(let n=0;n<14;n++){
+              const t=(low+high)/2;
+              const [pa]=a.#sampleCollisionPanels(t,p1[i].key),[pb]=b.#sampleCollisionPanels(t,q1[j].key);
+              const contact=panelContact(pa,pb,a.dir,true);
+              if(contact){high=t;c=contact;contactT=t;}else low=t;
+            }
           }
-          swept.push({...c,anchorA:anchor(s.A,c.a,c.pointA),anchorB:anchor(s.B,c.b,c.pointB)});break;
+          let states=anchors.get(contactT);
+          if(!states){states=[interpolate(a,contactT),interpolate(b,contactT)];anchors.set(contactT,states);}
+          swept.push({...c,anchorA:anchor(a,states[0],c.a,c.keyA,c.pointA,contactT),anchorB:anchor(b,states[1],c.b,c.keyB,c.pointB,contactT)});break;
         }
       }
     }
@@ -1136,14 +1396,14 @@ export class ArticulatedRig{
       }
       for(const c of swept){
         if(!sharesContactFace(A.find(p=>p.key===c.keyA),B.find(p=>p.key===c.keyB),c.normal))continue;
-        const pointA=located(as,c.a,c.anchorA),pointB=located(bs,c.b,c.anchorB),depth=-((pointB.x-pointA.x)*c.normal.x+(pointB.y-pointA.y)*c.normal.y);
+        const pointA=located(a,as,c.a,c.keyA,c.anchorA),pointB=located(b,bs,c.b,c.keyB,c.anchorB),depth=-((pointB.x-pointA.x)*c.normal.x+(pointB.y-pointA.y)*c.normal.y);
         if(depth>1e-6){const index=out.findIndex(o=>o.keyA===c.keyA&&o.keyB===c.keyB),current={...c,pointA,pointB,penetration:depth};if(index>=0)out[index]=current;else out.push(current);}
       }
       if(headRadiiA&&headRadiiB){
         // Collision already owns both current kinematic states. A presentation
         // pose also copies cloth, damage and surface marks; none is needed here.
-        const p={x:as.points.head.x,y:as.points.head.y,z:a.depth.head+REFERENCE_STANCE.neck*a.scale*Math.sin(a.neckLateral.angle)},
-          q={x:bs.points.head.x,y:bs.points.head.y,z:b.depth.head+REFERENCE_STANCE.neck*b.scale*Math.sin(b.neckLateral.angle)},
+        const p={x:as.points.head.x,y:as.points.head.y,z:a.#headDepth()},
+          q={x:bs.points.head.x,y:bs.points.head.y,z:b.#headDepth()},
           rx=headRadiiA.x+headRadiiB.x,ry=headRadiiA.y+headRadiiB.y,rz=headRadiiA.z+headRadiiB.z;
         const yz=((q.y-p.y)/ry)**2+((q.z-p.z)/rz)**2,required=rx*Math.sqrt(Math.max(0,1-yz)),dx=q.x-p.x;
         if(yz<1&&Math.abs(dx)<required)out.push({a:'neck',b:'neck',keyA:'head',keyB:'head',normal:{x:dx<0?-1:1,y:0},penetration:required-Math.abs(dx),pointA:p,pointB:q,head:true});
@@ -1153,11 +1413,11 @@ export class ArticulatedRig{
     const contactByKey=old=>{
       if(old.external)return external().find(c=>c.keyA===old.keyA&&c.keyB===old.keyB);
       if(old.head)return contacts().find(c=>c.head);
-      const as=a.#kinematics(),bs=b.#kinematics(),pa=a.#collisionPanels(as,true).find(p=>p.key===old.keyA),pb=b.#collisionPanels(bs,true).find(p=>p.key===old.keyB);
+      const as=a.#kinematics(),bs=b.#kinematics(),[pa]=a.#collisionPanels(as,true,old.keyA),[pb]=b.#collisionPanels(bs,true,old.keyB);
       let c=pa&&pb&&panelContact(pa,pb,a.dir,true);if(c&&c.penetration<=1e-6)c=null;
       const sweep=swept.find(c=>c.keyA===old.keyA&&c.keyB===old.keyB);
       if(sweep&&sharesContactFace(pa,pb,sweep.normal)){
-        const pointA=located(as,sweep.a,sweep.anchorA),pointB=located(bs,sweep.b,sweep.anchorB),depth=-((pointB.x-pointA.x)*sweep.normal.x+(pointB.y-pointA.y)*sweep.normal.y);
+        const pointA=located(a,as,sweep.a,sweep.keyA,sweep.anchorA),pointB=located(b,bs,sweep.b,sweep.keyB,sweep.anchorB),depth=-((pointB.x-pointA.x)*sweep.normal.x+(pointB.y-pointA.y)*sweep.normal.y);
         if(depth>1e-6)c={...sweep,pointA,pointB,penetration:depth};
       }
       return c;
@@ -1322,23 +1582,30 @@ export class ArticulatedRig{
   pose(){
     const state=this.#kinematics(),pose={};
     for(const [key,p] of Object.entries(state.points))pose[key]={x:p.x,y:p.y,z:this.depth[key]??0};
+    const bodyDepth=this.bodyDepth,armDepth=this.#armDepthMotion.position;
+    if(bodyDepth!==0||armDepth!==0)for(const [key,p] of Object.entries(pose)){
+      p.z=translatedDepth(p.z,this.#pointDepthOffset(key,bodyDepth,armDepth));
+    }
     pose.feet={};
     for(const [side,suffix] of [['front','F'],['back','B']]){
       const f=state.feet[side],a=f.angle,c=Math.cos(a),sn=Math.sin(a),z=this.depth['ankle'+suffix],s=this.scale;
-      const position=p=>({x:p.x,y:p.y,z:z+this.dir*(f.shape.minZ+f.shape.maxZ)/2*s});pose['foot'+suffix].z=position(f.center).z;
-      pose.feet[side]={matrix:new Float64Array([this.dir*c*s,sn*s,0,0,-this.dir*sn*s,c*s,0,0,0,0,this.dir*s,0,f.ankle.x,f.ankle.y,z,1]),
+      const position=p=>({x:p.x,y:p.y,z:translatedDepth(z+this.dir*(f.shape.minZ+f.shape.maxZ)/2*s,bodyDepth)});pose['foot'+suffix].z=position(f.center).z;
+      pose.feet[side]={matrix:new Float64Array([this.dir*c*s,sn*s,0,0,-this.dir*sn*s,c*s,0,0,0,0,this.dir*s,0,f.ankle.x,f.ankle.y,translatedDepth(z,bodyDepth),1]),
         heel:position(f.heel),toe:position(f.toe),center:position(f.center),support:position(f.support),hull:f.hull.map(position),depth:(f.shape.maxZ-f.shape.minZ)*s,height:f.shape.height*s,angle:a,stance:this.isBodyAttached(side+'Foot')&&f.support.y<=TABLE_TOP+.002,groundReaction:this.contacts.find(c=>c.key==='foot'+suffix)?.groundReaction??0};
     }
-    pose.neckPivot={...pose.shoulder,z:this.depth.head};
-    pose.head.z=this.depth.head+REFERENCE_STANCE.neck*this.scale*Math.sin(this.neckLateral.angle);
-    pose.headBaseZ=this.depth.head;pose.neckYawTarget=this.neckLateral.target;pose.neckLateral={...this.neckLateral};
+    const headBaseZ=translatedDepth(this.depth.head,bodyDepth);
+    pose.neckPivot={...pose.shoulder,z:headBaseZ};
+    pose.head.z=this.#headDepth();
+    pose.headBaseZ=headBaseZ;pose.neckYawTarget=this.neckLateral.target;pose.neckLateral={...this.neckLateral};
     pose.defenseDepth={...this.defenseDepth};pose.defenseDepthTarget=this.defenseDepth.target;
     const defense=getDefense(this.equipment);if(defense.kind==='shield'&&!this.twoHanded)pose.shieldDepth={min:pose.offHand.z+defense.guardDepthMin,max:pose.offHand.z+defense.guardDepthMax};
     pose.shieldRadius=this.shieldRadius;pose.shieldRadiusX=this.shieldRadiusX;pose.shieldRadiusY=this.shieldRadiusY;
     pose.equipment={...this.equipment};pose.twoHanded=this.twoHanded;pose.gripOffset=this.gripOffset;
     pose.angles={...state.angles};pose.bodyFrames=Object.fromEntries(Object.entries(state.frames).map(([name,f])=>[name,{...f,origin:{...f.origin},end:{...f.end},center:{...f.center}}]));
     pose.wristAngle=this.q[13];pose.dynamic=true;pose.passive=this.passive;pose.apron=this.apron?.snapshot();
-    if(state.weaponCurve){pose.weaponCurve=state.weaponCurve.map(p=>({x:p.x,y:p.y,z:this.depth.tip}));pose.weaponCurve[0]={...pose.mainHand};pose.weaponFlex={offset:this.weaponFlex.offset,length:this.swordLength};pose.weaponRootDirection={...state.weaponRootDirection,z:0};}
+    if(state.weaponCurve){const z=translatedDepth(this.depth.tip,this.weaponDepthOffset);pose.weaponCurve=state.weaponCurve.map(p=>({x:p.x,y:p.y,z}));pose.weaponCurve[0]={...pose.mainHand};pose.weaponFlex={offset:this.weaponFlex.offset,length:this.swordLength};pose.weaponRootDirection={...state.weaponRootDirection,z:0};}
+    if(bodyDepth!==0)pose.bodyDepth=bodyDepth;
+    if(armDepth!==0)pose.weaponDepthOffset=this.weaponDepthOffset;
     if(this.jointDamageVersion){pose.joints=Object.fromEntries(Object.entries(this.jointDamage).map(([name,record])=>[name,{damage:record.damage,detached:record.detached}]));pose.detached=this.fragments.map(f=>f.snapshot());}
     if(this.#surfaceSnapshot)pose.surface=this.#surfaceSnapshot(pose,this);
     return pose;
@@ -1358,6 +1625,7 @@ export class ArticulatedRig{
   }
 }
 
+const NATIVE_FLUID_COLLISION_SOLIDS_AT=ArticulatedRig.prototype.collisionSolidsAt;
 const NATIVE_CONTACT_QUERY_METHODS=Object.freeze(Object.fromEntries(
   ['createContactImpulseQuery','trialContactImpulse','reactImpulse','pointVelocity'].map(name=>[name,ArticulatedRig.prototype[name]])));
 

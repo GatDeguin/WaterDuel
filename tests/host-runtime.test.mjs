@@ -38,7 +38,11 @@ async function runtime(t,{qrFails=false,initialLoading=false,allowRendererError=
   let stopped=false;
   const storage=new Map();window.localStorage={getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value),removeItem:key=>storage.delete(key)};
   class HostProbe extends HostSession{
-    constructor(options){super({...options,onEvent:(name,data)=>{state.engineEvents.push({name,data});options.onEvent(name,data);}});state.host=this;this.updateCalls=0;}
+    constructor(options){
+      // The armory lease and render loop share the fixture's monotonic clock.
+      super({...options,armoryNow:()=>state.now,onEvent:(name,data)=>{state.engineEvents.push({name,data});options.onEvent(name,data);}});
+      state.host=this;this.updateCalls=0;
+    }
     update(dt){this.updateCalls++;super.update(dt);}
   }
   class RendererStub{
@@ -128,6 +132,21 @@ test('mobile performance mode changes only the render policy; blur and replay ga
   assert.equal(r.state.renders.at(-1).profile.mode,'adaptive');
   r.document.hidden=true;r.document.emit('visibilitychange');r.advance();
   assert.equal(r.state.renders.at(-1).profile.mode,'fixed');
+});
+
+test('El relay enfoca el mural con control autenticado y fresco, y neutralizar elimina la vista',async t=>{
+  const r=await runtime(t),{pad,state}=r;
+  const send=(seq,fields)=>pad.send({type:'control',seq,sentAt:Date.now(),...fields});
+  const received=seq=>state.received.find(message=>message.type==='control'&&message.seq===seq);
+  const view=()=>{r.advance();return state.renders.at(-1).scene.armoryView===true;};
+  send(1,{armoryView:true,mainX:1,attackHeld:true});
+  assert.equal((await until(()=>received(1))).armoryView,true);assert.equal(view(),true);
+  assert.deepEqual(state.host.game.fighters[0].controller,neutral());
+  send(2,{armoryView:true,sentAt:Date.now()-1000});
+  send(3,{armoryView:true,neutralize:true});
+  assert.equal((await until(()=>received(3))).armoryView,undefined);assert.equal(received(2),undefined);assert.equal(view(),false);
+  send(4,{armoryView:true});await until(()=>received(4));assert.equal(view(),true);
+  r.window.emit('blur');assert.equal(view(),false);
 });
 
 test('RAF no consume carga inicial ni conserva entradas ocultas y acepta comenzar sólo al terminar',async t=>{

@@ -8,17 +8,21 @@ import {fighterIdentity} from './identity.js';
 import {SOUND_COMMANDS,loadSoundPreferences,saveSoundPreferences} from './audio/sound-settings.js';
 import {setEffectEnabled} from './audio/effect-controls.js';
 import {campaignCeremony} from './rendering/campaign-ceremony.js';
+import {campaignAllows} from './campaign-progression.js';
+import {campaignWeather} from './weather.js';
 
 // Owns the match, independently of either display's DOM or transport.
 export class HostSession{
-  constructor({storage=null,onEvent=()=>{},onSettings=()=>{},onNeutralize=()=>{},opponentSeed,opponentRandom=null}={}){
+  constructor({storage=null,onEvent=()=>{},onSettings=()=>{},onNeutralize=()=>{},opponentSeed,opponentRandom=null,armoryNow=()=>performance.now()}={}){
     this.individual=new SinglePlayerSession({storage,seed:opponentSeed,random:opponentRandom});this.recorder=new ReplayRecorder();
     this.sessionEquipment=new SessionEquipment();this.playback=null;this.replaySpeed=.5;
     this.soundStorage=storage;Object.assign(this,loadSoundPreferences(storage));this.performanceMode='fixed';this.message='Elegí las opciones e iniciá desde el menú del móvil.';
     this.onSettings=onSettings;this.onNeutralize=onNeutralize;this.rendererError='';
     this.preferences={difficulty:'normal',bestOf:3,arena:'atelier'};
     this.ceremonyStartedAt=null;
+    this.armoryNow=armoryNow;this.armoryUntil=[0,0];
     this.game=new DuelEngine((name,data)=>{
+      if(name==='start'||name==='reset')this.clearArmoryView();
       if(name==='reset'){this.ceremonyStartedAt=null;this.recorder.newMatch();this.closeReplay();}
       this.recorder.event(name,data);this.individual.event(name,data,this.game);
       if(name==='matchover'&&this.ceremonyStartedAt===null&&campaignCeremony(this.game,this.individual,this.game?.clock))this.ceremonyStartedAt=this.game.clock;
@@ -33,10 +37,24 @@ export class HostSession{
     this.game.matchApronToBalloon=true;this.game.fighters[1].matchApronToBalloon=true;
   }
   get configurable(){return !this.playback&&['ready','matchover'].includes(this.game.phase);}
+  get campaignActive(){return this.game.mode==='solo'&&this.individual.kind==='campaign';}
   get audioOptions(){return {music:this.musicVolume/100,effects:this.effectsVolume/100,distortion:this.distortion/100,reverb:this.reverb/100,reverbDecay:this.reverbDecay/1000,effectMask:this.effectMask};}
   get presentationBlocked(){return this.assetStatus?.loading===true||!!this.rendererError;}
   neutralize(){for(const slot of [1,2])this.game.setControl(slot,neutral());this.onNeutralize();}
+  setArmoryView(slot,open,age=0){
+    if(slot!==1&&slot!==2)return;
+    const remaining=450-Math.max(0,age);
+    this.armoryUntil[slot-1]=open===true&&remaining>0&&this.configurable&&!this.presentationBlocked?this.armoryNow()+remaining:0;
+  }
+  clearArmoryView(slot){
+    if(slot===1||slot===2)this.armoryUntil[slot-1]=0;
+    else this.armoryUntil.fill(0);
+  }
   closeReplay(){if(!this.playback)return;this.playback=null;this.neutralize();this.onSettings('replay');}
+  #startMatch(){
+    if(this.game.weather)this.game.weatherStart=this.game.clock;
+    this.game.start();
+  }
   configure(){
     const g=this.game,solo=g.mode==='solo',kind=this.individual.kind,config=this.individual.configuration();
     const special=solo&&kind!=='duel';
@@ -47,7 +65,7 @@ export class HostSession{
     g.setBalloonColor(2,'amber');
     g.setScenario(special?config.scenario:'duel');g.aiEnabled=special?config.aiEnabled:true;
     g.setTrainingDrill(special?config.trainingDrill??null:null);
-    this.sessionEquipment.sync(g,solo?kind:null);
+    this.sessionEquipment.sync(g,solo?kind:null,this.campaignActive?this.individual.campaignArmory:null);
     if(solo&&['duel','campaign','parry','moving','depth'].includes(kind)){
       this.manualOpponentLoadout={...g.loadouts[1]};this.managedOpponent=true;
       g.setLoadout(2,config.opponentLoadout);g.setBalloonColor(2,config.opponentColor);
@@ -56,6 +74,13 @@ export class HostSession{
     g.setDifficulty(special?config.difficulty:this.preferences.difficulty);
     g.setBestOf(special?config.bestOf:this.preferences.bestOf);
     g.setArena(solo&&kind==='campaign'?config.arena:this.preferences.arena);
+    if(this.campaignActive){
+      g.weather=campaignWeather(this.individual.stage,this.individual.campaignTier);
+      g.weatherStart=g.clock;
+    }else{
+      delete g.weather;
+      delete g.weatherStart;
+    }
     this.neutralize();
   }
   update(dt){if(this.presentationBlocked){this.neutralize();return;}if(this.playback)return;this.game.update(dt);this.individual.observe(this.game,dt);this.recorder.record(this.game,dt);}
@@ -63,7 +88,11 @@ export class HostSession{
     if(!this.playback){
       this.game.precisionTarget=this.game.mode==='solo'?this.individual.view(this.game).target:null;
       const source=this.game.presentationState(this.presentationBlocked?0:realRemainder),ceremony=campaignCeremony(this.game,this.individual,this.ceremonyStartedAt);
-      const scene=ceremony?{...source,ceremony}:source;
+      const armoryUntil=Math.max(this.armoryUntil[0],this.armoryUntil[1]);
+      const armoryView=armoryUntil>0&&this.configurable&&!this.presentationBlocked&&armoryUntil>this.armoryNow();
+      if(armoryUntil>0&&!armoryView)this.clearArmoryView();
+      const scene=ceremony||armoryView?{...source,...(ceremony?{ceremony}:{}),
+        ...(armoryView?{armoryView:true,campaignArmory:this.campaignActive?this.individual.campaignArmory:null}:{})}:source;
       return {scene,time:this.game.clock};
     }
     const p=this.playback;
@@ -98,7 +127,7 @@ export class HostSession{
     switch(command){
       case 'start':
         if(!this.configurable)return {ok:false,message:'La partida ya está en curso o hay una repetición abierta.'};
-        this.neutralize();g.start();break;
+        this.neutralize();this.#startMatch();break;
       case 'reset':this.closeReplay();g.resetMatch();this.neutralize();break;
       case 'setMode':g.setMode(value);this.configure();break;
       case 'setExperience':this.individual.select(value);this.configure();break;
@@ -107,13 +136,14 @@ export class HostSession{
         this.configure();break;
       case 'beginAdvancedCampaign':
         if(!this.individual.setCampaignTier('advanced'))return {ok:false,message:'Completá la campaña normal para desbloquear la avanzada.'};
-        this.configure();g.start();break;
+        this.configure();this.#startMatch();break;
       case 'setDifficulty':this.preferences.difficulty=value;this.configure();break;
       case 'setBestOf':this.preferences.bestOf=value;g.setBestOf(value);break;
       case 'setArena':this.preferences.arena=value;g.setArena(value);break;
       case 'setLoadout':
         if(this.sessionEquipment.locked)return {ok:false,message:this.sessionEquipment.reason};
         if(this.managedOpponent&&value.slot===2)return {ok:false,message:'El encuentro establece el equipo del rival. Podés elegirlo en Versus.'};
+        if(this.campaignActive&&!campaignAllows(value,this.individual.campaignArmory))return {ok:false,message:'Ese equipo sigue bloqueado en el mural. Vencé al rival indicado para conseguirlo.'};
         if(!g.setLoadout(value.slot,value))return {ok:false,message:'El equipo no se puede cambiar ahora.'};
         this.neutralize();break;
       case 'setQuality':g.quality=value;this.onSettings('quality');break;
@@ -122,12 +152,12 @@ export class HostSession{
       case 'setLighting':g.lightingMode=value;break;
       case 'nextEncounter':
         if(g.mode!=='solo'||!this.individual.next())return {ok:false,message:'Todavía no hay un siguiente encuentro disponible.'};
-        this.configure();g.start();break;
+        this.configure();this.#startMatch();break;
       case 'resetCampaign':this.individual.resetProgress();this.individual.select('campaign');this.configure();break;
       case 'replayOpen':{
         const clip=this.recorder.clips.find(clip=>clip.id===value);
         if(!['ready','burst','matchover'].includes(g.phase)||!clip?.frames.length)return {ok:false,message:'La repetición no está disponible durante el combate.'};
-        this.neutralize();this.playback={clip,time:0,paused:false,index:-1,view:null};this.onSettings('replay');break;
+        this.clearArmoryView();this.neutralize();this.playback={clip,time:0,paused:false,index:-1,view:null};this.onSettings('replay');break;
       }
       case 'replaySeek':if(!this.playback)return {ok:false,message:'Abrí una repetición primero.'};this.playback.time=value*this.playback.clip.duration;this.playback.paused=true;break;
       case 'replayToggle':if(!this.playback)return {ok:false,message:'Abrí una repetición primero.'};this.playback.paused=!this.playback.paused;break;
@@ -149,6 +179,7 @@ export class HostSession{
       scores:g.scores,round:g.round,clock:view.clock,
       fighters:view.fighters.map((f,index)=>({...f,slot:index+1,equipment:g.loadouts[index],balloonColor:g.fighters[index].balloonColor,emblem:fighterIdentity(g.fighters[index])})),
       objective:g.mode==='solo'?this.individual.view(g):null,
+      ...(this.campaignActive?{campaignArmory:this.individual.campaignArmory}:{}),
       replay:{clips:this.recorder.clips.map(({id,duration,complete})=>({id,duration,complete})),active:!!p,paused:p?.paused??true,speed:this.replaySpeed,position:p?.clip.duration?p.time/p.clip.duration:0,clipId:p?.clip.id??null},
       configurable:this.configurable,trainingEquipmentLocked:this.sessionEquipment.locked,trainingEquipmentReason:this.sessionEquipment.reason,message:matchMessage,...(this.rendererError?{rendererError:this.rendererError}:{}),...(this.assetStatus?{assets:this.assetStatus}:{})});
   }

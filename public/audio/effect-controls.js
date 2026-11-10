@@ -28,6 +28,7 @@ export const AUDIO_EFFECTS=Object.freeze([
   {id:'defeat',label:'Derrota',group:'Avisos'},
   {id:'draw',label:'Empate',group:'Avisos'},
   {id:'ui',label:'Interfaz',group:'Avisos'},
+  {id:'thunder',label:'Truenos',group:'Clima'},
 ].map(Object.freeze));
 export const ALL_EFFECTS_MASK=2**AUDIO_EFFECTS.length-1;
 const bits=new Map(AUDIO_EFFECTS.map((effect,index)=>[effect.id,2**index]));

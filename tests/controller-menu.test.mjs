@@ -59,6 +59,34 @@ test('campaign tier picker retains its intent until ACK and newer campaign autho
  }
 });
 
+test('El mural muestra premios autorizados y su vista termina al cambiar de sección en ambos menús',async()=>{
+  for(const view of ['controller','mobile']){
+    const f=fixture(1,view),campaign=state({experience:'campaign',campaignArmory:{
+      weapons:{sword:{unlocked:true},axe:{unlocked:false,rival:'El Guardián de Roble'}},
+      defenses:{none:{unlocked:true},short:{unlocked:false,rival:'La Aguja del Taller'}},
+    }});
+    campaign.fighters[0].equipment={weapon:'sword',defense:'none'};
+    f.receive(campaign);f.open();await vm.runInContext('equipmentPromise',f.ctx);
+    const panel=f.el('menuEquipmentPanel'),toggle=f.el('menuEquipmentToggle');
+    assert.equal(panel.hidden,true);assert.equal(f.controls().at(-1).armoryView,undefined);
+    toggle.fire('click');
+    assert.equal(panel.hidden,false);assert.equal(toggle.getAttribute('aria-expanded'),'true');
+    assert.equal(f.controls().at(-1).armoryView,true);
+    assert.equal(f.controls().at(-1).attackHeld,false);
+    assert.match(f.el('menuArmoryItems').children.map(row=>row.textContent).join('\n'),/Hacha · Vencé a El Guardián de Roble/);
+    const option=(select,id)=>f.el(select).children.find(item=>item.value===id);
+    assert.equal(option('menuDefense1','short').disabled,true);
+    f.change('menuDefense1','short');assert.equal(f.commands().length,0);
+    const earned=structuredClone(campaign);earned.campaignArmory.defenses.short.unlocked=true;f.receive(earned);
+    assert.equal(option('menuDefense1','short').disabled,false);
+    f.change('menuDefense1','short');assert.equal(f.commands().at(-1).value.defense,'short');
+    f.el('mobileMenu').fire('pointerdown',{target:f.el('menuGameTitle')});
+    assert.equal(panel.hidden,true);assert.equal(f.controls().at(-1).armoryView,undefined);
+    toggle.fire('click');assert.equal(f.controls().at(-1).armoryView,true);
+    f.el('menuCloseBtn').fire('click');assert.equal(panel.hidden,true);assert.equal(f.controls().at(-1).armoryView,undefined);
+  }
+});
+
 test('campaign finale offers one direct advanced action and a specific trophy result without a second menu step',()=>{
  const f=fixture(),objective={kind:'campaign',title:'Campeones',campaignTier:'normal',advancedUnlocked:true,trophy:'champion',completed:true,nextAction:'repeat'};
  f.receive(state({phase:'matchover',experience:'campaign',scores:[2,0],objective}));assert.match(f.el('resultTitle').textContent,/CAMPAÑA/);
@@ -85,11 +113,11 @@ test('a completed campaign save does not offer a restart action during an active
 test('both handset surfaces offer every catalogued effect with accessible grouped controls and no master unmute',()=>{
  for(const view of ['controller','mobile']){
   const f=fixture(1,view);f.receive(state({audioOn:false,volume:0,effectsVolume:0}));f.open();
-  assert.equal(AUDIO_EFFECTS.length,27);assert.equal(f.el('menuEffectsDetails').getAttribute('aria-describedby'),'menuEffectsHint');
+  assert.equal(AUDIO_EFFECTS.length,28);assert.equal(f.el('menuEffectsDetails').getAttribute('aria-describedby'),'menuEffectsHint');
   for(const effect of AUDIO_EFFECTS){const input=f.el('menuEffect_'+effect.id);assert.equal(input.type,'checkbox');assert.equal(input.checked,true);assert.equal(input.disabled,false);assert.equal(input.getAttribute('aria-label'),effect.label);}
-  assert.match(f.el('menuEffectsCount').textContent,/27\s*\/\s*27/);assert.match(f.el('menuEffectsHint').textContent,/apagado/i);
-  const effect=AUDIO_EFFECTS[0];f.el('menuEffect_'+effect.id).checked=false;f.el('menuEffect_'+effect.id).fire('change');
-  const sent=f.commands().at(-1);assert.equal(sent.command,'setEffectEnabled');assert.deepEqual(sent.value,{id:effect.id,enabled:false});
+  assert.match(f.el('menuEffectsCount').textContent,/28\s*\/\s*28/);assert.match(f.el('menuEffectsHint').textContent,/apagado/i);
+  const thunder=f.el('menuEffect_thunder');thunder.checked=false;thunder.fire('change');
+  const sent=f.commands().at(-1);assert.equal(sent.command,'setEffectEnabled');assert.deepEqual(sent.value,{id:'thunder',enabled:false});
   assert.equal(f.commands().some(m=>m.command==='setAudio'||m.command==='setVolume'||m.command==='setEffectsVolume'),false);
   assert.equal(f.el('mobileMenu').open,true,'sound changes do not dismiss the menu or start a game');
  }
@@ -103,7 +131,7 @@ test('individual FX retains intent across stale states until ACK and a newer mat
  f.receive(state({effectMask:mask}));f.socket.receive({type:'command-result',requestId:first.requestId,ok:true});assert.equal(f.el(inputId).disabled,true,'state received before ACK cannot settle it');
  f.receive(state());assert.equal(f.el(inputId).checked,false);assert.equal(f.el(inputId).disabled,true);
  f.receive(state({effectMask:mask}));assert.equal(f.el(inputId).checked,false);assert.equal(f.el(inputId).disabled,false);
- assert.match(f.el('menuEffectsCount').textContent,/26\s*\/\s*27/);
+ assert.match(f.el('menuEffectsCount').textContent,/27\s*\/\s*28/);
 });
 
 test('two independent FX can change concurrently and acknowledgements only settle their own bits',()=>{
@@ -115,7 +143,7 @@ test('two independent FX can change concurrently and acknowledgements only settl
  const onlyB=setEffectEnabled(ALL_EFFECTS_MASK,b.id,false);f.receive(state({effectMask:onlyB}));
  assert.equal(f.el('menuEffect_'+b.id).disabled,false);assert.equal(f.el('menuEffect_'+a.id).disabled,true);assert.equal(f.el('menuEffect_'+a.id).checked,false);
  f.socket.receive({type:'command-result',requestId:first.requestId,ok:true});f.receive(state({effectMask:setEffectEnabled(onlyB,a.id,false)}));
- assert.equal(f.el('menuEffect_'+a.id).disabled,false);assert.equal(f.el('menuEffectsEnableAll').disabled,false);assert.match(f.el('menuEffectsCount').textContent,/25\s*\/\s*27/);
+ assert.equal(f.el('menuEffect_'+a.id).disabled,false);assert.equal(f.el('menuEffectsEnableAll').disabled,false);assert.match(f.el('menuEffectsCount').textContent,/26\s*\/\s*28/);
 });
 
 test('rejection, timeout and disconnect restore the last authoritative FX mask without resending',()=>{
@@ -131,14 +159,14 @@ test('rejection, timeout and disconnect restore the last authoritative FX mask w
 
 test('bulk FX uses one scalar command, preserves pending intent, blocks individual changes and restores rejection',()=>{
  const f=fixture();f.receive(state());f.open();f.el('menuEffectsDisableAll').fire('click');const sent=f.commands().at(-1);
- assert.equal(sent.command,'setEffectMask');assert.equal(sent.value,0);assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*27/);
+ assert.equal(sent.command,'setEffectMask');assert.equal(sent.value,0);assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*28/);
  for(const effect of AUDIO_EFFECTS){assert.equal(f.el('menuEffect_'+effect.id).checked,false);assert.equal(f.el('menuEffect_'+effect.id).disabled,true);}
- f.receive(state());assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*27/);
+ f.receive(state());assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*28/);
  f.socket.receive({type:'command-result',requestId:sent.requestId,ok:true});f.receive(state());assert.equal(f.el('menuEffectsEnableAll').disabled,true);
  f.receive(state({effectMask:0}));assert.equal(f.el('menuEffectsEnableAll').disabled,false);
  f.el('menuEffectsEnableAll').fire('click');const second=f.commands().at(-1);assert.equal(second.value,ALL_EFFECTS_MASK);
  f.socket.receive({type:'command-result',requestId:second.requestId,ok:false,message:'Cambio no aplicado'});
- assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*27/);for(const effect of AUDIO_EFFECTS)assert.equal(f.el('menuEffect_'+effect.id).checked,false);
+ assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*28/);for(const effect of AUDIO_EFFECTS)assert.equal(f.el('menuEffect_'+effect.id).checked,false);
 });
 
 test('FX send refusal restores checkbox intent at the shared pending limit and unknown mask cannot confirm it',()=>{
@@ -154,7 +182,7 @@ test('FX transport failures restore both checkbox and bulk display without unmut
  const f=fixture(),effect=AUDIO_EFFECTS[0];f.receive(state({effectMask:0,audioOn:false,volume:0}));f.open();
  f.socket.send=()=>{throw Error('Transporte cerrado');};
  const input=f.el('menuEffect_'+effect.id);input.checked=true;input.fire('change');assert.equal(input.checked,false);assert.equal(input.disabled,false);
- f.el('menuEffectsEnableAll').fire('click');assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*27/);
+ f.el('menuEffectsEnableAll').fire('click');assert.match(f.el('menuEffectsCount').textContent,/0\s*\/\s*28/);
  assert.equal(f.el('menuEffectsEnableAll').disabled,false);assert.equal(f.commands().length,0);assert.equal(f.el('menuAudio').checked,false);assert.equal(f.el('menuVolume').value,'0');
  assert.equal(f.el('menuFeedback').classList.contains('error'),true);
 });

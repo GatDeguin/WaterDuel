@@ -1,6 +1,6 @@
 /** Own visual snapshots. Never steps a solver, resolves contacts or changes score. */
 const PARTICLE_KEYS=Object.freeze(['x','y','z','lx','ly','lz','ux','uy','uz','volume','r','age','ttl','vx','vy','vz','color','slot','wet','free','visualOnly','rz','rx','size','spin']);
-const GAME_KEYS=['clock','elapsed','phaseClock','phase','round','winner','scores','mode','arena','quality','cameraMode','lightingMode','puddleStrength','difficulty','bestOf','roundsToWin','lastMessage','suddenDeath'];
+const GAME_KEYS=['clock','elapsed','phaseClock','phase','round','winner','scores','mode','arena','quality','cameraMode','lightingMode','puddleStrength','difficulty','bestOf','roundsToWin','lastMessage','suddenDeath','weather','weatherStart'];
 const FIGHTER_KEYS=['slot','dir','boss','baseX','lean','globIntact','balloonSize','balloonMass','balloonColor','matchApronToBalloon','waterShift','hitFlash','guard','guardEnergy','guardBroken','equipment','pose','balloon'];
 
 function own(value){

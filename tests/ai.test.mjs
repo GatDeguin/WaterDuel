@@ -90,12 +90,12 @@ test('El perfil defensor de IA reacciona a una estocada humana y logra una parad
   let responded=false,steps=0;
   for(let i=0;i<240&&g.phase==='fight';i++){
     const t=i*STEP;
-    // N16's coupled wrist needs a collected, raised preparation. Use the real
-    // pad's aim and a depth dodge, then keep the legacy pulse for this API
-    // compatibility case. Every subsequent block still comes from contact.
+    // Use the pad's raised preparation and a slight depth offset to keep the
+    // blade in the shield's path. Withdraw fully only after physical contact.
+    // Keep the legacy thrust pulse for this API compatibility case.
     responded=responded||events.some(e=>e.name==='clang'&&e.data.defender===2);
     g.setControl(1,responded?{mainX:-1,mainY:1,wrist:1,lean:-1,headZ:-1}:
-      {...(t<.45?collected:aim),attackHeld:false,headZ:-1,lean:t<.45?-1:1,thrust:t>=1.30&&t<1.34});
+      {...(t<.45?collected:aim),attackHeld:false,headZ:-.25,lean:t<.45?-1:1,thrust:t>=1.30&&t<1.34});
     g.update(STEP);steps++;
   }
   assert.ok(events.some(e=>e.name==='thrust'&&e.data.slot===1),'el humano debe ejecutar una estocada real');
@@ -179,13 +179,14 @@ test('El alcance físico permite parar y contraatacar durante la recuperación d
       const head=player.pose.head,tip=boss.pose.tip;
       const danger=Math.hypot((tip.x-head.x)/BALLOON_RADII.x,(tip.y-head.y)/BALLOON_RADII.y,
         ((tip.z??.17)-(head.z??.025))/BALLOON_RADII.z)<1.5;
-      // A recovery flag does not remove the descending blade. Keep real arm
-      // protection and neck/crouch motion until the observed point moves away.
+      // Keep the shield up and retreat only partway, so the boss can commit
+      // and remains within counterattack range. Its blade can still puncture
+      // during recovery, so stand and advance only when the point moves away.
       if(!recovered||danger)g.setControl(1,{...player.controller,mainX:1,mainY:.85,wrist:.55,thrust:false,attackHeld:false,
-        guard:danger||player.controller.guard,offX:.3,offY:1,lean:-1,headZ:-1,bodyY:-1});
-      else g.setControl(1,{...weaponGesture({x:1,y:.85}),lean:0,headZ:-1,bodyY:-1});
+        guard:true,offX:.3,offY:1,lean:-.4,headX:1,headZ:-.15,bodyY:-1});
+      else g.setControl(1,{...weaponGesture({x:1,y:.45}),lean:1,headX:1,headZ:-.25,bodyY:0});
     }
-    for(const key of ['offX','offY','mainX','mainY','lean','wrist','headZ','bodyY'])assert.ok(Math.abs(player.controller[key]??0)<=1,key);
+    for(const key of ['offX','offY','mainX','mainY','lean','wrist','headX','headZ','bodyY'])assert.ok(Math.abs(player.controller[key]??0)<=1,key);
     g.update(STEP);
     if(g.scores[0]===1){won=true;pointWindow={state:boss.ai.state,time:boss.ai.time,duration:boss.ai.duration};break;}
   }

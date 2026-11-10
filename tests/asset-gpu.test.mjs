@@ -13,6 +13,26 @@ function fixture(){
   const U=new Proxy({},{get:(_o,key)=>key});return {gl,trace,asset,U};
 }
 
+test('opaque shadow submits retain mesh placement and winding, while masked shadows still read alpha',async()=>{
+  const {gl,trace,asset,U}=fixture();
+  const gpu=new AssetGPU(gl,{decodeImage:async()=>({width:2,height:2,close(){}})});
+  const model=await gpu.upload(asset),part=model.parts[0],matrix=part.worldMatrix.slice();
+  matrix[0]=-1;
+  const textures=[];gl.bindTexture=(...args)=>textures.push(args);
+  gpu.draw(model,part,matrix,U,{deformStart:.1,deformEnd:.8,extension:.2,flexOffset:.02,flexLength:2,flexDirection:-1},true);
+  assert.deepEqual(trace.uniforms.uModel,Array.from(matrix));
+  assert.deepEqual(trace.uniforms.uAssetDeform,[.1,.8,.2]);
+  assert.deepEqual(trace.uniforms.uAssetFlex,[.02,2,-1]);
+  assert.equal(trace.uniforms.uAssetAlphaMode,0);assert.equal(trace.uniforms.uAssetMaps,0);
+  assert.deepEqual(trace.frontFaces,[gl.CW,gl.CCW]);
+  assert.deepEqual(textures,[]);assert.equal(trace.draws.length,1);
+  model.materials[0].alphaMode='MASK';model.materials[0].alphaCutoff=.41;
+  gpu.draw(model,part,matrix,U,undefined,true);
+  assert.equal(trace.uniforms.uAssetAlphaMode,1);assert.equal(trace.uniforms.uAssetAlphaCutoff,.41);
+  assert.ok(trace.uniforms.uAssetMaps&1);assert.ok(textures.length>0);assert.equal(trace.draws.length,2);
+  gpu.dispose();
+});
+
 test('cloth geometry uploads at draw time, preserves UV1 buffers, and restores bind geometry for old replay',async()=>{
   const {gl,asset,U}=fixture(),updates=[];let bound=null;
   gl.bindBuffer=(kind,buffer)=>{if(kind===gl.ARRAY_BUFFER)bound=buffer;};

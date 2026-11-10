@@ -22,6 +22,13 @@ const assetText=(value,max)=>text(value,2048)
   .trim().slice(0,max);
 const assetLabels=(value,limit,length)=>Array.isArray(value)?value.filter(label=>typeof label==='string')
   .map(label=>assetText(label,length)).filter(Boolean).slice(0,limit):[];
+function armoryItems(value,catalog,starter){
+  const items=record(value);
+  return Object.fromEntries(Object.keys(catalog).map(id=>{
+    const item=record(items[id]);
+    return [id,{unlocked:id===starter||item.unlocked===true,rival:text(item.rival,64)}];
+  }));
+}
 const actions=new Set(['start','reset','replayToggle','replayClose','replayClear','nextEncounter','resetCampaign','beginAdvancedCampaign']);
 const experiences=['duel','training','practice','precision','campaign','parry','moving','depth'];
 const options={
@@ -65,6 +72,7 @@ export function normalizeMenuCommand(message){
 /** Bounded, fresh, JSON-only copy. Deliberately excludes invitation keys, URLs, frames and scene internals. */
 export function sanitizeMenuState(value){
   const state=record(value),replay=record(state.replay),objective=record(state.objective);
+  const armory=state.mode==='solo'&&state.experience==='campaign'&&record(state.campaignArmory);
   const total=integer(objective.total,0,100);
   const fighters=Array.isArray(state.fighters)?state.fighters.slice(0,2):[];
   const clips=Array.isArray(replay.clips)?replay.clips.filter(clip=>positive(clip?.id)).slice(0,3):[];
@@ -93,6 +101,7 @@ export function sanitizeMenuState(value){
       completed:objective.completed===true,nextAction:oneOf(objective.nextAction,['advance','retry','repeat'],null),
       ...(objective.kind==='campaign'?{campaignTier:oneOf(objective.campaignTier,['normal','advanced'],'normal'),advancedUnlocked:objective.advancedUnlocked===true,trophy:oneOf(objective.trophy,['none','champion','master'],'none')}:{}),
     },
+    ...(armory?{campaignArmory:{weapons:armoryItems(armory.weapons,WEAPONS,'sword'),defenses:armoryItems(armory.defenses,DEFENSES,'none')}}:{}),
     replay:{clips:clips.map(clip=>({id:clip.id,duration:finite(clip.duration,0,30),complete:clip.complete===true})),
       active:replay.active===true,paused:replay.paused===true,speed:oneOf(replay.speed,[.25,.5,1],1),position:finite(replay.position,0,1)},
     configurable:state.configurable===true,trainingEquipmentLocked:state.trainingEquipmentLocked===true,

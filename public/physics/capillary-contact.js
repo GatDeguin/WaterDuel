@@ -45,14 +45,23 @@ export function buildCapillarySurface(membrane){
   }
   triangles.push(t);
  }
- const eligible=triangles.filter(t=>t.zone);for(const t of eligible){
+ const eligible=triangles.filter(t=>t.zone);
+ const low={x:Infinity,y:Infinity,z:Infinity},high={x:-Infinity,y:-Infinity,z:-Infinity};
+ for(const t of eligible){
   const a=t.points[0],b=t.points[1],c=t.points[2];t.min={};t.max={};
   t.min.x=Math.min(a.x,b.x,c.x);t.max.x=Math.max(a.x,b.x,c.x);
   t.min.y=Math.min(a.y,b.y,c.y);t.max.y=Math.max(a.y,b.y,c.y);
   t.min.z=Math.min(a.z,b.z,c.z);t.max.z=Math.max(a.z,b.z,c.z);
+  low.x=Math.min(low.x,t.min.x);high.x=Math.max(high.x,t.max.x);
+  low.y=Math.min(low.y,t.min.y);high.y=Math.max(high.y,t.max.y);
+  low.z=Math.min(low.z,t.min.z);high.z=Math.max(high.z,t.max.z);
  }
  const surface={membrane,version:membrane.version,triangleCount:eligible.length,
-  closest(point,reach){let hit=null;for(const t of eligible){if(point.x<t.min.x-reach||point.x>t.max.x+reach||point.y<t.min.y-reach||point.y>t.max.y+reach||point.z<t.min.z-reach||point.z>t.max.z+reach)continue;const q=closest(point,t);if(q.d2<=reach*reach&&(!hit||q.d2<hit.d2))hit={...q,...t};}return hit;}};
+  closest(point,reach){
+   // The union bound covers every wettable face with the same reach as the individual tests.
+   if(point.x<low.x-reach||point.x>high.x+reach||point.y<low.y-reach||point.y>high.y+reach||
+      point.z<low.z-reach||point.z>high.z+reach)return null;
+   let hit=null;for(const t of eligible){if(point.x<t.min.x-reach||point.x>t.max.x+reach||point.y<t.min.y-reach||point.y>t.max.y+reach||point.z<t.min.z-reach||point.z>t.max.z+reach)continue;const q=closest(point,t);if(q.d2<=reach*reach&&(!hit||q.d2<hit.d2))hit={...q,...t};}return hit;}};
  cache.set(membrane,surface);return surface;
 }
 export function applyCapillaryContact(p,surface,dt,{radius=waterDropRadius(p.volume),density=997,surfaceTension=.072,contactCosine=.7}={}){

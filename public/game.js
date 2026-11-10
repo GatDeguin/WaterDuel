@@ -104,10 +104,11 @@ window.addEventListener('keydown',event=>{
   keys.add(event.code);if(!event.repeat&&event.code==='Space')pulses[0]=true;if(!event.repeat&&event.code==='Enter')pulses[1]=true;
 });
 window.addEventListener('keyup',event=>keys.delete(event.code));
-window.addEventListener('blur',()=>{adaptiveQuality.reset();clearInputs();for(const slot of [1,2])game.setControl(slot,neutral());if(mobileMode){mobileFocused=false;audio.setPaused(true);}});
+window.addEventListener('blur',()=>{adaptiveQuality.reset();host.clearArmoryView();clearInputs();for(const slot of [1,2])game.setControl(slot,neutral());if(mobileMode){mobileFocused=false;audio.setPaused(true);}});
 window.addEventListener('focus',()=>{adaptiveQuality.reset();if(mobileMode){mobileFocused=true;clearInputs();previous=performance.now();audio.setPaused(audioPaused());}});
 canvas.addEventListener('pointerdown',()=>audio.unlock());
-document.addEventListener('visibilitychange',()=>{adaptiveQuality.reset();clearInputs();previous=performance.now();audio.setPaused(audioPaused());});
+document.addEventListener('visibilitychange',()=>{adaptiveQuality.reset();host.clearArmoryView();clearInputs();previous=performance.now();audio.setPaused(audioPaused());});
+window.addEventListener('pagehide',()=>host.clearArmoryView());
 function keyboard(){
   const pressed=(...codes)=>codes.some(code=>keys.has(code)),axis=(positive,negative)=>Number(pressed(...positive))-Number(pressed(...negative));
   return [
@@ -126,10 +127,15 @@ function connectHost(){
       refreshJoinCodes();
       audio.setPaused(document.hidden||!!host.playback);broadcast();
     }else if(message.type==='presence'){
-      presence[message.slot-1]=!!message.online;remoteInputs.disconnect(message.slot);if(!message.online)game.disconnect(message.slot);broadcast();
+      presence[message.slot-1]=!!message.online;remoteInputs.disconnect(message.slot);host.clearArmoryView(message.slot);if(!message.online)game.disconnect(message.slot);broadcast();
     }else if(message.type==='control'){
       if(host.playback||!hasAuthority||!isFreshRemoteInput(message,Date.now()+serverOffset))return;
-      remoteInputs.receive(message.slot,message,performance.now(),Date.now()+serverOffset-message.sentAt);
+      const age=Date.now()+serverOffset-message.sentAt;
+      const preview=message.armoryView===true&&!message.neutralize;
+      const control=preview?{...message,neutralize:true}:message;
+      if(remoteInputs.receive(message.slot,control,performance.now(),age)){
+        host.setArmoryView(message.slot,preview&&!document.hidden&&document.hasFocus?.()!==false,age);
+      }
     }else if(message.type==='command'){
       if(!hasAuthority)return;
       const age=Date.now()+serverOffset-message.sentAt;
@@ -140,14 +146,14 @@ function connectHost(){
     }else if(message.type==='ping'){
       ws.send(JSON.stringify({type:'pong',at:message.at}));
     }else if(message.type==='session-expired'){
-      credentials=null;joinCodes.hide();hasAuthority=false;audio.setPaused(true);clearInputs();ws.close();clearTimeout(discoverRetry);discoverRetry=setTimeout(discoverSession,250);
+      credentials=null;joinCodes.hide();hasAuthority=false;audio.setPaused(true);host.clearArmoryView();clearInputs();ws.close();clearTimeout(discoverRetry);discoverRetry=setTimeout(discoverSession,250);
     }else if(message.type==='error'&&message.code==='HOST_BUSY'){
       authorityBlocked=true;hasAuthority=false;joinCodes.hide();audio.setPaused(true);host.neutralize();
     }
   };
   ws.onerror=()=>{};
   ws.onclose=()=>{
-    if(socket!==ws)return;socket=null;hasAuthority=false;joinCodes.hide();presence=[false,false];audio.setPaused(true);host.neutralize();
+    if(socket!==ws)return;socket=null;hasAuthority=false;joinCodes.hide();presence=[false,false];audio.setPaused(true);host.clearArmoryView();host.neutralize();
     for(const slot of [1,2])game.disconnect(slot);
     clearTimeout(retry);if(credentials)retry=setTimeout(discoverSession,authorityBlocked?5000:2000);
   };

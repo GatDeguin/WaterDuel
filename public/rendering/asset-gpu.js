@@ -100,8 +100,17 @@ export class AssetGPU{
     gl.bindBuffer(gl.ARRAY_BUFFER,part.positionBuffer);gl.bufferSubData(gl.ARRAY_BUFFER,0,data.positions);
     gl.bindBuffer(gl.ARRAY_BUFFER,part.normalBuffer);gl.bufferSubData(gl.ARRAY_BUFFER,0,data.normals);part.activeGeometry=geometry;
   }
-  draw(model,part,matrix,U,{deformStart=0,deformEnd=1,extension=0,flexOffset=0,flexLength=1,flexDirection=1,wetTop=0,wetBottom=0,wetMinY=0,wetMaxY=1,tint=defaultTint,sheenColor,geometry=null}=noDeform){
-    if(this.disposed)return;this.updateGeometry(part,geometry);const gl=this.gl,m=model.materials[part.material]??this.defaultMaterial,d=model.drawMaterials[part.material]??this.defaultDrawMaterial;gl.bindVertexArray(part.vao);
+  draw(model,part,matrix,U,{deformStart=0,deformEnd=1,extension=0,flexOffset=0,flexLength=1,flexDirection=1,wetTop=0,wetBottom=0,wetMinY=0,wetMaxY=1,tint=defaultTint,sheenColor,geometry=null}=noDeform,depthOnly=false){
+    if(this.disposed)return;
+    this.updateGeometry(part,geometry);
+    const gl=this.gl,m=model.materials[part.material]??this.defaultMaterial;
+    if(depthOnly&&(m.alphaMode??'OPAQUE')==='OPAQUE'&&!(m.transmission>0)){
+      const deform=this.deformScratch,flex=this.flexScratch;
+      deform[0]=deformStart;deform[1]=deformEnd;deform[2]=extension;
+      flex[0]=flexOffset;flex[1]=flexLength;flex[2]=flexDirection;
+      return this.#drawOpaqueDepth(part,matrix,U,m,deform,flex);
+    }
+    const d=model.drawMaterials[part.material]??this.defaultDrawMaterial;gl.bindVertexArray(part.vao);
     gl.disableVertexAttribArray(2);gl.vertexAttrib4f(2,0,0,0,1);gl.disableVertexAttribArray(3);gl.vertexAttrib1f(3,.0045);
     gl.uniform1i(U.uInstancing,0);gl.uniform1i(U.uAssetEnabled,1);gl.uniform1i(U.uMaterial,21);gl.uniform1f(U.uWobble,0);gl.uniform1f(U.uWet,0);
     const determinant=normalMatrix(matrix,this.normalScratch),color=this.colorScratch,deform=this.deformScratch;
@@ -123,6 +132,24 @@ export class AssetGPU{
     gl.frontFace(determinant<0?gl.CW:gl.CCW);
     if(m.doubleSided)gl.disable(gl.CULL_FACE);else{gl.enable(gl.CULL_FACE);gl.cullFace(gl.BACK);}
     gl.drawElements(gl.TRIANGLES,part.count,gl.UNSIGNED_INT,0);gl.frontFace(gl.CCW);gl.disable(gl.CULL_FACE);gl.activeTexture(gl.TEXTURE0);
+  }
+  #drawOpaqueDepth(part,matrix,U,material,deform,flex){
+    const gl=this.gl;
+    const x0=matrix[5]*matrix[10]-matrix[6]*matrix[9],x1=matrix[6]*matrix[8]-matrix[4]*matrix[10],x2=matrix[4]*matrix[9]-matrix[5]*matrix[8];
+    const determinant=matrix[0]*x0+matrix[1]*x1+matrix[2]*x2;
+    if(!Number.isFinite(determinant)||Math.abs(determinant)<1e-12)throw Error('Transformación de asset singular.');
+    gl.bindVertexArray(part.vao);
+    gl.disableVertexAttribArray(2);gl.vertexAttrib4f(2,0,0,0,1);
+    gl.disableVertexAttribArray(3);gl.vertexAttrib1f(3,.0045);
+    gl.uniform1i(U.uInstancing,0);gl.uniform1i(U.uAssetEnabled,1);gl.uniform1f(U.uWobble,0);
+    gl.uniformMatrix4fv(U.uModel,false,matrix);
+    gl.uniform3fv(U.uAssetDeform,deform);gl.uniform3fv(U.uAssetFlex,flex);
+    // This pass reads alpha only for MASK, which uses the full draw path.
+    gl.uniform1i(U.uAssetAlphaMode,0);gl.uniform1i(U.uAssetMaps,0);
+    gl.frontFace(determinant<0?gl.CW:gl.CCW);
+    if(material.doubleSided)gl.disable(gl.CULL_FACE);else{gl.enable(gl.CULL_FACE);gl.cullFace(gl.BACK);}
+    gl.drawElements(gl.TRIANGLES,part.count,gl.UNSIGNED_INT,0);
+    gl.frontFace(gl.CCW);gl.disable(gl.CULL_FACE);gl.activeTexture(gl.TEXTURE0);
   }
   release(model){
     const gl=this.gl;for(const b of model.buffers)gl.deleteBuffer(b);for(const v of model.vaos)gl.deleteVertexArray(v);for(const reference of model.textureReferences)this.sharedTextures.release(reference);

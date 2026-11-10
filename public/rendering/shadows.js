@@ -91,15 +91,23 @@ export class ShadowMap{
     finally{restore(gl,state);}
     return this.available;
   }
-  capture(draw,restoreState=null){
+  capture(draw,restoreState=null,depthSource=null){
     // Standalone callers retain arbitrary external GL state. The owning
     // renderer supplies its explicit pass boundary to avoid synchronous reads.
     if(!this.available)return false;const gl=this.gl,state=restoreState??snapshot(gl,this.unit);
     // A declared sampler can stay active in the depth-only shader's branch.
     gl.activeTexture(this.unit);gl.bindTexture(gl.TEXTURE_2D,null);
     gl.bindFramebuffer(gl.FRAMEBUFFER,this.framebuffer);gl.viewport(0,0,this.size,this.size);
-    gl.enable(gl.DEPTH_TEST);gl.depthMask(true);gl.depthFunc(gl.LEQUAL);gl.clearDepth(1);gl.colorMask(false,false,false,false);gl.disable(gl.BLEND);gl.disable(gl.CULL_FACE);gl.clear(gl.DEPTH_BUFFER_BIT);
-    try{draw();}finally{restore(gl,state);}return true;
+    gl.enable(gl.DEPTH_TEST);gl.depthMask(true);gl.depthFunc(gl.LEQUAL);gl.clearDepth(1);gl.colorMask(false,false,false,false);gl.disable(gl.BLEND);gl.disable(gl.CULL_FACE);
+    try{
+      if(depthSource){
+        const size=this.size;
+        gl.bindFramebuffer(gl.READ_FRAMEBUFFER,depthSource.framebuffer);
+        gl.blitFramebuffer(0,0,size,size,0,0,size,size,gl.DEPTH_BUFFER_BIT,gl.NEAREST);
+        gl.bindFramebuffer(gl.READ_FRAMEBUFFER,this.framebuffer);
+      }else gl.clear(gl.DEPTH_BUFFER_BIT);
+      draw();
+    }finally{restore(gl,state);}return true;
   }
   bind(activeTexture){
     const gl=this.gl,active=activeTexture??read(gl,gl.ACTIVE_TEXTURE,gl.TEXTURE0);
