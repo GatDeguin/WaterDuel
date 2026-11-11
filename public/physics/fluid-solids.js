@@ -100,7 +100,7 @@ export function fluidSolidColliders(fighters,stepSeconds=1/120,{nativeChestSampl
     const r=f.rig,current=r.collisionPanels(),currentSolids=current.map(panelSolid),cache=new Map([[1,{panels:current,solids:currentSolids}]]),before=r.previousQ??r.q;
     const extension=Math.abs(r.swordLength-(r.previousSwordLength??r.swordLength));
     const bodyDepth=r.bodyDepth??0,weaponDepth=r.weaponDepthOffset??0;
-    const movingDepth=bodyDepth!==(r.previousBodyDepth??bodyDepth)||weaponDepth!==(r.previousWeaponDepthOffset??weaponDepth);
+    const movingDepth=bodyDepth!==(r.previousBodyDepth??bodyDepth)||weaponDepth!==(r.previousWeaponDepthOffset??weaponDepth)||r.feetMovingInDepth;
     const pose=r.pose();
     const direct=typeof r.collisionSolidsAt==='function',componentCaches=direct?current.map(()=>new Map()):null;
     const previousSolids=direct?r.collisionSolidsAt(0):null;
@@ -141,7 +141,7 @@ export function fluidSolidColliders(fighters,stepSeconds=1/120,{nativeChestSampl
     const v=f.rig.pointVelocity({body:panel.body,point:center})??{x:0,y:0};
     const beside=f.rig.pointVelocity({body:panel.body,point:{x:center.x+1,y:center.y}})??v,omega=beside.y-v.y;
     const previous=at(0,index);
-    // An arm or weapon may move in depth independently of the torso.
+    // Feet and weapons can move independently of the torso.
     const depthTravel=movingDepth&&center.z!==previous.center.z?center.z-previous.center.z:0;
     const depthVelocity=depthTravel===0?0:depthTravel/stepSeconds;
     const motion=panelMotion(r,panel,solid,pose,before,extension,depthTravel),bounds=sweptBounds(previous,solid,motion);

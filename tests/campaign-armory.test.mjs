@@ -30,7 +30,8 @@ test('La historia presta espada y mano libre, valida premios y restaura las sele
   story(host);
   assert.deepEqual(host.game.loadouts[0],{weapon:'sword',defense:'none'});
   const initial=host.menuState().campaignArmory;
-  assert.deepEqual(initial.weapons.axe,{unlocked:false,rival:CAMPAIGN[1].name});
+  const firstAxe=CAMPAIGN.findIndex(entry=>entry.opponentLoadout.weapon==='axe');
+  assert.deepEqual(initial.weapons.axe,{unlocked:false,rival:CAMPAIGN[firstAxe].name});
   assert.deepEqual(initial.defenses.short,{unlocked:false,rival:CAMPAIGN[0].name});
   assert.equal(equip(host,'axe','none').ok,false);
   assert.equal(equip(host,'sword','short').ok,false);
@@ -46,6 +47,11 @@ test('La historia presta espada y mano libre, valida premios y restaura las sele
   assert.equal(command(host,'nextEncounter').ok,true);
   assert.deepEqual(host.game.loadouts[0],{weapon:'sword',defense:'short'});
   assert.equal(command(host,'reset').ok,true);
+  for(let stage=1;stage<firstAxe;stage++){
+    result(host);
+    assert.equal(host.menuState().campaignArmory.weapons.axe.unlocked,false);
+    assert.equal(command(host,'nextEncounter').ok,true);
+  }
   result(host);
   assert.equal(equip(host,'axe','long').ok,true);
   assert.equal(command(host,'setMode','versus').ok,true);
@@ -56,7 +62,7 @@ test('La historia presta espada y mano libre, valida premios y restaura las sele
   const restored=new HostSession({storage});story(restored);
   assert.equal(restored.menuState().campaignArmory.weapons.axe.unlocked,true);
   assert.equal(restored.menuState().campaignArmory.defenses.long.unlocked,true);
-  assert.equal(restored.menuState().campaignArmory.defenses.knife.unlocked,false);
+  assert.equal(restored.menuState().campaignArmory.defenses.knife.unlocked,true);
   assert.equal(command(host,'resetCampaign').ok,true);
   assert.deepEqual(host.game.loadouts[0],{weapon:'sword',defense:'none'});
   assert.equal(host.menuState().campaignArmory.weapons.axe.unlocked,false);
@@ -101,7 +107,7 @@ test('La cámara del mural usa permisos temporales independientes y sólo funcio
 });
 
 test('El clima usa el encuentro guardado y se retira al dejar la historia',()=>{
-  const storage=memory([[SINGLE_PLAYER_STORAGE_KEY,JSON.stringify({version:1,stage:6,completed:true})]]);
+  const storage=memory([[SINGLE_PLAYER_STORAGE_KEY,JSON.stringify({version:2,stage:CAMPAIGN.length-1,completed:true})]]);
   const host=new HostSession({storage});
   host.game.clock=12;
   story(host);
@@ -117,7 +123,7 @@ test('El clima usa el encuentro guardado y se retira al dejar la historia',()=>{
 });
 
 test('La tormenta se sincroniza con el inicio y la revancha, y continúa entre rondas',()=>{
-  const storage=memory([[SINGLE_PLAYER_STORAGE_KEY,JSON.stringify({version:1,stage:6,completed:false})]]);
+  const storage=memory([[SINGLE_PLAYER_STORAGE_KEY,JSON.stringify({version:2,stage:CAMPAIGN.length-1,completed:false})]]);
   const host=new HostSession({storage}),game=host.game;
   story(host);
   game.clock=10;

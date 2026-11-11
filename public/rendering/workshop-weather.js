@@ -1,6 +1,13 @@
 const GLASS='Workshop v4 PBR | old undulating window glass';
 const SKY='WD_V4_EXT_overcast_sky';
+const FILAMENT='Workshop v2 PBR | lamp-warm-tungsten-filament';
+const MAIN_CIRCUIT=/^(?:Key \| warm workshop softbox|(?:Practical warm bulb|Shade downlight)(?:\.\d+)?)$/;
 const FLASH_COLOR=[.78,.87,1];
+const BOSS_SECONDARY=new Map([
+  ['Right table glancing reflection',{gain:1.24,tint:[1,.91,.76]}],
+  ['Soft front return',{gain:.72,tint:[.87,.96,1.09]}],
+  ['Back banner wash',{gain:.52,tint:[1,1,1]}]
+]);
 // Extend the exterior volume along the neutral sightlines so the whole glass
 // opening sees precipitation at every depth. The opaque reveal masks spill.
 const GLASS_Z=-4.94,NEUTRAL_EYE_Y=1.64,NEUTRAL_EYE_Z=10.4;
@@ -80,20 +87,37 @@ export function createWorkshopWeather(){
     if(!base||!sample)return base;
     let state=lightCache.get(base);
     if(!state){
-      const windows=base.names.flatMap((name,index)=>/window/i.test(name)?[index*4]:[]);
-      if(!windows.length)return base;
-      state={windows,view:{...base,positions:base.positions.slice(),colors:base.colors.slice()},profile:null,flash:0};
+      const windows=base.names.flatMap((name,index)=>/window/i.test(name)?[{offset:index*4,side:Math.sign(base.positions[index*4])}]:[]);
+      const circuit=base.names.flatMap((name,index)=>MAIN_CIRCUIT.test(name)?[index*4]:[]);
+      const secondary=base.names.flatMap((name,index)=>BOSS_SECONDARY.has(name)?[{offset:index*4,...BOSS_SECONDARY.get(name)}]:[]);
+      if(!windows.length&&!circuit.length&&!secondary.length)return base;
+      state={windows,circuit,secondary,view:{...base,positions:base.positions.slice(),colors:base.colors.slice()},
+        profile:null,flash:0,power:1,blackout:0,strikeSide:0};
       lightCache.set(base,state);
     }
     const {profile}=sample,flash=flashValue(sample,reducedMotion);
-    if(state.profile===profile&&state.flash===flash)return state.view;
-    state.profile=profile;state.flash=flash;
-    for(const index of state.windows){
-      state.view.positions[index+3]=base.positions[index+3]*(profile.windowGain+flash*3.65);
-      const blend=flash*.7;
+    const power=sample.mainPower??1;
+    if(state.power!==power){
+      state.power=power;
+      for(const index of state.circuit)state.view.positions[index+3]=base.positions[index+3]*power;
+    }
+    const blackout=sample.bossStorm?1-power:0,strikeSide=sample.bossStorm&&flash>0?Math.sign(sample.lightningX):0;
+    if(state.blackout!==blackout){
+      for(const {offset,gain,tint} of state.secondary){
+        state.view.positions[offset+3]=base.positions[offset+3]*(1+(gain-1)*blackout);
+        for(let axis=0;axis<3;axis++)state.view.colors[offset+axis]=base.colors[offset+axis]*(1+(tint[axis]-1)*blackout);
+      }
+    }
+    if(state.profile===profile&&state.flash===flash&&state.blackout===blackout&&state.strikeSide===strikeSide)return state.view;
+    state.profile=profile;state.flash=flash;state.blackout=blackout;state.strikeSide=strikeSide;
+    for(const {offset,side} of state.windows){
+      // The near pane throws the main stroke, the opposite pane catches its return.
+      const strikeGain=strikeSide===0?3.65:side===strikeSide?4.8:.75;
+      state.view.positions[offset+3]=base.positions[offset+3]*(profile.windowGain*(1-.35*blackout)+flash*strikeGain);
+      const blend=flash*(strikeSide===0?.7:side===strikeSide?.82:.28);
       for(let axis=0;axis<3;axis++){
-        const tint=base.colors[index+axis]*profile.windowTint[axis];
-        state.view.colors[index+axis]=tint+(FLASH_COLOR[axis]-tint)*blend;
+        const tint=base.colors[offset+axis]*profile.windowTint[axis];
+        state.view.colors[offset+axis]=tint+(FLASH_COLOR[axis]-tint)*blend;
       }
     }
     return state.view;
@@ -105,18 +129,18 @@ export function createWorkshopWeather(){
     if(!state){
       const materials=model.materials.slice(),targets=[];
       for(const [index,material] of materials.entries()){
-        if(material.name!==GLASS&&material.name!==SKY)continue;
+        if(material.name!==GLASS&&material.name!==SKY&&material.name!==FILAMENT)continue;
         const color=material.baseColorFactor.slice(),emission=material.emissiveFactor.slice();
         const override={...material,baseColorFactor:color,emissiveFactor:emission};
         materials[index]=override;
-        targets.push({index,source:material,override,color,emission,glass:material.name===GLASS});
+        targets.push({index,source:material,override,color,emission});
       }
       if(!targets.length)return model;
-      state={targets,view:{...model,materials},profile:null,flash:0};materialCache.set(model,state);
+      state={targets,view:{...model,materials},profile:null,flash:0,power:1};materialCache.set(model,state);
     }
-    const {profile}=sample,flash=flashValue(sample,reducedMotion);
-    const changed=state.profile!==profile||state.flash!==flash;
-    state.profile=profile;state.flash=flash;
+    const {profile}=sample,flash=flashValue(sample,reducedMotion)*(sample.bossStorm?.74:1);
+    const power=sample.mainPower??1,changed=state.profile!==profile||state.flash!==flash||state.power!==power;
+    state.profile=profile;state.flash=flash;state.power=power;
     for(const target of state.targets){
       const source=model.materials[target.index];
       if(!changed&&target.source===source)continue;
@@ -124,8 +148,14 @@ export function createWorkshopWeather(){
         target.source=source;
         Object.assign(target.override,source,{baseColorFactor:target.color,emissiveFactor:target.emission});
       }
+      if(source.name===FILAMENT){
+        target.override.baseColorFactor=source.baseColorFactor;
+        target.override.emissiveFactor=source.emissiveFactor;
+        target.override.mainCircuitPower=power;
+        continue;
+      }
       for(let axis=0;axis<3;axis++){
-        if(target.glass){
+        if(source.name===GLASS){
           target.color[axis]=source.baseColorFactor[axis]*profile.glassTint[axis];
           target.emission[axis]=source.emissiveFactor[axis]*profile.glassGlow+FLASH_COLOR[axis]*flash*.27;
         }else{
@@ -133,7 +163,7 @@ export function createWorkshopWeather(){
           target.emission[axis]=profile.sky[axis]*.82+FLASH_COLOR[axis]*flash*1.26;
         }
       }
-      target.color[3]=target.glass?source.baseColorFactor[3]*profile.glassAlpha:source.baseColorFactor[3];
+      target.color[3]=source.baseColorFactor[3]*(source.name===GLASS?profile.glassAlpha:1);
     }
     return state.view;
   }

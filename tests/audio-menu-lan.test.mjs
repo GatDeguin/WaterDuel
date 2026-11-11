@@ -30,6 +30,10 @@ test('all sound controls cross the authenticated LAN relay and return their appl
  // Campaign settings use the same authenticated relay and strict applied-state ordering.
  // The preceding twelve requests fill the relay's one-second options window.
  await delay(1010);
+ controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command:'setThunderVolume',value:38}));
+ assert.equal((await receive(m=>m.type==='command-result'&&m.requestId===requestId)).ok,true);
+ assert.equal((await receive(m=>m.type==='menu-state'&&m.state.thunderVolume===38)).state.effectsVolume,72);
+ assert.equal(host.audioOptions.thunder,.38);
  for(const [command,value]of [['setExperience','campaign'],['setCampaignTier','normal']]){
   controller.send(JSON.stringify({type:'command',requestId:++requestId,sentAt:Date.now(),command,value}));
   const result=await receive(m=>m.type==='command-result'&&m.requestId===requestId);assert.equal(result.ok,true,command+': '+result.message);

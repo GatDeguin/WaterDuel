@@ -1,7 +1,9 @@
 import {RadialJoystick,weaponGesture,movementGesture} from './joysticks.js';
 import {connectMobileController} from './mobile-session.js';
 import {AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled} from './audio/effect-controls.js';
+import {SOUND_SLIDERS,SOUND_COMMANDS} from './audio/sound-settings.js';
 import {contactHaptic} from './item-haptics.js';
+import {CAMPAIGN_TIERS,STORY_CHAPTERS} from './campaign-progression.js';
 
 const $=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
@@ -11,16 +13,16 @@ const key=params.get('key')||'';
 const shell=$('controllerShell'),state={offX:0,offY:0,mainX:0,mainY:0,lean:0,bodyY:0,wrist:0,thrust:false,guard:false,attackHeld:false,headX:0,headZ:0};
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 let ws=null,seq=0,reconnect=null,motionEnabled=false,baseGamma=null,baseBeta=null,headSensorTimer=null,damageTimer=null,inputFocused=true,hostOnline=false,invitationInvalid=false,serverOffset=0;
-let welcomed=false,menuOpen=false,menuVisit=0,menuState=null,menuStateSerial=0,requestId=0,equipmentPromise=null,equipmentCatalog=null,seekDragging=false,volumeDragging=false;
+let welcomed=false,menuOpen=false,menuVisit=0,menuState=null,menuStateSerial=0,requestId=0,equipmentPromise=null,equipmentCatalog=null,seekDragging=false;
 let equipmentOpen=false,armoryOptionsKey=null;
 let resultState=null,resultVisit=0,resultAccepted=false,resultOffline=false,resultNeedsControlFocus=false;
+let quickStartAccepted=false;
 let rumbleUntil=0,rumblePriority=0;
 const pendingCommands=new Map();
-const soundSliders=[['menuMusicVolume','musicVolume',24,0,100],['menuEffectsVolume','effectsVolume',100,0,100],['menuDistortion','distortion',3,0,100],['menuReverb','reverb',8,0,100],['menuReverbDecay','reverbDecay',1100,200,2400]];
 const soundDragging=new Set();
 const effectInputs=new Map();
 let authoritativeEffectMask=null;
-const soundLabel=(id,value)=>id==='menuReverbDecay'?`${(value/1000).toFixed(1)} s`:`${value}%`;
+const soundLabel=(id,value)=>id==='menuReverbDecay'?`${(value/1000).toFixed(1).replace('.',',')} s`:`${value}%`;
 const resetControls=[];
 const presentationBlocked=()=>menuState?.assets?.loading===true||!!menuState?.rendererError;
 const controlsEnabled=()=>!menuOpen&&!resultState&&!presentationBlocked()&&!document.hidden&&inputFocused&&welcomed&&hostOnline&&!invitationInvalid;
@@ -161,7 +163,7 @@ window.addEventListener('deviceorientation',e=>{
 });
 function neutralize(){
   stopRumble();
-  soundDragging.clear();volumeDragging=false;
+  soundDragging.clear();
   for(const reset of resetControls)reset();
   setEquipmentOpen(false);
   Object.assign(state,{offX:0,offY:0,mainX:0,mainY:0,lean:0,bodyY:0,wrist:0,thrust:false,guard:false,attackHeld:false,headX:0,headZ:0});
@@ -182,20 +184,33 @@ const menuButtons=['menuStartBtn','menuResetBtn','menuNextBtn','menuCampaignRese
 const safeText=(value,max=360)=>String(value??'').slice(0,max);
 const connected=()=>welcomed&&hostOnline&&!invitationInvalid&&ws?.readyState===WebSocket.OPEN;
 function presentationReason(s){return s?.assets?.loading===true?'La arena está cargando el escenario y los modelos. Esperá a que termine para comenzar.':s?.rendererError?'La arena 3D no está disponible. Esperá a que se recupere para comenzar.':'';}
-const awaiting=id=>[...pendingCommands.values()].some(item=>item.element===id);
-const commandStateFields={setMode:'mode',setExperience:'experience',setDifficulty:'difficulty',setBestOf:'bestOf',setArena:'arena',setQuality:'quality',setPerformanceMode:'performanceMode',setCamera:'camera',setLighting:'lighting',setAudio:'audioOn',setVolume:'volume',setEffectMask:'effectMask',...Object.fromEntries(soundSliders.map(([,field])=>['set'+field[0].toUpperCase()+field.slice(1),field]))};
+function pendingFor(id){for(const item of pendingCommands.values())if(item.element===id)return item;}
+const awaiting=id=>!!pendingFor(id);
+const commandStateFields={setMode:'mode',setExperience:'experience',setDifficulty:'difficulty',setBestOf:'bestOf',setArena:'arena',setQuality:'quality',setPerformanceMode:'performanceMode',setCamera:'camera',setLighting:'lighting',setAudio:'audioOn',...SOUND_COMMANDS};
 const preparationCommands=new Set(['setMode','setExperience','setDifficulty','setBestOf','setArena','setLoadout','setCampaignTier']);
 const arenaActionCommands=new Set(['start','reset','nextEncounter','resetCampaign','replayOpen','replayClose','beginAdvancedCampaign']);
 const returnToControlsCommands=new Set(['start','nextEncounter','replayClose','beginAdvancedCampaign']);
 const resultCommand=(s,outcome)=>s.mode==='solo'&&s.experience==='campaign'&&outcome==='win'&&s.objective?.completed&&s.objective?.campaignTier==='normal'&&s.objective?.advancedUnlocked?'beginAdvancedCampaign':s.mode==='solo'&&outcome!=='draw'&&['advance','retry'].includes(s.objective?.nextAction)?'nextEncounter':'start';
 const activityCommand=s=>s?.mode==='solo'&&s.experience==='campaign'&&s.objective?.completed?(s.objective.campaignTier==='normal'&&s.objective.advancedUnlocked?'beginAdvancedCampaign':'start'):'nextEncounter';
+function storyAdvanceLabel(objective){
+  const story=objective?.story;
+  if(objective?.nextAction!=='advance'||!story?.nextChapter)return '';
+  if(story.nextChapter>story.chapter)return 'SIGUIENTE CAPÍTULO';
+  return story.nextRole==='boss'?'ENFRENTAR AL JEFE':'';
+}
 function feedback(message,error=false,element=null){
+  if(element==='quickStartBtn'){
+    const box=$('quickStartFeedback');box.textContent=safeText(message);box.hidden=!message;box.classList.toggle('error',error);return;
+  }
   $('menuFeedback').textContent=safeText(message);$('menuFeedback').classList.toggle('error',error);
   if(element==='resultActionBtn')resultFeedback(message,error);
 }
 function resultFeedback(message,error=false){const box=$('resultFeedback');box.textContent=safeText(message);box.hidden=!message;box.classList.toggle('error',error);}
 function cancelCommands(message){
-  if(!pendingCommands.size)return;const resultPending=awaiting('resultActionBtn');for(const item of pendingCommands.values())clearTimeout(item.timer);pendingCommands.clear();feedback(message,true,resultPending?'resultActionBtn':null);
+  if(!pendingCommands.size)return;
+  const surface=awaiting('resultActionBtn')?'resultActionBtn':awaiting('quickStartBtn')?'quickStartBtn':null;
+  for(const item of pendingCommands.values())clearTimeout(item.timer);
+  pendingCommands.clear();feedback(message,true,surface);
 }
 function commandResult(message){
   if(!Number.isSafeInteger(message.requestId))return;const pending=pendingCommands.get(message.requestId);if(!pending)return;
@@ -205,6 +220,7 @@ function commandResult(message){
     if(message.requestId===requestId)feedback('La arena respondió. Esperando el estado aplicado…');renderMenu();return;
   }
   clearTimeout(pending.timer);pendingCommands.delete(message.requestId);
+  if(message.ok&&pending.element==='quickStartBtn')quickStartAccepted=true;
   if(message.requestId===requestId)feedback(message.message||(message.ok?'Acción confirmada por la arena.':'La arena rechazó la acción.'),!message.ok,pending.element);
   if(message.ok&&resultState&&['start','nextEncounter','beginAdvancedCampaign'].includes(pending.command)&&pending.resultVisit===resultVisit){resultAccepted=true;resultNeedsControlFocus=true;}
   renderMenu();
@@ -274,11 +290,18 @@ function renderResult({preparing,changingArena}){
   const outcome=resultState.outcome,online=connected()&&!!s;
   const sceneIssue=presentationReason(s);
   overlay.dataset.outcome=outcome;
+  if(s)$('resultScore').textContent=$('scoreText').textContent;
   $('resultTitle').textContent=({win:'GANASTE',lose:'PERDISTE',draw:'EMPATE',observer:'ACTIVIDAD INDIVIDUAL'})[outcome];
   $('resultMessage').textContent=sceneIssue||(outcome==='observer'?'Esta partida la continúa el JUGADOR 1 desde su mando.':outcome==='draw'?'El resultado está igualado. Podés repetir la partida.':outcome==='win'?(s?.mode==='solo'&&s?.objective?.nextAction==='advance'?'Seguí con el próximo rival.':'Continuá con otra partida.'):'Volvé a intentarlo contra el mismo rival.');
   const campaignFinal=outcome==='win'&&s?.mode==='solo'&&s?.experience==='campaign'&&s?.objective?.completed;
-  if(campaignFinal){$('resultTitle').textContent=s.objective.campaignTier==='advanced'?'MAESTRÍA COMPLETADA':'CAMPAÑA COMPLETADA';$('resultMessage').textContent=sceneIssue||(s.objective.trophy==='master'?'Trofeo del Maestro: dominaste la campaña avanzada del taller.':'Trofeo del Campeón: venciste al Maestro Hidráulico. La campaña avanzada está desbloqueada.');}
-  button.textContent=awaiting('resultActionBtn')?'PREPARANDO…':({win:'✓ SEGUIR',lose:'↻ REVANCHA',draw:'↻ REPETIR PARTIDA',observer:''})[outcome];
+  if(campaignFinal){
+    const tier=s.objective.campaignTier;
+    $('resultTitle').textContent=tier==='bosses'?'JEFES DEL TALLER SUPERADO':tier==='advanced'?'MAESTRÍA COMPLETADA':'CAMPAÑA COMPLETADA';
+    $('resultMessage').textContent=sceneIssue||(tier==='bosses'||s.objective.story?s.objective.instruction:s.objective.trophy==='master'?'Trofeo del Maestro: dominaste la campaña avanzada del taller.':'Trofeo del Campeón: venciste al Maestro Hidráulico. La campaña avanzada está desbloqueada.');
+  }
+  const nextLabel=outcome==='win'?storyAdvanceLabel(s?.objective):'';
+  if(!sceneIssue&&outcome==='win'&&s?.objective?.story?.nextOpponent)$('resultMessage').textContent=s.objective.instruction;
+  button.textContent=awaiting('resultActionBtn')?'PREPARANDO…':nextLabel?`✓ ${nextLabel}`:({win:'✓ SEGUIR',lose:'↻ REVANCHA',draw:'↻ REPETIR PARTIDA',observer:''})[outcome];
   if(!awaiting('resultActionBtn')&&resultState.command==='beginAdvancedCampaign')button.textContent='✓ INICIAR CAMPAÑA AVANZADA';
   button.hidden=outcome==='observer';button.disabled=!online||preparing||changingArena||resultAccepted||button.hidden||!!sceneIssue;
   button.setAttribute('aria-busy',String(awaiting('resultActionBtn')));
@@ -392,6 +415,40 @@ function renderEffectControls(s,usable){
     s.effectsVolume===0?'Podés preparar los efectos; su volumen sigue en 0%.':anyPending?'Esperando confirmación de la arena para los cambios indicados.':'Elegí qué sonidos participan en el duelo. La música conserva su propio volumen.';
   if(hint.textContent!==message)hint.textContent=message;
 }
+function updateSoundLabel(slider){
+  const label=soundLabel(slider.id,Number(slider.value)),output=$(slider.id+'Value');
+  if(output.textContent!==label)output.textContent=label;
+  if(slider.getAttribute('aria-valuetext')!==label)slider.setAttribute('aria-valuetext',label);
+}
+function renderSoundControls(s,usable){
+  const audio=$('menuAudio'),toggle=pendingFor(audio.id);
+  audio.disabled=!usable||!!toggle;
+  if(s)audio.checked=toggle?.value??!!s.audioOn;
+  for(const {id,field,fallback,min,max} of SOUND_SLIDERS){
+    const slider=$(id),pending=pendingFor(id);
+    slider.disabled=!usable||!!pending;
+    if(!soundDragging.has(id))slider.value=String(pending?.value??clamp(Number.isFinite(s?.[field])?s[field]:fallback,min,max));
+    updateSoundLabel(slider);
+  }
+  renderEffectControls(s,usable);
+}
+function renderStory(objective){
+  const list=$('menuStoryChapters'),story=objective?.story;
+  list.hidden=!story;
+  if(!story)return;
+  const active=story.nextChapter||story.chapter,signature=`${active}:${objective.completed}`;
+  if(list.dataset.signature===signature)return;
+  list.dataset.signature=signature;
+  list.replaceChildren(...STORY_CHAPTERS.map(({title,boss},index)=>{
+    const number=index+1,cleared=objective.completed||number<active;
+    const item=document.createElement('li'),name=document.createElement('strong'),leader=document.createElement('small');
+    item.dataset.cleared=String(cleared);
+    if(!cleared&&number===active)item.setAttribute('aria-current','step');
+    name.textContent=`${number}. ${title}`;
+    leader.textContent=cleared?`Vencido · ${boss.name}`:boss.name;
+    item.appendChild(name);item.appendChild(leader);return item;
+  }));
+}
 function renderMenu(){
   const online=connected(),s=menuState,usable=online&&!!s;
   const sceneIssue=presentationReason(s);
@@ -407,7 +464,7 @@ function renderMenu(){
   $('menuCampaignTier').disabled=!campaign||!configurable||preparing;
   $('menuCampaignAdvancedOption').disabled=!campaignObjective?.advancedUnlocked;
   $('menuCampaignAdvancedOption').textContent=campaignObjective?.advancedUnlocked?'Campaña avanzada · siete nuevos encuentros':'Campaña avanzada · bloqueada';
-  $('menuCampaignReward').textContent=campaignObjective?.trophy==='master'?'Trofeo del Maestro obtenido.':campaignObjective?.advancedUnlocked?'Trofeo del Campeón obtenido. Tu progreso normal se conserva.':'Vencé al Maestro Hidráulico para obtener el trofeo y desbloquear la campaña avanzada.';
+  $('menuCampaignReward').textContent=campaignObjective?.campaignTier==='bosses'?'Cuatro duelos. Cada victoria suma el equipo del rival al mural.':campaignObjective?.trophy==='master'?'Trofeo del Maestro obtenido.':campaignObjective?.advancedUnlocked?'Trofeo del Campeón obtenido. Tu equipo se conserva.':'Vencé a los cuatro jefes de la historia para desbloquear la campaña avanzada.';
   const ownFighter=s?.fighters?.find(fighter=>fighter.slot===slot);
   $('autoDefenseStatus').textContent=usable&&ownFighter?`${safeText(ownFighter.guardLabel,32)} · ${Math.round(clamp(Number(ownFighter.guardPercent)||0,0,100))}%`:'ESPERANDO ARENA';
   const rendererError=typeof s?.rendererError==='string'?safeText(s.rendererError,240).trim():'';
@@ -427,6 +484,14 @@ function renderMenu(){
     status.dataset.state=assetState;status.hidden=!assetMessage||localMode&&id==='assetsStatus'&&assetState==='ready';
   }
   $('menuBtn').disabled=!online;
+  const quick=$('quickStartBtn'),quickReady=usable&&s.phase==='ready'&&!sceneIssue&&!s.replay?.active;
+  if(!quickReady)quickStartAccepted=false;
+  quick.hidden=!quickReady;
+  quick.disabled=!quickReady||preparing||changingArena||quickStartAccepted;
+  const quickPending=awaiting(quick.id)||quickStartAccepted;
+  quick.textContent=quickPending?'Iniciando…':'Jugar';
+  quick.setAttribute('aria-busy',String(quickPending));
+  if(!quickReady)$('quickStartFeedback').hidden=true;
   $('menuConnection').textContent=!online?'Sin conexión con la arena. Los mandos se mantienen en neutro.':!s?'Conectado. Esperando las opciones de la arena.':'Conectado a la arena · los cambios requieren confirmación.';
   for(const [id,key]of Object.entries(menuFields)){if(s?.[key]!==undefined)$(id).value=String(s[key]);$(id).disabled=!usable||awaiting(id);}
   for(const id of mechanicalFields)$(id).disabled=!configurable||awaiting(id);
@@ -435,25 +500,20 @@ function renderMenu(){
   if(s?.experience==='campaign'&&s?.mode==='solo'){for(const id of ['menuDifficulty','menuBestOf','menuArena'])$(id).disabled=true;}
   if(['fight','countdown'].includes(s?.phase)&&!s?.replay?.active)$('menuCamera').disabled=true;
   $('menuConfigNotice').textContent=sceneIssue|| (changingArena?'Esperando la acción solicitada. Los cambios de combate quedan en pausa.':preparing?'Esperando que la arena aplique tu selección antes de comenzar.':configurable?'Elegí las opciones y tocá Comenzar. Al confirmarse, volvés directamente a los mandos.':'La partida está en curso. Las opciones de combate se habilitan al terminar o preparar otra partida.');
-  for(const id of ['menuAudio','menuVolume'])$(id).disabled=!usable||awaiting(id);
-  for(const [id]of soundSliders)$(id).disabled=!usable||awaiting(id);
   if(s){
     const own=s.fighters?.find(f=>f.slot===slot);if(own?.emblem){$('seatSymbol').textContent=own.emblem.glyph;$('seatSymbol').setAttribute('aria-label',own.emblem.name);for(const id of ['offKnob','mainKnob'])$(id).dataset.emblem=own.emblem.glyph;}
     const report=$('menuPerformanceReport');if(report){const labels={steady:'Duelo estable',clash:'Choques',detach:'Desprendimientos',burst:'Ruptura'};report.textContent=Object.entries(labels).map(([kind,label])=>{const m=s.performance?.[kind];return m?`${label}: ${m.fpsMean.toFixed(1)} FPS · P95 ${m.frameP95Ms.toFixed(1)} ms · pico ${m.sessionMaxMs.toFixed(1)} ms (${m.samples} cuadros)`:`${label}: sin muestras`;}).join('\n');}
     const scores=Array.isArray(s.scores)?s.scores:[0,0];$('menuScore').textContent=`${Number(scores[0])||0} : ${Number(scores[1])||0}`;$('scoreText').textContent=$('menuScore').textContent;
     $('menuRound').textContent=safeText(s.round,8);$('menuClock').textContent=safeText(s.clock,24);$('menuMatchMessage').textContent=safeText(s.message);
-    $('menuAudio').checked=!!s.audioOn;if(!volumeDragging)$('menuVolume').value=String(clamp(Number(s.volume)||0,0,100));$('menuVolumeValue').textContent=`${$('menuVolume').value}%`;
-    for(const [id,field,fallback,min,max]of soundSliders){
-      const slider=$(id);if(!soundDragging.has(id))slider.value=String(clamp(Number.isFinite(s[field])?s[field]:fallback,min,max));
-      const label=soundLabel(id,Number(slider.value));$(id+'Value').textContent=label;slider.setAttribute('aria-valuetext',label);
-    }
     const labels={ready:'EN ESPERA',countdown:'PREPARADOS',fight:'¡DUELO ACTIVO!',burst:'RONDA RESUELTA',matchover:'FIN DE PARTIDA'};$('phaseText').textContent=labels[s.phase]??safeText(s.phase,30);
+    if(shell.dataset.phase!==s.phase)shell.dataset.phase=s.phase;
   }
-  renderEffectControls(s,usable);
+  renderSoundControls(s,usable);
   $('menuCombatNotice').hidden=!['fight','countdown'].includes(s?.phase);
   $('menuCombatNotice').textContent=sceneIssue?'La partida está en pausa mientras se prepara la arena. Tus mandos permanecen en neutro.':localMode?'El juego está pausado mientras el menú está abierto. Cerralo para continuar.':'El duelo continúa mientras el menú está abierto. Tu muñeco queda con los mandos en neutro.';
   if(sceneIssue)$('phaseText').textContent=s?.assets?.loading?'CARGANDO ARENA':'ARENA EN PAUSA';
   const objective=s?.objective??{};$('menuObjectiveTitle').textContent=safeText(objective.title||'Actividad');$('menuObjectiveInstruction').textContent=safeText(objective.instruction||'Prepará tu muñeco para el próximo duelo.');
+  renderStory(objective);
   $('menuObjectiveProgress').textContent=Number(objective.total)>0?`${Number(objective.progress)||0} / ${Number(objective.total)}${objective.completed?' · COMPLETADO':''}`:'';
   $('controlObjective').textContent=Number(objective.total)>0?`${$('menuObjectiveProgress').textContent} · ${safeText(objective.instruction)}`:'';$('controlObjective').hidden=!$('controlObjective').textContent;
   for(const n of [1,2]){
@@ -470,8 +530,11 @@ function renderMenu(){
   }
   $('menuEquipmentNotice').textContent=campaign?'Elegí las piezas que ganaste en la historia. El mazo ocupa ambas manos.':s?.trainingEquipmentLocked?s.trainingEquipmentReason||'Equipo de escuela fijado para aprender los mismos movimientos.':s?.mode==='solo'&&s?.experience==='duel'?'El encuentro establece el equipo del rival. Elegí tu arma y defensa antes de combatir.':'El mazo ocupa ambas manos. Elegí arma y defensa antes de combatir.';
   for(const id of menuButtons){$(id).disabled=!usable||awaiting(id);$(id).setAttribute('aria-busy',String(awaiting(id)));}
-  $('menuStartBtn').disabled=!usable||!!sceneIssue||!!s?.replay?.active||!['ready','matchover'].includes(s?.phase)||preparing||changingArena;$('menuStartBtn').textContent=awaiting('menuStartBtn')?'INICIANDO…':s?.phase==='matchover'?'REVANCHA':'COMENZAR';
-  $('menuNextBtn').hidden=!objective.nextAction;$('menuNextBtn').disabled=!usable||!!sceneIssue||!!s?.replay?.active||!objective.nextAction||preparing||changingArena||campaign&&objective.completed&&!configurable;$('menuNextBtn').textContent=awaiting('menuNextBtn')?'PREPARANDO…':objective.nextAction==='retry'?'REINTENTAR ENCUENTRO':objective.nextAction==='repeat'?'REPETIR ACTIVIDAD':'SIGUIENTE ENCUENTRO';
+  const storyLabel=storyAdvanceLabel(objective);
+  $('menuStartBtn').disabled=!usable||!!sceneIssue||!!s?.replay?.active||!['ready','matchover'].includes(s?.phase)||preparing||changingArena;$('menuStartBtn').textContent=awaiting('menuStartBtn')?'INICIANDO…':s?.phase==='matchover'?(storyLabel||(objective.story&&objective.nextAction==='advance'?'SIGUIENTE ENCUENTRO':'REVANCHA')):'COMENZAR';
+  const startVisible=!s||!s.replay?.active&&['ready','matchover'].includes(s.phase);
+  $('menuStartBtn').hidden=!startVisible;$('menuBackBtn').hidden=startVisible;
+  $('menuNextBtn').hidden=!objective.nextAction;$('menuNextBtn').disabled=!usable||!!sceneIssue||!!s?.replay?.active||!objective.nextAction||preparing||changingArena||campaign&&objective.completed&&!configurable;$('menuNextBtn').textContent=awaiting('menuNextBtn')?'PREPARANDO…':objective.nextAction==='retry'?'REINTENTAR ENCUENTRO':objective.nextAction==='repeat'?'REPETIR ACTIVIDAD':storyLabel||'SIGUIENTE ENCUENTRO';
   if(!awaiting('menuNextBtn')&&campaign&&objective.completed)$('menuNextBtn').textContent=activityCommand(s)==='beginAdvancedCampaign'?'INICIAR CAMPAÑA AVANZADA':'REPETIR ÚLTIMO ENCUENTRO';
   $('menuResetBtn').disabled=!usable||preparing||changingArena;
   $('menuResetBtn').textContent=awaiting('menuResetBtn')?'PREPARANDO…':'PREPARAR NUEVA PARTIDA';
@@ -488,7 +551,25 @@ function renderMenu(){
   renderResult({preparing,changingArena});
 }
 $('resultActionBtn').addEventListener('click',()=>{if(resultState&&!menuOpen&&!resultAccepted)command(resultState.command,undefined,'resultActionBtn');});
-$('menuBtn').addEventListener('click',openMenu);for(const id of ['menuCloseBtn','menuBackBtn'])$(id).addEventListener('click',closeMenu);
+$('quickStartBtn').addEventListener('click',()=>{if(!menuOpen)command('start',undefined,'quickStartBtn');});
+$('menuBtn').addEventListener('click',openMenu);
+$('menuCloseBtn').addEventListener('click',closeMenu);
+$('menuBackBtn').addEventListener('click',()=>closeMenu({toControls:true}));
+const menuPages=Object.entries({Game:'menuGameTitle',Controls:'menuControlsTitle',Equipment:'menuEquipmentTitle',Presentation:'menuPresentationTitle',Sound:'menuSoundTitle',Replay:'menuReplayTitle'}).map(([name,id])=>({
+  name,heading:$(id),button:$('menuJump'+name),panel:$('menuPage'+name)
+}));
+for(const page of menuPages){
+  page.heading.tabIndex=-1;
+  page.button.addEventListener('click',()=>{
+    if(equipmentOpen&&page.name!=='Equipment'){setEquipmentOpen(false);send();}
+    for(const entry of menuPages){
+      entry.panel.hidden=entry!==page;
+      entry.button.setAttribute('aria-current',String(entry===page));
+    }
+    $('menuContent').scrollTop=0;
+    page.heading.focus({preventScroll:true});
+  });
+}
 $('menuEquipmentToggle').addEventListener('click',()=>{setEquipmentOpen(!equipmentOpen);send();});
 for(const event of ['pointerdown','focusin'])$('mobileMenu').addEventListener(event,({target})=>{
   if(equipmentOpen&&target&&!$('menuEquipmentSection').contains?.(target)){setEquipmentOpen(false);send();}
@@ -496,7 +577,10 @@ for(const event of ['pointerdown','focusin'])$('mobileMenu').addEventListener(ev
 $('mobileMenu').addEventListener('cancel',event=>{event.preventDefault();closeMenu();});$('mobileMenu').addEventListener('close',()=>{if(menuOpen)closeMenu();});
 $('mobileMenu').addEventListener('keydown',event=>{
   if(event.key==='Escape'){event.preventDefault();closeMenu();return;}if(event.key!=='Tab')return;
-  const items=[...($('mobileMenu').querySelectorAll?.('button:not(:disabled),select:not(:disabled),input:not(:disabled)')??[])].filter(e=>!e.hidden&&!e.closest?.('[hidden]'));
+  const items=[...($('mobileMenu').querySelectorAll?.('button:not(:disabled),select:not(:disabled),input:not(:disabled),summary,a[href]')??[])].filter(e=>{
+    const closed=e.closest?.('details:not([open])');
+    return !e.hidden&&!e.closest?.('[hidden]')&&(!closed||e===closed.firstElementChild);
+  });
   if(!items.length)return;const first=items[0],last=items.at(-1);
   if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
 });
@@ -504,17 +588,23 @@ for(const [id,commandName,allowed,numeric]of [
   ['menuMode','setMode',['solo','versus']],['menuExperience','setExperience',['duel','training','practice','precision','campaign','parry','moving','depth']],['menuDifficulty','setDifficulty',['rookie','normal','expert','boss']],
   ['menuBestOf','setBestOf',['3','5'],true],['menuArena','setArena',['atelier','midnight','dojo']],['menuQuality','setQuality',['high','ultra','eco']],['menuPerformanceMode','setPerformanceMode',['adaptive','fixed']],['menuCamera','setCamera',['combat','detail']],['menuLighting','setLighting',['cinematic','neutral']],['menuReplaySpeed','replaySpeed',['0.25','0.5','1'],true]
 ])$(id).addEventListener('change',()=>{const value=$(id).value;if(!allowed.includes(value)){renderMenu();return;}command(commandName,numeric?Number(value):value,id);});
-$('menuCampaignTier').addEventListener('change',()=>{const value=$('menuCampaignTier').value;if(!['normal','advanced'].includes(value)||value==='advanced'&&!menuState?.objective?.advancedUnlocked){renderMenu();return;}if(!command('setCampaignTier',value,'menuCampaignTier'))renderMenu();});
-for(const [id,name]of [['menuStartBtn','start'],['menuResetBtn','reset'],['menuCampaignResetBtn','resetCampaign'],['menuReplayToggleBtn','replayToggle'],['menuReplayCloseBtn','replayClose'],['menuReplayClearBtn','replayClear']])$(id).addEventListener('click',()=>command(name,undefined,id));
+$('menuCampaignTier').addEventListener('change',()=>{const value=$('menuCampaignTier').value;if(!CAMPAIGN_TIERS.includes(value)||value==='advanced'&&!menuState?.objective?.advancedUnlocked){renderMenu();return;}if(!command('setCampaignTier',value,'menuCampaignTier'))renderMenu();});
+$('menuStartBtn').addEventListener('click',()=>{
+  const objective=menuState?.objective,continueStory=menuState?.phase==='matchover'&&objective?.story&&objective.nextAction==='advance';
+  command(continueStory?'nextEncounter':'start',undefined,'menuStartBtn');
+});
+for(const [id,name]of [['menuResetBtn','reset'],['menuCampaignResetBtn','resetCampaign'],['menuReplayToggleBtn','replayToggle'],['menuReplayCloseBtn','replayClose'],['menuReplayClearBtn','replayClear']])$(id).addEventListener('click',()=>command(name,undefined,id));
 $('menuNextBtn').addEventListener('click',()=>command(activityCommand(menuState),undefined,'menuNextBtn'));
 $('menuAudio').addEventListener('change',()=>command('setAudio',$('menuAudio').checked,'menuAudio'));
 for(const [id,mask]of [['menuEffectsEnableAll',ALL_EFFECTS_MASK],['menuEffectsDisableAll',0]])$(id).addEventListener('click',()=>{if(!command('setEffectMask',mask,id))renderMenu();});
-$('menuVolume').addEventListener('input',()=>{volumeDragging=true;$('menuVolumeValue').textContent=`${$('menuVolume').value}%`;});
-$('menuVolume').addEventListener('change',()=>{volumeDragging=false;const volume=Number($('menuVolume').value);if(Number.isFinite(volume))command('setVolume',Math.round(clamp(volume,0,100)),'menuVolume');});
-for(const [id,field,,min,max]of soundSliders){
+for(const {id,command:action,min,max} of SOUND_SLIDERS){
   const slider=$(id);
-  slider.addEventListener('input',()=>{soundDragging.add(id);const label=soundLabel(id,Number(slider.value));$(id+'Value').textContent=label;slider.setAttribute('aria-valuetext',label);});
-  slider.addEventListener('change',()=>{soundDragging.delete(id);const value=Number(slider.value);if(Number.isFinite(value))command('set'+field[0].toUpperCase()+field.slice(1),Math.round(clamp(value,min,max)),id);});
+  slider.addEventListener('input',()=>{soundDragging.add(id);updateSoundLabel(slider);});
+  slider.addEventListener('change',()=>{
+    soundDragging.delete(id);
+    const value=Number(slider.value);
+    if(!Number.isFinite(value)||!command(action,Math.round(clamp(value,min,max)),id))renderMenu();
+  });
 }
 $('menuReplayOpenBtn').addEventListener('click',()=>{const id=Number($('menuReplayClip').value);if(Number.isSafeInteger(id)&&id>0)command('replayOpen',id,'menuReplayOpenBtn');});
 $('menuReplaySeek').addEventListener('input',()=>{seekDragging=true;$('menuReplayPosition').textContent=`${Math.round(Number($('menuReplaySeek').value)/10)}%`;});
@@ -529,12 +619,11 @@ for(const n of [1,2])for(const type of ['Weapon','Defense','KnifeGrip'])$(`menu$
   command('setLoadout',{slot:n,...loadout},`menu${type}${n}`);
 });
 renderMenu();
-if(localMode){
-  $('mobileHeadTouch')?.addEventListener('change',()=>{
-    neutralize();$('mobileHeadPanel').hidden=!$('mobileHeadTouch').checked;
-    if($('mobileHeadTouch').checked)closeMenu({toControls:true});
-  });
-}
+$('mobileHeadTouch').addEventListener('change',()=>{
+  $('mobileHeadPanel').hidden=!$('mobileHeadTouch').checked;
+  neutralize();
+  if($('mobileHeadTouch').checked)closeMenu({toControls:true});
+});
 setInterval(send,33);
 setInterval(()=>{if(ws?.readyState===WebSocket.OPEN)ws.send(JSON.stringify({type:'ping',at:Date.now()}));},2000);
 connect();

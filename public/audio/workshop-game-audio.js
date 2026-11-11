@@ -4,12 +4,14 @@ import {EffectsRack} from './effects-rack.js';
 import {WorkshopAcoustics} from './spatial-audio.js';
 import {AudioScene} from './scene-audio.js';
 import {ALL_EFFECTS_MASK,validEffectMask,effectEnabled} from './effect-controls.js';
+import {SOUND_DEFAULTS} from './sound-settings.js';
 import {sampleWeather} from '../weather.js';
 export const WORKSHOP_AUDIO_DEFAULTS=Object.freeze({music:.24,effects:1,distortion:.03,reverb:.08,reverbDecay:1.1});
 const clamp=(value,min,max,fallback)=>Number.isFinite(value)?Math.max(min,Math.min(max,value)):fallback;
 const PHASES=new Set(['ready','countdown','fight','burst','matchover']);
 const ACTIVE_PHASES=new Set(['fight','burst']),JOINT_EVENTS=new Set(['joint-damage','joint-break']);
 const THUNDER_URL=new URL('../assets/audio/weather/thunder.wav',import.meta.url);
+const DEFAULT_THUNDER_VOLUME=SOUND_DEFAULTS.thunderVolume/100;
 // HRTF/listener behavior stays inherited; this mix has one adjustable room.
 // Suppressing the old send makes the reverb control's zero genuinely dry.
 class DirectSpatialAcoustics extends WorkshopAcoustics{ensureRoom(){}}
@@ -28,10 +30,11 @@ export class WorkshopGameAudio extends RecordedGameAudio{
   #thunderBuffer=null;
   #stormOrigin=null;
   #lastThunder=null;
+  #thunderVolume=DEFAULT_THUNDER_VOLUME;
   constructor({mediaFactory,...options}={}){
     super(options);this.mediaFactory=mediaFactory;this.stream=null;this.fxRack=null;this.distortion=.03;this.reverb=.08;this.reverbDecay=1.1;this.effectMask=ALL_EFFECTS_MASK;this.lastMusicGain=null;this.musicPhase='ready';this.scene=new WorkshopMotionScene();
   }
-  configure(enabled,volume,{music=this.musicVolume,effects=this.effectsVolume,distortion=this.distortion,reverb=this.reverb,reverbDecay=this.reverbDecay,effectMask=this.effectMask}={}){
+  configure(enabled,volume,{music=this.musicVolume,effects=this.effectsVolume,thunder=this.#thunderVolume,distortion=this.distortion,reverb=this.reverb,reverbDecay=this.reverbDecay,effectMask=this.effectMask}={}){
     const oldMaster=this.master?.gain.value,oldEffects=this.effects?.gain.value;
     if(validEffectMask(effectMask)&&effectMask!==this.effectMask){
       this.effectMask=effectMask;
@@ -41,6 +44,14 @@ export class WorkshopGameAudio extends RecordedGameAudio{
     }
     this.distortion=clamp(distortion,0,1,.03);this.reverb=clamp(reverb,0,1,.08);this.reverbDecay=clamp(reverbDecay,.2,2.4,1.1);
     super.configure(enabled,volume,{music,effects});
+    const thunderVolume=clamp(thunder,0,1,DEFAULT_THUNDER_VOLUME);
+    if(thunderVolume!==this.#thunderVolume){
+      this.#thunderVolume=thunderVolume;
+      for(const voice of this.voices)if(voice.name==='thunder'){
+        const gain=voice.gain.gain;
+        this.rampMix(gain,gain.value,voice.strikeGain*thunderVolume);
+      }
+    }
     if(this.audible&&oldMaster!==undefined&&oldMaster!==this.volume)this.rampMix(this.master.gain,oldMaster,this.volume);
     if(this.effectsVolume>0&&oldEffects!==undefined&&oldEffects!==this.effectsVolume)this.rampMix(this.effects.gain,oldEffects,this.effectsVolume);
     this.fxRack?.configure(this);this.lastMusicGain=null;this.syncMusic(false);
@@ -96,10 +107,11 @@ export class WorkshopGameAudio extends RecordedGameAudio{
     const source=context.createBufferSource(),gain=context.createGain();
     const {pan,send,spatial,at}=this.acoustics.source({x:storm.thunderX,y:5,z:-13},'thunder');
     source.buffer=buffer;
-    gain.gain.value=.6*storm.thunderStrength;
+    const strikeGain=.6*storm.thunderStrength;
+    gain.gain.value=strikeGain*this.#thunderVolume;
     source.connect(gain).connect(pan);
     const start=context.currentTime,ends=start+buffer.duration+.01;
-    const voice={name:'thunder',source,gain,pan,send,spatial,at,start,ends,priority:3};
+    const voice={name:'thunder',source,gain,pan,send,spatial,at,start,ends,priority:3,strikeGain};
     this.voices.add(voice);
     source.onended=()=>this.retire(voice);
     source.start(start);source.stop(ends);
@@ -115,7 +127,7 @@ export class WorkshopGameAudio extends RecordedGameAudio{
     }
     if(origin===null)return cues;
     const context=this.context;
-    if(!this.audible||!this.effectsWanted||!this.effectSelected('thunder')||context?.state!=='running')return cues;
+    if(!this.audible||!this.effectsWanted||!this.#thunderVolume||!this.effectSelected('thunder')||context?.state!=='running')return cues;
     if(!this.#thunderLoad&&this.recordedFetch){
       const load=Promise.resolve().then(async()=>{
         const response=await this.recordedFetch(THUNDER_URL,{signal:AbortSignal.timeout(8000)});

@@ -107,19 +107,19 @@ test('campaña exige victoria confirmada y ofrece reintento tras derrota',()=>{
   finishCampaign(s,g,2);assert.equal(s.view(g).nextAction,'retry');assert.equal(s.next(),true);
   assert.equal(s.configuration().aiStyle,'aggressive');
   finishCampaign(s,g,1);assert.equal(s.view(g).nextAction,'advance');assert.equal(s.view(g).progress,1);assert.equal(s.next(),true);
-  assert.equal(s.configuration().aiStyle,'defender');
+  assert.equal(s.configuration().aiStyle,'counter');
 });
 
-test('los siete encuentros terminan en jefe y guardan sólo progreso ganado',()=>{
+test('los once encuentros terminan en el Maestro y guardan sólo progreso ganado',()=>{
   const values=new Map(),storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value),removeItem:key=>values.delete(key)};
   const s=session({storage}),g=fixture();s.select('campaign');const styles=[];
-  for(let index=0;index<7;index++){
+  for(let index=0;index<CAMPAIGN.length;index++){
     styles.push(s.configuration().aiStyle);finishCampaign(s,g,1);
-    if(index<6)assert.equal(s.next(),true);
+    if(index<CAMPAIGN.length-1)assert.equal(s.next(),true);
   }
-  assert.deepEqual(styles,['aggressive','defender','counter','feint','precision','erratic','boss']);
+  assert.deepEqual(styles,['aggressive','counter','boss','precision','erratic','boss','defender','feint','boss','defender','boss']);
   assert.equal(s.configuration().difficulty,'boss');assert.equal(s.view(g).completed,true);
-  assert.equal(s.next(),false,'no se fabrica un octavo encuentro');
+  assert.equal(s.next(),false,'el Maestro cierra la ruta');
   const restored=session({storage});restored.select('campaign');assert.equal(restored.view(g).completed,true);
   restored.resetProgress();assert.equal(restored.configuration().aiStyle,'aggressive');assert.equal(restored.view(g).completed,false);
 });
@@ -135,7 +135,7 @@ test('JSON corrupto, versión futura y rango inválido no fabrican progreso',()=
 test('storage denegado y datos devueltos mutados no afectan jugar ni el catálogo',()=>{
   const s=session({storage:{getItem(){throw Error('denied');},setItem(){throw Error('denied');},removeItem(){throw Error('denied');}}}),g=fixture();
   s.select('campaign');const config=s.configuration();config.aiStyle='boss';assert.equal(s.configuration().aiStyle,'aggressive');
-  finishCampaign(s,g,1);assert.equal(s.next(),true);assert.equal(s.configuration().aiStyle,'defender');
+  finishCampaign(s,g,1);assert.equal(s.next(),true);assert.equal(s.configuration().aiStyle,'counter');
   s.resetProgress();assert.equal(s.configuration().aiStyle,'aggressive');assert.equal(Object.isFrozen(CAMPAIGN),true);
 });
 

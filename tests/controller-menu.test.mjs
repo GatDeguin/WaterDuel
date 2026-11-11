@@ -6,7 +6,9 @@ import {fileURLToPath} from 'node:url';
 import {normalizeMenuCommand,sanitizeMenuState} from '../public/remote-menu.js';
 import {RadialJoystick,weaponGesture,movementGesture} from '../public/joysticks.js';
 import {AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled} from '../public/audio/effect-controls.js';
+import {SOUND_SLIDERS,SOUND_COMMANDS} from '../public/audio/sound-settings.js';
 import {contactHaptic} from '../public/item-haptics.js';
+import {CAMPAIGN_TIERS,STORY_CHAPTERS} from '../public/campaign-progression.js';
 const source=await readFile(new URL('../public/controller.js',import.meta.url),'utf8');
 const markup=await readFile(new URL('../public/controller.html',import.meta.url),'utf8');
 const mobileMarkup=await readFile(new URL('../public/mobile.html',import.meta.url),'utf8');
@@ -20,6 +22,7 @@ class Element{
   setPointerCapture(id){this.captures.add(id);}hasPointerCapture(id){return this.captures.has(id);}
   releasePointerCapture(id){if(this.captures.delete(id))this.fire('lostpointercapture',{pointerId:id});}
   focus(){this.owner.activeElement=this;}showModal(){this.open=true;}close(){this.open=false;this.fire('close');}
+  scrollIntoView(){this.scrolled=true;}
   appendChild(child){this.children.push(child);if(child.id)this.owner.elements.set(child.id,child);return child;}replaceChildren(...children){this.children=children;}
   querySelectorAll(){return [...this.owner.elements.values()].filter(e=>e.id.startsWith('menu')&&!e.disabled&&!e.hidden);}
   set innerHTML(_value){throw Error('El contenido remoto debe presentarse como texto, nunca HTML.');}
@@ -35,7 +38,7 @@ function fixture(slot=1,view='controller'){
   const sockets=[],timers=new Map();let timer=0;
   class Socket{static OPEN=1;static CONNECTING=0;static CLOSED=3;constructor(){this.readyState=0;this.messages=[];sockets.push(this);}send(raw){this.messages.push(JSON.parse(raw));}open(){this.readyState=1;this.onopen?.();}receive(data){this.onmessage?.({data:JSON.stringify(data)});}close(){this.readyState=3;this.onclose?.();}}
   const ctx=vm.createContext({document,window,navigator:{vibrate(){}},location:{search:`?slot=${slot}&key=private-fixture`,protocol:'http:',host:'fixture.local:8787'},WebSocket:Socket,URLSearchParams,Date,console,RadialJoystick,weaponGesture,movementGesture,
-    AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled,connectMobileController:()=>new Socket(),
+    AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled,SOUND_SLIDERS,SOUND_COMMANDS,CAMPAIGN_TIERS,STORY_CHAPTERS,connectMobileController:()=>new Socket(),
     contactHaptic:(data,localSlot)=>contactHaptic(data==null?data:JSON.parse(JSON.stringify(data)),localSlot),
     setInterval:()=>++timer,setTimeout:fn=>{timers.set(++timer,fn);return timer;},clearTimeout:id=>timers.delete(id)});
   new vm.Script(source.replace(/^import[^\n]+;\s*$/gm,''),{filename:fileURLToPath(new URL('../public/controller.js',import.meta.url)),importModuleDynamically:vm.constants.USE_MAIN_CONTEXT_DEFAULT_LOADER}).runInContext(ctx);
@@ -45,6 +48,69 @@ function fixture(slot=1,view='controller'){
 }
 const state=(extra={})=>({phase:'ready',mode:'solo',experience:'duel',difficulty:'normal',bestOf:3,arena:'atelier',quality:'high',camera:'combat',lighting:'cinematic',audioOn:true,volume:55,effectMask:ALL_EFFECTS_MASK,scores:[1,0],round:2,clock:'00:37',fighters:[{slot:1,name:'Mint',equipment:{weapon:'sword',defense:'short'},guardPercent:70,guardLabel:'GUARDIA',wins:[true,false]},{slot:2,name:'Amber',equipment:{weapon:'spear',defense:'long'},guardPercent:20,guardLabel:'ACTIVA',wins:[false,false]}],objective:{title:'Escuela',instruction:'Mové el brazo real',progress:2,total:7,completed:false,nextAction:null},replay:{clips:[{id:7,duration:2.8,complete:true}],active:false,paused:true,speed:.5,position:.25},configurable:true,trainingEquipmentLocked:false,message:'Preparados',...extra});
 const neutral={offX:0,offY:0,mainX:0,mainY:0,lean:0,bodyY:0,wrist:0,thrust:false,guard:false,attackHeld:false,headX:0,headZ:0};
+
+test('La historia muestra los capítulos en ambos mandos y la acción verde lleva al próximo jefe',()=>{
+  for(const view of ['controller','mobile']){
+    const f=fixture(1,view),base={kind:'campaign',campaignTier:'normal',progress:2,total:11,completed:false,nextAction:'advance',
+      instruction:'Próximo rival · El Mariscal de Latón.',story:{chapter:1,role:'subject',nextChapter:1,nextRole:'boss',nextOpponent:'El Mariscal de Latón'}};
+    f.receive(state({phase:'matchover',experience:'campaign',scores:[2,0],objective:base}));
+    const chapters=f.el('menuStoryChapters');
+    assert.equal(chapters.hidden,false);assert.equal(chapters.children.length,4);
+    assert.equal(chapters.children[0].getAttribute('aria-current'),'step');
+    assert.match(chapters.children[3].children[1].textContent,/Maestro Hidráulico/);
+    assert.equal(f.el('resultActionBtn').textContent,'✓ ENFRENTAR AL JEFE');
+    assert.match(f.el('resultMessage').textContent,/Mariscal de Latón/);
+    f.open();assert.equal(f.el('menuStartBtn').textContent,'ENFRENTAR AL JEFE');
+    f.el('menuStartBtn').fire('click');assert.equal(f.commands().at(-1).command,'nextEncounter');
+  }
+  const f=fixture(),story={chapter:2,role:'boss',nextChapter:3,nextRole:'subject',nextOpponent:'El Guardián de Roble'};
+  f.receive(state({phase:'matchover',experience:'campaign',scores:[2,0],objective:{kind:'campaign',campaignTier:'normal',nextAction:'advance',story}}));
+  const chapters=f.el('menuStoryChapters');
+  assert.equal(chapters.children[1].dataset.cleared,'true');assert.equal(chapters.children[2].getAttribute('aria-current'),'step');
+  assert.equal(f.el('resultActionBtn').textContent,'✓ SIGUIENTE CAPÍTULO');
+});
+
+test('La navegación muestra una sección por vez y confirma el volumen de truenos en ambos mandos',()=>{
+  for(const view of ['controller','mobile']){
+    const f=fixture(1,view);f.receive(state({thunderVolume:80}));f.open();
+    assert.equal(f.el('menuPageGame').hidden,false);assert.equal(f.el('menuPageSound').hidden,true);
+    f.el('menuContent').scrollTop=500;
+    f.el('menuJumpSound').fire('click');
+    assert.equal(f.document.activeElement,f.el('menuSoundTitle'));
+    assert.equal(f.el('menuPageGame').hidden,true);assert.equal(f.el('menuPageSound').hidden,false);
+    assert.equal(f.el('menuJumpSound').getAttribute('aria-current'),'true');
+    assert.equal(f.el('menuContent').scrollTop,0);
+    assert.match(f.el('menuSoundHelp').getAttribute('id'),/menuSoundHelp/);
+    const thunder=f.el('menuThunderVolume');
+    assert.equal(thunder.value,'80');assert.equal(thunder.getAttribute('aria-valuetext'),'80%');
+    thunder.value='35';thunder.fire('input');
+    assert.equal(f.commands().length,0);assert.equal(f.el('menuThunderVolumeValue').textContent,'35%');
+    thunder.fire('change');const request=f.commands().at(-1);
+    assert.equal(request.command,'setThunderVolume');assert.equal(request.value,35);
+    f.receive(state({thunderVolume:80}));assert.equal(thunder.value,'35');assert.equal(thunder.disabled,true);
+    f.socket.receive({type:'command-result',requestId:request.requestId,ok:true});
+    f.receive(state({thunderVolume:35}));assert.equal(thunder.disabled,false);assert.equal(thunder.value,'35');
+    assert.equal(f.el('mobileMenu').open,true);
+    f.el('menuJumpControls').fire('click');
+    assert.equal(f.el('menuPageSound').hidden,true);assert.equal(f.el('menuPageControls').hidden,false);
+  }
+});
+
+test('Jugar desde la arena espera confirmación y Mandos permite sacar la esquiva táctil',()=>{
+  for(const view of ['controller','mobile']){
+    const f=fixture(1,view),start=f.el('quickStartBtn');
+    f.receive(state({assets:{loading:true,total:4,ready:1}}));assert.equal(start.hidden,true);
+    f.receive(state());assert.equal(start.hidden,false);assert.equal(start.disabled,false);
+    start.fire('click');const request=f.commands().at(-1);
+    assert.equal(request.command,'start');assert.equal(start.disabled,true);assert.equal(f.el('mobileMenu').open,false);
+    f.socket.receive({type:'command-result',requestId:request.requestId,ok:true});assert.equal(start.disabled,true);
+    f.receive(state({phase:'countdown',configurable:false}));assert.equal(start.hidden,true);
+    f.open();f.el('menuJumpControls').fire('click');
+    const toggle=f.el('mobileHeadTouch');assert.equal(f.el('mobileHeadPanel').hidden,true);
+    toggle.checked=true;toggle.fire('change');
+    assert.equal(f.el('mobileHeadPanel').hidden,false);assert.equal(f.el('mobileMenu').open,false);
+  }
+});
 
 test('campaign tier picker retains its intent until ACK and newer campaign authority and restores a rejected change',()=>{
  for(const view of ['controller','mobile']){

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import {withoutStormFilament} from './fixtures/storm-filament-shader.mjs';
 import {Renderer3D} from '../public/render3d.js';
 import {DuelEngine} from '../public/engine.js';
 import {parseGLB} from '../public/rendering/glb.js';
@@ -58,7 +59,8 @@ test('Pose legacy estática conserva payload procedural F32 aprobado 1.7, tambi�
     assert.equal(calls.length,count,`${weapon}/${boss}: historical draw count`);assert.equal(digest(calls),sha,`${weapon}/${boss}: historical ordered F32 payload`);
   }
   const source=await readFile(new URL('../public/render3d.js',import.meta.url),'utf8');
-  assert.equal(createHash('sha256').update(source.slice(source.indexOf('const vert=`'),source.indexOf('function buildProgram('))).digest('hex'),'178065a1e4e30b754e730bda414c821a1f84403a3ccf5a497851ede5cc70ac49');
+  const historicalShader=withoutStormFilament(source.slice(source.indexOf('const vert=`'),source.indexOf('function buildProgram(')));
+  assert.equal(createHash('sha256').update(historicalShader).digest('hex'),'178065a1e4e30b754e730bda414c821a1f84403a3ccf5a497851ede5cc70ac49');
 });
 
 test('Fallback N16 proyecta los dos hulls físicos con su foot frame, sin piezas proxy legacy',()=>{

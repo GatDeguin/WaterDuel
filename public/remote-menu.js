@@ -2,6 +2,7 @@
 import {WEAPONS,DEFENSES,normalizeLoadout} from './equipment.js';
 import {SOUND_COMMANDS,validSoundValue,soundPreferences} from './audio/sound-settings.js';
 import {ALL_EFFECTS_MASK,effectEnabled} from './audio/effect-controls.js';
+import {CAMPAIGN_TIERS,STORY_CHAPTERS} from './campaign-progression.js';
 
 const oneOf=(value,values,fallback)=>values.includes(value)?value:fallback;
 const finite=(value,min,max,fallback=0)=>typeof value==='number'&&Number.isFinite(value)?Math.max(min,Math.min(max,value)):fallback;
@@ -32,7 +33,7 @@ function armoryItems(value,catalog,starter){
 const actions=new Set(['start','reset','replayToggle','replayClose','replayClear','nextEncounter','resetCampaign','beginAdvancedCampaign']);
 const experiences=['duel','training','practice','precision','campaign','parry','moving','depth'];
 const options={
-  setMode:['solo','versus'],setExperience:experiences,setCampaignTier:['normal','advanced'],
+  setMode:['solo','versus'],setExperience:experiences,setCampaignTier:CAMPAIGN_TIERS,
   setDifficulty:['rookie','normal','expert','boss'],setBestOf:[3,5],setArena:['atelier','dojo','midnight'],
   setQuality:['high','ultra','eco'],setPerformanceMode:['adaptive','fixed'],setCamera:['combat','detail'],setLighting:['cinematic','neutral'],
   setAudio:[true,false],replaySpeed:[.25,.5,1],
@@ -72,6 +73,7 @@ export function normalizeMenuCommand(message){
 /** Bounded, fresh, JSON-only copy. Deliberately excludes invitation keys, URLs, frames and scene internals. */
 export function sanitizeMenuState(value){
   const state=record(value),replay=record(state.replay),objective=record(state.objective);
+  const story=record(objective.story),chapter=integer(story.chapter,0,STORY_CHAPTERS.length);
   const armory=state.mode==='solo'&&state.experience==='campaign'&&record(state.campaignArmory);
   const total=integer(objective.total,0,100);
   const fighters=Array.isArray(state.fighters)?state.fighters.slice(0,2):[];
@@ -99,7 +101,9 @@ export function sanitizeMenuState(value){
       kind:oneOf(objective.kind,experiences,'duel'),
       title:text(objective.title,96),instruction:text(objective.instruction,320),progress:integer(objective.progress,0,total),total,
       completed:objective.completed===true,nextAction:oneOf(objective.nextAction,['advance','retry','repeat'],null),
-      ...(objective.kind==='campaign'?{campaignTier:oneOf(objective.campaignTier,['normal','advanced'],'normal'),advancedUnlocked:objective.advancedUnlocked===true,trophy:oneOf(objective.trophy,['none','champion','master'],'none')}:{}),
+      ...(objective.kind==='campaign'?{campaignTier:oneOf(objective.campaignTier,CAMPAIGN_TIERS,'normal'),advancedUnlocked:objective.advancedUnlocked===true,trophy:oneOf(objective.trophy,['none','champion','master'],'none'),
+        ...(objective.campaignTier==='normal'&&chapter?{story:{chapter,chapters:STORY_CHAPTERS.length,role:oneOf(story.role,['subject','boss'],'subject'),
+          nextChapter:integer(story.nextChapter,0,STORY_CHAPTERS.length),nextRole:oneOf(story.nextRole,['subject','boss'],null),nextOpponent:text(story.nextOpponent,64)}}:{})}:{}),
     },
     ...(armory?{campaignArmory:{weapons:armoryItems(armory.weapons,WEAPONS,'sword'),defenses:armoryItems(armory.defenses,DEFENSES,'none')}}:{}),
     replay:{clips:clips.map(clip=>({id:clip.id,duration:finite(clip.duration,0,30),complete:clip.complete===true})),

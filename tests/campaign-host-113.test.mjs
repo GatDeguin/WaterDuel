@@ -14,7 +14,7 @@ function prepared(completed=false){
 }
 
 test('campaign tier commands accept only explicit known tiers and a valueless start action',()=>{
- for(const tier of ['normal','advanced'])assert.equal(normalizeMenuCommand(command('setCampaignTier',tier))?.value,tier);
+ for(const tier of ['normal','advanced','bosses'])assert.equal(normalizeMenuCommand(command('setCampaignTier',tier))?.value,tier);
  for(const value of [null,1,true,{},'master','ADVANCED'])assert.equal(normalizeMenuCommand(command('setCampaignTier',value)),null);
  assert.equal(normalizeMenuCommand(command('beginAdvancedCampaign'))?.command,'beginAdvancedCampaign');
  assert.equal(normalizeMenuCommand(command('beginAdvancedCampaign','advanced')),null);
@@ -26,6 +26,9 @@ test('campaign DTO bounds tier and reward while excluding arbitrary campaign fie
  const bad=sanitizeMenuState({objective:{kind:'campaign',campaignTier:'evil',advancedUnlocked:1,trophy:'unknown'}}).objective;
  assert.equal(bad.campaignTier,'normal');assert.equal(bad.advancedUnlocked,false);assert.equal(bad.trophy,'none');
  assert.equal('campaignTier' in sanitizeMenuState({objective:{kind:'duel',campaignTier:'advanced'}}).objective,false);
+ const story=sanitizeMenuState({objective:{kind:'campaign',campaignTier:'normal',
+   story:{chapter:999,role:'invalid',nextChapter:0,nextRole:'invalid',nextOpponent:'C:/secret',secret:'no'}}}).objective.story;
+ assert.deepEqual(story,{chapter:4,chapters:4,role:'subject',nextChapter:0,nextRole:null,nextOpponent:'[ruta omitida]'});
 });
 
 test('host rejects locked campaign tier and prepares unlocked advanced without altering normal progress or audio',()=>{

@@ -1,3 +1,5 @@
+import {CAMPAIGN,ADVANCED_CAMPAIGN,BOSS_CAMPAIGN} from './campaign-progression.js';
+
 const profile=({label,sky,windowTint,windowGain,glassTint,glassAlpha,glassGlow,precipitation=null,disc=null})=>Object.freeze({
   label,sky:Object.freeze(sky),windowTint:Object.freeze(windowTint),windowGain,
   glassTint:Object.freeze(glassTint),glassAlpha,glassGlow,precipitation,
@@ -25,11 +27,11 @@ export const WEATHER_PROFILES=Object.freeze({
 });
 export const WEATHER_TYPES=Object.freeze(Object.keys(WEATHER_PROFILES));
 
-const campaign={normal:WEATHER_TYPES,advanced:['night','snow','sun','sunset','full-moon','rain','storm']};
+const campaign={normal:CAMPAIGN,advanced:ADVANCED_CAMPAIGN,bosses:BOSS_CAMPAIGN};
 export function campaignWeather(stage,tier='normal'){
-  const circuit=tier==='advanced'?campaign.advanced:campaign.normal;
+  const circuit=Object.hasOwn(campaign,tier)?campaign[tier]:campaign.normal;
   const index=Number.isInteger(stage)?Math.max(0,Math.min(circuit.length-1,stage)):0;
-  return circuit[index];
+  return circuit[index].weather;
 }
 
 const STORM_CYCLE=32;
@@ -67,4 +69,14 @@ export function sampleWeather(kind,elapsed=0){
     }
   }
   return {kind,profile:WEATHER_PROFILES[kind],elapsed,flash,lightningX,thunderAt,thunderX,thunderStrength};
+}
+
+export function sampleEncounterWeather(game){
+  if(!game.weather)return null;
+  const weather=sampleWeather(game.weather,game.clock-(game.weatherStart??0));
+  if(weather.kind==='storm'&&game.difficulty==='boss')weather.bossStorm=true;
+  const sinceFight=weather.kind==='storm'&&Number.isFinite(game.stormFightStart)&&Number.isFinite(game.clock)?game.clock-game.stormFightStart:0;
+  const cut=Math.max(0,Math.min(1,(sinceFight-.65)/.15));
+  weather.mainPower=1-cut*cut*(3-2*cut);
+  return weather;
 }

@@ -28,7 +28,7 @@ import {TRAINING_DRILL_KINDS,trainingOpponentControl} from './training-drills.js
 import {AIPerception,loadoutTactics} from './ai-perception.js';
 import {SurfaceState,wetApronFromParcels} from './physics/surface-state.js';
 import {normalizeKnifeGrip,knifeTip,knifeFrame,knifeWorldNormal,solveDefensiveImpulse} from './knife-technique.js';
-import {bossSecondPhasePattern,bossSecondPhaseControl} from './boss-choreography.js';
+import {bossSecondPhasePattern,bossSecondPhaseControl,bossWeaponPattern,bossRivalMotion} from './boss-choreography.js';
 export const STEP = 1/120;
 export const RULES=Object.freeze({roundsToWin:2,regulationSeconds:90});
 // Includes the v2 resting lean, both active lean motors, boss scale and slosh.
@@ -262,6 +262,7 @@ export class DuelEngine{
   setDifficulty(id){if(['rookie','normal','expert','boss'].includes(id)){this.difficulty=id;if(this.phase==='ready'||this.phase==='matchover')this.resetMatch();}}
   resetMatch(){
     this.phase='ready';this.phaseClock=0;this.scores=[0,0];this.round=1;this.winner=0;this.suddenDeath=false;this.demonstration=false;
+    delete this.stormFightStart;
     this.resetRound();this.onEvent('reset',{mode:this.mode});
   }
   resetRound({opening=false}={}){
@@ -274,6 +275,7 @@ export class DuelEngine{
     this.fighters[1].matchApronToBalloon=this.mode==='solo'&&this.matchApronToBalloon===true;
     const enemy=this.fighters[1];enemy.boss=this.mode==='solo'&&this.difficulty==='boss';
     if(enemy.boss){
+      if(enemy.equipment.weapon===this.bossArchetype)enemy.bossArchetype=this.bossArchetype;
       enemy.balloonSize=1.16;enemy.balloonMass=1.62;enemy.fluid=new FluidVolume(2,260,enemy.balloonSize);enemy.membrane=new BalloonMembrane({scale:enemy.balloonSize,fractureModel:'energy'});
       // The taller arm's resting point is near the smaller opponent's head.
       // Spawn both rigs with visible clearance; ordinary footwork can close it.
@@ -375,6 +377,7 @@ export class DuelEngine{
       if(old!==this.count)this.onEvent('countdown',{count:this.count});
       if(this.phaseClock>=3.2){
         this.phase='fight';this.phaseClock=0;
+        if(this.weather==='storm'&&this.difficulty==='boss')this.stormFightStart??=this.clock;
         for(const f of this.fighters)delete f.openingWrist;
         this.onEvent('fight',{round:this.round});
       }
@@ -446,7 +449,8 @@ export class DuelEngine{
     const style=AI_STYLES.includes(this.aiStyle)?this.aiStyle:'balanced';
     const scale=f.boss?1.18:1;
     ai.phase=f.boss&&this.scores[0]>0?2:1;
-    const choreography=f.boss&&ai.phase===2?bossSecondPhasePattern(ai.cycle):null;
+    const authoredBoss=f.bossArchetype?bossWeaponPattern(f.bossArchetype,ai.cycle+ai.phase-1):null;
+    const choreography=authoredBoss??(f.boss&&ai.phase===2?bossSecondPhasePattern(ai.cycle):null);
     const cautious=style==='defender'||style==='counter',maxWait=style==='defender'?2.2:2.8;
     const windup=choreography?choreography.windup:profile.windup*(ai.phase===2?.85:1)*(style==='precision'?1.25:1)*(f.boss&&ai.cycle===0?1.45:1);
     const recovery=choreography?Math.max(1.27,profile.recover*tactics.recoverScale,choreography.recovery):profile.recover*tactics.recoverScale*(ai.phase===2?.9:1)*(style==='aggressive'?.85:style==='defender'||style==='precision'?1.1:style==='boss'&&ai.pattern==='heavy'?1.25:style==='erratic'?[.8,1.2,1,.9][ai.cycle%4]:1);
@@ -494,6 +498,12 @@ export class DuelEngine{
       const bx=(x-head.x)/rx,by=(y-head.y)/ry,bz=(z-(head.z??.025))/rz;
       const dx=bx-ax,dy=by-ay,dz=bz-az,t=clamp(-(ax*dx+ay*dy+az*dz)/(dx*dx+dy*dy+dz*dz||1),0,1);
       ai.projectedReach=Math.hypot(ax+dx*t,ay+dy*t,az+dz*t);
+      if(authoredBoss&&weapon.id==='axe'){
+        // The lower cutting edge reaches past the neutral shaft aim. Plan
+        // with the same edge points that the swept contact solver validates.
+        const edge=strikePoints({x,y,z},{x:(blade.x-hand.x)/length,y:(blade.y-hand.y)/length},weapon,f.dir);
+        for(const point of edge)ai.projectedReach=Math.min(ai.projectedReach,Math.hypot((point.x-head.x)/rx,(point.y-head.y)/ry,bz));
+      }
       ai.readyToThrust=ai.projectedReach<=1;
     }
     // Follow through after visibly committing the preparation. A passive blade
@@ -634,6 +644,8 @@ export class DuelEngine{
       // Present the heavy weapon away from the opponent while reading the
       // arena. This changes the physical intention, never hit eligibility.
       c.mainX=-.45;c.mainY=-.25;c.wrist=-.35;c.lean=0;c.thrust=false;
+      const motion=bossRivalMotion(f.bossArchetype);
+      if(motion)Object.assign(c,motion.opening,motion.offHand);
     }
     c.offY=clamp(c.offY+tactics.guardHeight,-1,1);
     if(!sensed.headVisible)c.thrust=false;
@@ -760,7 +772,13 @@ export class DuelEngine{
   resolveWeaponContacts(dt,{project=true}={}){
     this.lastWeaponContact=null;
     if(this.fighters.some(f=>!f.globIntact))return;
-    const [a,b]=this.fighters,contact=resolveWeaponBind(a.rig,b.rig,{dt,project,observeVelocities:this.clock>=(this.nextClang||0)});
+    const options={dt,project,observeVelocities:this.clock>=(this.nextClang||0)};
+    // Opening poses still collide, but their weapons can slide freely until go.
+    if(this.phase!=='fight'){
+      options.staticFriction=0;
+      options.dynamicFriction=0;
+    }
+    const [a,b]=this.fighters,contact=resolveWeaponBind(a.rig,b.rig,options);
     if(!contact.at)return;
     this.lastWeaponContact=contact;
     this.queueJointContact({a,b,...contact,source:'steel'});
@@ -781,13 +799,13 @@ export class DuelEngine{
     const active=this.phase==='fight';
     const human=this.mode==='versus'||f.slot===1;
     const idle=standbyTargets({phase:this.phase,clock:this.clock,phaseClock:this.phaseClock,round:this.round,slot:f.slot,
-      controller:f.controller,globIntact:f.globIntact,passive:f.rig.passive,reducedMotion:this.reducedMotion})??
+      controller:f.controller,globIntact:f.globIntact,passive:f.rig.passive,reducedMotion:this.reducedMotion,stance:bossRivalMotion(f.bossArchetype)?.ready})??
       resultIntent(f,{phase:this.phase,phaseClock:this.phase==='burst'&&Number.isFinite(this.burstStepClock?.origin)?this.clock-this.burstStepClock.origin:this.phaseClock,
-        clock:this.clock,winner:this.winner,reducedMotion:this.reducedMotion});
+        winner:this.winner,reducedMotion:this.reducedMotion});
     const ctrl=active?(human?f.autoDefense.update(f,this.fighters.find(other=>other!==f),f.controller,dt):f.controller):(idle??neutral()),weapon=getWeapon(f),defense=getDefense(f);
     const armed=bodyAttached(f,'weapon'),canDefend=bodyAttached(f,'offForearm');
     advanceBodyEvasion(f,ctrl.bodyY,dt,active&&f.globIntact&&!f.rig.passive);
-    f.bodyIntent=characterIntent(f,{phase:this.phase,dt,controller:ctrl,reducedMotion:this.reducedMotion},f.bodyIntent);
+    f.bodyIntent=characterIntent(f,{phase:this.phase,dt,controller:ctrl,playerControlled:human,reducedMotion:this.reducedMotion},f.bodyIntent);
     for(const prop of ['mainX','mainY','offX','offY']){
       [f[prop],f[prop+'V']]=spring(f[prop],f[prop+'V'],ctrl[prop],75,16,dt);
     }
@@ -839,7 +857,7 @@ export class DuelEngine{
     const intent=f.pose;
     const bodyDepthTarget=active&&f.globIntact&&!f.rig.passive?
       (human?(f.controller.headZ??0)*.28:this.aiEnabled&&!this.trainingDrill?f.ai.bodyDepthTarget??0:0):0;
-    f.rig.setIntent(intent,{baseX:f.baseX,baseVX:f.baseVX,bodyDepthTarget,waterLoad:rigWaterLoad(f,oldHead||intent.head)});
+    f.rig.setIntent(intent,{baseX:f.baseX,baseVX:f.baseVX,bodyDepthTarget,depthFootwork:human&&active,waterLoad:rigWaterLoad(f,oldHead||intent.head)});
     applyJointPlay(f.rig);
     f.rig.step(dt);f.pose=f.rig.pose();
     f.balloonMass=f.rig.waterLoad.mass;
@@ -866,6 +884,7 @@ export class DuelEngine{
     f.bodyIntent=null;
     const intent=this.buildPose(f);
     f.rig=new ArticulatedRig({dir:f.dir,scale:f.boss?1.18:1,baseX:f.baseX,pose:intent,apronVariant:f.boss?'boss':'normal',flexibleWeapons:true,
+      gaitTiming:bossRivalMotion(f.bossArchetype)?.gait,
       surfaceSnapshot:(pose,rig)=>f.surfaceState.snapshot(pose,this.clock,rig)});
     f.pose=f.rig.pose();f.fluid.keepContained(f.pose.head,STEP,0,this.clock);
     f.previousHead={...f.pose.head};

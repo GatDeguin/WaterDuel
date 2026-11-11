@@ -81,7 +81,10 @@ test('la presentación espera el lote completo y usa fallbacks definitivos si lo
     assert.ok(frames.filter(frame=>frame.loading).length>1);
     assert.ok(frames.filter(frame=>frame.loading).every(frame=>frame.draws===0),'no deben mostrarse versiones parciales durante la carga');
     assert.ok(frames.at(-1).draws>190,'el fallback definitivo se presenta tras resolver todos los assets');
-    assert.equal(render.assetStatus.errors.length,11);assert.equal(render.assetStatus.loading,false);
+    assert.equal(render.assetStatus.total,12);
+    assert.equal(render.assetStatus.errors.length,render.assetStatus.total);
+    assert.ok(render.assetStatus.errors.some(error=>error.includes('Armaduras de los jefes')));
+    assert.equal(render.assetStatus.loading,false);
   }finally{globalThis.fetch=originalFetch;console.error=originalError;render.dispose();}
 });
 test('subir equipo válido no permite presentar una mezcla de versiones a mitad de lote',async()=>{

@@ -8,7 +8,7 @@ const wristGain=weaponGesture({x:0,y:1}).wrist*Math.PI/4;
 
 function aimAtRaisedShield(attacker,defender){
   const {offHand:shield,shieldDepth}=defender.pose;
-  if(!defender.guard||!shieldDepth)return {y:.6,headZ:0};
+  if(!defender.guard||!shieldDepth)return {y:.25,headZ:0};
   const {mainHand:hand,tip}=attacker.pose;
   const length=Math.hypot(tip.x-hand.x,tip.y-hand.y)||1;
   const elevation=Math.atan2(shield.y-hand.y,Math.max(.35,attacker.dir*(shield.x-hand.x)));
@@ -27,9 +27,8 @@ test('real mobile attackHeld and depth input meet an AI shield through physical 
   for(let i=0;i<240&&g.phase==='fight';i++){
     const t=i*STEP;responded||=events.some(e=>e.name==='clang'&&e.data.defender===2);
     const withdraw=responded||t<.45;
-    // Retreat out of the weapon plane, then aim the handset at the raised
-    // shield. Holding full tilt on the approach now moves the entire spear
-    // behind the shield's finite layer instead of just ducking the head.
+    // Retreat out of the weapon plane. Approach with the spear at a moderate
+    // height, then aim and step into the shield's layer when it comes up.
     const {y,headZ}=withdraw?{y:.6,headZ:-1}:aimAtRaisedShield(...g.fighters);
     const gesture=weaponGesture({x:withdraw?-.8:.8,y});
     assert.equal(Object.hasOwn(gesture,'thrust'),false,'the handset movement must be the attack source');

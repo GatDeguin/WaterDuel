@@ -24,7 +24,12 @@ const STOP_ROWS=Array.from({length:N},(_,i)=>[-1,1].map(sign=>{const row=new Flo
 const masses={pelvis:.55,torso:1.35,neck:.13,mainUpper:.34,mainForearm:.25,offUpper:.31,offForearm:.23,frontThigh:.34,frontShin:.25,backThigh:.34,backShin:.25,weapon:.16,offWeapon:.055,frontFoot:.12,backFoot:.12};
 const PASSIVE_DRAG=Object.freeze([3,3,4,2,4,4,4,4,10,10,10,10,2,4,4,4]);
 const BODY_DEPTH_LIMIT=.28,ARM_DEPTH_LIMIT=.14,DEPTH_SPEED=.85,DEPTH_ACCELERATION=6;
+const DEPTH_STEP_DEADZONE=.028;
 const ELBOW_DEPTH_SHARE=.55;
+const KNEE_DEPTH_SHARE=.65;
+const legPoints={kneeF:[0,KNEE_DEPTH_SHARE],kneeB:[1,KNEE_DEPTH_SHARE],ankleF:[0,1],ankleB:[1,1],footF:[0,1],footB:[1,1]};
+const legPanels={frontThigh:[0,KNEE_DEPTH_SHARE/2,KNEE_DEPTH_SHARE],backThigh:[1,KNEE_DEPTH_SHARE/2,KNEE_DEPTH_SHARE],
+  frontShin:[0,(1+KNEE_DEPTH_SHARE)/2,1-KNEE_DEPTH_SHARE],backShin:[1,(1+KNEE_DEPTH_SHARE)/2,1-KNEE_DEPTH_SHARE],frontFoot:[0,1,0],backFoot:[1,1,0]};
 const weaponPoints={mainElbow:ELBOW_DEPTH_SHARE,mainHand:1,tip:1,offGrip:1};
 const supportPoints={offElbow:ELBOW_DEPTH_SHARE,offHand:1};
 const weaponPanels={mainUpper:ELBOW_DEPTH_SHARE/2,mainForearm:(1+ELBOW_DEPTH_SHARE)/2};
@@ -167,7 +172,9 @@ export class ArticulatedRig{
   #bodyDepthMotion=depthMotion();
   #armDepthMotion=depthMotion();
   #bodyDepthTarget=0;
-  constructor({dir=1,scale=1,baseX=0,pose=null,gravity=-9.81,massScale=1,groundHeight=TABLE_TOP+.075,apronVariant='normal',flexibleWeapons=false,surfaceSnapshot=null}={}){
+  #depthFeet=null;
+  #gaitTiming;
+  constructor({dir=1,scale=1,baseX=0,pose=null,gravity=-9.81,massScale=1,groundHeight=TABLE_TOP+.075,apronVariant='normal',flexibleWeapons=false,surfaceSnapshot=null,gaitTiming=null}={}){
     this.limits=limits.map(value=>value.slice());this.passive=false;
     this.dir=dir<0?-1:1;this.scale=clamp(finite(scale,1),.75,1.6);
     this.massScale=clamp(finite(massScale,1),.1,20);this.gravity=clamp(finite(gravity,-9.81),-20,0);
@@ -184,6 +191,11 @@ export class ArticulatedRig{
     // in another rig or turn its solver into a structured-cloned plain object.
     this.#flexibleWeapons=flexibleWeapons===true;this.#weaponFlex=this.flexibleWeapons?new WeaponFlex(pose?.equipment?.weapon??'sword'):null;
     this.#surfaceSnapshot=typeof surfaceSnapshot==='function'?surfaceSnapshot:null;
+    this.#gaitTiming=gaitTiming&&{
+      duration:clamp(finite(gaitTiming.duration,this.scale>1.1?.34:.28),.18,.65),
+      delay:clamp(finite(gaitTiming.delay,.12),.03,.24),
+      lift:clamp(finite(gaitTiming.lift,.095),.04,.14)
+    };
     this.depth={hip:0,frontHip:.20,backHip:-.18,shoulder:0,head:.025,mainShoulder:.11,mainElbow:.14,mainHand:.17,tip:.17,offShoulder:-.11,offElbow:-.10,offHand:-.08,offGrip:.17,defenseTip:.17,kneeF:.20,kneeB:-.18,footF:.29,footB:-.22,ankleF:.20,ankleB:-.18};
     this.contacts=[];this.gait={swing:null,next:0,stanceBase:finite(baseX)};
     this.jointDamage={};this.jointDamageVersion=0;this.detachedBodies=new Set();this.detachedCoordinates=new Set();this.fragments=[];this.jointEvents=[];this.topologyVersion=0;this.gripReleased=false;
@@ -204,6 +216,7 @@ export class ArticulatedRig{
   get weaponFlex(){return this.#weaponFlex;}
   get bodyDepth(){return this.#bodyDepthMotion.position;}
   get previousBodyDepth(){return this.#bodyDepthMotion.previous;}
+  get feetMovingInDepth(){return this.#depthFeet?.some(foot=>foot.position!==foot.previous)??false;}
   get bodyDepthVelocity(){return this.#bodyDepthMotion.velocity;}
   get weaponDepthOffset(){return this.bodyDepth+this.#armDepthMotion.position;}
   get previousWeaponDepthOffset(){return this.previousBodyDepth+this.#armDepthMotion.previous;}
@@ -287,12 +300,20 @@ export class ArticulatedRig{
     this.jointEvents.push(event);return {applied:true,...record};
   }
 
+  #legDepthOffset(index,t=1){
+    return this.#depthFeet?sampledDepth(this.#depthFeet[index],t)-sampledDepth(this.#bodyDepthMotion,t):0;
+  }
+
   #pointDepthOffset(key,bodyDepth,armDepth){
+    const leg=this.#depthFeet&&legPoints[key];
+    if(leg)return bodyDepth+leg[1]*this.#legDepthOffset(leg[0]);
     if(armDepth===0)return bodyDepth;
     return bodyDepth+armDepth*(weaponPoints[key]??(this.twoHanded?supportPoints[key]:0)??0);
   }
 
-  #panelDepthOffset(body,key,bodyDepth,armDepth){
+  #panelDepthOffset(body,key,bodyDepth,armDepth,t=1){
+    const leg=this.#depthFeet&&legPanels[body];
+    if(leg)return bodyDepth+leg[1]*this.#legDepthOffset(leg[0],t);
     if(armDepth===0)return bodyDepth;
     return bodyDepth+armDepth*(body==='weapon'?1:weaponPanels[key]??(this.twoHanded?supportPanels[key]:0)??0);
   }
@@ -305,12 +326,14 @@ export class ArticulatedRig{
     return value===before+offset?before:value-offset;
   }
 
-  #attachedPanels(panels,bodyDepth,armDepth,asSolids){
+  #attachedPanels(panels,bodyDepth,armDepth,asSolids,t){
     const attached=this.detachedBodies.size?panels.filter(p=>this.isBodyAttached(p.body)):panels;
-    if(bodyDepth!==0||armDepth!==0)for(const panel of attached){
-      const offset=this.#panelDepthOffset(panel.body,panel.key,bodyDepth,armDepth);
-      if(asSolids)panel.center.z=translatedDepth(panel.center.z,offset);
-      else panel.z=translatedDepth(panel.z,offset);
+    if(bodyDepth!==0||armDepth!==0||this.#depthFeet)for(const panel of attached){
+      const offset=this.#panelDepthOffset(panel.body,panel.key,bodyDepth,armDepth,t);
+      const leg=this.#depthFeet&&legPanels[panel.body];
+      const spread=leg?.[2]?Math.abs(this.#legDepthOffset(leg[0],t))*leg[2]:0;
+      if(asSolids){panel.center.z=translatedDepth(panel.center.z,offset);panel.half[2]+=spread/2;}
+      else {panel.z=translatedDepth(panel.z,offset);panel.depth+=spread;}
     }
     return attached;
   }
@@ -325,8 +348,10 @@ export class ArticulatedRig{
   }
 
   #advanceApron(dt,state){
-    const p={};for(const name of ['hip','mainShoulder','offShoulder','frontHip','backHip','kneeF','kneeB','ankleF','ankleB'])p[name]={x:state.points[name].x,y:state.points[name].y,z:this.depth[name]??0};
-    if(this.bodyDepth!==0)for(const point of Object.values(p))point.z+=this.bodyDepth;
+    const p={},bodyDepth=this.bodyDepth;
+    for(const name of ['hip','mainShoulder','offShoulder','frontHip','backHip','kneeF','kneeB','ankleF','ankleB']){
+      p[name]={x:state.points[name].x,y:state.points[name].y,z:translatedDepth(this.depth[name]??0,this.#pointDepthOffset(name,bodyDepth,0))};
+    }
     p.clothLegs=Object.fromEntries(['frontThigh','frontShin','backThigh','backShin'].map(body=>[body,this.isBodyAttached(body)]));
     this.apron.advance(dt,{frame:apronParentFrame(p,this.dir,this.scale,this.apron.geometry),pose:p,passive:this.passive,gravity:this.gravity});
   }
@@ -518,9 +543,19 @@ export class ArticulatedRig{
     return cached.factor??(cached.factor=factor(matrix));
   }
 
-  setIntent(pose,{baseX=this.intentBase,baseVX=0,waterLoad=null,bodyDepthTarget=0}={}){
+  setIntent(pose,{baseX=this.intentBase,baseVX=0,waterLoad=null,bodyDepthTarget=0,depthFootwork=false}={}){
     this.intentBase=finite(baseX,this.intentBase);this.intentVX=clamp(finite(baseVX),-2,2);
-    if(!this.passive)this.#bodyDepthTarget=clamp(finite(bodyDepthTarget),-BODY_DEPTH_LIMIT,BODY_DEPTH_LIMIT);
+    if(!this.passive){
+      this.#bodyDepthTarget=clamp(finite(bodyDepthTarget),-BODY_DEPTH_LIMIT,BODY_DEPTH_LIMIT);
+      if(depthFootwork&&this.contacts.length===2){
+        if(Math.abs(this.#bodyDepthTarget)<=DEPTH_STEP_DEADZONE)this.#bodyDepthTarget=0;
+        else if(!this.#depthFeet){
+          const z=this.bodyDepth;
+          this.#depthFeet=[{position:z,previous:z},{position:z,previous:z}];
+          if(this.gait.swing)this.gait.swing.startZ=this.gait.swing.endZ=z;
+        }
+      }
+    }
     const angle=(a,b,fallback)=>a&&b?Math.atan2(b.y-a.y,this.dir*(b.x-a.x)):fallback;
     const t=this.target,s=this.scale,p=pose||{};
     if(p.equipment)this.equipment=normalizeLoadout(p.equipment);
@@ -555,7 +590,7 @@ export class ArticulatedRig{
     // Poses returned by this rig may be fed back as intents. Strip their world
     // translation before copying local layer depths to avoid applying it twice.
     const poseBodyDepth=finite(p.bodyDepth),poseArmDepth=finite(p.weaponDepthOffset,poseBodyDepth)-poseBodyDepth;
-    const translatedPose=poseBodyDepth!==0||poseArmDepth!==0;
+    const translatedPose=poseBodyDepth!==0||poseArmDepth!==0||!!(p.dynamic&&this.#depthFeet);
     for(const key of Object.keys(this.depth)){
       if(key==='head'&&Number.isFinite(p.neckYawTarget))continue;
       if(!this.twoHanded&&Number.isFinite(p.defenseDepthTarget)&&['offHand','offElbow'].includes(key))continue;
@@ -583,20 +618,46 @@ export class ArticulatedRig{
 
   #gaitStep(h){
     if(this.passive||this.contacts.length!==2)return;
-    const gait=this.gait;
-    if(!gait.swing&&Math.abs(this.intentBase-gait.stanceBase)>.09){
-      const index=gait.next,c=this.contacts[index],endX=clamp(this.intentBase+c.offset,c.x-.32*this.scale,c.x+.32*this.scale);
-      gait.swing={index,time:0,transfer:0,duration:this.scale>1.1?.34:.28,startX:c.x,endX};
+    const gait=this.gait,depth=this.#depthFeet;
+    const forward=Math.abs(this.intentBase-gait.stanceBase)>.09;
+    const target=this.#bodyDepthTarget,tolerance=target===0?.001:DEPTH_STEP_DEADZONE;
+    if(!gait.swing){
+      const frontGap=depth?target-depth[0].position:0,backGap=depth?target-depth[1].position:0;
+      const largestGap=Math.max(Math.abs(frontGap),Math.abs(backGap)),sidestep=largestGap>tolerance;
+      if(forward||sidestep){
+        // Lead with the foot on the side of the move, then gather the other foot.
+        let index=gait.next;
+        if(sidestep&&!forward)index=Math.abs(frontGap)===Math.abs(backGap)?(frontGap>0?0:1):(Math.abs(frontGap)>Math.abs(backGap)?0:1);
+        const c=this.contacts[index],endX=forward?clamp(this.intentBase+c.offset,c.x-.32*this.scale,c.x+.32*this.scale):c.x;
+        const startZ=depth?.[index].position??0,endZ=sidestep?clamp(target,startZ-.28,startZ+.28):startZ;
+        const timing=this.#gaitTiming;
+        gait.swing={index,time:0,transfer:0,delay:sidestep?.08:(timing?.delay??.12),duration:timing?.duration??(this.scale>1.1?.34:.28),
+          lift:(timing?.lift??.095)*this.scale,startX:c.x,endX,startZ,endZ};
+      }
     }
     if(!gait.swing)return;
     const swing=gait.swing,c=this.contacts[swing.index],support=this.contacts[1-swing.index];
-    const state=this.#kinematics(),mass=state.bodies.reduce((sum,b)=>sum+b.mass,0),com=state.bodies.reduce((sum,b)=>sum+b.mass*b.center.x,0)/mass;
-    gait.balanceOffset=clamp(support.x-com,-.16*this.scale,.16*this.scale);
-    if(swing.transfer<.12){swing.transfer+=h;return;}
+    // Follow a direction change while the foot is still lifting, before its Z
+    // movement starts. Once it travels, finish the step on the same support.
+    if(depth&&swing.time<=swing.duration*.18){
+      const gap=target-swing.startZ;
+      swing.endZ=Math.abs(gap)>tolerance?swing.startZ+clamp(gap,-BODY_DEPTH_LIMIT,BODY_DEPTH_LIMIT):swing.startZ;
+      if(forward&&swing.time===0)swing.endX=clamp(this.intentBase+c.offset,swing.startX-.32*this.scale,swing.startX+.32*this.scale);
+    }
+    if(swing.startX!==swing.endX){
+      const state=this.#kinematics(),mass=state.bodies.reduce((sum,b)=>sum+b.mass,0),com=state.bodies.reduce((sum,b)=>sum+b.mass*b.center.x,0)/mass;
+      gait.balanceOffset=clamp(support.x-com,-.16*this.scale,.16*this.scale);
+    }
+    if(swing.transfer<swing.delay){swing.transfer+=h;return;}
     c.stance=false;swing.time=Math.min(swing.duration,swing.time+h);
     const t=swing.time/swing.duration,u=t*t*(3-2*t),du=6*t*(1-t)/swing.duration;
-    c.x=swing.startX+(swing.endX-swing.startX)*u;c.y=c.floor+.095*this.scale*Math.sin(PI*t);
-    c.vx=(swing.endX-swing.startX)*du;c.vy=.095*this.scale*PI*Math.cos(PI*t)/swing.duration;
+    c.x=swing.startX+(swing.endX-swing.startX)*u;c.y=c.floor+swing.lift*Math.sin(PI*t);
+    c.vx=(swing.endX-swing.startX)*du;c.vy=swing.lift*PI*Math.cos(PI*t)/swing.duration;
+    if(swing.startZ!==swing.endZ){
+      // Finish lifting before moving across the table, and settle Z before landing.
+      const across=clamp((t-.18)/.64,0,1);
+      depth[swing.index].position=swing.startZ+(swing.endZ-swing.startZ)*across*across*(3-2*across);
+    }
     if(t>=1){c.y=c.floor;c.stance=true;c.vx=0;c.vy=0;gait.next=1-swing.index;gait.swing=null;gait.balanceOffset=0;gait.stanceBase=this.contacts.reduce((sum,foot)=>sum+foot.x-foot.offset,0)/2;}
   }
 
@@ -802,7 +863,8 @@ export class ArticulatedRig{
   }
 
   #floorSamples(state,weaponOnly=false){
-    const parameters=[this.scale,this.dir,this.equipment.weapon,this.depth.footF,this.depth.footB,this.depth.ankleF,this.depth.ankleB,this.depth.kneeF,this.depth.kneeB,this.topologyVersion];
+    const frontDepth=this.#legDepthOffset(0),backDepth=this.#legDepthOffset(1);
+    const parameters=[this.scale,this.dir,this.equipment.weapon,this.depth.footF,this.depth.footB,this.depth.ankleF,this.depth.ankleB,this.depth.kneeF,this.depth.kneeB,this.topologyVersion,frontDepth,backDepth];
     const cached=this.#floorCache.get(state),cacheKey=weaponOnly?'weapon':'all';
     if(cached&&parameters.every((v,i)=>v===cached.parameters[i])&&cached[cacheKey])return cached[cacheKey];
     const p=state.points,s=this.scale,samples=[];
@@ -814,7 +876,8 @@ export class ArticulatedRig{
       for(const [body,a,b,width] of links)appendFloorPanel(samples,body,a,b,width);
       for(const shape of SHIN_FLOOR){
         const knee=p[shape.knee],foot=p[shape.foot],dx=foot.x-knee.x,dy=foot.y-knee.y;
-        const dz=(this.depth[shape.foot]??0)-(this.depth[shape.knee]??0),h=Math.hypot(dx,dy),length=Math.hypot(h,dz);
+        const legDepth=shape.body==='frontShin'?frontDepth:backDepth;
+        const dz=(this.depth[shape.foot]??0)-(this.depth[shape.knee]??0)+(1-KNEE_DEPTH_SHARE)*legDepth,h=Math.hypot(dx,dy),length=Math.hypot(h,dz);
         if(h<1e-9)continue;
         // Same affine limb frame used by characterTransforms. Differentiate its
         // vertices through both endpoints; a rigid-body point Jacobian would be
@@ -911,7 +974,7 @@ export class ArticulatedRig{
       panels.push(createPanel('weapon',{x:center.x-ux*weapon.headLength,y:center.y-uy*weapon.headLength},center,
         weapon.headWidth,.177,weapon.id==='maul'?.35:.06,'weapon-head'));
     }
-    if(!external||onlyKey&&onlyKey!=='main-palm'&&onlyKey!=='off-palm')return this.#attachedPanels(panels,bodyDepth,armDepth,asSolids);
+    if(!external||onlyKey&&onlyKey!=='main-palm'&&onlyKey!=='off-palm')return this.#attachedPanels(panels,bodyDepth,armDepth,asSolids,t);
     // Measured rigid palm AABB in the delivered hand/grip frame (both variants
     // share these normalized dimensions). The palm follows the wrist/weapon
     // frame; it is timber, not another length of blade.
@@ -921,7 +984,7 @@ export class ArticulatedRig{
       const palm=along=>({x:p.mainHand.x+ux*along*s-uy*.002743*s,y:p.mainHand.y+uy*along*s+ux*.002743*s});
       const hand=createPanel('weapon',palm(-.073147),palm(.072433),.127148*s,this.depth.mainHand+.007362*s,.14271*s,'main-palm');hand.material='wood';panels.push(hand);
     }
-    if(!wants('off-palm'))return this.#attachedPanels(panels,bodyDepth,armDepth,asSolids);
+    if(!wants('off-palm'))return this.#attachedPanels(panels,bodyDepth,armDepth,asSolids,t);
     const handDirection=this.defenseLength>0?knifeHandDirection({...p.offHand,z:this.depth.offHand},{...p.defenseTip,z:this.depth.defenseTip},this.equipment.knifeGrip):null;
     const offVector=this.twoHanded?{x:p.tip.x-p.mainHand.x,y:p.tip.y-p.mainHand.y,z:this.depth.tip-this.depth.mainHand}:handDirection?{x:handDirection.x-p.offHand.x,y:handDirection.y-p.offHand.y,z:handDirection.z-this.depth.offHand}:{x:p.offHand.x-p.offElbow.x,y:p.offHand.y-p.offElbow.y,z:this.depth.offHand-this.depth.offElbow};
     const offLength=Math.hypot(offVector.x,offVector.y)||1,ox=offVector.x/offLength,oy=offVector.y/offLength;
@@ -930,7 +993,7 @@ export class ArticulatedRig{
     const depthMin=Math.min(-.075001*uz,.099982*uz)-.042*c,depthMax=Math.max(-.075001*uz,.099982*uz)+.057617*c;
     const offPalm=along=>({x:p.offHand.x+ox*along*s+oy*.001353*s,y:p.offHand.y+oy*along*s-ox*.001353*s});
     const other=createPanel('offForearm',offPalm(alongMin),offPalm(alongMax),.106707*s,this.depth.offHand+(depthMin+depthMax)/2*s,(depthMax-depthMin)*s,'off-palm');other.material='wood';panels.push(other);
-    return this.#attachedPanels(panels,bodyDepth,armDepth,asSolids);
+    return this.#attachedPanels(panels,bodyDepth,armDepth,asSolids,t);
   }
 
   #selfContacts(state){
@@ -1053,7 +1116,12 @@ export class ArticulatedRig{
     if(this.weaponFlex&&this.isBodyAttached('weapon'))this.weaponFlex.advance(h,{preservePrevious:true});
     this.#gaitStep(h);
     const bodyDepth=this.#bodyDepthMotion,armDepth=this.#armDepthMotion;
-    if(bodyDepth.position!==this.#bodyDepthTarget||bodyDepth.velocity!==0)advanceDepth(bodyDepth,this.#bodyDepthTarget,BODY_DEPTH_LIMIT,h,this.passive);
+    let targetDepth=this.#bodyDepthTarget;
+    if(this.#depthFeet&&this.contacts.length===2){
+      const front=this.#depthFeet[0].position,back=this.#depthFeet[1].position,reach=.055*this.scale;
+      targetDepth=clamp(targetDepth,Math.min(front,back)-reach,Math.max(front,back)+reach);
+    }
+    if(bodyDepth.position!==targetDepth||bodyDepth.velocity!==0)advanceDepth(bodyDepth,targetDepth,BODY_DEPTH_LIMIT,h,this.passive);
     if(armDepth.position!==0||armDepth.velocity!==0)advanceDepth(armDepth,0,ARM_DEPTH_LIMIT,h,this.passive);
     this.#advanceNeck(h);
     this.#advanceDefenseDepth(h);
@@ -1062,7 +1130,7 @@ export class ArticulatedRig{
     // independently soft springs otherwise settle against both angular stops.
     const state=this.#kinematics(),M=this.#matrix(state),K=[0,0,420,300,24,14,20,13,60,45,60,45,100,26,60,60];
     const motorTarget=this.target.slice();
-    if(this.gait.swing){
+    if(this.gait.swing&&this.gait.swing.startX!==this.gait.swing.endX){
       const progress=this.gait.swing.time/this.gait.swing.duration,start=this.gait.stanceBase+(this.gait.balanceOffset??0);
       motorTarget[0]=start+(this.target[0]-start)*progress;
     }
@@ -1163,6 +1231,10 @@ export class ArticulatedRig{
     const supplied=Math.max(0,finite(dt)),accepted=Math.min(.25,supplied);
     this.previousQ=this.q.slice();this.previousSwordLength=this.lastSwordLength??this.swordLength;this.lastSwordLength=this.swordLength;
     this.#bodyDepthMotion.previous=this.bodyDepth;this.#armDepthMotion.previous=this.#armDepthMotion.position;
+    if(this.#depthFeet){
+      if(!this.gait.swing&&this.#bodyDepthTarget===0&&this.bodyDepth===0&&this.#depthFeet.every(foot=>foot.position===0))this.#depthFeet=null;
+      else for(const foot of this.#depthFeet)foot.previous=foot.position;
+    }
     if(this.weaponFlex)this.weaponFlex.previousOffset=this.weaponFlex.offset;
     for(const fragment of this.fragments)fragment.beginStep();
     this.droppedTime=(this.droppedTime||0)+supplied-accepted;this.accumulator+=accepted;
@@ -1225,7 +1297,9 @@ export class ArticulatedRig{
   }
 
   #depthTravel(){
-    return Math.abs(this.bodyDepth-this.previousBodyDepth)+Math.abs(this.#armDepthMotion.position-this.#armDepthMotion.previous);
+    const feet=this.#depthFeet;
+    const stride=feet?Math.max(Math.abs(feet[0].position-feet[0].previous),Math.abs(feet[1].position-feet[1].previous)):0;
+    return Math.abs(this.bodyDepth-this.previousBodyDepth)+Math.abs(this.#armDepthMotion.position-this.#armDepthMotion.previous)+stride;
   }
 
   #headDepth(){
@@ -1327,7 +1401,7 @@ export class ArticulatedRig{
       (r.previousSwordLength??r.swordLength)*(1-t)+r.swordLength*t,true,(r.weaponFlex?.previousOffset??0)*(1-t)+(r.weaponFlex?.offset??0)*t);
     const allowed=(pa,pb)=>!(pa.body==='weapon'&&pb.body==='weapon'&&pa.material!=='wood'&&pb.material!=='wood');
     const anchor=(rig,state,body,key,p,t)=>{
-      const offset=rig.#panelDepthOffset(body,key,sampledDepth(rig.#bodyDepthMotion,t),sampledDepth(rig.#armDepthMotion,t));
+      const offset=rig.#panelDepthOffset(body,key,sampledDepth(rig.#bodyDepthMotion,t),sampledDepth(rig.#armDepthMotion,t),t);
       const f=state.frames[body],dx=p.x-f.origin.x,dy=p.y-f.origin.y,c=Math.cos(f.angle),s=Math.sin(f.angle);
       if(body==='weapon'&&state.weaponCurve){
         let best=null;
@@ -1583,15 +1657,17 @@ export class ArticulatedRig{
     const state=this.#kinematics(),pose={};
     for(const [key,p] of Object.entries(state.points))pose[key]={x:p.x,y:p.y,z:this.depth[key]??0};
     const bodyDepth=this.bodyDepth,armDepth=this.#armDepthMotion.position;
-    if(bodyDepth!==0||armDepth!==0)for(const [key,p] of Object.entries(pose)){
+    if(bodyDepth!==0||armDepth!==0||this.#depthFeet)for(const [key,p] of Object.entries(pose)){
       p.z=translatedDepth(p.z,this.#pointDepthOffset(key,bodyDepth,armDepth));
     }
     pose.feet={};
     for(const [side,suffix] of [['front','F'],['back','B']]){
-      const f=state.feet[side],a=f.angle,c=Math.cos(a),sn=Math.sin(a),z=this.depth['ankle'+suffix],s=this.scale;
-      const position=p=>({x:p.x,y:p.y,z:translatedDepth(z+this.dir*(f.shape.minZ+f.shape.maxZ)/2*s,bodyDepth)});pose['foot'+suffix].z=position(f.center).z;
-      pose.feet[side]={matrix:new Float64Array([this.dir*c*s,sn*s,0,0,-this.dir*sn*s,c*s,0,0,0,0,this.dir*s,0,f.ankle.x,f.ankle.y,translatedDepth(z,bodyDepth),1]),
-        heel:position(f.heel),toe:position(f.toe),center:position(f.center),support:position(f.support),hull:f.hull.map(position),depth:(f.shape.maxZ-f.shape.minZ)*s,height:f.shape.height*s,angle:a,stance:this.isBodyAttached(side+'Foot')&&f.support.y<=TABLE_TOP+.002,groundReaction:this.contacts.find(c=>c.key==='foot'+suffix)?.groundReaction??0};
+      const f=state.feet[side],a=f.angle,c=Math.cos(a),sn=Math.sin(a),key='ankle'+suffix,z=this.depth[key],s=this.scale;
+      const offset=this.#pointDepthOffset(key,bodyDepth,armDepth);
+      const position=p=>({x:p.x,y:p.y,z:translatedDepth(z+this.dir*(f.shape.minZ+f.shape.maxZ)/2*s,offset)});pose['foot'+suffix].z=position(f.center).z;
+      const support=this.contacts.find(c=>c.key==='foot'+suffix);
+      pose.feet[side]={matrix:new Float64Array([this.dir*c*s,sn*s,0,0,-this.dir*sn*s,c*s,0,0,0,0,this.dir*s,0,f.ankle.x,f.ankle.y,translatedDepth(z,offset),1]),
+        heel:position(f.heel),toe:position(f.toe),center:position(f.center),support:position(f.support),hull:f.hull.map(position),depth:(f.shape.maxZ-f.shape.minZ)*s,height:f.shape.height*s,angle:a,stance:this.isBodyAttached(side+'Foot')&&f.support.y<=TABLE_TOP+.002,groundReaction:support?.groundReaction??0};
     }
     const headBaseZ=translatedDepth(this.depth.head,bodyDepth);
     pose.neckPivot={...pose.shoulder,z:headBaseZ};

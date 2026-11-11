@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {DuelEngine,STEP} from '../public/engine.js';
 import {ArticulatedRig} from '../public/physics/articulated-rig.js';
 import {resolveWeaponBind,firstWeaponContact,WEAPON_BIND} from '../public/physics/weapon-bind.js';
 import {TABLE_TOP} from '../public/physics/dimensions.js';
@@ -17,6 +18,32 @@ function slider(y,velocity,mass=1){
 }
 const energy=(a,b)=>.5*(a.velocity.x**2+a.velocity.y**2+b.velocity.x**2+b.velocity.y**2);
 const close=(a,b,tolerance=1e-9)=>assert.ok(Math.abs(a-b)<=tolerance,`${a} vs ${b}`);
+
+test('Las armas conservan el choque normal y sólo ganan fricción al comenzar el combate',()=>{
+  const game=new DuelEngine();game.setMode('versus');
+  const measure=dt=>{
+    const a=slider(0,{x:.8,y:1}),b=slider(.025,{x:0,y:0});
+    game.fighters[0].rig=a;game.fighters[1].rig=b;
+    game.resolveWeaponContacts(dt,{project:false});
+    return {phase:game.phase,contact:game.lastWeaponContact,relativeX:a.velocity.x-b.velocity.x};
+  };
+  const waiting=measure(STEP);
+  game.start();game.phaseClock=3.2-1.5*STEP;
+  const steps=[];
+  game.stepPhysics=dt=>steps.push(measure(dt));
+  game.update(STEP);game.update(STEP);
+  const [countdown,fight]=steps;
+  assert.deepEqual([waiting.phase,countdown.phase,fight.phase],['ready','countdown','fight']);
+  for(const {contact,relativeX} of [waiting,countdown]){
+    assert.ok(contact.impulse>0);
+    assert.equal(contact.frictionImpulse,0);
+    assert.equal(contact.frictionState,'free');
+    assert.equal(contact.slidePower,0);
+    close(relativeX,.8);
+  }
+  assert.ok(fight.contact.impulse>0&&Math.abs(fight.contact.frictionImpulse)>0);
+  assert.ok(fight.relativeX<.8);
+});
 
 test('El roce transmite impulso tangencial igual y opuesto, acotado y disipativo',()=>{
   const a=slider(0,{x:.8,y:1}),b=slider(.025,{x:0,y:0}),before=energy(a,b);

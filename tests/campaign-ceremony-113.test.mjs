@@ -1,10 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {HostSession} from '../public/host-session.js';
+import {CAMPAIGN} from '../public/campaign-progression.js';
 
 function finale(){
  const host=new HostSession({opponentSeed:113}),g=host.game;
- host.individual.select('campaign');host.individual.result='complete';host.individual.saved={stage:6,completed:true};
+ host.individual.select('campaign');host.individual.result='complete';host.individual.stage=CAMPAIGN.length-1;
+ host.individual.saved={stage:CAMPAIGN.length-1,completed:true};
  g.mode='solo';g.phase='matchover';g.phaseClock=3.26;g.winner=1;g.fighters[1].globIntact=false;
  g.onEvent('matchover',{winner:1});g.clock=1.2;
  return {host,g};

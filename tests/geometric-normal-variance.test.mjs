@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
+import {withoutStormFilament} from './fixtures/storm-filament-shader.mjs';
 
 const read=path=>readFileSync(new URL(path,import.meta.url),'utf8');
 const source=read('../public/render3d.js');
@@ -24,7 +25,7 @@ const geometricFootprint=[
 // historical BRDF, map and detail byte outside those additions stays protected.
 const v17Hunks=JSON.parse(read('./fixtures/shader-v17-hunks.json')).hunks;
 function withoutV17Shader(text){
-  let value=fragment(text).replaceAll('\r\n','\n');
+  let value=withoutStormFilament(fragment(text).replaceAll('\r\n','\n'));
   for(const {before,after}of v17Hunks){assert.ok(after.length>0);assert.equal(value.split(after).length-1,1,'unique reviewed 1.7 shader hunk');value=value.replace(after,before);}
   return value;
 }
@@ -110,4 +111,6 @@ test('la autorización 1.7 rechaza cambios ajenos al detalle y cambios no revisa
   assert.notEqual(withoutV17Shader(changed),fragment(preAdaptive).replaceAll('\r\n','\n'),'una alteración de amplitud sigue detectándose fuera de los nuevos hunks');
   const changedWet=source.replace('base*=1.0-.32*damp','base*=1.0-.5*damp');assert.notEqual(changedWet,source);
   assert.throws(()=>withoutV17Shader(changedWet),/unique reviewed/,'no se acepta cualquier versión de la nueva humedad');
+  const changedFilament=source.replace('vPos.y>3.0','vPos.y>1.0');assert.notEqual(changedFilament,source);
+  assert.throws(()=>withoutV17Shader(changedFilament),/unique reviewed storm filament/,'el circuito no puede afectar lámparas de aceite');
 });

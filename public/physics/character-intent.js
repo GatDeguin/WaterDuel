@@ -25,7 +25,8 @@ export function characterIntent(f,context={},previous=null){
   const crouch=clamp(finite(f.evasion?.crouch),0,1),dodge=clamp(finite(f.evasion?.feint),0,1);
   const weight=1+Math.min(.65,load*1.7)+(f.boss?.18:0);
   const automaticAuthority=1-Math.abs(clamp(finite(c.lean),-1,1));
-  result.lean=clamp(.022*effort*weight-.014*feint*Math.sign(sample.mainX||1)-.012*crouch-.013*dodge,-.065,.065)*automaticAuthority||0;
+  const transfer=context.playerControlled?clamp(balance*finite(f.dir,1)*.24,-.018,.018):0;
+  result.lean=clamp(.022*effort*weight-.014*feint*Math.sign(sample.mainX||1)-.012*crouch-.013*dodge+transfer,-.065,.065)*automaticAuthority||0;
   result.feint=feint;result.balance=balance;
   const free=!weapon.twoHanded&&defense.kind==='none'&&attached(f,'offForearm')&&attached(f,'offUpper')&&
     Math.abs(finite(c.offX))<=1e-4&&Math.abs(finite(c.offY))<=1e-4&&!c.guard;
@@ -35,16 +36,16 @@ export function characterIntent(f,context={},previous=null){
 
 /** Post-result gesture, read-only with respect to phase/winner/score.
  * A new round or any human intention cancels it rather than completing a clip. */
-export function resultIntent(f,{phase,phaseClock=0,clock=0,winner=0,reducedMotion=false}={}){
+export function resultIntent(f,{phase,phaseClock=0,winner=0,reducedMotion=false}={}){
   if(!['burst','matchover'].includes(phase)||winner!==f.slot||!f.globIntact||f.rig?.passive||reducedMotion||manual(f.controller))return null;
   const age=finite(phaseClock),rise=smooth((age-.35)/.65);
   if(rise===0)return null;
   const weapon=getWeapon(f),defense=getDefense(f),free=!weapon.twoHanded&&defense.kind==='none'&&attached(f,'offForearm');
   const release=phase==='burst'?1-smooth((age-1.65)/.7):1;
-  const amount=rise*release;
+  const amount=rise*release,nod=smooth((age-.68)/.38)*(1-smooth((age-1.08)/.48))*release;
   // A held match-over salute settles to a static respectful pose; no unbounded
   // sine loop or wall clock creates perpetual motor work after the result.
   return {mainX:0,mainY:0,offX:free?.10*amount:0,offY:free?.32*amount:0,
-    lean:free?-.025*amount:-.13*amount,wrist:0,headX:0,headZ:0,bodyY:0,
+    lean:(free?-.025:-.13)*amount+.052*nod,wrist:0,headX:.22*nod,headZ:.032*amount,bodyY:0,
     thrust:false,attackHeld:false,guard:false};
 }

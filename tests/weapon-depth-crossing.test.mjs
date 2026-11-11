@@ -59,7 +59,7 @@ test('El gesto de profundidad desplaza cuerpo, apoyos, arma y agua durante una r
     const z=f.rig.bodyDepth,before=initial[i],direction=-f.dir;
     assert.ok(direction*z>.24&&Math.abs(z)<=.28);
     for(const key of ['hip','shoulder','mainHand','tip'])assert.ok(Math.abs(f.pose[key].z-before[key].z-z)<1e-8,key);
-    assert.ok(Math.abs(f.pose.feet.front.matrix[14]-before.feet.front.matrix[14]-z)<1e-8);
+    for(const side of ['front','back'])assert.ok(Math.abs(f.pose.feet[side].matrix[14]-before.feet[side].matrix[14]-direction*.28)<1e-8);
     assert.ok(direction*(f.pose.head.z-before.head.z)>.40);
     assert.equal(f.fluid.origin.z,f.pose.head.z);
     assert.equal(f.membrane.targetSupport.z,f.pose.head.z);
@@ -89,4 +89,55 @@ test('Un cruce entre mazos mueve las manos y los brazos de ambos rigs en Z',()=>
     assert.equal(f.pose.weaponDepthOffset,f.rig.weaponDepthOffset);
   }
   assert.deepEqual(game.scores,[0,0]);
+});
+
+test('Inclinar el mando y volver al centro mueve un pie por vez con el otro plantado',()=>{
+  const game=new DuelEngine();
+  game.setMode('versus');game.start();
+  while(game.phase==='countdown')game.update(STEP);
+  const player=game.fighters[0],sides=['front','back'];
+  const start=player.pose,first=sides.map(side=>start.feet[side].support.z);
+  const advance=tilt=>{
+    game.setControl(1,{headZ:tilt,mainX:-1,mainY:-1,wrist:-1});
+    game.update(STEP);
+  };
+  for(let i=0;i<6;i++)advance(.9);
+  assert.ok(player.pose.head.z>start.head.z+.015,'la cabeza responde antes que los pies');
+  assert.deepEqual(sides.map(side=>player.pose.feet[side].support.z),first);
+
+  function checkSteps(tilt,sign){
+    const moved=new Set(),lifted=new Set();
+    let last=sides.map(side=>player.pose.feet[side].support.z);
+    for(let i=0;i<112;i++){
+      advance(tilt);
+      const feet=sides.map(side=>player.pose.feet[side]);
+      const step=feet.findIndex((foot,index)=>Math.abs(foot.support.z-last[index])>1e-8);
+      if(step!==-1){
+        assert.ok((feet[step].support.z-last[step])*sign>0);
+        assert.ok(!player.rig.contacts[step].stance,'el pie que se traslada liberó el apoyo');
+        assert.ok(player.rig.contacts[1-step].stance,'el otro pie conserva su apoyo');
+        assert.ok(Math.abs(feet[1-step].support.z-last[1-step])<1e-8,'el apoyo no se desliza');
+        if(!moved.has(step)){
+          const key=sides[step]+'Foot';
+          const before=player.rig.collisionSolidsAt(0,key)[0].center.z;
+          const middle=player.rig.collisionSolidsAt(.5,key)[0].center.z;
+          const after=player.rig.collisionSolidsAt(1,key)[0].center.z;
+          assert.ok(Math.abs(before-last[step])<1e-8&&Math.abs(after-feet[step].support.z)<1e-8);
+          assert.ok(Math.abs(middle-(before+after)/2)<1e-8,'el barrido sigue el pie');
+        }
+        moved.add(step);
+        if(feet[step].support.y>start.feet[sides[step]].support.y+.025)lifted.add(step);
+      }
+      last=feet.map(foot=>foot.support.z);
+    }
+    assert.equal(moved.size,2);
+    assert.equal(lifted.size,2);
+    assert.ok(player.rig.contacts.every(c=>c.stance));
+    return last;
+  }
+
+  const shifted=checkSteps(.9,1);
+  assert.ok(shifted.every((z,index)=>Math.abs(z-first[index]-.252)<1e-7));
+  const returned=checkSteps(0,-1);
+  assert.ok(returned.every((z,index)=>Math.abs(z-first[index])<1e-7));
 });

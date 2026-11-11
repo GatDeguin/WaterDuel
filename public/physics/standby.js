@@ -8,13 +8,22 @@ const time=value=>Number.isFinite(value)?Math.max(0,value):0;
 const smooth=value=>{const t=Math.max(0,Math.min(1,value));return t*t*t*(t*(t*6-15)+10);};
 const bump=value=>{const t=Math.max(0,Math.min(1,value));return 64*t*t*t*(1-t)*(1-t)*(1-t);};
 
-export function standbyTargets({phase='ready',clock=0,phaseClock=0,round=1,slot=1,controller={},globIntact=true,passive=false,reducedMotion=false}={}){
+export function standbyTargets({phase='ready',clock=0,phaseClock=0,round=1,slot=1,controller={},globIntact=true,passive=false,reducedMotion=false,stance=null}={}){
   if(!['ready','countdown'].includes(phase)||!globIntact||passive||reducedMotion)return null;
   if(controller?.thrust||controller?.guard||controller?.attackHeld||axes.some(axis=>Number.isFinite(controller?.[axis])&&Math.abs(controller[axis])>1e-4))return null;
   clock=time(clock);phaseClock=time(phaseClock);
   const amplitude=smooth(clock/2)*(phase==='countdown'?(round>1?bump(phaseClock/2.4):1-smooth(phaseClock/2.4)):1);
   if(amplitude===0)return neutral();
-  const t=clock,offset=slot===2?1.9:0,wave=(magnitude,frequency,phase=0)=>magnitude*amplitude*Math.sin(t*frequency+offset+phase);
-  return {mainX:wave(.012,.83),mainY:wave(.022,1.13),offX:wave(.008,.71,.9),offY:wave(.018,1.13,.7),
-    lean:0,wrist:wave(.012,.67),headX:wave(.012,.59),headZ:wave(.008,.47,.4),thrust:false,guard:false,attackHeld:false};
+  const offset=slot===2?1.9:0,wave=(magnitude,frequency,phase=0)=>magnitude*amplitude*Math.sin(clock*frequency+offset+phase);
+  // Check the rival first, then settle the wrist and counterbalance the guard.
+  // Both gestures are zero at the cycle seam and fade before live combat.
+  const cycle=(clock+offset*1.7)%9.4;
+  const look=amplitude*bump((cycle-.55)/3.9),brace=amplitude*bump((cycle-1.95)/4.1);
+  const target={mainX:wave(.010,.83)-.008*brace,mainY:wave(.017,.93)+.015*brace,
+    offX:wave(.008,.71,.9)+.006*brace,offY:wave(.014,1.03,.7)-.009*brace,
+    lean:.024*brace-.014*look,wrist:wave(.010,.67)+.026*brace,
+    headX:wave(.014,.59)+.095*look-.018*brace,headZ:wave(.009,.47,.4)+.038*look,
+    thrust:false,guard:false,attackHeld:false};
+  if(stance)for(const key of ['mainX','mainY','offX','offY','lean','wrist'])target[key]+=amplitude*stance[key];
+  return target;
 }

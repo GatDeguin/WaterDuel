@@ -38,7 +38,7 @@ export class HostSession{
   }
   get configurable(){return !this.playback&&['ready','matchover'].includes(this.game.phase);}
   get campaignActive(){return this.game.mode==='solo'&&this.individual.kind==='campaign';}
-  get audioOptions(){return {music:this.musicVolume/100,effects:this.effectsVolume/100,distortion:this.distortion/100,reverb:this.reverb/100,reverbDecay:this.reverbDecay/1000,effectMask:this.effectMask};}
+  get audioOptions(){return {music:this.musicVolume/100,effects:this.effectsVolume/100,thunder:this.thunderVolume/100,distortion:this.distortion/100,reverb:this.reverb/100,reverbDecay:this.reverbDecay/1000,effectMask:this.effectMask};}
   get presentationBlocked(){return this.assetStatus?.loading===true||!!this.rendererError;}
   neutralize(){for(const slot of [1,2])this.game.setControl(slot,neutral());this.onNeutralize();}
   setArmoryView(slot,open,age=0){
@@ -58,7 +58,8 @@ export class HostSession{
   configure(){
     const g=this.game,solo=g.mode==='solo',kind=this.individual.kind,config=this.individual.configuration();
     const special=solo&&kind!=='duel';
-    g.matchApronToBalloon=solo&&kind==='duel';
+    g.bossArchetype=solo&&kind==='campaign'?config.bossArchetype??null:null;
+    g.matchApronToBalloon=solo&&(kind==='duel'||!!g.bossArchetype);
     g.resetMatch();
     // AI/campaign preparation borrows slot 2; Versus retains its own selection.
     if(this.managedOpponent){g.setLoadout(2,this.manualOpponentLoadout);this.managedOpponent=false;}
@@ -170,15 +171,18 @@ export class HostSession{
   }
   menuState(){
     const g=this.game,view=matchView(g),p=this.playback;
+    const objective=g.mode==='solo'?this.individual.view(g):null;
+    const afterMatch=objective?.nextAction==='advance'?'Continuá con el próximo encuentro.':
+      objective?.kind==='campaign'&&objective.completed?'La campaña está completada.':'Iniciá la revancha desde este menú.';
     const matchMessage=p?'Repetición · partida en pausa.':g.phase==='countdown'?`Preparados · ${g.count||'¡Ya!'}`:
       g.phase==='fight'?(g.suddenDeath?'Tiempo extra · gana el próximo pinchazo.':'Combate en curso.'):
-      g.phase==='burst'?view.burstSubtitle:g.phase==='matchover'?`${view.winnerName} gana la partida. Iniciá la revancha desde este menú.`:this.message;
+      g.phase==='burst'?view.burstSubtitle:g.phase==='matchover'?`${view.winnerName} gana la partida. ${afterMatch}`:this.message;
     return sanitizeMenuState({phase:g.phase,mode:g.mode,experience:this.individual.kind,difficulty:g.difficulty,bestOf:g.bestOf,arena:g.arena,
       quality:g.quality,performanceMode:this.performanceMode,camera:g.cameraMode,lighting:g.lightingMode,audioOn:this.audioOn,volume:this.volume,
-      musicVolume:this.musicVolume,effectsVolume:this.effectsVolume,distortion:this.distortion,reverb:this.reverb,reverbDecay:this.reverbDecay,effectMask:this.effectMask,performance:this.performanceReport??null,
+      musicVolume:this.musicVolume,effectsVolume:this.effectsVolume,thunderVolume:this.thunderVolume,distortion:this.distortion,reverb:this.reverb,reverbDecay:this.reverbDecay,effectMask:this.effectMask,performance:this.performanceReport??null,
       scores:g.scores,round:g.round,clock:view.clock,
       fighters:view.fighters.map((f,index)=>({...f,slot:index+1,equipment:g.loadouts[index],balloonColor:g.fighters[index].balloonColor,emblem:fighterIdentity(g.fighters[index])})),
-      objective:g.mode==='solo'?this.individual.view(g):null,
+      objective,
       ...(this.campaignActive?{campaignArmory:this.individual.campaignArmory}:{}),
       replay:{clips:this.recorder.clips.map(({id,duration,complete})=>({id,duration,complete})),active:!!p,paused:p?.paused??true,speed:this.replaySpeed,position:p?.clip.duration?p.time/p.clip.duration:0,clipId:p?.clip.id??null},
       configurable:this.configurable,trainingEquipmentLocked:this.sessionEquipment.locked,trainingEquipmentReason:this.sessionEquipment.reason,message:matchMessage,...(this.rendererError?{rendererError:this.rendererError}:{}),...(this.assetStatus?{assets:this.assetStatus}:{})});

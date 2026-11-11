@@ -35,6 +35,33 @@ function fixture(){
 const turn=()=>new Promise(resolve=>setImmediate(resolve));
 const combatEffects=AUDIO_EFFECTS.filter(({id})=>id!=='thunder');
 
+test('El volumen de truenos ajusta voces activas sin tocar otros efectos y conserva la acústica compartida',async()=>{
+  const {audio}=fixture();
+  audio.recordedFetch=async()=>({ok:true,arrayBuffer:async()=>new ArrayBuffer(0)});
+  audio.recordedDecode=async()=>({duration:2});
+  audio.configure(true,55,{music:0,effects:.8,thunder:.5,distortion:.12,reverb:.3});
+  const game={phase:'fight',clock:3,weatherStart:0,weather:'storm',fighters:[]};
+  audio.update(game);await turn();
+  game.clock=3.66;
+  assert.equal(audio.update(game),1);
+  const [thunder]=audio.voices;
+  assert.equal(thunder.gain.gain.value,.6*.84*.5);
+  assert.ok(thunder.pan.connections.includes(audio.effects));
+  assert.ok(audio.effects.connections.includes(audio.fxRack.shaper));
+  assert.ok(audio.fxRack.shaper.connections.includes(audio.fxRack.roomInput));
+  audio.configure(true,55,{thunder:.25});
+  assert.equal(thunder.gain.gain.value,.6*.84*.25);
+  assert.equal(audio.effects.gain.value,.8);
+  assert.equal(audio.fxRack.distortion,.12);
+  assert.equal(audio.fxRack.reverb,.3);
+  audio.configure(true,55,{thunder:0});
+  assert.equal(thunder.gain.gain.value,0);
+  game.clock=10.11;
+  assert.equal(audio.update(game),0);
+  assert.equal(audio.voices.size,1);
+  audio.dispose();
+});
+
 test('El trueno respeta su propio interruptor, la pausa y el reloj de cada tormenta',async()=>{
   const wav=await readFile(new URL('../public/assets/audio/weather/thunder.wav',import.meta.url));
   const {audio}=fixture();let requests=0;

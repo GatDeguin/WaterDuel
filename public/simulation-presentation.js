@@ -99,7 +99,7 @@ export class SimulationPresentation{
     Object.assign(this.scene,game);
     this.scene.fighters=this.current.fighters.map((now,index)=>{
       const before=this.previous.fighters[index],source=game.fighters[index],out=this.views[index];
-      Object.assign(out,{slot:source.slot,dir:source.dir,boss:source.boss,baseX:source.baseX,lean:source.lean,globIntact:source.globIntact,
+      Object.assign(out,{slot:source.slot,dir:source.dir,boss:source.boss,bossArchetype:source.bossArchetype,baseX:source.baseX,lean:source.lean,globIntact:source.globIntact,
         balloonSize:source.balloonSize,balloonMass:source.balloonMass,balloonColor:source.balloonColor,matchApronToBalloon:source.matchApronToBalloon,equipment:source.equipment,
         guard:source.guard,guardEnergy:source.guardEnergy,guardBroken:source.guardBroken,
         pose:blend(before.pose,now.pose,t),balloon:blend(before.balloon,now.balloon,t),waterShift:mix(before.waterShift,now.waterShift,t),hitFlash:mix(before.hitFlash,now.hitFlash,t)});

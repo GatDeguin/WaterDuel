@@ -2,20 +2,21 @@
 import {BALLOON_RADII} from './physics/dimensions.js';
 import {newOpponentSeed,seededOpponentRandom,randomOpponent} from './opponent-loadouts.js';
 import {TRAINING_DRILL_KINDS,TrainingDrill} from './training-drills.js';
-import {ADVANCED_CAMPAIGN,ADVANCED_CAMPAIGN_STORAGE_KEY,campaignArmory} from './campaign-progression.js';
+import {ADVANCED_CAMPAIGN,ADVANCED_CAMPAIGN_STORAGE_KEY,BOSS_CAMPAIGN,BOSS_CAMPAIGN_STORAGE_KEY,CAMPAIGN_TIERS,
+  CAMPAIGN,STORY_CHAPTERS,LEGACY_STORY_FINAL,nextStoryStage,storyWins,campaignArmory} from './campaign-progression.js';
+export {CAMPAIGN} from './campaign-progression.js';
 
 export const SINGLE_PLAYER_STORAGE_KEY='water-duel.single-player.v1';
-export const CAMPAIGN=Object.freeze([
-  {name:'La Aguja del Taller',arena:'atelier',difficulty:'rookie',aiStyle:'aggressive',opponentLoadout:{weapon:'sword',defense:'short'},opponentColor:'amber'},
-  {name:'El Guardián de Roble',arena:'dojo',difficulty:'normal',aiStyle:'defender',opponentLoadout:{weapon:'axe',defense:'long'},opponentColor:'cobalt'},
-  {name:'El Eco de Acero',arena:'midnight',difficulty:'normal',aiStyle:'counter',opponentLoadout:{weapon:'sword',defense:'knife'},opponentColor:'violet'},
-  {name:'La Sombra de Latón',arena:'atelier',difficulty:'normal',aiStyle:'feint',opponentLoadout:{weapon:'axe',defense:'short'},opponentColor:'crimson'},
-  {name:'La Punta de Cristal',arena:'dojo',difficulty:'expert',aiStyle:'precision',opponentLoadout:{weapon:'spear',defense:'knife'},opponentColor:'gold'},
-  {name:'El Péndulo Salvaje',arena:'midnight',difficulty:'expert',aiStyle:'erratic',opponentLoadout:{weapon:'spear',defense:'long'},opponentColor:'rose'},
-  {name:'El Maestro Hidráulico',arena:'atelier',difficulty:'boss',aiStyle:'boss',opponentLoadout:{weapon:'maul',defense:'none'},opponentColor:'coral'}
-].map(encounter=>Object.freeze({...encounter,opponentLoadout:Object.freeze(encounter.opponentLoadout)})));
+const CAMPAIGN_ROUTES=Object.freeze({
+  normal:{encounters:CAMPAIGN,key:SINGLE_PLAYER_STORAGE_KEY,progress:'saved',version:2,title:'Campeones del taller',
+    complete:'El Maestro Hidráulico fue derrotado. La ceremonia del taller te entrega el Trofeo de Campeón y desbloquea la campaña avanzada.'},
+  advanced:{encounters:ADVANCED_CAMPAIGN,key:ADVANCED_CAMPAIGN_STORAGE_KEY,progress:'advancedSaved',title:'Maestría del taller · Campaña avanzada',
+    complete:'La ceremonia reconoce tu maestría: ganaste el Trofeo Maestro de Medianoche. Ambas campañas están completas.'},
+  bosses:{encounters:BOSS_CAMPAIGN,key:BOSS_CAMPAIGN_STORAGE_KEY,progress:'bossSaved',title:'Jefes del taller',
+    complete:'Venciste a los cuatro jefes del taller. Podés repetir el duelo final.'}
+});
 const KINDS=new Set(['duel','training','practice','precision','campaign',...TRAINING_DRILL_KINDS]);
-const TITLES={duel:'Duelo individual',training:'Escuela del taller',practice:'Práctica libre',precision:'Tres puntos de precisión',campaign:'Campeones del taller'};
+const TITLES={duel:'Duelo individual',training:'Escuela del taller',practice:'Práctica libre',precision:'Tres puntos de precisión'};
 const TRAINING=Object.freeze([
   'Orientá el arma con el joystick derecho: mové la mano respecto del hombro.',
   'Soltá el joystick derecho y dejá volver el brazo al centro.',
@@ -31,12 +32,18 @@ const difference=(a,b)=>({x:a.x-b.x,y:a.y-b.y,z:(a.z??0)-(b.z??0)});
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y,(a.z??0)-(b.z??0));
 const emptyProgress=()=>({stage:0,completed:false});
 
-function loadProgress(storage,key=SINGLE_PLAYER_STORAGE_KEY){
+function loadProgress(storage,{key,encounters,version=1}){
   try{
     const value=JSON.parse(storage?.getItem(key)??'null');
-    if(!value||Array.isArray(value)||value.version!==1||!Number.isInteger(value.stage)||value.stage<0||value.stage>=CAMPAIGN.length||
-      typeof value.completed!=='boolean'||(value.completed&&value.stage!==CAMPAIGN.length-1))return emptyProgress();
-    return {stage:value.stage,completed:value.completed};
+    if(!value||Array.isArray(value)||!Number.isInteger(value.stage)||value.stage<0||typeof value.completed!=='boolean')return emptyProgress();
+    const legacy=version===2&&value.version===1,final=legacy?LEGACY_STORY_FINAL:encounters.length-1;
+    if((!legacy&&value.version!==version)||value.stage>final||(value.completed&&value.stage!==final))return emptyProgress();
+    if(version===1)return {stage:value.stage,completed:value.completed};
+    const legacyStage=legacy?value.stage:value.legacyStage??0,legacyCompleted=legacy?value.completed:value.legacyCompleted??false;
+    if(!Number.isInteger(legacyStage)||legacyStage<0||legacyStage>LEGACY_STORY_FINAL||
+      typeof legacyCompleted!=='boolean'||legacyCompleted&&legacyStage!==LEGACY_STORY_FINAL)return emptyProgress();
+    return {stage:nextStoryStage(legacy?0:value.stage,legacyStage),completed:!legacy&&value.completed,
+      ...(legacyStage?{legacyStage}:{}),...(legacyCompleted?{legacyCompleted}:{})};
   }catch{return emptyProgress();}
 }
 
@@ -66,8 +73,9 @@ function validPuncture(data){
 export class SinglePlayerSession{
   #armoryCache=null;
   constructor({storage=null,seed=newOpponentSeed(),random=null}={}){
-    this.storage=storage;this.saved=loadProgress(storage);this.kind='duel';this.stage=this.saved.stage;
-    this.advancedSaved=this.saved.completed?loadProgress(storage,ADVANCED_CAMPAIGN_STORAGE_KEY):emptyProgress();this.campaignTier='normal';this.resolvedCampaignMatches=new WeakSet();
+    this.storage=storage;this.saved=loadProgress(storage,CAMPAIGN_ROUTES.normal);this.kind='duel';this.stage=this.saved.stage;
+    this.advancedSaved=this.championUnlocked?loadProgress(storage,CAMPAIGN_ROUTES.advanced):emptyProgress();
+    this.bossSaved=loadProgress(storage,CAMPAIGN_ROUTES.bosses);this.campaignTier='normal';this.resolvedCampaignMatches=new WeakSet();
     this.opponentSeed=seed;this.opponentRandom=random??seededOpponentRandom(seed);this.duelOpponent=randomOpponent(this.opponentRandom);
     this.objectiveIndex=0;this.reference=null;this.hold=0;this.result='idle';this.demoMatch=false;this.usedBalloons=new WeakSet();this.drill=null;
   }
@@ -77,16 +85,19 @@ export class SinglePlayerSession{
     this.drill=TRAINING_DRILL_KINDS.includes(kind)?new TrainingDrill(kind):null;
     this.result='idle';this.demoMatch=false;this.usedBalloons=new WeakSet();return true;
   }
-  get campaignProgress(){return this.campaignTier==='advanced'?this.advancedSaved:this.saved;}
-  get campaignEncounters(){return this.campaignTier==='advanced'?ADVANCED_CAMPAIGN:CAMPAIGN;}
+  get campaignProgress(){return this[CAMPAIGN_ROUTES[this.campaignTier].progress];}
+  get campaignEncounters(){return CAMPAIGN_ROUTES[this.campaignTier].encounters;}
+  get championUnlocked(){return this.saved.completed||this.saved.legacyCompleted===true;}
   get campaignArmory(){
-    if(this.#armoryCache?.normal!==this.saved||this.#armoryCache.advanced!==this.advancedSaved){
-      this.#armoryCache={normal:this.saved,advanced:this.advancedSaved,value:campaignArmory(CAMPAIGN,this.saved,this.advancedSaved)};
+    const bossesFirst=this.campaignTier==='bosses';
+    if(this.#armoryCache?.normal!==this.saved||this.#armoryCache.advanced!==this.advancedSaved||this.#armoryCache.bosses!==this.bossSaved||this.#armoryCache.bossesFirst!==bossesFirst){
+      this.#armoryCache={normal:this.saved,advanced:this.advancedSaved,bosses:this.bossSaved,bossesFirst,
+        value:campaignArmory(CAMPAIGN,this.saved,this.advancedSaved,this.bossSaved,bossesFirst)};
     }
     return this.#armoryCache.value;
   }
   setCampaignTier(value){
-    if(!['normal','advanced'].includes(value)||(value==='advanced'&&!this.saved.completed))return false;
+    if(!CAMPAIGN_TIERS.includes(value)||(value==='advanced'&&!this.championUnlocked))return false;
     this.campaignTier=value;this.stage=this.campaignProgress.stage;this.objectiveIndex=0;this.reference=null;this.hold=0;
     this.result='idle';this.demoMatch=false;this.usedBalloons=new WeakSet();return true;
   }
@@ -95,6 +106,7 @@ export class SinglePlayerSession{
     const encounter=this.kind==='campaign'?this.campaignEncounters[this.stage]:null;
     return {scenario:practice?'practice':'duel',aiEnabled:this.drill?this.kind!=='moving':!practice,difficulty:this.drill?'rookie':encounter?.difficulty??'normal',
       aiStyle:this.drill?'precision':encounter?.aiStyle??'balanced',arena:encounter?.arena??'atelier',bestOf:3,opponentName:encounter?.name??(this.drill?'Compañero del taller':practice?'Blanco del taller':this.duelOpponent.opponentName),
+      ...(encounter?.bossArchetype?{bossArchetype:encounter.bossArchetype}:{}),
       ...(this.drill?{trainingDrill:{kind:this.kind},opponentLoadout:{weapon:'sword',defense:'none'}}:{}),
       ...(this.kind==='depth'?{playerLoadout:{weapon:'sword',defense:'none'}}:{}),
       ...(!practice?{opponentLoadout:{...(encounter?.opponentLoadout??this.duelOpponent.opponentLoadout)},opponentColor:encounter?.opponentColor??this.duelOpponent.opponentColor}:{})};
@@ -154,8 +166,10 @@ export class SinglePlayerSession{
       }
       if(data.winner===1){
         this.result=this.stage===this.campaignEncounters.length-1?'complete':'won';
-        const progress={stage:Math.min(this.campaignEncounters.length-1,this.stage+1),completed:this.result==='complete'};
-        if(this.campaignTier==='advanced')this.advancedSaved=progress;else this.saved=progress;
+        const following=Math.min(this.campaignEncounters.length-1,this.stage+1);
+        const stage=this.campaignTier==='normal'?nextStoryStage(following,this.saved.legacyStage):following;
+        const progress={...this.campaignProgress,stage,completed:this.result==='complete'};
+        this[CAMPAIGN_ROUTES[this.campaignTier].progress]=progress;
         this.#save();
       }else if(data.winner===2)this.result='lost';
     }
@@ -163,18 +177,26 @@ export class SinglePlayerSession{
   view(game){
     if(this.drill)return {kind:this.kind,...this.drill.view(game),campaignStage:this.stage,opponentName:this.configuration().opponentName};
     const training=this.kind==='training',precision=this.kind==='precision',campaign=this.kind==='campaign';
+    const route=CAMPAIGN_ROUTES[this.campaignTier],encounters=route.encounters;
+    const story=campaign&&this.campaignTier==='normal';
+    const current=campaign?encounters[this.stage]:null,next=campaign&&this.result==='won'?encounters[this.campaignProgress.stage]:null;
     const completed=training?this.objectiveIndex>=7:precision?this.objectiveIndex>=3:campaign&&(this.campaignProgress.completed||this.result==='complete');
     let instruction='Perforá el globo rival para ganar la partida.';
     if(training)instruction=completed?'Entrenamiento completado. Ya podés ponerlo en práctica.':TRAINING[this.objectiveIndex];
     if(precision)instruction=completed?'Tres impactos precisos completados.':'Perforá dentro del círculo marcado. Los impactos fuera de zona no cuentan.';
     if(this.kind==='practice')instruction='Ensayá movimientos y perforaciones. El rival no ataca y la práctica continúa tras cada globo.';
-    if(campaign)instruction=completed?(this.campaignTier==='advanced'?'La ceremonia reconoce tu maestría: ganaste el Trofeo Maestro de Medianoche. Ambas campañas están completas.':'El Maestro Hidráulico fue derrotado. La ceremonia del taller te entrega el Trofeo de Campeón y desbloquea la campaña avanzada.'):this.result==='won'?'Victoria confirmada. El siguiente rival está disponible.':
-      this.result==='lost'?'Partida perdida. Reintentá este encuentro.':`Encuentro ${this.stage+1} de ${this.campaignEncounters.length}: ${this.campaignEncounters[this.stage].name}.`;
-    return {kind:this.kind,title:campaign&&this.campaignTier==='advanced'?'Maestría del taller · Campaña avanzada':TITLES[this.kind],instruction,completed,progress:campaign?(completed?7:this.stage+(this.result==='won'?1:0)):this.objectiveIndex,
-      total:training?7:precision?3:campaign?7:0,objectiveIndex:this.objectiveIndex,status:completed?'completed':this.result,
+    if(campaign)instruction=completed?route.complete:next?`Victoria confirmada. ${next.chapter>current.chapter?'Capítulo superado. ':''}Próximo rival · ${next.name}.`:
+      this.result==='lost'?`Reintentá este encuentro contra ${current.name}.`:story?
+        `${current.role==='boss'?'Jefe del capítulo':'Súbdito'} · ${current.name}. Encuentro ${current.position} de ${current.chapterLength}.`:
+        `Encuentro ${this.stage+1} de ${encounters.length} · ${current.name}.`;
+    const progress=story?storyWins(this.saved):campaign?(completed?encounters.length:this.stage+(next?1:0)):this.objectiveIndex;
+    return {kind:this.kind,title:campaign?route.title:TITLES[this.kind],instruction,completed,progress,
+      total:training?7:precision?3:campaign?encounters.length:0,objectiveIndex:this.objectiveIndex,status:completed?'completed':this.result,
       nextAction:campaign&&completed?'repeat':(campaign||this.kind==='duel')?(this.result==='won'?'advance':this.result==='lost'?'retry':null):completed?'repeat':null,
       target:precision&&!completed?precisionTarget(game,this.objectiveIndex):null,campaignStage:this.stage,opponentName:this.configuration().opponentName,
-      ...(campaign?{campaignTier:this.campaignTier,advancedUnlocked:this.saved.completed,trophy:this.saved.completed?(this.advancedSaved.completed?'master':'champion'):'none'}:{})};
+      ...(story?{story:{chapter:current.chapter,chapters:STORY_CHAPTERS.length,role:current.role,nextChapter:next?.chapter??0,
+        nextRole:next?.role??null,nextOpponent:next?.name??''}}:{}),
+      ...(campaign?{campaignTier:this.campaignTier,advancedUnlocked:this.championUnlocked,trophy:this.championUnlocked?(this.advancedSaved.completed?'master':'champion'):'none'}:{})};
   }
   next(){
     if(this.drill){if(!this.drill.completed)return false;this.drill.repeat();this.objectiveIndex=0;return true;}
@@ -195,9 +217,10 @@ export class SinglePlayerSession{
   }
   resetProgress(){
     this.saved=emptyProgress();this.stage=0;this.result='idle';this.demoMatch=false;this.reference=null;this.hold=0;
-    this.advancedSaved=emptyProgress();this.campaignTier='normal';this.resolvedCampaignMatches=new WeakSet();
+    this.advancedSaved=emptyProgress();this.bossSaved=emptyProgress();this.campaignTier='normal';this.resolvedCampaignMatches=new WeakSet();
     try{this.storage?.removeItem(SINGLE_PLAYER_STORAGE_KEY);}catch{/* Optional storage never blocks local play. */}
     try{this.storage?.removeItem(ADVANCED_CAMPAIGN_STORAGE_KEY);}catch{/* An unavailable store never blocks resetting this session. */}
+    try{this.storage?.removeItem(BOSS_CAMPAIGN_STORAGE_KEY);}catch{/* An unavailable store never blocks resetting this session. */}
   }
-  #save(){const key=this.campaignTier==='advanced'?ADVANCED_CAMPAIGN_STORAGE_KEY:SINGLE_PLAYER_STORAGE_KEY;try{this.storage?.setItem(key,JSON.stringify({version:1,...this.campaignProgress}));}catch{/* Play continues without persistence. */}}
+  #save(){const {key,version=1}=CAMPAIGN_ROUTES[this.campaignTier];try{this.storage?.setItem(key,JSON.stringify({version,...this.campaignProgress}));}catch{/* Play continues without persistence. */}}
 }

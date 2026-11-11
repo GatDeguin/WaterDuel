@@ -20,6 +20,7 @@ import {HANDLE_RADII} from './rendering/equipment-flex.js';
 import {AssetGPU} from './rendering/asset-gpu.js';
 import {loadGLB} from './rendering/glb.js';
 import {prepareCharacter,characterTransforms,detachedCharacterTransforms,prepareEquipment,equipmentTransform} from './rendering/asset-rig.js';
+import {puppetAsset,rivalCharacterEntries} from './rendering/boss-rival-assets.js';
 import {DetachedPoseMatrixCache} from './rendering/detached-pose-cache.js';
 import {bodyForBone,bodyVisible,equipmentBody,jointMarks,rigidRenderer,drawPartialMaulSupport} from './rendering/joint-damage.js';
 import {SHEEN_GLSL} from './rendering/sheen.js';
@@ -41,7 +42,7 @@ import {physicalNeckMatrices} from './rendering/character-neck.js';
 import {batchRigidCharacter} from './rendering/rigid-batches.js';
 import {drawCampaignCeremony} from './rendering/campaign-ceremony.js';
 import {armoryInFrame,drawArmory} from './rendering/armory-display.js';
-import {sampleWeather} from './weather.js';
+import {sampleEncounterWeather} from './weather.js';
 import {createWorkshopWeather} from './rendering/workshop-weather.js';
 import {workshopClipPlanes,workshopPartInView} from './rendering/workshop-visibility.js';
 import {createWorkshopOpaqueProgram,uploadWorkshopLights,uploadWorkshopOpaqueFrame} from './rendering/workshop-opaque.js';
@@ -137,7 +138,7 @@ in vec4 vAssetColor;
 uniform bool uAssetEnabled;
 uniform vec4 uAssetColor,uAssetParams;
 uniform vec4 uAssetWet;
-uniform vec3 uAssetEmission;
+uniform vec4 uAssetEmission;
 uniform float uAssetNormalScale,uAssetCoatRoughness,uAssetOcclusionStrength,uAssetTransmission,uAssetThickness,uAssetAlphaCutoff;
 uniform int uAssetMaps,uAssetAlphaMode,uAssetEmissionUV;
 uniform ivec4 uAssetTexCoords;
@@ -227,7 +228,10 @@ void main(){
     rough=uAssetParams.x;metal=uAssetParams.y;ior=uAssetParams.z;coat=uAssetParams.w;
     if((uAssetMaps&4)!=0){vec4 mr=texture(uAssetMRMap,assetUV(uAssetTexCoords.z));rough*=mr.g;metal*=mr.b;}
     if((uAssetMaps&8)!=0)ambientOcclusion=mix(1.0,texture(uAssetAOMap,assetUV(uAssetTexCoords.w)).r,uAssetOcclusionStrength);
-    assetEmission=uAssetEmission;
+    assetEmission=uAssetEmission.rgb;
+    // The baked filament material is shared. Pendants start above 3.68 m;
+    // the oil lamps and bench filaments end below 1.65 m in runtime space.
+    if(uAssetEmission.w<1.0&&vPos.y>3.0)assetEmission*=uAssetEmission.w;
     if((uAssetMaps&16)!=0)assetEmission*=texture(uAssetEmissionMap,assetUV(uAssetEmissionUV)).rgb;
     currentSheenColor=uAssetSheen.rgb;currentSheenRoughness=uAssetSheen.a;
     if((uAssetMaps&32)!=0)currentSheenColor*=texture(uAssetSheenColorMap,assetUV(uAssetSheenUV.x)).rgb;
@@ -539,7 +543,7 @@ export class Renderer3D {
   for(const name of ['uWorkshopPositions','uWorkshopColors','uWorkshopDirections'])this.U[name]=gl.getUniformLocation(prog,name+'[0]');
   gl.uniform1i(this.U.uAssetSheenColorMap,11);gl.uniform1i(this.U.uAssetSheenRoughnessMap,12);gl.uniform1i(this.U.uWorkshopLightCount,0);
   gl.uniform1i(this.U.uAssetEnabled,0);this.assetGPU=new AssetGPU(gl);
-  this.assetScene={characters:{},equipment:{},environment:null};this.assetStatus={loading:false,ready:0,total:11,names:[],errors:[],gpuBytesApprox:0};this.disposed=false;this.assetPoseCache=new WeakMap();
+  this.assetScene={characters:{},equipment:{},environment:null};this.assetStatus={loading:false,ready:0,total:12,names:[],errors:[],gpuBytesApprox:0};this.disposed=false;this.assetPoseCache=new WeakMap();
   gl.uniform1i(this.U.uSceneColor,0);gl.uniform1i(this.U.uSceneDepth,1);gl.uniform1i(this.U.uEnvironment,3);
   gl.uniform1i(this.U.uOpticalDepth,4);
   gl.uniform1i(this.U.uOpticalFront,2);gl.uniform1i(this.U.uOpticalSum,0);gl.uniform1i(this.U.uOpticalPath,0);
@@ -592,9 +596,11 @@ export class Renderer3D {
   this.assetAbort=new AbortController();this.assetStatus.loading=true;
   const jobs=[
     ...[['mint','water-mannequin.glb'],['amber','water-mannequin-amber.glb'],['boss','water-mannequin-boss.glb']].map(([key,file])=>({kind:'character',key,label:{mint:'Mint Mamba',amber:'Amber Ace',boss:'Maestro Hidráulico'}[key],url:runtimeAsset(`characters/water-mannequin/v4/${file}`)})),
+    {kind:'rivals',label:'Armaduras de los jefes',url:runtimeAsset('characters/water-mannequin/v4/water-mannequin-rivals.glb')},
     ...['sword','spear','axe','maul','short','long','knife'].map(key=>({kind:'equipment',key,label:key,url:runtimeAsset(`equipment/workshop/v3/${key}.glb`)})),
     {kind:'environment',key:'workshop',label:'Taller',url:runtimeAsset('environment/workshop/workshop-runtime-v4.glb')},
   ];
+  this.assetStatus.total=jobs.length;
   const publish=()=>{this.assetStatus.gpuBytesApprox=this.assetGPU.bytes;onStatus({...this.assetStatus,names:[...this.assetStatus.names],errors:[...this.assetStatus.errors]});};
   publish();
   const worker=async()=>{
@@ -603,8 +609,9 @@ export class Renderer3D {
       try{
         const source=await loadGLB(job.url,{signal:this.assetAbort.signal});
         if(this.disposed)return;
-        let prepared=job.kind==='character'?prepareCharacter(source):job.kind==='equipment'?prepareEquipment(source,job.key):null;
-        if(job.kind==='character'){
+        const character=job.kind==='character'||job.kind==='rivals';
+        let prepared=character?prepareCharacter(source):job.kind==='equipment'?prepareEquipment(source,job.key):null;
+        if(character){
           const batched=batchRigidCharacter(prepared,source.materials);
           if(batched.parts.length<prepared.parts.length)prepared=batched;
         }
@@ -627,9 +634,10 @@ export class Renderer3D {
           }
           lightingPresets=prepareWorkshopV4Presets(environmentMetadata,surroundings?.contract);
         }
-        const gpu=await this.assetGPU.upload(job.kind==='character'?characterResources(source,prepared.parts):prepared?{...source,primitives:prepared.parts}:uploadSource);
+        const gpu=await this.assetGPU.upload(character?characterResources(source,prepared.parts):prepared?{...source,primitives:prepared.parts}:uploadSource);
         if(this.disposed)return;
         if(job.kind==='character')this.assetScene.characters[job.key]={prepared,gpu};
+        else if(job.kind==='rivals')Object.assign(this.assetScene.characters,rivalCharacterEntries(prepared,gpu));
         else if(job.kind==='equipment')this.assetScene.equipment[job.key]={prepared,gpu};
         else this.assetScene.environment={gpu,transform:I(),lightingPresets,motion,batchStats,surroundings,revision:4,variants:createWorkshopV4VariantController(gpu,environmentMetadata)};
         this.assetStatus.ready++;this.assetStatus.names.push(job.label);this.environment.key=null;
@@ -647,7 +655,7 @@ export class Renderer3D {
   this.assetGPU.draw(model,part,matrix,this.U,deform,this.depthOnly);this.stats.draws++;this.stats.triangles+=part.count/3;
  }
  detailedPuppet(f){
-  const entry=this.assetScene.characters[f.boss?'boss':f.slot===1?'mint':'amber'];if(!entry)return false;
+  const entry=puppetAsset(this.assetScene.characters,f);if(!entry)return false;
   let cached=this.assetPoseCache.get(f);
   if(!cached||cached.pose!==f.pose||cached.entry!==entry){cached={pose:f.pose,entry,matrices:characterTransforms(entry.prepared,f)};this.assetPoseCache.set(f,cached);}
   entry.gpu.parts.forEach((part,index)=>{
@@ -661,7 +669,7 @@ export class Renderer3D {
   for(const part of entry.gpu.parts)this.assetPart(entry.gpu,part,transform.matrix,transform);return true;
  }
  wearGeometry(f,matrices=null){
-  const entry=this.assetScene?.characters?.[f.boss?'boss':f.slot===1?'mint':'amber'];
+  const entry=puppetAsset(this.assetScene?.characters,f);
   matrices??=this.assetPoseCache?.get(f)?.matrices;if(!entry||!matrices)return null;
   const equipment=[];
   for(const key of [f.equipment?.weapon??'sword',f.equipment?.defense??'short']){
@@ -969,7 +977,7 @@ export class Renderer3D {
     const bodies=new Set(fragment.bodies),pose={...fragment.sourcePose,joints:{[fragment.joint]:{damage:1,detached:false}}};
     const source={...f,pose,equipment:pose.equipment??f.equipment},proxy=rigidRenderer(this,fragment.transform);
     if(detailed){
-      const entry=this.assetScene.characters[f.boss?'boss':f.slot===1?'mint':'amber'];
+      const entry=puppetAsset(this.assetScene.characters,f);
       this.detachedPoseCache??=new DetachedPoseMatrixCache();
       const matrices=detachedCharacterTransforms(entry.prepared,source,fragment,this.detachedPoseCache.get(entry,source,fragment));
       entry.gpu.parts.forEach((part,index)=>{if(matrices[index]){
@@ -1008,7 +1016,7 @@ export class Renderer3D {
   drawJointDamageWear(this,f,{geometry:this.wearGeometry(f),owner:this.wearOwners.get(wearKey),generation:game.round});
   this.emblemOwners??=new Map();if(!this.emblemOwners.has(f.slot))this.emblemOwners.set(f.slot,{});const emblemOwner=this.emblemOwners.get(f.slot);
   if(detailed&&this.assetScene?.characters&&bodyVisible(p,'pelvis')){
-    const entry=this.assetScene.characters[f.boss?'boss':f.slot===1?'mint':'amber'],matrices=this.assetPoseCache.get(f)?.matrices;
+    const entry=puppetAsset(this.assetScene.characters,f),matrices=this.assetPoseCache.get(f)?.matrices;
     if(matrices){
       const binding=apronEmblemBindings(entry.prepared,emblemOwner),{surface}=binding;
       const mesh=surfaceEmblem(f,{...surface,deformedPositions:deformApronEmblem(binding,f.pose.apron),matrixForVertex:vertex=>matrices[surface.partIndices[vertex]]},'apron');
@@ -1200,9 +1208,13 @@ export class Renderer3D {
   const gl=this.gl,U=this.U,eye=[0,2,0],directions=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]],ups=[[0,-1,0],[0,-1,0],[0,0,1],[0,0,-1],[0,-1,0],[0,-1,0]];
   gl.uniform1i(U.uHasScene,0);gl.uniform1i(U.uHasEnvironment,0);gl.uniform1i(U.uHasShadow,0);
   gl.uniform3iv(U.uStaticShadowIndices,this.staticShadowIndices??[-1,-1,-1]);
-  const steadyWeather=weather?.flash?{...weather,flash:0}:weather;
+  // Reflections in the boss arena use the secondary lighting throughout the
+  // storm. The cut and lightning can then change without recapturing six faces.
+  const stormProbe=weather?.kind==='storm'&&game.difficulty==='boss';
+  const probePower=stormProbe?0:weather?.mainPower;
+  const steadyWeather=weather&&(weather.flash||probePower!==weather.mainPower)?{...weather,flash:0,mainPower:probePower}:weather;
   let restoreWeather=false;
-  this.environment.capture(`${game.arena}:${game.lightingMode}${weather?':'+weather.kind:''}`,face=>{
+  this.environment.capture(`${game.arena}:${game.lightingMode}${weather?':'+weather.kind:''}${stormProbe?':secondary':''}`,face=>{
     if(face===0&&steadyWeather!==weather){this.workshopLighting(game,steadyWeather,reducedMotion);restoreWeather=true;}
     gl.uniform1i(U.uLinearTarget,1);
     const target=eye.map((v,i)=>v+directions[face][i]);
@@ -1332,7 +1344,7 @@ export class Renderer3D {
   gl.clearColor(.024,.035,.043,1);gl.useProgram(this.program);
   this.cameraMotionPreference??=globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')??{matches:false};
   const reducedMotion=game.reducedMotion??this.cameraMotionPreference.matches;
-  const weather=game.weather?sampleWeather(game.weather,game.clock-(game.weatherStart??0)):null;
+  const weather=sampleEncounterWeather(game);
   if(weather)this.workshopWeather??=createWorkshopWeather();
   this.stats.weather=weather;
   this.assetScene.environment?.variants?.apply(game.arena);

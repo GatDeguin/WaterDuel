@@ -6,7 +6,7 @@ const standby=options=>{assert.equal(typeof api.standbyTargets,'function');retur
 const neutral={mainX:0,mainY:0,offX:0,offY:0,lean:0,wrist:0,headX:0,headZ:0,thrust:false,guard:false,attackHeld:false};
 
 test('Standby entrega sólo intenciones pequeñas de motores reales, sin locomoción ni ataques',()=>{
-  const limits={mainX:.012,mainY:.022,offX:.008,offY:.018,lean:0,wrist:.012,headX:.012,headZ:.008};
+  const limits={mainX:.018,mainY:.032,offX:.014,offY:.023,lean:.024,wrist:.036,headX:.127,headZ:.047};
   let changed=false;
   for(const slot of [1,2])for(let clock=0;clock<60;clock+=.031){
     const target=standby({phase:'ready',clock,slot});assert.deepEqual(Object.keys(target).sort(),Object.keys(neutral).sort());
@@ -37,7 +37,17 @@ test('Siguientes rondas nacen en neutro, animan sin salto y vuelven a neutro ant
   const middle=standby({phase:'countdown',clock:41.2,phaseClock:1.2,round:2});assert.ok(Math.abs(middle.mainY)+Math.abs(middle.offY)>.005);
   assert.deepEqual(standby({phase:'countdown',clock:42.4,phaseClock:2.4,round:2}),neutral);
   const a=standby({phase:'ready',clock:20}),b=standby({phase:'ready',clock:20+1/120});
-  for(const key of ['mainX','mainY','offX','offY','wrist','headX','headZ'])assert.ok(Math.abs(a[key]-b[key])<.0003,key);
+  for(const key of ['mainX','mainY','offX','offY','lean','wrist','headX','headZ'])assert.ok(Math.abs(a[key]-b[key])<.00065,key);
+});
+
+test('La mirada se anticipa a la preparación del arma y ambos gestos cierran sin salto',()=>{
+  const frames=Array.from({length:101},(_,i)=>({clock:i*.06,pose:standby({phase:'ready',clock:i*.06})}));
+  const peak=field=>frames.reduce((best,row)=>row.pose[field]>best.pose[field]?row:best);
+  const gaze=peak('headX'),wrist=peak('wrist');
+  assert.ok(gaze.pose.headX>.07&&wrist.pose.wrist>.02);
+  assert.ok(wrist.clock-gaze.clock>.8);
+  const before=standby({phase:'ready',clock:9.4-1/120}),after=standby({phase:'ready',clock:9.4+1/120});
+  for(const key of Object.keys(neutral).filter(key=>typeof neutral[key]==='number'))assert.ok(Math.abs(before[key]-after[key])<.001,key);
 });
 
 test('API determinista, sin estado ni modificación del caller y con reloj inválido seguro',()=>{

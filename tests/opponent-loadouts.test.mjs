@@ -15,16 +15,16 @@ function finish(h,winner){
   h.game.phase='matchover';h.game.winner=winner;h.game.onEvent('matchover',{winner});
 }
 
-test('los siete rivales de campaña tienen equipos distintos, legales y estables',()=>{
-  assert.equal(new Set(CAMPAIGN.map(x=>JSON.stringify(x.opponentLoadout))).size,7);
+test('los once rivales de campaña tienen equipos variados, legales y estables',()=>{
+  assert.equal(new Set(CAMPAIGN.map(x=>JSON.stringify(x.opponentLoadout))).size,9);
   const s=new SinglePlayerSession({seed:42});s.select('campaign');
-  for(let stage=0;stage<7;stage++){
+  for(let stage=0;stage<CAMPAIGN.length;stage++){
     const a=s.configuration(),loadout=a.opponentLoadout;
     assert.ok(WEAPONS[loadout.weapon]);assert.ok(DEFENSES[loadout.defense]);
     if(WEAPONS[loadout.weapon].twoHanded)assert.equal(loadout.defense,'none');
     assert.ok(BALLOON_COLORS.includes(a.opponentColor));
     loadout.weapon='unknown';assert.notEqual(s.configuration().opponentLoadout.weapon,'unknown');
-    if(stage<6){s.event('matchover',{winner:1},{mode:'solo',phase:'matchover',winner:1,fighters:[{slot:1},{slot:2}]});assert.equal(s.next(),true);}
+    if(stage<CAMPAIGN.length-1){s.event('matchover',{winner:1},{mode:'solo',phase:'matchover',winner:1,fighters:[{slot:1},{slot:2}]});assert.equal(s.next(),true);}
   }
 });
 

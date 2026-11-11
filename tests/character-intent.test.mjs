@@ -31,6 +31,18 @@ test('La finta corporal procede de una reversión real del joystick y se amortig
   f.controller={};for(let i=0;i<240;i++)b=characterIntent(f,context(),b);
   assert.ok(b.feint<1e-5);assert.equal(b.attack,false);
 });
+
+test('El paso y la frenada humanos transfieren peso al torso en sentidos opuestos',()=>{
+  const c=context({playerControlled:true}),f=fighter({dir:1,baseVX:0}),initial=characterIntent(f,c);
+  f.baseVX=.3;
+  const rising=characterIntent(f,c,initial);
+  assert.ok(rising.lean>0&&rising.lean<.02);
+  const mirror=characterIntent(fighter({dir:-1,baseVX:-.3}),c,initial);
+  assert.equal(mirror.lean,rising.lean);
+  const braking=characterIntent(fighter(),c,{...initial,sample:{...initial.sample,baseVX:.3}});
+  assert.ok(braking.lean<0);
+  assert.equal(characterIntent(f,context(),initial).lean,0,'no cambia la cadencia del piloto IA');
+});
 test('Contrapeso solo para mano realmente libre, sin input y con miembro presente',()=>{
   const state={sample:{mainX:0,mainY:0,baseVX:0},balance:.05,feint:0};
   const free=characterIntent(fighter({baseVX:1}),context(),state);
@@ -59,7 +71,8 @@ test('Celebración solo del ganador resuelto y con reloj físico, sin ataque',()
   assert.equal(resultIntent(f,context({phase:'burst',winner:1,phaseClock:.1})),null);
   const r=resultIntent(f,context({phase:'burst',winner:1,phaseClock:1}));
   assert.ok(r);assert.equal(r.thrust,false);assert.equal(r.attackHeld,false);assert.equal(r.guard,false);
-  assert.ok(r.offY>0);assert.equal(resultIntent(f,context({phase:'countdown',winner:1})),null);
+  assert.ok(r.offY>0&&r.headX>.15);assert.equal(resultIntent(f,context({phase:'countdown',winner:1})),null);
+  assert.equal(resultIntent(f,context({phase:'matchover',winner:1,phaseClock:2})).headX,0);
   const bow=resultIntent(fighter({equipment:{weapon:'maul',defense:'none'}}),context({phase:'matchover',winner:1,phaseClock:1}));
   assert.equal(bow.offX,0);assert.equal(bow.offY,0);assert.notEqual(bow.lean,0);
 });

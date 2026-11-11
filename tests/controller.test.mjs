@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 import {RadialJoystick,weaponGesture,movementGesture} from '../public/joysticks.js';
 import {AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled} from '../public/audio/effect-controls.js';
+import {SOUND_SLIDERS,SOUND_COMMANDS} from '../public/audio/sound-settings.js';
 import {contactHaptic} from '../public/item-haptics.js';
 
 const source=await readFile(new URL('../public/controller.js',import.meta.url),'utf8');
@@ -59,7 +60,7 @@ function controller({slot=1,offset=120000,secure=false,permission='granted',redu
     URLSearchParams,WebSocket:Socket,Date:ClockDate,
     setInterval:(callback,ms)=>{intervals.push({callback,ms});return nextTimer++;},
     setTimeout:(callback,ms)=>{const id=nextTimer++;timeouts.set(id,{callback,ms});return id;},
-    clearTimeout:id=>timeouts.delete(id),console,RadialJoystick,weaponGesture,movementGesture,AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled,
+    clearTimeout:id=>timeouts.delete(id),console,RadialJoystick,weaponGesture,movementGesture,AUDIO_EFFECTS,ALL_EFFECTS_MASK,validEffectMask,effectEnabled,setEffectEnabled,SOUND_SLIDERS,SOUND_COMMANDS,
     contactHaptic:(data,localSlot)=>contactHaptic(data==null?data:JSON.parse(JSON.stringify(data)),localSlot)});
   new vm.Script(source.replace(/^import[^\n]+;\s*$/gm,''),{filename:'public/controller.js'}).runInContext(context,{timeout:1000});
   const socket=sockets[0];assert.ok(socket);socket.open();

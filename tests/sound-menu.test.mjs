@@ -5,7 +5,7 @@ import {normalizeMenuCommand,sanitizeMenuState} from '../public/remote-menu.js';
 import {ALL_EFFECTS_MASK} from '../public/audio/effect-controls.js';
 let serial=0;
 const cmd=(name,value)=>({type:'command',requestId:++serial,sentAt:1,command:name,value});
-const controls={musicVolume:['setMusicVolume',0,100,24],effectsVolume:['setEffectsVolume',0,100,100],distortion:['setDistortion',0,100,3],reverb:['setReverb',0,100,8],reverbDecay:['setReverbDecay',200,2400,1100]};
+const controls={musicVolume:['setMusicVolume',0,100,24],effectsVolume:['setEffectsVolume',0,100,100],thunderVolume:['setThunderVolume',0,100,100],distortion:['setDistortion',0,100,3],reverb:['setReverb',0,100,8],reverbDecay:['setReverbDecay',200,2400,1100]};
 
 test('sound commands accept only bounded integers and never controller objects or coercions',()=>{
   for(const [field,[name,min,max]] of Object.entries(controls)){
@@ -18,16 +18,17 @@ test('host exposes subtle sound defaults and independently normalizes all buses 
   for(const [field,[name,,max,defaultValue]] of Object.entries(controls)){
     assert.equal(state[field],defaultValue,field);assert.equal(host.handleCommand(cmd(name,max)).ok,true);assert.equal(host.menuState()[field],max);
   }
-  assert.deepEqual(host.audioOptions,{music:1,effects:1,distortion:1,reverb:1,reverbDecay:2.4,effectMask:ALL_EFFECTS_MASK});
+  assert.deepEqual(host.audioOptions,{music:1,effects:1,thunder:1,distortion:1,reverb:1,reverbDecay:2.4,effectMask:ALL_EFFECTS_MASK});
   assert.equal(host.handleCommand(cmd('setMusicVolume',-1)).ok,false);assert.equal(host.musicVolume,100);assert.deepEqual(host.game.scores,[0,0]);
 });
 test('sound preferences survive host reload and reject damaged storage without changing game progress',()=>{
   const map=new Map(),storage={getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,v)};
   const host=new HostSession({storage});assert.equal(map.size,0);
-  host.handleCommand(cmd('setAudio',true));host.handleCommand(cmd('setVolume',62));host.handleCommand(cmd('setMusicVolume',17));host.handleCommand(cmd('setEffectsVolume',83));host.handleCommand(cmd('setDistortion',2));host.handleCommand(cmd('setReverb',6));host.handleCommand(cmd('setReverbDecay',900));
+  host.handleCommand(cmd('setAudio',true));host.handleCommand(cmd('setVolume',62));host.handleCommand(cmd('setMusicVolume',17));host.handleCommand(cmd('setEffectsVolume',83));host.handleCommand(cmd('setThunderVolume',34));host.handleCommand(cmd('setDistortion',2));host.handleCommand(cmd('setReverb',6));host.handleCommand(cmd('setReverbDecay',900));
   const restored=new HostSession({storage}),state=restored.menuState();
   assert.equal(state.audioOn,true);assert.equal(state.volume,62);assert.equal(state.musicVolume,17);assert.equal(state.effectsVolume,83);assert.equal(state.distortion,2);assert.equal(state.reverb,6);assert.equal(state.reverbDecay,900);
-  assert.deepEqual(restored.audioOptions,{music:.17,effects:.83,distortion:.02,reverb:.06,reverbDecay:.9,effectMask:ALL_EFFECTS_MASK});assert.deepEqual(restored.game.scores,[0,0]);
+  assert.equal(state.thunderVolume,34);
+  assert.deepEqual(restored.audioOptions,{music:.17,effects:.83,thunder:.34,distortion:.02,reverb:.06,reverbDecay:.9,effectMask:ALL_EFFECTS_MASK});assert.deepEqual(restored.game.scores,[0,0]);
   map.set('waterduel.audio.v1','{broken');assert.equal(new HostSession({storage}).menuState().distortion,3);
   assert.doesNotThrow(()=>new HostSession({storage:{getItem(){throw Error('blocked');},setItem(){throw Error('blocked');}}}).handleCommand(cmd('setReverb',5)));
 });

@@ -118,7 +118,8 @@ export class AssetGPU{
     deform[0]=deformStart;deform[1]=deformEnd;deform[2]=extension;
     gl.uniformMatrix4fv(U.uModel,false,matrix);gl.uniformMatrix3fv(U.uNormal,false,this.normalScratch);
     gl.uniform4fv(U.uAssetColor,color);gl.uniform4fv(U.uAssetParams,d.params);
-    gl.uniform1f(U.uAssetCoatRoughness,m.coatRoughness);gl.uniform3fv(U.uAssetEmission,m.emissiveFactor);
+    gl.uniform1f(U.uAssetCoatRoughness,m.coatRoughness);
+    gl.uniform4f(U.uAssetEmission,m.emissiveFactor[0],m.emissiveFactor[1],m.emissiveFactor[2],m.mainCircuitPower??1);
     gl.uniform3fv(U.uAssetDeform,deform);gl.uniform1f(U.uAssetNormalScale,num(m.normalTexture?.scale,1));
     const flex=this.flexScratch,wet=this.wetScratch;flex[0]=flexOffset;flex[1]=flexLength;flex[2]=flexDirection;wet[0]=wetTop;wet[1]=wetBottom;wet[2]=wetMinY;wet[3]=wetMaxY;
     gl.uniform3fv(U.uAssetFlex,flex);gl.uniform4fv(U.uAssetWet,wet);
